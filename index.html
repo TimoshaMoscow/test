@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Params Studio • Современная демонстрация</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #1a1a1a;
+        }
+
+        /* Современный контейнер с glassmorphism */
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Хедер с градиентом */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header h1 i {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }
+
+        .url-display {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: #00ff88;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .url-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #00aaff, #ff00aa);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .url-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .url-label {
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .param-tag {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .param-tag i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .param-key {
+            font-weight: 600;
+        }
+
+        .param-value {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        /* Сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Современные карточки */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 1.8rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .card-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Интерактивные элементы */
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .modern-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .modern-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .modern-select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .modern-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modern-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .modern-button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .modern-button.secondary:hover {
+            background: #f0f3ff;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        /* Чипсы и теги */
+        .chip-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .chip {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf3 100%);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .chip:hover {
+            background: linear-gradient(135deg, #e9ecf3 0%, #dde2ec 100%);
+            transform: translateY(-2px);
+        }
+
+        .chip.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chip i {
+            font-size: 0.8rem;
+        }
+
+        /* Секция результата */
+        .result-section {
+            background: #f8faff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #e0e0e0;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-content {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* Табы */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            background: #f0f3ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .tab:hover {
+            background: #e1e6ff;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* Секция безопасности */
+        .security-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .security-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .security-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .security-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .security-list i {
+            font-size: 1.2rem;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Utility classes */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Медиа-запросы */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Хедер с анализом URL -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-link"></i>
+                URL Params Studio
+            </h1>
+            <div class="url-display" id="urlDisplay">
+                <div class="url-content" id="urlContent">
+                    <span class="url-label">Текущий URL:</span>
+                    <span id="fullUrl"></span>
+                </div>
+                <div class="chip-container" id="paramTags">
+                    <!-- Сюда будут добавляться теги параметров -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Сетка функциональных карточек -->
+        <div class="grid">
+            <!-- Карточка поиска -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">Поиск и фильтры</div>
+                        <div class="card-subtitle">GET-параметры для поиска</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" class="modern-input" id="searchInput" placeholder="Что ищем?">
+                </div>
+                
+                <div class="input-group">
+                    <select class="modern-select" id="categorySelect">
+                        <option value="all">Все категории</option>
+                        <option value="electronics">📱 Электроника</option>
+                        <option value="clothing">👕 Одежда</option>
+                        <option value="books">📚 Книги</option>
+                        <option value="sports">⚽ Спорт</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <select class="modern-select" id="sortSelect">
+                        <option value="price_asc">💰 Цена (возрастание)</option>
+                        <option value="price_desc">💰 Цена (убывание)</option>
+                        <option value="name_asc">📝 По названию</option>
+                        <option value="popular">🔥 По популярности</option>
+                    </select>
+                </div>
+                
+                <div class="button-group">
+                    <button class="modern-button" onclick="updateSearchParams()">
+                        <i class="fas fa-sync-alt"></i>
+                        Применить
+                    </button>
+                    <button class="modern-button secondary" onclick="generateSearchLink()">
+                        <i class="fas fa-link"></i>
+                        Ссылка
+                    </button>
+                </div>
+                
+                <div class="result-section" id="searchResults">
+                    <div class="result-title">
+                        <i class="fas fa-magic"></i>
+                        Результаты поиска
+                    </div>
+                    <div class="result-content" id="searchResultsContent">
+                        Настройте параметры поиска
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка UTM-меток -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">UTM-метки</div>
+                        <div class="card-subtitle">Отслеживание источников</div>
+                    </div>
+                </div>
+                
+                <div class="chip-container">
+                    <div class="chip" onclick="simulateTrafficSource('facebook')">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </div>
+                    <div class="chip" onclick="simulateTrafficSource('google')">
+                        <i class="fab fa-google"></i> Google
+                    </div>
+                    <div class="chip" onclick="simulateTrafficSource('instagram')">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </div>
+                    <div class="chip" onclick="simulateTrafficSource('email')">
+                        <i class="fas fa-envelope"></i> Email
+                    </div>
+                    <div class="chip" onclick="simulateTrafficSource('telegram')">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </div>
+                </div>
+                
+                <div class="result-section" id="utmInfo">
+                    <div class="result-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Аналитика источника
+                    </div>
+                    <div class="result-content" id="utmContent">
+                        Выберите источник трафика
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                    <button class="modern-button secondary" onclick="showUtmBuilder()">
+                        <i class="fas fa-tools"></i>
+                        Конструктор UTM
+                    </button>
+                </div>
+            </div>
+
+            <!-- Карточка состояния интерфейса -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-window-maximize"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">Состояние интерфейса</div>
+                        <div class="card-subtitle">URL как состояние приложения</div>
+                    </div>
+                </div>
+                
+                <div class="tabs" id="tabContainer">
+                    <div class="tab" onclick="setTab('profile')" id="tabProfile">
+                        <i class="fas fa-user"></i> Профиль
+                    </div>
+                    <div class="tab" onclick="setTab('orders')" id="tabOrders">
+                        <i class="fas fa-shopping-bag"></i> Заказы
+                    </div>
+                    <div class="tab" onclick="setTab('settings')" id="tabSettings">
+                        <i class="fas fa-cog"></i> Настройки
+                    </div>
+                    <div class="tab" onclick="setTab('stats')" id="tabStats">
+                        <i class="fas fa-chart-bar"></i> Статистика
+                    </div>
+                </div>
+                
+                <div class="result-section" id="tabContent">
+                    <div class="result-title">
+                        <i class="fas fa-eye"></i>
+                        Активная вкладка
+                    </div>
+                    <div class="result-content" id="tabContentDisplay">
+                        Выберите вкладку
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка рефералов -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">Реферальная система</div>
+                        <div class="card-subtitle">Приглашайте друзей</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" class="modern-input" id="refCode" placeholder="Ваш реферальный код" value="FRIEND2024">
+                </div>
+                
+                <div class="button-group">
+                    <button class="modern-button" onclick="setReferral()">
+                        <i class="fas fa-gift"></i>
+                        Активировать код
+                    </button>
+                    <button class="modern-button secondary" onclick="copyReferralLink()">
+                        <i class="fas fa-copy"></i>
+                        Копировать ссылку
+                    </button>
+                </div>
+                
+                <div class="result-section" id="refInfo">
+                    <div class="result-title">
+                        <i class="fas fa-star"></i>
+                        Информация о реферале
+                    </div>
+                    <div class="result-content" id="refContent">
+                        Введите реферальный код
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка языка и региона -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">Локализация</div>
+                        <div class="card-subtitle">Язык и регион в URL</div>
+                    </div>
+                </div>
+                
+                <div class="chip-container">
+                    <div class="chip" onclick="setLanguage('ru')" id="langRu">
+                        <i class="fas fa-language"></i> Русский
+                    </div>
+                    <div class="chip" onclick="setLanguage('en')" id="langEn">
+                        <i class="fas fa-language"></i> English
+                    </div>
+                    <div class="chip" onclick="setLanguage('es')" id="langEs">
+                        <i class="fas fa-language"></i> Español
+                    </div>
+                    <div class="chip" onclick="setLanguage('de')" id="langDe">
+                        <i class="fas fa-language"></i> Deutsch
+                    </div>
+                    <div class="chip" onclick="setLanguage('fr')" id="langFr">
+                        <i class="fas fa-language"></i> Français
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-title">
+                        <i class="fas fa-comment"></i>
+                        Приветствие
+                    </div>
+                    <div class="result-content" id="langContent">
+                        👋 Добро пожаловать!
+                    </div>
+                </div>
+                
+                <div class="input-group" style="margin-top: 1rem;">
+                    <select class="modern-select" onchange="setRegion(this.value)">
+                        <option value="ru">🇷🇺 Россия</option>
+                        <option value="us">🇺🇸 США</option>
+                        <option value="eu">🇪🇺 Европа</option>
+                        <option value="asia">🌏 Азия</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Карточка пагинации -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-pagination"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">Пагинация</div>
+                        <div class="card-subtitle">Навигация по страницам</div>
+                    </div>
+                </div>
+                
+                <div class="chip-container" style="justify-content: center;">
+                    <div class="chip" onclick="setPage(1)">1</div>
+                    <div class="chip" onclick="setPage(2)">2</div>
+                    <div class="chip" onclick="setPage(3)">3</div>
+                    <div class="chip" onclick="setPage(4)">4</div>
+                    <div class="chip" onclick="setPage(5)">5</div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-title">
+                        <i class="fas fa-file"></i>
+                        Текущая страница
+                    </div>
+                    <div class="result-content" id="pageContent">
+                        Страница 1 из 5
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                    <select class="modern-select" onchange="setItemsPerPage(this.value)">
+                        <option value="10">10 элементов на странице</option>
+                        <option value="20">20 элементов на странице</option>
+                        <option value="50">50 элементов на странице</option>
+                        <option value="100">100 элементов на странице</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция безопасности -->
+        <div class="security-card">
+            <h3>
+                <i class="fas fa-shield-alt"></i>
+                Безопасность данных в URL
+            </h3>
+            <ul class="security-list">
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    <span>Никогда не храните пароли в URL</span>
+                </li>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    <span>Не передавайте номера кредитных карт</span>
+                </li>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    <span>Избегайте токенов авторизации</span>
+                </li>
+                <li>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>URL виден в истории браузера</span>
+                </li>
+                <li>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Ссылками можно делиться</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Используйте POST для чувствительных данных</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Класс для управления параметрами URL
+        class URLParamsManager {
+            constructor() {
+                this.params = new URLSearchParams(window.location.search);
+            }
+
+            getAll() {
+                const obj = {};
+                for (const [key, value] of this.params) {
+                    obj[key] = value;
+                }
+                return obj;
+            }
+
+            get(key) {
+                return this.params.get(key);
+            }
+
+            set(key, value) {
+                this.params.set(key, value);
+                this.updateURL();
+            }
+
+            delete(key) {
+                this.params.delete(key);
+                this.updateURL();
+            }
+
+            updateURL() {
+                const newURL = `${window.location.pathname}?${this.params.toString()}`;
+                window.history.pushState({}, '', newURL);
+                this.updateDisplay();
+            }
+
+            updateDisplay() {
+                // Обновляем отображение URL
+                document.getElementById('fullUrl').textContent = window.location.href;
+                
+                // Обновляем теги параметров
+                const paramTags = document.getElementById('paramTags');
+                paramTags.innerHTML = '';
+                
+                const params = this.getAll();
+                if (Object.keys(params).length === 0) {
+                    paramTags.innerHTML = '<span class="url-label">Нет параметров</span>';
+                } else {
+                    for (const [key, value] of Object.entries(params)) {
+                        const tag = document.createElement('span');
+                        tag.className = 'param-tag fade-in';
+                        tag.innerHTML = `
+                            <i class="fas fa-tag"></i>
+                            <span class="param-key">${key}:</span>
+                            <span class="param-value">${value}</span>
+                            <i class="fas fa-times" onclick="urlManager.delete('${key}')" style="cursor: pointer;"></i>
+                        `;
+                        paramTags.appendChild(tag);
+                    }
+                }
+            }
+        }
+
+        // Инициализация менеджера URL
+        const urlManager = new URLParamsManager();
+
+        // Поиск и фильтры
+        function updateSearchParams() {
+            const query = document.getElementById('searchInput').value;
+            const category = document.getElementById('categorySelect').value;
+            const sort = document.getElementById('sortSelect').value;
+            
+            if (query) urlManager.set('query', query);
+            if (category && category !== 'all') urlManager.set('category', category);
+            if (sort) urlManager.set('sort', sort);
+            
+            updateSearchResults();
+        }
+
+        function updateSearchResults() {
+            const query = urlManager.get('query');
+            const category = urlManager.get('category');
+            const sort = urlManager.get('sort');
+            
+            const content = document.getElementById('searchResultsContent');
+            
+            if (query || category || sort) {
+                let results = [];
+                if (query) results.push(`<strong>${query}</strong>`);
+                if (category) results.push(`в категории <strong>${category}</strong>`);
+                if (sort) results.push(`сортировка: <strong>${sort}</strong>`);
+                
+                content.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: #00ff88;"></i>
+                        Найдено: ${results.join(' ')}
+                    </div>
+                `;
+            } else {
+                content.innerHTML = '🔍 Введите параметры поиска';
+            }
+        }
+
+        // UTM-метки
+        function simulateTrafficSource(source) {
+            const utmConfig = {
+                facebook: { 
+                    medium: 'social', 
+                    campaign: 'summer_sale',
+                    content: 'video_ad',
+                    icon: 'fab fa-facebook'
+                },
+                google: { 
+                    medium: 'cpc', 
+                    campaign: 'brand_search',
+                    content: 'text_ad',
+                    icon: 'fab fa-google'
+                },
+                instagram: { 
+                    medium: 'social', 
+                    campaign: 'influencer',
+                    content: 'story',
+                    icon: 'fab fa-instagram'
+                },
+                email: { 
+                    medium: 'email', 
+                    campaign: 'newsletter',
+                    content: 'weekly_digest',
+                    icon: 'fas fa-envelope'
+                },
+                telegram: { 
+                    medium: 'social', 
+                    campaign: 'channel',
+                    content: 'post',
+                    icon: 'fab fa-telegram'
+                }
+            };
+            
+            const config = utmConfig[source];
+            
+            urlManager.set('utm_source', source);
+            urlManager.set('utm_medium', config.medium);
+            urlManager.set('utm_campaign', config.campaign);
+            urlManager.set('utm_content', config.content);
+            
+            const utmContent = document.getElementById('utmContent');
+            utmContent.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="${config.icon}" style="font-size: 2rem;"></i>
+                        <div>
+                            <div style="font-weight: 600;">Источник: ${source}</div>
+                            <div style="color: #666;">Тип: ${config.medium}</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <span class="chip" style="margin: 0;">Кампания: ${config.campaign}</span>
+                        <span class="chip" style="margin: 0;">Контент: ${config.content}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showUtmBuilder() {
+            const utmContent = document.getElementById('utmContent');
+            utmContent.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <input type="text" class="modern-input" placeholder="Источник (utm_source)" id="utmSource">
+                    <input type="text" class="modern-input" placeholder="Канал (utm_medium)" id="utmMedium">
+                    <input type="text" class="modern-input" placeholder="Кампания (utm_campaign)" id="utmCampaign">
+                    <button class="modern-button" onclick="applyCustomUtm()">
+                        <i class="fas fa-check"></i>
+                        Применить UTM
+                    </button>
+                </div>
+            `;
+        }
+
+        function applyCustomUtm() {
+            const source = document.getElementById('utmSource')?.value;
+            const medium = document.getElementById('utmMedium')?.value;
+            const campaign = document.getElementById('utmCampaign')?.value;
+            
+            if (source) urlManager.set('utm_source', source);
+            if (medium) urlManager.set('utm_medium', medium);
+            if (campaign) urlManager.set('utm_campaign', campaign);
+            
+            simulateTrafficSource(source || 'custom');
+        }
+
+        // Состояние интерфейса (табы)
+        function setTab(tabName) {
+            urlManager.set('tab', tabName);
+            updateTabDisplay();
+        }
+
+        function updateTabDisplay() {
+            const tab = urlManager.get('tab') || 'profile';
+            
+            // Обновляем активный класс у табов
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`)?.classList.add('active');
+            
+            // Обновляем контент
+            const tabContent = {
+                profile: {
+                    icon: '👤',
+                    title: 'Профиль пользователя',
+                    content: 'Иван Иванов<br>email: ivan@example.com<br>Подписок: 24'
+                },
+                orders: {
+                    icon: '📦',
+                    title: 'История заказов',
+                    content: '3 активных заказа<br>Последний заказ: #12345'
+                },
+                settings: {
+                    icon: '⚙️',
+                    title: 'Настройки',
+                    content: 'Язык: Русский<br>Уведомления: Включены<br>Тема: Светлая'
+                },
+                stats: {
+                    icon: '📊',
+                    title: 'Статистика',
+                    content: 'Просмотров: 1,234<br>Конверсия: 3.5%<br>Доход: 50,000₽'
+                }
+            };
+            
+            const data = tabContent[tab] || tabContent.profile;
+            
+            document.getElementById('tabContentDisplay').innerHTML = `
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem;">${data.icon}</span>
+                    <div style="font-weight: 600;">${data.title}</div>
+                </div>
+                <div>${data.content}</div>
+            `;
+        }
+
+        // Реферальная система
+        function setReferral() {
+            const refCode = document.getElementById('refCode').value;
+            if (refCode) {
+                urlManager.set('ref', refCode);
+                updateReferralInfo();
+            }
+        }
+
+        function updateReferralInfo() {
+            const ref = urlManager.get('ref');
+            const refContent = document.getElementById('refContent');
+            
+            if (ref) {
+                refContent.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-gift" style="color: #00ff88; font-size: 2rem;"></i>
+                        <div>
+                            <div style="font-weight: 600;">Код активирован: ${ref}</div>
+                            <div style="color: #666;">Вам начислен бонус 500₽</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                refContent.innerHTML = 'Введите реферальный код';
+            }
+        }
+
+        function copyReferralLink() {
+            const ref = document.getElementById('refCode').value;
+            const link = `${window.location.origin}${window.location.pathname}?ref=${ref}`;
+            navigator.clipboard.writeText(link);
+            alert('✅ Реферальная ссылка скопирована!');
+        }
+
+        // Язык и регион
+        function setLanguage(lang) {
+            urlManager.set('lang', lang);
+            updateLanguageDisplay();
+        }
+
+        function updateLanguageDisplay() {
+            const lang = urlManager.get('lang') || 'ru';
+            const langContent = document.getElementById('langContent');
+            
+            // Обновляем активный класс у чипсов
+            document.querySelectorAll('[onclick^="setLanguage"]').forEach(chip => {
+                chip.classList.remove('active');
+            });
+            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}`)?.classList.add('active');
+            
+            const messages = {
+                ru: '👋 Привет! Добро пожаловать на наш сайт!',
+                en: '👋 Hello! Welcome to our website!',
+                es: '👋 ¡Hola! ¡Bienvenido a nuestro sitio web!',
+                de: '👋 Hallo! Willkommen auf unserer Website!',
+                fr: '👋 Bonjour ! Bienvenue sur notre site Web !'
+            };
+            
+            langContent.innerHTML = messages[lang] || messages.ru;
+        }
+
+        function setRegion(region) {
+            urlManager.set('region', region);
+        }
+
+        // Пагинация
+        function setPage(page) {
+            urlManager.set('page', page);
+            updatePagination();
+        }
+
+        function setItemsPerPage(limit) {
+            urlManager.set('limit', limit);
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const page = urlManager.get('page') || '1';
+            const limit = urlManager.get('limit') || '10';
+            
+            document.getElementById('pageContent').innerHTML = `
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <i class="fas fa-file-alt" style="color: #667eea;"></i>
+                    Страница ${page} из 5 · ${limit} элементов на странице
+                </div>
+            `;
+        }
+
+        // Генерация ссылки для поиска
+        function generateSearchLink() {
+            const query = document.getElementById('searchInput').value || 'телефон';
+            const link = `${window.location.origin}${window.location.pathname}?query=${encodeURIComponent(query)}&category=electronics&sort=price_desc`;
+            navigator.clipboard.writeText(link);
+            alert('✅ Ссылка с параметрами поиска скопирована!');
+        }
+
+        // Инициализация при загрузке
+        window.onload = function() {
+            urlManager.updateDisplay();
+            
+            // Обновляем все компоненты на основе URL
+            updateSearchResults();
+            updateTabDisplay();
+            updateReferralInfo();
+            updateLanguageDisplay();
+            updatePagination();
+            
+            // Проверяем UTM-параметры
+            if (urlManager.get('utm_source')) {
+                simulateTrafficSource(urlManager.get('utm_source'));
+            }
+            
+            // Анимация появления
+            document.querySelectorAll('.card').forEach((card, index) => {
+                card.style.animation = `fadeIn 0.5s ease ${index * 0.1}s both`;
+            });
+        };
+
+        // Обновление при изменении URL
+        window.addEventListener('popstate', function() {
+            urlManager.updateDisplay();
+            updateSearchResults();
+            updateTabDisplay();
+            updateReferralInfo();
+            updateLanguageDisplay();
+            updatePagination();
+        });
+    </script>
+</body>
+</html>
