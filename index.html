@@ -3,1447 +3,465 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Params Studio Pro | Анализ и управление параметрами URL</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Профессиональный инструмент для анализа, создания и управления параметрами URL. Декодинг Base64, UTM-метки, работа с query string.">
-    <meta name="keywords" content="URL параметры, query string, UTM метки, Base64 декодер, анализ URL, веб-разработка">
-    <meta name="author" content="URL Params Studio">
-    <meta property="og:title" content="URL Params Studio Pro">
-    <meta property="og:description" content="Профессиональный инструмент для работы с параметрами URL">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <!-- Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #5c71e5;
-            --primary-light: #7c8ef0;
-            --primary-dark: #3a4fc0;
-            --secondary: #ff6b9d;
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --text-light: #ffffff;
-            --text-dark: #1a1a2e;
-            --bg-light: #f0f2fa;
-            --bg-dark: #1a1a2e;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --card-bg: rgba(255, 255, 255, 0.15);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: var(--text-light);
-            transition: background 0.3s ease;
-            position: relative;
-        }
-
-        body.dark-theme {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-
-        body.dark-theme .glass-card {
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        /* Glassmorphism core */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--glass-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-        }
-
-        /* Navigation */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(92, 113, 229, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--glass-border);
-            margin-bottom: 2rem;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-link i {
-            font-size: 1rem;
-        }
-
-        /* Theme toggle */
-        .theme-toggle {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(45deg);
-        }
-
-        /* Main container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Pages */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Search */
-        .search-box {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: 30px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(5px);
-            color: white;
-            font-size: 1rem;
-            border: 1px solid var(--glass-border);
-        }
-
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .search-button {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 30px;
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .search-button:hover {
-            background: var(--primary-dark);
-            transform: scale(1.05);
-        }
-
-        /* URL Display */
-        .url-display {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 1rem;
-            font-family: 'Fira Code', monospace;
-            word-break: break-all;
-            margin-bottom: 2rem;
-            border: 1px solid var(--glass-border);
-        }
-
-        /* Param tags */
-        .param-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .param-tag {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        /* Grid layouts */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .grid-4 {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 1.5rem;
-            border: 1px solid var(--glass-border);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        /* Gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            aspect-ratio: 1;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        /* Products (Cart demo) */
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .add-to-cart {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--primary);
-            border: none;
-            color: white;
-            font-weight: 600;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .add-to-cart:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Cart */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 380px;
-            height: 100vh;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-left: 1px solid var(--glass-border);
-            padding: 2rem;
-            transition: right 0.3s ease;
-            z-index: 1001;
-            overflow-y: auto;
-        }
-
-        .cart-sidebar.open {
-            right: 0;
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--glass-bg);
-            border-radius: 15px;
-        }
-
-        .cart-item-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-title {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .cart-item-price {
-            color: var(--primary);
-        }
-
-        .cart-item-remove {
-            color: var(--danger);
-            cursor: pointer;
-        }
-
-        .cart-total {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--glass-border);
-            font-size: 1.2rem;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .cart-toggle {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .cart-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--secondary);
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-
-        /* Auth forms */
-        .auth-form {
-            max-width: 400px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        .auth-form h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Comments section */
-        .comments-section {
-            margin-top: 2rem;
-        }
-
-        .comment {
-            background: var(--glass-bg);
-            padding: 1rem;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-        }
-
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .comment-author {
-            font-weight: 600;
-        }
-
-        .comment-text {
-            line-height: 1.5;
-        }
-
-        .comment-form {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .comment-input {
-            flex: 1;
-            padding: 0.8rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            color: white;
-        }
-
-        /* Pricing cards */
-        .pricing-card {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .pricing-card.featured {
-            transform: scale(1.05);
-            border: 2px solid var(--primary);
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-
-        .pricing-price span {
-            font-size: 1rem;
-            opacity: 0.7;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .pricing-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .pricing-button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            border: none;
-            color: white;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-button:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Testimonials */
-        .testimonials-slider {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            padding: 1rem 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--glass-bg);
-        }
-
-        .testimonial-card {
-            min-width: 300px;
-            padding: 1.5rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-        }
-
-        .testimonial-rating {
-            color: #ffc107;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 4rem;
-            padding: 2rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background: var(--glass-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 1rem;
-            }
-            
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-                margin-top: 1rem;
-            }
-            
-            .grid-4 {
-                grid-template-columns: 1fr;
-            }
-            
-            .cart-sidebar {
-                width: 100%;
-                right: -100%;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-        }
-    </style>
+    <meta name="description" content="TAIPrompts - генератор промптов для ChatGPT. Создавайте качественные промпты для рецептов, стикеров, изображений, игр и многого другого.">
+    <meta name="keywords" content="промпты, ChatGPT, генерация промптов, ИИ, рецепты, стикеры, изображения">
+    <meta name="author" content="Тимофей">
+    <title>TAIPrompts - Генератор промптов для ChatGPT</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <a href="#" class="nav-brand" onclick="showPage('home')">
-            <i class="fas fa-link"></i>
-            URL Params Studio
-        </a>
-        
-        <div class="nav-menu">
-            <a href="#" class="nav-link active" onclick="showPage('home')">
-                <i class="fas fa-home"></i> Главная
-            </a>
-            <a href="#" class="nav-link" onclick="showPage('analyzer')">
-                <i class="fas fa-search"></i> Анализатор
-            </a>
-            <a href="#" class="nav-link" onclick="showPage('gallery')">
-                <i class="fas fa-images"></i> Галерея
-            </a>
-            <a href="#" class="nav-link" onclick="showPage('products')">
-                <i class="fas fa-shopping-bag"></i> Магазин
-            </a>
-            <a href="#" class="nav-link" onclick="showPage('pricing')">
-                <i class="fas fa-tag"></i> Тарифы
-            </a>
-            <a href="#" class="nav-link" onclick="showPage('auth')">
-                <i class="fas fa-user"></i> Аккаунт
-            </a>
-            <div class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-moon"></i>
-            </div>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <img src="images/logo.png" alt="TAIPrompts" class="logo-img">
+                    <span class="logo-text">TAIPrompts</span>
+                </a>
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Главная</a></li>
+                    <li><a href="#generation" class="nav-link">Генерация</a></li>
+                    <li><a href="#examples" class="nav-link">Примеры</a></li>
+                    <li><a href="#feedback" class="nav-link">Обратная связь (скоро)</a></li>
+                    <li><a href="#possibilities" class="nav-link">Возможности</a></li>
+                    <li><a href="#about" class="nav-link">Описание</a></li>
+                </ul>
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Home Page -->
-        <div id="home" class="page active">
-            <!-- Hero Section -->
-            <div class="glass-card" style="padding: 3rem; text-align: center; margin-bottom: 2rem;">
-                <h1 style="font-size: 3rem; margin-bottom: 1rem;">URL Params Studio Pro</h1>
-                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
-                    Профессиональный инструмент для анализа, создания и управления параметрами URL
-                </p>
-            </div>
-
-            <!-- Features Grid -->
-            <div class="grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon"><i class="fas fa-search"></i></div>
-                        <h3>Анализ URL</h3>
+    <main>
+        <!-- Герой секция -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">TAIPrompts</h1>
+                    <p class="hero-description">Создавайте идеальные промпты для нейросетей</p>
+                    <div class="vibe-badge">
+                        <span class="vibe-text">#ВайбКодинг</span>
                     </div>
-                    <p>Декодируйте параметры URL, UTM-метки и Base64 в реальном времени</p>
+                    <a href="#generation" class="btn btn-primary">Начать генерацию</a>
                 </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon"><i class="fas fa-code"></i></div>
-                        <h3>Генерация ссылок</h3>
-                    </div>
-                    <p>Создавайте сложные URL с параметрами для маркетинговых кампаний</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3>Безопасность</h3>
-                    </div>
-                    <p>Проверяйте URL на наличие чувствительных данных</p>
+                <div class="hero-image">
+                    <img src="images/hero-bg.jpg" alt="Генерация промптов">
                 </div>
             </div>
+        </section>
 
-            <!-- Search Section -->
-            <div class="glass-card" style="padding: 2rem; margin-bottom: 2rem;">
-                <h2 style="margin-bottom: 1.5rem;">Быстрый анализ URL</h2>
-                <div class="search-box">
-                    <input type="text" class="search-input" id="quickSearch" placeholder="Введите URL для анализа...">
-                    <button class="search-button" onclick="quickAnalyze()">
-                        <i class="fas fa-search"></i> Анализировать
-                    </button>
-                </div>
-            </div>
-
-            <!-- Testimonials -->
-            <h2 style="margin: 2rem 0;">Отзывы пользователей</h2>
-            <div class="testimonials-slider" id="testimonialsContainer"></div>
-
-            <!-- Comments Section -->
-            <div class="glass-card" style="padding: 2rem; margin-top: 2rem;">
-                <h2 style="margin-bottom: 1.5rem;">Комментарии</h2>
-                <div id="comments" class="comments-section"></div>
-                
-                <form class="comment-form" onsubmit="addComment(event)">
-                    <input type="text" class="comment-input" id="commentName" placeholder="Ваше имя" required>
-                    <input type="text" class="comment-input" id="commentText" placeholder="Ваш комментарий" required>
-                    <button type="submit" class="search-button">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Analyzer Page -->
-        <div id="analyzer" class="page">
-            <div class="glass-card" style="padding: 2rem; margin-bottom: 2rem;">
-                <h2 style="margin-bottom: 1.5rem;">Анализатор URL</h2>
-                
-                <div class="search-box">
-                    <input type="text" class="search-input" id="urlInput" placeholder="Вставьте URL для анализа..." value="https://example.com/?query=test&sort=asc&utm_source=google">
-                    <button class="search-button" onclick="analyzeUrl()">
-                        <i class="fas fa-search"></i> Анализировать
-                    </button>
-                </div>
-
-                <div id="urlAnalysis" class="url-display" style="margin-top: 2rem;">
-                    <!-- Анализ будет отображаться здесь -->
-                </div>
-
-                <div class="grid-4" style="margin-top: 2rem;" id="paramAnalysis">
-                    <!-- Параметры будут отображаться здесь -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Gallery Page -->
-        <div id="gallery" class="page">
-            <h2 style="margin-bottom: 2rem;">Галерея изображений</h2>
-            
-            <div class="gallery" id="galleryContainer"></div>
-        </div>
-
-        <!-- Products Page -->
-        <div id="products" class="page">
-            <h2 style="margin-bottom: 2rem;">Магазин</h2>
-            
-            <div class="search-box">
-                <input type="text" class="search-input" id="productSearch" placeholder="Поиск товаров...">
-                <button class="search-button" onclick="searchProducts()">
-                    <i class="fas fa-search"></i> Поиск
-                </button>
-            </div>
-
-            <div class="grid-4" id="productsContainer"></div>
-        </div>
-
-        <!-- Pricing Page -->
-        <div id="pricing" class="page">
-            <h2 style="margin-bottom: 2rem; text-align: center;">Выберите ваш тариф</h2>
-            
-            <div class="grid" style="align-items: center;">
-                <div class="pricing-card glass-card">
-                    <h3>Базовый</h3>
-                    <div class="pricing-price">0<span>/мес</span></div>
-                    <ul class="pricing-features">
-                        <li>Анализ URL</li>
-                        <li>Базовые UTM-метки</li>
-                        <li>5 проектов</li>
-                        <li>Email поддержка</li>
-                    </ul>
-                    <button class="pricing-button">Выбрать</button>
-                </div>
-
-                <div class="pricing-card glass-card featured">
-                    <h3>Профессиональный</h3>
-                    <div class="pricing-price">999<span>/мес</span></div>
-                    <ul class="pricing-features">
-                        <li>Все функции Базового</li>
-                        <li>Продвинутый анализ</li>
-                        <li>Неограниченно проектов</li>
-                        <li>Приоритетная поддержка</li>
-                        <li>API доступ</li>
-                    </ul>
-                    <button class="pricing-button">Выбрать</button>
-                </div>
-
-                <div class="pricing-card glass-card">
-                    <h3>Корпоративный</h3>
-                    <div class="pricing-price">2999<span>/мес</span></div>
-                    <ul class="pricing-features">
-                        <li>Все функции Про</li>
-                        <li>Выделенный сервер</li>
-                        <li>SLA 99.9%</li>
-                        <li>Персональный менеджер</li>
-                        <li>Обучение команды</li>
-                    </ul>
-                    <button class="pricing-button">Выбрать</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Auth Page -->
-        <div id="auth" class="page">
-            <div class="auth-form glass-card">
-                <h2>Вход в аккаунт</h2>
-                
-                <form onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" placeholder="your@email.com" required>
+        <!-- Секция о ВайбКодинге -->
+        <section id="vibecoding" class="vibecoding">
+            <div class="container">
+                <h2 class="section-title">Что такое ВайбКодинг?</h2>
+                <div class="vibecoding-content">
+                    <div class="vibecoding-text">
+                        <p><strong>ВайбКодеры</strong> — это новая генерация разработчиков, которые используют нейросети для программирования. Мы не пишем код вручную, а создаем точные промпты для ИИ.</p>
+                        
+                        <div class="vibecoding-principles">
+                            <h3>Принципы ВайбКодинга:</h3>
+                            <ul>
+                                <li>🚀 <strong>Скорость</strong> — генерация кода за секунды</li>
+                                <li>🎯 <strong>Точность</strong> — готовые технические шаблоны</li>
+                                <li>✨ <strong>Креатив</strong> — фокус на идеях, а не на синтаксисе</li>
+                                <li>🤝 <strong>Сообщество</strong> — обмен лучшими промптами</li>
+                            </ul>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label>Пароль</label>
-                        <input type="password" class="form-control" placeholder="••••••••" required>
+                    <div class="vibecoding-stats">
+                        <div class="vibecoding-stat">
+                            <span class="stat-number">2x</span>
+                            <span class="stat-label">быстрее разработка</span>
+                        </div>
+                        <div class="vibecoding-stat">
+                            <span class="stat-number">90%</span>
+                            <span class="stat-label">меньше рутинного кода</span>
+                        </div>
+                        <div class="vibecoding-stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">вайб кодинга</span>
+                        </div>
                     </div>
-                    
-                    <button type="submit" class="search-button" style="width: 100%;">
-                        <i class="fas fa-sign-in-alt"></i> Войти
-                    </button>
-                </form>
-
-                <div style="margin-top: 2rem; text-align: center;">
-                    <p>Нет аккаунта? <a href="#" onclick="showRegister()" style="color: var(--primary);">Зарегистрироваться</a></p>
                 </div>
             </div>
+        </section>
 
-            <div id="registerForm" style="display: none;" class="auth-form glass-card">
-                <h2>Регистрация</h2>
-                
-                <form onsubmit="handleRegister(event)">
-                    <div class="form-group">
-                        <label>Имя</label>
-                        <input type="text" class="form-control" placeholder="Иван Иванов" required>
+        <!-- Секция генерации -->
+        <section id="generation" class="generation">
+            <div class="container">
+                <h2 class="section-title">Генерация промптов</h2>
+                <div class="generation-content">
+                    <div class="prompt-types">
+                        <div class="type-card" data-type="telegram">
+                            <h3>📱 Telegram боты</h3>
+                            <p>Создавайте промпты для ботов на aiogram</p>
+                            <div class="vibe-description">Готовые шаблоны команд, обработчиков и функций</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">aiogram</span>
+                                <span class="vibe-tag">асинхронность</span>
+                                <span class="vibe-tag">API</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="websites">
+                            <h3>🌐 Веб-сайты</h3>
+                            <p>Современные веб-сайты</p>
+                            <div class="vibe-description">Генерируйте промпты для создания современных сайтов с HTML, CSS и JavaScript</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">HTML/CSS/JS</span>
+                                <span class="vibe-tag">адаптивность</span>
+                                <span class="vibe-tag">PWA</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="minecraft">
+                            <h3>⛏️ Моды Minecraft</h3>
+                            <p>Моды для Minecraft (и не только моды)</p>
+                            <div class="vibe-description">Создавайте промпты для разработки модов с настройкой IntelliJ IDEA</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">Forge</span>
+                                <span class="vibe-tag">Fabric</span>
+                                <span class="vibe-tag">Java</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="ai">
+                            <h3>🤖 AI & G4F</h3>
+                            <p>Работа с AI и G4F</p>
+                            <div class="vibe-description">Промпты для работы с искусственным интеллектом и библиотекой G4F</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">G4F</span>
+                                <span class="vibe-tag">нейросети</span>
+                                <span class="vibe-tag">автоматизация</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="recipes">
+                            <h3>🍳 Рецепты</h3>
+                            <p>Создание или улучшение рецептов</p>
+                            <div class="vibe-description">Генерация кулинарных промптов с точными пропорциями и инструкциями</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">гастрономия</span>
+                                <span class="vibe-tag">ингредиенты</span>
+                                <span class="vibe-tag">step-by-step</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="images">
+                            <h3>🎨 Генерация изображений</h3>
+                            <p>Промпты для создания изображений</p>
+                            <div class="vibe-description">Создавайте детальные промпты для генерации визуального контента</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">Stable Diffusion</span>
+                                <span class="vibe-tag">DALL-E</span>
+                                <span class="vibe-tag">композиция</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="stickers">
+                            <h3>🖼️ Стикеры и аватары</h3>
+                            <p>Генерация идей для стикеров и аватаров</p>
+                            <div class="vibe-description">Промпты для создания стикерпаков и цифровых аватаров</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">вектор</span>
+                                <span class="vibe-tag">эмоции</span>
+                                <span class="vibe-tag">Telegram</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="toys">
+                            <h3>🧸 Игрушки</h3>
+                            <p>Идеи для создания игрушек</p>
+                            <div class="vibe-description">Генерация промптов для разработки игр и игрушек</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">геймдизайн</span>
+                                <span class="vibe-tag">механики</span>
+                                <span class="vibe-tag">персонажи</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="3d">
+                            <h3>🔷 3D модели</h3>
+                            <p>Промпты для 3D моделирования</p>
+                            <div class="vibe-description">Промпты для создания трехмерных моделей и ассетов</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">Blender</span>
+                                <span class="vibe-tag">текстуры</span>
+                                <span class="vibe-tag">рендеринг</span>
+                            </div>
+                        </div>
+
+                        <div class="type-card" data-type="characterai">
+                            <h3>🤖 Character AI</h3>
+                            <p>Создание персонажей для character.ai</p>
+                            <div class="vibe-description">Генерация промптов для персонажей с именем, слоганом, приветствием и описанием</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">персонажи</span>
+                                <span class="vibe-tag">диалоги</span>
+                                <span class="vibe-tag">c.ai</span>
+                            </div>
+                        </div>
+
+                        <div class="type-card" data-type="suno">
+                            <h3>🎵 Suno AI</h3>
+                            <p>Создание песен в Suno AI</p>
+                            <div class="vibe-description">Генерация промптов для создания песен с текстом, жанром и структурой</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">музыка</span>
+                                <span class="vibe-tag">тексты</span>
+                                <span class="vibe-tag">Suno</span>
+                            </div>
+                        </div>
+
+                        <div class="type-card" data-type="youtube">
+                            <h3>📺 YouTube</h3>
+                            <p>Создание контента для YouTube</p>
+                            <div class="vibe-description">Генерация промптов для названий, описаний и тегов YouTube каналов</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">видео</span>
+                                <span class="vibe-tag">SEO</span>
+                                <span class="vibe-tag">контент</span>
+                            </div>
+
+                        <div class="type-card" data-type="school">
+                            <h3>📚 Учёба и школа</h3>
+                            <p>Написание сочинений, решение задач и тд</p>
+                        <div class="vibe-description">Генерация промптов для написания сочинений, решения задач и тд</div>
+                        <div class="vibe-tags">
+                                <span class="vibe-tag">школа</span>
+                                <span class="vibe-tag">учеба</span>
+                                <span class="vibe-tag">сочинения</span>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" placeholder="your@email.com" required>
+                    <div class="prompt-customization">
+                        <h3>Кастомизация промпта</h3>
+                        <form id="prompt-form">
+                            <!-- Динамические технические параметры -->
+                            <div id="technical-params" class="technical-params">
+                                <!-- Здесь будут появляться выборочные окна -->
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="custom-input">Ваша идея или описание</label>
+                                <textarea id="custom-input" placeholder="Опишите вашу идею детально..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tone-select">Стиль промпта</label>
+                                <select id="tone-select">
+                                    <option value="professional">Профессиональный</option>
+                                    <option value="friendly">Дружеский</option>
+                                    <option value="creative">Креативный</option>
+                                    <option value="technical">Технический</option>
+                                    <option value="detailed">Детализированный</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Сгенерировать промпт</button>
+                        </form>
+                        
+                        <div class="generated-prompt">
+                            <h4>Ваш промпт:</h4>
+                            <div id="final-prompt" class="prompt-output"></div>
+                            <button id="copy-prompt" class="btn btn-secondary">Копировать промпт</button>
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Пароль</label>
-                        <input type="password" class="form-control" placeholder="••••••••" required>
-                    </div>
-                    
-                    <button type="submit" class="search-button" style="width: 100%;">
-                        <i class="fas fa-user-plus"></i> Зарегистрироваться
-                    </button>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h2><i class="fas fa-shopping-cart"></i> Корзина</h2>
-            <i class="fas fa-times" onclick="toggleCart()" style="cursor: pointer;"></i>
-        </div>
-        
-        <div id="cartItems"></div>
-        
-        <div class="cart-total" id="cartTotal">
-            <span>Итого:</span>
-            <span>0 ₽</span>
-        </div>
-        
-        <button class="search-button" style="width: 100%; margin-top: 1rem;" onclick="checkout()">
-            <i class="fas fa-credit-card"></i> Оформить заказ
-        </button>
-    </div>
+        <!-- Секция примеров -->
+        <section id="examples" class="examples">
+            <div class="container">
+                <h2 class="section-title">Примеры промптов</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="images/example1.jpg" alt="Пример промпта 1" data-full="images/example1-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>Рецепт веганского бургера</h4>
+                            <p>Промпт был создан в TAIPrompts</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/example2.jpg" alt="Пример промпта 2" data-full="images/example2-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>Стикерпак для Telegram</h4>
+                            <p>Промпт был создан в TAIPrompts</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/example3.jpg" alt="Пример промпта 3" data-full="images/example3-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>3D модель животного</h4>
+                            <p>Промпт был создан в TAIPrompts</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/example4.jpg" alt="Пример промпта 4" data-full="images/example4-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>Мод для Майнкрафт</h4>
+                            <p>Промпт был создан в TAIPrompts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Cart Toggle Button -->
-    <div class="cart-toggle" onclick="toggleCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-badge" id="cartCount">0</span>
-    </div>
+        <!-- Лайтбокс для галереи -->
+        <div class="lightbox">
+            <span class="close-lightbox">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+            <div class="lightbox-caption"></div>
+        </div>
 
-    <!-- Footer -->
+        <!-- Секция возможностей -->
+        <section id="possibilities" class="possibilities">
+            <div class="container">
+                <h2 class="section-title">Возможности TAIPrompts</h2>
+                <div class="possibilities-grid">
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🚀</div>
+                        <h3>Быстрая генерация</h3>
+                        <p>Создавайте промпты за секунды с помощью нашего интеллектуального генератора</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🎨</div>
+                        <h3>Кастомизация</h3>
+                        <p>Настраивайте промпты под свои конкретные нужды и требования</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">📱</div>
+                        <h3>Полная адаптивность</h3>
+                        <p>Работайте с любого устройства - компьютера, планшета или телефона</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">💾</div>
+                        <h3>Сохранение результатов</h3>
+                        <p>Сохраняйте понравившиеся промпты для будущего использования</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🔍</div>
+                        <h3>Поиск по базе</h3>
+                        <p>Ищите промпты по категориям и ключевым словам</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🔄</div>
+                        <h3>Регулярные обновления</h3>
+                        <p>Мы постоянно добавляем новые шаблоны и возможности</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция описания -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">О TAIPrompts</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>TAIPrompts - это современный генератор промптов для ChatGPT, созданный в 2025 году. Наша цель - помочь пользователям максимально эффективно использовать возможности искусственного интеллекта для решения различных задач.</p>
+                        <p>Мы предлагаем готовые шаблоны промптов для различных категорий, включая рецепты, стикеры, изображения, игры, 3D модели, Minecraft, Telegram боты, веб-сайты и многое другое.</p>
+                        <p>С помощью нашего сервиса вы можете не только использовать готовые промпты, но и кастомизировать их под свои конкретные нужды, выбирая тон, добавляя детали и уточнения.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">9999+</span>
+                            <span class="stat-label">Промптов</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Категорий</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Пользователей</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">90%</span>
+                            <span class="stat-label">Довольных клиентов</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция обратной связи -->
+        <section id="feedback" class="feedback">
+            <div class="container">
+                <h2 class="section-title">Обратная связь</h2>
+                <div class="feedback-content">
+                    <div class="contact-info">
+                        <h3>Свяжитесь с нами</h3>
+                        <p>Есть вопросы или предложения? Напишите нам, и мы обязательно ответим!</p>
+                        <div class="contact-details">
+                            <p><strong>Контакты:</strong> Скоро</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>URL Params Studio</h3>
-                <p>Профессиональный инструмент для работы с параметрами URL</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="#" class="logo">
+                        <img src="images/logo.png" alt="TAIPrompts" class="logo-img">
+                        <span class="logo-text">TAIPrompts</span>
+                    </a>
+                    <p>Генерация промптов для ChatGPT</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#generation">Генерация</a></li>
+                        <li><a href="#examples">Примеры</a></li>
+                        <li><a href="#reviews">Отзывы</a></li>
+                        <li><a href="#feedback">Обратная связь</a></li>
+                        <li><a href="#possibilities">Возможности</a></li>
+                        <li><a href="#about">Описание</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: roll3ogurec0@gmail.com</p>
+                    <p>Тимофей</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Подписка</h4>
+                    <p>Подпишитесь на обновления</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit">Подписаться</button>
+                    </form>
                 </div>
             </div>
-            
-            <div class="footer-section">
-                <h3>Продукты</h3>
-                <ul>
-                    <li><a href="#" onclick="showPage('analyzer')">Анализатор URL</a></li>
-                    <li><a href="#" onclick="showPage('gallery')">Галерея</a></li>
-                    <li><a href="#" onclick="showPage('products')">Магазин</a></li>
-                    <li><a href="#" onclick="showPage('pricing')">Тарифы</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TAIPrompts. Все права защищены.</p>
             </div>
-            
-            <div class="footer-section">
-                <h3>Поддержка</h3>
-                <ul>
-                    <li><a href="#">Документация</a></li>
-                    <li><a href="#">API</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Контакты</h3>
-                <ul>
-                    <li><i class="fas fa-envelope"></i> info@urlparams.studio</li>
-                    <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Москва, Россия</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--glass-border);">
-            <p>&copy; 2024 URL Params Studio. Все права защищены.</p>
         </div>
     </footer>
 
-    <script>
-        // ==================== STATE MANAGEMENT ====================
-        
-        // Корзина
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Комментарии
-        let comments = JSON.parse(localStorage.getItem('comments')) || [
-            { author: 'Анна', text: 'Отличный инструмент, очень помог в работе!', date: '2024-01-15' },
-            { author: 'Михаил', text: 'Удобный анализатор URL, рекомендую', date: '2024-01-16' },
-            { author: 'Елена', text: 'Спасибо за полезный сервис!', date: '2024-01-17' }
-        ];
-        
-        // Товары (для магазина)
-        const products = [
-            { id: 1, name: 'Анализатор URL Pro', price: 2990, image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400' },
-            { id: 2, name: 'UTM-менеджер', price: 1990, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400' },
-            { id: 3, name: 'SEO-оптимизатор', price: 3990, image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=400' },
-            { id: 4, name: 'API доступ', price: 4990, image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400' },
-            { id: 5, name: 'Командный тариф', price: 9990, image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400' },
-            { id: 6, name: 'Продвинутый анализ', price: 5990, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400' },
-            { id: 7, name: 'Безопасность URL', price: 3490, image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400' },
-            { id: 8, name: 'Отчеты и аналитика', price: 4490, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400' }
-        ];
-        
-        // Изображения для галереи
-        const galleryImages = [
-            { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400', title: 'Аналитика' },
-            { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400', title: 'Маркетинг' },
-            { url: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=400', title: 'SEO' },
-            { url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400', title: 'Технологии' },
-            { url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400', title: 'Команда' },
-            { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400', title: 'Данные' },
-            { url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400', title: 'Безопасность' },
-            { url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400', title: 'Серверы' }
-        ];
-        
-        // Отзывы
-        const testimonials = [
-            { author: 'Иван Петров', avatar: 'https://randomuser.me/api/portraits/men/1.jpg', rating: 5, text: 'Лучший инструмент для работы с URL параметрами!' },
-            { author: 'Мария Смирнова', avatar: 'https://randomuser.me/api/portraits/women/2.jpg', rating: 5, text: 'Очень удобно, экономит массу времени' },
-            { author: 'Алексей Козлов', avatar: 'https://randomuser.me/api/portraits/men/3.jpg', rating: 4, text: 'Отличный функционал, рекомендую' },
-            { author: 'Елена Попова', avatar: 'https://randomuser.me/api/portraits/women/4.jpg', rating: 5, text: 'Профессиональный инструмент!' }
-        ];
-
-        // ==================== CORE FUNCTIONS ====================
-
-        // Навигация между страницами
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-            
-            // Обновляем активный класс в навигации
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            event?.target?.classList.add('active');
-            
-            // Обновляем контент страницы при необходимости
-            if (pageId === 'gallery') renderGallery();
-            if (pageId === 'products') renderProducts();
-            if (pageId === 'home') {
-                renderTestimonials();
-                renderComments();
-            }
-        }
-
-        // Смена темы
-        function toggleTheme() {
-            document.body.classList.toggle('dark-theme');
-            const icon = document.querySelector('.theme-toggle i');
-            if (document.body.classList.contains('dark-theme')) {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        }
-
-        // ==================== URL ANALYZER ====================
-
-        function analyzeUrl() {
-            const url = document.getElementById('urlInput').value;
-            const analysisDiv = document.getElementById('urlAnalysis');
-            const paramsDiv = document.getElementById('paramAnalysis');
-            
-            try {
-                const urlObj = new URL(url);
-                const params = new URLSearchParams(urlObj.search);
-                
-                // Показываем базовую информацию
-                analysisDiv.innerHTML = `
-                    <strong>Протокол:</strong> ${urlObj.protocol}<br>
-                    <strong>Хост:</strong> ${urlObj.hostname}<br>
-                    <strong>Путь:</strong> ${urlObj.pathname}<br>
-                    <strong>Параметров:</strong> ${Array.from(params).length}
-                `;
-                
-                // Показываем параметры
-                paramsDiv.innerHTML = '';
-                for (const [key, value] of params) {
-                    const card = document.createElement('div');
-                    card.className = 'glass-card';
-                    card.style.padding = '1rem';
-                    card.innerHTML = `
-                        <h4><i class="fas fa-tag"></i> ${key}</h4>
-                        <p>Значение: ${value}</p>
-                        ${key.startsWith('utm_') ? '<span class="param-tag"><i class="fas fa-chart-line"></i> UTM метка</span>' : ''}
-                    `;
-                    paramsDiv.appendChild(card);
-                }
-                
-                // Проверка на безопасность
-                const sensitiveParams = ['password', 'token', 'key', 'secret'];
-                const hasSensitive = sensitiveParams.some(p => params.has(p));
-                
-                if (hasSensitive) {
-                    analysisDiv.innerHTML += '<br><span style="color: var(--danger);"><i class="fas fa-exclamation-triangle"></i> Внимание: обнаружены чувствительные данные в URL!</span>';
-                }
-                
-            } catch (e) {
-                analysisDiv.innerHTML = '<span style="color: var(--danger);">Ошибка: некорректный URL</span>';
-            }
-        }
-
-        function quickAnalyze() {
-            const url = document.getElementById('quickSearch').value;
-            if (url) {
-                document.getElementById('urlInput').value = url;
-                showPage('analyzer');
-                analyzeUrl();
-            }
-        }
-
-        // ==================== GALLERY ====================
-
-        function renderGallery() {
-            const gallery = document.getElementById('galleryContainer');
-            gallery.innerHTML = '';
-            
-            galleryImages.forEach(img => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item glass-card';
-                item.innerHTML = `
-                    <img src="${img.url}" alt="${img.title}">
-                    <div class="gallery-overlay">
-                        <h4>${img.title}</h4>
-                    </div>
-                `;
-                gallery.appendChild(item);
-            });
-        }
-
-        // ==================== PRODUCTS & CART ====================
-
-        function renderProducts(filter = '') {
-            const container = document.getElementById('productsContainer');
-            container.innerHTML = '';
-            
-            const filteredProducts = products.filter(p => 
-                p.name.toLowerCase().includes(filter.toLowerCase())
-            );
-            
-            filteredProducts.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card glass-card';
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-info">
-                        <h3>${product.name}</h3>
-                        <p class="product-price">${product.price} ₽</p>
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            <i class="fas fa-cart-plus"></i> В корзину
-                        </button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function searchProducts() {
-            const query = document.getElementById('productSearch').value;
-            renderProducts(query);
-        }
-
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            cart.push(product);
-            updateCart();
-            showNotification('Товар добавлен в корзину');
-        }
-
-        function updateCart() {
-            // Сохраняем в localStorage
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // Обновляем отображение
-            const cartItems = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            cartItems.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                total += item.price;
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-price">${item.price} ₽</div>
-                    </div>
-                    <i class="fas fa-trash cart-item-remove" onclick="removeFromCart(${index})"></i>
-                `;
-                cartItems.appendChild(cartItem);
-            });
-            
-            cartCount.textContent = cart.length;
-            cartTotal.querySelector('span:last-child').textContent = total + ' ₽';
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
-            showNotification('Товар удален из корзины');
-        }
-
-        function toggleCart() {
-            document.getElementById('cartSidebar').classList.toggle('open');
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                showNotification('Корзина пуста');
-                return;
-            }
-            alert('Заказ оформлен! Спасибо за покупку.');
-            cart = [];
-            updateCart();
-            toggleCart();
-        }
-
-        // ==================== COMMENTS ====================
-
-        function renderComments() {
-            const container = document.getElementById('comments');
-            container.innerHTML = '';
-            
-            comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            comments.forEach(comment => {
-                const commentEl = document.createElement('div');
-                commentEl.className = 'comment';
-                commentEl.innerHTML = `
-                    <div class="comment-header">
-                        <span class="comment-author"><i class="fas fa-user"></i> ${comment.author}</span>
-                        <span>${comment.date}</span>
-                    </div>
-                    <div class="comment-text">${comment.text}</div>
-                `;
-                container.appendChild(commentEl);
-            });
-        }
-
-        function addComment(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('commentName').value;
-            const text = document.getElementById('commentText').value;
-            
-            if (name && text) {
-                const comment = {
-                    author: name,
-                    text: text,
-                    date: new Date().toISOString().split('T')[0]
-                };
-                
-                comments.unshift(comment);
-                localStorage.setItem('comments', JSON.stringify(comments));
-                
-                renderComments();
-                
-                // Очищаем форму
-                document.getElementById('commentName').value = '';
-                document.getElementById('commentText').value = '';
-                
-                showNotification('Комментарий добавлен');
-            }
-        }
-
-        // ==================== TESTIMONIALS ====================
-
-        function renderTestimonials() {
-            const container = document.getElementById('testimonialsContainer');
-            container.innerHTML = '';
-            
-            testimonials.forEach(t => {
-                const testimonial = document.createElement('div');
-                testimonial.className = 'testimonial-card glass-card';
-                
-                let stars = '';
-                for (let i = 0; i < 5; i++) {
-                    stars += i < t.rating ? '★' : '☆';
-                }
-                
-                testimonial.innerHTML = `
-                    <div class="testimonial-rating">${stars}</div>
-                    <p>"${t.text}"</p>
-                    <div class="testimonial-author">
-                        <img src="${t.avatar}" alt="${t.author}" class="testimonial-avatar">
-                        <span>${t.author}</span>
-                    </div>
-                `;
-                
-                container.appendChild(testimonial);
-            });
-        }
-
-        // ==================== AUTH ====================
-
-        function handleLogin(event) {
-            event.preventDefault();
-            showNotification('Демо-режим: вход выполнен');
-            showPage('home');
-        }
-
-        function handleRegister(event) {
-            event.preventDefault();
-            showNotification('Демо-режим: регистрация выполнена');
-            showPage('home');
-        }
-
-        function showRegister() {
-            document.querySelector('#auth .auth-form').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-
-        // ==================== NOTIFICATIONS ====================
-
-        function showNotification(message) {
-            // Создаем уведомление
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                left: 20px;
-                background: var(--primary);
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 30px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            // Удаляем через 3 секунды
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
-        }
-
-        // ==================== INITIALIZATION ====================
-
-        // Инициализация при загрузке
-        window.onload = function() {
-            updateCart();
-            renderTestimonials();
-            renderComments();
-            
-            // Анализируем текущий URL, если есть параметры
-            if (window.location.search) {
-                document.getElementById('urlInput').value = window.location.href;
-                analyzeUrl();
-            }
-        };
-
-        // Добавляем анимации
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(-100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(-100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+    <script src="scripts/main.js"></script>
 </body>
+
 </html>
+
+
+
+
+
