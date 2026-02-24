@@ -3,59 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNG Tuber — конструктор + чистая сцена</title>
+    <title>PNG Tuber — OBS стабильная версия</title>
+    <!-- Универсальный стиль: переключается между интерфейсом и чистым режимом -->
+</head>
+<body>
+    <!-- ========== СТИЛИ ========== -->
     <style>
-        /* Стили для интерфейса (основная страница) */
         * {
             box-sizing: border-box;
             user-select: none;
         }
         body {
             margin: 0;
-            min-height: 100vh;
             background: #1a1a24;
+            font-family: system-ui, sans-serif;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            padding: 20px;
+            transition: background 0.2s;
         }
-        .container {
-            background: rgba(30, 30, 40, 0.95);
+        /* Режим "чистый" — всё скрыто, только канвас на весь экран */
+        body.clean-mode {
+            background: transparent !important;
+            overflow: hidden;
+            padding: 0;
+        }
+        body.clean-mode .ui-container,
+        body.clean-mode .ui-container * {
+            display: none !important;
+        }
+        body.clean-mode #cleanCanvas {
+            display: block !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            background: transparent;
+        }
+        /* Интерфейсный режим */
+        .ui-container {
+            max-width: 1000px;
+            margin: 20px;
+            background: rgba(30,30,40,0.95);
             backdrop-filter: blur(10px);
             border-radius: 48px;
             padding: 30px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            border: 1px solid #4a4a6a;
-            max-width: 1000px;
-            width: fit-content;
+            border: 1px solid #5a5a8a;
         }
         h1 {
-            font-size: 2.2rem;
-            margin: 0 0 20px 0;
-            background: linear-gradient(145deg, #b0b8ff, #d0a0ff);
+            text-align: center;
+            background: linear-gradient(145deg, #c0c8ff, #d0a0ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-align: center;
+            margin-top: 0;
         }
         .preview-row {
             display: flex;
-            gap: 25px;
+            gap: 30px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin: 30px 0;
         }
         .preview-box {
             background: #252532;
             border-radius: 36px;
             padding: 20px;
-            border: 1px solid #5a5a88;
+            border: 1px solid #6a6a9a;
+            text-align: center;
         }
         .preview-box h3 {
             color: #c6d0ff;
-            margin: 0 0 15px 0;
-            font-weight: 400;
-            text-align: center;
+            margin: 0 0 15px;
         }
         .thumb {
             width: 200px;
@@ -66,53 +88,37 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 3px solid #4d4d70;
+            border: 3px solid #5a5a88;
+            margin-bottom: 15px;
         }
         .thumb img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
-        .placeholder-icon {
-            font-size: 3rem;
-            opacity: 0.5;
-        }
-        .upload-area {
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
         .file-label {
-            background: #40406c;
+            background: #4a4a7a;
             color: white;
             padding: 12px 28px;
             border-radius: 40px;
             cursor: pointer;
-            font-weight: 500;
-            border: 1px solid #8a8ac0;
-            box-shadow: 0 6px 0 #252538;
-            transition: 0.1s;
             display: inline-block;
+            border: 1px solid #9a9ad0;
+            box-shadow: 0 5px 0 #2a2a40;
+            transition: 0.1s;
         }
         .file-label:active {
             transform: translateY(4px);
-            box-shadow: 0 2px 0 #252538;
+            box-shadow: 0 1px 0 #2a2a40;
         }
-        input[type="file"] {
-            display: none;
-        }
+        input[type="file"] { display: none; }
         .filename {
+            margin-top: 10px;
             background: #1d1d2b;
-            padding: 6px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
+            padding: 6px 15px;
+            border-radius: 40px;
             color: #b4b4e0;
-            max-width: 200px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: 0.9rem;
         }
         .control-panel {
             background: #20202c;
@@ -120,73 +126,63 @@
             padding: 20px 30px;
             display: flex;
             flex-wrap: wrap;
+            gap: 20px;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0 20px;
+            margin: 30px 0;
         }
         .link-box {
+            flex: 2 1 400px;
             display: flex;
             background: #12121c;
             border-radius: 60px;
-            border: 1px solid #5f5f90;
+            border: 1px solid #6a6aa0;
             overflow: hidden;
-            flex: 2 1 400px;
         }
         .link-box input {
             flex: 1;
             background: transparent;
             border: none;
-            padding: 16px 24px;
+            padding: 16px 20px;
             color: white;
-            font-size: 1rem;
-            outline: none;
             font-family: monospace;
+            outline: none;
         }
         .link-box button {
             background: #5d5d9a;
             border: none;
             color: white;
             padding: 12px 30px;
-            font-weight: 600;
             cursor: pointer;
-            border-left: 2px solid #33334c;
-            transition: 0.1s;
-            white-space: nowrap;
-            font-size: 1rem;
-        }
-        .link-box button:active {
-            background: #4a4a7a;
+            font-weight: bold;
+            border-left: 2px solid #3a3a60;
         }
         .big-btn {
-            background: #6a5ac0;
+            background: #7a6aff;
             border: none;
             color: white;
             padding: 16px 40px;
             border-radius: 60px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 8px 0 #3d3a6a;
+            box-shadow: 0 7px 0 #4a3a9a;
             transition: 0.1s;
-            border: 1px solid #a090ff;
             white-space: nowrap;
+            flex: 1 0 auto;
         }
         .big-btn:active {
-            transform: translateY(6px);
-            box-shadow: 0 2px 0 #3d3a6a;
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #4a3a9a;
         }
         .status {
             background: #1e1e2c;
             border-radius: 40px;
             padding: 15px 25px;
-            margin: 15px 0 0;
             display: flex;
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
-            justify-content: center;
-            border-left: 6px solid #7a6aff;
+            border-left: 5px solid #8a7aff;
         }
         .dot {
             width: 18px;
@@ -194,347 +190,350 @@
             border-radius: 50%;
             background: #4aff7a;
             box-shadow: 0 0 12px #33ff55;
-            transition: 0.1s;
         }
-        .dot.muted {
-            background: #ff4a4a;
-            box-shadow: 0 0 12px #ff3333;
-        }
-        .warning {
-            color: #b2b2da;
-            font-size: 0.9rem;
-        }
-        footer {
-            text-align: center;
-            color: #6a6a90;
-            margin-top: 20px;
-        }
+        .dot.muted { background: #ff4a4a; box-shadow: 0 0 12px #ff3333; }
+        .warning { color: #b2b2da; }
+        footer { text-align: center; color: #6a6a90; margin-top: 20px; }
+        #cleanCanvas { display: none; } /* скрыт по умолчанию */
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🎭 PNG TUBER · ДВЕ СТРАНИЦЫ В ОДНОЙ</h1>
-        
-        <!-- Предпросмотр загруженных картинок -->
+
+    <!-- ========== ИНТЕРФЕЙС (ВИДЕН ТОЛЬКО В РЕЖИМЕ НАСТРОЙКИ) ========== -->
+    <div class="ui-container">
+        <h1>🎙️ PNG TUBER — НАСТРОЙКА</h1>
         <div class="preview-row">
             <div class="preview-box">
-                <h3>🙂 ЗАКРЫТЫЙ рот</h3>
-                <div class="thumb" id="closedThumb">
-                    <span class="placeholder-icon">🖼️</span>
-                </div>
-                <div class="upload-area">
-                    <label for="uploadClosed" class="file-label">Выбрать файл</label>
-                    <input type="file" id="uploadClosed" accept="image/*">
-                    <div id="closedFileName" class="filename">не выбрано</div>
-                </div>
+                <h3>😐 ЗАКРЫТЫЙ</h3>
+                <div class="thumb" id="closedThumb"><span style="font-size:3rem;">🖼️</span></div>
+                <label for="uploadClosed" class="file-label">Выбрать</label>
+                <input type="file" id="uploadClosed" accept="image/*">
+                <div id="closedFileName" class="filename">не выбрано</div>
             </div>
             <div class="preview-box">
-                <h3>😲 ОТКРЫТЫЙ рот</h3>
-                <div class="thumb" id="openThumb">
-                    <span class="placeholder-icon">🖼️</span>
-                </div>
-                <div class="upload-area">
-                    <label for="uploadOpen" class="file-label">Выбрать файл</label>
-                    <input type="file" id="uploadOpen" accept="image/*">
-                    <div id="openFileName" class="filename">не выбрано</div>
-                </div>
+                <h3>😲 ОТКРЫТЫЙ</h3>
+                <div class="thumb" id="openThumb"><span style="font-size:3rem;">🖼️</span></div>
+                <label for="uploadOpen" class="file-label">Выбрать</label>
+                <input type="file" id="uploadOpen" accept="image/*">
+                <div id="openFileName" class="filename">не выбрано</div>
             </div>
         </div>
 
-        <!-- Панель генерации ссылки на ЧИСТУЮ версию -->
         <div class="control-panel">
             <div class="link-box">
-                <input type="text" id="pureLink" readonly placeholder="сначала загрузите изображения" value="">
-                <button id="copyBtn">📋 Копировать</button>
+                <input type="text" id="pureLink" readonly placeholder="загрузите картинки">
+                <button id="copyBtn">📋</button>
             </div>
-            <button class="big-btn" id="generateBtn">✨ СГЕНЕРИРОВАТЬ ЧИСТУЮ ССЫЛКУ</button>
+            <button class="big-btn" id="generateBtn">✨ СГЕНЕРИРОВАТЬ ССЫЛКУ</button>
         </div>
 
-        <!-- Статус микрофона (на основной странице он тоже работает для проверки) -->
         <div class="status">
             <span>🎤 Микрофон:</span>
-            <span id="micStatus">запрос...</span>
+            <span id="micStatus">проверка...</span>
             <span id="micDot" class="dot muted"></span>
-            <span class="warning">(выберите устройство в адресной строке)</span>
+            <span class="warning">(выберите устройство в браузере)</span>
         </div>
-        <footer>⬇️ Чистая ссылка ведёт на страницу ТОЛЬКО с персонажем (без интерфейса). Вставьте её в OBS.</footer>
+        <footer>⬇️ Чистая ссылка — только персонаж (для OBS)</footer>
     </div>
 
+    <!-- ========== КАНВАС ДЛЯ ЧИСТОГО РЕЖИМА ========== -->
+    <canvas id="cleanCanvas" width="800" height="600"></canvas>
+
     <script>
         (function() {
-            // DOM элементы
-            const uploadClosed = document.getElementById('uploadClosed');
-            const uploadOpen = document.getElementById('uploadOpen');
-            const closedFileName = document.getElementById('closedFileName');
-            const openFileName = document.getElementById('openFileName');
-            const closedThumb = document.getElementById('closedThumb');
-            const openThumb = document.getElementById('openThumb');
-            const pureLinkInput = document.getElementById('pureLink');
-            const generateBtn = document.getElementById('generateBtn');
-            const copyBtn = document.getElementById('copyBtn');
-            const micStatus = document.getElementById('micStatus');
-            const micDot = document.getElementById('micDot');
-
-            // Данные картинок (base64)
-            let closedImageData = null;
-            let openImageData = null;
-
-            // Для предпросмотра
-            function updateThumb(element, dataUrl) {
-                element.innerHTML = ''; // очистить
-                if (dataUrl) {
-                    const img = document.createElement('img');
-                    img.src = dataUrl;
-                    img.style.maxWidth = '100%';
-                    img.style.maxHeight = '100%';
-                    element.appendChild(img);
-                } else {
-                    element.innerHTML = '<span class="placeholder-icon">🖼️</span>';
-                }
-            }
-
-            // Обработчики загрузки
-            uploadClosed.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    closedImageData = ev.target.result;
-                    closedFileName.textContent = file.name.length > 30 ? file.name.slice(0,27)+'…' : file.name;
-                    updateThumb(closedThumb, closedImageData);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            uploadOpen.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    openImageData = ev.target.result;
-                    openFileName.textContent = file.name.length > 30 ? file.name.slice(0,27)+'…' : file.name;
-                    updateThumb(openThumb, openImageData);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            // Генерация чистой ссылки (ведёт на ЭТУ ЖЕ страницу, но с параметром #? и флагом ?clean)
-            generateBtn.addEventListener('click', () => {
-                if (!closedImageData && !openImageData) {
-                    alert('Загрузите хотя бы одно изображение');
-                    return;
-                }
-
-                // Формируем объект с картинками
-                const dataObject = {
-                    closed: closedImageData || '',
-                    open: openImageData || ''
-                };
-                
-                const jsonStr = JSON.stringify(dataObject);
-                const encoded = encodeURIComponent(jsonStr);
-                
-                // Берём базовый URL (без хэша и параметров)
-                const baseUrl = window.location.href.split('#')[0].split('?')[0];
-                
-                // Создаём чистую ссылку: добавляем параметр ?clean и хэш с данными
-                // Параметр clean заставит страницу показать только холст
-                const pureUrl = baseUrl + '?clean=1#' + encoded;
-                
-                pureLinkInput.value = pureUrl;
-            });
-
-            // Копирование ссылки
-            copyBtn.addEventListener('click', () => {
-                if (pureLinkInput.value) {
-                    navigator.clipboard.writeText(pureLinkInput.value)
-                        .then(() => alert('✅ Чистая ссылка скопирована!'))
-                        .catch(() => alert('❌ Не удалось скопировать'));
-                } else {
-                    alert('Сначала сгенерируйте ссылку');
-                }
-            });
-
-            // ---------- МИКРОФОН (для проверки на основной странице) ----------
-            let audioContext, analyser, source, mediaStream, animationFrame;
-            let mouthOpen = false; // не используется в интерфейсе напрямую, но нужно для логики
-            
-            async function setupMicrophone() {
-                try {
-                    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    if (audioContext.state === 'suspended') await audioContext.resume();
-                    
-                    analyser = audioContext.createAnalyser();
-                    analyser.fftSize = 256;
-                    const bufferLength = analyser.frequencyBinCount;
-                    const dataArray = new Uint8Array(bufferLength);
-                    
-                    source = audioContext.createMediaStreamSource(mediaStream);
-                    source.connect(analyser);
-                    
-                    micStatus.textContent = 'активен';
-                    micDot.classList.remove('muted');
-                    
-                    function checkVolume() {
-                        if (!analyser) return;
-                        analyser.getByteFrequencyData(dataArray);
-                        let sum = 0;
-                        for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-                        const avg = sum / bufferLength;
-                        const threshold = 10;
-                        
-                        if (avg > threshold) {
-                            micDot.style.background = '#4aff7a';
-                            micDot.style.boxShadow = '0 0 16px #33ff55';
-                        } else {
-                            micDot.style.background = '#ff4a4a';
-                            micDot.style.boxShadow = '0 0 12px #ff3333';
-                        }
-                        
-                        animationFrame = requestAnimationFrame(checkVolume);
-                    }
-                    checkVolume();
-                    
-                } catch (err) {
-                    micStatus.textContent = 'нет доступа';
-                    micDot.classList.add('muted');
-                }
-            }
-            setupMicrophone();
-
-            // Возобновление аудиоконтекста по клику
-            document.addEventListener('click', () => {
-                if (audioContext && audioContext.state === 'suspended') audioContext.resume();
-            });
-        })();
-    </script>
-
-    <!-- ========== ЧАСТЬ ДЛЯ ЧИСТОЙ СТРАНИЦЫ (отображается только при ?clean=1) ========== -->
-    <style id="clean-style">
-        /* Эти стили активируются только если в URL есть ?clean=1 */
-    </style>
-    <script>
-        (function() {
-            // Проверяем, нужно ли показать чистую версию (только холст)
+            // ========== ПРОВЕРКА РЕЖИМА ==========
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('clean') && urlParams.get('clean') === '1') {
-                // Удаляем ВЕСЬ интерфейс и показываем только холст с персонажем
-                document.body.innerHTML = `
-                    <style>
-                        body { margin: 0; overflow: hidden; background: transparent; width: 100vw; height: 100vh; display: flex; }
-                        canvas { display: block; width: 100%; height: 100%; object-fit: contain; background: transparent; }
-                    </style>
-                    <canvas id="cleanCanvas" width="800" height="600"></canvas>
-                `;
+            const isCleanMode = urlParams.has('clean') && urlParams.get('clean') === '1';
+            
+            // Элементы интерфейса и канваса
+            const uiContainer = document.querySelector('.ui-container');
+            const cleanCanvas = document.getElementById('cleanCanvas');
+            
+            // Если чиcтый режим — включаем его и сразу инициализируем логику
+            if (isCleanMode) {
+                document.body.classList.add('clean-mode');
+                // Скрываем интерфейс, показываем канвас
+                uiContainer.style.display = 'none';
+                cleanCanvas.style.display = 'block';
+                
+                // Запускаем чистую версию
+                initCleanVersion();
+            } else {
+                // Обычный режим — инициализируем интерфейс
+                initInterface();
+            }
 
-                const canvas = document.getElementById('cleanCanvas');
+            // ========== ЧИСТАЯ ВЕРСИЯ (ТОЛЬКО КАНВАС И МИКРОФОН) ==========
+            function initCleanVersion() {
+                const canvas = cleanCanvas;
                 const ctx = canvas.getContext('2d');
-
-                // Адаптивный размер
-                function resize() {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                    draw();
-                }
-                window.addEventListener('resize', resize);
-                resize();
-
-                // Загружаем данные из hash
+                
+                // Переменные
                 let closedImg = null;
                 let openImg = null;
                 let mouthOpen = false;
-
-                function loadFromHash() {
+                let audioContext = null;
+                let analyser = null;
+                let source = null;
+                let mediaStream = null;
+                let animationFrame = null;
+                
+                // Загрузка картинок из hash
+                function loadImagesFromHash() {
                     if (!window.location.hash) return;
                     try {
                         const hash = decodeURIComponent(window.location.hash.substring(1));
                         const data = JSON.parse(hash);
-
+                        
+                        let loadedCount = 0;
+                        const total = (data.closed ? 1 : 0) + (data.open ? 1 : 0);
+                        
                         if (data.closed) {
                             const img = new Image();
-                            img.onload = () => { closedImg = img; draw(); };
+                            img.onload = () => {
+                                closedImg = img;
+                                loadedCount++;
+                                if (loadedCount === total) drawCanvas();
+                            };
                             img.src = data.closed;
                         }
                         if (data.open) {
                             const img = new Image();
-                            img.onload = () => { openImg = img; draw(); };
+                            img.onload = () => {
+                                openImg = img;
+                                loadedCount++;
+                                if (loadedCount === total) drawCanvas();
+                            };
                             img.src = data.open;
                         }
-                    } catch (e) {}
+                    } catch (e) {
+                        console.warn('Ошибка загрузки из hash:', e);
+                    }
                 }
-                loadFromHash();
-
-                // Рисование
-                function draw() {
+                
+                // Рисование с адаптацией под размер
+                function drawCanvas() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Адаптируем размер canvas под окно
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    
                     const img = mouthOpen ? openImg : closedImg;
                     if (!img) return;
-
+                    
                     const imgW = img.naturalWidth;
                     const imgH = img.naturalHeight;
-                    const canvasW = canvas.width;
-                    const canvasH = canvas.height;
-
+                    const cw = canvas.width;
+                    const ch = canvas.height;
+                    
                     const imgAspect = imgW / imgH;
-                    const canvasAspect = canvasW / canvasH;
-
-                    let drawW, drawH, x = 0, y = 0;
+                    const canvasAspect = cw / ch;
+                    
+                    let drawW, drawH, offsetX = 0, offsetY = 0;
+                    
                     if (imgAspect > canvasAspect) {
-                        drawH = canvasH;
-                        drawW = imgW * (canvasH / imgH);
-                        x = (canvasW - drawW) / 2;
+                        drawH = ch;
+                        drawW = imgW * (ch / imgH);
+                        offsetX = (cw - drawW) / 2;
                     } else {
-                        drawW = canvasW;
-                        drawH = imgH * (canvasW / imgW);
-                        y = (canvasH - drawH) / 2;
+                        drawW = cw;
+                        drawH = imgH * (cw / imgW);
+                        offsetY = (ch - drawH) / 2;
                     }
-                    ctx.drawImage(img, x, y, drawW, drawH);
+                    
+                    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
                 }
-
-                // ---------- Микрофон для чистой страницы ----------
-                let audioContext, analyser, source, mediaStream, animationFrame;
-
+                
+                // Микрофон
                 async function setupMicrophone() {
                     try {
                         mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                        
                         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        if (audioContext.state === 'suspended') await audioContext.resume();
-
+                        if (audioContext.state === 'suspended') {
+                            await audioContext.resume();
+                        }
+                        
                         analyser = audioContext.createAnalyser();
                         analyser.fftSize = 256;
                         const bufferLength = analyser.frequencyBinCount;
                         const dataArray = new Uint8Array(bufferLength);
-
+                        
                         source = audioContext.createMediaStreamSource(mediaStream);
                         source.connect(analyser);
-
+                        
                         function checkVolume() {
                             if (!analyser) return;
                             analyser.getByteFrequencyData(dataArray);
+                            
                             let sum = 0;
                             for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
                             const avg = sum / bufferLength;
-                            const threshold = 10;
-
-                            const newState = avg > threshold;
-                            if (newState !== mouthOpen) {
-                                mouthOpen = newState;
-                                draw();
+                            
+                            // Порог чувствительности
+                            const threshold = 12;
+                            const newMouthState = avg > threshold;
+                            
+                            if (newMouthState !== mouthOpen) {
+                                mouthOpen = newMouthState;
+                                drawCanvas();
                             }
+                            
                             animationFrame = requestAnimationFrame(checkVolume);
                         }
+                        
                         checkVolume();
                     } catch (err) {
-                        // без микрофона просто ничего не делаем
+                        console.warn('Микрофон не доступен:', err);
+                        // работаем без звука
                     }
                 }
-                setupMicrophone();
-
-                // Возобновление контекста
-                document.addEventListener('click', () => {
-                    if (audioContext && audioContext.state === 'suspended') audioContext.resume();
+                
+                // Обработка ресайза
+                window.addEventListener('resize', () => {
+                    drawCanvas();
                 });
+                
+                // Старт
+                loadImagesFromHash();
+                setupMicrophone();
+                
+                // Если картинок нет — рисуем пустой холст
+                setTimeout(() => {
+                    if (!closedImg && !openImg) drawCanvas();
+                }, 500);
+                
+                // Возобновление аудиоконтекста по клику (для безопасности)
+                document.addEventListener('click', () => {
+                    if (audioContext && audioContext.state === 'suspended') {
+                        audioContext.resume();
+                    }
+                });
+            }
+
+            // ========== ИНТЕРФЕЙС (ОБЫЧНЫЙ РЕЖИМ) ==========
+            function initInterface() {
+                // Элементы
+                const uploadClosed = document.getElementById('uploadClosed');
+                const uploadOpen = document.getElementById('uploadOpen');
+                const closedFileName = document.getElementById('closedFileName');
+                const openFileName = document.getElementById('openFileName');
+                const closedThumb = document.getElementById('closedThumb');
+                const openThumb = document.getElementById('openThumb');
+                const pureLinkInput = document.getElementById('pureLink');
+                const generateBtn = document.getElementById('generateBtn');
+                const copyBtn = document.getElementById('copyBtn');
+                const micStatus = document.getElementById('micStatus');
+                const micDot = document.getElementById('micDot');
+                
+                let closedImageData = null;
+                let openImageData = null;
+                
+                // Обновление превью
+                function updateThumb(element, dataUrl) {
+                    element.innerHTML = '';
+                    if (dataUrl) {
+                        const img = document.createElement('img');
+                        img.src = dataUrl;
+                        element.appendChild(img);
+                    } else {
+                        element.innerHTML = '<span style="font-size:3rem;">🖼️</span>';
+                    }
+                }
+                
+                uploadClosed.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        closedImageData = ev.target.result;
+                        closedFileName.textContent = file.name.length > 30 ? file.name.slice(0,27)+'…' : file.name;
+                        updateThumb(closedThumb, closedImageData);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                uploadOpen.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        openImageData = ev.target.result;
+                        openFileName.textContent = file.name.length > 30 ? file.name.slice(0,27)+'…' : file.name;
+                        updateThumb(openThumb, openImageData);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                // Генерация чистой ссылки
+                generateBtn.addEventListener('click', () => {
+                    if (!closedImageData && !openImageData) {
+                        alert('Загрузите хотя бы одну картинку');
+                        return;
+                    }
+                    
+                    const dataObject = {
+                        closed: closedImageData || '',
+                        open: openImageData || ''
+                    };
+                    
+                    const jsonStr = JSON.stringify(dataObject);
+                    const encoded = encodeURIComponent(jsonStr);
+                    
+                    const baseUrl = window.location.href.split('#')[0].split('?')[0];
+                    const pureUrl = baseUrl + '?clean=1#' + encoded;
+                    
+                    pureLinkInput.value = pureUrl;
+                });
+                
+                copyBtn.addEventListener('click', () => {
+                    if (pureLinkInput.value) {
+                        navigator.clipboard.writeText(pureLinkInput.value)
+                            .then(() => alert('✅ Скопировано'))
+                            .catch(() => alert('❌ Ошибка'));
+                    } else {
+                        alert('Сначала сгенерируйте ссылку');
+                    }
+                });
+                
+                // Микрофон в интерфейсе (только индикация)
+                async function setupInterfaceMic() {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        const context = new (window.AudioContext || window.webkitAudioContext)();
+                        if (context.state === 'suspended') await context.resume();
+                        
+                        const analyser = context.createAnalyser();
+                        analyser.fftSize = 256;
+                        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                        
+                        const source = context.createMediaStreamSource(stream);
+                        source.connect(analyser);
+                        
+                        micStatus.textContent = 'активен';
+                        micDot.classList.remove('muted');
+                        
+                        function check() {
+                            analyser.getByteFrequencyData(dataArray);
+                            let sum = 0;
+                            for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+                            const avg = sum / dataArray.length;
+                            
+                            if (avg > 10) {
+                                micDot.style.background = '#4aff7a';
+                                micDot.style.boxShadow = '0 0 16px #33ff55';
+                            } else {
+                                micDot.style.background = '#ff4a4a';
+                                micDot.style.boxShadow = '0 0 12px #ff3333';
+                            }
+                            requestAnimationFrame(check);
+                        }
+                        check();
+                    } catch {
+                        micStatus.textContent = 'нет доступа';
+                        micDot.classList.add('muted');
+                    }
+                }
+                setupInterfaceMic();
             }
         })();
     </script>
