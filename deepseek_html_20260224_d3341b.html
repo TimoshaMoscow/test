@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG Tuber — микрофонный переключатель рта</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none; /* чтобы в OBS случайно не выделялось */
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: transparent; /* для прозрачности в OBS */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: #e0e0e0;
+        }
+
+        .container {
+            background: rgba(30, 30, 40, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 40px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.15);
+            width: fit-content;
+            max-width: 90vw;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 0 0 12px 0;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #c0c0ff, #a0c0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .canvas-wrapper {
+            background: #202020;
+            border-radius: 32px;
+            padding: 12px;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.6);
+            margin: 15px 0;
+        }
+
+        canvas {
+            display: block;
+            width: min(600px, 70vw);
+            height: auto;
+            border-radius: 24px;
+            background: #2a2a2a; /* фон для прозрачных областей если картинка с альфой — будет видно этот цвет, лучше сделать прозрачным через body */
+            box-shadow: 0 6px 12px black;
+            border: 2px solid #3a3a4e;
+        }
+
+        .upload-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0 15px;
+        }
+
+        .upload-box {
+            background: #252530;
+            border-radius: 28px;
+            padding: 20px 15px;
+            flex: 1 1 200px;
+            border: 1px dashed #6a6a8b;
+            transition: background 0.2s;
+        }
+        .upload-box:hover {
+            background: #2f2f3a;
+            border-color: #9a9ad0;
+        }
+
+        .upload-box label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #c6d0ff;
+        }
+
+        .upload-box input {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .file-label {
+            display: inline-block;
+            background: #3e3e5e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 400;
+            cursor: pointer;
+            border: 1px solid #6f6fb0;
+            box-shadow: 0 6px 0 #1e1e2a;
+            transition: 0.08s linear;
+        }
+        .file-label:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #1e1e2a;
+        }
+
+        .preview-name {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #acb5d0;
+            word-break: break-word;
+            background: #1a1a22;
+            padding: 6px 15px;
+            border-radius: 30px;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .link-section {
+            margin: 20px 0 5px;
+            width: 100%;
+        }
+
+        .link-section label {
+            font-size: 1rem;
+            color: #bac0e0;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .link-wrapper {
+            display: flex;
+            gap: 8px;
+            background: #1d1d2b;
+            border-radius: 60px;
+            padding: 5px;
+            border: 1px solid #4d4d70;
+        }
+
+        .link-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            color: #eee;
+            outline: none;
+            font-family: monospace;
+        }
+
+        .link-wrapper button {
+            background: #5d5d8a;
+            border: none;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #9898d0;
+            box-shadow: 0 4px 0 #34344a;
+            transition: 0.06s linear;
+            white-space: nowrap;
+        }
+        .link-wrapper button:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #34344a;
+        }
+
+        .status {
+            background: #1e1e2c;
+            border-radius: 40px;
+            padding: 12px 22px;
+            margin: 16px 0 5px;
+            font-size: 1rem;
+            border-left: 5px solid #6d8cff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .microphone-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #44dd55;
+            box-shadow: 0 0 12px #22ff33;
+            transition: background 0.1s;
+        }
+        .microphone-dot.muted {
+            background: #aa3333;
+            box-shadow: 0 0 8px #ff5555;
+        }
+
+        .warning-note {
+            font-size: 0.85rem;
+            color: #b0b6d0;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+        }
+
+        footer {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #7a7a9a;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎙️ PNG TUBER · Рот по микрофону</h1>
+
+    <!-- Холст где рисуется текущий кадр -->
+    <div class="canvas-wrapper">
+        <canvas id="avatarCanvas" width="600" height="400"></canvas>
+    </div>
+
+    <!-- Загрузка двух изображений -->
+    <div class="upload-grid">
+        <div class="upload-box">
+            <label>😐 Рот ЗАКРыт</label>
+            <input type="file" id="uploadClosed" accept="image/png, image/jpeg, image/webp, image/gif, image/jpg">
+            <label for="uploadClosed" class="file-label">📁 выбрать файл</label>
+            <div id="closedFileName" class="preview-name">не выбрано</div>
+        </div>
+        <div class="upload-box">
+            <label️>😲 Рот ОТКРыт</label>
+            <input type="file" id="uploadOpen" accept="image/png, image/jpeg, image/webp, image/gif, image/jpg">
+            <label for="uploadOpen" class="file-label">📁 выбрать файл</label>
+            <div id="openFileName" class="preview-name">не выбрано</div>
+        </div>
+    </div>
+
+    <!-- Генерация ссылки + кнопка копирования -->
+    <div class="link-section">
+        <label>🔗 Ссылка на текущую конфигурацию (для OBS Browser Source)</label>
+        <div class="link-wrapper">
+            <input type="text" id="shareLink" readonly placeholder="загрузите картинки и нажмите 'сгенерировать'">
+            <button id="generateBtn">♻️ Сгенерировать</button>
+            <button id="copyBtn" title="Копировать ссылку">📋 Копировать</button>
+        </div>
+    </div>
+
+    <!-- Статус микрофона и подсказки -->
+    <div class="status">
+        <span>🎤 Микрофон:</span>
+        <span id="micStatusText">запрос прав...</span>
+        <span id="micDot" class="microphone-dot muted"></span>
+        <span style="margin-left: 5px;">(громкость → рот)</span>
+    </div>
+
+    <div class="warning-note">
+        ⚡ Выберите нужный микрофон в настройках браузера (вверху адресной строки).<br>
+        Если микрофон не работает — проверьте разрешения и перезагрузите страницу.
+    </div>
+    <footer>⚡ вставьте сгенерированную ссылку в OBS (источник «Браузер»)</footer>
+</div>
+
+<script>
+    (function() {
+        // ---------- Элементы DOM ----------
+        const canvas = document.getElementById('avatarCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const uploadClosed = document.getElementById('uploadClosed');
+        const uploadOpen = document.getElementById('uploadOpen');
+        const closedFileName = document.getElementById('closedFileName');
+        const openFileName = document.getElementById('openFileName');
+
+        const shareLinkInput = document.getElementById('shareLink');
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+
+        const micStatusText = document.getElementById('micStatusText');
+        const micDot = document.getElementById('micDot');
+
+        // ---------- Данные изображений (base64 или null) ----------
+        let closedImageData = null;   // base64 строка (без префикса data:) или полный dataURL?
+        let openImageData = null;
+
+        // Для хранения загруженных изображений как HTMLImageElement (чтобы рисовать)
+        let closedImg = null;
+        let openImg = null;
+
+        // Состояние рта: false = закрыт, true = открыт (по умолчанию закрыт)
+        let mouthOpen = false;
+
+        // Аудио контекст и анализатор
+        let audioContext = null;
+        let analyser = null;
+        let mediaStream = null;
+        let source = null;
+        let animationFrame = null;
+        let micActive = false;
+        let micPermissionDenied = false;
+
+        // ---------- Инициализация canvas: рисуем заглушку или последнее изображение ----------
+        function drawImageOnCanvas() {
+            const imgToDraw = mouthOpen ? openImg : closedImg;
+            if (imgToDraw && imgToDraw.complete && imgToDraw.naturalWidth > 0) {
+                // Рисуем изображение с сохранением пропорций, заполняя canvas (cover-эффект)
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+                const imgW = imgToDraw.naturalWidth;
+                const imgH = imgToDraw.naturalHeight;
+                const imgAspect = imgW / imgH;
+                const canvasAspect = canvasWidth / canvasHeight;
+
+                let drawW, drawH, offsetX = 0, offsetY = 0;
+                if (imgAspect > canvasAspect) {
+                    // изображение шире пропорционально — подгоняем по высоте
+                    drawH = canvasHeight;
+                    drawW = imgW * (canvasHeight / imgH);
+                    offsetX = (canvasWidth - drawW) / 2;
+                } else {
+                    // изображение уже — подгоняем по ширине
+                    drawW = canvasWidth;
+                    drawH = imgH * (canvasWidth / imgW);
+                    offsetY = (canvasHeight - drawH) / 2;
+                }
+                ctx.drawImage(imgToDraw, offsetX, offsetY, drawW, drawH);
+            } else {
+                // Если изображения нет — закрашиваем серым и показываем текст
+                ctx.fillStyle = '#2a2a2a';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#aaa';
+                ctx.font = 'bold 24px system-ui, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('😐 загрузите картинки', canvas.width/2, canvas.height/2);
+            }
+        }
+
+        // ---------- Загрузка изображения в img элемент и сохранение base64 ----------
+        function loadImageFromFile(file, type) {
+            return new Promise((resolve) => {
+                if (!file) {
+                    resolve(null);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const dataUrl = e.target.result; // полная data:image/...
+                    const img = new Image();
+                    img.onload = () => {
+                        if (type === 'closed') {
+                            closedImg = img;
+                            closedImageData = dataUrl;
+                            closedFileName.textContent = file.name.length > 30 ? file.name.slice(0,27)+'…' : file.name;
+                        } else {
+                            openImg = img;
+                            openImageData = dataUrl;
+                            openFileName.textContent = file.name.length > 30 ? file.name.slice(0,27)+'…' : file.name;
+                        }
+                        // Перерисовать canvas с текущим состоянием рта
+                        drawImageOnCanvas();
+                        resolve(dataUrl);
+                    };
+                    img.src = dataUrl;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        uploadClosed.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) await loadImageFromFile(file, 'closed');
+        });
+
+        uploadOpen.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) await loadImageFromFile(file, 'open');
+        });
+
+        // ---------- Генерация ссылки с параметрами (base64 в hash / query) ----------
+        function generateShareableLink() {
+            if (!closedImageData && !openImageData) {
+                alert('Загрузите хотя бы одну картинку для генерации ссылки');
+                return;
+            }
+
+            // Создаём объект с данными. Используем encodeURIComponent для безопасности
+            const dataObject = {
+                closed: closedImageData || '',
+                open: openImageData || ''
+            };
+            // Сериализуем в JSON и кодируем для URL (хэш-часть)
+            const jsonStr = JSON.stringify(dataObject);
+            const encoded = encodeURIComponent(jsonStr);
+            // Получаем текущий URL без хэша и query
+            const baseUrl = window.location.href.split('#')[0].split('?')[0];
+            const newUrl = baseUrl + '#' + encoded;
+            shareLinkInput.value = newUrl;
+        }
+
+        // ---------- Загрузка конфигурации из hash (если есть) ----------
+        function loadFromHash() {
+            if (!window.location.hash) return false;
+            try {
+                const hash = decodeURIComponent(window.location.hash.substring(1)); // убираем '#'
+                const data = JSON.parse(hash);
+                if (data.closed && typeof data.closed === 'string') {
+                    // Загружаем закрытое изображение
+                    const imgClosed = new Image();
+                    imgClosed.onload = () => {
+                        closedImg = imgClosed;
+                        closedImageData = data.closed;
+                        closedFileName.textContent = 'загружено из ссылки';
+                        drawImageOnCanvas();
+                    };
+                    imgClosed.src = data.closed;
+                }
+                if (data.open && typeof data.open === 'string') {
+                    const imgOpen = new Image();
+                    imgOpen.onload = () => {
+                        openImg = imgOpen;
+                        openImageData = data.open;
+                        openFileName.textContent = 'загружено из ссылки';
+                        drawImageOnCanvas();
+                    };
+                    imgOpen.src = data.open;
+                }
+                return true;
+            } catch (e) {
+                console.warn('Не удалось загрузить конфиг из hash', e);
+                return false;
+            }
+        }
+
+        // ---------- Микрофон и анализ громкости ----------
+        async function setupMicrophone() {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                // Возобновляем, если в suspended (автополитика браузеров)
+                if (audioContext.state === 'suspended') {
+                    await audioContext.resume();
+                }
+
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                if (source) {
+                    source.disconnect();
+                }
+                source = audioContext.createMediaStreamSource(mediaStream);
+                source.connect(analyser);
+
+                micActive = true;
+                micPermissionDenied = false;
+                micStatusText.textContent = 'активен';
+                micDot.classList.remove('muted');
+
+                function checkVolume() {
+                    if (!analyser || !micActive) return;
+                    analyser.getByteFrequencyData(dataArray);
+                    // Суммируем значения (или среднее) для порога
+                    let sum = 0;
+                    for (let i = 0; i < bufferLength; i++) {
+                        sum += dataArray[i];
+                    }
+                    const average = sum / bufferLength; // 0-255
+
+                    // Порог чувствительности: можно подстроить
+                    const threshold = 10; // если средняя громкость выше 10 — считаем звук
+                    const newMouthState = average > threshold;
+
+                    if (newMouthState !== mouthOpen) {
+                        mouthOpen = newMouthState;
+                        drawImageOnCanvas();
+                    }
+
+                    // Визуальный индикатор на статусе
+                    if (average > threshold) {
+                        micDot.style.background = '#55ff55';
+                        micDot.style.boxShadow = '0 0 16px #00ff88';
+                    } else {
+                        micDot.style.background = '#dd4444';
+                        micDot.style.boxShadow = '0 0 8px #ff5555';
+                    }
+
+                    animationFrame = requestAnimationFrame(checkVolume);
+                }
+
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+                checkVolume();
+
+            } catch (err) {
+                console.error('Микрофон не доступен:', err);
+                micActive = false;
+                micPermissionDenied = true;
+                micStatusText.textContent = 'нет доступа';
+                micDot.classList.add('muted');
+                // Если нет микрофона — рот всегда закрыт (false)
+                mouthOpen = false;
+                drawImageOnCanvas();
+            }
+        }
+
+        // Запрос микрофона при старте (если разрешено — будет работать)
+        setupMicrophone();
+
+        // На случай, если пользователь впервые разрешает микрофон после загрузки (re-init можно по кнопке, но и так ок)
+        // Дополнительно слушаем клик на статус для перезапроса? но не усложняем.
+
+        // ---------- Кнопки ----------
+        generateBtn.addEventListener('click', () => {
+            generateShareableLink();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (shareLinkInput.value) {
+                navigator.clipboard.writeText(shareLinkInput.value)
+                    .then(() => alert('Ссылка скопирована в буфер'))
+                    .catch(() => alert('Не удалось скопировать, выделите вручную'));
+            } else {
+                alert('Сначала сгенерируйте ссылку');
+            }
+        });
+
+        // ---------- Загрузка из hash при старте ----------
+        window.addEventListener('load', () => {
+            const loaded = loadFromHash();
+            if (!loaded) {
+                // Если в хэше пусто — показываем пустой canvas с подсказкой
+                drawImageOnCanvas();
+            }
+        });
+
+        // Дополнительно: если изображения загружены из ссылки, файловые имена меняем.
+        // Также по resize окна не нужно.
+
+        // На случай, если audioContext заблокирован браузером (требуется жест пользователя) — при генерации ссылки можно заодно запустить контекст.
+        document.addEventListener('click', () => {
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                    console.log('AudioContext возобновлён по жесту');
+                });
+            }
+        }, { once: false });
+
+        // При повторном открытии страницы с той же вкладкой контекст может висеть.
+    })();
+</script>
+</body>
+</html>
