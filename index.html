@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube (клон интерфейса)</title>
+    <title>YouTube</title>
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -40,20 +42,9 @@
         }
 
         .menu-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
+            font-size: 20px;
+            color: #fff;
             cursor: pointer;
-        }
-
-        .menu-icon span {
-            display: block;
-            width: 20px;
-            height: 2px;
-            background-color: #fff;
-            border-radius: 2px;
         }
 
         .logo {
@@ -123,12 +114,8 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-        }
-
-        .search-btn::before {
-            content: "🔍";
-            font-size: 18px;
             color: #fff;
+            font-size: 18px;
         }
 
         .header-right {
@@ -137,19 +124,22 @@
             gap: 20px;
         }
 
-        .voice-search::before {
-            content: "🎤";
+        .voice-search {
+            color: #fff;
             font-size: 20px;
+            cursor: pointer;
         }
 
-        .create-icon::before {
-            content: "➕";
+        .create-icon {
+            color: #fff;
             font-size: 20px;
+            cursor: pointer;
         }
 
-        .notify-icon::before {
-            content: "🔔";
+        .notify-icon {
+            color: #fff;
             font-size: 20px;
+            cursor: pointer;
         }
 
         .profile-icon {
@@ -161,6 +151,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 16px;
         }
 
         /* Основной контейнер (сайдбар + контент) */
@@ -216,7 +207,7 @@
             font-weight: 500;
         }
 
-        .icon-placeholder {
+        .section-item i {
             width: 24px;
             text-align: center;
             color: #fff;
@@ -349,6 +340,11 @@
             border-radius: 50%;
             background-color: #6a1e9a;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
         }
 
         .video-details {
@@ -417,6 +413,10 @@
             margin-bottom: 8px;
             background-size: cover;
             background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 4px;
         }
 
         .short-title {
@@ -430,81 +430,99 @@
             color: #aaa;
         }
 
-        /* для имитации картинок */
-        .bg1 { background-image: linear-gradient(145deg, #3b2e2e, #7a4c4c); }
-        .bg2 { background-image: linear-gradient(145deg, #1e4a6b, #103549); }
-        .bg3 { background-image: linear-gradient(145deg, #3a6b1e, #1f3b0e); }
-        .bg4 { background-image: linear-gradient(145deg, #8b5a2b, #4d3115); }
-        .bg5 { background-image: linear-gradient(145deg, #6b1e4a, #3d112b); }
-        .bg6 { background-image: linear-gradient(145deg, #c04e2e, #732b16); }
-        .bg7 { background-image: linear-gradient(145deg, #2e5c4b, #15382d); }
-        .bg8 { background-image: linear-gradient(145deg, #9e6b3b, #5f3e1e); }
+        /* SVG-обложки через background-image с data URI (SVG inline) */
+        .thumb-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23333333'/%3E%3Ccircle cx='100' cy='56' r='40' fill='%23ff4444'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dy='.3em'%3E7 ночей%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Cpath d='M50,30 L150,30 L140,80 L60,80 Z' fill='%23e67e22'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EДубай%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233d6e3d'/%3E%3Ccircle cx='70' cy='50' r='15' fill='%2395a5a6'/%3E%3Ccircle cx='130' cy='50' r='15' fill='%2395a5a6'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EСТИНТ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238b5a2b'/%3E%3Crect x='40' y='30' width='120' height='40' fill='%23b88a4d'/%3E%3Ctext x='100' y='58' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EМод дня%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%236b1e4a'/%3E%3Cpath d='M50,30 Q100,10 150,30 L140,80 Q100,100 60,80 Z' fill='%23d96c9e'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3Evtuber%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-6 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23c04e2e'/%3E%3Crect x='60' y='30' width='30' height='50' fill='%238b9bb4'/%3E%3Crect x='110' y='30' width='30' height='50' fill='%238b9bb4'/%3E%3Ctext x='100' y='95' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3Eфакты%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-7 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232e5c4b'/%3E%3Ccircle cx='100' cy='46' r='25' fill='%23f1c40f'/%3E%3Ctext x='100' y='52' font-family='Arial' font-size='18' fill='black' text-anchor='middle'%3E№230%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-8 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239e6b3b'/%3E%3Cpath d='M40,70 L160,70 L140,95 L60,95 Z' fill='%23bdc3c7'/%3E%3Ctext x='100' y='55' font-family='Arial' font-size='24' fill='white' text-anchor='middle'%3E🔊%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-9 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233b2e2e'/%3E%3Cpolygon points='100,30 130,70 70,70' fill='%23e67e22'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3ET2x2%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-10 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%231e4a6b'/%3E%3Ccircle cx='50' cy='56' r='20' fill='%23f39c12'/%3E%3Ccircle cx='150' cy='56' r='20' fill='%23f39c12'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EЭФИР%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-11 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233a6b1e'/%3E%3Cpath d='M50,40 L150,40 L130,80 L70,80 Z' fill='%239b59b6'/%3E%3Ctext x='100' y='65' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EДжем%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-12 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238b5a2b'/%3E%3Ctext x='40' y='40' font-family='Arial' font-size='24' fill='white'%3E🐭%3C/text%3E%3Ctext x='100' y='80' font-family='Arial' font-size='16' fill='white'%3Eстинт%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-13 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%236b1e4a'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3EПУТИН%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-14 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232e5c4b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3EХоррор%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-15 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239e6b3b'/%3E%3Ccircle cx='100' cy='50' r='30' fill='%23f1c40f'/%3E%3Ctext x='100' y='58' font-family='Arial' font-size='18' fill='black' text-anchor='middle'%3E🍗%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-16 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233b2e2e'/%3E%3Cpath d='M40,40 L160,40 L150,80 L50,80 Z' fill='%23f39c12'/%3E%3Ctext x='100' y='65' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-17 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%231e4a6b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🍔%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-18 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233a6b1e'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🦠%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-19 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238b5a2b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3EINFECTED%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-20 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%236b1e4a'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3E🤣%3C/text%3E%3C/svg%3E"); }
+
+        /* Для коротких видео (shorts) используем те же классы */
+        .short-thumb-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%23333333'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
+        .short-thumb-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%232a4e6b'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E👻%3C/text%3E%3C/svg%3E"); }
+        .short-thumb-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%233d6e3d'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E🍗%3C/text%3E%3C/svg%3E"); }
+        .short-thumb-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%238b5a2b'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-left">
-            <div class="menu-icon"><span></span><span></span><span></span></div>
+            <i class="fas fa-bars menu-icon"></i>
             <div class="logo"><span class="logo-youtube"><span>▶</span>YouTube</span></div>
         </div>
         <div class="header-center">
             <div class="search-box">
                 <input type="text" placeholder="Введите запрос">
-                <div class="search-btn"></div>
+                <div class="search-btn"><i class="fas fa-search"></i></div>
             </div>
-            <div class="voice-search" style="margin-left: 12px;"></div>
+            <div class="voice-search"><i class="fas fa-microphone"></i></div>
         </div>
         <div class="header-right">
-            <div class="create-icon"></div>
-            <div class="notify-icon"></div>
-            <div class="profile-icon">П</div>
+            <i class="fas fa-video create-icon"></i>
+            <i class="fas fa-bell notify-icon"></i>
+            <div class="profile-icon"><i class="fas fa-user"></i></div>
         </div>
     </header>
 
     <div class="main-container">
-        <!-- Боковая панель (точная копия содержания из задания) -->
+        <!-- Боковая панель -->
         <div class="sidebar">
             <div class="section">
-                <div class="section-item active"><span class="icon-placeholder">🏠</span>Главная</div>
-                <div class="section-item"><span class="icon-placeholder">⚡</span>Shorts</div>
-                <div class="section-item"><span class="icon-placeholder">📺</span>Подписки</div>
+                <div class="section-item active"><i class="fas fa-home"></i>Главная</div>
+                <div class="section-item"><i class="fas fa-bolt"></i>Shorts</div>
+                <div class="section-item"><i class="fas fa-tv"></i>Подписки</div>
             </div>
             <div class="section">
-                <div class="section-item"><span class="icon-placeholder">▶️</span>парадеевич</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>VIKOSIII</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>MrLololoshka (Роман Фильченков)</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>Морфикс</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>Nazzy</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>Fanlerok_live</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>Самый сахар</div>
-                <div class="section-item" style="color: #3ea6ff;"><span class="icon-placeholder">▼</span>Развернуть</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>парадеевич</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>VIKOSIII</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>MrLololoshka (Роман Фильченков)</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>Морфикс</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>Nazzy</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>Fanlerok_live</div>
+                <div class="section-item"><i class="fas fa-play-circle"></i>Самый сахар</div>
+                <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
             </div>
             <div class="section">
                 <div class="section-title">Вы</div>
-                <div class="section-item"><span class="icon-placeholder">📋</span>История</div>
-                <div class="section-item"><span class="icon-placeholder">📌</span>Плейлисты</div>
-                <div class="section-item"><span class="icon-placeholder">⏰</span>Смотреть позже</div>
-                <div class="section-item"><span class="icon-placeholder">👍</span>Понравившиеся</div>
-                <div class="section-item"><span class="icon-placeholder">📁</span>Ваши видео</div>
-                <div class="section-item"><span class="icon-placeholder">⬇️</span>Скачанные</div>
-                <div class="section-item" style="color: #3ea6ff;"><span class="icon-placeholder">▼</span>Развернуть</div>
+                <div class="section-item"><i class="fas fa-history"></i>История</div>
+                <div class="section-item"><i class="fas fa-list"></i>Плейлисты</div>
+                <div class="section-item"><i class="fas fa-clock"></i>Смотреть позже</div>
+                <div class="section-item"><i class="fas fa-thumbs-up"></i>Понравившиеся</div>
+                <div class="section-item"><i class="fas fa-folder"></i>Ваши видео</div>
+                <div class="section-item"><i class="fas fa-download"></i>Скачанные</div>
+                <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
             </div>
             <div class="section">
                 <div class="section-title">Навигатор</div>
-                <div class="section-item"><span class="icon-placeholder">🎵</span>Музыка</div>
-                <div class="section-item"><span class="icon-placeholder">🎬</span>Фильмы</div>
-                <div class="section-item"><span class="icon-placeholder">📡</span>Трансляции</div>
-                <div class="section-item" style="color: #3ea6ff;"><span class="icon-placeholder">▼</span>Развернуть</div>
+                <div class="section-item"><i class="fas fa-music"></i>Музыка</div>
+                <div class="section-item"><i class="fas fa-film"></i>Фильмы</div>
+                <div class="section-item"><i class="fas fa-satellite-dish"></i>Трансляции</div>
+                <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
             </div>
             <div class="section">
                 <div class="section-title">Другие возможности</div>
-                <div class="section-item"><span class="icon-placeholder">🎥</span>Творческая студия YouTube</div>
-                <div class="section-item"><span class="icon-placeholder">▶️</span>YouTube Music</div>
-                <div class="section-item"><span class="icon-placeholder">🧒</span>YouTube Детям</div>
-                <div class="section-item"><span class="icon-placeholder">⚙️</span>Настройки</div>
-                <div class="section-item"><span class="icon-placeholder">🚩</span>Жалобы</div>
-                <div class="section-item"><span class="icon-placeholder">❓</span>Справка</div>
-                <div class="section-item"><span class="icon-placeholder">📝</span>Отправить отзыв</div>
+                <div class="section-item"><i class="fas fa-video"></i>Творческая студия YouTube</div>
+                <div class="section-item"><i class="fab fa-youtube"></i>YouTube Music</div>
+                <div class="section-item"><i class="fas fa-child"></i>YouTube Детям</div>
+                <div class="section-item"><i class="fas fa-cog"></i>Настройки</div>
+                <div class="section-item"><i class="fas fa-flag"></i>Жалобы</div>
+                <div class="section-item"><i class="fas fa-question-circle"></i>Справка</div>
+                <div class="section-item"><i class="fas fa-comment"></i>Отправить отзыв</div>
             </div>
             <div class="footer-links">
                 <a href="#">О сервисе</a><a href="#">Прессе</a><a href="#">Авторские права</a><a href="#">Связаться с нами</a><a href="#">Авторам</a><a href="#">Рекламодателям</a><a href="#">Разработчикам</a>
@@ -513,7 +531,7 @@
             </div>
         </div>
 
-        <!-- Основной контент (лента) -->
+        <!-- Основной контент -->
         <div class="content">
             <!-- Чипсы / категории -->
             <div class="chips">
@@ -535,12 +553,12 @@
             <div class="video-grid">
                 <!-- 1 -->
                 <div class="video-card">
-                    <div class="thumbnail bg1"><span class="time-badge">12:06</span></div>
+                    <div class="thumbnail thumb-svg-1"><span class="time-badge">12:06</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#b5651e;"></div>
+                        <div class="channel-icon"><i class="fas fa-crown"></i></div>
                         <div class="video-details">
                             <div class="video-title">7 НОЧЕЙ с НЕЧИСТЬЮ — HALLOWEEN</div>
-                            <div class="channel-name">VIKOSIII <span class="verified">✔</span></div>
+                            <div class="channel-name">VIKOSIII <i class="fas fa-check-circle verified" style="color:#aaa;"></i></div>
                             <div class="video-meta">278 тыс. подписчиков • 366 тыс. просмотров • 3 месяца назад</div>
                             <div class="video-meta">83 VPH 7.4x Remix</div>
                         </div>
@@ -548,12 +566,12 @@
                 </div>
                 <!-- 2 -->
                 <div class="video-card">
-                    <div class="thumbnail bg2"><span class="time-badge">2:00:33</span></div>
+                    <div class="thumbnail thumb-svg-2"><span class="time-badge">2:00:33</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#c93e3e;"></div>
+                        <div class="channel-icon"><i class="fas fa-globe"></i></div>
                         <div class="video-details">
                             <div class="video-title">Дал Свою Безлимитную Карту в Дубае! Потратили 5 МИЛЛИОНОВ! (Сатир, ФрамеТамер, Кореш, Парадеич)</div>
-                            <div class="channel-name">ExileShow <span class="verified">✔</span></div>
+                            <div class="channel-name">ExileShow <i class="fas fa-check-circle verified" style="color:#aaa;"></i></div>
                             <div class="video-meta">6,01 млн подписчиков • 3,5 млн просмотров • 2 дня назад</div>
                             <div class="video-meta">23.7K VPH 1.2x Remix</div>
                         </div>
@@ -561,9 +579,9 @@
                 </div>
                 <!-- 3 -->
                 <div class="video-card">
-                    <div class="thumbnail bg3"><span class="time-badge">4:19</span></div>
+                    <div class="thumbnail thumb-svg-3"><span class="time-badge">4:19</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#008000;"></div>
+                        <div class="channel-icon"><i class="fas fa-gamepad"></i></div>
                         <div class="video-details">
                             <div class="video-title">ОФИЦИАЛЬНЫЙ АККАУНТ ТВИЧ ЗАШЕЛ К СТИНТУ НА СТРИМ</div>
                             <div class="channel-name">Логово Стинта</div>
@@ -574,9 +592,9 @@
                 </div>
                 <!-- 4 -->
                 <div class="video-card">
-                    <div class="thumbnail bg4"><span class="time-badge">Shorts</span></div>
+                    <div class="thumbnail thumb-svg-4"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#c04e01;"></div>
+                        <div class="channel-icon"><i class="fas fa-cube"></i></div>
                         <div class="video-details">
                             <div class="video-title">Майнкрафт Мод Дня от Ивуна! - №216 Dungeon Perpective</div>
                             <div class="video-meta">84 тыс. просмотров • 2 деньs ago</div>
@@ -585,9 +603,9 @@
                 </div>
                 <!-- 5 -->
                 <div class="video-card">
-                    <div class="thumbnail bg5"><span class="time-badge">Shorts</span></div>
+                    <div class="thumbnail thumb-svg-5"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#9b59b6;"></div>
+                        <div class="channel-icon"><i class="fas fa-paint-brush"></i></div>
                         <div class="video-details">
                             <div class="video-title">а кто не хочет? #vtuber #втубер #fyp #recomendation #vtubergirl</div>
                             <div class="video-meta">359 тыс. просмотров • 6 months ago</div>
@@ -596,9 +614,9 @@
                 </div>
                 <!-- 6 -->
                 <div class="video-card">
-                    <div class="thumbnail bg6"><span class="time-badge">Shorts</span></div>
+                    <div class="thumbnail thumb-svg-6"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#27ae60;"></div>
+                        <div class="channel-icon"><i class="fas fa-tree"></i></div>
                         <div class="video-details">
                             <div class="video-title">факты о старом Майнкрафте #майнкрафт</div>
                             <div class="video-meta">4 тыс. просмотров • 5 деньs ago</div>
@@ -607,9 +625,9 @@
                 </div>
                 <!-- 7 -->
                 <div class="video-card">
-                    <div class="thumbnail bg7"><span class="time-badge">Shorts</span></div>
+                    <div class="thumbnail thumb-svg-7"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#e67e22;"></div>
+                        <div class="channel-icon"><i class="fas fa-angry"></i></div>
                         <div class="video-details">
                             <div class="video-title">ДУШНИЛА № 230</div>
                             <div class="video-meta">2,3 млн просмотров • 1 month ago</div>
@@ -618,9 +636,9 @@
                 </div>
                 <!-- 8 -->
                 <div class="video-card">
-                    <div class="thumbnail bg8"><span class="time-badge">Shorts</span></div>
+                    <div class="thumbnail thumb-svg-8"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#2c3e50;"></div>
+                        <div class="channel-icon"><i class="fas fa-headphones"></i></div>
                         <div class="video-details">
                             <div class="video-title">хардкорнейший звук</div>
                             <div class="video-meta">220 тыс. просмотров • 1 день ago</div>
@@ -629,9 +647,9 @@
                 </div>
                 <!-- 9 -->
                 <div class="video-card">
-                    <div class="thumbnail bg1"><span class="time-badge">37:31</span></div>
+                    <div class="thumbnail thumb-svg-9"><span class="time-badge">37:31</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#f39c12;"></div>
+                        <div class="channel-icon"><i class="fas fa-clock"></i></div>
                         <div class="video-details">
                             <div class="video-title">T2x2 СМОТРИТ - 1 Минута vs 10 Лет: Челлендж По Строительству</div>
                             <div class="channel-name">T2x2 Live</div>
@@ -642,9 +660,9 @@
                 </div>
                 <!-- 10 эфир -->
                 <div class="video-card">
-                    <div class="thumbnail bg2"><span class="time-badge">ЭФИР</span></div>
+                    <div class="thumbnail thumb-svg-10"><span class="time-badge">ЭФИР</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#e84118;"></div>
+                        <div class="channel-icon"><i class="fas fa-fire"></i></div>
                         <div class="video-details">
                             <div class="video-title">🔴Calamy craft💀 | #shorts #letsplay</div>
                             <div class="channel-name">Echo_SoZeR</div>
@@ -655,9 +673,9 @@
                 </div>
                 <!-- 11 джем -->
                 <div class="video-card">
-                    <div class="thumbnail bg3"><span class="time-badge">Джем</span></div>
+                    <div class="thumbnail thumb-svg-11"><span class="time-badge">Джем</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#8e44ad;"></div>
+                        <div class="channel-icon"><i class="fas fa-headphones-alt"></i></div>
                         <div class="video-details">
                             <div class="video-title">Мой джем Плейлист, составленный специально для вас</div>
                             <div class="channel-name">191 подписчики</div>
@@ -667,9 +685,9 @@
                 </div>
                 <!-- 12 shorts ещё -->
                 <div class="video-card">
-                    <div class="thumbnail bg4"><span class="time-badge">Shorts</span></div>
+                    <div class="thumbnail thumb-svg-12"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#d35400;"></div>
+                        <div class="channel-icon"><i class="fas fa-mouse"></i></div>
                         <div class="video-details">
                             <div class="video-title">МЫШКА СТИНТА ЗА 17к #стинт #stint #stintik #юмор #мем #мемы</div>
                             <div class="video-meta">3,8 млн просмотров • 1 year ago</div>
@@ -681,39 +699,39 @@
             <!-- Блок Shorts (горизонтальный) -->
             <div class="shorts-section">
                 <div class="shorts-header">
-                    <span class="shorts-icon">⚡</span> Shorts
+                    <i class="fas fa-bolt shorts-icon"></i> Shorts
                 </div>
                 <div class="shorts-grid">
                     <div class="short-card">
-                        <div class="short-thumb bg5"></div>
+                        <div class="short-thumb short-thumb-svg-1"><span class="time-badge">#</span></div>
                         <div class="short-title">❗️ПУТИНА НЕ СЛУШАЮТ РОДСТВЕННИКИ ЧИНУШ</div>
                         <div class="short-stats">156 тыс. просмотров</div>
                     </div>
                     <div class="short-card">
-                        <div class="short-thumb bg6"></div>
+                        <div class="short-thumb short-thumb-svg-2"></div>
                         <div class="short-title">Самая Страшная Хоррор Карта в МАЙНКРАФТ</div>
                         <div class="short-stats">62 тыс. просмотров</div>
                     </div>
                     <div class="short-card">
-                        <div class="short-thumb bg7"></div>
+                        <div class="short-thumb short-thumb-svg-3"></div>
                         <div class="short-title">Котлета по Деревеньски (Київськи) 🍗 #cooking #простоісмачно #food #recipe #рецепт</div>
                         <div class="short-stats">52 тыс. просмотров</div>
                     </div>
                     <div class="short-card">
-                        <div class="short-thumb bg8"></div>
+                        <div class="short-thumb short-thumb-svg-4"></div>
                         <div class="short-title">Молния разошлась #sleduck #vtuber #twitch</div>
                         <div class="short-stats">56 тыс. просмотров</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Продолжение сетки видео (большое количество карточек из списка) -->
+            <!-- Продолжение сетки видео -->
             <div class="video-grid">
                 <!-- 13 -->
                 <div class="video-card">
-                    <div class="thumbnail bg2"><span class="time-badge">9:40</span></div>
+                    <div class="thumbnail thumb-svg-13"><span class="time-badge">9:40</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#1e3c5c;"></div>
+                        <div class="channel-icon"><i class="fas fa-hamburger"></i></div>
                         <div class="video-details">
                             <div class="video-title">Я посетил Худшие Фастфуды своего Города</div>
                             <div class="channel-name">ПРОКС</div>
@@ -724,9 +742,9 @@
                 </div>
                 <!-- 14 -->
                 <div class="video-card">
-                    <div class="thumbnail bg3"><span class="time-badge">18:10</span></div>
+                    <div class="thumbnail thumb-svg-14"><span class="time-badge">18:10</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#b03a2e;"></div>
+                        <div class="channel-icon"><i class="fas fa-bug"></i></div>
                         <div class="video-details">
                             <div class="video-title">Я создал вирус для этого самоуверенного мошенника</div>
                             <div class="channel-name">Scammer Payback</div>
@@ -737,9 +755,9 @@
                 </div>
                 <!-- 15 эфир -->
                 <div class="video-card">
-                    <div class="thumbnail bg4"><span class="time-badge">ЭФИР</span></div>
+                    <div class="thumbnail thumb-svg-15"><span class="time-badge">ЭФИР</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#2e8b57;"></div>
+                        <div class="channel-icon"><i class="fas fa-virus"></i></div>
                         <div class="video-details">
                             <div class="video-title">Plague Inc Р3 СТРИМ</div>
                             <div class="channel-name">RosmotionPlay</div>
@@ -749,9 +767,9 @@
                 </div>
                 <!-- 16 -->
                 <div class="video-card">
-                    <div class="thumbnail bg5"><span class="time-badge">23:01</span></div>
+                    <div class="thumbnail thumb-svg-16"><span class="time-badge">23:01</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#6c3483;"></div>
+                        <div class="channel-icon"><i class="fas fa-skull"></i></div>
                         <div class="video-details">
                             <div class="video-title">ОНИ - ЗАРАЖЁННЫЕ, а я НЕТ. INFECTED</div>
                             <div class="channel-name">Nazzy</div>
@@ -762,9 +780,9 @@
                 </div>
                 <!-- 17 -->
                 <div class="video-card">
-                    <div class="thumbnail bg6"><span class="time-badge">13:00</span></div>
+                    <div class="thumbnail thumb-svg-17"><span class="time-badge">13:00</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#f1c40f;"></div>
+                        <div class="channel-icon"><i class="fas fa-laugh"></i></div>
                         <div class="video-details">
                             <div class="video-title">БРАТИШКИН СНОВА ЗАРЕДЖБАЙТИЛ ИНТЕРНЕТ (удачно)</div>
                             <div class="channel-name">Bratishkin Rofls 2</div>
@@ -775,9 +793,9 @@
                 </div>
                 <!-- 18 -->
                 <div class="video-card">
-                    <div class="thumbnail bg7"><span class="time-badge">27:35</span></div>
+                    <div class="thumbnail thumb-svg-18"><span class="time-badge">27:35</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#7f8c8d;"></div>
+                        <div class="channel-icon"><i class="fas fa-plane"></i></div>
                         <div class="video-details">
                             <div class="video-title">ПЛАЧУ ТОЛЬКО РЕКЛАМОЙ // Добраться до Франции</div>
                             <div class="channel-name">парадеевич</div>
@@ -788,9 +806,9 @@
                 </div>
                 <!-- 19 -->
                 <div class="video-card">
-                    <div class="thumbnail bg8"><span class="time-badge">26:11</span></div>
+                    <div class="thumbnail thumb-svg-19"><span class="time-badge">26:11</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#d4ac0d;"></div>
+                        <div class="channel-icon"><i class="fas fa-palette"></i></div>
                         <div class="video-details">
                             <div class="video-title">Битва художников: Угадай Персонажа по Рисунку в майнкрафт! @Gradus @Rimekeke</div>
                             <div class="channel-name">PollyZavr</div>
@@ -801,9 +819,9 @@
                 </div>
                 <!-- 20 -->
                 <div class="video-card">
-                    <div class="thumbnail bg1"><span class="time-badge">6:53</span></div>
+                    <div class="thumbnail thumb-svg-20"><span class="time-badge">6:53</span></div>
                     <div class="video-info">
-                        <div class="channel-icon" style="background:#16a085;"></div>
+                        <div class="channel-icon"><i class="fas fa-robot"></i></div>
                         <div class="video-details">
                             <div class="video-title">КАК CHATGPT РЕШИТ ЕГЭ ПО ИНФОРМАТИКЕ В 2026?</div>
                             <div class="channel-name">likonit ik</div>
@@ -812,45 +830,32 @@
                         </div>
                     </div>
                 </div>
-                <!-- 21 -->
-                <div class="video-card">
-                    <div class="thumbnail bg2"><span class="time-badge">12:26</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon" style="background:#e67e22;"></div>
-                        <div class="video-details">
-                            <div class="video-title">Я ЕЛ на 100 Рублей в ЕВРОПЕ 50 Часов</div>
-                            <div class="channel-name">седьмой</div>
-                            <div class="video-meta">14,1 тыс. подписчиков • 29 тыс. просмотров • 3 недели назад</div>
-                            <div class="video-meta">69 VPH 1x Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- можно продолжать до бесконечности, но суть ясна -->
             </div>
-            <!-- Добавим строку с надписью Ещё темы как в оригинале -->
+            
+            <!-- Ещё темы -->
             <div style="margin: 20px 0 10px; color: #aaa; display: flex; gap: 20px; flex-wrap: wrap;">
                 <span style="font-weight: 500;">Ещё темы:</span>
                 <span>Модификации Minecraft</span><span>Minecraft</span><span>Симуляторы</span><span>Платформеры</span>
                 <span>Кулинарные шоу</span><span>Рэп</span><span>Туризм</span><span>Математика</span>
             </div>
-            <!-- Ещё карточки (итоговые) -->
+            
+            <!-- Финальные карточки -->
             <div class="video-grid">
-                <!-- 22 ... последние из списка -->
                 <div class="video-card">
-                    <div class="thumbnail bg3"><span class="time-badge">20:45</span></div>
-                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">Нямура СЧИТАЕТ СЕБЯ НЕ ПОПУЛЯРНОЙ В РУВИТУБИНГЕ...</div><div class="channel-name">Neo - Nyamura Narezki</div><div class="video-meta">1,78 тыс. подписчиков • 2,7 тыс. просмотров • 2 недели назад</div></div></div>
+                    <div class="thumbnail thumb-svg-1"><span class="time-badge">20:45</span></div>
+                    <div class="video-info"><div class="channel-icon"><i class="fas fa-star"></i></div><div class="video-details"><div class="video-title">Нямура СЧИТАЕТ СЕБЯ НЕ ПОПУЛЯРНОЙ В РУВИТУБИНГЕ...</div><div class="channel-name">Neo - Nyamura Narezki</div><div class="video-meta">1,78 тыс. подписчиков • 2,7 тыс. просмотров • 2 недели назад</div></div></div>
                 </div>
                 <div class="video-card">
-                    <div class="thumbnail bg4"><span class="time-badge">36:38</span></div>
-                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">Я Показал Хоррор Моды Тому, Кто НИКОГДА Не Играл с Ними… (+ Nazzy)</div><div class="channel-name">Говард и Nazzy</div><div class="video-meta">129 тыс. подписчиков • 283 тыс. просмотров • 2 дня назад</div></div></div>
+                    <div class="thumbnail thumb-svg-2"><span class="time-badge">36:38</span></div>
+                    <div class="video-info"><div class="channel-icon"><i class="fas fa-ghost"></i></div><div class="video-details"><div class="video-title">Я Показал Хоррор Моды Тому, Кто НИКОГДА Не Играл с Ними… (+ Nazzy)</div><div class="channel-name">Говард и Nazzy</div><div class="video-meta">129 тыс. подписчиков • 283 тыс. просмотров • 2 дня назад</div></div></div>
                 </div>
                 <div class="video-card">
-                    <div class="thumbnail bg5"><span class="time-badge">14:17</span></div>
-                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">ЗУМЕРЫ АТАКУЮТ ОДНОКЛАССНИКИ - БЕЗУМНЫЙ РЕЗУЛЬТАТ БЛОКИРОВОК</div><div class="channel-name">BVS</div><div class="video-meta">476 тыс. подписчиков • 292 тыс. просмотров • 2 дня назад</div></div></div>
+                    <div class="thumbnail thumb-svg-3"><span class="time-badge">14:17</span></div>
+                    <div class="video-info"><div class="channel-icon"><i class="fas fa-users"></i></div><div class="video-details"><div class="video-title">ЗУМЕРЫ АТАКУЮТ ОДНОКЛАССНИКИ - БЕЗУМНЫЙ РЕЗУЛЬТАТ БЛОКИРОВОК</div><div class="channel-name">BVS</div><div class="video-meta">476 тыс. подписчиков • 292 тыс. просмотров • 2 дня назад</div></div></div>
                 </div>
                 <div class="video-card">
-                    <div class="thumbnail bg6"><span class="time-badge">5:15</span></div>
-                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">Почему диск C называется C, а не A или B?</div><div class="channel-name">QQUUAS</div><div class="video-meta">567 подписчиков • 63 тыс. просмотров • 3 недели назад</div></div></div>
+                    <div class="thumbnail thumb-svg-4"><span class="time-badge">5:15</span></div>
+                    <div class="video-info"><div class="channel-icon"><i class="fas fa-hard-drive"></i></div><div class="video-details"><div class="video-title">Почему диск C называется C, а не A или B?</div><div class="channel-name">QQUUAS</div><div class="video-meta">567 подписчиков • 63 тыс. просмотров • 3 недели назад</div></div></div>
                 </div>
             </div>
         </div>
