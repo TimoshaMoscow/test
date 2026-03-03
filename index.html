@@ -223,20 +223,6 @@
             letter-spacing: 0.5px;
         }
 
-        .subscription-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: #b8860b;
-            display: inline-block;
-            margin-right: 16px;
-        }
-
-        .subs-text {
-            display: flex;
-            align-items: center;
-        }
-
         .footer-links {
             padding: 16px 12px;
             font-size: 13px;
@@ -248,6 +234,7 @@
             color: #717171;
             text-decoration: none;
             margin-right: 8px;
+            display: inline-block;
         }
 
         .footer-links div {
@@ -282,6 +269,7 @@
             color: #fff;
             white-space: nowrap;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
 
         .chip.active {
@@ -303,6 +291,11 @@
 
         .video-card {
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .video-card:hover {
+            transform: scale(1.02);
         }
 
         .thumbnail {
@@ -327,6 +320,16 @@
             padding: 3px 6px;
             border-radius: 4px;
             font-weight: 500;
+        }
+
+        .live-badge {
+            background-color: #ff0000;
+            color: white;
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
         }
 
         .video-info {
@@ -376,6 +379,7 @@
         }
 
         .verified {
+            color: #aaa;
             font-size: 14px;
         }
 
@@ -394,6 +398,7 @@
 
         .shorts-icon {
             font-size: 28px;
+            color: #ff0000;
         }
 
         .shorts-grid {
@@ -404,6 +409,11 @@
 
         .short-card {
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .short-card:hover {
+            transform: scale(1.02);
         }
 
         .short-thumb {
@@ -413,6 +423,7 @@
             margin-bottom: 8px;
             background-size: cover;
             background-position: center;
+            position: relative;
             display: flex;
             align-items: flex-end;
             justify-content: flex-end;
@@ -423,6 +434,10 @@
             font-weight: 500;
             font-size: 15px;
             margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .short-stats {
@@ -430,33 +445,60 @@
             color: #aaa;
         }
 
-        /* SVG-обложки через background-image с data URI (SVG inline) */
-        .thumb-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23333333'/%3E%3Ccircle cx='100' cy='56' r='40' fill='%23ff4444'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dy='.3em'%3E7 ночей%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Cpath d='M50,30 L150,30 L140,80 L60,80 Z' fill='%23e67e22'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EДубай%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233d6e3d'/%3E%3Ccircle cx='70' cy='50' r='15' fill='%2395a5a6'/%3E%3Ccircle cx='130' cy='50' r='15' fill='%2395a5a6'/%3E%3Ctext x='100' y='80' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EСТИНТ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238b5a2b'/%3E%3Crect x='40' y='30' width='120' height='40' fill='%23b88a4d'/%3E%3Ctext x='100' y='58' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EМод дня%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%236b1e4a'/%3E%3Cpath d='M50,30 Q100,10 150,30 L140,80 Q100,100 60,80 Z' fill='%23d96c9e'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3Evtuber%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-6 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23c04e2e'/%3E%3Crect x='60' y='30' width='30' height='50' fill='%238b9bb4'/%3E%3Crect x='110' y='30' width='30' height='50' fill='%238b9bb4'/%3E%3Ctext x='100' y='95' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3Eфакты%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-7 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232e5c4b'/%3E%3Ccircle cx='100' cy='46' r='25' fill='%23f1c40f'/%3E%3Ctext x='100' y='52' font-family='Arial' font-size='18' fill='black' text-anchor='middle'%3E№230%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-8 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239e6b3b'/%3E%3Cpath d='M40,70 L160,70 L140,95 L60,95 Z' fill='%23bdc3c7'/%3E%3Ctext x='100' y='55' font-family='Arial' font-size='24' fill='white' text-anchor='middle'%3E🔊%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-9 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233b2e2e'/%3E%3Cpolygon points='100,30 130,70 70,70' fill='%23e67e22'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3ET2x2%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-10 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%231e4a6b'/%3E%3Ccircle cx='50' cy='56' r='20' fill='%23f39c12'/%3E%3Ccircle cx='150' cy='56' r='20' fill='%23f39c12'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EЭФИР%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-11 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233a6b1e'/%3E%3Cpath d='M50,40 L150,40 L130,80 L70,80 Z' fill='%239b59b6'/%3E%3Ctext x='100' y='65' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EДжем%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-12 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238b5a2b'/%3E%3Ctext x='40' y='40' font-family='Arial' font-size='24' fill='white'%3E🐭%3C/text%3E%3Ctext x='100' y='80' font-family='Arial' font-size='16' fill='white'%3Eстинт%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-13 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%236b1e4a'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3EПУТИН%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-14 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232e5c4b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3EХоррор%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-15 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239e6b3b'/%3E%3Ccircle cx='100' cy='50' r='30' fill='%23f1c40f'/%3E%3Ctext x='100' y='58' font-family='Arial' font-size='18' fill='black' text-anchor='middle'%3E🍗%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-16 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233b2e2e'/%3E%3Cpath d='M40,40 L160,40 L150,80 L50,80 Z' fill='%23f39c12'/%3E%3Ctext x='100' y='65' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-17 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%231e4a6b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🍔%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-18 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233a6b1e'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🦠%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-19 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238b5a2b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3EINFECTED%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-20 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%236b1e4a'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3E🤣%3C/text%3E%3C/svg%3E"); }
+        .topic-section {
+            margin: 30px 0 20px;
+            color: #aaa;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
 
-        /* Для коротких видео (shorts) используем те же классы */
-        .short-thumb-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%23333333'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
-        .short-thumb-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%232a4e6b'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E👻%3C/text%3E%3C/svg%3E"); }
-        .short-thumb-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%233d6e3d'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E🍗%3C/text%3E%3C/svg%3E"); }
-        .short-thumb-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%238b5a2b'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='28' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
+        .topic-title {
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .topic-item {
+            cursor: pointer;
+            padding: 5px 0;
+        }
+
+        .topic-item:hover {
+            color: #fff;
+        }
+
+        /* SVG-обложки */
+        .thumb-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232c3e50'/%3E%3Ccircle cx='100' cy='56' r='40' fill='%23e74c3c'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dy='.3em'%3E7 НОЧЕЙ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Cpath d='M50,30 L150,30 L140,80 L60,80 Z' fill='%23f39c12'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EДУБАЙ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2327ae60'/%3E%3Ccircle cx='70' cy='50' r='15' fill='%2395a5a6'/%3E%3Ccircle cx='130' cy='50' r='15' fill='%2395a5a6'/%3E%3Ctext x='100' y='85' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EСТИНТ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238e44ad'/%3E%3Crect x='40' y='30' width='120' height='40' fill='%23f1c40f'/%3E%3Ctext x='100' y='58' font-family='Arial' font-size='16' fill='black' text-anchor='middle'%3EМОД ДНЯ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23c0392b'/%3E%3Cpath d='M50,30 Q100,10 150,30 L140,80 Q100,100 60,80 Z' fill='%23f39c12'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EVTUBER%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-6 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23d35400'/%3E%3Crect x='60' y='30' width='30' height='50' fill='%237f8c8d'/%3E%3Crect x='110' y='30' width='30' height='50' fill='%237f8c8d'/%3E%3Ctext x='100' y='95' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EФАКТЫ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-7 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2316a085'/%3E%3Ccircle cx='100' cy='46' r='25' fill='%23f1c40f'/%3E%3Ctext x='100' y='52' font-family='Arial' font-size='20' fill='black' text-anchor='middle'%3E230%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-8 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e67e22'/%3E%3Cpath d='M40,70 L160,70 L140,95 L60,95 Z' fill='%23ecf0f1'/%3E%3Ctext x='100' y='55' font-family='Arial' font-size='30' fill='white' text-anchor='middle'%3E🔊%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-9 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232c3e50'/%3E%3Cpolygon points='100,30 130,70 70,70' fill='%23e67e22'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3ET2X2%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-10 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%237f8c8d'/%3E%3Ccircle cx='50' cy='56' r='20' fill='%23e74c3c'/%3E%3Ccircle cx='150' cy='56' r='20' fill='%23e74c3c'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EЭФИР%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-11 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239b59b6'/%3E%3Cpath d='M50,40 L150,40 L130,80 L70,80 Z' fill='%23f1c40f'/%3E%3Ctext x='100' y='65' font-family='Arial' font-size='20' fill='black' text-anchor='middle'%3EДЖЕМ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-12 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e67e22'/%3E%3Ctext x='50' y='50' font-family='Arial' font-size='40' fill='white'%3E🐭%3C/text%3E%3Ctext x='100' y='85' font-family='Arial' font-size='16' fill='white'%3EСТИНТ%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-13 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23333'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🍔%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-14 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🦠%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-15 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2327ae60'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🦠%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-16 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23c0392b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3EINFECTED%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-17 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23f39c12'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='24' fill='black' text-anchor='middle'%3E😂%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-18 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233498db'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🇫🇷%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-19 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e74c3c'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🎨%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-20 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239b59b6'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🤖%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-21 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23333'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E⭐%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-22 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E👻%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-23 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2327ae60'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E👥%3C/text%3E%3C/svg%3E"); }
+        .thumb-svg-24 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e67e22'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E💾%3C/text%3E%3C/svg%3E"); }
+
+        /* Shorts SVG */
+        .short-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%23333'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
+        .short-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%232a4e6b'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3E👻%3C/text%3E%3C/svg%3E"); }
+        .short-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%2327ae60'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3E🍗%3C/text%3E%3C/svg%3E"); }
+        .short-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%23f39c12'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='black' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
     </style>
 </head>
 <body>
@@ -488,13 +530,13 @@
                 <div class="section-item"><i class="fas fa-tv"></i>Подписки</div>
             </div>
             <div class="section">
-                <div class="section-item"><i class="fas fa-play-circle"></i>парадеевич</div>
-                <div class="section-item"><i class="fas fa-play-circle"></i>VIKOSIII</div>
-                <div class="section-item"><i class="fas fa-play-circle"></i>MrLololoshka (Роман Фильченков)</div>
-                <div class="section-item"><i class="fas fa-play-circle"></i>Морфикс</div>
-                <div class="section-item"><i class="fas fa-play-circle"></i>Nazzy</div>
-                <div class="section-item"><i class="fas fa-play-circle"></i>Fanlerok_live</div>
-                <div class="section-item"><i class="fas fa-play-circle"></i>Самый сахар</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>парадеевич</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>VIKOSIII</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>MrLololoshka (Роман Фильченков)</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Морфикс</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Nazzy</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Fanlerok_live</div>
+                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Самый сахар</div>
                 <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
             </div>
             <div class="section">
@@ -549,35 +591,35 @@
                 <span class="chip">Новое для вас</span>
             </div>
 
-            <!-- Основная сетка (первые видео) -->
+            <!-- Основная сетка видео -->
             <div class="video-grid">
-                <!-- 1 -->
+                <!-- 1: VIKOSIII - 7 НОЧЕЙ -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-1"><span class="time-badge">12:06</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-crown"></i></div>
                         <div class="video-details">
                             <div class="video-title">7 НОЧЕЙ с НЕЧИСТЬЮ — HALLOWEEN</div>
-                            <div class="channel-name">VIKOSIII <i class="fas fa-check-circle verified" style="color:#aaa;"></i></div>
+                            <div class="channel-name">VIKOSIII <i class="fas fa-check-circle verified"></i></div>
                             <div class="video-meta">278 тыс. подписчиков • 366 тыс. просмотров • 3 месяца назад</div>
-                            <div class="video-meta">83 VPH 7.4x Remix</div>
+                            <div class="video-meta">83 VPH • 7.4x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 2 -->
+                <!-- 2: ExileShow - Дубай -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-2"><span class="time-badge">2:00:33</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-globe"></i></div>
                         <div class="video-details">
                             <div class="video-title">Дал Свою Безлимитную Карту в Дубае! Потратили 5 МИЛЛИОНОВ! (Сатир, ФрамеТамер, Кореш, Парадеич)</div>
-                            <div class="channel-name">ExileShow <i class="fas fa-check-circle verified" style="color:#aaa;"></i></div>
+                            <div class="channel-name">ExileShow <i class="fas fa-check-circle verified"></i></div>
                             <div class="video-meta">6,01 млн подписчиков • 3,5 млн просмотров • 2 дня назад</div>
-                            <div class="video-meta">23.7K VPH 1.2x Remix</div>
+                            <div class="video-meta">23.7K VPH • 1.2x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 3 -->
+                <!-- 3: Логово Стинта - ТВИЧ -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-3"><span class="time-badge">4:19</span></div>
                     <div class="video-info">
@@ -586,66 +628,66 @@
                             <div class="video-title">ОФИЦИАЛЬНЫЙ АККАУНТ ТВИЧ ЗАШЕЛ К СТИНТУ НА СТРИМ</div>
                             <div class="channel-name">Логово Стинта</div>
                             <div class="video-meta">21,9 тыс. подписчиков • 241 тыс. просмотров • 1 год назад</div>
-                            <div class="video-meta">83 VPH &gt;100x Remix</div>
+                            <div class="video-meta">83 VPH • &gt;100x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 4 -->
+                <!-- 4: Майнкрафт Мод Дня -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-4"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-cube"></i></div>
                         <div class="video-details">
                             <div class="video-title">Майнкрафт Мод Дня от Ивуна! - №216 Dungeon Perpective</div>
-                            <div class="video-meta">84 тыс. просмотров • 2 деньs ago</div>
+                            <div class="video-meta">84 тыс. просмотров • 2 дня назад</div>
                         </div>
                     </div>
                 </div>
-                <!-- 5 -->
+                <!-- 5: VTUBER -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-5"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-paint-brush"></i></div>
                         <div class="video-details">
                             <div class="video-title">а кто не хочет? #vtuber #втубер #fyp #recomendation #vtubergirl</div>
-                            <div class="video-meta">359 тыс. просмотров • 6 months ago</div>
+                            <div class="video-meta">359 тыс. просмотров • 6 месяцев назад</div>
                         </div>
                     </div>
                 </div>
-                <!-- 6 -->
+                <!-- 6: факты о старом Майнкрафте -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-6"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-tree"></i></div>
                         <div class="video-details">
                             <div class="video-title">факты о старом Майнкрафте #майнкрафт</div>
-                            <div class="video-meta">4 тыс. просмотров • 5 деньs ago</div>
+                            <div class="video-meta">4 тыс. просмотров • 5 дней назад</div>
                         </div>
                     </div>
                 </div>
-                <!-- 7 -->
+                <!-- 7: ДУШНИЛА № 230 -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-7"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-angry"></i></div>
                         <div class="video-details">
                             <div class="video-title">ДУШНИЛА № 230</div>
-                            <div class="video-meta">2,3 млн просмотров • 1 month ago</div>
+                            <div class="video-meta">2,3 млн просмотров • 1 месяц назад</div>
                         </div>
                     </div>
                 </div>
-                <!-- 8 -->
+                <!-- 8: хардкорнейший звук -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-8"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-headphones"></i></div>
                         <div class="video-details">
                             <div class="video-title">хардкорнейший звук</div>
-                            <div class="video-meta">220 тыс. просмотров • 1 день ago</div>
+                            <div class="video-meta">220 тыс. просмотров • 1 день назад</div>
                         </div>
                     </div>
                 </div>
-                <!-- 9 -->
+                <!-- 9: T2x2 СМОТРИТ -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-9"><span class="time-badge">37:31</span></div>
                     <div class="video-info">
@@ -654,13 +696,13 @@
                             <div class="video-title">T2x2 СМОТРИТ - 1 Минута vs 10 Лет: Челлендж По Строительству</div>
                             <div class="channel-name">T2x2 Live</div>
                             <div class="video-meta">37,6 тыс. подписчиков • 80 тыс. просмотров • 17 часов назад</div>
-                            <div class="video-meta">3.8K VPH Remix</div>
+                            <div class="video-meta">3.8K VPH • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 10 эфир -->
+                <!-- 10: ЭФИР Calamy craft -->
                 <div class="video-card">
-                    <div class="thumbnail thumb-svg-10"><span class="time-badge">ЭФИР</span></div>
+                    <div class="thumbnail thumb-svg-10"><span class="live-badge">ЭФИР</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-fire"></i></div>
                         <div class="video-details">
@@ -671,54 +713,54 @@
                         </div>
                     </div>
                 </div>
-                <!-- 11 джем -->
+                <!-- 11: Джем -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-11"><span class="time-badge">Джем</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-headphones-alt"></i></div>
                         <div class="video-details">
-                            <div class="video-title">Мой джем Плейлист, составленный специально для вас</div>
-                            <div class="channel-name">191 подписчики</div>
-                            <div class="video-meta">1.4x Remix</div>
+                            <div class="video-title">Мой джем • Плейлист, составленный специально для вас</div>
+                            <div class="channel-name">191 подписчик</div>
+                            <div class="video-meta">1.4x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 12 shorts ещё -->
+                <!-- 12: МЫШКА СТИНТА -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-12"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-mouse"></i></div>
                         <div class="video-details">
                             <div class="video-title">МЫШКА СТИНТА ЗА 17к #стинт #stint #stintik #юмор #мем #мемы</div>
-                            <div class="video-meta">3,8 млн просмотров • 1 year ago</div>
+                            <div class="video-meta">3,8 млн просмотров • 1 год назад</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Блок Shorts (горизонтальный) -->
+            <!-- Блок Shorts -->
             <div class="shorts-section">
                 <div class="shorts-header">
                     <i class="fas fa-bolt shorts-icon"></i> Shorts
                 </div>
                 <div class="shorts-grid">
                     <div class="short-card">
-                        <div class="short-thumb short-thumb-svg-1"><span class="time-badge">#</span></div>
+                        <div class="short-thumb short-svg-1"></div>
                         <div class="short-title">❗️ПУТИНА НЕ СЛУШАЮТ РОДСТВЕННИКИ ЧИНУШ</div>
                         <div class="short-stats">156 тыс. просмотров</div>
                     </div>
                     <div class="short-card">
-                        <div class="short-thumb short-thumb-svg-2"></div>
+                        <div class="short-thumb short-svg-2"></div>
                         <div class="short-title">Самая Страшная Хоррор Карта в МАЙНКРАФТ</div>
                         <div class="short-stats">62 тыс. просмотров</div>
                     </div>
                     <div class="short-card">
-                        <div class="short-thumb short-thumb-svg-3"></div>
+                        <div class="short-thumb short-svg-3"></div>
                         <div class="short-title">Котлета по Деревеньски (Київськи) 🍗 #cooking #простоісмачно #food #recipe #рецепт</div>
                         <div class="short-stats">52 тыс. просмотров</div>
                     </div>
                     <div class="short-card">
-                        <div class="short-thumb short-thumb-svg-4"></div>
+                        <div class="short-thumb short-svg-4"></div>
                         <div class="short-title">Молния разошлась #sleduck #vtuber #twitch</div>
                         <div class="short-stats">56 тыс. просмотров</div>
                     </div>
@@ -727,7 +769,7 @@
 
             <!-- Продолжение сетки видео -->
             <div class="video-grid">
-                <!-- 13 -->
+                <!-- 13: ПРОКС - Фастфуды -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-13"><span class="time-badge">9:40</span></div>
                     <div class="video-info">
@@ -736,26 +778,26 @@
                             <div class="video-title">Я посетил Худшие Фастфуды своего Города</div>
                             <div class="channel-name">ПРОКС</div>
                             <div class="video-meta">14,2 тыс. подписчиков • 8,3 тыс. просмотров • 1 день назад</div>
-                            <div class="video-meta">162 VPH 8x Remix</div>
+                            <div class="video-meta">162 VPH • 8x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 14 -->
+                <!-- 14: Scammer Payback - вирус -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-14"><span class="time-badge">18:10</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-bug"></i></div>
                         <div class="video-details">
                             <div class="video-title">Я создал вирус для этого самоуверенного мошенника</div>
-                            <div class="channel-name">Scammer Payback</div>
+                            <div class="channel-name">Scammer Payback <i class="fas fa-check-circle verified"></i></div>
                             <div class="video-meta">9 млн подписчиков • 1,7 млн просмотров • 2 дня назад</div>
-                            <div class="video-meta">43.5K VPH 1.1x Remix</div>
+                            <div class="video-meta">43.5K VPH • 1.1x • Remix (Дубляж)</div>
                         </div>
                     </div>
                 </div>
-                <!-- 15 эфир -->
+                <!-- 15: ЭФИР Plague Inc -->
                 <div class="video-card">
-                    <div class="thumbnail thumb-svg-15"><span class="time-badge">ЭФИР</span></div>
+                    <div class="thumbnail thumb-svg-15"><span class="live-badge">ЭФИР</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-virus"></i></div>
                         <div class="video-details">
@@ -765,20 +807,20 @@
                         </div>
                     </div>
                 </div>
-                <!-- 16 -->
+                <!-- 16: Nazzy - INFECTED -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-16"><span class="time-badge">23:01</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-skull"></i></div>
                         <div class="video-details">
                             <div class="video-title">ОНИ - ЗАРАЖЁННЫЕ, а я НЕТ. INFECTED</div>
-                            <div class="channel-name">Nazzy</div>
+                            <div class="channel-name">Nazzy <i class="fas fa-check-circle verified"></i></div>
                             <div class="video-meta">1,89 млн подписчиков • 1,4 млн просмотров • 3 года назад</div>
-                            <div class="video-meta">16 VPH 2.8x Remix</div>
+                            <div class="video-meta">16 VPH • 2.8x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 17 -->
+                <!-- 17: БРАТИШКИН -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-17"><span class="time-badge">13:00</span></div>
                     <div class="video-info">
@@ -787,24 +829,24 @@
                             <div class="video-title">БРАТИШКИН СНОВА ЗАРЕДЖБАЙТИЛ ИНТЕРНЕТ (удачно)</div>
                             <div class="channel-name">Bratishkin Rofls 2</div>
                             <div class="video-meta">82,9 тыс. подписчиков • 36 тыс. просмотров • 16 часов назад</div>
-                            <div class="video-meta">2.1K VPH Remix</div>
+                            <div class="video-meta">2.1K VPH • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 18 -->
+                <!-- 18: парадеевич - Франция -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-18"><span class="time-badge">27:35</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-plane"></i></div>
                         <div class="video-details">
                             <div class="video-title">ПЛАЧУ ТОЛЬКО РЕКЛАМОЙ // Добраться до Франции</div>
-                            <div class="channel-name">парадеевич</div>
+                            <div class="channel-name">парадеевич <i class="fas fa-check-circle verified"></i></div>
                             <div class="video-meta">2,4 млн подписчиков • 2,5 млн просмотров • 9 месяцев назад</div>
-                            <div class="video-meta">154 VPH 1.3x Remix</div>
+                            <div class="video-meta">154 VPH • 1.3x • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 19 -->
+                <!-- 19: PollyZavr - Битва художников -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-19"><span class="time-badge">26:11</span></div>
                     <div class="video-info">
@@ -813,11 +855,11 @@
                             <div class="video-title">Битва художников: Угадай Персонажа по Рисунку в майнкрафт! @Gradus @Rimekeke</div>
                             <div class="channel-name">PollyZavr</div>
                             <div class="video-meta">20,8 тыс. подписчиков • 54 тыс. просмотров • 19 часов назад</div>
-                            <div class="video-meta">1.7K VPH Remix</div>
+                            <div class="video-meta">1.7K VPH • Remix</div>
                         </div>
                     </div>
                 </div>
-                <!-- 20 -->
+                <!-- 20: likonit ik - ChatGPT -->
                 <div class="video-card">
                     <div class="thumbnail thumb-svg-20"><span class="time-badge">6:53</span></div>
                     <div class="video-info">
@@ -826,36 +868,78 @@
                             <div class="video-title">КАК CHATGPT РЕШИТ ЕГЭ ПО ИНФОРМАТИКЕ В 2026?</div>
                             <div class="channel-name">likonit ik</div>
                             <div class="video-meta">1,78 тыс. подписчиков • 10 тыс. просмотров • 1 день назад</div>
-                            <div class="video-meta">114 VPH Remix</div>
+                            <div class="video-meta">114 VPH • Remix</div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Ещё темы -->
-            <div style="margin: 20px 0 10px; color: #aaa; display: flex; gap: 20px; flex-wrap: wrap;">
-                <span style="font-weight: 500;">Ещё темы:</span>
-                <span>Модификации Minecraft</span><span>Minecraft</span><span>Симуляторы</span><span>Платформеры</span>
-                <span>Кулинарные шоу</span><span>Рэп</span><span>Туризм</span><span>Математика</span>
+            <div class="topic-section">
+                <span class="topic-title">Ещё темы:</span>
+                <span class="topic-item">Модификации Minecraft</span>
+                <span class="topic-item">Minecraft</span>
+                <span class="topic-item">Симуляторы</span>
+                <span class="topic-item">Платформеры</span>
+                <span class="topic-item">Кулинарные шоу</span>
+                <span class="topic-item">Рэп</span>
+                <span class="topic-item">Туризм</span>
+                <span class="topic-item">Математика</span>
             </div>
-            
-            <!-- Финальные карточки -->
+
+            <!-- Финальная сетка -->
             <div class="video-grid">
+                <!-- 21: Nyamura -->
                 <div class="video-card">
-                    <div class="thumbnail thumb-svg-1"><span class="time-badge">20:45</span></div>
-                    <div class="video-info"><div class="channel-icon"><i class="fas fa-star"></i></div><div class="video-details"><div class="video-title">Нямура СЧИТАЕТ СЕБЯ НЕ ПОПУЛЯРНОЙ В РУВИТУБИНГЕ...</div><div class="channel-name">Neo - Nyamura Narezki</div><div class="video-meta">1,78 тыс. подписчиков • 2,7 тыс. просмотров • 2 недели назад</div></div></div>
+                    <div class="thumbnail thumb-svg-21"><span class="time-badge">20:45</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon"><i class="fas fa-star"></i></div>
+                        <div class="video-details">
+                            <div class="video-title">Нямура СЧИТАЕТ СЕБЯ НЕ ПОПУЛЯРНОЙ В РУВИТУБИНГЕ, НАКРУТКА ОНЛАЙНА, ХЕЙТ Нямуры</div>
+                            <div class="channel-name">Neo - Nyamura Narezki</div>
+                            <div class="video-meta">1,78 тыс. подписчиков • 2,7 тыс. просмотров • 2 недели назад</div>
+                            <div class="video-meta">1 VPH • 1.2x • Remix</div>
+                        </div>
+                    </div>
                 </div>
+                <!-- 22: Говард и Nazzy -->
                 <div class="video-card">
-                    <div class="thumbnail thumb-svg-2"><span class="time-badge">36:38</span></div>
-                    <div class="video-info"><div class="channel-icon"><i class="fas fa-ghost"></i></div><div class="video-details"><div class="video-title">Я Показал Хоррор Моды Тому, Кто НИКОГДА Не Играл с Ними… (+ Nazzy)</div><div class="channel-name">Говард и Nazzy</div><div class="video-meta">129 тыс. подписчиков • 283 тыс. просмотров • 2 дня назад</div></div></div>
+                    <div class="thumbnail thumb-svg-22"><span class="time-badge">36:38</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon"><i class="fas fa-ghost"></i></div>
+                        <div class="video-details">
+                            <div class="video-title">Я Показал Хоррор Моды Тому, Кто НИКОГДА Не Играл с Ними… (+ Nazzy)</div>
+                            <div class="channel-name">Говард и Nazzy</div>
+                            <div class="video-meta">129 тыс. подписчиков • 283 тыс. просмотров • 2 дня назад</div>
+                            <div class="video-meta">1.6K VPH • 5x • Remix</div>
+                        </div>
+                    </div>
                 </div>
+                <!-- 23: BVS - ЗУМЕРЫ -->
                 <div class="video-card">
-                    <div class="thumbnail thumb-svg-3"><span class="time-badge">14:17</span></div>
-                    <div class="video-info"><div class="channel-icon"><i class="fas fa-users"></i></div><div class="video-details"><div class="video-title">ЗУМЕРЫ АТАКУЮТ ОДНОКЛАССНИКИ - БЕЗУМНЫЙ РЕЗУЛЬТАТ БЛОКИРОВОК</div><div class="channel-name">BVS</div><div class="video-meta">476 тыс. подписчиков • 292 тыс. просмотров • 2 дня назад</div></div></div>
+                    <div class="thumbnail thumb-svg-23"><span class="time-badge">14:17</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon"><i class="fas fa-users"></i></div>
+                        <div class="video-details">
+                            <div class="video-title">ЗУМЕРЫ АТАКУЮТ ОДНОКЛАССНИКИ - БЕЗУМНЫЙ РЕЗУЛЬТАТ БЛОКИРОВОК</div>
+                            <div class="channel-name">BVS <i class="fas fa-check-circle verified"></i></div>
+                            <div class="video-meta">476 тыс. подписчиков • 292 тыс. просмотров • 2 дня назад</div>
+                            <div class="video-meta">1.3K VPH • 1.2x • Remix</div>
+                        </div>
+                    </div>
                 </div>
+                <!-- 24: QQUUAS - диск C -->
                 <div class="video-card">
-                    <div class="thumbnail thumb-svg-4"><span class="time-badge">5:15</span></div>
-                    <div class="video-info"><div class="channel-icon"><i class="fas fa-hard-drive"></i></div><div class="video-details"><div class="video-title">Почему диск C называется C, а не A или B?</div><div class="channel-name">QQUUAS</div><div class="video-meta">567 подписчиков • 63 тыс. просмотров • 3 недели назад</div></div></div>
+                    <div class="thumbnail thumb-svg-24"><span class="time-badge">5:15</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon"><i class="fas fa-hard-drive"></i></div>
+                        <div class="video-details">
+                            <div class="video-title">Почему диск C называется C, а не A или B?</div>
+                            <div class="channel-name">QQUUAS</div>
+                            <div class="video-meta">567 подписчиков • 63 тыс. просмотров • 3 недели назад</div>
+                            <div class="video-meta">34 VPH • &gt;100x • Remix</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
