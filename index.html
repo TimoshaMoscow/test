@@ -15,8 +15,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             line-height: 1.6;
-            color: #111827;
-            background: #ffffff;
+            color: #333;
         }
 
         .container {
@@ -45,7 +44,6 @@
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #111827;
         }
 
         .nav {
@@ -55,8 +53,7 @@
 
         .nav a {
             text-decoration: none;
-            color: #111827;
-            font-weight: 500;
+            color: #333;
         }
 
         .nav a:hover {
@@ -86,23 +83,20 @@
         .hero {
             padding: 80px 0;
             text-align: center;
-            background: #ffffff;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
             line-height: 1.2;
-            color: #111827;
         }
 
         .hero p {
             font-size: 20px;
-            color: #374151;
+            color: #666;
             margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .hero-buttons {
@@ -127,7 +121,7 @@
 
         .btn-secondary {
             background: transparent;
-            color: #111827;
+            color: #333;
             text-decoration: none;
             padding: 14px 32px;
             border-radius: 8px;
@@ -151,7 +145,7 @@
 
         .logos p {
             text-transform: uppercase;
-            color: #374151;
+            color: #666;
             letter-spacing: 1px;
             margin-bottom: 40px;
         }
@@ -166,13 +160,12 @@
         .logos-grid span {
             font-size: 24px;
             font-weight: bold;
-            color: #4b5563;
+            color: #999;
         }
 
         /* Преимущества */
         .features {
             padding: 80px 0;
-            background: #ffffff;
         }
 
         .section-title {
@@ -183,11 +176,10 @@
         .section-title h2 {
             font-size: 36px;
             margin-bottom: 16px;
-            color: #111827;
         }
 
         .section-title p {
-            color: #374151;
+            color: #666;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -218,11 +210,10 @@
         .feature-card h3 {
             font-size: 20px;
             margin-bottom: 10px;
-            color: #111827;
         }
 
         .feature-card p {
-            color: #374151;
+            color: #666;
         }
 
         /* Отзывы */
@@ -251,7 +242,7 @@
         }
 
         .testimonial-text {
-            color: #374151;
+            color: #555;
             margin-bottom: 20px;
             font-style: italic;
         }
@@ -259,11 +250,10 @@
         .author-name {
             font-weight: bold;
             margin-bottom: 4px;
-            color: #111827;
         }
 
         .author-title {
-            color: #4b5563;
+            color: #888;
             font-size: 14px;
         }
 
@@ -278,14 +268,12 @@
         .cta h2 {
             font-size: 36px;
             margin-bottom: 16px;
-            color: white;
         }
 
         .cta p {
             font-size: 18px;
             margin-bottom: 30px;
             opacity: 0.9;
-            color: white;
         }
 
         .cta .btn-primary {
@@ -303,7 +291,6 @@
             margin-top: 20px;
             font-size: 14px;
             opacity: 0.8;
-            color: white;
         }
 
         /* Футер */
@@ -321,10 +308,6 @@
             gap: 30px;
         }
 
-        .footer .logo {
-            color: white;
-        }
-
         .footer-links {
             display: flex;
             gap: 30px;
@@ -332,7 +315,7 @@
         }
 
         .footer-links a {
-            color: #d1d5db;
+            color: #999;
             text-decoration: none;
         }
 
@@ -341,7 +324,7 @@
         }
 
         .copyright {
-            color: #9ca3af;
+            color: #666;
         }
 
         /* Адаптивность */
@@ -381,13 +364,14 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">Логотип</div>
+                <div class="logo">ООО "Ромашка"</div>
                 <nav class="nav">
-                    <a href="#">О нас</a>
-                    <a href="#">Услуги</a>
+                    <a href="#">Главная</a>
+                    <a href="#">Продукты</a>
+                    <a href="#">Цены</a>
                     <a href="#">Контакты</a>
                 </nav>
-                <button class="header-btn">Связаться</button>
+                <button class="header-btn">Войти</button>
             </div>
         </div>
     </header>
@@ -400,11 +384,11 @@
         <!-- Hero секция -->
         <section class="hero">
             <div class="container">
-                <h1>Заголовок, который цепляет внимание</h1>
-                <p>Подзаголовок с описанием ценности продукта. 2-3 предложения, объясняющие, почему это нужно клиенту.</p>
+                <h1>Сделайте свой бизнес эффективнее с нашим сервисом</h1>
+                <p>Автоматизация процессов, увеличение продаж и экономия времени — всё в одном решении.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn-primary">Начать сейчас</a>
-                    <a href="#" class="btn-secondary">Узнать больше</a>
+                    <a href="#" class="btn-primary">Попробовать бесплатно</a>
+                    <a href="#" class="btn-secondary">Смотреть демо</a>
                 </div>
             </div>
         </section>
@@ -412,13 +396,13 @@
         <!-- Логотипы -->
         <section class="logos">
             <div class="container">
-                <p>Доверяют ведущие компании</p>
+                <p>Нам доверяют</p>
                 <div class="logos-grid">
-                    <span>NETLIFY</span>
-                    <span>VERCEL</span>
-                    <span>ATLASSIAN</span>
-                    <span>GITHUB</span>
-                    <span>GOOGLE</span>
+                    <span>Яндекс</span>
+                    <span>Сбер</span>
+                    <span>Тинькофф</span>
+                    <span>Ozon</span>
+                    <span>Wildberries</span>
                 </div>
             </div>
         </section>
@@ -428,24 +412,39 @@
             <div class="container">
                 <div class="section-title">
                     <h2>Почему выбирают нас</h2>
-                    <p>Краткое описание преимуществ. Что делает продукт уникальным.</p>
+                    <p>Мы предлагаем современные решения для вашего бизнеса</p>
                 </div>
                 
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">⚡</div>
-                        <h3>Быстро</h3>
-                        <p>Описание преимущества. Работает молниеносно.</p>
+                        <h3>Высокая скорость</h3>
+                        <p>Наши серверы обрабатывают запросы за миллисекунды, обеспечивая мгновенный отклик.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>Надежно</h3>
-                        <p>Безопасность и защита данных.</p>
+                        <div class="feature-icon">🔒</div>
+                        <h3>Безопасность данных</h3>
+                        <p>Шифрование 256 бит и регулярные аудиты защищают вашу информацию.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Детальная аналитика</h3>
+                        <p>Понятные отчёты и графики помогут принимать верные решения.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Интеграция с 1С</h3>
+                        <p>Автоматический обмен данными с популярными бухгалтерскими системами.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📱</div>
-                        <h3>Адаптивно</h3>
-                        <p>Работает на всех устройствах.</p>
+                        <h3>Мобильное приложение</h3>
+                        <p>Управляйте бизнесом с телефона где бы вы ни находились.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Поддержка 24/7</h3>
+                        <p>Наши специалисты всегда готовы помочь в любое время суток.</p>
                     </div>
                 </div>
             </div>
@@ -455,28 +454,28 @@
         <section class="testimonials">
             <div class="container">
                 <div class="section-title">
-                    <h2>Отзывы клиентов</h2>
-                    <p>Что говорят о нас</p>
+                    <h2>Что говорят клиенты</h2>
+                    <p>Реальные отзывы людей, которые уже пользуются нашим сервисом</p>
                 </div>
                 
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Отличный сервис! Всё работает идеально. Обязательно буду рекомендовать."</p>
-                        <div class="author-name">Анна Петрова</div>
-                        <div class="author-title">CEO, Company</div>
+                        <p class="testimonial-text">"Перешли на этот сервис полгода назад. Продажи выросли на 40%, а времени на рутину уходит в 2 раза меньше. Очень довольны!"</p>
+                        <div class="author-name">Алексей Иванов</div>
+                        <div class="author-title">Владелец магазина "Уют"</div>
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Сэкономили кучу времени благодаря этому продукту. Интерфейс интуитивно понятный."</p>
-                        <div class="author-name">Иван Сидоров</div>
-                        <div class="author-title">Маркетолог</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Лучшее решение на рынке. Поддержка отвечает мгновенно, багов нет."</p>
+                        <p class="testimonial-text">"Интуитивно понятный интерфейс, отличная техподдержка. Интеграция с нашей CRM прошла за один день. Рекомендую!"</p>
                         <div class="author-name">Екатерина Смирнова</div>
-                        <div class="author-title">Product Manager</div>
+                        <div class="author-title">CEO, Digital Agency</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Цена качество на высоте. Пользуемся год, ни разу не пожалели. Особенно нравится аналитика и отчёты."</p>
+                        <div class="author-name">Михаил Петров</div>
+                        <div class="author-title">Директор по развитию</div>
                     </div>
                 </div>
             </div>
@@ -485,10 +484,10 @@
         <!-- CTA -->
         <section class="cta">
             <div class="container">
-                <h2>Готовы начать?</h2>
-                <p>Присоединяйтесь к тысячам довольных клиентов</p>
-                <a href="#" class="btn-primary">Попробовать бесплатно →</a>
-                <div class="cta-small">Без карты, 14 дней бесплатно</div>
+                <h2>Начните экономить время уже сегодня</h2>
+                <p>Первые 14 дней — бесплатно. Без комиссий и скрытых платежей.</p>
+                <a href="#" class="btn-primary">Оставить заявку</a>
+                <div class="cta-small">Не требуется привязка карты</div>
             </div>
         </section>
 
@@ -498,12 +497,13 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="logo">Логотип</div>
+                <div class="logo" style="color: white;">ООО "Ромашка"</div>
                 <div class="footer-links">
-                    <a href="#">О нас</a>
-                    <a href="#">Блог</a>
+                    <a href="#">О компании</a>
+                    <a href="#">Документы</a>
+                    <a href="#">Партнёрам</a>
+                    <a href="#">Вакансии</a>
                     <a href="#">Контакты</a>
-                    <a href="#">Политика</a>
                 </div>
                 <div class="copyright">© 2025 Все права защищены</div>
             </div>
