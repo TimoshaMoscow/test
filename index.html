@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Базовый шаблон лендинга</title>
+    <title>TStudios · Тимошка из Москвы</title>
     <style>
-        /* Базовые сбросы */
         * {
             margin: 0;
             padding: 0;
@@ -13,24 +12,26 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #f1f5f9;
             line-height: 1.6;
-            color: #333;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
-        /* Хедер */
+        /* хедер */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid #eee;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #1e293b;
             z-index: 100;
         }
 
@@ -38,64 +39,76 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 16px 0;
         }
 
         .logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a78bfa, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav {
             display: flex;
-            gap: 30px;
+            gap: 32px;
         }
 
         .nav a {
             text-decoration: none;
-            color: #333;
+            color: #cbd5e1;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
         .nav a:hover {
-            color: #2563eb;
+            color: #a78bfa;
         }
 
         .header-btn {
-            background: #2563eb;
-            color: white;
+            background: linear-gradient(135deg, #a78bfa, #38bdf8);
+            color: #0f172a;
+            font-weight: 600;
             border: none;
             padding: 10px 24px;
-            border-radius: 8px;
+            border-radius: 40px;
             cursor: pointer;
             font-size: 16px;
+            transition: opacity 0.2s;
         }
 
         .header-btn:hover {
-            background: #1d4ed8;
+            opacity: 0.9;
         }
 
-        /* Отступ для фиксированного хедера */
         .header-offset {
             height: 80px;
         }
 
-        /* Hero секция */
+        /* hero */
         .hero {
-            padding: 80px 0;
+            padding: 80px 0 60px;
             text-align: center;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 52px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a78bfa, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
             line-height: 1.2;
         }
 
         .hero p {
             font-size: 20px;
-            color: #666;
+            color: #94a3b8;
             margin-bottom: 40px;
         }
 
@@ -103,69 +116,79 @@
             display: flex;
             gap: 16px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn-primary {
-            background: #2563eb;
-            color: white;
+            background: linear-gradient(135deg, #a78bfa, #38bdf8);
+            color: #0f172a;
+            font-weight: 600;
             text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 8px;
+            padding: 14px 36px;
+            border-radius: 40px;
             font-size: 18px;
             display: inline-block;
+            transition: opacity 0.2s;
         }
 
         .btn-primary:hover {
-            background: #1d4ed8;
+            opacity: 0.9;
         }
 
         .btn-secondary {
             background: transparent;
-            color: #333;
+            color: #f1f5f9;
             text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 8px;
+            padding: 14px 36px;
+            border-radius: 40px;
             font-size: 18px;
-            border: 1px solid #ddd;
+            border: 1px solid #334155;
             display: inline-block;
+            transition: border-color 0.2s;
         }
 
         .btn-secondary:hover {
-            border-color: #2563eb;
+            border-color: #a78bfa;
         }
 
-        /* Секция с логотипами */
+        /* логотипы / проекты */
         .logos {
             padding: 60px 0;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            background: #f9fafb;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+            background: #0b1422;
             text-align: center;
         }
 
         .logos p {
             text-transform: uppercase;
-            color: #666;
-            letter-spacing: 1px;
+            color: #64748b;
+            letter-spacing: 2px;
+            font-size: 14px;
             margin-bottom: 40px;
         }
 
         .logos-grid {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 60px;
             flex-wrap: wrap;
         }
 
         .logos-grid span {
-            font-size: 24px;
-            font-weight: bold;
-            color: #999;
+            font-size: 22px;
+            font-weight: 600;
+            color: #94a3b8;
+            background: #1e293b;
+            padding: 8px 24px;
+            border-radius: 60px;
+            border: 1px solid #334155;
         }
 
-        /* Преимущества */
+        /* особенности / что делаю */
         .features {
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .section-title {
@@ -174,14 +197,16 @@
         }
 
         .section-title h2 {
-            font-size: 36px;
+            font-size: 40px;
+            font-weight: 700;
             margin-bottom: 16px;
         }
 
         .section-title p {
-            color: #666;
+            color: #94a3b8;
             max-width: 600px;
             margin: 0 auto;
+            font-size: 18px;
         }
 
         .features-grid {
@@ -191,35 +216,44 @@
         }
 
         .feature-card {
-            text-align: center;
-            padding: 20px;
+            background: #1e293b;
+            padding: 32px;
+            border-radius: 32px;
+            border: 1px solid #334155;
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
         }
 
         .feature-icon {
             width: 64px;
             height: 64px;
-            background: #e6f0ff;
-            border-radius: 50%;
+            background: linear-gradient(135deg, #a78bfa, #38bdf8);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin-bottom: 24px;
             font-size: 32px;
+            color: #0f172a;
         }
 
         .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #f1f5f9;
         }
 
         .feature-card p {
-            color: #666;
+            color: #94a3b8;
         }
 
-        /* Отзывы */
+        /* отзывы (SiteReview) */
         .testimonials {
-            padding: 80px 0;
-            background: #f9fafb;
+            padding: 100px 0;
+            background: #0b1422;
         }
 
         .testimonials-grid {
@@ -229,10 +263,10 @@
         }
 
         .testimonial-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: #1e293b;
+            padding: 32px;
+            border-radius: 32px;
+            border: 1px solid #334155;
         }
 
         .stars {
@@ -242,62 +276,53 @@
         }
 
         .testimonial-text {
-            color: #555;
-            margin-bottom: 20px;
-            font-style: italic;
+            color: #cbd5e1;
+            margin-bottom: 24px;
+            font-style: normal;
         }
 
         .author-name {
-            font-weight: bold;
+            font-weight: 600;
+            color: #f1f5f9;
             margin-bottom: 4px;
         }
 
         .author-title {
-            color: #888;
+            color: #64748b;
             font-size: 14px;
         }
 
         /* CTA */
         .cta {
-            padding: 80px 0;
-            background: #2563eb;
-            color: white;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             text-align: center;
         }
 
         .cta h2 {
-            font-size: 36px;
+            font-size: 48px;
+            font-weight: 700;
             margin-bottom: 16px;
         }
 
         .cta p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 40px;
         }
 
         .cta .btn-primary {
-            background: white;
-            color: #2563eb;
-            font-size: 18px;
-            padding: 16px 48px;
+            background: linear-gradient(135deg, #a78bfa, #38bdf8);
+            color: #0f172a;
+            font-size: 20px;
+            padding: 16px 56px;
         }
 
-        .cta .btn-primary:hover {
-            background: #f8fafc;
-        }
-
-        .cta-small {
-            margin-top: 20px;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        /* Футер */
+        /* футер */
         .footer {
-            background: #111827;
-            color: white;
+            background: #0b1422;
             padding: 60px 0;
+            border-top: 1px solid #1e293b;
         }
 
         .footer-content {
@@ -310,65 +335,65 @@
 
         .footer-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: #999;
+            color: #94a3b8;
             text-decoration: none;
+            transition: color 0.2s;
         }
 
         .footer-links a:hover {
-            color: white;
+            color: #a78bfa;
         }
 
         .copyright {
-            color: #666;
+            color: #64748b;
         }
 
-        /* Адаптивность */
+        /* мобилки */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 36px;
             }
-            
+
             .features-grid,
             .testimonials-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .nav {
                 display: none;
             }
-            
+
             .footer-content {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .hero-buttons {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
+
             .logos-grid {
-                gap: 30px;
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Хедер -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">ООО "Ромашка"</div>
+                <div class="logo">TStudios</div>
                 <nav class="nav">
                     <a href="#">Главная</a>
-                    <a href="#">Продукты</a>
-                    <a href="#">Цены</a>
+                    <a href="#">Проекты</a>
+                    <a href="#">YouTube</a>
                     <a href="#">Контакты</a>
                 </nav>
                 <button class="header-btn">Войти</button>
@@ -376,136 +401,126 @@
         </div>
     </header>
     
-    <!-- Отступ для фиксированного хедера -->
     <div class="header-offset"></div>
 
     <main>
 
-        <!-- Hero секция -->
         <section class="hero">
             <div class="container">
-                <h1>Сделайте свой бизнес эффективнее с нашим сервисом</h1>
-                <p>Автоматизация процессов, увеличение продаж и экономия времени — всё в одном решении.</p>
+                <h1>Тимошка из Москвы · TStudios</h1>
+                <p>Майнкрафт, ИИ, вайбкодинг и создание контента. 23 500 подписчиков, 4 канала, TAIPrompts и всё, что между ними.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn-primary">Попробовать бесплатно</a>
-                    <a href="#" class="btn-secondary">Смотреть демо</a>
+                    <a href="https://www.youtube.com/@Timosha_MoscowOF" class="btn-primary" target="_blank">Мой YouTube</a>
+                    <a href="https://timoshamoscow.github.io/taiprompts.github.io/" class="btn-secondary" target="_blank">TAIPrompts</a>
                 </div>
             </div>
         </section>
 
-        <!-- Логотипы -->
         <section class="logos">
             <div class="container">
-                <p>Нам доверяют</p>
+                <p>проекты, с которыми я работаю</p>
                 <div class="logos-grid">
-                    <span>Яндекс</span>
-                    <span>Сбер</span>
-                    <span>Тинькофф</span>
-                    <span>Ozon</span>
-                    <span>Wildberries</span>
+                    <span>TAIPrompts</span>
+                    <span>SiteReview</span>
+                    <span>Тимошка Creator</span>
+                    <span>Тимошка Live</span>
                 </div>
             </div>
         </section>
 
-        <!-- Преимущества -->
         <section class="features">
             <div class="container">
                 <div class="section-title">
-                    <h2>Почему выбирают нас</h2>
-                    <p>Мы предлагаем современные решения для вашего бизнеса</p>
+                    <h2>Что я делаю</h2>
+                    <p>Контент, код, нейросети и всё, что между ними</p>
                 </div>
                 
                 <div class="features-grid">
                     <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <h3>Майнкрафт</h3>
+                        <p>Гайды, челленджи, эксперименты, коллабы. 188 видео и миллионы просмотров.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI / нейросети</h3>
+                        <p>Песни, промпты, вайбкодинг. TAIPrompts — генератор промптов для всех.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📺</div>
+                        <h3>3 канала</h3>
+                        <p>Основной, Creator, Live — каждый под свой формат и настроение.</p>
+                    </div>
+                    <div class="feature-card">
                         <div class="feature-icon">⚡</div>
-                        <h3>Высокая скорость</h3>
-                        <p>Наши серверы обрабатывают запросы за миллисекунды, обеспечивая мгновенный отклик.</p>
+                        <h3>Вайбкодинг</h3>
+                        <p>Пишу код по наитию, с помощью ИИ, без залипания в синтаксис. Работает.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>Безопасность данных</h3>
-                        <p>Шифрование 256 бит и регулярные аудиты защищают вашу информацию.</p>
+                        <div class="feature-icon">📝</div>
+                        <h3>TAIPrompts</h3>
+                        <p>Генератор промптов для нейросетей. Открытый код, бесплатно, для всех.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3>Детальная аналитика</h3>
-                        <p>Понятные отчёты и графики помогут принимать верные решения.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔄</div>
-                        <h3>Интеграция с 1С</h3>
-                        <p>Автоматический обмен данными с популярными бухгалтерскими системами.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>Мобильное приложение</h3>
-                        <p>Управляйте бизнесом с телефона где бы вы ни находились.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💬</div>
-                        <h3>Поддержка 24/7</h3>
-                        <p>Наши специалисты всегда готовы помочь в любое время суток.</p>
+                        <div class="feature-icon">👥</div>
+                        <h3>SiteReview</h3>
+                        <p>Молодой сайт-отзовик, где люди делятся мнениями о проектах.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Отзывы -->
         <section class="testimonials">
             <div class="container">
                 <div class="section-title">
-                    <h2>Что говорят клиенты</h2>
-                    <p>Реальные отзывы людей, которые уже пользуются нашим сервисом</p>
+                    <h2>Что говорят на SiteReview</h2>
+                    <p>Реальные отзывы от тех, кто пользуется моими проектами</p>
                 </div>
                 
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Перешли на этот сервис полгода назад. Продажи выросли на 40%, а времени на рутину уходит в 2 раза меньше. Очень довольны!"</p>
-                        <div class="author-name">Алексей Иванов</div>
-                        <div class="author-title">Владелец магазина "Уют"</div>
+                        <p class="testimonial-text">"TAIPrompts реально экономит время. Не надо придумывать структуру — всё уже есть. Пользуемся всей командой."</p>
+                        <div class="author-name">Антон К.</div>
+                        <div class="author-title">контент-мейкер</div>
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Интуитивно понятный интерфейс, отличная техподдержка. Интеграция с нашей CRM прошла за один день. Рекомендую!"</p>
-                        <div class="author-name">Екатерина Смирнова</div>
-                        <div class="author-title">CEO, Digital Agency</div>
+                        <p class="testimonial-text">"Тимошка из Москвы — один из немногих, кто реально шарит в нейросетях и майнкрафте одновременно. Гайды топ."</p>
+                        <div class="author-name">Елена</div>
+                        <div class="author-title">подписчик</div>
                     </div>
                     <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Цена качество на высоте. Пользуемся год, ни разу не пожалели. Особенно нравится аналитика и отчёты."</p>
-                        <div class="author-name">Михаил Петров</div>
-                        <div class="author-title">Директор по развитию</div>
+                        <div class="stars">★★★★☆</div>
+                        <p class="testimonial-text">"Сайт удобный, генератор работает. Хотелось бы больше шаблонов под разные задачи, но уже сейчас огонь."</p>
+                        <div class="author-name">Михаил</div>
+                        <div class="author-title">разработчик</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
         <section class="cta">
             <div class="container">
-                <h2>Начните экономить время уже сегодня</h2>
-                <p>Первые 14 дней — бесплатно. Без комиссий и скрытых платежей.</p>
-                <a href="#" class="btn-primary">Оставить заявку</a>
-                <div class="cta-small">Не требуется привязка карты</div>
+                <h2>Заходи на канал</h2>
+                <p>23 500 подписчиков, 8,5 млн просмотров и новый контент каждую неделю</p>
+                <a href="https://www.youtube.com/@Timosha_MoscowOF" class="btn-primary" target="_blank">TStudios на YouTube</a>
             </div>
         </section>
 
     </main>
 
-    <!-- Футер -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="logo" style="color: white;">ООО "Ромашка"</div>
+                <div class="logo" style="color: white;">TStudios</div>
                 <div class="footer-links">
-                    <a href="#">О компании</a>
-                    <a href="#">Документы</a>
-                    <a href="#">Партнёрам</a>
-                    <a href="#">Вакансии</a>
+                    <a href="https://timoshamoscow.github.io/taiprompts.github.io/">TAIPrompts</a>
+                    <a href="#">SiteReview</a>
+                    <a href="https://t.me/MinecraftWithTimosha">Telegram</a>
                     <a href="#">Контакты</a>
                 </div>
-                <div class="copyright">© 2025 Все права защищены</div>
+                <div class="copyright">© 2026 Тимошка из Москвы</div>
             </div>
         </div>
     </footer>
