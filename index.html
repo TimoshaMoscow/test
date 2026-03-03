@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лендинг | Чистый шаблон</title>
+    <title>Базовый шаблон лендинга</title>
     <style>
         /* Базовые сбросы */
         * {
@@ -25,13 +25,13 @@
             padding: 0 20px;
         }
 
-        /* Хедер (светлый) */
+        /* Хедер */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #eee;
             z-index: 100;
         }
 
@@ -39,7 +39,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 20px 0;
         }
 
         .logo {
@@ -50,14 +50,13 @@
 
         .nav {
             display: flex;
-            gap: 32px;
+            gap: 30px;
         }
 
         .nav a {
             text-decoration: none;
-            color: #4b5563;
+            color: #111827;
             font-weight: 500;
-            transition: color 0.2s;
         }
 
         .nav a:hover {
@@ -68,11 +67,10 @@
             background: #2563eb;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 16px;
         }
 
         .header-btn:hover {
@@ -81,10 +79,10 @@
 
         /* Отступ для фиксированного хедера */
         .header-offset {
-            height: 73px;
+            height: 80px;
         }
 
-        /* Hero секция (светлая) */
+        /* Hero секция */
         .hero {
             padding: 80px 0;
             text-align: center;
@@ -93,16 +91,16 @@
 
         .hero h1 {
             font-size: 48px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             line-height: 1.2;
             color: #111827;
         }
 
         .hero p {
             font-size: 20px;
-            color: #4b5563;
+            color: #374151;
             margin-bottom: 40px;
-            max-width: 700px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -111,7 +109,6 @@
             display: flex;
             gap: 16px;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .btn-primary {
@@ -121,9 +118,7 @@
             padding: 14px 32px;
             border-radius: 8px;
             font-size: 18px;
-            font-weight: 500;
             display: inline-block;
-            transition: background 0.2s;
         }
 
         .btn-primary:hover {
@@ -137,31 +132,28 @@
             padding: 14px 32px;
             border-radius: 8px;
             font-size: 18px;
-            font-weight: 500;
-            border: 1px solid #d1d5db;
+            border: 1px solid #ddd;
             display: inline-block;
-            transition: border-color 0.2s;
         }
 
         .btn-secondary:hover {
             border-color: #2563eb;
         }
 
-        /* Секция с логотипами (светло-серая) */
+        /* Секция с логотипами */
         .logos {
             padding: 60px 0;
-            border-top: 1px solid #e5e7eb;
-            border-bottom: 1px solid #e5e7eb;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
             background: #f9fafb;
             text-align: center;
         }
 
         .logos p {
             text-transform: uppercase;
-            color: #6b7280;
+            color: #374151;
             letter-spacing: 1px;
             margin-bottom: 40px;
-            font-size: 14px;
         }
 
         .logos-grid {
@@ -174,10 +166,10 @@
         .logos-grid span {
             font-size: 24px;
             font-weight: bold;
-            color: #9ca3af;
+            color: #4b5563;
         }
 
-        /* Преимущества (светлая) */
+        /* Преимущества */
         .features {
             padding: 80px 0;
             background: #ffffff;
@@ -195,10 +187,9 @@
         }
 
         .section-title p {
-            color: #6b7280;
+            color: #374151;
             max-width: 600px;
             margin: 0 auto;
-            font-size: 18px;
         }
 
         .features-grid {
@@ -210,20 +201,18 @@
         .feature-card {
             text-align: center;
             padding: 20px;
-            background: #ffffff;
         }
 
         .feature-icon {
             width: 64px;
             height: 64px;
-            background: #dbeafe;
+            background: #e6f0ff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             font-size: 32px;
-            color: #1e40af;
         }
 
         .feature-card h3 {
@@ -233,10 +222,10 @@
         }
 
         .feature-card p {
-            color: #6b7280;
+            color: #374151;
         }
 
-        /* Отзывы (светло-серая) */
+        /* Отзывы */
         .testimonials {
             padding: 80px 0;
             background: #f9fafb;
@@ -249,10 +238,10 @@
         }
 
         .testimonial-card {
-            background: #ffffff;
+            background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .stars {
@@ -262,26 +251,26 @@
         }
 
         .testimonial-text {
-            color: #4b5563;
+            color: #374151;
             margin-bottom: 20px;
             font-style: italic;
         }
 
         .author-name {
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 4px;
             color: #111827;
         }
 
         .author-title {
-            color: #6b7280;
+            color: #4b5563;
             font-size: 14px;
         }
 
-        /* CTA (темная) */
+        /* CTA */
         .cta {
             padding: 80px 0;
-            background: #111827;
+            background: #2563eb;
             color: white;
             text-align: center;
         }
@@ -295,29 +284,31 @@
         .cta p {
             font-size: 18px;
             margin-bottom: 30px;
-            color: #d1d5db;
+            opacity: 0.9;
+            color: white;
         }
 
         .cta .btn-primary {
             background: white;
-            color: #111827;
+            color: #2563eb;
             font-size: 18px;
             padding: 16px 48px;
         }
 
         .cta .btn-primary:hover {
-            background: #f3f4f6;
+            background: #f8fafc;
         }
 
         .cta-small {
             margin-top: 20px;
             font-size: 14px;
-            color: #9ca3af;
+            opacity: 0.8;
+            color: white;
         }
 
-        /* Футер (темный) */
+        /* Футер */
         .footer {
-            background: #0f172a;
+            background: #111827;
             color: white;
             padding: 60px 0;
         }
@@ -341,9 +332,8 @@
         }
 
         .footer-links a {
-            color: #9ca3af;
+            color: #d1d5db;
             text-decoration: none;
-            transition: color 0.2s;
         }
 
         .footer-links a:hover {
@@ -351,7 +341,7 @@
         }
 
         .copyright {
-            color: #6b7280;
+            color: #9ca3af;
         }
 
         /* Адаптивность */
@@ -379,23 +369,15 @@
                 align-items: stretch;
             }
             
-            .hero-buttons a {
-                text-align: center;
-            }
-            
             .logos-grid {
                 gap: 30px;
-            }
-            
-            .logos-grid span {
-                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Хедер (светлый) -->
+    <!-- Хедер -->
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -405,7 +387,7 @@
                     <a href="#">Услуги</a>
                     <a href="#">Контакты</a>
                 </nav>
-                <button class="header-btn">Войти</button>
+                <button class="header-btn">Связаться</button>
             </div>
         </div>
     </header>
@@ -415,7 +397,7 @@
 
     <main>
 
-        <!-- Hero секция (светлая) -->
+        <!-- Hero секция -->
         <section class="hero">
             <div class="container">
                 <h1>Заголовок, который цепляет внимание</h1>
@@ -427,7 +409,7 @@
             </div>
         </section>
 
-        <!-- Логотипы (светло-серая) -->
+        <!-- Логотипы -->
         <section class="logos">
             <div class="container">
                 <p>Доверяют ведущие компании</p>
@@ -441,7 +423,7 @@
             </div>
         </section>
 
-        <!-- Преимущества (светлая) -->
+        <!-- Преимущества -->
         <section class="features">
             <div class="container">
                 <div class="section-title">
@@ -469,7 +451,7 @@
             </div>
         </section>
 
-        <!-- Отзывы (светло-серая) -->
+        <!-- Отзывы -->
         <section class="testimonials">
             <div class="container">
                 <div class="section-title">
@@ -500,7 +482,7 @@
             </div>
         </section>
 
-        <!-- CTA (темная) -->
+        <!-- CTA -->
         <section class="cta">
             <div class="container">
                 <h2>Готовы начать?</h2>
@@ -512,7 +494,7 @@
 
     </main>
 
-    <!-- Футер (темный) -->
+    <!-- Футер -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
