@@ -3,616 +3,669 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNG Tuber для OBS</title>
+    <title>Тестовый лендинг | Будущее уже здесь</title>
+    <!-- Подключаем шрифт Inter для современного чистого вида -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (бесплатный CDN) для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Базовые сбросы */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Стили для режима интерфейса */
         body {
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #1a1a24;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: #111827;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Хедер */
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+        }
+
+        .logo span {
+            color: #3b82f6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 6px -2px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+
+        .btn-outline:hover {
+            background-color: #eef2ff;
+        }
+
+        /* Hero секция */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            color: #0b1120;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #475569;
+            max-width: 500px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            background-color: #eef2ff;
+            border-radius: 40px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image i {
+            font-size: 160px;
+            color: #3b82f6;
+            opacity: 0.8;
+        }
+
+        .hero-image::after {
+            content: "⚡";
+            font-size: 80px;
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        /* Логотипы компаний (соц. доказательство) */
+        .social-proof {
+            padding: 40px 0;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .social-proof p {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logos span {
+            font-size: 24px;
+            font-weight: 700;
+            color: #94a3b8;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .logos span:hover {
+            opacity: 1;
+        }
+
+        /* Особенности (Features) */
+        .features {
+            padding: 100px 0;
+            background-color: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: #475569;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 32px 24px;
+            border-radius: 32px;
+            background-color: #f9fafb;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #f1f5f9;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+            background-color: #ffffff;
+            border-color: #e2e8f0;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background-color: #dbeafe;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
-            padding: 20px;
+            margin-bottom: 24px;
         }
 
-        /* Контейнер интерфейса */
-        .ui-container {
-            max-width: 1000px;
-            width: 100%;
-            background: rgba(35, 35, 45, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 60px;
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-            border: 1px solid #5a5a8a;
+        .feature-icon i {
+            font-size: 28px;
+            color: #2563eb;
         }
 
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #b0b0ff, #d090ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
-        /* Блоки загрузки */
-        .upload-grid {
-            display: flex;
+        .feature-card p {
+            color: #475569;
+        }
+
+        /* Отзывы (Testimonials) */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 28px;
+            padding: 32px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e9eef3;
+            transition: all 0.2s;
+        }
+
+        .testimonial-card:hover {
+            border-color: #b3d0ff;
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1);
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 20px;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Призыв к действию (CTA) */
+        .cta {
+            padding: 80px 0;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        .cta .container {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .cta h2 {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            color: #cbd5e1;
             margin-bottom: 40px;
         }
 
-        .upload-card {
-            background: #2a2a38;
-            border-radius: 40px;
-            padding: 25px;
-            flex: 1 1 300px;
-            border: 2px solid #4a4a6a;
-            text-align: center;
+        .cta .btn-primary {
+            background-color: white;
+            color: #0f172a;
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
+            font-size: 18px;
+            padding: 16px 48px;
         }
 
-        .upload-card h3 {
-            color: #c0c0f0;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            font-weight: 400;
+        .cta .btn-primary:hover {
+            background-color: #f1f5f9;
+            transform: scale(1.02);
         }
 
-        .preview-box {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            background: #1e1e2a;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 3px solid #6a6a9a;
+        /* Футер */
+        .footer {
+            padding: 48px 0;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .preview-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .preview-box .placeholder {
-            font-size: 4rem;
-            opacity: 0.5;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .file-label {
-            display: inline-block;
-            background: #4a4a7a;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border: 1px solid #8a8ac0;
-            box-shadow: 0 6px 0 #2a2a42;
-            transition: 0.1s;
-            margin-bottom: 15px;
-        }
-
-        .file-label:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #2a2a42;
-        }
-
-        .file-name {
-            color: #a0a0d0;
-            font-size: 0.9rem;
-            background: #1e1e2e;
-            padding: 8px 15px;
-            border-radius: 30px;
-            display: inline-block;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* Панель управления */
-        .control-panel {
-            background: #222230;
-            border-radius: 80px;
-            padding: 30px;
+        .footer .container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
         }
 
-        .link-wrapper {
-            flex: 3 1 400px;
+        .footer .logo {
+            font-size: 20px;
+        }
+
+        .footer-links {
             display: flex;
-            background: #12121c;
-            border-radius: 60px;
-            border: 2px solid #6a6aa0;
-            overflow: hidden;
+            gap: 40px;
         }
 
-        .link-wrapper input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 18px 25px;
-            color: white;
-            font-size: 1rem;
-            font-family: monospace;
-            outline: none;
+        .footer-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
         }
 
-        .link-wrapper button {
-            background: #6a6a9a;
-            border: none;
-            color: white;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-left: 2px solid #44446a;
-            transition: 0.1s;
+        .footer-links a:hover {
+            color: #3b82f6;
         }
 
-        .link-wrapper button:hover {
-            background: #7a7aaa;
+        .copyright {
+            color: #64748b;
+            font-size: 14px;
         }
 
-        .generate-btn {
-            background: #8a7aff;
-            border: none;
-            color: white;
-            padding: 18px 45px;
-            border-radius: 60px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 8px 0 #4a3a9a;
-            transition: 0.1s;
-            border: 1px solid #b0a0ff;
-            flex: 1 0 auto;
-            white-space: nowrap;
-        }
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
 
-        .generate-btn:active {
-            transform: translateY(6px);
-            box-shadow: 0 2px 0 #4a3a9a;
-        }
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
 
-        /* Статус микрофона */
-        .mic-status {
-            background: #1e1e2c;
-            border-radius: 50px;
-            padding: 20px 30px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            border-left: 8px solid #8a7aff;
-            color: #d0d0f0;
-            font-size: 1.2rem;
-        }
+            .hero-content h1 {
+                font-size: 40px;
+            }
 
-        .mic-indicator {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #ff4a4a;
-            box-shadow: 0 0 15px #ff3333;
-            transition: 0.1s;
-        }
+            .hero-buttons {
+                justify-content: center;
+            }
 
-        .mic-indicator.active {
-            background: #4aff7a;
-            box-shadow: 0 0 20px #33ff55;
-        }
+            .hero-image {
+                width: 100%;
+            }
 
-        .footnote {
-            text-align: center;
-            color: #6a6a90;
-            margin-top: 30px;
-            font-size: 1rem;
-        }
+            .section-title h2 {
+                font-size: 32px;
+            }
 
-        /* ЧИСТЫЙ РЕЖИМ ДЛЯ OBS */
-        body.clean-mode {
-            background: transparent;
-            padding: 0;
-            overflow: hidden;
-        }
+            .cta h2 {
+                font-size: 36px;
+            }
 
-        body.clean-mode .ui-container {
-            display: none;
-        }
+            .footer .container {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
 
-        #cleanCanvas {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
-            background: transparent;
-        }
-
-        body.clean-mode #cleanCanvas {
-            display: block;
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- ИНТЕРФЕЙС ЗАГРУЗКИ -->
-    <div class="ui-container">
-        <h1>🎭 PNG TUBER для OBS</h1>
-        
-        <div class="upload-grid">
-            <!-- Карточка для закрытого рта -->
-            <div class="upload-card">
-                <h3>😐 Рот ЗАКРыт</h3>
-                <div class="preview-box" id="closedPreview">
-                    <span class="placeholder">🖼️</span>
+    <header class="header">
+        <div class="container">
+            <div class="logo">Футуриум<span>.</span></div>
+            <nav class="nav-links">
+                <a href="#">Возможности</a>
+                <a href="#">Решения</a>
+                <a href="#">Цены</a>
+                <a href="#">Блог</a>
+            </nav>
+            <a href="#" class="btn btn-primary">Начать</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge">Будущее уже здесь</span>
+                    <h1>Тестовый лендинг для демонстрации</h1>
+                    <p>Современный, чистый, конверсионный дизайн. Адаптирован под мобильные устройства и готов к использованию.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Попробовать бесплатно</a>
+                        <a href="#" class="btn btn-outline">Связаться с нами</a>
+                    </div>
                 </div>
-                <input type="file" id="closedInput" class="file-input" accept="image/png,image/jpeg,image/webp,image/gif">
-                <label for="closedInput" class="file-label">Выбрать файл</label>
-                <div id="closedName" class="file-name">не выбрано</div>
-            </div>
-            
-            <!-- Карточка для открытого рта -->
-            <div class="upload-card">
-                <h3>😲 Рот ОТКРыт</h3>
-                <div class="preview-box" id="openPreview">
-                    <span class="placeholder">🖼️</span>
+                <div class="hero-image">
+                    <i class="fas fa-rocket"></i>
                 </div>
-                <input type="file" id="openInput" class="file-input" accept="image/png,image/jpeg,image/webp,image/gif">
-                <label for="openInput" class="file-label">Выбрать файл</label>
-                <div id="openName" class="file-name">не выбрано</div>
+            </div>
+        </section>
+
+        <!-- Social Proof (Logos) -->
+        <section class="social-proof">
+            <div class="container">
+                <p>Доверяют ведущие команды</p>
+                <div class="logos">
+                    <span>BERKSHIRE</span>
+                    <span>ATLASSIAN</span>
+                    <span>STACKBLITZ</span>
+                    <span>VERCEL</span>
+                    <span>NETLIFY</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features" id="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Создано для результатов</h2>
+                    <p>Все инструменты, которые нужны для профессионального тестирования идей и быстрого роста.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                        <h3>Мгновенная загрузка</h3>
+                        <p>Никаких задержек. Наш стек оптимизирован так, чтобы ваш пользователь не ждал ни секунды.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Безопасность по умолчанию</h3>
+                        <p>Все соединения защищены, а данные шифруются. Мы заботимся о конфиденциальности.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Детальная аналитика</h3>
+                        <p>Панель управления с понятными графиками и метриками для отслеживания прогресса.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                        <h3>Глобальный CDN</h3>
+                        <p>Наша сеть доставки контента охватывает 6 континентов — ваши данные всегда рядом.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                        <h3>Поддержка 24/7</h3>
+                        <p>Живые специалисты (не боты) ответят в любую минуту, даже в выходные.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <h3>Гибкая интеграция</h3>
+                        <p>Подключайте любые API и сервисы через удобный конструктор без единой строчки кода.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Отзывы клиентов</h2>
+                    <p>Более 5000 команд уже используют наш продукт.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">«Сделали лендинг за час. Буквально скопировали блоки, поменяли текст — и готово. Очень экономит время на тестах гипотез.»</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">А</div>
+                            <div class="author-info">
+                                <h4>Анна Петрова</h4>
+                                <p>Product Lead, Surf</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">«Ребята явно знают толк в конверсии. Дизайн выглядит дорого, при этом код лёгкий. Проверяли в PageSpeed — молодцы.»</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">Д</div>
+                            <div class="author-info">
+                                <h4>Дмитрий Иванов</h4>
+                                <p>Founder, CodeCraft</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">«Не ожидал, что тестовый лендинг может выглядеть настолько презентабельно. Оставили как есть, только фото поменяли. Спасибо!»</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">Е</div>
+                            <div class="author-info">
+                                <h4>Екатерина Смирнова</h4>
+                                <p>Marketing Director, BeCloud</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <div class="container">
+                <h2>Готовы вывести проект на новый уровень?</h2>
+                <p>Присоединяйтесь к тысячам довольных клиентов. Первые 30 дней — бесплатно, без карты.</p>
+                <a href="#" class="btn btn-primary">Начать бесплатно →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="logo">Футуриум<span>.</span></div>
+            <div class="footer-links">
+                <a href="#">О нас</a>
+                <a href="#">Документация</a>
+                <a href="#">Конфиденциальность</a>
+                <a href="#">Контакты</a>
+            </div>
+            <div class="copyright">
+                © 2025 Футуриум. Тестовый образец.
             </div>
         </div>
+    </footer>
 
-        <!-- Панель генерации -->
-        <div class="control-panel">
-            <div class="link-wrapper">
-                <input type="text" id="resultLink" readonly placeholder="Сначала загрузите картинки" value="">
-                <button id="copyBtn">Копировать</button>
-            </div>
-            <button class="generate-btn" id="generateBtn">✨ Создать ссылку для OBS</button>
-        </div>
-
-        <!-- Статус микрофона (для проверки) -->
-        <div class="mic-status">
-            <span>🎤 Микрофон:</span>
-            <span id="micText">запрос...</span>
-            <span class="mic-indicator" id="micLed"></span>
-            <span>⚡ Выберите микрофон в адресной строке</span>
-        </div>
-        <div class="footnote">
-            ↓ Скопируйте ссылку выше и вставьте её в OBS (источник "Браузер") ↓
-        </div>
-    </div>
-
-    <!-- ХОЛСТ ДЛЯ ЧИСТОГО РЕЖИМА -->
-    <canvas id="cleanCanvas" width="1280" height="720"></canvas>
-
+    <!-- Небольшой декоративный скрипт для плавности (не обязателен) -->
     <script>
         (function() {
-            // ========== ОПРЕДЕЛЕНИЕ РЕЖИМА ==========
-            const urlParams = new URLSearchParams(window.location.search);
-            const isCleanMode = urlParams.has('clean') && urlParams.get('clean') === '1';
-            
-            if (isCleanMode) {
-                // ========== ЧИСТЫЙ РЕЖИМ (ТОЛЬКО ПЕРСОНАЖ) ==========
-                document.body.classList.add('clean-mode');
-                
-                const canvas = document.getElementById('cleanCanvas');
-                const ctx = canvas.getContext('2d');
-                
-                // Переменные для изображений
-                let closedImage = null;
-                let openImage = null;
-                let currentMouthOpen = false;
-                
-                // Аудио переменные
-                let audioContext = null;
-                let analyser = null;
-                let microphone = null;
-                let animationId = null;
-                
-                // Подгон размера canvas под окно
-                function resizeCanvas() {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                    drawImage();
-                }
-                
-                // Отрисовка текущего изображения
-                function drawImage() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
-                    const img = currentMouthOpen ? openImage : closedImage;
-                    if (!img) return;
-                    
-                    // Рассчитываем пропорции (cover-эффект)
-                    const imgW = img.naturalWidth;
-                    const imgH = img.naturalHeight;
-                    const canvasW = canvas.width;
-                    const canvasH = canvas.height;
-                    
-                    const imgAspect = imgW / imgH;
-                    const canvasAspect = canvasW / canvasH;
-                    
-                    let drawW, drawH, offsetX = 0, offsetY = 0;
-                    
-                    if (imgAspect > canvasAspect) {
-                        // Изображение шире — подгоняем по высоте
-                        drawH = canvasH;
-                        drawW = imgW * (canvasH / imgH);
-                        offsetX = (canvasW - drawW) / 2;
-                    } else {
-                        // Изображение выше — подгоняем по ширине
-                        drawW = canvasW;
-                        drawH = imgH * (canvasW / imgW);
-                        offsetY = (canvasH - drawH) / 2;
-                    }
-                    
-                    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
-                }
-                
-                // Загрузка изображений из hash
-                function loadImagesFromHash() {
-                    if (!window.location.hash) return;
-                    
-                    try {
-                        const hashData = decodeURIComponent(window.location.hash.substring(1));
-                        const images = JSON.parse(hashData);
-                        
-                        let loadedCount = 0;
-                        const totalImages = (images.closed ? 1 : 0) + (images.open ? 1 : 0);
-                        
-                        if (totalImages === 0) return;
-                        
-                        if (images.closed) {
-                            const img = new Image();
-                            img.onload = () => {
-                                closedImage = img;
-                                loadedCount++;
-                                if (loadedCount === totalImages) drawImage();
-                            };
-                            img.src = images.closed;
-                        }
-                        
-                        if (images.open) {
-                            const img = new Image();
-                            img.onload = () => {
-                                openImage = img;
-                                loadedCount++;
-                                if (loadedCount === totalImages) drawImage();
-                            };
-                            img.src = images.open;
-                        }
-                    } catch (e) {
-                        console.error('Ошибка загрузки изображений:', e);
-                    }
-                }
-                
-                // Настройка микрофона
-                async function setupMicrophone() {
-                    try {
-                        microphone = await navigator.mediaDevices.getUserMedia({ audio: true });
-                        
-                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        await audioContext.resume();
-                        
-                        analyser = audioContext.createAnalyser();
-                        analyser.fftSize = 256;
-                        
-                        const source = audioContext.createMediaStreamSource(microphone);
-                        source.connect(analyser);
-                        
-                        const bufferLength = analyser.frequencyBinCount;
-                        const dataArray = new Uint8Array(bufferLength);
-                        
-                        function detectSound() {
-                            analyser.getByteFrequencyData(dataArray);
-                            
-                            // Вычисляем среднюю громкость
-                            let sum = 0;
-                            for (let i = 0; i < bufferLength; i++) {
-                                sum += dataArray[i];
-                            }
-                            const average = sum / bufferLength;
-                            
-                            // Порог срабатывания (можно подстроить)
-                            const threshold = 15;
-                            const shouldBeOpen = average > threshold;
-                            
-                            if (shouldBeOpen !== currentMouthOpen) {
-                                currentMouthOpen = shouldBeOpen;
-                                drawImage();
-                            }
-                            
-                            animationId = requestAnimationFrame(detectSound);
-                        }
-                        
-                        detectSound();
-                    } catch (err) {
-                        console.warn('Микрофон не доступен:', err);
-                        // Работаем без звука (рот всегда закрыт)
-                    }
-                }
-                
-                // Инициализация
-                window.addEventListener('load', () => {
-                    resizeCanvas();
-                    loadImagesFromHash();
-                    setupMicrophone();
-                });
-                
-                window.addEventListener('resize', resizeCanvas);
-                
-                // Для возобновления аудио контекста
-                document.addEventListener('click', () => {
-                    if (audioContext && audioContext.state === 'suspended') {
-                        audioContext.resume();
+            // Добавим плавный скролл для якорей (если бы они были)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href === "#") return;
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
-                
-            } else {
-                // ========== РЕЖИМ НАСТРОЙКИ (ЗАГРУЗКА КАРТИНОК) ==========
-                
-                // Получаем элементы
-                const closedInput = document.getElementById('closedInput');
-                const openInput = document.getElementById('openInput');
-                const closedPreview = document.getElementById('closedPreview');
-                const openPreview = document.getElementById('openPreview');
-                const closedName = document.getElementById('closedName');
-                const openName = document.getElementById('openName');
-                const resultLink = document.getElementById('resultLink');
-                const generateBtn = document.getElementById('generateBtn');
-                const copyBtn = document.getElementById('copyBtn');
-                const micText = document.getElementById('micText');
-                const micLed = document.getElementById('micLed');
-                
-                // Хранилище для изображений в base64
-                let closedImageData = null;
-                let openImageData = null;
-                
-                // Функция обновления превью
-                function updatePreview(element, dataUrl) {
-                    element.innerHTML = '';
-                    if (dataUrl) {
-                        const img = document.createElement('img');
-                        img.src = dataUrl;
-                        element.appendChild(img);
-                    } else {
-                        element.innerHTML = '<span class="placeholder">🖼️</span>';
-                    }
-                }
-                
-                // Обработчики загрузки
-                closedInput.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        closedImageData = ev.target.result;
-                        closedName.textContent = file.name.length > 30 ? file.name.slice(0,27) + '…' : file.name;
-                        updatePreview(closedPreview, closedImageData);
-                    };
-                    reader.readAsDataURL(file);
-                });
-                
-                openInput.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        openImageData = ev.target.result;
-                        openName.textContent = file.name.length > 30 ? file.name.slice(0,27) + '…' : file.name;
-                        updatePreview(openPreview, openImageData);
-                    };
-                    reader.readAsDataURL(file);
-                });
-                
-                // Генерация ссылки
-                generateBtn.addEventListener('click', () => {
-                    if (!closedImageData && !openImageData) {
-                        alert('Загрузите хотя бы одну картинку!');
-                        return;
-                    }
-                    
-                    const imagesObject = {
-                        closed: closedImageData || '',
-                        open: openImageData || ''
-                    };
-                    
-                    const jsonString = JSON.stringify(imagesObject);
-                    const encoded = encodeURIComponent(jsonString);
-                    
-                    // Получаем текущий URL без параметров и хэша
-                    const baseUrl = window.location.href.split('?')[0].split('#')[0];
-                    const cleanUrl = baseUrl + '?clean=1#' + encoded;
-                    
-                    resultLink.value = cleanUrl;
-                });
-                
-                // Копирование ссылки
-                copyBtn.addEventListener('click', () => {
-                    if (resultLink.value) {
-                        navigator.clipboard.writeText(resultLink.value)
-                            .then(() => alert('✅ Ссылка скопирована!'))
-                            .catch(() => alert('❌ Не удалось скопировать'));
-                    } else {
-                        alert('Сначала сгенерируйте ссылку');
-                    }
-                });
-                
-                // Индикация микрофона в интерфейсе
-                async function setupMicIndicator() {
-                    try {
-                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                        const context = new (window.AudioContext || window.webkitAudioContext)();
-                        await context.resume();
-                        
-                        const analyser = context.createAnalyser();
-                        analyser.fftSize = 256;
-                        
-                        const source = context.createMediaStreamSource(stream);
-                        source.connect(analyser);
-                        
-                        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-                        
-                        micText.textContent = 'активен';
-                        
-                        function updateIndicator() {
-                            analyser.getByteFrequencyData(dataArray);
-                            let sum = 0;
-                            for (let i = 0; i < dataArray.length; i++) {
-                                sum += dataArray[i];
-                            }
-                            const avg = sum / dataArray.length;
-                            
-                            if (avg > 10) {
-                                micLed.classList.add('active');
-                            } else {
-                                micLed.classList.remove('active');
-                            }
-                            
-                            requestAnimationFrame(updateIndicator);
-                        }
-                        
-                        updateIndicator();
-                    } catch {
-                        micText.textContent = 'нет доступа';
-                    }
-                }
-                
-                setupMicIndicator();
-            }
+            });
         })();
     </script>
 </body>
