@@ -3,172 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Базовый шаблон лендинга</title>
-    <!-- Подключаем Tailwind CSS для быстрой стилизации (опционально) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Или можешь заменить на свой CSS -->
-</head>
-<body class="font-sans antialiased">
+    <title>Лендинг | Чистый шаблон</title>
+    <style>
+        /* Базовые сбросы */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- ======= HEADER ======= -->
-    <header class="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold">Логотип</div>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#" class="hover:text-blue-600">О нас</a>
-                <a href="#" class="hover:text-blue-600">Услуги</a>
-                <a href="#" class="hover:text-blue-600">Контакты</a>
-            </nav>
-            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                Связаться
-            </button>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #111827;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Хедер (светлый) */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #2563eb;
+        }
+
+        .header-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .header-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Отступ для фиксированного хедера */
+        .header-offset {
+            height: 73px;
+        }
+
+        /* Hero секция (светлая) */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: #ffffff;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            color: #111827;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #4b5563;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #111827;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            border: 1px solid #d1d5db;
+            display: inline-block;
+            transition: border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2563eb;
+        }
+
+        /* Секция с логотипами (светло-серая) */
+        .logos {
+            padding: 60px 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+            text-align: center;
+        }
+
+        .logos p {
+            text-transform: uppercase;
+            color: #6b7280;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .logos-grid {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .logos-grid span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #9ca3af;
+        }
+
+        /* Преимущества (светлая) */
+        .features {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: #111827;
+        }
+
+        .section-title p {
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: #dbeafe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: #1e40af;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+        }
+
+        /* Отзывы (светло-серая) */
+        .testimonials {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            color: #4b5563;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .author-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #111827;
+        }
+
+        .author-title {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* CTA (темная) */
+        .cta {
+            padding: 80px 0;
+            background: #111827;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #d1d5db;
+        }
+
+        .cta .btn-primary {
+            background: white;
+            color: #111827;
+            font-size: 18px;
+            padding: 16px 48px;
+        }
+
+        .cta .btn-primary:hover {
+            background: #f3f4f6;
+        }
+
+        .cta-small {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Футер (темный) */
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 60px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer .logo {
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #6b7280;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .features-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .hero-buttons a {
+                text-align: center;
+            }
+            
+            .logos-grid {
+                gap: 30px;
+            }
+            
+            .logos-grid span {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Хедер (светлый) -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Логотип</div>
+                <nav class="nav">
+                    <a href="#">О нас</a>
+                    <a href="#">Услуги</a>
+                    <a href="#">Контакты</a>
+                </nav>
+                <button class="header-btn">Войти</button>
+            </div>
         </div>
     </header>
+    
     <!-- Отступ для фиксированного хедера -->
-    <div class="h-20"></div>
+    <div class="header-offset"></div>
 
     <main>
 
-        <!-- ======= HERO ======= -->
-        <section class="py-20 md:py-32">
-            <div class="container mx-auto px-4 text-center max-w-4xl">
-                <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                    Заголовок, который<br>цепляет внимание
-                </h1>
-                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-                    Подзаголовок с описанием ценности продукта. 2-3 предложения, объясняющие, почему это нужно клиенту.
-                </p>
-                <div class="flex gap-4 justify-center">
-                    <a href="#" class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-blue-700">
-                        Начать сейчас
-                    </a>
-                    <a href="#" class="border border-gray-300 px-8 py-4 rounded-lg text-lg hover:border-blue-600">
-                        Узнать больше
-                    </a>
+        <!-- Hero секция (светлая) -->
+        <section class="hero">
+            <div class="container">
+                <h1>Заголовок, который цепляет внимание</h1>
+                <p>Подзаголовок с описанием ценности продукта. 2-3 предложения, объясняющие, почему это нужно клиенту.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Начать сейчас</a>
+                    <a href="#" class="btn-secondary">Узнать больше</a>
                 </div>
             </div>
         </section>
 
-        <!-- ======= ЛОГОТИПЫ (соцдок) ======= -->
-        <section class="py-12 border-y bg-gray-50">
-            <div class="container mx-auto px-4">
-                <p class="text-center text-gray-500 uppercase tracking-wider mb-8">
-                    Доверяют ведущие компании
-                </p>
-                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 text-gray-400">
-                    <span class="text-2xl font-bold">NETLIFY</span>
-                    <span class="text-2xl font-bold">VERCEL</span>
-                    <span class="text-2xl font-bold">ATLASSIAN</span>
-                    <span class="text-2xl font-bold">GITHUB</span>
-                    <span class="text-2xl font-bold">GOOGLE</span>
+        <!-- Логотипы (светло-серая) -->
+        <section class="logos">
+            <div class="container">
+                <p>Доверяют ведущие компании</p>
+                <div class="logos-grid">
+                    <span>NETLIFY</span>
+                    <span>VERCEL</span>
+                    <span>ATLASSIAN</span>
+                    <span>GITHUB</span>
+                    <span>GOOGLE</span>
                 </div>
             </div>
         </section>
 
-        <!-- ======= ПРЕИМУЩЕСТВА ======= -->
-        <section class="py-20">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
-                    Почему выбирают нас
-                </h2>
-                <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-                    Краткое описание преимуществ. Что делает продукт уникальным.
-                </p>
+        <!-- Преимущества (светлая) -->
+        <section class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Почему выбирают нас</h2>
+                    <p>Краткое описание преимуществ. Что делает продукт уникальным.</p>
+                </div>
                 
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Карточка 1 -->
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-3xl">⚡</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Быстро</h3>
-                        <p class="text-gray-600">Описание преимущества. Работает молниеносно.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Быстро</h3>
+                        <p>Описание преимущества. Работает молниеносно.</p>
                     </div>
-                    <!-- Карточка 2 -->
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-3xl">🛡️</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Надежно</h3>
-                        <p class="text-gray-600">Безопасность и защита данных.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Надежно</h3>
+                        <p>Безопасность и защита данных.</p>
                     </div>
-                    <!-- Карточка 3 -->
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-3xl">📱</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Адаптивно</h3>
-                        <p class="text-gray-600">Работает на всех устройствах.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Адаптивно</h3>
+                        <p>Работает на всех устройствах.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ======= ОТЗЫВЫ ======= -->
-        <section class="py-20 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">
-                    Отзывы клиентов
-                </h2>
+        <!-- Отзывы (светло-серая) -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Отзывы клиентов</h2>
+                    <p>Что говорят о нас</p>
+                </div>
                 
-                <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Отзыв 1 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                        <p class="text-gray-700 mb-4">"Отличный сервис! Всё работает идеально. Обязательно буду рекомендовать."</p>
-                        <div class="font-semibold">Анна Петрова</div>
-                        <div class="text-sm text-gray-500">CEO, Company</div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Отличный сервис! Всё работает идеально. Обязательно буду рекомендовать."</p>
+                        <div class="author-name">Анна Петрова</div>
+                        <div class="author-title">CEO, Company</div>
                     </div>
-                    <!-- Отзыв 2 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                        <p class="text-gray-700 mb-4">"Сэкономили кучу времени благодаря этому продукту. Интерфейс интуитивно понятный."</p>
-                        <div class="font-semibold">Иван Сидоров</div>
-                        <div class="text-sm text-gray-500">Маркетолог</div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Сэкономили кучу времени благодаря этому продукту. Интерфейс интуитивно понятный."</p>
+                        <div class="author-name">Иван Сидоров</div>
+                        <div class="author-title">Маркетолог</div>
                     </div>
-                    <!-- Отзыв 3 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                        <p class="text-gray-700 mb-4">"Лучшее решение на рынке. Поддержка отвечает мгновенно, багов нет."</p>
-                        <div class="font-semibold">Екатерина Смирнова</div>
-                        <div class="text-sm text-gray-500">Product Manager</div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Лучшее решение на рынке. Поддержка отвечает мгновенно, багов нет."</p>
+                        <div class="author-name">Екатерина Смирнова</div>
+                        <div class="author-title">Product Manager</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ======= CTA ======= -->
-        <section class="py-20 bg-blue-600 text-white">
-            <div class="container mx-auto px-4 text-center max-w-3xl">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    Готовы начать?
-                </h2>
-                <p class="text-xl mb-8 text-blue-100">
-                    Присоединяйтесь к тысячам довольных клиентов
-                </p>
-                <a href="#" class="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100">
-                    Попробовать бесплатно →
-                </a>
-                <p class="text-sm mt-4 text-blue-200">Без карты, 14 дней бесплатно</p>
+        <!-- CTA (темная) -->
+        <section class="cta">
+            <div class="container">
+                <h2>Готовы начать?</h2>
+                <p>Присоединяйтесь к тысячам довольных клиентов</p>
+                <a href="#" class="btn-primary">Попробовать бесплатно →</a>
+                <div class="cta-small">Без карты, 14 дней бесплатно</div>
             </div>
         </section>
 
     </main>
 
-    <!-- ======= FOOTER ======= -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-2xl font-bold mb-4 md:mb-0">Логотип</div>
-                <div class="flex space-x-6">
-                    <a href="#" class="hover:text-blue-400">О нас</a>
-                    <a href="#" class="hover:text-blue-400">Блог</a>
-                    <a href="#" class="hover:text-blue-400">Контакты</a>
-                    <a href="#" class="hover:text-blue-400">Политика</a>
+    <!-- Футер (темный) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">Логотип</div>
+                <div class="footer-links">
+                    <a href="#">О нас</a>
+                    <a href="#">Блог</a>
+                    <a href="#">Контакты</a>
+                    <a href="#">Политика</a>
                 </div>
-                <div class="text-gray-400 text-sm mt-4 md:mt-0">
-                    © 2025 Все права защищены
-                </div>
+                <div class="copyright">© 2025 Все права защищены</div>
             </div>
         </div>
     </footer>
