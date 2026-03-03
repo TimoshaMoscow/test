@@ -3,518 +3,857 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TStudios · Тимошка из Москвы</title>
+    <title>YouTube (клон интерфейса)</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f172a;
-            color: #f1f5f9;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #1e293b;
-            z-index: 100;
-        }
-
-        .header-content {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Шапка */
+        .header {
+            display: flex;
             align-items: center;
-            padding: 16px 0;
+            justify-content: space-between;
+            padding: 0 16px;
+            height: 56px;
+            background-color: #0f0f0f;
+            border-bottom: 1px solid #272727;
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            cursor: pointer;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 2px;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #a78bfa, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav {
             display: flex;
-            gap: 32px;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #cbd5e1;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover {
-            color: #a78bfa;
-        }
-
-        .header-btn {
-            background: linear-gradient(135deg, #a78bfa, #38bdf8);
-            color: #0f172a;
-            font-weight: 600;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: opacity 0.2s;
-        }
-
-        .header-btn:hover {
-            opacity: 0.9;
-        }
-
-        .header-offset {
-            height: 80px;
-        }
-
-        .hero {
-            padding: 80px 0 60px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 52px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a78bfa, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 24px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: #94a3b8;
-            margin-bottom: 40px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #a78bfa, #38bdf8);
-            color: #0f172a;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 14px 36px;
-            border-radius: 40px;
-            font-size: 18px;
-            display: inline-block;
-            transition: opacity 0.2s;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #f1f5f9;
-            text-decoration: none;
-            padding: 14px 36px;
-            border-radius: 40px;
-            font-size: 18px;
-            border: 1px solid #334155;
-            display: inline-block;
-            transition: border-color 0.2s;
-        }
-
-        .btn-secondary:hover {
-            border-color: #a78bfa;
-        }
-
-        .logos {
-            padding: 60px 0;
-            border-top: 1px solid #1e293b;
-            border-bottom: 1px solid #1e293b;
-            background: #0b1422;
-            text-align: center;
-        }
-
-        .logos p {
-            text-transform: uppercase;
-            color: #64748b;
-            letter-spacing: 2px;
-            font-size: 14px;
-            margin-bottom: 40px;
-        }
-
-        .logos-grid {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
+            gap: 1px;
         }
 
-        .logos-grid span {
+        .logo-youtube {
             font-size: 22px;
             font-weight: 600;
-            color: #94a3b8;
-            background: #1e293b;
-            padding: 8px 24px;
-            border-radius: 60px;
-            border: 1px solid #334155;
+            letter-spacing: -1px;
+            color: white;
         }
 
-        .features {
-            padding: 100px 0;
+        .logo-youtube span {
+            color: #ff0000;
+            font-size: 24px;
+        }
+
+        .logo::after {
+            content: "RU";
+            font-size: 10px;
+            color: #aaa;
+            margin-left: 4px;
+            align-self: flex-start;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-box input {
+            flex: 1;
+            height: 40px;
+            background-color: #121212;
+            border: 1px solid #303030;
+            border-radius: 20px 0 0 20px;
+            padding: 0 16px;
+            font-size: 16px;
+            color: #fff;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #888;
+        }
+
+        .search-btn {
+            width: 64px;
+            height: 40px;
+            background-color: #222;
+            border: 1px solid #303030;
+            border-left: none;
+            border-radius: 0 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .search-btn::before {
+            content: "🔍";
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .voice-search::before {
+            content: "🎤";
+            font-size: 20px;
+        }
+
+        .create-icon::before {
+            content: "➕";
+            font-size: 20px;
+        }
+
+        .notify-icon::before {
+            content: "🔔";
+            font-size: 20px;
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #7a4c9e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Основной контейнер (сайдбар + контент) */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Сайдбар */
+        .sidebar {
+            width: 240px;
+            background-color: #0f0f0f;
+            overflow-y: auto;
+            padding: 12px 0 12px 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #717171 #0f0f0f;
+            flex-shrink: 0;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #717171;
+            border-radius: 10px;
+        }
+
+        .section {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #3f3f3f;
+            padding-bottom: 12px;
+        }
+
+        .section-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .section-item:hover {
+            background-color: #272727;
+        }
+
+        .section-item.active {
+            background-color: #272727;
+            font-weight: 500;
+        }
+
+        .icon-placeholder {
+            width: 24px;
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
         }
 
         .section-title {
-            text-align: center;
-            margin-bottom: 60px;
+            color: #aaa;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 12px 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .section-title h2 {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 16px;
+        .subscription-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #b8860b;
+            display: inline-block;
+            margin-right: 16px;
         }
 
-        .section-title p {
-            color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 18px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .feature-card {
-            background: #1e293b;
-            padding: 32px;
-            border-radius: 32px;
-            border: 1px solid #334155;
-            transition: transform 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #a78bfa, #38bdf8);
-            border-radius: 20px;
+        .subs-text {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            font-size: 32px;
-            color: #0f172a;
-        }
-
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            color: #f1f5f9;
-        }
-
-        .feature-card p {
-            color: #94a3b8;
-        }
-
-        .testimonials {
-            padding: 100px 0;
-            background: #0b1422;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background: #1e293b;
-            padding: 32px;
-            border-radius: 32px;
-            border: 1px solid #334155;
-        }
-
-        .stars {
-            color: #fbbf24;
-            font-size: 20px;
-            margin-bottom: 16px;
-        }
-
-        .testimonial-text {
-            color: #cbd5e1;
-            margin-bottom: 24px;
-            font-style: normal;
-        }
-
-        .author-name {
-            font-weight: 600;
-            color: #f1f5f9;
-            margin-bottom: 4px;
-        }
-
-        .author-title {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .cta {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            text-align: center;
-        }
-
-        .cta h2 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .cta p {
-            font-size: 20px;
-            color: #94a3b8;
-            margin-bottom: 40px;
-        }
-
-        .cta .btn-primary {
-            background: linear-gradient(135deg, #a78bfa, #38bdf8);
-            color: #0f172a;
-            font-size: 20px;
-            padding: 16px 56px;
-        }
-
-        .footer {
-            background: #0b1422;
-            padding: 60px 0;
-            border-top: 1px solid #1e293b;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
         }
 
         .footer-links {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
+            padding: 16px 12px;
+            font-size: 13px;
+            color: #717171;
+            line-height: 1.6;
         }
 
         .footer-links a {
-            color: #94a3b8;
+            color: #717171;
             text-decoration: none;
-            transition: color 0.2s;
+            margin-right: 8px;
         }
 
-        .footer-links a:hover {
-            color: #a78bfa;
+        .footer-links div {
+            margin-top: 16px;
+            font-size: 12px;
         }
 
-        .copyright {
-            color: #64748b;
+        /* Основной контент */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px;
+            background-color: #0f0f0f;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .features-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav {
-                display: none;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .logos-grid {
-                gap: 20px;
-            }
+        /* Чипсы (категории) */
+        .chips {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2f2f2f;
         }
+
+        .chip {
+            padding: 8px 14px;
+            background-color: #272727;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .chip.active {
+            background-color: #fff;
+            color: #0f0f0f;
+        }
+
+        .chip:hover {
+            background-color: #3f3f3f;
+        }
+
+        /* Сетка видео */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .video-card {
+            cursor: pointer;
+        }
+
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #333;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 4px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .time-badge {
+            background-color: rgba(0,0,0,0.8);
+            color: white;
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .video-info {
+            display: flex;
+            gap: 12px;
+        }
+
+        .channel-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #6a1e9a;
+            flex-shrink: 0;
+        }
+
+        .video-details {
+            flex: 1;
+        }
+
+        .video-title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            color: #fff;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .channel-name, .video-meta {
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        .channel-name {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .verified {
+            font-size: 14px;
+        }
+
+        .shorts-section {
+            margin: 40px 0 20px;
+        }
+
+        .shorts-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .shorts-icon {
+            font-size: 28px;
+        }
+
+        .shorts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .short-card {
+            cursor: pointer;
+        }
+
+        .short-thumb {
+            aspect-ratio: 9 / 16;
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .short-title {
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .short-stats {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        /* для имитации картинок */
+        .bg1 { background-image: linear-gradient(145deg, #3b2e2e, #7a4c4c); }
+        .bg2 { background-image: linear-gradient(145deg, #1e4a6b, #103549); }
+        .bg3 { background-image: linear-gradient(145deg, #3a6b1e, #1f3b0e); }
+        .bg4 { background-image: linear-gradient(145deg, #8b5a2b, #4d3115); }
+        .bg5 { background-image: linear-gradient(145deg, #6b1e4a, #3d112b); }
+        .bg6 { background-image: linear-gradient(145deg, #c04e2e, #732b16); }
+        .bg7 { background-image: linear-gradient(145deg, #2e5c4b, #15382d); }
+        .bg8 { background-image: linear-gradient(145deg, #9e6b3b, #5f3e1e); }
     </style>
 </head>
 <body>
-
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">TStudios</div>
-                <nav class="nav">
-                    <a href="#">Главная</a>
-                    <a href="#">Проекты</a>
-                    <a href="#">YouTube</a>
-                    <a href="#">Контакты</a>
-                </nav>
-                <button class="header-btn">Войти</button>
+        <div class="header-left">
+            <div class="menu-icon"><span></span><span></span><span></span></div>
+            <div class="logo"><span class="logo-youtube"><span>▶</span>YouTube</span></div>
+        </div>
+        <div class="header-center">
+            <div class="search-box">
+                <input type="text" placeholder="Введите запрос">
+                <div class="search-btn"></div>
             </div>
+            <div class="voice-search" style="margin-left: 12px;"></div>
+        </div>
+        <div class="header-right">
+            <div class="create-icon"></div>
+            <div class="notify-icon"></div>
+            <div class="profile-icon">П</div>
         </div>
     </header>
-    
-    <div class="header-offset"></div>
 
-    <main>
-
-        <section class="hero">
-            <div class="container">
-                <h1>Тимошка из Москвы · TStudios</h1>
-                <p>Майнкрафт, ИИ, вайбкодинг и создание контента. 23 500 подписчиков, 3 канала, TAIPrompts и партнёрские проекты.</p>
-                <div class="hero-buttons">
-                    <a href="https://www.youtube.com/@Timosha_MoscowOF" class="btn-primary" target="_blank">Мой YouTube</a>
-                    <a href="https://timoshamoscow.github.io/taiprompts.github.io/" class="btn-secondary" target="_blank">TAIPrompts</a>
-                </div>
+    <div class="main-container">
+        <!-- Боковая панель (точная копия содержания из задания) -->
+        <div class="sidebar">
+            <div class="section">
+                <div class="section-item active"><span class="icon-placeholder">🏠</span>Главная</div>
+                <div class="section-item"><span class="icon-placeholder">⚡</span>Shorts</div>
+                <div class="section-item"><span class="icon-placeholder">📺</span>Подписки</div>
             </div>
-        </section>
-
-        <section class="logos">
-            <div class="container">
-                <p>партнёры и проекты</p>
-                <div class="logos-grid">
-                    <span>TAIPrompts</span>
-                    <span>Тимошка Creator</span>
-                    <span>Тимошка Live</span>
-                    <span>SiteReview</span>
-                </div>
+            <div class="section">
+                <div class="section-item"><span class="icon-placeholder">▶️</span>парадеевич</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>VIKOSIII</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>MrLololoshka (Роман Фильченков)</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>Морфикс</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>Nazzy</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>Fanlerok_live</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>Самый сахар</div>
+                <div class="section-item" style="color: #3ea6ff;"><span class="icon-placeholder">▼</span>Развернуть</div>
             </div>
-        </section>
-
-        <section class="features">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Что я делаю</h2>
-                    <p>Контент, код, нейросети и всё, что между ними</p>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🎮</div>
-                        <h3>Майнкрафт</h3>
-                        <p>Гайды, челленджи, эксперименты, коллабы. 188 видео и миллионы просмотров.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🤖</div>
-                        <h3>AI / нейросети</h3>
-                        <p>Песни, промпты, вайбкодинг. TAIPrompts — генератор промптов для всех.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📺</div>
-                        <h3>3 канала</h3>
-                        <p>Основной, Creator, Live — каждый под свой формат и настроение.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Вайбкодинг</h3>
-                        <p>Пишу код по наитию, с помощью ИИ, без залипания в синтаксис. Работает.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📝</div>
-                        <h3>TAIPrompts</h3>
-                        <p>Генератор промптов для нейросетей. Открытый код, бесплатно, для всех.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🤝</div>
-                        <h3>SiteReview</h3>
-                        <p>Партнёрский проект — молодой сайт-отзовик.</p>
-                    </div>
-                </div>
+            <div class="section">
+                <div class="section-title">Вы</div>
+                <div class="section-item"><span class="icon-placeholder">📋</span>История</div>
+                <div class="section-item"><span class="icon-placeholder">📌</span>Плейлисты</div>
+                <div class="section-item"><span class="icon-placeholder">⏰</span>Смотреть позже</div>
+                <div class="section-item"><span class="icon-placeholder">👍</span>Понравившиеся</div>
+                <div class="section-item"><span class="icon-placeholder">📁</span>Ваши видео</div>
+                <div class="section-item"><span class="icon-placeholder">⬇️</span>Скачанные</div>
+                <div class="section-item" style="color: #3ea6ff;"><span class="icon-placeholder">▼</span>Развернуть</div>
             </div>
-        </section>
-
-        <section class="testimonials">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Что говорят</h2>
-                    <p>Отзывы на TAIPrompts и другие проекты</p>
-                </div>
-                
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"TAIPrompts реально экономит время. Не надо придумывать структуру — всё уже есть."</p>
-                        <div class="author-name">Антон К.</div>
-                        <div class="author-title">контент-мейкер</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Тимошка из Москвы — один из немногих, кто реально шарит в нейросетях и майнкрафте."</p>
-                        <div class="author-name">Елена</div>
-                        <div class="author-title">подписчик</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★☆</div>
-                        <p class="testimonial-text">"Генератор удобный, SiteReview тоже пригодился. Хорошо, когда проекты дружат."</p>
-                        <div class="author-name">Михаил</div>
-                        <div class="author-title">разработчик</div>
-                    </div>
-                </div>
+            <div class="section">
+                <div class="section-title">Навигатор</div>
+                <div class="section-item"><span class="icon-placeholder">🎵</span>Музыка</div>
+                <div class="section-item"><span class="icon-placeholder">🎬</span>Фильмы</div>
+                <div class="section-item"><span class="icon-placeholder">📡</span>Трансляции</div>
+                <div class="section-item" style="color: #3ea6ff;"><span class="icon-placeholder">▼</span>Развернуть</div>
             </div>
-        </section>
-
-        <section class="cta">
-            <div class="container">
-                <h2>Заходи на канал</h2>
-                <p>23 500 подписчиков, 8,5 млн просмотров и новый контент каждую неделю</p>
-                <a href="https://www.youtube.com/@Timosha_MoscowOF" class="btn-primary" target="_blank">TStudios на YouTube</a>
+            <div class="section">
+                <div class="section-title">Другие возможности</div>
+                <div class="section-item"><span class="icon-placeholder">🎥</span>Творческая студия YouTube</div>
+                <div class="section-item"><span class="icon-placeholder">▶️</span>YouTube Music</div>
+                <div class="section-item"><span class="icon-placeholder">🧒</span>YouTube Детям</div>
+                <div class="section-item"><span class="icon-placeholder">⚙️</span>Настройки</div>
+                <div class="section-item"><span class="icon-placeholder">🚩</span>Жалобы</div>
+                <div class="section-item"><span class="icon-placeholder">❓</span>Справка</div>
+                <div class="section-item"><span class="icon-placeholder">📝</span>Отправить отзыв</div>
             </div>
-        </section>
-
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo" style="color: white;">TStudios</div>
-                <div class="footer-links">
-                    <a href="https://timoshamoscow.github.io/taiprompts.github.io/">TAIPrompts</a>
-                    <a href="https://t.me/MinecraftWithTimosha">Telegram</a>
-                    <a href="#">Контакты</a>
-                </div>
-                <div class="copyright">© 2026 Тимошка из Москвы</div>
+            <div class="footer-links">
+                <a href="#">О сервисе</a><a href="#">Прессе</a><a href="#">Авторские права</a><a href="#">Связаться с нами</a><a href="#">Авторам</a><a href="#">Рекламодателям</a><a href="#">Разработчикам</a>
+                <div><a href="#">Условия использования</a><a href="#">Конфиденциальность</a><a href="#">Правила и безопасность</a><a href="#">Как работает YouTube</a><a href="#">Тестирование новых функций</a></div>
+                <div>© 2026 Google LLC</div>
             </div>
         </div>
-    </footer>
 
+        <!-- Основной контент (лента) -->
+        <div class="content">
+            <!-- Чипсы / категории -->
+            <div class="chips">
+                <span class="chip active">Все</span>
+                <span class="chip">Видеоигры</span>
+                <span class="chip">Музыка</span>
+                <span class="chip">Модификации Minecraft</span>
+                <span class="chip">Minecraft</span>
+                <span class="chip">Джемы</span>
+                <span class="chip">Сейчас в эфире</span>
+                <span class="chip">Платформеры</span>
+                <span class="chip">Кулинария</span>
+                <span class="chip">Недавно опубликованные</span>
+                <span class="chip">Просмотрено</span>
+                <span class="chip">Новое для вас</span>
+            </div>
+
+            <!-- Основная сетка (первые видео) -->
+            <div class="video-grid">
+                <!-- 1 -->
+                <div class="video-card">
+                    <div class="thumbnail bg1"><span class="time-badge">12:06</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#b5651e;"></div>
+                        <div class="video-details">
+                            <div class="video-title">7 НОЧЕЙ с НЕЧИСТЬЮ — HALLOWEEN</div>
+                            <div class="channel-name">VIKOSIII <span class="verified">✔</span></div>
+                            <div class="video-meta">278 тыс. подписчиков • 366 тыс. просмотров • 3 месяца назад</div>
+                            <div class="video-meta">83 VPH 7.4x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="video-card">
+                    <div class="thumbnail bg2"><span class="time-badge">2:00:33</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#c93e3e;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Дал Свою Безлимитную Карту в Дубае! Потратили 5 МИЛЛИОНОВ! (Сатир, ФрамеТамер, Кореш, Парадеич)</div>
+                            <div class="channel-name">ExileShow <span class="verified">✔</span></div>
+                            <div class="video-meta">6,01 млн подписчиков • 3,5 млн просмотров • 2 дня назад</div>
+                            <div class="video-meta">23.7K VPH 1.2x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="video-card">
+                    <div class="thumbnail bg3"><span class="time-badge">4:19</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#008000;"></div>
+                        <div class="video-details">
+                            <div class="video-title">ОФИЦИАЛЬНЫЙ АККАУНТ ТВИЧ ЗАШЕЛ К СТИНТУ НА СТРИМ</div>
+                            <div class="channel-name">Логово Стинта</div>
+                            <div class="video-meta">21,9 тыс. подписчиков • 241 тыс. просмотров • 1 год назад</div>
+                            <div class="video-meta">83 VPH &gt;100x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="video-card">
+                    <div class="thumbnail bg4"><span class="time-badge">Shorts</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#c04e01;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Майнкрафт Мод Дня от Ивуна! - №216 Dungeon Perpective</div>
+                            <div class="video-meta">84 тыс. просмотров • 2 деньs ago</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 5 -->
+                <div class="video-card">
+                    <div class="thumbnail bg5"><span class="time-badge">Shorts</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#9b59b6;"></div>
+                        <div class="video-details">
+                            <div class="video-title">а кто не хочет? #vtuber #втубер #fyp #recomendation #vtubergirl</div>
+                            <div class="video-meta">359 тыс. просмотров • 6 months ago</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 6 -->
+                <div class="video-card">
+                    <div class="thumbnail bg6"><span class="time-badge">Shorts</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#27ae60;"></div>
+                        <div class="video-details">
+                            <div class="video-title">факты о старом Майнкрафте #майнкрафт</div>
+                            <div class="video-meta">4 тыс. просмотров • 5 деньs ago</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 7 -->
+                <div class="video-card">
+                    <div class="thumbnail bg7"><span class="time-badge">Shorts</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#e67e22;"></div>
+                        <div class="video-details">
+                            <div class="video-title">ДУШНИЛА № 230</div>
+                            <div class="video-meta">2,3 млн просмотров • 1 month ago</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 8 -->
+                <div class="video-card">
+                    <div class="thumbnail bg8"><span class="time-badge">Shorts</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#2c3e50;"></div>
+                        <div class="video-details">
+                            <div class="video-title">хардкорнейший звук</div>
+                            <div class="video-meta">220 тыс. просмотров • 1 день ago</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 9 -->
+                <div class="video-card">
+                    <div class="thumbnail bg1"><span class="time-badge">37:31</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#f39c12;"></div>
+                        <div class="video-details">
+                            <div class="video-title">T2x2 СМОТРИТ - 1 Минута vs 10 Лет: Челлендж По Строительству</div>
+                            <div class="channel-name">T2x2 Live</div>
+                            <div class="video-meta">37,6 тыс. подписчиков • 80 тыс. просмотров • 17 часов назад</div>
+                            <div class="video-meta">3.8K VPH Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 10 эфир -->
+                <div class="video-card">
+                    <div class="thumbnail bg2"><span class="time-badge">ЭФИР</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#e84118;"></div>
+                        <div class="video-details">
+                            <div class="video-title">🔴Calamy craft💀 | #shorts #letsplay</div>
+                            <div class="channel-name">Echo_SoZeR</div>
+                            <div class="video-meta">1,47 тыс. подписчиков • Зрителей: 3</div>
+                            <div class="video-meta">Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 11 джем -->
+                <div class="video-card">
+                    <div class="thumbnail bg3"><span class="time-badge">Джем</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#8e44ad;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Мой джем Плейлист, составленный специально для вас</div>
+                            <div class="channel-name">191 подписчики</div>
+                            <div class="video-meta">1.4x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 12 shorts ещё -->
+                <div class="video-card">
+                    <div class="thumbnail bg4"><span class="time-badge">Shorts</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#d35400;"></div>
+                        <div class="video-details">
+                            <div class="video-title">МЫШКА СТИНТА ЗА 17к #стинт #stint #stintik #юмор #мем #мемы</div>
+                            <div class="video-meta">3,8 млн просмотров • 1 year ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок Shorts (горизонтальный) -->
+            <div class="shorts-section">
+                <div class="shorts-header">
+                    <span class="shorts-icon">⚡</span> Shorts
+                </div>
+                <div class="shorts-grid">
+                    <div class="short-card">
+                        <div class="short-thumb bg5"></div>
+                        <div class="short-title">❗️ПУТИНА НЕ СЛУШАЮТ РОДСТВЕННИКИ ЧИНУШ</div>
+                        <div class="short-stats">156 тыс. просмотров</div>
+                    </div>
+                    <div class="short-card">
+                        <div class="short-thumb bg6"></div>
+                        <div class="short-title">Самая Страшная Хоррор Карта в МАЙНКРАФТ</div>
+                        <div class="short-stats">62 тыс. просмотров</div>
+                    </div>
+                    <div class="short-card">
+                        <div class="short-thumb bg7"></div>
+                        <div class="short-title">Котлета по Деревеньски (Київськи) 🍗 #cooking #простоісмачно #food #recipe #рецепт</div>
+                        <div class="short-stats">52 тыс. просмотров</div>
+                    </div>
+                    <div class="short-card">
+                        <div class="short-thumb bg8"></div>
+                        <div class="short-title">Молния разошлась #sleduck #vtuber #twitch</div>
+                        <div class="short-stats">56 тыс. просмотров</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Продолжение сетки видео (большое количество карточек из списка) -->
+            <div class="video-grid">
+                <!-- 13 -->
+                <div class="video-card">
+                    <div class="thumbnail bg2"><span class="time-badge">9:40</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#1e3c5c;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Я посетил Худшие Фастфуды своего Города</div>
+                            <div class="channel-name">ПРОКС</div>
+                            <div class="video-meta">14,2 тыс. подписчиков • 8,3 тыс. просмотров • 1 день назад</div>
+                            <div class="video-meta">162 VPH 8x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 14 -->
+                <div class="video-card">
+                    <div class="thumbnail bg3"><span class="time-badge">18:10</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#b03a2e;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Я создал вирус для этого самоуверенного мошенника</div>
+                            <div class="channel-name">Scammer Payback</div>
+                            <div class="video-meta">9 млн подписчиков • 1,7 млн просмотров • 2 дня назад</div>
+                            <div class="video-meta">43.5K VPH 1.1x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 15 эфир -->
+                <div class="video-card">
+                    <div class="thumbnail bg4"><span class="time-badge">ЭФИР</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#2e8b57;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Plague Inc Р3 СТРИМ</div>
+                            <div class="channel-name">RosmotionPlay</div>
+                            <div class="video-meta">587 подписчиков • Зрителей: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 16 -->
+                <div class="video-card">
+                    <div class="thumbnail bg5"><span class="time-badge">23:01</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#6c3483;"></div>
+                        <div class="video-details">
+                            <div class="video-title">ОНИ - ЗАРАЖЁННЫЕ, а я НЕТ. INFECTED</div>
+                            <div class="channel-name">Nazzy</div>
+                            <div class="video-meta">1,89 млн подписчиков • 1,4 млн просмотров • 3 года назад</div>
+                            <div class="video-meta">16 VPH 2.8x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 17 -->
+                <div class="video-card">
+                    <div class="thumbnail bg6"><span class="time-badge">13:00</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#f1c40f;"></div>
+                        <div class="video-details">
+                            <div class="video-title">БРАТИШКИН СНОВА ЗАРЕДЖБАЙТИЛ ИНТЕРНЕТ (удачно)</div>
+                            <div class="channel-name">Bratishkin Rofls 2</div>
+                            <div class="video-meta">82,9 тыс. подписчиков • 36 тыс. просмотров • 16 часов назад</div>
+                            <div class="video-meta">2.1K VPH Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 18 -->
+                <div class="video-card">
+                    <div class="thumbnail bg7"><span class="time-badge">27:35</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#7f8c8d;"></div>
+                        <div class="video-details">
+                            <div class="video-title">ПЛАЧУ ТОЛЬКО РЕКЛАМОЙ // Добраться до Франции</div>
+                            <div class="channel-name">парадеевич</div>
+                            <div class="video-meta">2,4 млн подписчиков • 2,5 млн просмотров • 9 месяцев назад</div>
+                            <div class="video-meta">154 VPH 1.3x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 19 -->
+                <div class="video-card">
+                    <div class="thumbnail bg8"><span class="time-badge">26:11</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#d4ac0d;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Битва художников: Угадай Персонажа по Рисунку в майнкрафт! @Gradus @Rimekeke</div>
+                            <div class="channel-name">PollyZavr</div>
+                            <div class="video-meta">20,8 тыс. подписчиков • 54 тыс. просмотров • 19 часов назад</div>
+                            <div class="video-meta">1.7K VPH Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 20 -->
+                <div class="video-card">
+                    <div class="thumbnail bg1"><span class="time-badge">6:53</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#16a085;"></div>
+                        <div class="video-details">
+                            <div class="video-title">КАК CHATGPT РЕШИТ ЕГЭ ПО ИНФОРМАТИКЕ В 2026?</div>
+                            <div class="channel-name">likonit ik</div>
+                            <div class="video-meta">1,78 тыс. подписчиков • 10 тыс. просмотров • 1 день назад</div>
+                            <div class="video-meta">114 VPH Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 21 -->
+                <div class="video-card">
+                    <div class="thumbnail bg2"><span class="time-badge">12:26</span></div>
+                    <div class="video-info">
+                        <div class="channel-icon" style="background:#e67e22;"></div>
+                        <div class="video-details">
+                            <div class="video-title">Я ЕЛ на 100 Рублей в ЕВРОПЕ 50 Часов</div>
+                            <div class="channel-name">седьмой</div>
+                            <div class="video-meta">14,1 тыс. подписчиков • 29 тыс. просмотров • 3 недели назад</div>
+                            <div class="video-meta">69 VPH 1x Remix</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- можно продолжать до бесконечности, но суть ясна -->
+            </div>
+            <!-- Добавим строку с надписью Ещё темы как в оригинале -->
+            <div style="margin: 20px 0 10px; color: #aaa; display: flex; gap: 20px; flex-wrap: wrap;">
+                <span style="font-weight: 500;">Ещё темы:</span>
+                <span>Модификации Minecraft</span><span>Minecraft</span><span>Симуляторы</span><span>Платформеры</span>
+                <span>Кулинарные шоу</span><span>Рэп</span><span>Туризм</span><span>Математика</span>
+            </div>
+            <!-- Ещё карточки (итоговые) -->
+            <div class="video-grid">
+                <!-- 22 ... последние из списка -->
+                <div class="video-card">
+                    <div class="thumbnail bg3"><span class="time-badge">20:45</span></div>
+                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">Нямура СЧИТАЕТ СЕБЯ НЕ ПОПУЛЯРНОЙ В РУВИТУБИНГЕ...</div><div class="channel-name">Neo - Nyamura Narezki</div><div class="video-meta">1,78 тыс. подписчиков • 2,7 тыс. просмотров • 2 недели назад</div></div></div>
+                </div>
+                <div class="video-card">
+                    <div class="thumbnail bg4"><span class="time-badge">36:38</span></div>
+                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">Я Показал Хоррор Моды Тому, Кто НИКОГДА Не Играл с Ними… (+ Nazzy)</div><div class="channel-name">Говард и Nazzy</div><div class="video-meta">129 тыс. подписчиков • 283 тыс. просмотров • 2 дня назад</div></div></div>
+                </div>
+                <div class="video-card">
+                    <div class="thumbnail bg5"><span class="time-badge">14:17</span></div>
+                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">ЗУМЕРЫ АТАКУЮТ ОДНОКЛАССНИКИ - БЕЗУМНЫЙ РЕЗУЛЬТАТ БЛОКИРОВОК</div><div class="channel-name">BVS</div><div class="video-meta">476 тыс. подписчиков • 292 тыс. просмотров • 2 дня назад</div></div></div>
+                </div>
+                <div class="video-card">
+                    <div class="thumbnail bg6"><span class="time-badge">5:15</span></div>
+                    <div class="video-info"><div class="channel-icon"></div><div class="video-details"><div class="video-title">Почему диск C называется C, а не A или B?</div><div class="channel-name">QQUUAS</div><div class="video-meta">567 подписчиков • 63 тыс. просмотров • 3 недели назад</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
