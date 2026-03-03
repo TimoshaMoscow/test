@@ -45,12 +45,18 @@
             font-size: 20px;
             color: #fff;
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .menu-icon:hover {
+            color: #ff0000;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 1px;
+            cursor: pointer;
         }
 
         .logo-youtube {
@@ -97,6 +103,11 @@
             font-size: 16px;
             color: #fff;
             outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #1c62b9;
         }
 
         .search-box input::placeholder {
@@ -116,6 +127,11 @@
             cursor: pointer;
             color: #fff;
             font-size: 18px;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: #333;
         }
 
         .header-right {
@@ -128,18 +144,33 @@
             color: #fff;
             font-size: 20px;
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .voice-search:hover {
+            color: #ff0000;
         }
 
         .create-icon {
             color: #fff;
             font-size: 20px;
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .create-icon:hover {
+            color: #ff0000;
         }
 
         .notify-icon {
             color: #fff;
             font-size: 20px;
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .notify-icon:hover {
+            color: #ff0000;
         }
 
         .profile-icon {
@@ -152,6 +183,12 @@
             justify-content: center;
             font-weight: bold;
             font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.05);
         }
 
         /* Основной контейнер (сайдбар + контент) */
@@ -170,6 +207,23 @@
             scrollbar-width: thin;
             scrollbar-color: #717171 #0f0f0f;
             flex-shrink: 0;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 72px;
+        }
+
+        .sidebar.collapsed .section-item span:not(.icon-placeholder) {
+            display: none;
+        }
+
+        .sidebar.collapsed .section-title {
+            display: none;
+        }
+
+        .sidebar.collapsed .footer-links {
+            display: none;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -181,10 +235,18 @@
             border-radius: 10px;
         }
 
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
         .section {
             margin-bottom: 12px;
             border-bottom: 1px solid #3f3f3f;
             padding-bottom: 12px;
+        }
+
+        .section:last-child {
+            border-bottom: none;
         }
 
         .section-item {
@@ -196,6 +258,7 @@
             cursor: pointer;
             font-size: 14px;
             white-space: nowrap;
+            transition: background-color 0.2s;
         }
 
         .section-item:hover {
@@ -235,6 +298,11 @@
             text-decoration: none;
             margin-right: 8px;
             display: inline-block;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
         }
 
         .footer-links div {
@@ -258,6 +326,11 @@
             margin-bottom: 24px;
             padding-bottom: 8px;
             border-bottom: 1px solid #2f2f2f;
+            position: sticky;
+            top: 0;
+            background-color: #0f0f0f;
+            z-index: 10;
+            padding-top: 4px;
         }
 
         .chip {
@@ -269,7 +342,7 @@
             color: #fff;
             white-space: nowrap;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
 
         .chip.active {
@@ -279,6 +352,10 @@
 
         .chip:hover {
             background-color: #3f3f3f;
+        }
+
+        .chip.active:hover {
+            background-color: #e0e0e0;
         }
 
         /* Сетка видео */
@@ -311,6 +388,11 @@
             padding: 4px;
             background-size: cover;
             background-position: center;
+            transition: filter 0.2s;
+        }
+
+        .video-card:hover .thumbnail {
+            filter: brightness(1.1);
         }
 
         .time-badge {
@@ -348,6 +430,11 @@
             justify-content: center;
             color: white;
             font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .video-card:hover .channel-icon {
+            transform: scale(1.05);
         }
 
         .video-details {
@@ -428,6 +515,11 @@
             align-items: flex-end;
             justify-content: flex-end;
             padding: 4px;
+            transition: filter 0.2s;
+        }
+
+        .short-card:hover .short-thumb {
+            filter: brightness(1.1);
         }
 
         .short-title {
@@ -462,10 +554,31 @@
         .topic-item {
             cursor: pointer;
             padding: 5px 0;
+            transition: color 0.2s;
         }
 
         .topic-item:hover {
             color: #fff;
+        }
+
+        /* Уведомление */
+        .notification {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: #272727;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #ff0000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
         }
 
         /* SVG-обложки */
@@ -504,67 +617,69 @@
 <body>
     <header class="header">
         <div class="header-left">
-            <i class="fas fa-bars menu-icon"></i>
-            <div class="logo"><span class="logo-youtube"><span>▶</span>YouTube</span></div>
+            <i class="fas fa-bars menu-icon" id="menuToggle"></i>
+            <div class="logo" id="logo">
+                <span class="logo-youtube"><span>▶</span>YouTube</span>
+            </div>
         </div>
         <div class="header-center">
             <div class="search-box">
-                <input type="text" placeholder="Введите запрос">
-                <div class="search-btn"><i class="fas fa-search"></i></div>
+                <input type="text" placeholder="Введите запрос" id="searchInput">
+                <div class="search-btn" id="searchBtn"><i class="fas fa-search"></i></div>
             </div>
-            <div class="voice-search"><i class="fas fa-microphone"></i></div>
+            <div class="voice-search" id="voiceSearch"><i class="fas fa-microphone"></i></div>
         </div>
         <div class="header-right">
-            <i class="fas fa-video create-icon"></i>
-            <i class="fas fa-bell notify-icon"></i>
-            <div class="profile-icon"><i class="fas fa-user"></i></div>
+            <i class="fas fa-video create-icon" id="createBtn"></i>
+            <i class="fas fa-bell notify-icon" id="notifyBtn"></i>
+            <div class="profile-icon" id="profileBtn"><i class="fas fa-user"></i></div>
         </div>
     </header>
 
     <div class="main-container">
         <!-- Боковая панель -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="section">
-                <div class="section-item active"><i class="fas fa-home"></i>Главная</div>
-                <div class="section-item"><i class="fas fa-bolt"></i>Shorts</div>
-                <div class="section-item"><i class="fas fa-tv"></i>Подписки</div>
+                <div class="section-item active" data-section="home"><i class="fas fa-home"></i><span>Главная</span></div>
+                <div class="section-item" data-section="shorts"><i class="fas fa-bolt"></i><span>Shorts</span></div>
+                <div class="section-item" data-section="subscriptions"><i class="fas fa-tv"></i><span>Подписки</span></div>
             </div>
             <div class="section">
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>парадеевич</div>
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>VIKOSIII</div>
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>MrLololoshka (Роман Фильченков)</div>
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Морфикс</div>
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Nazzy</div>
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Fanlerok_live</div>
-                <div class="section-item"><i class="fas fa-play-circle" style="color:#ff0000;"></i>Самый сахар</div>
-                <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
+                <div class="section-item" data-channel="paradeevich"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>парадеевич</span></div>
+                <div class="section-item" data-channel="vikosiii"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>VIKOSIII</span></div>
+                <div class="section-item" data-channel="mrlololoshka"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>MrLololoshka (Роман Фильченков)</span></div>
+                <div class="section-item" data-channel="morphix"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Морфикс</span></div>
+                <div class="section-item" data-channel="nazzy"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Nazzy</span></div>
+                <div class="section-item" data-channel="fanlerok"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Fanlerok_live</span></div>
+                <div class="section-item" data-channel="sugars"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Самый сахар</span></div>
+                <div class="section-item" id="expandSubs" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i><span>Развернуть</span></div>
             </div>
             <div class="section">
                 <div class="section-title">Вы</div>
-                <div class="section-item"><i class="fas fa-history"></i>История</div>
-                <div class="section-item"><i class="fas fa-list"></i>Плейлисты</div>
-                <div class="section-item"><i class="fas fa-clock"></i>Смотреть позже</div>
-                <div class="section-item"><i class="fas fa-thumbs-up"></i>Понравившиеся</div>
-                <div class="section-item"><i class="fas fa-folder"></i>Ваши видео</div>
-                <div class="section-item"><i class="fas fa-download"></i>Скачанные</div>
-                <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
+                <div class="section-item" data-section="history"><i class="fas fa-history"></i><span>История</span></div>
+                <div class="section-item" data-section="playlists"><i class="fas fa-list"></i><span>Плейлисты</span></div>
+                <div class="section-item" data-section="watchlater"><i class="fas fa-clock"></i><span>Смотреть позже</span></div>
+                <div class="section-item" data-section="liked"><i class="fas fa-thumbs-up"></i><span>Понравившиеся</span></div>
+                <div class="section-item" data-section="yourvideos"><i class="fas fa-folder"></i><span>Ваши видео</span></div>
+                <div class="section-item" data-section="downloads"><i class="fas fa-download"></i><span>Скачанные</span></div>
+                <div class="section-item" id="expandYou" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i><span>Развернуть</span></div>
             </div>
             <div class="section">
                 <div class="section-title">Навигатор</div>
-                <div class="section-item"><i class="fas fa-music"></i>Музыка</div>
-                <div class="section-item"><i class="fas fa-film"></i>Фильмы</div>
-                <div class="section-item"><i class="fas fa-satellite-dish"></i>Трансляции</div>
-                <div class="section-item" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i>Развернуть</div>
+                <div class="section-item" data-section="music"><i class="fas fa-music"></i><span>Музыка</span></div>
+                <div class="section-item" data-section="movies"><i class="fas fa-film"></i><span>Фильмы</span></div>
+                <div class="section-item" data-section="live"><i class="fas fa-satellite-dish"></i><span>Трансляции</span></div>
+                <div class="section-item" id="expandNav" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i><span>Развернуть</span></div>
             </div>
             <div class="section">
                 <div class="section-title">Другие возможности</div>
-                <div class="section-item"><i class="fas fa-video"></i>Творческая студия YouTube</div>
-                <div class="section-item"><i class="fab fa-youtube"></i>YouTube Music</div>
-                <div class="section-item"><i class="fas fa-child"></i>YouTube Детям</div>
-                <div class="section-item"><i class="fas fa-cog"></i>Настройки</div>
-                <div class="section-item"><i class="fas fa-flag"></i>Жалобы</div>
-                <div class="section-item"><i class="fas fa-question-circle"></i>Справка</div>
-                <div class="section-item"><i class="fas fa-comment"></i>Отправить отзыв</div>
+                <div class="section-item" data-section="studio"><i class="fas fa-video"></i><span>Творческая студия YouTube</span></div>
+                <div class="section-item" data-section="musicapp"><i class="fab fa-youtube"></i><span>YouTube Music</span></div>
+                <div class="section-item" data-section="kids"><i class="fas fa-child"></i><span>YouTube Детям</span></div>
+                <div class="section-item" data-section="settings"><i class="fas fa-cog"></i><span>Настройки</span></div>
+                <div class="section-item" data-section="reports"><i class="fas fa-flag"></i><span>Жалобы</span></div>
+                <div class="section-item" data-section="help"><i class="fas fa-question-circle"></i><span>Справка</span></div>
+                <div class="section-item" data-section="feedback"><i class="fas fa-comment"></i><span>Отправить отзыв</span></div>
             </div>
             <div class="footer-links">
                 <a href="#">О сервисе</a><a href="#">Прессе</a><a href="#">Авторские права</a><a href="#">Связаться с нами</a><a href="#">Авторам</a><a href="#">Рекламодателям</a><a href="#">Разработчикам</a>
@@ -574,27 +689,27 @@
         </div>
 
         <!-- Основной контент -->
-        <div class="content">
+        <div class="content" id="content">
             <!-- Чипсы / категории -->
-            <div class="chips">
-                <span class="chip active">Все</span>
-                <span class="chip">Видеоигры</span>
-                <span class="chip">Музыка</span>
-                <span class="chip">Модификации Minecraft</span>
-                <span class="chip">Minecraft</span>
-                <span class="chip">Джемы</span>
-                <span class="chip">Сейчас в эфире</span>
-                <span class="chip">Платформеры</span>
-                <span class="chip">Кулинария</span>
-                <span class="chip">Недавно опубликованные</span>
-                <span class="chip">Просмотрено</span>
-                <span class="chip">Новое для вас</span>
+            <div class="chips" id="chips">
+                <span class="chip active" data-category="all">Все</span>
+                <span class="chip" data-category="games">Видеоигры</span>
+                <span class="chip" data-category="music">Музыка</span>
+                <span class="chip" data-category="minecraft-mods">Модификации Minecraft</span>
+                <span class="chip" data-category="minecraft">Minecraft</span>
+                <span class="chip" data-category="jams">Джемы</span>
+                <span class="chip" data-category="live">Сейчас в эфире</span>
+                <span class="chip" data-category="platformers">Платформеры</span>
+                <span class="chip" data-category="cooking">Кулинария</span>
+                <span class="chip" data-category="recent">Недавно опубликованные</span>
+                <span class="chip" data-category="watched">Просмотрено</span>
+                <span class="chip" data-category="new">Новое для вас</span>
             </div>
 
             <!-- Основная сетка видео -->
-            <div class="video-grid">
+            <div class="video-grid" id="videoGrid1">
                 <!-- 1: VIKOSIII - 7 НОЧЕЙ -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="1" data-channel="vikosiii" data-category="games">
                     <div class="thumbnail thumb-svg-1"><span class="time-badge">12:06</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-crown"></i></div>
@@ -607,7 +722,7 @@
                     </div>
                 </div>
                 <!-- 2: ExileShow - Дубай -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="2" data-channel="exileshow" data-category="entertainment">
                     <div class="thumbnail thumb-svg-2"><span class="time-badge">2:00:33</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-globe"></i></div>
@@ -620,7 +735,7 @@
                     </div>
                 </div>
                 <!-- 3: Логово Стинта - ТВИЧ -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="3" data-channel="stint" data-category="games">
                     <div class="thumbnail thumb-svg-3"><span class="time-badge">4:19</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-gamepad"></i></div>
@@ -633,7 +748,7 @@
                     </div>
                 </div>
                 <!-- 4: Майнкрафт Мод Дня -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="4" data-channel="ivun" data-category="minecraft">
                     <div class="thumbnail thumb-svg-4"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-cube"></i></div>
@@ -644,7 +759,7 @@
                     </div>
                 </div>
                 <!-- 5: VTUBER -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="5" data-channel="vtuber" data-category="vtuber">
                     <div class="thumbnail thumb-svg-5"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-paint-brush"></i></div>
@@ -655,7 +770,7 @@
                     </div>
                 </div>
                 <!-- 6: факты о старом Майнкрафте -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="6" data-channel="minecraft" data-category="minecraft">
                     <div class="thumbnail thumb-svg-6"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-tree"></i></div>
@@ -666,7 +781,7 @@
                     </div>
                 </div>
                 <!-- 7: ДУШНИЛА № 230 -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="7" data-channel="dushnila" data-category="comedy">
                     <div class="thumbnail thumb-svg-7"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-angry"></i></div>
@@ -677,7 +792,7 @@
                     </div>
                 </div>
                 <!-- 8: хардкорнейший звук -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="8" data-channel="sound" data-category="music">
                     <div class="thumbnail thumb-svg-8"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-headphones"></i></div>
@@ -688,7 +803,7 @@
                     </div>
                 </div>
                 <!-- 9: T2x2 СМОТРИТ -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="9" data-channel="t2x2" data-category="games">
                     <div class="thumbnail thumb-svg-9"><span class="time-badge">37:31</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-clock"></i></div>
@@ -701,7 +816,7 @@
                     </div>
                 </div>
                 <!-- 10: ЭФИР Calamy craft -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="10" data-channel="echo" data-category="live">
                     <div class="thumbnail thumb-svg-10"><span class="live-badge">ЭФИР</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-fire"></i></div>
@@ -714,7 +829,7 @@
                     </div>
                 </div>
                 <!-- 11: Джем -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="11" data-channel="jam" data-category="music">
                     <div class="thumbnail thumb-svg-11"><span class="time-badge">Джем</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-headphones-alt"></i></div>
@@ -726,7 +841,7 @@
                     </div>
                 </div>
                 <!-- 12: МЫШКА СТИНТА -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="12" data-channel="stint" data-category="comedy">
                     <div class="thumbnail thumb-svg-12"><span class="time-badge">Shorts</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-mouse"></i></div>
@@ -743,23 +858,23 @@
                 <div class="shorts-header">
                     <i class="fas fa-bolt shorts-icon"></i> Shorts
                 </div>
-                <div class="shorts-grid">
-                    <div class="short-card">
+                <div class="shorts-grid" id="shortsGrid">
+                    <div class="short-card" data-short-id="1">
                         <div class="short-thumb short-svg-1"></div>
                         <div class="short-title">❗️ПУТИНА НЕ СЛУШАЮТ РОДСТВЕННИКИ ЧИНУШ</div>
                         <div class="short-stats">156 тыс. просмотров</div>
                     </div>
-                    <div class="short-card">
+                    <div class="short-card" data-short-id="2">
                         <div class="short-thumb short-svg-2"></div>
                         <div class="short-title">Самая Страшная Хоррор Карта в МАЙНКРАФТ</div>
                         <div class="short-stats">62 тыс. просмотров</div>
                     </div>
-                    <div class="short-card">
+                    <div class="short-card" data-short-id="3">
                         <div class="short-thumb short-svg-3"></div>
                         <div class="short-title">Котлета по Деревеньски (Київськи) 🍗 #cooking #простоісмачно #food #recipe #рецепт</div>
                         <div class="short-stats">52 тыс. просмотров</div>
                     </div>
-                    <div class="short-card">
+                    <div class="short-card" data-short-id="4">
                         <div class="short-thumb short-svg-4"></div>
                         <div class="short-title">Молния разошлась #sleduck #vtuber #twitch</div>
                         <div class="short-stats">56 тыс. просмотров</div>
@@ -768,9 +883,9 @@
             </div>
 
             <!-- Продолжение сетки видео -->
-            <div class="video-grid">
+            <div class="video-grid" id="videoGrid2">
                 <!-- 13: ПРОКС - Фастфуды -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="13" data-channel="prox" data-category="food">
                     <div class="thumbnail thumb-svg-13"><span class="time-badge">9:40</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-hamburger"></i></div>
@@ -783,7 +898,7 @@
                     </div>
                 </div>
                 <!-- 14: Scammer Payback - вирус -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="14" data-channel="scammer" data-category="tech">
                     <div class="thumbnail thumb-svg-14"><span class="time-badge">18:10</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-bug"></i></div>
@@ -796,7 +911,7 @@
                     </div>
                 </div>
                 <!-- 15: ЭФИР Plague Inc -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="15" data-channel="rosmotion" data-category="live">
                     <div class="thumbnail thumb-svg-15"><span class="live-badge">ЭФИР</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-virus"></i></div>
@@ -808,7 +923,7 @@
                     </div>
                 </div>
                 <!-- 16: Nazzy - INFECTED -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="16" data-channel="nazzy" data-category="games">
                     <div class="thumbnail thumb-svg-16"><span class="time-badge">23:01</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-skull"></i></div>
@@ -821,7 +936,7 @@
                     </div>
                 </div>
                 <!-- 17: БРАТИШКИН -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="17" data-channel="bratishkin" data-category="comedy">
                     <div class="thumbnail thumb-svg-17"><span class="time-badge">13:00</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-laugh"></i></div>
@@ -834,7 +949,7 @@
                     </div>
                 </div>
                 <!-- 18: парадеевич - Франция -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="18" data-channel="paradeevich" data-category="travel">
                     <div class="thumbnail thumb-svg-18"><span class="time-badge">27:35</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-plane"></i></div>
@@ -847,7 +962,7 @@
                     </div>
                 </div>
                 <!-- 19: PollyZavr - Битва художников -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="19" data-channel="pollyzavr" data-category="minecraft">
                     <div class="thumbnail thumb-svg-19"><span class="time-badge">26:11</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-palette"></i></div>
@@ -860,7 +975,7 @@
                     </div>
                 </div>
                 <!-- 20: likonit ik - ChatGPT -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="20" data-channel="likonit" data-category="tech">
                     <div class="thumbnail thumb-svg-20"><span class="time-badge">6:53</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-robot"></i></div>
@@ -877,20 +992,20 @@
             <!-- Ещё темы -->
             <div class="topic-section">
                 <span class="topic-title">Ещё темы:</span>
-                <span class="topic-item">Модификации Minecraft</span>
-                <span class="topic-item">Minecraft</span>
-                <span class="topic-item">Симуляторы</span>
-                <span class="topic-item">Платформеры</span>
-                <span class="topic-item">Кулинарные шоу</span>
-                <span class="topic-item">Рэп</span>
-                <span class="topic-item">Туризм</span>
-                <span class="topic-item">Математика</span>
+                <span class="topic-item" data-topic="minecraft-mods">Модификации Minecraft</span>
+                <span class="topic-item" data-topic="minecraft">Minecraft</span>
+                <span class="topic-item" data-topic="simulators">Симуляторы</span>
+                <span class="topic-item" data-topic="platformers">Платформеры</span>
+                <span class="topic-item" data-topic="cooking-shows">Кулинарные шоу</span>
+                <span class="topic-item" data-topic="rap">Рэп</span>
+                <span class="topic-item" data-topic="travel">Туризм</span>
+                <span class="topic-item" data-topic="math">Математика</span>
             </div>
 
             <!-- Финальная сетка -->
-            <div class="video-grid">
+            <div class="video-grid" id="videoGrid3">
                 <!-- 21: Nyamura -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="21" data-channel="nyamura" data-category="vtuber">
                     <div class="thumbnail thumb-svg-21"><span class="time-badge">20:45</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-star"></i></div>
@@ -903,7 +1018,7 @@
                     </div>
                 </div>
                 <!-- 22: Говард и Nazzy -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="22" data-channel="howard" data-category="games">
                     <div class="thumbnail thumb-svg-22"><span class="time-badge">36:38</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-ghost"></i></div>
@@ -916,7 +1031,7 @@
                     </div>
                 </div>
                 <!-- 23: BVS - ЗУМЕРЫ -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="23" data-channel="bvs" data-category="news">
                     <div class="thumbnail thumb-svg-23"><span class="time-badge">14:17</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-users"></i></div>
@@ -929,7 +1044,7 @@
                     </div>
                 </div>
                 <!-- 24: QQUUAS - диск C -->
-                <div class="video-card">
+                <div class="video-card" data-video-id="24" data-channel="qquuas" data-category="tech">
                     <div class="thumbnail thumb-svg-24"><span class="time-badge">5:15</span></div>
                     <div class="video-info">
                         <div class="channel-icon"><i class="fas fa-hard-drive"></i></div>
@@ -944,5 +1059,188 @@
             </div>
         </div>
     </div>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const logo = document.getElementById('logo');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const voiceSearch = document.getElementById('voiceSearch');
+            const createBtn = document.getElementById('createBtn');
+            const notifyBtn = document.getElementById('notifyBtn');
+            const profileBtn = document.getElementById('profileBtn');
+            const chips = document.querySelectorAll('.chip');
+            const sectionItems = document.querySelectorAll('.section-item');
+            const videoCards = document.querySelectorAll('.video-card');
+            const shortCards = document.querySelectorAll('.short-card');
+            const topicItems = document.querySelectorAll('.topic-item');
+            const expandButtons = document.querySelectorAll('#expandSubs, #expandYou, #expandNav');
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notificationMessage');
+
+            // Функция показа уведомления
+            function showNotification(message, duration = 3000) {
+                notificationMessage.textContent = message;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, duration);
+            }
+
+            // Переключение сайдбара
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                    showNotification(sidebar.classList.contains('collapsed') ? 'Сайдбар свернут' : 'Сайдбар развернут');
+                });
+            }
+
+            // Логотип
+            if (logo) {
+                logo.addEventListener('click', function() {
+                    showNotification('Переход на главную');
+                    // Сброс активных чипсов
+                    chips.forEach(chip => chip.classList.remove('active'));
+                    document.querySelector('.chip[data-category="all"]').classList.add('active');
+                });
+            }
+
+            // Поиск
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        showNotification(`Поиск: "${query}"`);
+                    } else {
+                        showNotification('Введите запрос для поиска');
+                    }
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const query = searchInput.value.trim();
+                        if (query) {
+                            showNotification(`Поиск: "${query}"`);
+                        }
+                    }
+                });
+            }
+
+            // Голосовой поиск
+            if (voiceSearch) {
+                voiceSearch.addEventListener('click', function() {
+                    showNotification('Голосовой поиск (демо)');
+                });
+            }
+
+            // Кнопка создания
+            if (createBtn) {
+                createBtn.addEventListener('click', function() {
+                    showNotification('Создать видео (демо)');
+                });
+            }
+
+            // Уведомления
+            if (notifyBtn) {
+                notifyBtn.addEventListener('click', function() {
+                    showNotification('Нет новых уведомлений');
+                });
+            }
+
+            // Профиль
+            if (profileBtn) {
+                profileBtn.addEventListener('click', function() {
+                    showNotification('Профиль пользователя');
+                });
+            }
+
+            // Чипсы (категории)
+            chips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    chips.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    const category = this.dataset.category;
+                    showNotification(`Категория: ${this.textContent}`);
+                });
+            });
+
+            // Элементы сайдбара
+            sectionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (this.classList.contains('active')) return;
+                    
+                    sectionItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const text = this.querySelector('span') ? this.querySelector('span').textContent : this.textContent.trim();
+                    showNotification(`Раздел: ${text}`);
+                });
+            });
+
+            // Видео карточки
+            videoCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.video-title').textContent;
+                    showNotification(`Открыть видео: ${title.substring(0, 50)}...`);
+                });
+            });
+
+            // Shorts карточки
+            shortCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.short-title').textContent;
+                    showNotification(`Shorts: ${title.substring(0, 50)}...`);
+                });
+            });
+
+            // Темы
+            topicItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const topic = this.textContent;
+                    showNotification(`Тема: ${topic}`);
+                });
+            });
+
+            // Кнопки "Развернуть"
+            expandButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const text = this.querySelector('span').textContent;
+                    if (text.includes('Развернуть')) {
+                        this.querySelector('span').textContent = 'Свернуть';
+                        this.querySelector('i').classList.remove('fa-chevron-down');
+                        this.querySelector('i').classList.add('fa-chevron-up');
+                        showNotification('Список развернут');
+                    } else {
+                        this.querySelector('span').textContent = 'Развернуть';
+                        this.querySelector('i').classList.remove('fa-chevron-up');
+                        this.querySelector('i').classList.add('fa-chevron-down');
+                        showNotification('Список свернут');
+                    }
+                });
+            });
+
+            // Имитация загрузки
+            console.log('YouTube интерфейс загружен');
+            showNotification('Добро пожаловать на YouTube!', 2000);
+
+            // Обработка ошибок изображений (на случай проблем с SVG)
+            document.querySelectorAll('.thumbnail, .short-thumb').forEach(el => {
+                el.addEventListener('error', function() {
+                    console.log('Ошибка загрузки SVG, используется заглушка');
+                    this.style.backgroundColor = '#333';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
