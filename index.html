@@ -3,670 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тестовый лендинг | Будущее уже здесь</title>
-    <!-- Подключаем шрифт Inter для современного чистого вида -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (бесплатный CDN) для иконок -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.5;
-            color: #111827;
-            background-color: #ffffff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Хедер */
-        .header {
-            padding: 20px 0;
-            border-bottom: 1px solid #e5e7eb;
-            background-color: #ffffff;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            backdrop-filter: blur(8px);
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-
-        .header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 24px;
-            letter-spacing: -0.5px;
-            color: #0f172a;
-        }
-
-        .logo span {
-            color: #3b82f6;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #334155;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #3b82f6;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background-color: #3b82f6;
-            color: white;
-            box-shadow: 0 4px 6px -2px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-primary:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid #3b82f6;
-            color: #3b82f6;
-        }
-
-        .btn-outline:hover {
-            background-color: #eef2ff;
-        }
-
-        /* Hero секция */
-        .hero {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
-        }
-
-        .hero .container {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background-color: #dbeafe;
-            color: #1e40af;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 6px 16px;
-            border-radius: 30px;
-            margin-bottom: 24px;
-        }
-
-        .hero-content h1 {
-            font-size: 52px;
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -1px;
-            margin-bottom: 24px;
-            color: #0b1120;
-        }
-
-        .hero-content p {
-            font-size: 18px;
-            color: #475569;
-            max-width: 500px;
-            margin-bottom: 32px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .hero-image {
-            flex: 1;
-            background-color: #eef2ff;
-            border-radius: 40px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-image i {
-            font-size: 160px;
-            color: #3b82f6;
-            opacity: 0.8;
-        }
-
-        .hero-image::after {
-            content: "⚡";
-            font-size: 80px;
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            opacity: 0.1;
-            transform: rotate(15deg);
-        }
-
-        /* Логотипы компаний (соц. доказательство) */
-        .social-proof {
-            padding: 40px 0;
-            background-color: #f8fafc;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .social-proof p {
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .logos {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .logos span {
-            font-size: 24px;
-            font-weight: 700;
-            color: #94a3b8;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .logos span:hover {
-            opacity: 1;
-        }
-
-        /* Особенности (Features) */
-        .features {
-            padding: 100px 0;
-            background-color: #ffffff;
-        }
-
-        .section-title {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
-        .section-title h2 {
-            font-size: 40px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
-            color: #0f172a;
-        }
-
-        .section-title p {
-            font-size: 18px;
-            color: #475569;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            padding: 32px 24px;
-            border-radius: 32px;
-            background-color: #f9fafb;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #f1f5f9;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-            background-color: #ffffff;
-            border-color: #e2e8f0;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 20px;
-            background-color: #dbeafe;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .feature-icon i {
-            font-size: 28px;
-            color: #2563eb;
-        }
-
-        .feature-card h3 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .feature-card p {
-            color: #475569;
-        }
-
-        /* Отзывы (Testimonials) */
-        .testimonials {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .testimonial-card {
-            background-color: white;
-            border-radius: 28px;
-            padding: 32px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e9eef3;
-            transition: all 0.2s;
-        }
-
-        .testimonial-card:hover {
-            border-color: #b3d0ff;
-            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1);
-        }
-
-        .stars {
-            color: #fbbf24;
-            margin-bottom: 20px;
-            font-size: 18px;
-            letter-spacing: 2px;
-        }
-
-        .testimonial-text {
-            font-size: 16px;
-            color: #1e293b;
-            margin-bottom: 24px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: #3b82f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 20px;
-        }
-
-        .author-info h4 {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .author-info p {
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        /* Призыв к действию (CTA) */
-        .cta {
-            padding: 80px 0;
-            background-color: #0f172a;
-            color: white;
-        }
-
-        .cta .container {
-            text-align: center;
-            max-width: 800px;
-        }
-
-        .cta h2 {
-            font-size: 44px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 24px;
-        }
-
-        .cta p {
-            font-size: 18px;
-            color: #cbd5e1;
-            margin-bottom: 40px;
-        }
-
-        .cta .btn-primary {
-            background-color: white;
-            color: #0f172a;
-            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
-            font-size: 18px;
-            padding: 16px 48px;
-        }
-
-        .cta .btn-primary:hover {
-            background-color: #f1f5f9;
-            transform: scale(1.02);
-        }
-
-        /* Футер */
-        .footer {
-            padding: 48px 0;
-            background-color: #f8fafc;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .footer .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer .logo {
-            font-size: 20px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            color: #334155;
-            font-weight: 500;
-        }
-
-        .footer-links a:hover {
-            color: #3b82f6;
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero .container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-content h1 {
-                font-size: 40px;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-image {
-                width: 100%;
-            }
-
-            .section-title h2 {
-                font-size: 32px;
-            }
-
-            .cta h2 {
-                font-size: 36px;
-            }
-
-            .footer .container {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 20px;
-            }
-        }
-    </style>
+    <title>Базовый шаблон лендинга</title>
+    <!-- Подключаем Tailwind CSS для быстрой стилизации (опционально) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Или можешь заменить на свой CSS -->
 </head>
-<body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">Футуриум<span>.</span></div>
-            <nav class="nav-links">
-                <a href="#">Возможности</a>
-                <a href="#">Решения</a>
-                <a href="#">Цены</a>
-                <a href="#">Блог</a>
+<body class="font-sans antialiased">
+
+    <!-- ======= HEADER ======= -->
+    <header class="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold">Логотип</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-blue-600">О нас</a>
+                <a href="#" class="hover:text-blue-600">Услуги</a>
+                <a href="#" class="hover:text-blue-600">Контакты</a>
             </nav>
-            <a href="#" class="btn btn-primary">Начать</a>
+            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                Связаться
+            </button>
         </div>
     </header>
+    <!-- Отступ для фиксированного хедера -->
+    <div class="h-20"></div>
 
     <main>
-        <!-- Hero -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <span class="hero-badge">Будущее уже здесь</span>
-                    <h1>Тестовый лендинг для демонстрации</h1>
-                    <p>Современный, чистый, конверсионный дизайн. Адаптирован под мобильные устройства и готов к использованию.</p>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn btn-primary">Попробовать бесплатно</a>
-                        <a href="#" class="btn btn-outline">Связаться с нами</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <i class="fas fa-rocket"></i>
+
+        <!-- ======= HERO ======= -->
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-4 text-center max-w-4xl">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    Заголовок, который<br>цепляет внимание
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                    Подзаголовок с описанием ценности продукта. 2-3 предложения, объясняющие, почему это нужно клиенту.
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="#" class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-blue-700">
+                        Начать сейчас
+                    </a>
+                    <a href="#" class="border border-gray-300 px-8 py-4 rounded-lg text-lg hover:border-blue-600">
+                        Узнать больше
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Social Proof (Logos) -->
-        <section class="social-proof">
-            <div class="container">
-                <p>Доверяют ведущие команды</p>
-                <div class="logos">
-                    <span>BERKSHIRE</span>
-                    <span>ATLASSIAN</span>
-                    <span>STACKBLITZ</span>
-                    <span>VERCEL</span>
-                    <span>NETLIFY</span>
+        <!-- ======= ЛОГОТИПЫ (соцдок) ======= -->
+        <section class="py-12 border-y bg-gray-50">
+            <div class="container mx-auto px-4">
+                <p class="text-center text-gray-500 uppercase tracking-wider mb-8">
+                    Доверяют ведущие компании
+                </p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 text-gray-400">
+                    <span class="text-2xl font-bold">NETLIFY</span>
+                    <span class="text-2xl font-bold">VERCEL</span>
+                    <span class="text-2xl font-bold">ATLASSIAN</span>
+                    <span class="text-2xl font-bold">GITHUB</span>
+                    <span class="text-2xl font-bold">GOOGLE</span>
                 </div>
             </div>
         </section>
 
-        <!-- Features -->
-        <section class="features" id="features">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Создано для результатов</h2>
-                    <p>Все инструменты, которые нужны для профессионального тестирования идей и быстрого роста.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                        <h3>Мгновенная загрузка</h3>
-                        <p>Никаких задержек. Наш стек оптимизирован так, чтобы ваш пользователь не ждал ни секунды.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                        <h3>Безопасность по умолчанию</h3>
-                        <p>Все соединения защищены, а данные шифруются. Мы заботимся о конфиденциальности.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Детальная аналитика</h3>
-                        <p>Панель управления с понятными графиками и метриками для отслеживания прогресса.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-globe"></i></div>
-                        <h3>Глобальный CDN</h3>
-                        <p>Наша сеть доставки контента охватывает 6 континентов — ваши данные всегда рядом.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                        <h3>Поддержка 24/7</h3>
-                        <p>Живые специалисты (не боты) ответят в любую минуту, даже в выходные.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
-                        <h3>Гибкая интеграция</h3>
-                        <p>Подключайте любые API и сервисы через удобный конструктор без единой строчки кода.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials -->
-        <section class="testimonials">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Отзывы клиентов</h2>
-                    <p>Более 5000 команд уже используют наш продукт.</p>
-                </div>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <!-- ======= ПРЕИМУЩЕСТВА ======= -->
+        <section class="py-20">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+                    Почему выбирают нас
+                </h2>
+                <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
+                    Краткое описание преимуществ. Что делает продукт уникальным.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Карточка 1 -->
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">⚡</span>
                         </div>
-                        <p class="testimonial-text">«Сделали лендинг за час. Буквально скопировали блоки, поменяли текст — и готово. Очень экономит время на тестах гипотез.»</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">А</div>
-                            <div class="author-info">
-                                <h4>Анна Петрова</h4>
-                                <p>Product Lead, Surf</p>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Быстро</h3>
+                        <p class="text-gray-600">Описание преимущества. Работает молниеносно.</p>
                     </div>
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <!-- Карточка 2 -->
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">🛡️</span>
                         </div>
-                        <p class="testimonial-text">«Ребята явно знают толк в конверсии. Дизайн выглядит дорого, при этом код лёгкий. Проверяли в PageSpeed — молодцы.»</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">Д</div>
-                            <div class="author-info">
-                                <h4>Дмитрий Иванов</h4>
-                                <p>Founder, CodeCraft</p>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Надежно</h3>
+                        <p class="text-gray-600">Безопасность и защита данных.</p>
                     </div>
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <!-- Карточка 3 -->
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">📱</span>
                         </div>
-                        <p class="testimonial-text">«Не ожидал, что тестовый лендинг может выглядеть настолько презентабельно. Оставили как есть, только фото поменяли. Спасибо!»</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">Е</div>
-                            <div class="author-info">
-                                <h4>Екатерина Смирнова</h4>
-                                <p>Marketing Director, BeCloud</p>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Адаптивно</h3>
+                        <p class="text-gray-600">Работает на всех устройствах.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="cta">
-            <div class="container">
-                <h2>Готовы вывести проект на новый уровень?</h2>
-                <p>Присоединяйтесь к тысячам довольных клиентов. Первые 30 дней — бесплатно, без карты.</p>
-                <a href="#" class="btn btn-primary">Начать бесплатно →</a>
+        <!-- ======= ОТЗЫВЫ ======= -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">
+                    Отзывы клиентов
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Отзыв 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                        <p class="text-gray-700 mb-4">"Отличный сервис! Всё работает идеально. Обязательно буду рекомендовать."</p>
+                        <div class="font-semibold">Анна Петрова</div>
+                        <div class="text-sm text-gray-500">CEO, Company</div>
+                    </div>
+                    <!-- Отзыв 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                        <p class="text-gray-700 mb-4">"Сэкономили кучу времени благодаря этому продукту. Интерфейс интуитивно понятный."</p>
+                        <div class="font-semibold">Иван Сидоров</div>
+                        <div class="text-sm text-gray-500">Маркетолог</div>
+                    </div>
+                    <!-- Отзыв 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                        <p class="text-gray-700 mb-4">"Лучшее решение на рынке. Поддержка отвечает мгновенно, багов нет."</p>
+                        <div class="font-semibold">Екатерина Смирнова</div>
+                        <div class="text-sm text-gray-500">Product Manager</div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- ======= CTA ======= -->
+        <section class="py-20 bg-blue-600 text-white">
+            <div class="container mx-auto px-4 text-center max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Готовы начать?
+                </h2>
+                <p class="text-xl mb-8 text-blue-100">
+                    Присоединяйтесь к тысячам довольных клиентов
+                </p>
+                <a href="#" class="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100">
+                    Попробовать бесплатно →
+                </a>
+                <p class="text-sm mt-4 text-blue-200">Без карты, 14 дней бесплатно</p>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="logo">Футуриум<span>.</span></div>
-            <div class="footer-links">
-                <a href="#">О нас</a>
-                <a href="#">Документация</a>
-                <a href="#">Конфиденциальность</a>
-                <a href="#">Контакты</a>
-            </div>
-            <div class="copyright">
-                © 2025 Футуриум. Тестовый образец.
+    <!-- ======= FOOTER ======= -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold mb-4 md:mb-0">Логотип</div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-blue-400">О нас</a>
+                    <a href="#" class="hover:text-blue-400">Блог</a>
+                    <a href="#" class="hover:text-blue-400">Контакты</a>
+                    <a href="#" class="hover:text-blue-400">Политика</a>
+                </div>
+                <div class="text-gray-400 text-sm mt-4 md:mt-0">
+                    © 2025 Все права защищены
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Небольшой декоративный скрипт для плавности (не обязателен) -->
-    <script>
-        (function() {
-            // Добавим плавный скролл для якорей (если бы они были)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href === "#") return;
-                    const target = document.querySelector(href);
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-        })();
-    </script>
 </body>
 </html>
