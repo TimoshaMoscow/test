@@ -2,1271 +2,719 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube</title>
-    <!-- Font Awesome 6 (Free) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>TrusyMarket — магазин трусов Тимофея и витуберш</title>
+    <!-- SEO meta -->
+    <meta name="description" content="TrusyMarket: купить легендарные трусы Тимофея и стильные трусы витуберш. Ванильная эстетика, матовое стекло, быстрая оплата через donatepay.">
+    <meta name="keywords" content="трусы тимофея, трусы витуберш, купить трусы, мужские трусы, странные трусы, TrusyMarket">
+    <meta name="author" content="TrusyMarket">
+    <!-- Font Awesome 6 (иконки) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Современный сброс и базовый стиль -->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* Основная палитра — ванильный фон */
         body {
-            background-color: #0f0f0f;
-            color: #f1f1f1;
+            background-color: #fffff7;        /* ванильный */
+            background-image: radial-gradient(circle at 10% 30%, rgba(255, 245, 215, 0.5) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 70%, rgba(240, 230, 200, 0.6) 0%, transparent 40%);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            padding: 16px;
         }
 
-        /* Шапка */
+        /* матовое стекло + мягкие тени */
+        .glass-card {
+            background: rgba(255, 255, 247, 0.65);   /* ванильный просвет */
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 210, 190, 0.3);
+            box-shadow: 0 20px 40px -12px rgba(80, 60, 30, 0.15), 0 4px 18px rgba(255, 245, 215, 0.5);
+            padding: 24px 28px;
+            transition: all 0.2s ease;
+        }
+
+        /* контейнер — общий ограничитель */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* шапка с поиском, корзиной, заголовком */
         .header {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
-            height: 56px;
-            background-color: #0f0f0f;
-            border-bottom: 1px solid #272727;
-            flex-shrink: 0;
+            gap: 18px;
         }
 
-        .header-left {
+        .logo-area h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(130deg, #5f4b3a, #8f7a60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(255, 235, 200, 0.6);
+        }
+
+        .logo-area p {
+            font-size: 1rem;
+            color: #6b5a48;
+            margin-top: 4px;
+            font-weight: 300;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 6px;
         }
 
-        .menu-icon {
-            font-size: 20px;
-            color: #fff;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .menu-icon:hover {
-            color: #ff0000;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1px;
-            cursor: pointer;
-        }
-
-        .logo-youtube {
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: -1px;
-            color: white;
-        }
-
-        .logo-youtube span {
-            color: #ff0000;
-            font-size: 24px;
-        }
-
-        .logo::after {
-            content: "RU";
-            font-size: 10px;
-            color: #aaa;
-            margin-left: 4px;
-            align-self: flex-start;
-        }
-
-        .header-center {
-            display: flex;
-            align-items: center;
-            max-width: 600px;
-            flex: 1;
-            margin: 0 20px;
-        }
-
+        /* поиск */
         .search-box {
+            flex: 1 1 260px;
             display: flex;
+            background: rgba(250, 245, 235, 0.7);
+            border-radius: 48px;
+            border: 1px solid rgba(200, 180, 150, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 6px 6px 6px 20px;
+            max-width: 400px;
             align-items: center;
-            width: 100%;
+        }
+
+        .search-box i {
+            color: #9b8a74;
+            font-size: 1.1rem;
         }
 
         .search-box input {
-            flex: 1;
-            height: 40px;
-            background-color: #121212;
-            border: 1px solid #303030;
-            border-radius: 20px 0 0 20px;
-            padding: 0 16px;
-            font-size: 16px;
-            color: #fff;
+            background: transparent;
+            border: none;
+            padding: 12px 10px;
+            font-size: 1rem;
+            width: 100%;
             outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .search-box input:focus {
-            border-color: #1c62b9;
+            color: #3e3327;
         }
 
         .search-box input::placeholder {
-            color: #888;
+            color: #b3a18b;
+            font-style: italic;
         }
 
-        .search-btn {
-            width: 64px;
-            height: 40px;
-            background-color: #222;
-            border: 1px solid #303030;
-            border-left: none;
-            border-radius: 0 20px 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .search-box button {
+            background: #fffff7;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 22px;
+            font-weight: 600;
+            color: #5f4b3a;
             cursor: pointer;
-            color: #fff;
-            font-size: 18px;
-            transition: background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(150, 120, 80, 0.1);
+            transition: 0.2s;
+            border: 1px solid #e5dac8;
         }
 
-        .search-btn:hover {
-            background-color: #333;
+        .search-box button:hover {
+            background: #f5efe3;
+            box-shadow: 0 8px 16px rgba(130, 100, 60, 0.15);
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .voice-search {
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .voice-search:hover {
-            color: #ff0000;
-        }
-
-        .create-icon {
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .create-icon:hover {
-            color: #ff0000;
-        }
-
-        .notify-icon {
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .notify-icon:hover {
-            color: #ff0000;
-        }
-
-        .profile-icon {
-            width: 32px;
-            height: 32px;
-            background-color: #7a4c9e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .profile-icon:hover {
-            transform: scale(1.05);
-        }
-
-        /* Основной контейнер (сайдбар + контент) */
-        .main-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* Сайдбар */
-        .sidebar {
-            width: 240px;
-            background-color: #0f0f0f;
-            overflow-y: auto;
-            padding: 12px 0 12px 12px;
-            scrollbar-width: thin;
-            scrollbar-color: #717171 #0f0f0f;
-            flex-shrink: 0;
-            transition: width 0.3s ease;
-        }
-
-        .sidebar.collapsed {
-            width: 72px;
-        }
-
-        .sidebar.collapsed .section-item span:not(.icon-placeholder) {
-            display: none;
-        }
-
-        .sidebar.collapsed .section-title {
-            display: none;
-        }
-
-        .sidebar.collapsed .footer-links {
-            display: none;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #717171;
-            border-radius: 10px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background: #888;
-        }
-
-        .section {
-            margin-bottom: 12px;
-            border-bottom: 1px solid #3f3f3f;
-            padding-bottom: 12px;
-        }
-
-        .section:last-child {
-            border-bottom: none;
-        }
-
-        .section-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            white-space: nowrap;
-            transition: background-color 0.2s;
-        }
-
-        .section-item:hover {
-            background-color: #272727;
-        }
-
-        .section-item.active {
-            background-color: #272727;
-            font-weight: 500;
-        }
-
-        .section-item i {
-            width: 24px;
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-        }
-
-        .section-title {
-            color: #aaa;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 8px 12px 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-links {
-            padding: 16px 12px;
-            font-size: 13px;
-            color: #717171;
-            line-height: 1.6;
-        }
-
-        .footer-links a {
-            color: #717171;
-            text-decoration: none;
-            margin-right: 8px;
-            display: inline-block;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: #fff;
-        }
-
-        .footer-links div {
-            margin-top: 16px;
-            font-size: 12px;
-        }
-
-        /* Основной контент */
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 24px;
-            background-color: #0f0f0f;
-        }
-
-        /* Чипсы (категории) */
-        .chips {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #2f2f2f;
-            position: sticky;
-            top: 0;
-            background-color: #0f0f0f;
-            z-index: 10;
-            padding-top: 4px;
-        }
-
-        .chip {
-            padding: 8px 14px;
-            background-color: #272727;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #fff;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .chip.active {
-            background-color: #fff;
-            color: #0f0f0f;
-        }
-
-        .chip:hover {
-            background-color: #3f3f3f;
-        }
-
-        .chip.active:hover {
-            background-color: #e0e0e0;
-        }
-
-        /* Сетка видео */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .video-card {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .video-card:hover {
-            transform: scale(1.02);
-        }
-
-        .thumbnail {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #333;
-            border-radius: 12px;
-            margin-bottom: 10px;
+        /* корзина и иконка */
+        .cart-icon {
             position: relative;
+            background: rgba(255, 255, 247, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 14px 20px;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 190, 160, 0.4);
+            font-size: 1.4rem;
+            color: #4f4235;
+            cursor: pointer;
+            transition: 0.2s;
             display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            padding: 4px;
-            background-size: cover;
-            background-position: center;
-            transition: filter 0.2s;
-        }
-
-        .video-card:hover .thumbnail {
-            filter: brightness(1.1);
-        }
-
-        .time-badge {
-            background-color: rgba(0,0,0,0.8);
-            color: white;
-            font-size: 12px;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-
-        .live-badge {
-            background-color: #ff0000;
-            color: white;
-            font-size: 12px;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        .video-info {
-            display: flex;
+            align-items: center;
             gap: 12px;
         }
 
-        .channel-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: #6a1e9a;
-            flex-shrink: 0;
+        .cart-icon:hover {
+            background: rgba(250, 240, 225, 0.8);
+            border-color: #cbb295;
+        }
+
+        .cart-count {
+            background: #b78f6b;
+            color: #fffff7;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 40px;
+            margin-left: 4px;
+        }
+
+        /* основная сетка карточек */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin: 16px 0 8px;
+        }
+
+        /* карточка товара */
+        .product-card {
+            background: rgba(255, 255, 247, 0.55);
+            backdrop-filter: blur(14px);
+            border-radius: 40px;
+            padding: 24px 22px 26px;
+            border: 1px solid rgba(230, 215, 190, 0.5);
+            box-shadow: 0 20px 30px -12px rgba(80, 60, 40, 0.2);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            transition: transform 0.2s;
+            flex-direction: column;
+            transition: transform 0.15s;
         }
 
-        .video-card:hover .channel-icon {
-            transform: scale(1.05);
+        .product-card:hover {
+            transform: scale(1.01);
+            background: rgba(255, 255, 247, 0.75);
+            border-color: #ddcdb4;
         }
 
-        .video-details {
-            flex: 1;
+        .product-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 30px;
+            background: #f5efe4;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 240, 0.8);
+            box-shadow: 0 8px 18px rgba(130, 100, 70, 0.15);
         }
 
-        .video-title {
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 1.4;
-            margin-bottom: 4px;
-            color: #fff;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .channel-name, .video-meta {
-            font-size: 14px;
-            color: #aaa;
-            line-height: 1.5;
-        }
-
-        .channel-name {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .verified {
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        .shorts-section {
-            margin: 40px 0 20px;
-        }
-
-        .shorts-header {
+        .product-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #3b2f23;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 20px;
+        }
+
+        .product-title i {
+            font-size: 1.4rem;
+            color: #b48c63;
+        }
+
+        .product-desc {
+            font-size: 1rem;
+            color: #695e50;
+            margin: 10px 0 14px;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .price-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+            border-top: 1px dashed #dacdba;
+            padding-top: 18px;
+        }
+
+        .price {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #372e22;
+        }
+
+        .price small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #7f6e5a;
+        }
+
+        .add-to-cart {
+            background: #fffff7;
+            border: 1px solid #d6c4ac;
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            color: #4d3f30;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 5px 14px rgba(150, 120, 80, 0.1);
         }
 
-        .shorts-icon {
-            font-size: 28px;
-            color: #ff0000;
+        .add-to-cart i {
+            font-size: 1.2rem;
+            color: #ad8260;
         }
 
-        .shorts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        .add-to-cart:hover {
+            background: #fcf3e4;
+            border-color: #b39272;
+            box-shadow: 0 8px 18px rgba(120, 85, 50, 0.15);
+        }
+
+        /* блок оплаты и информации */
+        .payment-section {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .payment-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 247, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 18px 34px;
+            border-radius: 60px;
+            border: 1px solid #e2d3be;
+            font-size: 1.3rem;
+            color: #3e3322;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            box-shadow: 0 6px 14px rgba(90, 70, 40, 0.1);
+        }
+
+        .payment-link i {
+            font-size: 2rem;
+            color: #aa7c55;
+        }
+
+        .payment-link:hover {
+            background: #fffff7;
+            border-color: #b99b7a;
+            transform: translateY(-3px);
+        }
+
+        .korzina-info {
+            background: rgba(240, 230, 215, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            color: #584c3b;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(200, 175, 145, 0.3);
+        }
+
+        .korzina-info i {
+            font-size: 1.5rem;
+            color: #8b745b;
+        }
+
+        /* панель корзины (выпадающая / постоянная на малых экранах) */
+        .cart-drawer {
+            background: rgba(255, 255, 247, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid rgba(200, 180, 150, 0.4);
+            padding: 24px;
+            margin-top: 8px;
+            display: none; /* скрыта по умолчанию */
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-drawer.show {
+            display: flex;
+        }
+
+        .cart-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e8dccc;
+            padding-bottom: 14px;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-info {
+            display: flex;
+            align-items: center;
             gap: 16px;
         }
 
-        .short-card {
+        .cart-item-info i {
+            font-size: 1.4rem;
+            color: #b38d68;
+            width: 30px;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            color: #3a2f24;
+        }
+
+        .cart-item-price {
+            color: #5a4a38;
+            margin-left: 20px;
+        }
+
+        .remove-item {
+            background: none;
+            border: 1px solid #dac3ae;
+            border-radius: 30px;
+            padding: 6px 16px;
+            color: #6a4b36;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: 0.2s;
+            font-size: 0.9rem;
         }
 
-        .short-card:hover {
-            transform: scale(1.02);
+        .remove-item:hover {
+            background: #f3e3d3;
+            border-color: #b38b68;
         }
 
-        .short-thumb {
-            aspect-ratio: 9 / 16;
-            background-color: #2a2a2a;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
+        .cart-total {
             display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            padding: 4px;
-            transition: filter 0.2s;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2f261d;
+            border-top: 2px solid #dacdb8;
+            padding-top: 16px;
         }
 
-        .short-card:hover .short-thumb {
-            filter: brightness(1.1);
-        }
-
-        .short-title {
-            font-weight: 500;
-            font-size: 15px;
-            margin-bottom: 4px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .short-stats {
-            font-size: 13px;
-            color: #aaa;
-        }
-
-        .topic-section {
-            margin: 30px 0 20px;
-            color: #aaa;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+        .clear-cart {
+            background: #fff3e5;
+            border: 1px solid #cfa986;
+            border-radius: 50px;
+            padding: 12px 26px;
+            font-weight: 600;
+            color: #5a3f2b;
+            cursor: pointer;
+            display: inline-flex;
             align-items: center;
+            gap: 10px;
+            align-self: flex-start;
         }
 
-        .topic-title {
-            font-weight: 500;
-            color: #fff;
+        /* footer */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.95rem;
+            text-align: center;
+            color: #7a6d5d;
+            border-top: 1px solid rgba(190, 170, 140, 0.3);
+            padding-top: 26px;
         }
 
-        .topic-item {
-            cursor: pointer;
-            padding: 5px 0;
-            transition: color 0.2s;
+        /* адаптивные доработки */
+        @media (max-width: 600px) {
+            .glass-card {
+                padding: 18px 16px;
+            }
+            .logo-area h1 {
+                font-size: 1.8rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .payment-link {
+                width: 100%;
+                justify-content: center;
+            }
+            .cart-icon {
+                justify-content: center;
+            }
         }
 
-        .topic-item:hover {
-            color: #fff;
+        /* состояние поиска (подсветка) */
+        .highlight {
+            box-shadow: 0 0 0 4px #ffe1b3;
+            transition: 0.1s;
         }
-
-        /* Уведомление */
-        .notification {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: #272727;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            z-index: 1000;
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-            border-left: 4px solid #ff0000;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        /* SVG-обложки */
-        .thumb-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232c3e50'/%3E%3Ccircle cx='100' cy='56' r='40' fill='%23e74c3c'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dy='.3em'%3E7 НОЧЕЙ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Cpath d='M50,30 L150,30 L140,80 L60,80 Z' fill='%23f39c12'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EДУБАЙ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2327ae60'/%3E%3Ccircle cx='70' cy='50' r='15' fill='%2395a5a6'/%3E%3Ccircle cx='130' cy='50' r='15' fill='%2395a5a6'/%3E%3Ctext x='100' y='85' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EСТИНТ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%238e44ad'/%3E%3Crect x='40' y='30' width='120' height='40' fill='%23f1c40f'/%3E%3Ctext x='100' y='58' font-family='Arial' font-size='16' fill='black' text-anchor='middle'%3EМОД ДНЯ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-5 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23c0392b'/%3E%3Cpath d='M50,30 Q100,10 150,30 L140,80 Q100,100 60,80 Z' fill='%23f39c12'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EVTUBER%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-6 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23d35400'/%3E%3Crect x='60' y='30' width='30' height='50' fill='%237f8c8d'/%3E%3Crect x='110' y='30' width='30' height='50' fill='%237f8c8d'/%3E%3Ctext x='100' y='95' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EФАКТЫ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-7 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2316a085'/%3E%3Ccircle cx='100' cy='46' r='25' fill='%23f1c40f'/%3E%3Ctext x='100' y='52' font-family='Arial' font-size='20' fill='black' text-anchor='middle'%3E230%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-8 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e67e22'/%3E%3Cpath d='M40,70 L160,70 L140,95 L60,95 Z' fill='%23ecf0f1'/%3E%3Ctext x='100' y='55' font-family='Arial' font-size='30' fill='white' text-anchor='middle'%3E🔊%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-9 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232c3e50'/%3E%3Cpolygon points='100,30 130,70 70,70' fill='%23e67e22'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3ET2X2%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-10 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%237f8c8d'/%3E%3Ccircle cx='50' cy='56' r='20' fill='%23e74c3c'/%3E%3Ccircle cx='150' cy='56' r='20' fill='%23e74c3c'/%3E%3Ctext x='100' y='90' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EЭФИР%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-11 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239b59b6'/%3E%3Cpath d='M50,40 L150,40 L130,80 L70,80 Z' fill='%23f1c40f'/%3E%3Ctext x='100' y='65' font-family='Arial' font-size='20' fill='black' text-anchor='middle'%3EДЖЕМ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-12 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e67e22'/%3E%3Ctext x='50' y='50' font-family='Arial' font-size='40' fill='white'%3E🐭%3C/text%3E%3Ctext x='100' y='85' font-family='Arial' font-size='16' fill='white'%3EСТИНТ%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-13 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23333'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🍔%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-14 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🦠%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-15 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2327ae60'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🦠%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-16 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23c0392b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='20' fill='white' text-anchor='middle'%3EINFECTED%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-17 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23f39c12'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='24' fill='black' text-anchor='middle'%3E😂%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-18 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%233498db'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🇫🇷%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-19 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e74c3c'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🎨%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-20 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%239b59b6'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E🤖%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-21 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23333'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E⭐%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-22 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%232a4e6b'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E👻%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-23 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%2327ae60'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E👥%3C/text%3E%3C/svg%3E"); }
-        .thumb-svg-24 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 112'%3E%3Crect width='200' height='112' fill='%23e67e22'/%3E%3Ctext x='100' y='60' font-family='Arial' font-size='22' fill='white' text-anchor='middle'%3E💾%3C/text%3E%3C/svg%3E"); }
-
-        /* Shorts SVG */
-        .short-svg-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%23333'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
-        .short-svg-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%232a4e6b'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3E👻%3C/text%3E%3C/svg%3E"); }
-        .short-svg-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%2327ae60'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3E🍗%3C/text%3E%3C/svg%3E"); }
-        .short-svg-4 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 320'%3E%3Crect width='180' height='320' fill='%23f39c12'/%3E%3Ctext x='90' y='160' font-family='Arial' font-size='40' fill='black' text-anchor='middle'%3E⚡%3C/text%3E%3C/svg%3E"); }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-left">
-            <i class="fas fa-bars menu-icon" id="menuToggle"></i>
-            <div class="logo" id="logo">
-                <span class="logo-youtube"><span>▶</span>YouTube</span>
+    <div class="container">
+        <!-- Шапка: ваниль, поиск, иконка корзины -->
+        <header class="glass-card header">
+            <div class="logo-area">
+                <h1><i class="fas fa-egg" style="color: #bcaa8f;"></i> TrusyMarket</h1>
+                <p><i class="fas fa-tag"></i> трусы тимофея • трусы витуберш</p>
             </div>
-        </div>
-        <div class="header-center">
             <div class="search-box">
-                <input type="text" placeholder="Введите запрос" id="searchInput">
-                <div class="search-btn" id="searchBtn"><i class="fas fa-search"></i></div>
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="поиск трусов...">
+                <button id="searchBtn"><i class="fas fa-arrow-right"></i></button>
             </div>
-            <div class="voice-search" id="voiceSearch"><i class="fas fa-microphone"></i></div>
-        </div>
-        <div class="header-right">
-            <i class="fas fa-video create-icon" id="createBtn"></i>
-            <i class="fas fa-bell notify-icon" id="notifyBtn"></i>
-            <div class="profile-icon" id="profileBtn"><i class="fas fa-user"></i></div>
-        </div>
-    </header>
+            <div class="cart-icon" id="cartToggle">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+                <span style="font-size: 1rem;">корзина</span>
+            </div>
+        </header>
 
-    <div class="main-container">
-        <!-- Боковая панель -->
-        <div class="sidebar" id="sidebar">
-            <div class="section">
-                <div class="section-item active" data-section="home"><i class="fas fa-home"></i><span>Главная</span></div>
-                <div class="section-item" data-section="shorts"><i class="fas fa-bolt"></i><span>Shorts</span></div>
-                <div class="section-item" data-section="subscriptions"><i class="fas fa-tv"></i><span>Подписки</span></div>
-            </div>
-            <div class="section">
-                <div class="section-item" data-channel="paradeevich"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>парадеевич</span></div>
-                <div class="section-item" data-channel="vikosiii"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>VIKOSIII</span></div>
-                <div class="section-item" data-channel="mrlololoshka"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>MrLololoshka (Роман Фильченков)</span></div>
-                <div class="section-item" data-channel="morphix"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Морфикс</span></div>
-                <div class="section-item" data-channel="nazzy"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Nazzy</span></div>
-                <div class="section-item" data-channel="fanlerok"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Fanlerok_live</span></div>
-                <div class="section-item" data-channel="sugars"><i class="fas fa-play-circle" style="color:#ff0000;"></i><span>Самый сахар</span></div>
-                <div class="section-item" id="expandSubs" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i><span>Развернуть</span></div>
-            </div>
-            <div class="section">
-                <div class="section-title">Вы</div>
-                <div class="section-item" data-section="history"><i class="fas fa-history"></i><span>История</span></div>
-                <div class="section-item" data-section="playlists"><i class="fas fa-list"></i><span>Плейлисты</span></div>
-                <div class="section-item" data-section="watchlater"><i class="fas fa-clock"></i><span>Смотреть позже</span></div>
-                <div class="section-item" data-section="liked"><i class="fas fa-thumbs-up"></i><span>Понравившиеся</span></div>
-                <div class="section-item" data-section="yourvideos"><i class="fas fa-folder"></i><span>Ваши видео</span></div>
-                <div class="section-item" data-section="downloads"><i class="fas fa-download"></i><span>Скачанные</span></div>
-                <div class="section-item" id="expandYou" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i><span>Развернуть</span></div>
-            </div>
-            <div class="section">
-                <div class="section-title">Навигатор</div>
-                <div class="section-item" data-section="music"><i class="fas fa-music"></i><span>Музыка</span></div>
-                <div class="section-item" data-section="movies"><i class="fas fa-film"></i><span>Фильмы</span></div>
-                <div class="section-item" data-section="live"><i class="fas fa-satellite-dish"></i><span>Трансляции</span></div>
-                <div class="section-item" id="expandNav" style="color: #3ea6ff;"><i class="fas fa-chevron-down"></i><span>Развернуть</span></div>
-            </div>
-            <div class="section">
-                <div class="section-title">Другие возможности</div>
-                <div class="section-item" data-section="studio"><i class="fas fa-video"></i><span>Творческая студия YouTube</span></div>
-                <div class="section-item" data-section="musicapp"><i class="fab fa-youtube"></i><span>YouTube Music</span></div>
-                <div class="section-item" data-section="kids"><i class="fas fa-child"></i><span>YouTube Детям</span></div>
-                <div class="section-item" data-section="settings"><i class="fas fa-cog"></i><span>Настройки</span></div>
-                <div class="section-item" data-section="reports"><i class="fas fa-flag"></i><span>Жалобы</span></div>
-                <div class="section-item" data-section="help"><i class="fas fa-question-circle"></i><span>Справка</span></div>
-                <div class="section-item" data-section="feedback"><i class="fas fa-comment"></i><span>Отправить отзыв</span></div>
-            </div>
-            <div class="footer-links">
-                <a href="#">О сервисе</a><a href="#">Прессе</a><a href="#">Авторские права</a><a href="#">Связаться с нами</a><a href="#">Авторам</a><a href="#">Рекламодателям</a><a href="#">Разработчикам</a>
-                <div><a href="#">Условия использования</a><a href="#">Конфиденциальность</a><a href="#">Правила и безопасность</a><a href="#">Как работает YouTube</a><a href="#">Тестирование новых функций</a></div>
-                <div>© 2026 Google LLC</div>
-            </div>
-        </div>
-
-        <!-- Основной контент -->
-        <div class="content" id="content">
-            <!-- Чипсы / категории -->
-            <div class="chips" id="chips">
-                <span class="chip active" data-category="all">Все</span>
-                <span class="chip" data-category="games">Видеоигры</span>
-                <span class="chip" data-category="music">Музыка</span>
-                <span class="chip" data-category="minecraft-mods">Модификации Minecraft</span>
-                <span class="chip" data-category="minecraft">Minecraft</span>
-                <span class="chip" data-category="jams">Джемы</span>
-                <span class="chip" data-category="live">Сейчас в эфире</span>
-                <span class="chip" data-category="platformers">Платформеры</span>
-                <span class="chip" data-category="cooking">Кулинария</span>
-                <span class="chip" data-category="recent">Недавно опубликованные</span>
-                <span class="chip" data-category="watched">Просмотрено</span>
-                <span class="chip" data-category="new">Новое для вас</span>
+        <!-- Основной блок с товарами -->
+        <main class="glass-card" style="padding: 32px 28px;">
+            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 24px; flex-wrap: wrap;">
+                <h2 style="color: #413729; font-weight: 400;"><i class="fas fa-box-open"></i> легендарная коллекция</h2>
+                <span style="background: #efe7db; border-radius: 60px; padding: 6px 22px; color: #5c503f;">хиты продаж</span>
             </div>
 
-            <!-- Основная сетка видео -->
-            <div class="video-grid" id="videoGrid1">
-                <!-- 1: VIKOSIII - 7 НОЧЕЙ -->
-                <div class="video-card" data-video-id="1" data-channel="vikosiii" data-category="games">
-                    <div class="thumbnail thumb-svg-1"><span class="time-badge">12:06</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-crown"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">7 НОЧЕЙ с НЕЧИСТЬЮ — HALLOWEEN</div>
-                            <div class="channel-name">VIKOSIII <i class="fas fa-check-circle verified"></i></div>
-                            <div class="video-meta">278 тыс. подписчиков • 366 тыс. просмотров • 3 месяца назад</div>
-                            <div class="video-meta">83 VPH • 7.4x • Remix</div>
-                        </div>
+            <div class="product-grid" id="productGrid">
+                <!-- карточка трусы тимофея -->
+                <div class="product-card" data-name="трусы тимофея" data-price="1990">
+                    <img class="product-img" src="https://storage.vsemayki.ru/images/0/1/1316/1316116/previews/people_6_pants_fullprint_front_white_500.jpg" alt="трусы тимофея с принтом" loading="lazy">
+                    <div class="product-title">
+                        <i class="fas fa-crown"></i> Трусы Тимофея
+                    </div>
+                    <div class="product-desc">
+                        Легендарные трусы самого Тимофея. 100% хлопок, дерзкий дизайн. Успех гарантирован.
+                    </div>
+                    <div class="price-area">
+                        <span class="price">1 990 <small>₽</small></span>
+                        <button class="add-to-cart" data-id="timofey"><i class="fas fa-cart-plus"></i> в корзину</button>
                     </div>
                 </div>
-                <!-- 2: ExileShow - Дубай -->
-                <div class="video-card" data-video-id="2" data-channel="exileshow" data-category="entertainment">
-                    <div class="thumbnail thumb-svg-2"><span class="time-badge">2:00:33</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-globe"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Дал Свою Безлимитную Карту в Дубае! Потратили 5 МИЛЛИОНОВ! (Сатир, ФрамеТамер, Кореш, Парадеич)</div>
-                            <div class="channel-name">ExileShow <i class="fas fa-check-circle verified"></i></div>
-                            <div class="video-meta">6,01 млн подписчиков • 3,5 млн просмотров • 2 дня назад</div>
-                            <div class="video-meta">23.7K VPH • 1.2x • Remix</div>
-                        </div>
+
+                <!-- карточка трусы витуберш -->
+                <div class="product-card" data-name="трусы витуберш" data-price="2490">
+                    <img class="product-img" src="https://basket-06.wbbasket.ru/vol1013/part101321/101321878/images/big/1.webp" alt="трусы витуберш милые" loading="lazy">
+                    <div class="product-title">
+                        <i class="fas fa-gamepad"></i> Трусы Vtuberш
                     </div>
-                </div>
-                <!-- 3: Логово Стинта - ТВИЧ -->
-                <div class="video-card" data-video-id="3" data-channel="stint" data-category="games">
-                    <div class="thumbnail thumb-svg-3"><span class="time-badge">4:19</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-gamepad"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">ОФИЦИАЛЬНЫЙ АККАУНТ ТВИЧ ЗАШЕЛ К СТИНТУ НА СТРИМ</div>
-                            <div class="channel-name">Логово Стинта</div>
-                            <div class="video-meta">21,9 тыс. подписчиков • 241 тыс. просмотров • 1 год назад</div>
-                            <div class="video-meta">83 VPH • &gt;100x • Remix</div>
-                        </div>
+                    <div class="product-desc">
+                        Для настоящих фанатов витуберов. Гигиенично, эстетично, немного загадочно. Ограниченный выпуск.
                     </div>
-                </div>
-                <!-- 4: Майнкрафт Мод Дня -->
-                <div class="video-card" data-video-id="4" data-channel="ivun" data-category="minecraft">
-                    <div class="thumbnail thumb-svg-4"><span class="time-badge">Shorts</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-cube"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Майнкрафт Мод Дня от Ивуна! - №216 Dungeon Perpective</div>
-                            <div class="channel-name">Ивун</div>
-                            <div class="video-meta">84 тыс. просмотров • 2 дня назад</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 5: VTUBER -->
-                <div class="video-card" data-video-id="5" data-channel="vtuber" data-category="vtuber">
-                    <div class="thumbnail thumb-svg-5"><span class="time-badge">Shorts</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-paint-brush"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">а кто не хочет? #vtuber #втубер #fyp #recomendation #vtubergirl</div>
-                            <div class="channel-name">VTuber Channel</div>
-                            <div class="video-meta">359 тыс. просмотров • 6 месяцев назад</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 6: факты о старом Майнкрафте -->
-                <div class="video-card" data-video-id="6" data-channel="minecraft" data-category="minecraft">
-                    <div class="thumbnail thumb-svg-6"><span class="time-badge">Shorts</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-tree"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">факты о старом Майнкрафте #майнкрафт</div>
-                            <div class="channel-name">Minecraft Facts</div>
-                            <div class="video-meta">4 тыс. просмотров • 5 дней назад</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 7: ДУШНИЛА № 230 -->
-                <div class="video-card" data-video-id="7" data-channel="dushnila" data-category="comedy">
-                    <div class="thumbnail thumb-svg-7"><span class="time-badge">Shorts</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-angry"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">ДУШНИЛА № 230</div>
-                            <div class="channel-name">Душнила</div>
-                            <div class="video-meta">2,3 млн просмотров • 1 месяц назад</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 8: хардкорнейший звук -->
-                <div class="video-card" data-video-id="8" data-channel="sound" data-category="music">
-                    <div class="thumbnail thumb-svg-8"><span class="time-badge">Shorts</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-headphones"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">хардкорнейший звук</div>
-                            <div class="channel-name">Hardcore Sounds</div>
-                            <div class="video-meta">220 тыс. просмотров • 1 день назад</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 9: T2x2 СМОТРИТ -->
-                <div class="video-card" data-video-id="9" data-channel="t2x2" data-category="games">
-                    <div class="thumbnail thumb-svg-9"><span class="time-badge">37:31</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-clock"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">T2x2 СМОТРИТ - 1 Минута vs 10 Лет: Челлендж По Строительству</div>
-                            <div class="channel-name">T2x2 Live</div>
-                            <div class="video-meta">37,6 тыс. подписчиков • 80 тыс. просмотров • 17 часов назад</div>
-                            <div class="video-meta">3.8K VPH • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 10: ЭФИР Calamy craft -->
-                <div class="video-card" data-video-id="10" data-channel="echo" data-category="live">
-                    <div class="thumbnail thumb-svg-10"><span class="live-badge">ЭФИР</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-fire"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">🔴Calamy craft💀 | #shorts #letsplay</div>
-                            <div class="channel-name">Echo_SoZeR</div>
-                            <div class="video-meta">1,47 тыс. подписчиков • Зрителей: 3</div>
-                            <div class="video-meta">Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 11: Джем -->
-                <div class="video-card" data-video-id="11" data-channel="jam" data-category="music">
-                    <div class="thumbnail thumb-svg-11"><span class="time-badge">Джем</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-headphones-alt"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Мой джем • Плейлист, составленный специально для вас</div>
-                            <div class="channel-name">Jam Channel</div>
-                            <div class="video-meta">191 подписчик • 1.4x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 12: МЫШКА СТИНТА -->
-                <div class="video-card" data-video-id="12" data-channel="stint" data-category="comedy">
-                    <div class="thumbnail thumb-svg-12"><span class="time-badge">Shorts</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-mouse"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">МЫШКА СТИНТА ЗА 17к #стинт #stint #stintik #юмор #мем #мемы</div>
-                            <div class="channel-name">Стинт</div>
-                            <div class="video-meta">3,8 млн просмотров • 1 год назад</div>
-                        </div>
+                    <div class="price-area">
+                        <span class="price">2 490 <small>₽</small></span>
+                        <button class="add-to-cart" data-id="vtuber"><i class="fas fa-cart-plus"></i> в корзину</button>
                     </div>
                 </div>
             </div>
+        </main>
 
-    <!-- Блок Shorts -->
-    <div class="shorts-section">
-        <div class="shorts-header">
-            <i class="fas fa-bolt shorts-icon"></i> Shorts
+        <!-- Блок оплаты (donatepay) + краткая инфа -->
+        <div class="payment-section">
+            <a href="https://donatepay.ru/don/2020tima" target="_blank" class="payment-link glass-card" style="text-decoration: none;">
+                <i class="fab fa-cc-mastercard"></i> оплатить через donatepay
+                <i class="fas fa-arrow-up-right-from-square" style="font-size: 1rem;"></i>
+            </a>
+            <div class="korzina-info glass-card">
+                <i class="fas fa-truck"></i> доставка по всей вселенной
+                <i class="fas fa-vest"></i>
+            </div>
         </div>
 
-        <div class="shorts-grid" id="shortsGrid">
-            <!-- Shorts 1 -->
-            <div class="short-card" data-short-id="1">
-                <div class="short-thumb short-svg-1"></div>
-                <div class="short-info">
-                    <div class="short-title">❗️ПУТИНА НЕ СЛУШАЮТ РОДСТВЕННИКИ ЧИНУШ</div>
-                    <div class="channel-name">Политик News</div>
-                    <div class="video-meta">156 тыс. просмотров</div>
-                </div>
-            </div>
-
-            <!-- Shorts 2 -->
-            <div class="short-card" data-short-id="2">
-                <div class="short-thumb short-svg-2"></div>
-                <div class="short-info">
-                    <div class="short-title">Самая Страшная Хоррор Карта в МАЙНКРАФТ</div>
-                    <div class="channel-name">Minecraft Horror</div>
-                    <div class="video-meta">62 тыс. просмотров</div>
-                </div>
-            </div>
-
-            <!-- Shorts 3 -->
-            <div class="short-card" data-short-id="3">
-                <div class="short-thumb short-svg-3"></div>
-                <div class="short-info">
-                    <div class="short-title">Котлета по Деревеньски (Київськи) 🍗 #cooking #простоісмачно #food #recipe #рецепт</div>
-                    <div class="channel-name">Кулінарія з Машею</div>
-                    <div class="video-meta">52 тыс. просмотров</div>
-                </div>
-            </div>
-
-            <!-- Shorts 4 -->
-            <div class="short-card" data-short-id="4">
-                <div class="short-thumb short-svg-4"></div>
-                <div class="short-info">
-                    <div class="short-title">Молния разошлась #sleduck #vtuber #twitch</div>
-                    <div class="channel-name">VTuber Clip</div>
-                    <div class="video-meta">56 тыс. просмотров</div>
-                </div>
-            </div>
+        <!-- Бокс корзины (раскрывается) -->
+        <div class="cart-drawer glass-card" id="cartDrawer">
+            <h3 style="display: flex; gap: 14px; color: #3b3126;"><i class="fas fa-shopping-cart"></i> твоя корзина</h3>
+            <ul class="cart-items" id="cartItemsList">
+                <!-- динамически добавляются элементы -->
+            </ul>
+            <div class="cart-total" id="cartTotal">итого: 0 ₽</div>
+            <button class="clear-cart" id="clearCartBtn"><i class="fas fa-trash-alt"></i> очистить корзину</button>
         </div>
-    </div>
 
-            <!-- Продолжение сетки видео -->
-            <div class="video-grid" id="videoGrid2">
-                <!-- 13: ПРОКС - Фастфуды -->
-                <div class="video-card" data-video-id="13" data-channel="prox" data-category="food">
-                    <div class="thumbnail thumb-svg-13"><span class="time-badge">9:40</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-hamburger"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Я посетил Худшие Фастфуды своего Города</div>
-                            <div class="channel-name">ПРОКС</div>
-                            <div class="video-meta">14,2 тыс. подписчиков • 8,3 тыс. просмотров • 1 день назад</div>
-                            <div class="video-meta">162 VPH • 8x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 14: Scammer Payback - вирус -->
-                <div class="video-card" data-video-id="14" data-channel="scammer" data-category="tech">
-                    <div class="thumbnail thumb-svg-14"><span class="time-badge">18:10</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-bug"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Я создал вирус для этого самоуверенного мошенника</div>
-                            <div class="channel-name">Scammer Payback <i class="fas fa-check-circle verified"></i></div>
-                            <div class="video-meta">9 млн подписчиков • 1,7 млн просмотров • 2 дня назад</div>
-                            <div class="video-meta">43.5K VPH • 1.1x • Remix (Дубляж)</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 15: ЭФИР Plague Inc -->
-                <div class="video-card" data-video-id="15" data-channel="rosmotion" data-category="live">
-                    <div class="thumbnail thumb-svg-15"><span class="live-badge">ЭФИР</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-virus"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Plague Inc Р3 СТРИМ</div>
-                            <div class="channel-name">RosmotionPlay</div>
-                            <div class="video-meta">587 подписчиков • Зрителей: 6</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 16: Nazzy - INFECTED -->
-                <div class="video-card" data-video-id="16" data-channel="nazzy" data-category="games">
-                    <div class="thumbnail thumb-svg-16"><span class="time-badge">23:01</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-skull"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">ОНИ - ЗАРАЖЁННЫЕ, а я НЕТ. INFECTED</div>
-                            <div class="channel-name">Nazzy <i class="fas fa-check-circle verified"></i></div>
-                            <div class="video-meta">1,89 млн подписчиков • 1,4 млн просмотров • 3 года назад</div>
-                            <div class="video-meta">16 VPH • 2.8x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 17: БРАТИШКИН -->
-                <div class="video-card" data-video-id="17" data-channel="bratishkin" data-category="comedy">
-                    <div class="thumbnail thumb-svg-17"><span class="time-badge">13:00</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-laugh"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">БРАТИШКИН СНОВА ЗАРЕДЖБАЙТИЛ ИНТЕРНЕТ (удачно)</div>
-                            <div class="channel-name">Bratishkin Rofls 2</div>
-                            <div class="video-meta">82,9 тыс. подписчиков • 36 тыс. просмотров • 16 часов назад</div>
-                            <div class="video-meta">2.1K VPH • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 18: парадеевич - Франция -->
-                <div class="video-card" data-video-id="18" data-channel="paradeevich" data-category="travel">
-                    <div class="thumbnail thumb-svg-18"><span class="time-badge">27:35</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-plane"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">ПЛАЧУ ТОЛЬКО РЕКЛАМОЙ // Добраться до Франции</div>
-                            <div class="channel-name">парадеевич <i class="fas fa-check-circle verified"></i></div>
-                            <div class="video-meta">2,4 млн подписчиков • 2,5 млн просмотров • 9 месяцев назад</div>
-                            <div class="video-meta">154 VPH • 1.3x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 19: PollyZavr - Битва художников -->
-                <div class="video-card" data-video-id="19" data-channel="pollyzavr" data-category="minecraft">
-                    <div class="thumbnail thumb-svg-19"><span class="time-badge">26:11</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-palette"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Битва художников: Угадай Персонажа по Рисунку в майнкрафт! @Gradus @Rimekeke</div>
-                            <div class="channel-name">PollyZavr</div>
-                            <div class="video-meta">20,8 тыс. подписчиков • 54 тыс. просмотров • 19 часов назад</div>
-                            <div class="video-meta">1.7K VPH • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 20: likonit ik - ChatGPT -->
-                <div class="video-card" data-video-id="20" data-channel="likonit" data-category="tech">
-                    <div class="thumbnail thumb-svg-20"><span class="time-badge">6:53</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-robot"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">КАК CHATGPT РЕШИТ ЕГЭ ПО ИНФОРМАТИКЕ В 2026?</div>
-                            <div class="channel-name">likonit ik</div>
-                            <div class="video-meta">1,78 тыс. подписчиков • 10 тыс. просмотров • 1 день назад</div>
-                            <div class="video-meta">114 VPH • Remix</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ещё темы -->
-            <div class="topic-section">
-                <span class="topic-title">Ещё темы:</span>
-                <span class="topic-item" data-topic="minecraft-mods">Модификации Minecraft</span>
-                <span class="topic-item" data-topic="minecraft">Minecraft</span>
-                <span class="topic-item" data-topic="simulators">Симуляторы</span>
-                <span class="topic-item" data-topic="platformers">Платформеры</span>
-                <span class="topic-item" data-topic="cooking-shows">Кулинарные шоу</span>
-                <span class="topic-item" data-topic="rap">Рэп</span>
-                <span class="topic-item" data-topic="travel">Туризм</span>
-                <span class="topic-item" data-topic="math">Математика</span>
-            </div>
-
-            <!-- Финальная сетка -->
-            <div class="video-grid" id="videoGrid3">
-                <!-- 21: Nyamura -->
-                <div class="video-card" data-video-id="21" data-channel="nyamura" data-category="vtuber">
-                    <div class="thumbnail thumb-svg-21"><span class="time-badge">20:45</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-star"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Нямура СЧИТАЕТ СЕБЯ НЕ ПОПУЛЯРНОЙ В РУВИТУБИНГЕ, НАКРУТКА ОНЛАЙНА, ХЕЙТ Нямуры</div>
-                            <div class="channel-name">Neo - Nyamura Narezki</div>
-                            <div class="video-meta">1,78 тыс. подписчиков • 2,7 тыс. просмотров • 2 недели назад</div>
-                            <div class="video-meta">1 VPH • 1.2x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 22: Говард и Nazzy -->
-                <div class="video-card" data-video-id="22" data-channel="howard" data-category="games">
-                    <div class="thumbnail thumb-svg-22"><span class="time-badge">36:38</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-ghost"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Я Показал Хоррор Моды Тому, Кто НИКОГДА Не Играл с Ними… (+ Nazzy)</div>
-                            <div class="channel-name">Говард и Nazzy</div>
-                            <div class="video-meta">129 тыс. подписчиков • 283 тыс. просмотров • 2 дня назад</div>
-                            <div class="video-meta">1.6K VPH • 5x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 23: BVS - ЗУМЕРЫ -->
-                <div class="video-card" data-video-id="23" data-channel="bvs" data-category="news">
-                    <div class="thumbnail thumb-svg-23"><span class="time-badge">14:17</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-users"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">ЗУМЕРЫ АТАКУЮТ ОДНОКЛАССНИКИ - БЕЗУМНЫЙ РЕЗУЛЬТАТ БЛОКИРОВОК</div>
-                            <div class="channel-name">BVS <i class="fas fa-check-circle verified"></i></div>
-                            <div class="video-meta">476 тыс. подписчиков • 292 тыс. просмотров • 2 дня назад</div>
-                            <div class="video-meta">1.3K VPH • 1.2x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 24: QQUUAS - диск C -->
-                <div class="video-card" data-video-id="24" data-channel="qquuas" data-category="tech">
-                    <div class="thumbnail thumb-svg-24"><span class="time-badge">5:15</span></div>
-                    <div class="video-info">
-                        <div class="channel-icon"><i class="fas fa-hard-drive"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">Почему диск C называется C, а не A или B?</div>
-                            <div class="channel-name">QQUUAS</div>
-                            <div class="video-meta">567 подписчиков • 63 тыс. просмотров • 3 недели назад</div>
-                            <div class="video-meta">34 VPH • &gt;100x • Remix</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Уведомление -->
-    <div class="notification" id="notification">
-        <span id="notificationMessage"></span>
+        <footer class="footer">
+            <p><i class="far fa-copyright"></i> TrusyMarket — матовое стекло, ваниль и трусы. 2025</p>
+        </footer>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Элементы
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const logo = document.getElementById('logo');
+        (function() {
+            // Состояние корзины: массив объектов { id, title, price, icon }
+            let cart = JSON.parse(localStorage.getItem('trusyCart')) || [];
+
+            // Данные товаров для удобства
+            const products = [
+                { id: 'timofey', title: 'Трусы Тимофея', price: 1990, icon: 'fa-crown' },
+                { id: 'vtuber', title: 'Трусы Vtuberш', price: 2490, icon: 'fa-gamepad' }
+            ];
+
+            // Элементы DOM
+            const cartToggle = document.getElementById('cartToggle');
+            const cartDrawer = document.getElementById('cartDrawer');
+            const cartItemsList = document.getElementById('cartItemsList');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            const cartCountSpan = document.getElementById('cartCount');
+            const clearCartBtn = document.getElementById('clearCartBtn');
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
-            const voiceSearch = document.getElementById('voiceSearch');
-            const createBtn = document.getElementById('createBtn');
-            const notifyBtn = document.getElementById('notifyBtn');
-            const profileBtn = document.getElementById('profileBtn');
-            const chips = document.querySelectorAll('.chip');
-            const sectionItems = document.querySelectorAll('.section-item');
-            const videoCards = document.querySelectorAll('.video-card');
-            const shortCards = document.querySelectorAll('.short-card');
-            const topicItems = document.querySelectorAll('.topic-item');
-            const expandButtons = document.querySelectorAll('#expandSubs, #expandYou, #expandNav');
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notificationMessage');
+            const productGrid = document.getElementById('productGrid');
+            const productCards = document.querySelectorAll('.product-card');
 
-            // Функция показа уведомления
-            function showNotification(message, duration = 3000) {
-                notificationMessage.textContent = message;
-                notification.classList.add('show');
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, duration);
-            }
-
-            // Переключение сайдбара
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('collapsed');
-                    showNotification(sidebar.classList.contains('collapsed') ? 'Сайдбар свернут' : 'Сайдбар развернут');
-                });
-            }
-
-            // Логотип
-            if (logo) {
-                logo.addEventListener('click', function() {
-                    showNotification('Переход на главную');
-                    // Сброс активных чипсов
-                    chips.forEach(chip => chip.classList.remove('active'));
-                    document.querySelector('.chip[data-category="all"]').classList.add('active');
-                });
-            }
-
-            // Поиск
-            if (searchBtn) {
-                searchBtn.addEventListener('click', function() {
-                    const query = searchInput.value.trim();
-                    if (query) {
-                        showNotification(`Поиск: "${query}"`);
+            // Функция обновления всех интерфейсов корзины
+            function renderCart() {
+                // обновить список в drawer
+                if (cartItemsList) {
+                    if (cart.length === 0) {
+                        cartItemsList.innerHTML = '<div style="padding: 24px; text-align: center; color: #9b8b78;"><i class="fas fa-vest"></i> пока пусто, добавьте трусы</div>';
                     } else {
-                        showNotification('Введите запрос для поиска');
+                        let html = '';
+                        cart.forEach((item, index) => {
+                            html += `
+                                <li class="cart-item">
+                                    <div class="cart-item-info">
+                                        <i class="fas ${item.icon || 'fa-vest'}"></i>
+                                        <span class="cart-item-title">${item.title}</span>
+                                        <span class="cart-item-price">${item.price} ₽</span>
+                                    </div>
+                                    <button class="remove-item" data-index="${index}"><i class="fas fa-times"></i> удалить</button>
+                                </li>
+                            `;
+                        });
+                        cartItemsList.innerHTML = html;
                     }
-                });
-            }
+                }
 
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        const query = searchInput.value.trim();
-                        if (query) {
-                            showNotification(`Поиск: "${query}"`);
+                // сумма
+                const total = cart.reduce((acc, item) => acc + item.price, 0);
+                if (cartTotalSpan) cartTotalSpan.innerText = `итого: ${total} ₽`;
+
+                // счетчик на иконке
+                const count = cart.length;
+                if (cartCountSpan) cartCountSpan.innerText = count;
+
+                // добавить слушатели на кнопки удаления
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const index = btn.getAttribute('data-index');
+                        if (index !== null) {
+                            cart.splice(index, 1);
+                            saveCartAndRender();
                         }
-                    }
+                    });
+                });
+
+                // сохранение в localStorage
+                localStorage.setItem('trusyCart', JSON.stringify(cart));
+            }
+
+            function saveCartAndRender() {
+                renderCart();
+            }
+
+            // добавление товара
+            function addToCart(productId) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+                cart.push({ 
+                    id: product.id, 
+                    title: product.title, 
+                    price: product.price, 
+                    icon: product.icon 
+                });
+                saveCartAndRender();
+                // микроанимация: открыть корзину (опционально)
+                cartDrawer.classList.add('show');
+            }
+
+            // Очистка корзины
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', () => {
+                    cart = [];
+                    saveCartAndRender();
                 });
             }
 
-            // Голосовой поиск
-            if (voiceSearch) {
-                voiceSearch.addEventListener('click', function() {
-                    showNotification('Голосовой поиск (демо)');
+            // обработчики на кнопки "в корзину"
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = btn.getAttribute('data-id'); // timofey или vtuber
+                    addToCart(id);
+                });
+            });
+
+            // открыть/закрыть корзину
+            if (cartToggle) {
+                cartToggle.addEventListener('click', () => {
+                    cartDrawer.classList.toggle('show');
                 });
             }
 
-            // Кнопка создания
-            if (createBtn) {
-                createBtn.addEventListener('click', function() {
-                    showNotification('Создать видео (демо)');
+            // Поиск (фильтрация карточек по data-name или тексту)
+            function filterProducts(query) {
+                const trimmed = query.trim().toLowerCase();
+                productCards.forEach(card => {
+                    const name = card.getAttribute('data-name') || '';
+                    const title = card.querySelector('.product-title')?.innerText.toLowerCase() || '';
+                    const matches = name.includes(trimmed) || title.includes(trimmed);
+                    card.style.display = matches ? 'flex' : 'none';
                 });
             }
 
-            // Уведомления
-            if (notifyBtn) {
-                notifyBtn.addEventListener('click', function() {
-                    showNotification('Нет новых уведомлений');
-                });
-            }
-
-            // Профиль
-            if (profileBtn) {
-                profileBtn.addEventListener('click', function() {
-                    showNotification('Профиль пользователя');
-                });
-            }
-
-            // Чипсы (категории)
-            chips.forEach(chip => {
-                chip.addEventListener('click', function() {
-                    chips.forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    const category = this.dataset.category;
-                    showNotification(`Категория: ${this.textContent}`);
-                });
+            searchBtn.addEventListener('click', () => {
+                filterProducts(searchInput.value);
+            });
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') filterProducts(searchInput.value);
             });
 
-            // Элементы сайдбара
-            sectionItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    if (this.classList.contains('active')) return;
-                    
-                    sectionItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const text = this.querySelector('span') ? this.querySelector('span').textContent : this.textContent.trim();
-                    showNotification(`Раздел: ${text}`);
-                });
-            });
+            // Сбросить поиск (и подсветка не нужна, но для простоты покажем подсказку)
+            // добавим сброс по иконке esc (но необязательно)
 
-            // Видео карточки
-            videoCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.video-title').textContent;
-                    showNotification(`Открыть видео: ${title.substring(0, 50)}...`);
-                });
-            });
+            // Инициализация
+            renderCart();
 
-            // Shorts карточки
-            shortCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.short-title').textContent;
-                    showNotification(`Shorts: ${title.substring(0, 50)}...`);
-                });
-            });
+            // Если корзина не пуста при загрузке, показываем нормально
+            // На маленьком экране не показываем корзину принудительно, только по клику.
 
-            // Темы
-            topicItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const topic = this.textContent;
-                    showNotification(`Тема: ${topic}`);
-                });
-            });
+            // Адаптивный нюанс: клик вне корзины не скрывает (упрощённо)
+            // Но можно добавить затемнение (не требуется)
 
-            // Кнопки "Развернуть"
-            expandButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const text = this.querySelector('span').textContent;
-                    if (text.includes('Развернуть')) {
-                        this.querySelector('span').textContent = 'Свернуть';
-                        this.querySelector('i').classList.remove('fa-chevron-down');
-                        this.querySelector('i').classList.add('fa-chevron-up');
-                        showNotification('Список развернут');
-                    } else {
-                        this.querySelector('span').textContent = 'Развернуть';
-                        this.querySelector('i').classList.remove('fa-chevron-up');
-                        this.querySelector('i').classList.add('fa-chevron-down');
-                        showNotification('Список свернут');
-                    }
-                });
-            });
+            // SEO микроразметка — уже в title и мета
 
-            // Имитация загрузки
-            console.log('YouTube интерфейс загружен');
-            showNotification('Добро пожаловать на YouTube!', 2000);
+            // Дополнительно — красивое отображение изображений webp с запасом
+            // всё уже в img
 
-            // Обработка ошибок изображений (на случай проблем с SVG)
-            document.querySelectorAll('.thumbnail, .short-thumb').forEach(el => {
-                el.addEventListener('error', function() {
-                    console.log('Ошибка загрузки SVG, используется заглушка');
-                    this.style.backgroundColor = '#333';
-                });
+            // Обработка ошибок изображений (необязательно, но вежливо)
+            document.querySelectorAll('.product-img').forEach(img => {
+                img.onerror = function() {
+                    this.style.background = '#ddcfc0';
+                    this.alt = 'трусы (изображение не загрузилось)';
+                };
             });
-        });
+        })();
     </script>
+
+    <!-- заголовок в браузере именно про магазин трусов -->
+    <title>TrusyMarket — интернет-магазин трусов (трусы тимофея / витуберш)</title>
 </body>
 </html>
