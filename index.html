@@ -3,343 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>TrusyMarket — магазин трусов Тимофея и витуберш</title>
-    <!-- SEO meta -->
-    <meta name="description" content="TrusyMarket: купить легендарные трусы Тимофея и стильные трусы витуберш. Ванильная эстетика, матовое стекло, быстрая оплата через donatepay.">
-    <meta name="keywords" content="трусы тимофея, трусы витуберш, купить трусы, мужские трусы, странные трусы, TrusyMarket">
+    <title>TrusyMarket — интернет-магазин трусов | официальный сайт</title>
+    <!-- SEO мета -->
+    <meta name="description" content="TrusyMarket: купить трусы Тимофея, трусы витуберш. Настоящий ассортимент, корзина, оплата, доставка. Ванильная эстетика, матовое стекло.">
+    <meta name="keywords" content="трусы тимофея купить, трусы витуберш, магазин трусов, мужские трусы, необычные трусы, TrusyMarket официальный">
     <meta name="author" content="TrusyMarket">
-    <!-- Font Awesome 6 (иконки) -->
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="TrusyMarket — магазин трусов">
+    <meta property="og:description" content="Легендарные трусы Тимофея и витуберш. Корзина, поиск, оплата.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://storage.vsemayki.ru/images/0/1/1316/1316116/previews/people_6_pants_fullprint_front_white_500.jpg">
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Современный сброс и базовый стиль -->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
         }
 
-        /* Основная палитра — ванильный фон */
         body {
-            background-color: #fffff7;        /* ванильный */
-            background-image: radial-gradient(circle at 10% 30%, rgba(255, 245, 215, 0.5) 0%, transparent 30%),
-                              radial-gradient(circle at 90% 70%, rgba(240, 230, 200, 0.6) 0%, transparent 40%);
+            background-color: #fffff7;
+            background-image: 
+                radial-gradient(circle at 5% 20%, rgba(250, 240, 220, 0.4) 0%, transparent 30%),
+                radial-gradient(circle at 95% 75%, rgba(240, 225, 200, 0.5) 0%, transparent 40%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 16px;
+            padding: 20px 16px;
         }
 
-        /* матовое стекло + мягкие тени */
+        /* матовое стекло — основной эффект */
+        .glass {
+            background: rgba(255, 255, 247, 0.6);
+            backdrop-filter: blur(16px) saturate(200%);
+            -webkit-backdrop-filter: blur(16px) saturate(200%);
+            border: 1px solid rgba(220, 205, 180, 0.25);
+            border-radius: 36px;
+            box-shadow: 0 25px 45px -18px rgba(90, 70, 40, 0.2), 0 2px 10px rgba(255, 250, 230, 0.6);
+        }
+
         .glass-card {
-            background: rgba(255, 255, 247, 0.65);   /* ванильный просвет */
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            background: rgba(255, 255, 247, 0.65);
+            backdrop-filter: blur(16px);
             border-radius: 32px;
-            border: 1px solid rgba(220, 210, 190, 0.3);
-            box-shadow: 0 20px 40px -12px rgba(80, 60, 30, 0.15), 0 4px 18px rgba(255, 245, 215, 0.5);
-            padding: 24px 28px;
+            border: 1px solid rgba(215, 195, 165, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(70, 55, 35, 0.15);
             transition: all 0.2s ease;
         }
 
-        /* контейнер — общий ограничитель */
         .container {
-            max-width: 1280px;
+            max-width: 1300px;
             margin: 0 auto;
-            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 28px;
         }
 
-        /* шапка с поиском, корзиной, заголовком */
+        /* шапка */
         .header {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 18px;
+            padding: 18px 28px;
         }
 
-        .logo-area h1 {
-            font-size: 2.2rem;
+        .logo h1 {
+            font-size: 2.4rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(130deg, #5f4b3a, #8f7a60);
+            background: linear-gradient(145deg, #4f3f2f, #8b755a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 2px 10px rgba(255, 235, 200, 0.6);
+            letter-spacing: -0.02em;
         }
 
-        .logo-area p {
-            font-size: 1rem;
-            color: #6b5a48;
-            margin-top: 4px;
-            font-weight: 300;
+        .logo p {
+            color: #7b6852;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 6px;
+            margin-top: 4px;
         }
 
         /* поиск */
-        .search-box {
-            flex: 1 1 260px;
+        .search-block {
+            flex: 1 1 320px;
             display: flex;
-            background: rgba(250, 245, 235, 0.7);
-            border-radius: 48px;
-            border: 1px solid rgba(200, 180, 150, 0.2);
+            background: rgba(255, 255, 240, 0.7);
             backdrop-filter: blur(8px);
-            padding: 6px 6px 6px 20px;
-            max-width: 400px;
-            align-items: center;
+            border-radius: 60px;
+            border: 1px solid rgba(200, 180, 150, 0.3);
+            padding: 4px 4px 4px 24px;
+            max-width: 500px;
         }
 
-        .search-box i {
-            color: #9b8a74;
-            font-size: 1.1rem;
+        .search-block i {
+            color: #9a876f;
+            font-size: 1.2rem;
         }
 
-        .search-box input {
+        .search-block input {
             background: transparent;
             border: none;
-            padding: 12px 10px;
-            font-size: 1rem;
+            padding: 14px 12px;
             width: 100%;
             outline: none;
-            color: #3e3327;
+            color: #3b3124;
+            font-size: 1rem;
         }
 
-        .search-box input::placeholder {
-            color: #b3a18b;
-            font-style: italic;
+        .search-block input::placeholder {
+            color: #bcab95;
+            font-weight: 300;
         }
 
-        .search-box button {
+        .search-block button {
             background: #fffff7;
             border: none;
-            border-radius: 40px;
-            padding: 10px 22px;
-            font-weight: 600;
-            color: #5f4b3a;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(150, 120, 80, 0.1);
-            transition: 0.2s;
-            border: 1px solid #e5dac8;
-        }
-
-        .search-box button:hover {
-            background: #f5efe3;
-            box-shadow: 0 8px 16px rgba(130, 100, 60, 0.15);
-        }
-
-        /* корзина и иконка */
-        .cart-icon {
-            position: relative;
-            background: rgba(255, 255, 247, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 14px 20px;
             border-radius: 60px;
-            border: 1px solid rgba(210, 190, 160, 0.4);
-            font-size: 1.4rem;
-            color: #4f4235;
+            padding: 10px 28px;
+            font-weight: 600;
+            color: #5f4b38;
             cursor: pointer;
-            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(140, 110, 70, 0.15);
+            border: 1px solid #e2d1bb;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+        }
+
+        .search-block button:hover {
+            background: #f3ecdf;
+            border-color: #c8ae8c;
+        }
+
+        /* корзина */
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(255, 255, 247, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 10px 28px 10px 22px;
+            border-radius: 60px;
+            border: 1px solid rgba(200, 175, 145, 0.4);
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .cart-icon:hover {
-            background: rgba(250, 240, 225, 0.8);
-            border-color: #cbb295;
+            background: #fffff7;
+            border-color: #bda88b;
+        }
+
+        .cart-icon i {
+            font-size: 1.8rem;
+            color: #7c6248;
         }
 
         .cart-count {
-            background: #b78f6b;
+            background: #c6a882;
             color: #fffff7;
-            font-size: 0.9rem;
-            font-weight: 700;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
             margin-left: 4px;
         }
 
-        /* основная сетка карточек */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-            margin: 16px 0 8px;
+        /* навигация (категории) */
+        .nav-cats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 16px 28px;
+            margin: 0;
         }
 
-        /* карточка товара */
+        .cat-item {
+            padding: 10px 26px;
+            border-radius: 60px;
+            background: rgba(255, 255, 247, 0.4);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(200, 175, 145, 0.3);
+            font-weight: 500;
+            color: #4d3f2e;
+            transition: 0.2s;
+            cursor: default;
+        }
+
+        .cat-item.active {
+            background: #fffff7;
+            border-color: #b29472;
+            box-shadow: 0 6px 14px rgba(150, 110, 70, 0.1);
+        }
+
+        .cat-item i {
+            margin-right: 8px;
+            color: #8f7257;
+        }
+
+        /* сетка товаров */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 32px;
+            padding: 24px 0 12px;
+        }
+
+        /* карточка товара (настоящий магазин) */
         .product-card {
-            background: rgba(255, 255, 247, 0.55);
-            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 247, 0.7);
+            backdrop-filter: blur(18px);
             border-radius: 40px;
-            padding: 24px 22px 26px;
-            border: 1px solid rgba(230, 215, 190, 0.5);
-            box-shadow: 0 20px 30px -12px rgba(80, 60, 40, 0.2);
+            padding: 22px 22px 28px;
+            border: 1px solid rgba(225, 205, 175, 0.4);
             display: flex;
             flex-direction: column;
-            transition: transform 0.15s;
+            transition: transform 0.2s, box-shadow 0.3s;
         }
 
         .product-card:hover {
-            transform: scale(1.01);
-            background: rgba(255, 255, 247, 0.75);
-            border-color: #ddcdb4;
+            transform: translateY(-6px);
+            box-shadow: 0 30px 45px -20px #c9b595;
+            background: rgba(255, 255, 247, 0.85);
+            border-color: #ceb79b;
+        }
+
+        .badge {
+            align-self: flex-start;
+            background: #dbbd9d;
+            color: #2f281e;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #f5e3cd;
         }
 
         .product-img {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 1/1;
             object-fit: cover;
-            border-radius: 30px;
-            background: #f5efe4;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255, 255, 240, 0.8);
-            box-shadow: 0 8px 18px rgba(130, 100, 70, 0.15);
+            border-radius: 32px;
+            background: #f3ede3;
+            margin-bottom: 18px;
+            border: 2px solid white;
+            box-shadow: 0 12px 25px -10px rgba(100, 70, 40, 0.3);
         }
 
         .product-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #3b2f23;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #2d231b;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .product-title i {
-            font-size: 1.4rem;
-            color: #b48c63;
+            color: #a58362;
+            font-size: 1.5rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin: 6px 0 8px;
+            color: #b48c5c;
+        }
+
+        .rating span {
+            color: #6d5c4a;
+            margin-left: 8px;
+            font-weight: 400;
         }
 
         .product-desc {
-            font-size: 1rem;
-            color: #695e50;
-            margin: 10px 0 14px;
-            line-height: 1.4;
+            color: #5f5241;
+            line-height: 1.5;
+            margin: 8px 0 16px;
+            font-size: 0.95rem;
             flex: 1;
         }
 
-        .price-area {
+        .product-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 8px;
-            border-top: 1px dashed #dacdba;
-            padding-top: 18px;
+            border-top: 1px dashed #dacbb8;
+            padding-top: 20px;
+            margin-top: 6px;
         }
 
-        .price {
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: #372e22;
+        .price-block {
+            display: flex;
+            flex-direction: column;
         }
 
-        .price small {
+        .old-price {
+            font-size: 1rem;
+            color: #a08468;
+            text-decoration: line-through;
+        }
+
+        .current-price {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #352c22;
+            line-height: 1.1;
+        }
+
+        .current-price small {
             font-size: 1rem;
             font-weight: 400;
-            color: #7f6e5a;
+            color: #76644f;
         }
 
         .add-to-cart {
             background: #fffff7;
-            border: 1px solid #d6c4ac;
+            border: 1.5px solid #cfb99f;
             border-radius: 50px;
-            padding: 12px 22px;
+            padding: 16px 22px;
             font-size: 1.1rem;
-            font-weight: 600;
-            color: #4d3f30;
+            font-weight: 700;
+            color: #42372b;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 5px 14px rgba(150, 120, 80, 0.1);
+            box-shadow: 0 4px 12px rgba(160, 120, 80, 0.1);
         }
 
         .add-to-cart i {
-            font-size: 1.2rem;
-            color: #ad8260;
+            color: #9e7a5a;
+            font-size: 1.3rem;
         }
 
         .add-to-cart:hover {
-            background: #fcf3e4;
-            border-color: #b39272;
-            box-shadow: 0 8px 18px rgba(120, 85, 50, 0.15);
+            background: #f7efe2;
+            border-color: #a98765;
+            transform: scale(1.02);
         }
 
-        /* блок оплаты и информации */
-        .payment-section {
-            margin-top: 16px;
+        /* платёжный блок */
+        .payment-block {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            padding: 28px 32px;
+            margin-top: 12px;
         }
 
-        .payment-link {
+        .payment-btn {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
-            background: rgba(255, 255, 247, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 18px 34px;
-            border-radius: 60px;
-            border: 1px solid #e2d3be;
-            font-size: 1.3rem;
-            color: #3e3322;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-            box-shadow: 0 6px 14px rgba(90, 70, 40, 0.1);
-        }
-
-        .payment-link i {
-            font-size: 2rem;
-            color: #aa7c55;
-        }
-
-        .payment-link:hover {
+            gap: 18px;
             background: #fffff7;
-            border-color: #b99b7a;
+            padding: 18px 38px;
+            border-radius: 60px;
+            border: 1px solid #dac2a8;
+            color: #362d22;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 10px 18px -8px #dccbb6;
+        }
+
+        .payment-btn i {
+            font-size: 2.2rem;
+            color: #997e62;
+        }
+
+        .payment-btn:hover {
+            background: #fffbf2;
+            border-color: #af8f6f;
             transform: translateY(-3px);
         }
 
-        .korzina-info {
-            background: rgba(240, 230, 215, 0.4);
-            backdrop-filter: blur(8px);
-            border-radius: 60px;
-            padding: 12px 28px;
-            font-size: 1.1rem;
-            color: #584c3b;
+        .delivery-info {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            border: 1px solid rgba(200, 175, 145, 0.3);
+            gap: 24px;
+            color: #584b3a;
+            background: rgba(255, 255, 247, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 16px 32px;
+            border-radius: 60px;
+            border: 1px solid rgba(190, 165, 135, 0.3);
         }
 
-        .korzina-info i {
-            font-size: 1.5rem;
-            color: #8b745b;
-        }
-
-        /* панель корзины (выпадающая / постоянная на малых экранах) */
+        /* корзина-дроуэр */
         .cart-drawer {
-            background: rgba(255, 255, 247, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 40px;
-            border: 1px solid rgba(200, 180, 150, 0.4);
-            padding: 24px;
-            margin-top: 8px;
-            display: none; /* скрыта по умолчанию */
+            display: none;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
+            padding: 28px;
+            margin-top: 10px;
         }
 
         .cart-drawer.show {
@@ -350,8 +420,8 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            max-height: 320px;
+            gap: 20px;
+            max-height: 360px;
             overflow-y: auto;
             padding-right: 10px;
         }
@@ -360,213 +430,224 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #e8dccc;
-            padding-bottom: 14px;
-            font-size: 1.1rem;
+            border-bottom: 1px solid #e7d9c6;
+            padding-bottom: 16px;
         }
 
-        .cart-item-info {
+        .cart-item-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
 
-        .cart-item-info i {
-            font-size: 1.4rem;
-            color: #b38d68;
-            width: 30px;
+        .cart-item-left i {
+            font-size: 1.8rem;
+            color: #a88564;
+            width: 36px;
         }
 
         .cart-item-title {
-            font-weight: 600;
-            color: #3a2f24;
+            font-weight: 700;
+            color: #3b3124;
+            font-size: 1.2rem;
         }
 
         .cart-item-price {
-            color: #5a4a38;
-            margin-left: 20px;
+            color: #625342;
+            font-weight: 600;
+            margin-left: 12px;
         }
 
         .remove-item {
-            background: none;
-            border: 1px solid #dac3ae;
-            border-radius: 30px;
-            padding: 6px 16px;
-            color: #6a4b36;
+            background: #fff9f0;
+            border: 1px solid #d6bc9f;
+            border-radius: 40px;
+            padding: 8px 20px;
+            color: #5f4532;
             cursor: pointer;
+            font-weight: 500;
             transition: 0.2s;
-            font-size: 0.9rem;
         }
 
         .remove-item:hover {
-            background: #f3e3d3;
-            border-color: #b38b68;
+            background: #f3e3d1;
+            border-color: #b28d69;
         }
 
         .cart-total {
             display: flex;
             justify-content: space-between;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #2f261d;
-            border-top: 2px solid #dacdb8;
-            padding-top: 16px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2c241c;
+            border-top: 3px solid #dacbb6;
+            padding-top: 20px;
         }
 
         .clear-cart {
-            background: #fff3e5;
-            border: 1px solid #cfa986;
-            border-radius: 50px;
-            padding: 12px 26px;
+            background: #fff4e9;
+            border: 1px solid #cfa67b;
+            border-radius: 60px;
+            padding: 16px 28px;
+            font-size: 1.2rem;
             font-weight: 600;
-            color: #5a3f2b;
+            color: #4f392a;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 14px;
             align-self: flex-start;
         }
 
-        /* footer */
         .footer {
-            margin-top: 30px;
-            font-size: 0.95rem;
-            text-align: center;
-            color: #7a6d5d;
-            border-top: 1px solid rgba(190, 170, 140, 0.3);
-            padding-top: 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 28px 24px;
+            color: #7b6d5b;
+            border-top: 1px solid rgba(180, 155, 125, 0.2);
         }
 
-        /* адаптивные доработки */
-        @media (max-width: 600px) {
-            .glass-card {
-                padding: 18px 16px;
-            }
-            .logo-area h1 {
-                font-size: 1.8rem;
-            }
-            .header {
+        @media (max-width: 650px) {
+            .header, .payment-block {
                 flex-direction: column;
                 align-items: stretch;
-            }
-            .search-box {
-                max-width: 100%;
-            }
-            .payment-link {
-                width: 100%;
-                justify-content: center;
             }
             .cart-icon {
                 justify-content: center;
             }
-        }
-
-        /* состояние поиска (подсветка) */
-        .highlight {
-            box-shadow: 0 0 0 4px #ffe1b3;
-            transition: 0.1s;
+            .product-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Шапка: ваниль, поиск, иконка корзины -->
-        <header class="glass-card header">
-            <div class="logo-area">
-                <h1><i class="fas fa-egg" style="color: #bcaa8f;"></i> TrusyMarket</h1>
-                <p><i class="fas fa-tag"></i> трусы тимофея • трусы витуберш</p>
+        <!-- Шапка как в настоящем магазине: лого, поиск, корзина -->
+        <header class="header glass">
+            <div class="logo">
+                <h1><i class="fas fa-vest"></i> TrusyMarket</h1>
+                <p><i class="fas fa-check-circle" style="color: #789048;"></i> официальный магазин трусов</p>
             </div>
-            <div class="search-box">
+            <div class="search-block">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="поиск трусов...">
-                <button id="searchBtn"><i class="fas fa-arrow-right"></i></button>
+                <input type="text" id="searchInput" placeholder="Поиск среди трусов Тимофея, витуберш...">
+                <button id="searchBtn"><i class="fas fa-filter"></i> найти</button>
             </div>
             <div class="cart-icon" id="cartToggle">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count" id="cartCount">0</span>
-                <span style="font-size: 1rem;">корзина</span>
+                <i class="fas fa-bag-shopping"></i>
+                <span id="cartCount" class="cart-count">0</span>
+                <span style="font-weight: 500;">корзина</span>
             </div>
         </header>
 
-        <!-- Основной блок с товарами -->
-        <main class="glass-card" style="padding: 32px 28px;">
-            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 24px; flex-wrap: wrap;">
-                <h2 style="color: #413729; font-weight: 400;"><i class="fas fa-box-open"></i> легендарная коллекция</h2>
-                <span style="background: #efe7db; border-radius: 60px; padding: 6px 22px; color: #5c503f;">хиты продаж</span>
+        <!-- Категории (для реализма) -->
+        <div class="nav-cats glass">
+            <span class="cat-item active"><i class="fas fa-star"></i> все трусы</span>
+            <span class="cat-item"><i class="fas fa-crown"></i> тимофей</span>
+            <span class="cat-item"><i class="fas fa-gamepad"></i> витуберш</span>
+            <span class="cat-item"><i class="fas fa-fire"></i> новинки</span>
+            <span class="cat-item"><i class="fas fa-tag"></i> распродажа</span>
+        </div>
+
+        <!-- Секция товаров (настоящий магазин) -->
+        <main class="glass-card" style="padding: 34px 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+                <h2 style="color: #3e3328;"><i class="fas fa-cubes"></i> популярные модели</h2>
+                <span style="background: #ede3d6; padding: 8px 28px; border-radius: 60px; color: #5a4a38;">в наличии</span>
             </div>
 
-            <div class="product-grid" id="productGrid">
-                <!-- карточка трусы тимофея -->
+            <div class="products-grid" id="productGrid">
+                <!-- трусы тимофея (настоящий товар) -->
                 <div class="product-card" data-name="трусы тимофея" data-price="1990">
-                    <img class="product-img" src="https://storage.vsemayki.ru/images/0/1/1316/1316116/previews/people_6_pants_fullprint_front_white_500.jpg" alt="трусы тимофея с принтом" loading="lazy">
+                    <div class="badge"><i class="fas fa-certificate"></i> бестселлер</div>
+                    <img class="product-img" src="https://storage.vsemayki.ru/images/0/1/1316/1316116/previews/people_6_pants_fullprint_front_white_500.jpg" alt="трусы тимофея" loading="lazy">
                     <div class="product-title">
                         <i class="fas fa-crown"></i> Трусы Тимофея
                     </div>
-                    <div class="product-desc">
-                        Легендарные трусы самого Тимофея. 100% хлопок, дерзкий дизайн. Успех гарантирован.
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        <span>4.8 (124 отзыва)</span>
                     </div>
-                    <div class="price-area">
-                        <span class="price">1 990 <small>₽</small></span>
-                        <button class="add-to-cart" data-id="timofey"><i class="fas fa-cart-plus"></i> в корзину</button>
+                    <div class="product-desc">
+                        Легендарная модель. Эксклюзивный принт "Тимофей". 100% хлопок, усиленная эластичность. Подарок каждому.
+                    </div>
+                    <div class="product-meta">
+                        <div class="price-block">
+                            <span class="old-price">2 490 ₽</span>
+                            <span class="current-price">1 990 <small>₽</small></span>
+                        </div>
+                        <button class="add-to-cart" data-id="timofey"><i class="fas fa-cart-plus"></i> купить</button>
                     </div>
                 </div>
-
-                <!-- карточка трусы витуберш -->
+                <!-- трусы витуберш -->
                 <div class="product-card" data-name="трусы витуберш" data-price="2490">
-                    <img class="product-img" src="https://basket-06.wbbasket.ru/vol1013/part101321/101321878/images/big/1.webp" alt="трусы витуберш милые" loading="lazy">
+                    <div class="badge"><i class="fas fa-wand-sparkles"></i> limited ed.</div>
+                    <img class="product-img" src="https://basket-06.wbbasket.ru/vol1013/part101321/101321878/images/big/1.webp" alt="трусы витуберш" loading="lazy">
                     <div class="product-title">
                         <i class="fas fa-gamepad"></i> Трусы Vtuberш
                     </div>
-                    <div class="product-desc">
-                        Для настоящих фанатов витуберов. Гигиенично, эстетично, немного загадочно. Ограниченный выпуск.
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <span>5.0 (87 отзывов)</span>
                     </div>
-                    <div class="price-area">
-                        <span class="price">2 490 <small>₽</small></span>
-                        <button class="add-to-cart" data-id="vtuber"><i class="fas fa-cart-plus"></i> в корзину</button>
+                    <div class="product-desc">
+                        Коллаборация с популярными витуберами. Мягкий сатин, японская фурнитура. Ограниченный тираж.
+                    </div>
+                    <div class="product-meta">
+                        <div class="price-block">
+                            <span class="old-price">2 990 ₽</span>
+                            <span class="current-price">2 490 <small>₽</small></span>
+                        </div>
+                        <button class="add-to-cart" data-id="vtuber"><i class="fas fa-cart-plus"></i> купить</button>
                     </div>
                 </div>
             </div>
+            <!-- подсказка о доставке -->
+            <div style="margin-top: 30px; background: rgba(230, 215, 190, 0.3); border-radius: 60px; padding: 12px 28px; color: #5d4d39;">
+                <i class="fas fa-truck-fast"></i> доставка по всей России — сегодня / завтра
+            </div>
         </main>
 
-        <!-- Блок оплаты (donatepay) + краткая инфа -->
-        <div class="payment-section">
-            <a href="https://donatepay.ru/don/2020tima" target="_blank" class="payment-link glass-card" style="text-decoration: none;">
-                <i class="fab fa-cc-mastercard"></i> оплатить через donatepay
-                <i class="fas fa-arrow-up-right-from-square" style="font-size: 1rem;"></i>
+        <!-- Платёжный блок с donatepay -->
+        <div class="payment-block glass">
+            <a href="https://donatepay.ru/don/2020tima" target="_blank" class="payment-btn">
+                <i class="fab fa-cc-visa"></i> оплатить через donatepay
+                <i class="fas fa-arrow-right"></i>
             </a>
-            <div class="korzina-info glass-card">
-                <i class="fas fa-truck"></i> доставка по всей вселенной
-                <i class="fas fa-vest"></i>
+            <div class="delivery-info">
+                <i class="fas fa-credit-card"></i> принимаем карты
+                <i class="fas fa-lock" style="margin-left: 12px;"></i> безопасно
             </div>
         </div>
 
-        <!-- Бокс корзины (раскрывается) -->
-        <div class="cart-drawer glass-card" id="cartDrawer">
-            <h3 style="display: flex; gap: 14px; color: #3b3126;"><i class="fas fa-shopping-cart"></i> твоя корзина</h3>
-            <ul class="cart-items" id="cartItemsList">
-                <!-- динамически добавляются элементы -->
-            </ul>
+        <!-- Корзина (drawer) -->
+        <div class="cart-drawer glass" id="cartDrawer">
+            <h3 style="font-size: 2rem; display: flex; gap: 16px; color: #372e22;"><i class="fas fa-basket-shopping"></i> ваша корзина</h3>
+            <ul class="cart-items" id="cartItemsList"></ul>
             <div class="cart-total" id="cartTotal">итого: 0 ₽</div>
-            <button class="clear-cart" id="clearCartBtn"><i class="fas fa-trash-alt"></i> очистить корзину</button>
+            <button class="clear-cart" id="clearCartBtn"><i class="fas fa-trash-can"></i> очистить корзину</button>
         </div>
 
-        <footer class="footer">
-            <p><i class="far fa-copyright"></i> TrusyMarket — матовое стекло, ваниль и трусы. 2025</p>
+        <!-- Футер с контактами и копирайтом -->
+        <footer class="footer glass">
+            <span>© 2025 TrusyMarket — трусы с характером</span>
+            <span><i class="fas fa-envelope"></i> help@trusymarket.ru</span>
         </footer>
     </div>
 
     <script>
         (function() {
-            // Состояние корзины: массив объектов { id, title, price, icon }
-            let cart = JSON.parse(localStorage.getItem('trusyCart')) || [];
+            // Корзина
+            let cart = JSON.parse(localStorage.getItem('trusyCartReal')) || [];
 
-            // Данные товаров для удобства
             const products = [
                 { id: 'timofey', title: 'Трусы Тимофея', price: 1990, icon: 'fa-crown' },
                 { id: 'vtuber', title: 'Трусы Vtuberш', price: 2490, icon: 'fa-gamepad' }
             ];
 
-            // Элементы DOM
             const cartToggle = document.getElementById('cartToggle');
             const cartDrawer = document.getElementById('cartDrawer');
             const cartItemsList = document.getElementById('cartItemsList');
@@ -575,26 +656,23 @@
             const clearCartBtn = document.getElementById('clearCartBtn');
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
-            const productGrid = document.getElementById('productGrid');
             const productCards = document.querySelectorAll('.product-card');
 
-            // Функция обновления всех интерфейсов корзины
             function renderCart() {
-                // обновить список в drawer
                 if (cartItemsList) {
                     if (cart.length === 0) {
-                        cartItemsList.innerHTML = '<div style="padding: 24px; text-align: center; color: #9b8b78;"><i class="fas fa-vest"></i> пока пусто, добавьте трусы</div>';
+                        cartItemsList.innerHTML = '<div style="padding: 40px; text-align: center; color: #ad9b86;"><i class="fas fa-box-open"></i> корзина пуста, выберите трусы</div>';
                     } else {
                         let html = '';
                         cart.forEach((item, index) => {
                             html += `
                                 <li class="cart-item">
-                                    <div class="cart-item-info">
+                                    <div class="cart-item-left">
                                         <i class="fas ${item.icon || 'fa-vest'}"></i>
                                         <span class="cart-item-title">${item.title}</span>
                                         <span class="cart-item-price">${item.price} ₽</span>
                                     </div>
-                                    <button class="remove-item" data-index="${index}"><i class="fas fa-times"></i> удалить</button>
+                                    <button class="remove-item" data-index="${index}"><i class="fas fa-xmark"></i> удалить</button>
                                 </li>
                             `;
                         });
@@ -602,119 +680,69 @@
                     }
                 }
 
-                // сумма
-                const total = cart.reduce((acc, item) => acc + item.price, 0);
+                const total = cart.reduce((acc, it) => acc + it.price, 0);
                 if (cartTotalSpan) cartTotalSpan.innerText = `итого: ${total} ₽`;
+                if (cartCountSpan) cartCountSpan.innerText = cart.length;
 
-                // счетчик на иконке
-                const count = cart.length;
-                if (cartCountSpan) cartCountSpan.innerText = count;
-
-                // добавить слушатели на кнопки удаления
                 document.querySelectorAll('.remove-item').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        const index = btn.getAttribute('data-index');
-                        if (index !== null) {
-                            cart.splice(index, 1);
-                            saveCartAndRender();
+                        const idx = btn.getAttribute('data-index');
+                        if (idx !== null) {
+                            cart.splice(parseInt(idx), 1);
+                            saveCart();
                         }
                     });
                 });
-
-                // сохранение в localStorage
-                localStorage.setItem('trusyCart', JSON.stringify(cart));
+                localStorage.setItem('trusyCartReal', JSON.stringify(cart));
             }
 
-            function saveCartAndRender() {
-                renderCart();
+            function saveCart() { renderCart(); }
+
+            function addToCart(pid) {
+                const prod = products.find(p => p.id === pid);
+                if (prod) {
+                    cart.push({ id: prod.id, title: prod.title, price: prod.price, icon: prod.icon });
+                    saveCart();
+                    cartDrawer.classList.add('show');
+                }
             }
 
-            // добавление товара
-            function addToCart(productId) {
-                const product = products.find(p => p.id === productId);
-                if (!product) return;
-                cart.push({ 
-                    id: product.id, 
-                    title: product.title, 
-                    price: product.price, 
-                    icon: product.icon 
-                });
-                saveCartAndRender();
-                // микроанимация: открыть корзину (опционально)
-                cartDrawer.classList.add('show');
-            }
-
-            // Очистка корзины
-            if (clearCartBtn) {
-                clearCartBtn.addEventListener('click', () => {
-                    cart = [];
-                    saveCartAndRender();
-                });
-            }
-
-            // обработчики на кнопки "в корзину"
             document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = btn.getAttribute('data-id'); // timofey или vtuber
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
                     addToCart(id);
                 });
             });
 
-            // открыть/закрыть корзину
             if (cartToggle) {
                 cartToggle.addEventListener('click', () => {
                     cartDrawer.classList.toggle('show');
                 });
             }
 
-            // Поиск (фильтрация карточек по data-name или тексту)
-            function filterProducts(query) {
-                const trimmed = query.trim().toLowerCase();
-                productCards.forEach(card => {
-                    const name = card.getAttribute('data-name') || '';
-                    const title = card.querySelector('.product-title')?.innerText.toLowerCase() || '';
-                    const matches = name.includes(trimmed) || title.includes(trimmed);
-                    card.style.display = matches ? 'flex' : 'none';
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', () => {
+                    cart = [];
+                    saveCart();
                 });
             }
 
-            searchBtn.addEventListener('click', () => {
-                filterProducts(searchInput.value);
-            });
-            searchInput.addEventListener('keyup', (e) => {
-                if (e.key === 'Enter') filterProducts(searchInput.value);
-            });
+            // поиск
+            function filterProducts(q) {
+                const query = q.trim().toLowerCase();
+                productCards.forEach(card => {
+                    const name = card.getAttribute('data-name') || '';
+                    const title = card.querySelector('.product-title')?.innerText.toLowerCase() || '';
+                    card.style.display = (name.includes(query) || title.includes(query) || query === '') ? 'flex' : 'none';
+                });
+            }
 
-            // Сбросить поиск (и подсветка не нужна, но для простоты покажем подсказку)
-            // добавим сброс по иконке esc (но необязательно)
+            searchBtn.addEventListener('click', () => filterProducts(searchInput.value));
+            searchInput.addEventListener('keyup', (e) => e.key === 'Enter' && filterProducts(searchInput.value));
 
-            // Инициализация
             renderCart();
-
-            // Если корзина не пуста при загрузке, показываем нормально
-            // На маленьком экране не показываем корзину принудительно, только по клику.
-
-            // Адаптивный нюанс: клик вне корзины не скрывает (упрощённо)
-            // Но можно добавить затемнение (не требуется)
-
-            // SEO микроразметка — уже в title и мета
-
-            // Дополнительно — красивое отображение изображений webp с запасом
-            // всё уже в img
-
-            // Обработка ошибок изображений (необязательно, но вежливо)
-            document.querySelectorAll('.product-img').forEach(img => {
-                img.onerror = function() {
-                    this.style.background = '#ddcfc0';
-                    this.alt = 'трусы (изображение не загрузилось)';
-                };
-            });
         })();
     </script>
-
-    <!-- заголовок в браузере именно про магазин трусов -->
-    <title>TrusyMarket — интернет-магазин трусов (трусы тимофея / витуберш)</title>
 </body>
 </html>
