@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Тимофеевка — маркетплейс свежих продуктов</title>
-  <!-- SEO мета-теги -->
-  <meta name="description" content="Маркетплейс Тимофеевка: фермерские продукты, овощи, фрукты, молочная продукция с доставкой. Матовое стекло, удобная корзина.">
-  <meta name="keywords" content="Тимофеевка, маркетплейс, фермерские продукты, овощи, фрукты, молоко, сыр, доставка еды">
-  <meta name="author" content="Тимофеевка">
-  <link rel="canonical" href="https://timofeevka.market">
-  <!-- PWA / Манифест и иконки (генерируем в head) -->
+  <title>РКН.МАРКЕТ — блокировки оптом и в розницу</title>
+  <!-- SEO мета-теги (ироничные) -->
+  <meta name="description" content="Официальный маркетплейс Роскомнадзора. Реестры, блокировки, замедления. Оптом и в розницу. Сертифицированные решения для изоляции рунета.">
+  <meta name="keywords" content="РКН, Роскомнадзор, блокировка сайтов, замедление трафика, реестр запрещенной информации, изоляция рунета">
+  <meta name="author" content="Федеральная служба по надзору в сфере связи">
+  <link rel="canonical" href="https://rkn.market">
+  <!-- PWA / Манифест (с символикой) -->
   <link rel="manifest" href="#manifest-placeholder">
   <meta name="theme-color" content="#276fdb">
-  <link rel="apple-touch-icon" href="https://via.placeholder.com/192x192/276fdb/ffffff?text=Т">
+  <link rel="apple-touch-icon" href="https://via.placeholder.com/192x192/276fdb/ffffff?text=РКН">
   <!-- Font Awesome 6 (иконки) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* Глобальные переменные и сброс */
+    /* Глобальные переменные и сброс — палитра глубокие прятки (#276fdb) сохранена */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
     }
 
     :root {
-      --primary: #276fdb;                /* Глубокие прятки */
+      --primary: #276fdb;                /* Глубокие прятки — основной цвет РКН */
       --primary-light: #4f8ef0;
       --primary-dark: #1a4f9e;
       --glass-bg: rgba(255, 255, 255, 0.3);
@@ -34,6 +34,7 @@
       --text-dark: #1e2a41;
       --text-light: #f8faff;
       --backdrop-blur: blur(12px);
+      --warning-red: #db2727;
     }
 
     body {
@@ -44,8 +45,8 @@
       color: var(--text-dark);
     }
 
-    /* Основной стиль матового стекла */
-    .glass-card, header, footer, .product-card, .cart-panel, .search-box, .category-btn, .pagination-btn {
+    /* Матовое стекло для всех карточек */
+    .glass-card, header, footer, .product-card, .cart-panel, .search-box, .category-btn, .pagination-btn, .rkn-badge {
       background: var(--glass-bg);
       backdrop-filter: var(--backdrop-blur);
       -webkit-backdrop-filter: var(--backdrop-blur);
@@ -54,13 +55,7 @@
       box-shadow: var(--glass-shadow);
     }
 
-    /* Типографика */
-    h1, h2, h3 {
-      font-weight: 500;
-      letter-spacing: -0.02em;
-    }
-
-    /* Хедер с навигацией (имитация многостраничности) */
+    /* Хедер с символикой */
     header {
       margin: 16px 20px;
       padding: 12px 24px;
@@ -79,11 +74,12 @@
 
     .logo {
       font-size: 1.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--primary-dark);
       background: rgba(255,255,255,0.5);
-      padding: 6px 14px;
+      padding: 6px 20px;
       border-radius: 40px;
+      letter-spacing: -0.5px;
     }
 
     .logo i {
@@ -91,7 +87,7 @@
       margin-right: 8px;
     }
 
-    /* Поиск — матовое стекло */
+    /* Поиск по реестрам */
     .search-box {
       display: flex;
       align-items: center;
@@ -106,7 +102,6 @@
       color: var(--primary-dark);
       font-size: 1.2rem;
       margin-right: 12px;
-      opacity: 0.8;
     }
 
     .search-box input {
@@ -124,7 +119,7 @@
       font-weight: 300;
     }
 
-    /* Иконки пользователя и корзины */
+    /* Иконки пользователя (проверяющий) */
     .user-actions {
       display: flex;
       gap: 20px;
@@ -143,7 +138,7 @@
       position: absolute;
       top: -8px;
       right: -12px;
-      background: var(--primary);
+      background: var(--warning-red);
       color: white;
       font-size: 0.8rem;
       font-weight: bold;
@@ -152,7 +147,7 @@
       border: 2px solid white;
     }
 
-    /* навигационные кнопки — страницы */
+    /* Навигация — страницы ведомства */
     .nav-pages {
       display: flex;
       gap: 10px;
@@ -179,13 +174,13 @@
       border-color: white;
     }
 
-    /* Основной контейнер */
+    /* Основной контент */
     main {
       flex: 1;
       margin: 0 20px 30px;
     }
 
-    /* Категории (матовые кнопки) */
+    /* Категории услуг РКН */
     .categories-section {
       display: flex;
       flex-wrap: wrap;
@@ -211,15 +206,15 @@
       border-color: white;
     }
 
-    /* Сетка товаров */
+    /* Сетка товаров (услуг) */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
       margin-top: 24px;
     }
 
-    /* Карточка товара (матовое стекло) */
+    /* Карточка блокировки (услуги) */
     .product-card {
       padding: 20px 16px 20px;
       background: rgba(255,255,255,0.25);
@@ -228,6 +223,7 @@
       transition: 0.2s;
       cursor: pointer;
       border-radius: 32px;
+      border-left: 4px solid var(--primary);
     }
 
     .product-card:hover {
@@ -240,19 +236,27 @@
       aspect-ratio: 1/1;
       object-fit: cover;
       border-radius: 28px;
-      background: #fff2d7; /* fallback */
+      background: #f0f0f0;
       margin-bottom: 16px;
-      border: 2px solid rgba(255,255,255,0.5);
+      border: 2px solid rgba(255,255,255,0.7);
+      filter: grayscale(20%);
     }
 
     .product-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 600;
       margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .product-title i {
+      color: var(--primary);
     }
 
     .product-price {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 600;
       color: var(--primary-dark);
       margin: 10px 0 14px;
@@ -262,6 +266,16 @@
       font-size: 0.9rem;
       font-weight: 400;
       opacity: 0.8;
+    }
+
+    .rkn-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(39, 111, 219, 0.2);
+      border-radius: 30px;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+      border: 1px solid var(--primary);
     }
 
     .add-to-cart-btn {
@@ -286,7 +300,7 @@
       background: var(--primary-dark);
     }
 
-    /* Корзина (выезжающая панель) */
+    /* Корзина (реестр заблокированного) */
     .cart-overlay {
       position: fixed;
       top: 0; right: 0;
@@ -308,8 +322,8 @@
     }
 
     .cart-panel {
-      width: min(420px, 96%);
-      background: rgba(255,255,255,0.75);
+      width: min(480px, 96%);
+      background: rgba(255,255,255,0.8);
       backdrop-filter: var(--backdrop-blur);
       height: 100%;
       margin: 10px;
@@ -331,6 +345,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 16px;
     }
 
     .cart-header h2 {
@@ -381,7 +397,7 @@
     }
 
     .cart-item-remove {
-      color: var(--primary);
+      color: var(--warning-red);
       background: none;
       border: none;
       font-size: 1.4rem;
@@ -389,10 +405,11 @@
     }
 
     .cart-total {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
       margin-top: 16px;
       text-align: right;
+      color: var(--primary-dark);
     }
 
     .checkout-btn {
@@ -407,7 +424,7 @@
       cursor: pointer;
     }
 
-    /* Футер */
+    /* Футер с дисклеймером */
     footer {
       margin: 16px 20px;
       padding: 20px;
@@ -426,7 +443,13 @@
       font-weight: 500;
     }
 
-    /* Пагинация (простая) */
+    .disclaimer {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      max-width: 500px;
+    }
+
+    /* Пагинация */
     .pagination {
       display: flex;
       justify-content: center;
@@ -450,100 +473,97 @@
         margin: 15px 0;
         max-width: 100%;
       }
-      .user-actions {
-        justify-content: flex-end;
-      }
       .logo {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- Хедер с навигацией по страницам (имитация многостраничности) -->
+<!-- Хедер с навигацией РКН -->
 <header>
   <div class="logo-area">
-    <div class="logo"><i class="fas fa-leaf"></i> Тимофеевка</div>
+    <div class="logo"><i class="fas fa-shield-halved"></i> РКН.МАРКЕТ</div>
+    <span class="rkn-badge"><i class="fas fa-ban"></i> Реестр 0+</span>
   </div>
   <div class="search-box">
     <i class="fas fa-search"></i>
-    <input type="text" id="searchInput" placeholder="Поиск товаров..." aria-label="Поиск">
+    <input type="text" id="searchInput" placeholder="Поиск по реестру запрещенок..." aria-label="Поиск">
   </div>
   <div class="user-actions">
-    <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
+    <div class="profile-icon"><i class="fas fa-id-card"></i></div>
     <div class="cart-icon" id="cartToggleBtn">
-      <i class="fas fa-shopping-basket"></i>
+      <i class="fas fa-database"></i>
       <span class="cart-count" id="cartCounter">0</span>
     </div>
   </div>
-  <!-- псевдо-страницы: Главная, Каталог, О нас (переключение через js) -->
+  <!-- псевдо-страницы: Реестр, Услуги, О нас (сатира) -->
   <div class="nav-pages">
-    <button class="nav-page-btn active" data-page="home">Главная</button>
-    <button class="nav-page-btn" data-page="catalog">Каталог</button>
-    <button class="nav-page-btn" data-page="about">О нас</button>
+    <button class="nav-page-btn active" data-page="home">Реестр</button>
+    <button class="nav-page-btn" data-page="catalog">Услуги</button>
+    <button class="nav-page-btn" data-page="about">О ведомстве</button>
   </div>
 </header>
 
 <main id="mainContent">
-  <!-- Контент будет динамически подменяться через JS (SPA-подход) -->
+  <!-- динамический контент -->
 </main>
 
-<!-- Корзина оверлей -->
+<!-- Корзина (реестр выбранных блокировок) -->
 <div class="cart-overlay" id="cartOverlay">
   <div class="cart-panel">
     <div class="cart-header">
-      <h2><i class="fas fa-shopping-basket" style="margin-right: 12px;"></i>Корзина</h2>
+      <h2><i class="fas fa-list" style="margin-right: 12px;"></i>Реестр запретов</h2>
       <button class="close-cart" id="closeCartBtn">&times;</button>
     </div>
     <ul class="cart-items" id="cartItemsList">
-      <!-- динамические элементы корзины -->
+      <!-- сюда вставляются выбранные блокировки -->
     </ul>
     <div class="cart-total" id="cartTotal">0 ₽</div>
-    <button class="checkout-btn" id="checkoutBtn">Оформить заказ <i class="fas fa-arrow-right"></i></button>
+    <button class="checkout-btn" id="checkoutBtn">Подать заявку на блокировку <i class="fas fa-gavel"></i></button>
   </div>
 </div>
 
 <footer>
-  <div class="footer-copy">© 2025 Тимофеевка. Все права защищены.</div>
+  <div class="footer-copy">© 2025 Федеральная служба по надзору в сфере связи</div>
+  <div class="disclaimer"><i class="fas fa-balance-scale"></i> Все услуги предоставляются в рамках законодательства РФ. Сатирический контент.</div>
   <div class="footer-links">
-    <a href="#">Политика</a>
-    <a href="#">Доставка</a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
     <a href="#"><i class="fab fa-telegram"></i></a>
+    <a href="#"><i class="fas fa-lock"></i></a>
   </div>
 </footer>
 
 <script>
   (function() {
-    // ----- Глобальные данные -----
-    // Товары (изображения с интернета — placeholder картинки с тематическими ссылками)
+    // ----- Ироничный каталог услуг РКН -----
     const products = [
-      { id: 1, name: 'Картофель молодой', price: 89, category: 'ovoshi', img: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&auto=format&fit=crop' },
-      { id: 2, name: 'Морковь сладкая', price: 65, category: 'ovoshi', img: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&auto=format&fit=crop' },
-      { id: 3, name: 'Яблоки семеренко', price: 129, category: 'frukty', img: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&auto=format&fit=crop' },
-      { id: 4, name: 'Сыр козий', price: 350, category: 'milk', img: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&auto=format&fit=crop' },
-      { id: 5, name: 'Молоко фермерское', price: 95, category: 'milk', img: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&auto=format&fit=crop' },
-      { id: 6, name: 'Помидоры черри', price: 210, category: 'ovoshi', img: 'https://images.unsplash.com/photo-1597361613054-113b9c7d54f9?w=400&auto=format&fit=crop' },
-      { id: 7, name: 'Клубника', price: 320, category: 'frukty', img: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400&auto=format&fit=crop' },
-      { id: 8, name: 'Творог 5%', price: 180, category: 'milk', img: 'https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?w=400&auto=format&fit=crop' }
+      { id: 1, name: 'Блокировка сайта (до 1000 п/з)', price: 49900, category: 'blok', img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&auto=format&fit=crop', tag: 'популярное' },
+      { id: 2, name: 'Замедление трафика (медленный интернет)', price: 29900, category: 'zamed', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format&fit=crop', tag: 'акция' },
+      { id: 3, name: 'Внесение в реестр OPI', price: 15000, category: 'reestr', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&auto=format&fit=crop', tag: 'новинка' },
+      { id: 4, name: 'Изоляция рунета (комплекс)', price: 299000, category: 'kompl', img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&auto=format&fit=crop', tag: 'флагман' },
+      { id: 5, name: 'DPI-фильтр "Глубокий прятки"', price: 89000, category: 'oborud', img: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&auto=format&fit=crop', tag: '' },
+      { id: 6, name: 'Пожизненная блокировка IP', price: 9900, category: 'blok', img: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&auto=format&fit=crop', tag: 'хит' },
+      { id: 7, name: 'Маркировка VPN как нарушителя', price: 45000, category: 'reestr', img: 'https://images.unsplash.com/photo-1624969862293-b749659d2dad?w=400&auto=format&fit=crop', tag: '' },
+      { id: 8, name: 'Доступ к "пакету Яровой"', price: 199500, category: 'kompl', img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&auto=format&fit=crop', tag: '' }
     ];
 
-    // Категории
     const categories = [
-      { id: 'all', name: 'Все' },
-      { id: 'ovoshi', name: 'Овощи' },
-      { id: 'frukty', name: 'Фрукты' },
-      { id: 'milk', name: 'Молочные' }
+      { id: 'all', name: 'Все услуги' },
+      { id: 'blok', name: 'Блокировки' },
+      { id: 'zamed', name: 'Замедления' },
+      { id: 'reestr', name: 'Реестры' },
+      { id: 'kompl', name: 'Комплексные' },
+      { id: 'oborud', name: 'Оборудование' }
     ];
 
-    // Состояние
-    let currentPage = 'home';            // home, catalog, about
+    // Состояние приложения
+    let currentPage = 'home';
     let currentCategory = 'all';
     let searchQuery = '';
-    let cart = JSON.parse(localStorage.getItem('timofeevka_cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('rkn_cart')) || [];
 
-    // ----- Элементы DOM -----
+    // DOM элементы
     const mainEl = document.getElementById('mainContent');
     const cartOverlay = document.getElementById('cartOverlay');
     const cartToggleBtn = document.getElementById('cartToggleBtn');
@@ -554,22 +574,25 @@
     const searchInput = document.getElementById('searchInput');
     const navPageBtns = document.querySelectorAll('.nav-page-btn');
 
-    // ----- Рендер страниц (многостраничность) -----
+    // ----- Рендер страниц -----
     function renderPage() {
       if (currentPage === 'home') renderHome();
       else if (currentPage === 'catalog') renderCatalog();
       else if (currentPage === 'about') renderAbout();
-      updateCartCounter(); // обновляем счетчик везде
+      updateCartCounter();
     }
 
     function renderHome() {
       let html = `
-        <section style="margin: 30px 0; text-align: center;" class="glass-card" style="padding: 48px 20px;">
-          <h1 style="font-size: 2.5rem; color: var(--primary-dark);"><i class="fas fa-seedling" style="color: var(--primary);"></i> Тимофеевка — маркетплейс свежести</h1>
-          <p style="max-width: 700px; margin: 24px auto; font-size: 1.2rem;">Овощи, фрукты, молочная продукция прямо с фермы. Матовое стекло и глубокие прятки.</p>
-          <button class="category-btn" style="font-size: 1.2rem; padding: 16px 40px;" onclick="window.app.setPage('catalog')">Перейти в каталог</button>
+        <section style="margin: 30px 0; text-align: center;" class="glass-card" style="padding: 48px 30px;">
+          <h1 style="font-size: 2.6rem; color: var(--primary-dark);"><i class="fas fa-shield" style="color: var(--primary);"></i> РКН.МАРКЕТ — всё для блокировок</h1>
+          <p style="max-width: 800px; margin: 24px auto; font-size: 1.2rem;">Официальный поставщик решений по изоляции нежелательных ресурсов. Глубокие прятки (DPI) и внесение в реестр за 5 минут.</p>
+          <div style="display: flex; gap: 20px; justify-content: center;">
+            <button class="category-btn" style="font-size: 1.2rem; padding: 16px 40px;" onclick="window.app.setPage('catalog')">Перейти в каталог услуг</button>
+            <button class="category-btn" style="background: var(--warning-red); color:white;" id="emergencyBtn">Срочная блокировка 24/7</button>
+          </div>
         </section>
-        <h2 style="margin-top: 40px;">Популярные товары</h2>
+        <h2 style="margin-top: 40px;">Рекомендуемые решения</h2>
         <div class="products-grid" id="productsGridHome"></div>
       `;
       mainEl.innerHTML = html;
@@ -578,6 +601,9 @@
         grid.innerHTML = products.slice(0, 4).map(p => renderProductCard(p)).join('');
         attachAddToCartListeners(grid);
       }
+      document.getElementById('emergencyBtn')?.addEventListener('click', ()=>{
+        alert('Экстренная блокировка будет активирована. Ваш IP зафиксирован (шутка).');
+      });
     }
 
     function renderCatalog() {
@@ -588,18 +614,17 @@
         <div class="products-grid" id="productsGridCatalog"></div>
         <div class="pagination">
           <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
-          <span style="align-self:center; margin:0 10px;">1/1</span>
+          <span style="align-self:center; margin:0 10px;">Стр. 1 / 1</span>
           <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
       `;
       mainEl.innerHTML = html;
       filterAndRenderProducts();
 
-      // обработчики категорий
       document.querySelectorAll('.category-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           currentCategory = e.target.dataset.cat;
-          renderCatalog(); // перерендер каталога с активной категорией
+          renderCatalog();
         });
       });
     }
@@ -621,21 +646,22 @@
     function renderAbout() {
       mainEl.innerHTML = `
         <div class="glass-card" style="padding: 40px; max-width: 800px; margin: 30px auto;">
-          <h2 style="color: var(--primary-dark);"><i class="fas fa-heart" style="color:#276fdb;"></i> О маркетплейсе Тимофеевка</h2>
-          <p style="margin-top: 24px; font-size: 1.2rem; line-height:1.6;">Мы объединяем фермеров и покупателей. Стеклянный дизайн, честные цены. Глубокие прятки — наш фирменный цвет.</p>
-          <p>📍 доставка по всей области</p>
-          <p>🌿 только натуральное</p>
-          <p><i class="fas fa-truck"></i> бесплатно от 1500₽</p>
+          <h2 style="color: var(--primary-dark);"><i class="fas fa-building-columns"></i> О Роскомнадзор.Маркет</h2>
+          <p style="margin-top: 24px; font-size: 1.2rem; line-height:1.6;">Мы — официальный маркетплейс услуг по ограничению доступа. С 2022 года обеспечиваем цифровой суверенитет.</p>
+          <p>📍 Внесено в реестр организаторов распространения информации</p>
+          <p>🌐 Работаем по 149-ФЗ, 398-ФЗ и другим нормативным актам.</p>
+          <p><i class="fas fa-warning"></i> Данный сайт носит сатирический характер и создан в учебных целях.</p>
         </div>
       `;
     }
 
     function renderProductCard(p) {
       return `<div class="product-card" data-id="${p.id}">
+        ${p.tag ? `<span class="rkn-badge"><i class="fas fa-tag"></i> ${p.tag}</span>` : ''}
         <img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy">
-        <div class="product-title">${p.name}</div>
-        <div class="product-price">${p.price} <small>₽/кг</small></div>
-        <button class="add-to-cart-btn" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-img="${p.img}"><i class="fas fa-cart-plus"></i> В корзину</button>
+        <div class="product-title"><i class="fas fa-ban"></i> ${p.name}</div>
+        <div class="product-price">${p.price.toLocaleString()} <small>₽</small></div>
+        <button class="add-to-cart-btn" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-img="${p.img}"><i class="fas fa-cart-plus"></i> В реестр</button>
       </div>`;
     }
 
@@ -652,7 +678,7 @@
       });
     }
 
-    // ----- Корзина -----
+    // ----- Корзина (реестр) -----
     function addToCart(product) {
       const existing = cart.find(item => item.id === product.id);
       if (existing) {
@@ -671,7 +697,7 @@
     }
 
     function saveCart() {
-      localStorage.setItem('timofeevka_cart', JSON.stringify(cart));
+      localStorage.setItem('rkn_cart', JSON.stringify(cart));
       updateCartCounter();
     }
 
@@ -683,7 +709,7 @@
     function renderCartSidebar() {
       if (!cartItemsList) return;
       if (cart.length === 0) {
-        cartItemsList.innerHTML = '<div style="text-align:center; opacity:0.7;">Корзина пуста</div>';
+        cartItemsList.innerHTML = '<div style="text-align:center; opacity:0.7;">Реестр пуст. Добавьте блокировки.</div>';
         cartTotalSpan.innerText = `0 ₽`;
         return;
       }
@@ -695,13 +721,13 @@
           <img src="${item.img}" alt="${item.name}">
           <div class="cart-item-info">
             <div class="cart-item-title">${item.name}</div>
-            <div class="cart-item-price">${item.price} ₽ x ${item.quantity}</div>
+            <div class="cart-item-price">${item.price.toLocaleString()} ₽ x ${item.quantity}</div>
           </div>
           <button class="cart-item-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
         </li>`;
       });
       cartItemsList.innerHTML = html;
-      cartTotalSpan.innerText = `${total} ₽`;
+      cartTotalSpan.innerText = `${total.toLocaleString()} ₽`;
       cartItemsList.querySelectorAll('.cart-item-remove').forEach(btn => {
         btn.addEventListener('click', () => removeFromCart(+btn.dataset.id));
       });
@@ -712,7 +738,7 @@
       searchQuery = e.target.value;
       if (currentPage === 'catalog') {
         filterAndRenderProducts();
-      } // на других страницах просто сохраняем строку
+      }
     });
 
     // ----- Навигация страниц -----
@@ -730,7 +756,7 @@
       btn.addEventListener('click', () => setPage(btn.dataset.page));
     });
 
-    // ----- Корзина открыть/закрыть -----
+    // ----- Корзина (реестр) открыть/закрыть -----
     cartToggleBtn.addEventListener('click', () => {
       cartOverlay.classList.add('active');
       renderCartSidebar();
@@ -742,9 +768,12 @@
       if (e.target === cartOverlay) cartOverlay.classList.remove('active');
     });
 
-    // Чек-аут
     document.getElementById('checkoutBtn')?.addEventListener('click', () => {
-      alert('Спасибо за заказ! (функционал демо)');
+      if (cart.length === 0) {
+        alert('Добавьте услуги в реестр');
+        return;
+      }
+      alert('Заявка на блокировку принята! (демо-режим, сатира)');
     });
 
     // Инициализация
@@ -752,32 +781,24 @@
     renderCartSidebar();
     updateCartCounter();
 
-    // PWA: регистрация сервис-воркера (имитация)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(e => console.log('SW не зарегистрирован (демо)'));
-    }
-    // Добавим динамический манифест (в head уже есть ссылка)
+    // PWA манифест (симуляция)
     const manifestBlob = {
-      name: "Тимофеевка Market",
-      short_name: "Тимофеевка",
+      name: "РКН.Маркет — блокировки",
+      short_name: "РКН.Маркет",
       start_url: ".",
       display: "standalone",
       background_color: "#276fdb",
       theme_color: "#276fdb",
-      icons: [{ src: "https://via.placeholder.com/192x192/276fdb/ffffff?text=Т", sizes: "192x192", type: "image/png" }]
+      icons: [{ src: "https://via.placeholder.com/192x192/276fdb/ffffff?text=РКН", sizes: "192x192", type: "image/png" }]
     };
     const manifestString = JSON.stringify(manifestBlob);
     const manifestBlobUrl = 'data:application/manifest+json,' + encodeURIComponent(manifestString);
     document.querySelector('link[rel="manifest"]').setAttribute('href', manifestBlobUrl);
+
+    if ('serviceWorker' in navigator) {
+      // имитация
+    }
   })();
-</script>
-<!-- PWA service worker регистрация дополнительно -->
-<script>
-  // простая заглушка service worker (можно сохранить как sw.js, но в рамках одного файла имитируем)
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-    // в демо не регистрируем настоящий, только имитация PWA возможностей.
-  }
 </script>
 </body>
 </html>
