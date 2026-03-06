@@ -76,6 +76,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.02em;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .logo h1:hover {
+            opacity: 0.8;
         }
 
         .logo p {
@@ -138,6 +144,7 @@
         .search-block button:hover {
             background: #f3ecdf;
             border-color: #c8ae8c;
+            transform: scale(1.02);
         }
 
         /* корзина */
@@ -157,6 +164,7 @@
         .cart-icon:hover {
             background: #fffff7;
             border-color: #bda88b;
+            transform: scale(1.02);
         }
 
         .cart-icon i {
@@ -192,13 +200,18 @@
             font-weight: 500;
             color: #4d3f2e;
             transition: 0.2s;
-            cursor: default;
+            cursor: pointer;
         }
 
         .cat-item.active {
             background: #fffff7;
             border-color: #b29472;
             box-shadow: 0 6px 14px rgba(150, 110, 70, 0.1);
+        }
+
+        .cat-item:hover {
+            background: rgba(255, 255, 247, 0.8);
+            border-color: #b29472;
         }
 
         .cat-item i {
@@ -214,7 +227,7 @@
             padding: 24px 0 12px;
         }
 
-        /* карточка товара (настоящий магазин) */
+        /* карточка товара */
         .product-card {
             background: rgba(255, 255, 247, 0.7);
             backdrop-filter: blur(18px);
@@ -256,6 +269,12 @@
             margin-bottom: 18px;
             border: 2px solid white;
             box-shadow: 0 12px 25px -10px rgba(100, 70, 40, 0.3);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .product-img:hover {
+            transform: scale(1.02);
         }
 
         .product-title {
@@ -278,6 +297,7 @@
             gap: 4px;
             margin: 6px 0 8px;
             color: #b48c5c;
+            cursor: pointer;
         }
 
         .rating span {
@@ -401,6 +421,12 @@
             padding: 16px 32px;
             border-radius: 60px;
             border: 1px solid rgba(190, 165, 135, 0.3);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .delivery-info:hover {
+            background: rgba(255, 255, 247, 0.7);
         }
 
         /* корзина-дроуэр */
@@ -497,6 +523,110 @@
             align-items: center;
             gap: 14px;
             align-self: flex-start;
+            transition: 0.2s;
+        }
+
+        .clear-cart:hover {
+            background: #fae8d9;
+            transform: scale(1.02);
+        }
+
+        /* Модальные окна */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: rgba(255, 255, 247, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid rgba(215, 195, 165, 0.5);
+            box-shadow: 0 40px 70px -20px rgba(80, 60, 30, 0.3);
+            position: relative;
+            animation: modalAppear 0.3s ease;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #8f7a64;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .modal h2 {
+            font-size: 2.2rem;
+            color: #352e24;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .modal p {
+            font-size: 1.2rem;
+            color: #5e5241;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-btn {
+            background: #fffff7;
+            border: 2px solid #cfb99f;
+            border-radius: 60px;
+            padding: 16px 36px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #42372b;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal-btn:hover {
+            background: #f7efe2;
+            border-color: #a98765;
         }
 
         .footer {
@@ -525,9 +655,9 @@
 </head>
 <body>
     <div class="container">
-        <!-- Шапка как в настоящем магазине: лого, поиск, корзина -->
+        <!-- Шапка -->
         <header class="header glass">
-            <div class="logo">
+            <div class="logo" id="logo">
                 <h1><i class="fas fa-vest"></i> TrusyMarket</h1>
                 <p><i class="fas fa-check-circle" style="color: #789048;"></i> официальный магазин трусов</p>
             </div>
@@ -543,31 +673,33 @@
             </div>
         </header>
 
-        <!-- Категории (для реализма) -->
+        <!-- Категории (теперь реально работают) -->
         <div class="nav-cats glass">
-            <span class="cat-item active"><i class="fas fa-star"></i> все трусы</span>
-            <span class="cat-item"><i class="fas fa-crown"></i> тимофей</span>
-            <span class="cat-item"><i class="fas fa-gamepad"></i> витуберш</span>
-            <span class="cat-item"><i class="fas fa-fire"></i> новинки</span>
-            <span class="cat-item"><i class="fas fa-tag"></i> распродажа</span>
+            <span class="cat-item active" data-cat="all"><i class="fas fa-star"></i> все трусы</span>
+            <span class="cat-item" data-cat="timofey"><i class="fas fa-crown"></i> тимофей</span>
+            <span class="cat-item" data-cat="vtuber"><i class="fas fa-gamepad"></i> витуберш</span>
+            <span class="cat-item" data-cat="new"><i class="fas fa-fire"></i> новинки</span>
+            <span class="cat-item" data-cat="sale"><i class="fas fa-tag"></i> распродажа</span>
         </div>
 
-        <!-- Секция товаров (настоящий магазин) -->
+        <!-- Секция товаров -->
         <main class="glass-card" style="padding: 34px 30px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
                 <h2 style="color: #3e3328;"><i class="fas fa-cubes"></i> популярные модели</h2>
-                <span style="background: #ede3d6; padding: 8px 28px; border-radius: 60px; color: #5a4a38;">в наличии</span>
+                <span class="delivery-info" id="stockInfo" style="cursor: pointer;">
+                    <i class="fas fa-box"></i> <span id="stockCount">2</span> товара в наличии
+                </span>
             </div>
 
             <div class="products-grid" id="productGrid">
-                <!-- трусы тимофея (настоящий товар) -->
-                <div class="product-card" data-name="трусы тимофея" data-price="1990">
+                <!-- трусы тимофея -->
+                <div class="product-card" data-name="трусы тимофея" data-price="1990" data-category="timofey">
                     <div class="badge"><i class="fas fa-certificate"></i> бестселлер</div>
-                    <img class="product-img" src="https://storage.vsemayki.ru/images/0/1/1316/1316116/previews/people_6_pants_fullprint_front_white_500.jpg" alt="трусы тимофея" loading="lazy">
+                    <img class="product-img" src="https://storage.vsemayki.ru/images/0/1/1316/1316116/previews/people_6_pants_fullprint_front_white_500.jpg" alt="трусы тимофея" loading="lazy" id="timofeyImg">
                     <div class="product-title">
                         <i class="fas fa-crown"></i> Трусы Тимофея
                     </div>
-                    <div class="rating">
+                    <div class="rating" id="ratingTimofey">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                         <span>4.8 (124 отзыва)</span>
                     </div>
@@ -583,13 +715,13 @@
                     </div>
                 </div>
                 <!-- трусы витуберш -->
-                <div class="product-card" data-name="трусы витуберш" data-price="2490">
+                <div class="product-card" data-name="трусы витуберш" data-price="2490" data-category="vtuber">
                     <div class="badge"><i class="fas fa-wand-sparkles"></i> limited ed.</div>
-                    <img class="product-img" src="https://basket-06.wbbasket.ru/vol1013/part101321/101321878/images/big/1.webp" alt="трусы витуберш" loading="lazy">
+                    <img class="product-img" src="https://basket-06.wbbasket.ru/vol1013/part101321/101321878/images/big/1.webp" alt="трусы витуберш" loading="lazy" id="vtuberImg">
                     <div class="product-title">
                         <i class="fas fa-gamepad"></i> Трусы Vtuberш
                     </div>
-                    <div class="rating">
+                    <div class="rating" id="ratingVtuber">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <span>5.0 (87 отзывов)</span>
                     </div>
@@ -605,25 +737,21 @@
                     </div>
                 </div>
             </div>
-            <!-- подсказка о доставке -->
-            <div style="margin-top: 30px; background: rgba(230, 215, 190, 0.3); border-radius: 60px; padding: 12px 28px; color: #5d4d39;">
-                <i class="fas fa-truck-fast"></i> доставка по всей России — сегодня / завтра
-            </div>
         </main>
 
-        <!-- Платёжный блок с donatepay -->
+        <!-- Платёжный блок -->
         <div class="payment-block glass">
-            <a href="https://donatepay.ru/don/2020tima" target="_blank" class="payment-btn">
+            <a href="#" class="payment-btn" id="paymentBtn">
                 <i class="fab fa-cc-visa"></i> оплатить через donatepay
                 <i class="fas fa-arrow-right"></i>
             </a>
-            <div class="delivery-info">
+            <div class="delivery-info" id="deliveryInfo">
                 <i class="fas fa-credit-card"></i> принимаем карты
                 <i class="fas fa-lock" style="margin-left: 12px;"></i> безопасно
             </div>
         </div>
 
-        <!-- Корзина (drawer) -->
+        <!-- Корзина -->
         <div class="cart-drawer glass" id="cartDrawer">
             <h3 style="font-size: 2rem; display: flex; gap: 16px; color: #372e22;"><i class="fas fa-basket-shopping"></i> ваша корзина</h3>
             <ul class="cart-items" id="cartItemsList"></ul>
@@ -631,11 +759,21 @@
             <button class="clear-cart" id="clearCartBtn"><i class="fas fa-trash-can"></i> очистить корзину</button>
         </div>
 
-        <!-- Футер с контактами и копирайтом -->
+        <!-- Футер -->
         <footer class="footer glass">
             <span>© 2025 TrusyMarket — трусы с характером</span>
-            <span><i class="fas fa-envelope"></i> help@trusymarket.ru</span>
+            <span id="contactLink"><i class="fas fa-envelope"></i> help@trusymarket.ru</span>
         </footer>
+    </div>
+
+    <!-- Модальные окна -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div id="modalContent">
+                <!-- контент будет подставляться динамически -->
+            </div>
+        </div>
     </div>
 
     <script>
@@ -644,10 +782,11 @@
             let cart = JSON.parse(localStorage.getItem('trusyCartReal')) || [];
 
             const products = [
-                { id: 'timofey', title: 'Трусы Тимофея', price: 1990, icon: 'fa-crown' },
-                { id: 'vtuber', title: 'Трусы Vtuberш', price: 2490, icon: 'fa-gamepad' }
+                { id: 'timofey', title: 'Трусы Тимофея', price: 1990, icon: 'fa-crown', category: 'timofey' },
+                { id: 'vtuber', title: 'Трусы Vtuberш', price: 2490, icon: 'fa-gamepad', category: 'vtuber' }
             ];
 
+            // Элементы DOM
             const cartToggle = document.getElementById('cartToggle');
             const cartDrawer = document.getElementById('cartDrawer');
             const cartItemsList = document.getElementById('cartItemsList');
@@ -657,7 +796,114 @@
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
             const productCards = document.querySelectorAll('.product-card');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalContent = document.getElementById('modalContent');
+            const modalClose = document.getElementById('modalClose');
+            
+            // Категории
+            const catItems = document.querySelectorAll('.cat-item');
+            const stockCountSpan = document.getElementById('stockCount');
 
+            // Функция обновления счётчика товаров
+            function updateStockCount() {
+                const visibleCards = Array.from(productCards).filter(card => card.style.display !== 'none');
+                stockCountSpan.textContent = visibleCards.length;
+            }
+
+            // Фильтр по категориям
+            catItems.forEach(cat => {
+                cat.addEventListener('click', () => {
+                    catItems.forEach(c => c.classList.remove('active'));
+                    cat.classList.add('active');
+                    
+                    const category = cat.getAttribute('data-cat');
+                    
+                    productCards.forEach(card => {
+                        if (category === 'all') {
+                            card.style.display = 'flex';
+                        } else if (category === 'sale' || category === 'new') {
+                            // для демо показываем оба товара
+                            card.style.display = 'flex';
+                            // но покажем модалку
+                            showModal('акция', 'В этом разделе пока только легендарные модели, но скоро появятся новинки!');
+                        } else {
+                            const cardCat = card.getAttribute('data-category');
+                            card.style.display = cardCat === category ? 'flex' : 'none';
+                        }
+                    });
+                    
+                    updateStockCount();
+                });
+            });
+
+            // Функция показа модалки
+            function showModal(title, message) {
+                modalContent.innerHTML = `
+                    <h2><i class="fas fa-vest"></i> ${title}</h2>
+                    <p>${message}</p>
+                    <button class="modal-btn" id="modalActionBtn">понятно</button>
+                `;
+                modalOverlay.classList.add('show');
+                
+                document.getElementById('modalActionBtn').addEventListener('click', () => {
+                    modalOverlay.classList.remove('show');
+                });
+            }
+
+            // Клик по логотипу
+            document.getElementById('logo').addEventListener('click', () => {
+                showModal('TrusyMarket', 'Самый прикольный магазин трусов во всей вселенной! 🩲');
+            });
+
+            // Клик по рейтингу
+            document.getElementById('ratingTimofey').addEventListener('click', () => {
+                showModal('Отзывы на трусы Тимофея', '124 отзыва, средняя оценка 4.8. Все покупатели счастливы!');
+            });
+
+            document.getElementById('ratingVtuber').addEventListener('click', () => {
+                showModal('Отзывы на трусы Vtuberш', '87 отзывов, средняя оценка 5.0. Хит сезона!');
+            });
+
+            // Клик по изображениям
+            document.getElementById('timofeyImg').addEventListener('click', () => {
+                showModal('Трусы Тимофея', 'Легендарные трусы с принтом самого Тимофея. Состав: 100% хлопок, 100% крутость.');
+            });
+
+            document.getElementById('vtuberImg').addEventListener('click', () => {
+                showModal('Трусы Vtuberш', 'Эксклюзивная коллаборация с виртуальными туберами. Ограниченная серия!');
+            });
+
+            // Клик по доставке/оплате
+            document.getElementById('deliveryInfo').addEventListener('click', () => {
+                showModal('Доставка и оплата', '🚚 Доставка по всей России 1-3 дня. Оплата картой или через donatepay. Безопасно и анонимно!');
+            });
+
+            document.getElementById('contactLink').addEventListener('click', () => {
+                showModal('Контакты', '📧 help@trusymarket.ru\n📞 +7 (999) 123-45-67\nМы всегда на связи!');
+            });
+
+            // Кнопка оплаты
+            document.getElementById('paymentBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (cart.length === 0) {
+                    showModal('Корзина пуста', 'Сначала добавьте трусы в корзину, а потом оплачивайте!');
+                } else {
+                    const total = cart.reduce((acc, it) => acc + it.price, 0);
+                    showModal('Оплата через donatepay', `Сумма к оплате: ${total} ₽\n\nПосле нажатия "оплатить" вы перейдете на безопасную страницу оплаты.`);
+                    
+                    // реальный переход через 2 секунды (для демо)
+                    setTimeout(() => {
+                        window.open('https://donatepay.ru/don/2020tima', '_blank');
+                    }, 2000);
+                }
+            });
+
+            // Клик по информации о наличии
+            document.getElementById('stockInfo').addEventListener('click', () => {
+                showModal('Наличие товаров', 'Все товары в наличии! Отгружаем в день заказа.');
+            });
+
+            // Функции корзины
             function renderCart() {
                 if (cartItemsList) {
                     if (cart.length === 0) {
@@ -697,7 +943,9 @@
                 localStorage.setItem('trusyCartReal', JSON.stringify(cart));
             }
 
-            function saveCart() { renderCart(); }
+            function saveCart() { 
+                renderCart(); 
+            }
 
             function addToCart(pid) {
                 const prod = products.find(p => p.id === pid);
@@ -705,6 +953,7 @@
                     cart.push({ id: prod.id, title: prod.title, price: prod.price, icon: prod.icon });
                     saveCart();
                     cartDrawer.classList.add('show');
+                    showModal('Товар добавлен! 🩲', `${prod.title} теперь в вашей корзине. Можно продолжить покупки или перейти к оплате.`);
                 }
             }
 
@@ -723,25 +972,51 @@
 
             if (clearCartBtn) {
                 clearCartBtn.addEventListener('click', () => {
-                    cart = [];
-                    saveCart();
+                    if (cart.length > 0) {
+                        cart = [];
+                        saveCart();
+                        showModal('Корзина очищена', 'Все трусы удалены. Возвращайтесь за новыми!');
+                    }
                 });
             }
 
-            // поиск
+            // Поиск
             function filterProducts(q) {
                 const query = q.trim().toLowerCase();
+                let visibleCount = 0;
+                
                 productCards.forEach(card => {
                     const name = card.getAttribute('data-name') || '';
                     const title = card.querySelector('.product-title')?.innerText.toLowerCase() || '';
-                    card.style.display = (name.includes(query) || title.includes(query) || query === '') ? 'flex' : 'none';
+                    const matches = name.includes(query) || title.includes(query) || query === '';
+                    card.style.display = matches ? 'flex' : 'none';
+                    if (matches) visibleCount++;
                 });
+                
+                stockCountSpan.textContent = visibleCount;
+                
+                if (query !== '' && visibleCount === 0) {
+                    showModal('Ничего не найдено', 'Попробуйте другой запрос. У нас есть трусы Тимофея и витуберш!');
+                }
             }
 
             searchBtn.addEventListener('click', () => filterProducts(searchInput.value));
             searchInput.addEventListener('keyup', (e) => e.key === 'Enter' && filterProducts(searchInput.value));
 
+            // Закрытие модалки
+            modalClose.addEventListener('click', () => {
+                modalOverlay.classList.remove('show');
+            });
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('show');
+                }
+            });
+
+            // Инициализация
             renderCart();
+            updateStockCount();
         })();
     </script>
 </body>
