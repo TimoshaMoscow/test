@@ -593,6 +593,147 @@
       text-decoration: underline;
     }
 
+    /* Корзина/реестр */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 3000;
+      justify-content: flex-end;
+    }
+
+    .cart-overlay.active {
+      display: flex;
+    }
+
+    .cart-panel {
+      background: white;
+      width: 100%;
+      max-width: 450px;
+      height: 100%;
+      overflow-y: auto;
+      border-left: 3px solid var(--rkn-dark-blue);
+    }
+
+    .cart-header {
+      background: var(--rkn-dark-blue);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      list-style: none;
+      padding: 20px;
+    }
+
+    .cart-item {
+      background: var(--rkn-light-blue);
+      border: 1px solid var(--rkn-border);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .cart-item-header {
+      font-weight: bold;
+      color: var(--rkn-dark-blue);
+      margin-bottom: 5px;
+    }
+
+    .cart-item-target {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+
+    .cart-item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item-price {
+      font-weight: bold;
+      color: var(--rkn-accent);
+    }
+
+    .cart-item-remove {
+      background: none;
+      border: 1px solid var(--rkn-accent);
+      color: var(--rkn-accent);
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cart-total {
+      padding: 20px;
+      border-top: 2px solid var(--rkn-border);
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .checkout-btn {
+      display: block;
+      width: calc(100% - 40px);
+      margin: 0 20px 20px;
+      background: var(--rkn-accent);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* MAX уведомление */
+    .max-notification {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      align-items: center;
+      gap: 15px;
+      z-index: 4000;
+    }
+
+    .max-notification.show {
+      display: flex;
+    }
+
+    .max-notification-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
     @media (max-width: 768px) {
       .header-main {
         flex-direction: column;
@@ -606,6 +747,45 @@
         gap: 15px;
         text-align: center;
       }
+    }
+
+    /* Социальные сети */
+    .social-icon {
+      font-size: 48px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .social-stats {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+
+    .blocked-badge {
+      background: var(--rkn-accent);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-block;
+    }
+
+    /* Филиалы */
+    .branch-flag {
+      font-size: 48px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .branch-status {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    /* Рулетка */
+    .roulette-result {
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -787,7 +967,7 @@
       let visionMode = localStorage.getItem('visionMode') === 'true';
       let englishMode = localStorage.getItem('englishMode') === 'true';
 
-      // Функции переключения режимов
+      // Глобальные функции для обратной совместимости
       window.toggleVisionMode = function() {
         visionMode = !visionMode;
         document.body.classList.toggle('vision-mode', visionMode);
@@ -799,49 +979,16 @@
         document.body.classList.toggle('english-mode', englishMode);
         localStorage.setItem('englishMode', englishMode);
         updateUIText();
+        // Обновляем текущую страницу
+        if (currentPage === 'home') showHome();
+        else if (currentPage === 'catalog') showCatalog();
+        else if (currentPage === 'branches') showBranches();
+        else if (currentPage === 'social') showSocial();
+        else if (currentPage === 'roulette') showRoulette();
+        else if (currentPage === 'max') showMax();
+        else if (currentPage === 'cabinet') showPersonalCabinet();
       };
 
-      // Обновление текста интерфейса
-      function updateUIText() {
-        document.getElementById('pageTitle').textContent = englishMode ? 
-          'Roskomnadzor - Sanctions Marketplace' : 
-          'Роскомнадзор - Маркетплейс мер воздействия';
-        updateCitizenLevel();
-      }
-
-      function updateCitizenLevel() {
-        if (citizenPoints >= 500) {
-          citizenLevel = 'Супер-патриот';
-          citizenLevelEn = 'Super patriot';
-        } else if (citizenPoints >= 250) {
-          citizenLevel = 'Патриот';
-          citizenLevelEn = 'Patriot';
-        } else if (citizenPoints >= 100) {
-          citizenLevel = 'Сторонник';
-          citizenLevelEn = 'Supporter';
-        } else if (citizenPoints >= 50) {
-          citizenLevel = 'Порядочный гражданин';
-          citizenLevelEn = 'Decent citizen';
-        } else {
-          citizenLevel = 'Новичок';
-          citizenLevelEn = 'Novice';
-        }
-
-        document.getElementById('citizenLevelDisplay').textContent = englishMode ? citizenLevelEn : citizenLevel;
-        localStorage.setItem('citizenPoints', citizenPoints);
-      }
-
-      // MAX уведомление
-      function sendMaxNotification(message) {
-        console.log('MAX API отправка:', message);
-        const notification = document.getElementById('maxNotification');
-        const notificationText = document.getElementById('maxNotificationText');
-        notificationText.innerText = message;
-        notification.classList.add('show');
-        setTimeout(() => notification.classList.remove('show'), 5000);
-      }
-
-      // Показать личный кабинет (отдельная страница)
       window.showPersonalCabinet = function() {
         currentPage = 'cabinet';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
@@ -968,7 +1115,7 @@
 
       window.filterCatalog = function(category) {
         currentCategory = category;
-        renderCatalog();
+        showCatalog();
       };
 
       function filterAndRenderProducts() {
@@ -977,6 +1124,11 @@
         let filtered = products;
         if (currentCategory !== 'all') {
           filtered = filtered.filter(p => p.category === currentCategory);
+        }
+        if (searchQuery) {
+          filtered = filtered.filter(p => 
+            (englishMode ? p.nameEn : p.name).toLowerCase().includes(searchQuery.toLowerCase())
+          );
         }
         grid.innerHTML = filtered.map(p => renderProductCard(p)).join('');
         attachAddToCartListeners(grid);
@@ -1066,6 +1218,7 @@
         document.getElementById('pageContent').innerHTML = html;
       }
 
+      // Глобальные функции для обратной совместимости
       window.buyBranch = function(country) {
         citizenPoints += 50;
         updateCitizenLevel();
@@ -1109,54 +1262,64 @@
         }, 2000);
       };
 
+      window.sendMaxNotification = function(message) {
+        console.log('MAX API отправка:', message);
+        const notification = document.getElementById('maxNotification');
+        const notificationText = document.getElementById('maxNotificationText');
+        notificationText.innerText = message;
+        notification.classList.add('show');
+        setTimeout(() => notification.classList.remove('show'), 5000);
+      };
+
+      window.removeFromCart = function(id) {
+        cart = cart.filter(item => item.id != id);
+        saveCart();
+        renderCartSidebar();
+      };
+
       function attachAddToCartListeners(container) {
         container.querySelectorAll('.btn-primary').forEach(btn => {
           btn.addEventListener('click', (e) => {
-            const id = +btn.dataset.id;
+            const id = parseInt(btn.dataset.id);
             const name = btn.dataset.name;
-            const price = +btn.dataset.price;
-            const points = +btn.dataset.points;
+            const price = parseInt(btn.dataset.price);
+            const points = parseInt(btn.dataset.points);
             pendingProduct = { id, name, price, points };
             document.getElementById('targetModal').classList.add('active');
           });
         });
       }
 
-      document.getElementById('modalCloseBtn').addEventListener('click', () => {
-        document.getElementById('targetModal').classList.remove('active');
-      });
-
-      document.getElementById('submitTargetBtn').addEventListener('click', () => {
-        if (!pendingProduct) return;
-        
-        const targetData = {
-          url: document.getElementById('targetUrl').value || 'не указан',
-          ip: document.getElementById('targetIp').value || 'не указан',
-          resourceName: document.getElementById('targetName').value || 'не указано',
-          classification: document.getElementById('targetClass').value
-        };
-
-        const cartItem = {
-          ...pendingProduct,
-          target: targetData,
-          quantity: 1,
-          id: Date.now() + Math.random(),
-          date: new Date().toLocaleString()
-        };
-
-        cart.push(cartItem);
-        citizenPoints += pendingProduct.points;
-        
-        saveCart();
-        renderCartSidebar();
+      function updateUIText() {
+        document.getElementById('pageTitle').textContent = englishMode ? 
+          'Roskomnadzor - Sanctions Marketplace' : 
+          'Роскомнадзор - Маркетплейс мер воздействия';
+        document.getElementById('currentPageDisplay').textContent = 
+          englishMode ? 'Measures Registry' : 'Реестр мер';
         updateCitizenLevel();
-        
-        if (document.getElementById('notifyMax').checked) {
-          sendMaxNotification(`⚠️ ${englishMode ? 'New sanction:' : 'Новая мера:'} ${pendingProduct.name}`);
+      }
+
+      function updateCitizenLevel() {
+        if (citizenPoints >= 500) {
+          citizenLevel = 'Супер-патриот';
+          citizenLevelEn = 'Super patriot';
+        } else if (citizenPoints >= 250) {
+          citizenLevel = 'Патриот';
+          citizenLevelEn = 'Patriot';
+        } else if (citizenPoints >= 100) {
+          citizenLevel = 'Сторонник';
+          citizenLevelEn = 'Supporter';
+        } else if (citizenPoints >= 50) {
+          citizenLevel = 'Порядочный гражданин';
+          citizenLevelEn = 'Decent citizen';
+        } else {
+          citizenLevel = 'Новичок';
+          citizenLevelEn = 'Novice';
         }
-        
-        document.getElementById('targetModal').classList.remove('active');
-      });
+
+        document.getElementById('citizenLevelDisplay').textContent = englishMode ? citizenLevelEn : citizenLevel;
+        localStorage.setItem('citizenPoints', citizenPoints);
+      }
 
       function saveCart() {
         localStorage.setItem('rkn_cart', JSON.stringify(cart));
@@ -1173,7 +1336,7 @@
         
         if (cart.length === 0) {
           list.innerHTML = '<div style="text-align: center; padding: 30px;">' + (englishMode ? 'Registry is empty' : 'Реестр пуст') + '</div>';
-          document.getElementById('cartTotal').innerText = (englishMode ? 'Total:' : 'Итого:') + ' 0 ₽';
+          document.getElementById('cartTotal').innerHTML = (englishMode ? 'Total:' : 'Итого:') + ' 0 ₽';
           return;
         }
         
@@ -1183,7 +1346,7 @@
           total += item.price;
           html += `<li class="cart-item">
             <div class="cart-item-header">${item.name}</div>
-            <div class="cart-item-target">${item.target.url}</div>
+            <div class="cart-item-target">${item.target ? item.target.url : 'не указан'}</div>
             <div class="cart-item-footer">
               <span class="cart-item-price">${item.price} ₽</span>
               <button class="cart-item-remove" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
@@ -1192,53 +1355,93 @@
         });
         
         list.innerHTML = html;
-        document.getElementById('cartTotal').innerText = (englishMode ? 'Total:' : 'Итого:') + ` ${total.toLocaleString()} ₽`;
+        document.getElementById('cartTotal').innerHTML = (englishMode ? 'Total:' : 'Итого:') + ` ${total.toLocaleString()} ₽`;
       }
 
-      window.removeFromCart = function(id) {
-        cart = cart.filter(item => item.id !== id);
-        saveCart();
-        renderCartSidebar();
-      };
+      // Инициализация событий
+      document.addEventListener('DOMContentLoaded', function() {
+        // Применяем сохраненные режимы
+        if (visionMode) document.body.classList.add('vision-mode');
+        if (englishMode) document.body.classList.add('english-mode');
+        
+        // Инициализация обработчиков
+        document.getElementById('modalCloseBtn').addEventListener('click', () => {
+          document.getElementById('targetModal').classList.remove('active');
+        });
 
-      document.getElementById('cartToggleBtn').addEventListener('click', () => {
-        document.getElementById('cartOverlay').classList.add('active');
-        renderCartSidebar();
-      });
+        document.getElementById('submitTargetBtn').addEventListener('click', () => {
+          if (!pendingProduct) return;
+          
+          const targetData = {
+            url: document.getElementById('targetUrl').value || 'не указан',
+            ip: document.getElementById('targetIp').value || 'не указан',
+            resourceName: document.getElementById('targetName').value || 'не указано',
+            classification: document.getElementById('targetClass').value
+          };
 
-      document.getElementById('closeCartBtn').addEventListener('click', () => {
-        document.getElementById('cartOverlay').classList.remove('active');
-      });
+          const cartItem = {
+            ...pendingProduct,
+            target: targetData,
+            quantity: 1,
+            id: Date.now() + Math.random(),
+            date: new Date().toLocaleString()
+          };
 
-      document.getElementById('checkoutBtn').addEventListener('click', () => {
-        if (cart.length === 0) {
-          alert(englishMode ? 'Add sanctions to registry' : 'Добавьте меры в реестр');
-          return;
-        }
-        alert(englishMode ? 'Orders accepted for execution!' : 'Постановления приняты к исполнению!');
-        citizenPoints += 50;
+          cart.push(cartItem);
+          citizenPoints += pendingProduct.points;
+          
+          saveCart();
+          renderCartSidebar();
+          updateCitizenLevel();
+          
+          if (document.getElementById('notifyMax').checked) {
+            sendMaxNotification(`⚠️ ${englishMode ? 'New sanction:' : 'Новая мера:'} ${pendingProduct.name}`);
+          }
+          
+          document.getElementById('targetModal').classList.remove('active');
+          
+          // Очищаем форму
+          document.getElementById('targetUrl').value = '';
+          document.getElementById('targetIp').value = '';
+          document.getElementById('targetName').value = '';
+        });
+
+        document.getElementById('cartToggleBtn').addEventListener('click', () => {
+          document.getElementById('cartOverlay').classList.add('active');
+          renderCartSidebar();
+        });
+
+        document.getElementById('closeCartBtn').addEventListener('click', () => {
+          document.getElementById('cartOverlay').classList.remove('active');
+        });
+
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+          if (cart.length === 0) {
+            alert(englishMode ? 'Add sanctions to registry' : 'Добавьте меры в реестр');
+            return;
+          }
+          alert(englishMode ? 'Orders accepted for execution!' : 'Постановления приняты к исполнению!');
+          citizenPoints += 50;
+          updateCitizenLevel();
+          cart = [];
+          saveCart();
+          renderCartSidebar();
+        });
+
+        document.getElementById('maxNotificationClose').addEventListener('click', () => {
+          document.getElementById('maxNotification').classList.remove('show');
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+          searchQuery = e.target.value;
+          if (currentPage === 'catalog') filterAndRenderProducts();
+        });
+
+        // Начальная загрузка
         updateCitizenLevel();
-        cart = [];
-        saveCart();
+        showHome();
         renderCartSidebar();
       });
-
-      document.getElementById('maxNotificationClose').addEventListener('click', () => {
-        document.getElementById('maxNotification').classList.remove('show');
-      });
-
-      document.getElementById('searchInput').addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        if (currentPage === 'catalog') filterAndRenderProducts();
-      });
-
-      // Инициализация
-      if (visionMode) document.body.classList.add('vision-mode');
-      if (englishMode) document.body.classList.add('english-mode');
-      
-      updateCitizenLevel();
-      showHome();
-      renderCartSidebar();
     })();
   </script>
 </body>
