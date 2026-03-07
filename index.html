@@ -34,6 +34,10 @@
       --gold: #ffd700;
       --silver: #c0c0c0;
       --bronze: #cd7f32;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
     }
 
     /* Версия для слабовидящих */
@@ -380,6 +384,10 @@
       flex: 1;
     }
 
+    .btn-primary:hover {
+      background: var(--rkn-blue);
+    }
+
     .btn-max {
       background: var(--max-color);
       color: white;
@@ -392,6 +400,10 @@
       align-items: center;
       gap: 8px;
       justify-content: center;
+    }
+
+    .btn-max:hover {
+      background: #3a5a80;
     }
 
     .btn-roulette {
@@ -407,6 +419,47 @@
       align-items: center;
       gap: 15px;
       margin: 20px auto;
+    }
+
+    .btn-roulette:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-success:hover {
+      background: #218838;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: var(--rkn-dark-blue);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-warning:hover {
+      background: #e0a800;
     }
 
     /* Модальное окно */
@@ -454,6 +507,10 @@
       cursor: pointer;
     }
 
+    .modal-close:hover {
+      opacity: 0.8;
+    }
+
     .modal-body {
       padding: 20px;
     }
@@ -470,20 +527,41 @@
     }
 
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid var(--rkn-border);
       border-radius: 4px;
+      font-family: inherit;
     }
 
-    /* Личный кабинет */
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--rkn-dark-blue);
+      box-shadow: 0 0 0 3px rgba(31, 58, 107, 0.1);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group input {
+      width: auto;
+    }
+
+    /* Личный кабинет (УЛУЧШЕННЫЙ) */
     .personal-cabinet {
       background: white;
       border: 1px solid var(--rkn-border);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 30px;
       margin: 20px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
 
     .cabinet-header {
@@ -491,37 +569,347 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+      border-bottom: 2px solid var(--rkn-light-blue);
+      padding-bottom: 20px;
     }
 
-    .cabinet-stats {
+    .cabinet-header h2 {
+      color: var(--rkn-dark-blue);
+      font-size: 28px;
+    }
+
+    .cabinet-header h2 i {
+      margin-right: 10px;
+      color: var(--gold);
+    }
+
+    .citizen-level-card {
+      background: linear-gradient(135deg, var(--rkn-dark-blue), var(--rkn-blue));
+      color: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .citizen-level-card i {
+      font-size: 24px;
+      color: var(--gold);
+    }
+
+    .citizen-level-info {
+      text-align: right;
+    }
+
+    .citizen-level-label {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .citizen-level-value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .cabinet-stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       margin: 30px 0;
     }
 
-    .stat-card {
+    .stat-card-modern {
       background: var(--rkn-light-blue);
-      padding: 20px;
-      border-radius: 8px;
+      padding: 25px;
+      border-radius: 12px;
       text-align: center;
+      transition: 0.3s;
+      border: 1px solid var(--rkn-border);
     }
 
-    .stat-number {
+    .stat-card-modern:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .stat-icon {
       font-size: 36px;
+      color: var(--rkn-dark-blue);
+      margin-bottom: 15px;
+    }
+
+    .stat-number-modern {
+      font-size: 42px;
+      font-weight: bold;
+      color: var(--rkn-dark-blue);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-section {
+      background: var(--rkn-light-blue);
+      padding: 20px;
+      border-radius: 12px;
+      margin: 30px 0;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: var(--rkn-dark-blue);
+      font-weight: 600;
+    }
+
+    .progress-bar-container {
+      height: 20px;
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--rkn-accent));
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .next-level-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .next-level-info span:last-child {
       font-weight: bold;
       color: var(--rkn-dark-blue);
     }
 
-    .cabinet-history {
-      margin-top: 30px;
+    .achievements-section {
+      margin: 30px 0;
     }
 
-    .history-item {
+    .achievements-section h3 {
+      color: var(--rkn-dark-blue);
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .achievements-section h3 i {
+      margin-right: 10px;
+      color: var(--gold);
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .achievement-card {
+      background: var(--rkn-light-blue);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid var(--rkn-border);
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement-card.achieved {
+      background: linear-gradient(135deg, #fff, #e8f5e8);
+      border-color: var(--success);
+    }
+
+    .achievement-card.achieved::after {
+      content: '✓';
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      color: var(--success);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .achievement-icon {
+      font-size: 32px;
+      color: var(--rkn-dark-blue);
+      margin-bottom: 10px;
+    }
+
+    .achievement-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--rkn-dark-blue);
+    }
+
+    .achievement-desc {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .activity-section {
+      margin: 30px 0;
+    }
+
+    .activity-section h3 {
+      color: var(--rkn-dark-blue);
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .activity-section h3 i {
+      margin-right: 10px;
+      color: var(--info);
+    }
+
+    .activity-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--rkn-border);
+      padding-bottom: 10px;
+    }
+
+    .activity-tab {
+      padding: 8px 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+
+    .activity-tab:hover {
+      background: var(--rkn-light-blue);
+    }
+
+    .activity-tab.active {
+      background: var(--rkn-dark-blue);
+      color: white;
+    }
+
+    .activity-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--rkn-border);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .activity-item {
       padding: 15px;
       border-bottom: 1px solid var(--rkn-border);
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      transition: 0.2s;
+    }
+
+    .activity-item:hover {
+      background: var(--rkn-light-blue);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .activity-name {
+      font-weight: 600;
+      color: var(--rkn-dark-blue);
+    }
+
+    .activity-target {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .activity-meta {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .activity-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .activity-points {
+      background: var(--success);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .activity-price {
+      font-weight: bold;
+      color: var(--rkn-accent);
+    }
+
+    .clear-history-btn {
+      margin-top: 15px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .stats-extra {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .stat-mini-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--rkn-border);
+    }
+
+    .stat-mini-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--rkn-dark-blue);
+    }
+
+    .stat-mini-label {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .actions-panel {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid var(--rkn-light-blue);
     }
 
     /* Рулетка */
@@ -613,6 +1001,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .close-cart {
@@ -621,6 +1012,10 @@
       color: white;
       font-size: 28px;
       cursor: pointer;
+    }
+
+    .close-cart:hover {
+      opacity: 0.8;
     }
 
     .cart-items {
@@ -670,12 +1065,20 @@
       cursor: pointer;
     }
 
+    .cart-item-remove:hover {
+      background: var(--rkn-accent);
+      color: white;
+    }
+
     .cart-total {
       padding: 20px;
       border-top: 2px solid var(--rkn-border);
       font-size: 20px;
       font-weight: bold;
       text-align: right;
+      position: sticky;
+      bottom: 0;
+      background: white;
     }
 
     .checkout-btn {
@@ -690,6 +1093,10 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background: #b71c1c;
     }
 
     /* MAX уведомление */
@@ -719,6 +1126,10 @@
       font-size: 20px;
       cursor: pointer;
       margin-left: 10px;
+    }
+
+    .max-notification-close:hover {
+      opacity: 0.8;
     }
 
     /* Страница для американцев */
@@ -790,6 +1201,17 @@
         flex-direction: column;
         gap: 15px;
         text-align: center;
+      }
+      .footer-links a {
+        margin: 0 10px;
+      }
+      .cabinet-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .citizen-level-card {
+        width: 100%;
+        justify-content: space-between;
       }
     }
 
@@ -955,6 +1377,10 @@
             <option value="экстремизм">Экстремистские материалы</option>
             <option value="наркотики">Наркотические средства</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-sticky-note"></i> Комментарий</label>
+          <textarea id="targetComment" rows="2" placeholder="Дополнительная информация..."></textarea>
         </div>
         <div class="form-group checkbox-group">
           <input type="checkbox" id="notifyMax" checked>
@@ -1123,44 +1549,263 @@
         document.getElementById('pageContent').innerHTML = html;
       };
 
+      // УЛУЧШЕННЫЙ ЛИЧНЫЙ КАБИНЕТ
       window.showPersonalCabinet = function() {
         currentPage = 'cabinet';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('currentPageDisplay').textContent = 'Личный кабинет';
         
+        // Статистика для ачивок
+        const totalSpent = cart.reduce((sum, item) => sum + item.price, 0);
+        const branchesCount = branches.length;
+        const serversCount = servers.length;
+        const uniqueResources = new Set(cart.map(item => item.target?.url)).size;
+        
+        // Прогресс до следующего уровня
+        const nextLevelPoints = getNextLevelPoints();
+        const progressPercent = Math.min(100, Math.floor((citizenPoints / nextLevelPoints) * 100));
+        const nextLevelName = getNextLevelName();
+        
         let html = `
           <div class="personal-cabinet">
             <div class="cabinet-header">
               <h2><i class="fas fa-user-circle"></i> Личный кабинет</h2>
-              <div class="citizen-status">
-                <i class="fas fa-star"></i> Статус: ${citizenLevel}
+              <div class="citizen-level-card">
+                <i class="fas fa-star"></i>
+                <div class="citizen-level-info">
+                  <div class="citizen-level-label">Текущий статус</div>
+                  <div class="citizen-level-value">${citizenLevel}</div>
+                </div>
               </div>
             </div>
             
-            <div class="cabinet-stats">
-              <div class="stat-card">
-                <div class="stat-number">${citizenPoints}</div>
-                <div>Баллов лояльности</div>
+            <div class="cabinet-stats-grid">
+              <div class="stat-card-modern">
+                <div class="stat-icon"><i class="fas fa-coins"></i></div>
+                <div class="stat-number-modern">${citizenPoints.toLocaleString()}</div>
+                <div class="stat-label">Баллов лояльности</div>
               </div>
-              <div class="stat-card">
-                <div class="stat-number">${cart.length}</div>
-                <div>Примененных мер</div>
+              <div class="stat-card-modern">
+                <div class="stat-icon"><i class="fas fa-gavel"></i></div>
+                <div class="stat-number-modern">${cart.length}</div>
+                <div class="stat-label">Примененных мер</div>
+              </div>
+              <div class="stat-card-modern">
+                <div class="stat-icon"><i class="fas fa-ruble-sign"></i></div>
+                <div class="stat-number-modern">${totalSpent.toLocaleString()}</div>
+                <div class="stat-label">Всего потрачено</div>
+              </div>
+              <div class="stat-card-modern">
+                <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="stat-number-modern">${cart.length > 0 ? new Date(cart[cart.length-1]?.date).toLocaleDateString() : 'Нет'}</div>
+                <div class="stat-label">Последняя активность</div>
               </div>
             </div>
-
-            <h3>Последние действия</h3>
-            <div class="cabinet-history" id="cabinetHistory">
-              ${cart.slice(-5).map(item => `
-                <div class="history-item">
-                  <span>${item.name}</span>
-                  <span>${item.date || new Date().toLocaleString()}</span>
+            
+            <div class="progress-section">
+              <div class="progress-header">
+                <span>Прогресс до следующего уровня</span>
+                <span>${citizenPoints.toLocaleString()} / ${nextLevelPoints.toLocaleString()}</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+              </div>
+              <div class="next-level-info">
+                <span>Текущий: ${citizenLevel}</span>
+                <span>Следующий: ${nextLevelName}</span>
+              </div>
+            </div>
+            
+            <div class="achievements-section">
+              <h3><i class="fas fa-trophy"></i> Достижения</h3>
+              <div class="achievements-grid">
+                <div class="achievement-card ${cart.length >= 1 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-bullseye"></i></div>
+                  <div class="achievement-title">Первая мера</div>
+                  <div class="achievement-desc">Применить 1 санкцию</div>
                 </div>
-              `).join('')}
+                <div class="achievement-card ${cart.length >= 10 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-gavel"></i></div>
+                  <div class="achievement-title">Опытный надзиратель</div>
+                  <div class="achievement-desc">Применить 10 санкций</div>
+                </div>
+                <div class="achievement-card ${cart.length >= 25 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-crown"></i></div>
+                  <div class="achievement-title">Мастер санкций</div>
+                  <div class="achievement-desc">Применить 25 санкций</div>
+                </div>
+                <div class="achievement-card ${uniqueResources >= 5 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-globe"></i></div>
+                  <div class="achievement-title">Коллекционер</div>
+                  <div class="achievement-desc">Заблокировать 5 разных ресурсов</div>
+                </div>
+                <div class="achievement-card ${citizenPoints >= 10000 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-star"></i></div>
+                  <div class="achievement-title">Товарищ майор</div>
+                  <div class="achievement-desc">Достичь 10 000 баллов</div>
+                </div>
+                <div class="achievement-card ${citizenPoints >= 100000 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-star"></i></div>
+                  <div class="achievement-title">Патриот</div>
+                  <div class="achievement-desc">Достичь 100 000 баллов</div>
+                </div>
+                <div class="achievement-card ${citizenPoints >= 1000000 ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fas fa-skull"></i></div>
+                  <div class="achievement-title">Безумный патриот</div>
+                  <div class="achievement-desc">Достичь 1 000 000 баллов</div>
+                </div>
+                <div class="achievement-card ${cart.some(item => item.target?.url?.includes('youtube')) ? 'achieved' : ''}">
+                  <div class="achievement-icon"><i class="fab fa-youtube"></i></div>
+                  <div class="achievement-title">Цензор</div>
+                  <div class="achievement-desc">Заблокировать YouTube</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="stats-extra">
+              <div class="stat-mini-card">
+                <div class="stat-mini-value">${branchesCount}</div>
+                <div class="stat-mini-label">Филиалов открыто</div>
+              </div>
+              <div class="stat-mini-card">
+                <div class="stat-mini-value">${serversCount}</div>
+                <div class="stat-mini-label">Серверов развернуто</div>
+              </div>
+              <div class="stat-mini-card">
+                <div class="stat-mini-value">${Math.floor(citizenPoints / 100)}</div>
+                <div class="stat-mini-label">Круток рулетки</div>
+              </div>
+              <div class="stat-mini-card">
+                <div class="stat-mini-value">${cart.reduce((sum, item) => sum + (item.points || 0), 0)}</div>
+                <div class="stat-mini-label">Всего баллов получено</div>
+              </div>
+            </div>
+            
+            <div class="activity-section">
+              <h3><i class="fas fa-history"></i> История действий</h3>
+              <div class="activity-tabs">
+                <button class="activity-tab active" onclick="filterActivity('all')">Все</button>
+                <button class="activity-tab" onclick="filterActivity('sanctions')">Санкции</button>
+                <button class="activity-tab" onclick="filterActivity('branches')">Филиалы</button>
+                <button class="activity-tab" onclick="filterActivity('servers')">Серверы</button>
+                <button class="activity-tab" onclick="filterActivity('roulette')">Рулетка</button>
+              </div>
+              <div class="activity-list" id="activityList">
+                ${generateActivityHTML(cart)}
+              </div>
+              <div class="clear-history-btn">
+                <button class="btn-warning" onclick="clearActivity()">
+                  <i class="fas fa-trash-alt"></i> Очистить историю
+                </button>
+              </div>
+            </div>
+            
+            <div class="actions-panel">
+              <button class="btn-success" onclick="showRoulette()">
+                <i class="fas fa-dice"></i> Играть в рулетку
+              </button>
+              <button class="btn-primary" onclick="showCatalog()">
+                <i class="fas fa-shopping-cart"></i> Купить санкции
+              </button>
+              <button class="btn-max" onclick="exportData()">
+                <i class="fas fa-download"></i> Экспорт данных
+              </button>
             </div>
           </div>
         `;
         
         document.getElementById('pageContent').innerHTML = html;
+      };
+
+      // Вспомогательные функции для личного кабинета
+      function getNextLevelPoints() {
+        if (citizenPoints < 100) return 100;
+        if (citizenPoints < 1000) return 1000;
+        if (citizenPoints < 10000) return 10000;
+        if (citizenPoints < 50000) return 50000;
+        if (citizenPoints < 100000) return 100000;
+        if (citizenPoints < 250000) return 250000;
+        if (citizenPoints < 500000) return 500000;
+        if (citizenPoints < 1000000) return 1000000;
+        if (citizenPoints < 1000000000) return 1000000000;
+        return citizenPoints + 1000000000;
+      }
+
+      function getNextLevelName() {
+        if (citizenPoints < 100) return 'Новичок';
+        if (citizenPoints < 1000) return 'Порядочный гражданин';
+        if (citizenPoints < 10000) return 'Товарищ майор';
+        if (citizenPoints < 50000) return 'Сторонник';
+        if (citizenPoints < 100000) return 'Патриот';
+        if (citizenPoints < 250000) return 'Супер-патриот';
+        if (citizenPoints < 500000) return 'Легендарный патриот';
+        if (citizenPoints < 1000000) return 'Безумный патриот';
+        if (citizenPoints < 1000000000) return 'Глава РКН';
+        return 'Максимальный уровень';
+      }
+
+      function generateActivityHTML(activities) {
+        if (activities.length === 0) {
+          return '<div style="text-align: center; padding: 30px; color: #666;">История действий пуста</div>';
+        }
+        
+        return activities.slice().reverse().map(item => `
+          <div class="activity-item">
+            <div class="activity-info">
+              <span class="activity-name">${item.name}</span>
+              <span class="activity-target">${item.target?.url || item.target?.resourceName || 'Не указано'}</span>
+            </div>
+            <div class="activity-meta">
+              <span class="activity-date">${item.date || new Date().toLocaleString()}</span>
+              <span class="activity-points">+${item.points || 0}</span>
+              <span class="activity-price">${item.price?.toLocaleString()} ₽</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      window.filterActivity = function(type) {
+        // Функция для фильтрации активности
+        const tabs = document.querySelectorAll('.activity-tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        let filtered = cart;
+        if (type === 'sanctions') {
+          filtered = cart.filter(item => item.id && !item.id.toString().startsWith('s') && !item.id.toString().startsWith('b'));
+        } else if (type === 'branches') {
+          filtered = cart.filter(item => item.id && item.id.toString().startsWith('b'));
+        } else if (type === 'servers') {
+          filtered = cart.filter(item => item.id && item.id.toString().startsWith('s'));
+        }
+        
+        document.getElementById('activityList').innerHTML = generateActivityHTML(filtered);
+      };
+
+      window.clearActivity = function() {
+        if (confirm('Очистить всю историю действий?')) {
+          cart = [];
+          saveCart();
+          showPersonalCabinet();
+        }
+      };
+
+      window.exportData = function() {
+        const data = {
+          citizenPoints,
+          citizenLevel,
+          cart,
+          exportDate: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `rkn_data_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        
+        sendMaxNotification('Данные экспортированы');
       };
 
       // Навигационные функции
@@ -1393,15 +2038,43 @@
       window.buyBranch = function(country) {
         citizenPoints += 50;
         updateCitizenLevel();
+        
+        // Добавляем в историю
+        const branchItem = {
+          id: 'b' + Date.now(),
+          name: `Филиал в ${country}`,
+          points: 50,
+          price: 299000,
+          date: new Date().toLocaleString(),
+          target: { resourceName: country }
+        };
+        cart.push(branchItem);
+        saveCart();
+        
         sendMaxNotification(`Филиал в ${country} успешно открыт!`);
         alert('Филиал открыт!');
+        showBranches();
       };
 
       window.buyServer = function(serverName) {
         citizenPoints += 100;
         updateCitizenLevel();
+        
+        // Добавляем в историю
+        const serverItem = {
+          id: 's' + Date.now(),
+          name: `Сервер ${serverName}`,
+          points: 100,
+          price: 5990000,
+          date: new Date().toLocaleString(),
+          target: { resourceName: serverName }
+        };
+        cart.push(serverItem);
+        saveCart();
+        
         sendMaxNotification(`Сервер ${serverName} развернут!`);
         alert('Сервер развернут!');
+        showServers();
       };
 
       window.spinRoulette = function() {
@@ -1430,6 +2103,18 @@
           
           const result = outcomes[Math.floor(Math.random() * outcomes.length)];
           citizenPoints += result.points;
+          
+          // Добавляем в историю
+          const rouletteItem = {
+            id: 'r' + Date.now(),
+            name: `Рулетка: ${result.name}`,
+            points: result.points,
+            price: 0,
+            date: new Date().toLocaleString(),
+            target: { resourceName: 'Удача' }
+          };
+          cart.push(rouletteItem);
+          saveCart();
           
           resultDiv.innerHTML = `
             <div style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
@@ -1523,9 +2208,9 @@
           total += item.price;
           html += `<li class="cart-item">
             <div class="cart-item-header">${item.name}</div>
-            <div class="cart-item-target">${item.target ? item.target.url : 'не указан'}</div>
+            <div class="cart-item-target">${item.target ? item.target.url || item.target.resourceName : 'не указан'}</div>
             <div class="cart-item-footer">
-              <span class="cart-item-price">${item.price} ₽</span>
+              <span class="cart-item-price">${item.price?.toLocaleString() || 0} ₽</span>
               <button class="cart-item-remove" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
             </div>
           </li>`;
@@ -1552,7 +2237,8 @@
             url: document.getElementById('targetUrl').value || 'не указан',
             ip: document.getElementById('targetIp').value || 'не указан',
             resourceName: document.getElementById('targetName').value || 'не указано',
-            classification: document.getElementById('targetClass').value
+            classification: document.getElementById('targetClass').value,
+            comment: document.getElementById('targetComment')?.value || ''
           };
 
           const cartItem = {
@@ -1580,6 +2266,9 @@
           document.getElementById('targetUrl').value = '';
           document.getElementById('targetIp').value = '';
           document.getElementById('targetName').value = '';
+          if (document.getElementById('targetComment')) {
+            document.getElementById('targetComment').value = '';
+          }
         });
 
         document.getElementById('cartToggleBtn').addEventListener('click', () => {
