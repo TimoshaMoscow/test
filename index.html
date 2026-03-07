@@ -2432,6 +2432,8 @@
       function updateCitizenLevel() {
         if (citizenPoints >= 1000000000) {
           citizenLevel = 'Глава РКН';
+        } else if (citizenPoints >= 10000000) {
+          citizenLevel = 'Пешка РКН';
         } else if (citizenPoints >= 1000000) {
           citizenLevel = 'Безумный патриот';
         } else if (citizenPoints >= 500000) {
@@ -2449,7 +2451,7 @@
         } else if (citizenPoints >= 100) {
           citizenLevel = 'Новичок';
         } else if (citizenPoints < 0) {
-          citizenLevel = 'ИНОАГЕНТ';
+          citizenLevel = 'Иноагент';
         } else {
           citizenLevel = 'Гражданин РФ';
         }
