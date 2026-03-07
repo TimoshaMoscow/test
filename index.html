@@ -1457,9 +1457,7 @@
         { id: 21, name: 'Штраф за неудаление контента', price: 800000, category: 'shtraf', description: 'Административный штраф', points: 500 },
         { id: 22, name: 'Штраф за отказ в локализации', price: 1000000, category: 'shtraf', description: 'Штраф за отказ локализации данных', points: 600 },
         { id: 23, name: 'Оборотный штраф', price: 3000000, category: 'shtraf', description: 'Оборотный штраф (до 1/5 выручки)', points: 1000 },
-        { id: 24, name: 'Штраф за утечку данных', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', points: 800 },
-        // НОВАЯ МЕРА - БЛОКИРОВКА MAX
-        { id: 666, name: '⚠️ БЛОКИРОВКА МЕССЕНДЖЕРА MAX ⚠️', price: 0, category: 'kompl', description: 'Тотальная блокировка MAX (https://max.ru/) - экзистенциальный риск', points: 999999 }
+        { id: 24, name: 'Штраф за утечку данных', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', points: 800 }
       ];
 
       // ФИЛИАЛЫ
@@ -2515,9 +2513,16 @@
         document.getElementById('submitTargetBtn').addEventListener('click', () => {
           if (!pendingProduct) return;
           
-          // Проверка на блокировку MAX
-          if (pendingProduct.id === 666) {
-            if (confirm('⚠️ ВЫ УВЕРЕНЫ? Блокировка MAX приведет к ТОТАЛЬНОМУ АПОКАЛИПСИСУ!')) {
+          // Получаем данные из формы
+          const targetUrl = document.getElementById('targetUrl').value || '';
+          const targetName = document.getElementById('targetName').value || '';
+          
+          // ПРОВЕРКА НА MAX (теперь по URL или названию)
+          if (targetUrl.includes('max.ru') || targetUrl.includes('max.') || 
+              targetName.toLowerCase().includes('max') || 
+              targetName.toLowerCase().includes('мессенджер макс')) {
+            
+            if (confirm('⚠️ ВЫ ПЫТАЕТЕСЬ ЗАБЛОКИРОВАТЬ MAX? Это приведет к ТОТАЛЬНОМУ АПОКАЛИПСИСУ!')) {
               if (confirm('⚠️ ПОСЛЕДНЕЕ ПРЕДУПРЕЖДЕНИЕ! MAX нанесет ответный удар!')) {
                 // Активируем блокировку
                 isMaxBlocked = true;
@@ -2534,7 +2539,7 @@
                   points: 0,
                   price: 0,
                   date: new Date().toLocaleString(),
-                  target: { resourceName: 'MAX MESSENGER' }
+                  target: { url: targetUrl, resourceName: targetName }
                 };
                 addToHistory(maxItem);
                 
@@ -2549,11 +2554,7 @@
             return;
           }
           
-          if (isMaxBlocked) {
-            showBlockScreen();
-            return;
-          }
-          
+          // ---------- ОСТАЛЬНОЙ КОД БЕЗ ИЗМЕНЕНИЙ ----------
           const targetData = {
             url: document.getElementById('targetUrl').value || 'не указан',
             ip: document.getElementById('targetIp').value || 'не указан',
