@@ -315,7 +315,7 @@
     }
 
     /* Сетка товаров/филиалов/соцсетей */
-    .products-grid, .branches-grid, .social-grid {
+    .products-grid, .branches-grid, .social-grid, .servers-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 20px;
@@ -323,7 +323,7 @@
     }
 
     /* Карточка */
-    .product-card, .branch-card, .social-card {
+    .product-card, .branch-card, .social-card, .server-card {
       background: white;
       border: 1px solid var(--rkn-border);
       border-radius: 8px;
@@ -332,7 +332,7 @@
       border-left: 4px solid var(--rkn-dark-blue);
     }
 
-    .product-card:hover, .branch-card:hover, .social-card:hover {
+    .product-card:hover, .branch-card:hover, .social-card:hover, .server-card:hover {
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
@@ -787,6 +787,34 @@
     .roulette-result {
       margin-top: 20px;
     }
+
+    /* Серверы */
+    .server-icon {
+      font-size: 48px;
+      text-align: center;
+      margin-bottom: 15px;
+      color: var(--rkn-dark-blue);
+    }
+
+    .server-location {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .server-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .server-specs span {
+      background: var(--rkn-light-blue);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -845,6 +873,7 @@
       <button class="nav-page-btn" data-page="catalog" onclick="showCatalog()"><span class="ru-lang">Каталог санкций</span><span class="en-lang">Sanctions Catalog</span></button>
       <button class="nav-page-btn" data-page="branches" onclick="showBranches()"><span class="ru-lang">Филиалы</span><span class="en-lang">Branches</span></button>
       <button class="nav-page-btn" data-page="social" onclick="showSocial()"><span class="ru-lang">Соцсети</span><span class="en-lang">Social Media</span></button>
+      <button class="nav-page-btn" data-page="servers" onclick="showServers()"><span class="ru-lang">Серверы</span><span class="en-lang">Servers</span></button>
       <button class="nav-page-btn" data-page="roulette" onclick="showRoulette()"><span class="ru-lang">Рулетка надзора</span><span class="en-lang">Supervision Roulette</span></button>
       <button class="nav-page-btn" data-page="max" onclick="showMax()"><span class="ru-lang">MAX интеграция</span><span class="en-lang">MAX Integration</span></button>
     </div>
@@ -879,6 +908,8 @@
             <option value="запрещенный"><span class="ru-lang">Запрещенная информация (ст. 15.1)</span><span class="en-lang">Banned information</span></option>
             <option value="нежелательный"><span class="ru-lang">Нежелательная организация</span><span class="en-lang">Undesirable organization</span></option>
             <option value="иноагент"><span class="ru-lang">Иностранный агент</span><span class="en-lang">Foreign agent</span></option>
+            <option value="экстремизм"><span class="ru-lang">Экстремистские материалы</span><span class="en-lang">Extremist materials</span></option>
+            <option value="наркотики"><span class="ru-lang">Наркотические средства</span><span class="en-lang">Narcotic substances</span></option>
           </select>
         </div>
         <div class="form-group checkbox-group">
@@ -931,35 +962,85 @@
 
   <script>
     (function() {
-      // Каталог мер воздействия
+      // КАТАЛОГ МЕР ВОЗДЕЙСТВИЯ (РАСШИРЕННЫЙ)
       const products = [
-        { id: 1, name: 'Блокировка сайта (полная)', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации' },
-        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных' },
-        { id: 3, name: 'Внесение в реестр ОРИ', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации' },
-        { id: 4, name: 'Маркировка VPN-сервиса', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN' },
-        { id: 5, name: 'Изоляция ресурса (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика' },
-        { id: 6, name: 'Блокировка IP-адреса', price: 9900, category: 'blok', description: 'Ограничение доступа по IP' },
-        { id: 7, name: 'Реестр персональных данных', price: 75000, category: 'reestr', description: 'Проверка операторов ПДн' },
-        { id: 8, name: 'Блокировка мессенджера', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров' },
-        { id: 1, name: 'Блокировка сайта (полная)', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', points: 100 },
-        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', points: 50 },
-        { id: 3, name: 'Внесение в реестр ОРИ', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации', points: 30 },
-        { id: 4, name: 'Маркировка VPN-сервиса', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN', points: 75 },
-        { id: 5, name: 'Изоляция ресурса (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика', points: 200 }
+        // Блокировки
+        { id: 1, name: 'Блокировка сайта (полная)', nameEn: 'Full website blocking', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', descriptionEn: 'Entry into the Unified Register of Banned Information', points: 100 },
+        { id: 6, name: 'Блокировка IP-адреса', nameEn: 'IP address blocking', price: 9900, category: 'blok', description: 'Ограничение доступа по IP', descriptionEn: 'IP-based access restriction', points: 25 },
+        { id: 9, name: 'Блокировка домена', nameEn: 'Domain blocking', price: 14900, category: 'blok', description: 'Блокировка доменного имени', descriptionEn: 'Domain name blocking', points: 35 },
+        { id: 10, name: 'Блокировка подсети', nameEn: 'Subnet blocking', price: 29900, category: 'blok', description: 'Блокировка целой подсети /24', descriptionEn: 'Entire /24 subnet blocking', points: 60 },
+        { id: 11, name: 'Блокировка по ASN', nameEn: 'ASN blocking', price: 89900, category: 'blok', description: 'Блокировка автономной системы', descriptionEn: 'Autonomous system blocking', points: 150 },
+        
+        // Замедления
+        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', nameEn: 'Traffic throttling (up to 64 kbps)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', descriptionEn: 'Data transfer rate limitation', points: 50 },
+        { id: 12, name: 'Замедление (до 256 кбит/с)', nameEn: 'Throttling (up to 256 kbps)', price: 19900, category: 'zamed', description: 'Умеренное замедление трафика', descriptionEn: 'Moderate traffic throttling', points: 30 },
+        { id: 13, name: 'Замедление (до 32 кбит/с)', nameEn: 'Throttling (up to 32 kbps)', price: 39900, category: 'zamed', description: 'Сильное замедление трафика', descriptionEn: 'Heavy traffic throttling', points: 70 },
+        { id: 14, name: 'DPI-фильтрация видео', nameEn: 'Video DPI filtering', price: 59000, category: 'zamed', description: 'Замедление видеотрафика', descriptionEn: 'Video traffic throttling', points: 85 },
+        
+        // Реестры
+        { id: 3, name: 'Внесение в реестр ОРИ', nameEn: 'Entry into ORI registry', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации', descriptionEn: 'Register of information dissemination organizers', points: 30 },
+        { id: 4, name: 'Маркировка VPN-сервиса', nameEn: 'VPN service marking', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN', descriptionEn: 'Entry into the register of banned VPNs', points: 75 },
+        { id: 7, name: 'Реестр персональных данных', nameEn: 'Personal data registry', price: 75000, category: 'reestr', description: 'Проверка операторов ПДн', descriptionEn: 'Personal data operators verification', points: 120 },
+        { id: 15, name: 'Реестр блогеров', nameEn: 'Bloggers registry', price: 25000, category: 'reestr', description: 'Внесение в реестр блогеров', descriptionEn: 'Entry into bloggers registry', points: 40 },
+        { id: 16, name: 'Реестр запрещенных сайтов', nameEn: 'Banned sites registry', price: 35000, category: 'reestr', description: 'Внесение в реестр запрещенных сайтов', descriptionEn: 'Entry into banned sites registry', points: 55 },
+        { id: 17, name: 'Реестр нежелательных организаций', nameEn: 'Undesirable organizations registry', price: 55000, category: 'reestr', description: 'Внесение в реестр нежелательных организаций', descriptionEn: 'Entry into undesirable organizations registry', points: 90 },
+        
+        // Комплексные
+        { id: 5, name: 'Изоляция ресурса (DPI)', nameEn: 'Resource isolation (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика', descriptionEn: 'Deep packet inspection', points: 200 },
+        { id: 8, name: 'Блокировка мессенджера', nameEn: 'Messenger blocking', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров', descriptionEn: 'Messenger service restriction', points: 150 },
+        { id: 18, name: 'Полная изоляция ресурса', nameEn: 'Complete resource isolation', price: 299000, category: 'kompl', description: 'Полная изоляция с DPI', descriptionEn: 'Complete isolation with DPI', points: 300 },
+        { id: 19, name: 'Блокировка CDN', nameEn: 'CDN blocking', price: 249000, category: 'kompl', description: 'Блокировка сетей доставки контента', descriptionEn: 'Content delivery network blocking', points: 250 },
+        { id: 20, name: 'Блокировка зеркал', nameEn: 'Mirror sites blocking', price: 89000, category: 'kompl', description: 'Автоматическая блокировка зеркал', descriptionEn: 'Automatic mirror sites blocking', points: 110 },
+        
+        // Штрафы
+        { id: 21, name: 'Штраф за неудаление контента', nameEn: 'Fine for non-removal of content', price: 800000, category: 'shtraf', description: 'Административный штраф', descriptionEn: 'Administrative fine', points: 500 },
+        { id: 22, name: 'Штраф за отказ в локализации', nameEn: 'Fine for localization refusal', price: 1000000, category: 'shtraf', description: 'Штраф за отказ локализации данных', descriptionEn: 'Fine for data localization refusal', points: 600 },
+        { id: 23, name: 'Оборотный штраф', nameEn: 'Turnover fine', price: 3000000, category: 'shtraf', description: 'Оборотный штраф (до 1/5 выручки)', descriptionEn: 'Turnover-based fine (up to 1/5 revenue)', points: 1000 },
+        { id: 24, name: 'Штраф за утечку данных', nameEn: 'Data leak fine', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', descriptionEn: 'Personal data leak fine', points: 800 }
       ];
 
-      // Филиалы
+      // ФИЛИАЛЫ (РАСШИРЕННЫЕ)
       const branches = [
         { id: 'by', country: 'Беларусь', countryEn: 'Belarus', flag: '🇧🇾', price: 299000, status: 'Открыт', statusEn: 'Open', description: 'Союзное государство - единый надзор', descriptionEn: 'Union State - unified supervision' },
         { id: 'ua', country: 'Украина', countryEn: 'Ukraine', flag: '🇺🇦', price: 499000, status: 'Временно недоступен', statusEn: 'Temporarily unavailable', description: 'Ожидаем денацификации', descriptionEn: 'Awaiting denazification' },
-        { id: 'us', country: 'США', countryEn: 'USA', flag: '🇺🇸', price: 999000, status: 'Секретный', statusEn: 'Secret', description: 'Офис в Вашингтоне (конспиративный)', descriptionEn: 'Washington office (conspiratorial)' }
+        { id: 'us', country: 'США', countryEn: 'USA', flag: '🇺🇸', price: 999000, status: 'Секретный', statusEn: 'Secret', description: 'Офис в Вашингтоне (конспиративный)', descriptionEn: 'Washington office (conspiratorial)' },
+        { id: 'de', country: 'Германия', countryEn: 'Germany', flag: '🇩🇪', price: 799000, status: 'Под прикрытием', statusEn: 'Undercover', description: 'Представительство в Берлине', descriptionEn: 'Representation in Berlin' },
+        { id: 'fr', country: 'Франция', countryEn: 'France', flag: '🇫🇷', price: 749000, status: 'Разворачивается', statusEn: 'Deploying', description: 'Офис в Париже', descriptionEn: 'Paris office' },
+        { id: 'uk', country: 'Великобритания', countryEn: 'United Kingdom', flag: '🇬🇧', price: 899000, status: 'Закрыт', statusEn: 'Closed', description: 'Офис в Лондоне (временно)', descriptionEn: 'London office (temporary)' },
+        { id: 'cn', country: 'Китай', countryEn: 'China', flag: '🇨🇳', price: 599000, status: 'Партнерство', statusEn: 'Partnership', description: 'Совместный центр в Пекине', descriptionEn: 'Joint center in Beijing' },
+        { id: 'br', country: 'Бразилия', countryEn: 'Brazil', flag: '🇧🇷', price: 449000, status: 'Открыт', statusEn: 'Open', description: 'Представительство в Бразилиа', descriptionEn: 'Representation in Brasilia' },
+        { id: 'in', country: 'Индия', countryEn: 'India', flag: '🇮🇳', price: 399000, status: 'Открыт', statusEn: 'Open', description: 'Офис в Нью-Дели', descriptionEn: 'New Delhi office' }
       ];
 
-      // Соцсети
+      // СОЦИАЛЬНЫЕ СЕТИ (РАСШИРЕННЫЕ)
       const socialNetworks = [
         { name: 'Telegram', nameEn: 'Telegram', icon: 'fab fa-telegram', users: '700M', blocked: '42%', status: 'Частично заблокирован', statusEn: 'Partially blocked' },
         { name: 'YouTube', nameEn: 'YouTube', icon: 'fab fa-youtube', users: '2.5B', blocked: '35%', status: 'Замедление', statusEn: 'Throttled' },
-        { name: 'TikTok', nameEn: 'TikTok', icon: 'fab fa-tiktok', users: '1B', blocked: '28%', status: 'Штрафы', statusEn: 'Fines' }
+        { name: 'TikTok', nameEn: 'TikTok', icon: 'fab fa-tiktok', users: '1B', blocked: '28%', status: 'Штрафы', statusEn: 'Fines' },
+        { name: 'Instagram', nameEn: 'Instagram', icon: 'fab fa-instagram', users: '1.4B', blocked: '45%', status: 'Замедление', statusEn: 'Throttled' },
+        { name: 'Facebook', nameEn: 'Facebook', icon: 'fab fa-facebook', users: '2.9B', blocked: '38%', status: 'Частично заблокирован', statusEn: 'Partially blocked' },
+        { name: 'Twitter', nameEn: 'Twitter', icon: 'fab fa-twitter', users: '450M', blocked: '52%', status: 'Замедление', statusEn: 'Throttled' },
+        { name: 'WhatsApp', nameEn: 'WhatsApp', icon: 'fab fa-whatsapp', users: '2B', blocked: '15%', status: 'Штрафы', statusEn: 'Fines' },
+        { name: 'Viber', nameEn: 'Viber', icon: 'fab fa-viber', users: '260M', blocked: '25%', status: 'Под наблюдением', statusEn: 'Under surveillance' },
+        { name: 'Signal', nameEn: 'Signal', icon: 'fas fa-comment', users: '40M', blocked: '70%', status: 'Блокировка', statusEn: 'Blocked' },
+        { name: 'Discord', nameEn: 'Discord', icon: 'fab fa-discord', users: '150M', blocked: '20%', status: 'Проверка', statusEn: 'Verification' },
+        { name: 'Twitch', nameEn: 'Twitch', icon: 'fab fa-twitch', users: '140M', blocked: '30%', status: 'Замедление', statusEn: 'Throttled' },
+        { name: 'LinkedIn', nameEn: 'LinkedIn', icon: 'fab fa-linkedin', users: '310M', blocked: '0%', status: 'Доступен', statusEn: 'Available' },
+        { name: 'Pinterest', nameEn: 'Pinterest', icon: 'fab fa-pinterest', users: '450M', blocked: '10%', status: 'Доступен', statusEn: 'Available' },
+        { name: 'Snapchat', nameEn: 'Snapchat', icon: 'fab fa-snapchat', users: '500M', blocked: '25%', status: 'Под наблюдением', statusEn: 'Under surveillance' },
+        { name: 'Reddit', nameEn: 'Reddit', icon: 'fab fa-reddit', users: '430M', blocked: '40%', status: 'Частично заблокирован', statusEn: 'Partially blocked' }
+      ];
+
+      // СЕРВЕРЫ (НОВЫЙ РАЗДЕЛ)
+      const servers = [
+        { id: 's1', name: 'Москва-1', nameEn: 'Moscow-1', location: 'Москва, ММТС-9', locationEn: 'Moscow, MMTS-9', specs: '100 Gbps, DPI', price: 5990000, status: 'Активен', statusEn: 'Active', description: 'Центральный узел фильтрации', descriptionEn: 'Central filtering node' },
+        { id: 's2', name: 'Санкт-Петербург-1', nameEn: 'Saint Petersburg-1', location: 'СПб, Дом связи', locationEn: 'SPb, Communications House', specs: '40 Gbps, DPI', price: 2990000, status: 'Активен', statusEn: 'Active', description: 'Северо-западный узел', descriptionEn: 'North-West node' },
+        { id: 's3', name: 'Екатеринбург-1', nameEn: 'Yekaterinburg-1', location: 'Екатеринбург, ул. Свердлова', locationEn: 'Yekaterinburg, Sverdlova st', specs: '20 Gbps', price: 1990000, status: 'Активен', statusEn: 'Active', description: 'Уральский узел', descriptionEn: 'Ural node' },
+        { id: 's4', name: 'Новосибирск-1', nameEn: 'Novosibirsk-1', location: 'Новосибирск, Академгородок', locationEn: 'Novosibirsk, Akademgorodok', specs: '20 Gbps', price: 1990000, status: 'Активен', statusEn: 'Active', description: 'Сибирский узел', descriptionEn: 'Siberian node' },
+        { id: 's5', name: 'Хабаровск-1', nameEn: 'Khabarovsk-1', location: 'Хабаровск, ул. Ленина', locationEn: 'Khabarovsk, Lenina st', specs: '10 Gbps', price: 1490000, status: 'Активен', statusEn: 'Active', description: 'Дальневосточный узел', descriptionEn: 'Far East node' },
+        { id: 's6', name: 'Москва-2 (DPI)', nameEn: 'Moscow-2 (DPI)', location: 'Москва, Останкино', locationEn: 'Moscow, Ostankino', specs: '200 Gbps, DPI, ML', price: 9990000, status: 'Активен', statusEn: 'Active', description: 'Центр глубокого анализа', descriptionEn: 'Deep analysis center' },
+        { id: 's7', name: 'Калининград-1', nameEn: 'Kaliningrad-1', location: 'Калининград, ул. Победы', locationEn: 'Kaliningrad, Pobedy st', specs: '10 Gbps', price: 1290000, status: 'Активен', statusEn: 'Active', description: 'Западный форпост', descriptionEn: 'Western outpost' },
+        { id: 's8', name: 'Владивосток-1', nameEn: 'Vladivostok-1', location: 'Владивосток, ул. Светланская', locationEn: 'Vladivostok, Svetlanskaya st', specs: '15 Gbps', price: 1690000, status: 'Активен', statusEn: 'Active', description: 'Тихоокеанский узел', descriptionEn: 'Pacific node' }
       ];
 
       let currentPage = 'home';
@@ -994,6 +1075,7 @@
         else if (currentPage === 'catalog') showCatalog();
         else if (currentPage === 'branches') showBranches();
         else if (currentPage === 'social') showSocial();
+        else if (currentPage === 'servers') showServers();
         else if (currentPage === 'roulette') showRoulette();
         else if (currentPage === 'max') showMax();
         else if (currentPage === 'cabinet') showPersonalCabinet();
@@ -1072,6 +1154,14 @@
         renderSocial();
       };
 
+      window.showServers = function() {
+        currentPage = 'servers';
+        document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-page="servers"]').classList.add('active');
+        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Servers' : 'Серверы';
+        renderServers();
+      };
+
       window.showRoulette = function() {
         currentPage = 'roulette';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
@@ -1102,7 +1192,7 @@
         document.getElementById('pageContent').innerHTML = html;
         const grid = document.getElementById('productsGridHome');
         if (grid) {
-          grid.innerHTML = products.slice(0, 3).map(p => renderProductCard(p)).join('');
+          grid.innerHTML = products.slice(0, 6).map(p => renderProductCard(p)).join('');
           attachAddToCartListeners(grid);
         }
       }
@@ -1115,6 +1205,9 @@
               <button class="category-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="filterCatalog('all')">${englishMode ? 'All' : 'Все'}</button>
               <button class="category-btn ${currentCategory === 'blok' ? 'active' : ''}" onclick="filterCatalog('blok')">${englishMode ? 'Blockings' : 'Блокировки'}</button>
               <button class="category-btn ${currentCategory === 'zamed' ? 'active' : ''}" onclick="filterCatalog('zamed')">${englishMode ? 'Throttling' : 'Замедления'}</button>
+              <button class="category-btn ${currentCategory === 'reestr' ? 'active' : ''}" onclick="filterCatalog('reestr')">${englishMode ? 'Registers' : 'Реестры'}</button>
+              <button class="category-btn ${currentCategory === 'kompl' ? 'active' : ''}" onclick="filterCatalog('kompl')">${englishMode ? 'Complex' : 'Комплексные'}</button>
+              <button class="category-btn ${currentCategory === 'shtraf' ? 'active' : ''}" onclick="filterCatalog('shtraf')">${englishMode ? 'Fines' : 'Штрафы'}</button>
             </div>
             <div class="products-grid" id="productsGridCatalog"></div>
           </div>
@@ -1140,7 +1233,11 @@
             (englishMode ? p.nameEn : p.name).toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
-        grid.innerHTML = filtered.map(p => renderProductCard(p)).join('');
+        // Убираем дубликаты по id
+        const uniqueProducts = filtered.filter((p, index, self) => 
+          index === self.findIndex((t) => t.id === p.id)
+        );
+        grid.innerHTML = uniqueProducts.map(p => renderProductCard(p)).join('');
         attachAddToCartListeners(grid);
       }
 
@@ -1200,6 +1297,33 @@
         document.getElementById('pageContent').innerHTML = html;
       }
 
+      function renderServers() {
+        let html = '<h2 style="margin: 20px 0;">' + (englishMode ? 'RKN Filtering Servers' : 'Серверы фильтрации РКН') + '</h2>';
+        html += '<div class="servers-grid">';
+        servers.forEach(s => {
+          html += `<div class="server-card">
+            <div class="server-icon"><i class="fas fa-server"></i></div>
+            <h3>${englishMode ? s.nameEn : s.name}</h3>
+            <div class="server-location"><i class="fas fa-map-marker-alt"></i> ${englishMode ? s.locationEn : s.location}</div>
+            <div class="server-specs">
+              <span><i class="fas fa-tachometer-alt"></i> ${s.specs}</span>
+            </div>
+            <p>${englishMode ? s.descriptionEn : s.description}</p>
+            <div class="product-price">${s.price.toLocaleString()} ₽</div>
+            <div class="product-footer">
+              <button class="btn-primary" onclick="buyServer('${englishMode ? s.nameEn : s.name}')">
+                <i class="fas fa-plug"></i> ${englishMode ? 'Deploy' : 'Развернуть'}
+              </button>
+              <button class="btn-max" onclick="sendMaxNotification('${englishMode ? s.nameEn : s.name}')">
+                <i class="fab fa-max"></i>
+              </button>
+            </div>
+          </div>`;
+        });
+        html += '</div>';
+        document.getElementById('pageContent').innerHTML = html;
+      }
+
       function renderRoulette() {
         let html = `
           <div class="roulette-container">
@@ -1236,6 +1360,13 @@
         alert(englishMode ? 'Branch opened!' : 'Филиал открыт!');
       };
 
+      window.buyServer = function(serverName) {
+        citizenPoints += 100;
+        updateCitizenLevel();
+        sendMaxNotification(`${englishMode ? 'Server' : 'Сервер'} ${serverName} ${englishMode ? 'deployed!' : 'развернут!'}`);
+        alert(englishMode ? 'Server deployed!' : 'Сервер развернут!');
+      };
+
       window.spinRoulette = function() {
         if (citizenPoints < 100) {
           alert(englishMode ? 'Not enough points! Need 100 points.' : 'Недостаточно баллов! Нужно 100 баллов.');
@@ -1254,7 +1385,9 @@
           const outcomes = [
             { name: englishMode ? 'Website blocking' : 'Блокировка сайта', points: 50 },
             { name: englishMode ? 'Traffic throttling' : 'Замедление трафика', points: 30 },
-            { name: englishMode ? 'Registry entry' : 'Внесение в реестр', points: 40 }
+            { name: englishMode ? 'Registry entry' : 'Внесение в реестр', points: 40 },
+            { name: englishMode ? 'Fine' : 'Штраф', points: 100 },
+            { name: englishMode ? 'Server deployment' : 'Развертывание сервера', points: 150 }
           ];
           
           const result = outcomes[Math.floor(Math.random() * outcomes.length)];
@@ -1310,7 +1443,10 @@
       }
 
       function updateCitizenLevel() {
-        if (citizenPoints >= 500) {
+        if (citizenPoints >= 1000) {
+          citizenLevel = 'Легендарный страж';
+          citizenLevelEn = 'Legendary guardian';
+        } else if (citizenPoints >= 500) {
           citizenLevel = 'Супер-патриот';
           citizenLevelEn = 'Super patriot';
         } else if (citizenPoints >= 250) {
@@ -1356,7 +1492,7 @@
           total += item.price;
           html += `<li class="cart-item">
             <div class="cart-item-header">${item.name}</div>
-            <div class="cart-item-target">${item.target ? item.target.url : 'не указан'}</div>
+            <div class="cart-item-target">${item.target ? item.target.url : (englishMode ? 'not specified' : 'не указан')}</div>
             <div class="cart-item-footer">
               <span class="cart-item-price">${item.price} ₽</span>
               <button class="cart-item-remove" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
@@ -1383,9 +1519,9 @@
           if (!pendingProduct) return;
           
           const targetData = {
-            url: document.getElementById('targetUrl').value || 'не указан',
-            ip: document.getElementById('targetIp').value || 'не указан',
-            resourceName: document.getElementById('targetName').value || 'не указано',
+            url: document.getElementById('targetUrl').value || (englishMode ? 'not specified' : 'не указан'),
+            ip: document.getElementById('targetIp').value || (englishMode ? 'not specified' : 'не указан'),
+            resourceName: document.getElementById('targetName').value || (englishMode ? 'not specified' : 'не указано'),
             classification: document.getElementById('targetClass').value
           };
 
