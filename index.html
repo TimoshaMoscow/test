@@ -69,6 +69,27 @@
     body.english-mode .en-lang {
       display: inline;
     }
+
+    /* Скрытие option при переключении языка */
+    body.english-mode .ru-lang option,
+    body.english-mode option.ru-lang {
+      display: none;
+    }
+    
+    body.english-mode .en-lang option,
+    body.english-mode option.en-lang {
+      display: block;
+    }
+    
+    body:not(.english-mode) .en-lang option,
+    body:not(.english-mode) option.en-lang {
+      display: none;
+    }
+    
+    body:not(.english-mode) .ru-lang option,
+    body:not(.english-mode) option.ru-lang {
+      display: block;
+    }
     
     .en-lang {
       display: none;
@@ -905,11 +926,19 @@
         <div class="form-group">
           <label><i class="fas fa-list"></i> <span class="ru-lang">Основание</span><span class="en-lang">Basis</span></label>
           <select id="targetClass">
-            <option value="запрещенный"><span class="ru-lang">Запрещенная информация (ст. 15.1)</span><span class="en-lang">Banned information</span></option>
-            <option value="нежелательный"><span class="ru-lang">Нежелательная организация</span><span class="en-lang">Undesirable organization</span></option>
-            <option value="иноагент"><span class="ru-lang">Иностранный агент</span><span class="en-lang">Foreign agent</span></option>
-            <option value="экстремизм"><span class="ru-lang">Экстремистские материалы</span><span class="en-lang">Extremist materials</span></option>
-            <option value="наркотики"><span class="ru-lang">Наркотические средства</span><span class="en-lang">Narcotic substances</span></option>
+            <!-- Русская версия -->
+            <option value="запрещенный" class="ru-lang">Запрещенная информация (ст. 15.1)</option>
+            <option value="нежелательный" class="ru-lang">Нежелательная организация</option>
+            <option value="иноагент" class="ru-lang">Иностранный агент</option>
+            <option value="экстремизм" class="ru-lang">Экстремистские материалы</option>
+            <option value="наркотики" class="ru-lang">Наркотические средства</option>
+            
+            <!-- Английская версия -->
+            <option value="запрещенный" class="en-lang">Banned information (Article 15.1)</option>
+            <option value="нежелательный" class="en-lang">Undesirable organization</option>
+            <option value="иноагент" class="en-lang">Foreign agent</option>
+            <option value="экстремизм" class="en-lang">Extremist materials</option>
+            <option value="наркотики" class="en-lang">Narcotic substances</option>
           </select>
         </div>
         <div class="form-group checkbox-group">
