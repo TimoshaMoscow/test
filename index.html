@@ -1517,6 +1517,24 @@
       // Режим слабовидящих
       let visionMode = localStorage.getItem('visionMode') === 'true';
 
+      // Функция для сохранения истории отдельно от корзины
+      function saveHistory(historyData) {
+        localStorage.setItem('rkn_history', JSON.stringify(historyData));
+      }
+
+      function loadHistory() {
+        return JSON.parse(localStorage.getItem('rkn_history')) || [];
+      }
+
+      // Инициализация истории
+      let history = loadHistory();
+
+      // Функция добавления в историю
+      function addToHistory(item) {
+        history.push(item);
+        saveHistory(history);
+      }
+
       // Глобальные функции
       window.toggleVisionMode = function() {
         visionMode = !visionMode;
@@ -1555,11 +1573,14 @@
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('currentPageDisplay').textContent = 'Личный кабинет';
         
-        // Статистика для ачивок
-        const totalSpent = cart.reduce((sum, item) => sum + item.price, 0);
-        const branchesCount = branches.length;
-        const serversCount = servers.length;
-        const uniqueResources = new Set(cart.map(item => item.target?.url)).size;
+        // Статистика из истории, а не из корзины
+        const totalSpent = history.reduce((sum, item) => sum + (item.price || 0), 0);
+        const totalPoints = history.reduce((sum, item) => sum + (item.points || 0), 0);
+        const uniqueResources = new Set(history.map(item => item.target?.url || item.target?.resourceName)).size;
+        const sanctionsCount = history.filter(item => item.id && !item.id.toString().startsWith('b') && !item.id.toString().startsWith('s') && !item.id.toString().startsWith('r') && !item.id.toString().startsWith('c')).length;
+        const branchesCount = history.filter(item => item.id && item.id.toString().startsWith('b')).length;
+        const serversCount = history.filter(item => item.id && item.id.toString().startsWith('s')).length;
+        const rouletteCount = history.filter(item => item.id && item.id.toString().startsWith('r')).length;
         
         // Прогресс до следующего уровня
         const nextLevelPoints = getNextLevelPoints();
@@ -1587,8 +1608,8 @@
               </div>
               <div class="stat-card-modern">
                 <div class="stat-icon"><i class="fas fa-gavel"></i></div>
-                <div class="stat-number-modern">${cart.length}</div>
-                <div class="stat-label">Примененных мер</div>
+                <div class="stat-number-modern">${history.length}</div>
+                <div class="stat-label">Всего действий</div>
               </div>
               <div class="stat-card-modern">
                 <div class="stat-icon"><i class="fas fa-ruble-sign"></i></div>
@@ -1597,7 +1618,7 @@
               </div>
               <div class="stat-card-modern">
                 <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div class="stat-number-modern">${cart.length > 0 ? new Date(cart[cart.length-1]?.date).toLocaleDateString() : 'Нет'}</div>
+                <div class="stat-number-modern">${history.length > 0 ? new Date(history[history.length-1]?.date).toLocaleDateString() : 'Нет'}</div>
                 <div class="stat-label">Последняя активность</div>
               </div>
             </div>
@@ -1619,20 +1640,20 @@
             <div class="achievements-section">
               <h3><i class="fas fa-trophy"></i> Достижения</h3>
               <div class="achievements-grid">
-                <div class="achievement-card ${cart.length >= 1 ? 'achieved' : ''}">
+                <div class="achievement-card ${history.length >= 1 ? 'achieved' : ''}">
                   <div class="achievement-icon"><i class="fas fa-bullseye"></i></div>
                   <div class="achievement-title">Первая мера</div>
-                  <div class="achievement-desc">Применить 1 санкцию</div>
+                  <div class="achievement-desc">Совершить 1 действие</div>
                 </div>
-                <div class="achievement-card ${cart.length >= 10 ? 'achieved' : ''}">
+                <div class="achievement-card ${history.length >= 10 ? 'achieved' : ''}">
                   <div class="achievement-icon"><i class="fas fa-gavel"></i></div>
                   <div class="achievement-title">Опытный надзиратель</div>
-                  <div class="achievement-desc">Применить 10 санкций</div>
+                  <div class="achievement-desc">Совершить 10 действий</div>
                 </div>
-                <div class="achievement-card ${cart.length >= 25 ? 'achieved' : ''}">
+                <div class="achievement-card ${history.length >= 25 ? 'achieved' : ''}">
                   <div class="achievement-icon"><i class="fas fa-crown"></i></div>
                   <div class="achievement-title">Мастер санкций</div>
-                  <div class="achievement-desc">Применить 25 санкций</div>
+                  <div class="achievement-desc">Совершить 25 действий</div>
                 </div>
                 <div class="achievement-card ${uniqueResources >= 5 ? 'achieved' : ''}">
                   <div class="achievement-icon"><i class="fas fa-globe"></i></div>
@@ -1654,7 +1675,7 @@
                   <div class="achievement-title">Безумный патриот</div>
                   <div class="achievement-desc">Достичь 1 000 000 баллов</div>
                 </div>
-                <div class="achievement-card ${cart.some(item => item.target?.url?.includes('youtube')) ? 'achieved' : ''}">
+                <div class="achievement-card ${history.some(item => item.target?.url?.includes('youtube') || item.target?.resourceName?.toLowerCase().includes('youtube')) ? 'achieved' : ''}">
                   <div class="achievement-icon"><i class="fab fa-youtube"></i></div>
                   <div class="achievement-title">Цензор</div>
                   <div class="achievement-desc">Заблокировать YouTube</div>
@@ -1672,11 +1693,11 @@
                 <div class="stat-mini-label">Серверов развернуто</div>
               </div>
               <div class="stat-mini-card">
-                <div class="stat-mini-value">${Math.floor(citizenPoints / 100)}</div>
+                <div class="stat-mini-value">${rouletteCount}</div>
                 <div class="stat-mini-label">Круток рулетки</div>
               </div>
               <div class="stat-mini-card">
-                <div class="stat-mini-value">${cart.reduce((sum, item) => sum + (item.points || 0), 0)}</div>
+                <div class="stat-mini-value">${totalPoints}</div>
                 <div class="stat-mini-label">Всего баллов получено</div>
               </div>
             </div>
@@ -1691,7 +1712,7 @@
                 <button class="activity-tab" onclick="filterActivity('roulette')">Рулетка</button>
               </div>
               <div class="activity-list" id="activityList">
-                ${generateActivityHTML(cart)}
+                ${generateActivityHTML()}
               </div>
               <div class="clear-history-btn">
                 <button class="btn-warning" onclick="clearActivity()">
@@ -1744,12 +1765,12 @@
         return 'Максимальный уровень';
       }
 
-      function generateActivityHTML(activities) {
-        if (activities.length === 0) {
+      function generateActivityHTML() {
+        if (history.length === 0) {
           return '<div style="text-align: center; padding: 30px; color: #666;">История действий пуста</div>';
         }
         
-        return activities.slice().reverse().map(item => `
+        return history.slice().reverse().map(item => `
           <div class="activity-item">
             <div class="activity-info">
               <span class="activity-name">${item.name}</span>
@@ -1758,34 +1779,52 @@
             <div class="activity-meta">
               <span class="activity-date">${item.date || new Date().toLocaleString()}</span>
               <span class="activity-points">+${item.points || 0}</span>
-              <span class="activity-price">${item.price?.toLocaleString()} ₽</span>
+              <span class="activity-price">${item.price?.toLocaleString() || 0} ₽</span>
             </div>
           </div>
         `).join('');
       }
 
       window.filterActivity = function(type) {
-        // Функция для фильтрации активности
         const tabs = document.querySelectorAll('.activity-tab');
         tabs.forEach(tab => tab.classList.remove('active'));
         event.target.classList.add('active');
         
-        let filtered = cart;
+        let filtered = history;
         if (type === 'sanctions') {
-          filtered = cart.filter(item => item.id && !item.id.toString().startsWith('s') && !item.id.toString().startsWith('b'));
+          filtered = history.filter(item => item.id && !item.id.toString().startsWith('b') && !item.id.toString().startsWith('s') && !item.id.toString().startsWith('r') && !item.id.toString().startsWith('c'));
         } else if (type === 'branches') {
-          filtered = cart.filter(item => item.id && item.id.toString().startsWith('b'));
+          filtered = history.filter(item => item.id && item.id.toString().startsWith('b'));
         } else if (type === 'servers') {
-          filtered = cart.filter(item => item.id && item.id.toString().startsWith('s'));
+          filtered = history.filter(item => item.id && item.id.toString().startsWith('s'));
+        } else if (type === 'roulette') {
+          filtered = history.filter(item => item.id && item.id.toString().startsWith('r'));
         }
         
-        document.getElementById('activityList').innerHTML = generateActivityHTML(filtered);
+        const list = document.getElementById('activityList');
+        if (filtered.length === 0) {
+          list.innerHTML = '<div style="text-align: center; padding: 30px; color: #666;">Нет действий в этой категории</div>';
+        } else {
+          list.innerHTML = filtered.slice().reverse().map(item => `
+            <div class="activity-item">
+              <div class="activity-info">
+                <span class="activity-name">${item.name}</span>
+                <span class="activity-target">${item.target?.url || item.target?.resourceName || 'Не указано'}</span>
+              </div>
+              <div class="activity-meta">
+                <span class="activity-date">${item.date || new Date().toLocaleString()}</span>
+                <span class="activity-points">+${item.points || 0}</span>
+                <span class="activity-price">${item.price?.toLocaleString() || 0} ₽</span>
+              </div>
+            </div>
+          `).join('');
+        }
       };
 
       window.clearActivity = function() {
         if (confirm('Очистить всю историю действий?')) {
-          cart = [];
-          saveCart();
+          history = [];
+          saveHistory(history);
           showPersonalCabinet();
         }
       };
@@ -1795,6 +1834,7 @@
           citizenPoints,
           citizenLevel,
           cart,
+          history,
           exportDate: new Date().toISOString()
         };
         
@@ -2039,7 +2079,6 @@
         citizenPoints += 50;
         updateCitizenLevel();
         
-        // Добавляем в историю
         const branchItem = {
           id: 'b' + Date.now(),
           name: `Филиал в ${country}`,
@@ -2048,7 +2087,9 @@
           date: new Date().toLocaleString(),
           target: { resourceName: country }
         };
+        
         cart.push(branchItem);
+        addToHistory(branchItem);
         saveCart();
         
         sendMaxNotification(`Филиал в ${country} успешно открыт!`);
@@ -2060,7 +2101,6 @@
         citizenPoints += 100;
         updateCitizenLevel();
         
-        // Добавляем в историю
         const serverItem = {
           id: 's' + Date.now(),
           name: `Сервер ${serverName}`,
@@ -2069,7 +2109,9 @@
           date: new Date().toLocaleString(),
           target: { resourceName: serverName }
         };
+        
         cart.push(serverItem);
+        addToHistory(serverItem);
         saveCart();
         
         sendMaxNotification(`Сервер ${serverName} развернут!`);
@@ -2104,7 +2146,6 @@
           const result = outcomes[Math.floor(Math.random() * outcomes.length)];
           citizenPoints += result.points;
           
-          // Добавляем в историю
           const rouletteItem = {
             id: 'r' + Date.now(),
             name: `Рулетка: ${result.name}`,
@@ -2113,7 +2154,9 @@
             date: new Date().toLocaleString(),
             target: { resourceName: 'Удача' }
           };
+          
           cart.push(rouletteItem);
+          addToHistory(rouletteItem);
           saveCart();
           
           resultDiv.innerHTML = `
@@ -2250,6 +2293,7 @@
           };
 
           cart.push(cartItem);
+          addToHistory(cartItem);
           citizenPoints += pendingProduct.points;
           
           saveCart();
@@ -2285,6 +2329,18 @@
             alert('Добавьте меры в реестр');
             return;
           }
+          
+          const checkoutItem = {
+            id: 'c' + Date.now(),
+            name: 'Исполнение постановлений',
+            points: 50,
+            price: 0,
+            date: new Date().toLocaleString(),
+            target: { resourceName: 'Пакетное исполнение' }
+          };
+          
+          addToHistory(checkoutItem);
+          
           alert('Постановления приняты к исполнению!');
           citizenPoints += 50;
           updateCitizenLevel();
