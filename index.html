@@ -61,40 +61,6 @@
       border: 2px solid #ffff00 !important;
     }
 
-    /* Английская версия */
-    body.english-mode .ru-lang {
-      display: none;
-    }
-    
-    body.english-mode .en-lang {
-      display: inline;
-    }
-
-    /* Скрытие option при переключении языка */
-    body.english-mode .ru-lang option,
-    body.english-mode option.ru-lang {
-      display: none;
-    }
-    
-    body.english-mode .en-lang option,
-    body.english-mode option.en-lang {
-      display: block;
-    }
-    
-    body:not(.english-mode) .en-lang option,
-    body:not(.english-mode) option.en-lang {
-      display: none;
-    }
-    
-    body:not(.english-mode) .ru-lang option,
-    body:not(.english-mode) option.ru-lang {
-      display: block;
-    }
-    
-    .en-lang {
-      display: none;
-    }
-
     body {
       font-family: 'Arial', 'Helvetica', sans-serif;
       background-color: var(--rkn-light-blue);
@@ -755,6 +721,63 @@
       margin-left: 10px;
     }
 
+    /* Страница для американцев */
+    .american-page {
+      background: white;
+      border: 2px solid var(--rkn-accent);
+      border-radius: 15px;
+      padding: 50px;
+      margin: 40px auto;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .american-flag {
+      font-size: 100px;
+      margin-bottom: 20px;
+      filter: grayscale(100%);
+      opacity: 0.5;
+    }
+
+    .american-title {
+      font-size: 36px;
+      font-weight: bold;
+      color: var(--rkn-accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .american-message {
+      font-size: 24px;
+      color: var(--rkn-dark-blue);
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .american-submessage {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    .american-button {
+      background: var(--rkn-accent);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .american-button:hover {
+      background: var(--rkn-dark-blue);
+      transform: scale(1.05);
+    }
+
     @media (max-width: 768px) {
       .header-main {
         flex-direction: column;
@@ -839,19 +862,19 @@
   </style>
 </head>
 <body>
-  <!-- Верхняя служебная полоса с РЕАЛЬНЫМИ ссылками -->
+  <!-- Верхняя служебная полоса -->
   <div class="top-bar">
     <div class="top-bar-content">
       <div>
         <i class="fas fa-phone"></i> +7 (495) 987-67-89
         <i class="fas fa-envelope" style="margin-left: 15px;"></i> info@rkn.gov.ru
-        <span class="citizen-status"><i class="fas fa-star"></i> <span class="ru-lang">Ваш статус:</span><span class="en-lang">Your status:</span> <span id="citizenLevelDisplay">Порядочный гражданин</span></span>
+        <span class="citizen-status"><i class="fas fa-star"></i> Ваш статус: <span id="citizenLevelDisplay">Порядочный гражданин</span></span>
       </div>
       <div>
         <!-- РЕАЛЬНЫЕ ССЫЛКИ -->
-        <a href="#" onclick="toggleVisionMode(); return false;" class="real-link"><i class="fas fa-eye"></i> <span class="ru-lang">Версия для слабовидящих</span><span class="en-lang">Accessibility</span></a>
-        <a href="#" onclick="toggleEnglishMode(); return false;" class="real-link"><i class="fas fa-globe"></i> <span class="ru-lang">ENG</span><span class="en-lang">РУС</span></a>
-        <a href="#" onclick="showPersonalCabinet(); return false;" class="real-link"><i class="fas fa-user"></i> <span class="ru-lang">Личный кабинет</span><span class="en-lang">Personal account</span></a>
+        <a href="#" onclick="toggleVisionMode(); return false;" class="real-link"><i class="fas fa-eye"></i> Версия для слабовидящих</a>
+        <a href="#" onclick="showEnglishPage(); return false;" class="real-link"><i class="fas fa-globe"></i> ENG</a>
+        <a href="#" onclick="showPersonalCabinet(); return false;" class="real-link"><i class="fas fa-user"></i> Личный кабинет</a>
       </div>
     </div>
   </div>
@@ -864,9 +887,9 @@
       </div>
       <div class="logo">
         <div class="logo-main">
-          <i class="fas fa-balance-scale"></i> <span class="ru-lang">Роскомнадзор</span><span class="en-lang">Roskomnadzor</span>
+          <i class="fas fa-balance-scale"></i> Роскомнадзор
         </div>
-        <div class="logo-sub"><span class="ru-lang">Федеральная служба по надзору в сфере связи</span><span class="en-lang">Federal Service for Supervision of Communications</span></div>
+        <div class="logo-sub">Федеральная служба по надзору в сфере связи</div>
       </div>
     </div>
     
@@ -890,13 +913,13 @@
     </div>
 
     <div class="nav-pages" style="margin-bottom: 20px; justify-content: center;">
-      <button class="nav-page-btn active" data-page="home" onclick="showHome()"><span class="ru-lang">Реестр мер</span><span class="en-lang">Measures Registry</span></button>
-      <button class="nav-page-btn" data-page="catalog" onclick="showCatalog()"><span class="ru-lang">Каталог санкций</span><span class="en-lang">Sanctions Catalog</span></button>
-      <button class="nav-page-btn" data-page="branches" onclick="showBranches()"><span class="ru-lang">Филиалы</span><span class="en-lang">Branches</span></button>
-      <button class="nav-page-btn" data-page="social" onclick="showSocial()"><span class="ru-lang">Соцсети</span><span class="en-lang">Social Media</span></button>
-      <button class="nav-page-btn" data-page="servers" onclick="showServers()"><span class="ru-lang">Серверы</span><span class="en-lang">Servers</span></button>
-      <button class="nav-page-btn" data-page="roulette" onclick="showRoulette()"><span class="ru-lang">Рулетка надзора</span><span class="en-lang">Supervision Roulette</span></button>
-      <button class="nav-page-btn" data-page="max" onclick="showMax()"><span class="ru-lang">MAX интеграция</span><span class="en-lang">MAX Integration</span></button>
+      <button class="nav-page-btn active" data-page="home" onclick="showHome()">Реестр мер</button>
+      <button class="nav-page-btn" data-page="catalog" onclick="showCatalog()">Каталог санкций</button>
+      <button class="nav-page-btn" data-page="branches" onclick="showBranches()">Филиалы</button>
+      <button class="nav-page-btn" data-page="social" onclick="showSocial()">Соцсети</button>
+      <button class="nav-page-btn" data-page="servers" onclick="showServers()">Серверы</button>
+      <button class="nav-page-btn" data-page="roulette" onclick="showRoulette()">Рулетка надзора</button>
+      <button class="nav-page-btn" data-page="max" onclick="showMax()">MAX интеграция</button>
     </div>
 
     <!-- Контент страниц -->
@@ -907,45 +930,37 @@
   <div class="target-modal" id="targetModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3><i class="fas fa-crosshairs"></i> <span class="ru-lang">Укажите цель для меры воздействия</span><span class="en-lang">Specify target for sanction</span></h3>
+        <h3><i class="fas fa-crosshairs"></i> Укажите цель для меры воздействия</h3>
         <button class="modal-close" id="modalCloseBtn">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label><i class="fas fa-globe"></i> <span class="ru-lang">URL ресурса</span><span class="en-lang">Resource URL</span></label>
+          <label><i class="fas fa-globe"></i> URL ресурса</label>
           <input type="text" id="targetUrl" placeholder="https://example.com">
         </div>
         <div class="form-group">
-          <label><i class="fas fa-network-wired"></i> <span class="ru-lang">IP-адрес</span><span class="en-lang">IP address</span></label>
+          <label><i class="fas fa-network-wired"></i> IP-адрес</label>
           <input type="text" id="targetIp" placeholder="192.168.1.1">
         </div>
         <div class="form-group">
-          <label><i class="fas fa-tag"></i> <span class="ru-lang">Название ресурса</span><span class="en-lang">Resource name</span></label>
+          <label><i class="fas fa-tag"></i> Название ресурса</label>
           <input type="text" id="targetName" placeholder="Telegram, YouTube, ...">
         </div>
         <div class="form-group">
-          <label><i class="fas fa-list"></i> <span class="ru-lang">Основание</span><span class="en-lang">Basis</span></label>
+          <label><i class="fas fa-list"></i> Основание</label>
           <select id="targetClass">
-            <!-- Русская версия -->
-            <option value="запрещенный" class="ru-lang">Запрещенная информация (ст. 15.1)</option>
-            <option value="нежелательный" class="ru-lang">Нежелательная организация</option>
-            <option value="иноагент" class="ru-lang">Иностранный агент</option>
-            <option value="экстремизм" class="ru-lang">Экстремистские материалы</option>
-            <option value="наркотики" class="ru-lang">Наркотические средства</option>
-            
-            <!-- Английская версия -->
-            <option value="запрещенный" class="en-lang">Banned information (Article 15.1)</option>
-            <option value="нежелательный" class="en-lang">Undesirable organization</option>
-            <option value="иноагент" class="en-lang">Foreign agent</option>
-            <option value="экстремизм" class="en-lang">Extremist materials</option>
-            <option value="наркотики" class="en-lang">Narcotic substances</option>
+            <option value="запрещенный">Запрещенная информация (ст. 15.1)</option>
+            <option value="нежелательный">Нежелательная организация</option>
+            <option value="иноагент">Иностранный агент</option>
+            <option value="экстремизм">Экстремистские материалы</option>
+            <option value="наркотики">Наркотические средства</option>
           </select>
         </div>
         <div class="form-group checkbox-group">
           <input type="checkbox" id="notifyMax" checked>
-          <label for="notifyMax"><span class="ru-lang">Отправить уведомление в MAX</span><span class="en-lang">Send notification to MAX</span></label>
+          <label for="notifyMax">Отправить уведомление в MAX</label>
         </div>
-        <button class="btn-primary" id="submitTargetBtn" style="width: 100%;"><span class="ru-lang">Применить меру</span><span class="en-lang">Apply sanction</span></button>
+        <button class="btn-primary" id="submitTargetBtn" style="width: 100%;">Применить меру</button>
       </div>
     </div>
   </div>
@@ -954,13 +969,13 @@
   <div class="cart-overlay" id="cartOverlay">
     <div class="cart-panel">
       <div class="cart-header">
-        <h2><i class="fas fa-list"></i> <span class="ru-lang">Реестр примененных мер</span><span class="en-lang">Applied sanctions registry</span></h2>
+        <h2><i class="fas fa-list"></i> Реестр примененных мер</h2>
         <button class="close-cart" id="closeCartBtn">&times;</button>
       </div>
       <ul class="cart-items" id="cartItemsList"></ul>
-      <div class="cart-total" id="cartTotal"><span class="ru-lang">Итого:</span><span class="en-lang">Total:</span> 0 ₽</div>
+      <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
       <button class="checkout-btn" id="checkoutBtn">
-        <i class="fas fa-gavel"></i> <span class="ru-lang">Исполнить постановления</span><span class="en-lang">Execute orders</span>
+        <i class="fas fa-gavel"></i> Исполнить постановления
       </button>
     </div>
   </div>
@@ -977,11 +992,11 @@
 
   <footer>
     <div class="footer-content">
-      <div>© 2008-2025 <span class="ru-lang">Федеральная служба по надзору в сфере связи</span><span class="en-lang">Federal Service for Supervision of Communications</span></div>
+      <div>© 2008-2025 Федеральная служба по надзору в сфере связи</div>
       <div class="footer-links">
-        <!-- РЕАЛЬНЫЕ ССЫЛКИ (Telegram УДАЛЕН) -->
-        <a href="https://rkn.gov.ru/feedback/" target="_blank" class="real-link"><i class="fas fa-envelope"></i> <span class="ru-lang">Обращения граждан</span><span class="en-lang">Citizen appeals</span></a>
-        <a href="https://rkn.gov.ru/map/" target="_blank" class="real-link"><i class="fas fa-sitemap"></i> <span class="ru-lang">Карта сайта</span><span class="en-lang">Sitemap</span></a>
+        <!-- РЕАЛЬНЫЕ ССЫЛКИ -->
+        <a href="https://rkn.gov.ru/feedback/" target="_blank" class="real-link"><i class="fas fa-envelope"></i> Обращения граждан</a>
+        <a href="https://rkn.gov.ru/map/" target="_blank" class="real-link"><i class="fas fa-sitemap"></i> Карта сайта</a>
         <a href="#" onclick="showMax(); return false;" class="real-link"><i class="fab fa-max"></i> MAX</a>
         <!-- VK оставлен как официальный -->
         <a href="https://vk.com/rkn" target="_blank" class="real-link"><i class="fab fa-vk"></i></a>
@@ -991,85 +1006,76 @@
 
   <script>
     (function() {
-      // КАТАЛОГ МЕР ВОЗДЕЙСТВИЯ (РАСШИРЕННЫЙ)
+      // КАТАЛОГ МЕР ВОЗДЕЙСТВИЯ
       const products = [
-        // Блокировки
-        { id: 1, name: 'Блокировка сайта (полная)', nameEn: 'Full website blocking', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', descriptionEn: 'Entry into the Unified Register of Banned Information', points: 100 },
-        { id: 6, name: 'Блокировка IP-адреса', nameEn: 'IP address blocking', price: 9900, category: 'blok', description: 'Ограничение доступа по IP', descriptionEn: 'IP-based access restriction', points: 25 },
-        { id: 9, name: 'Блокировка домена', nameEn: 'Domain blocking', price: 14900, category: 'blok', description: 'Блокировка доменного имени', descriptionEn: 'Domain name blocking', points: 35 },
-        { id: 10, name: 'Блокировка подсети', nameEn: 'Subnet blocking', price: 29900, category: 'blok', description: 'Блокировка целой подсети /24', descriptionEn: 'Entire /24 subnet blocking', points: 60 },
-        { id: 11, name: 'Блокировка по ASN', nameEn: 'ASN blocking', price: 89900, category: 'blok', description: 'Блокировка автономной системы', descriptionEn: 'Autonomous system blocking', points: 150 },
-        
-        // Замедления
-        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', nameEn: 'Traffic throttling (up to 64 kbps)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', descriptionEn: 'Data transfer rate limitation', points: 50 },
-        { id: 12, name: 'Замедление (до 256 кбит/с)', nameEn: 'Throttling (up to 256 kbps)', price: 19900, category: 'zamed', description: 'Умеренное замедление трафика', descriptionEn: 'Moderate traffic throttling', points: 30 },
-        { id: 13, name: 'Замедление (до 32 кбит/с)', nameEn: 'Throttling (up to 32 kbps)', price: 39900, category: 'zamed', description: 'Сильное замедление трафика', descriptionEn: 'Heavy traffic throttling', points: 70 },
-        { id: 14, name: 'DPI-фильтрация видео', nameEn: 'Video DPI filtering', price: 59000, category: 'zamed', description: 'Замедление видеотрафика', descriptionEn: 'Video traffic throttling', points: 85 },
-        
-        // Реестры
-        { id: 3, name: 'Внесение в реестр ОРИ', nameEn: 'Entry into ORI registry', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации', descriptionEn: 'Register of information dissemination organizers', points: 30 },
-        { id: 4, name: 'Маркировка VPN-сервиса', nameEn: 'VPN service marking', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN', descriptionEn: 'Entry into the register of banned VPNs', points: 75 },
-        { id: 7, name: 'Реестр персональных данных', nameEn: 'Personal data registry', price: 75000, category: 'reestr', description: 'Проверка операторов ПДн', descriptionEn: 'Personal data operators verification', points: 120 },
-        { id: 15, name: 'Реестр блогеров', nameEn: 'Bloggers registry', price: 25000, category: 'reestr', description: 'Внесение в реестр блогеров', descriptionEn: 'Entry into bloggers registry', points: 40 },
-        { id: 16, name: 'Реестр запрещенных сайтов', nameEn: 'Banned sites registry', price: 35000, category: 'reestr', description: 'Внесение в реестр запрещенных сайтов', descriptionEn: 'Entry into banned sites registry', points: 55 },
-        { id: 17, name: 'Реестр нежелательных организаций', nameEn: 'Undesirable organizations registry', price: 55000, category: 'reestr', description: 'Внесение в реестр нежелательных организаций', descriptionEn: 'Entry into undesirable organizations registry', points: 90 },
-        
-        // Комплексные
-        { id: 5, name: 'Изоляция ресурса (DPI)', nameEn: 'Resource isolation (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика', descriptionEn: 'Deep packet inspection', points: 200 },
-        { id: 8, name: 'Блокировка мессенджера', nameEn: 'Messenger blocking', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров', descriptionEn: 'Messenger service restriction', points: 150 },
-        { id: 18, name: 'Полная изоляция ресурса', nameEn: 'Complete resource isolation', price: 299000, category: 'kompl', description: 'Полная изоляция с DPI', descriptionEn: 'Complete isolation with DPI', points: 300 },
-        { id: 19, name: 'Блокировка CDN', nameEn: 'CDN blocking', price: 249000, category: 'kompl', description: 'Блокировка сетей доставки контента', descriptionEn: 'Content delivery network blocking', points: 250 },
-        { id: 20, name: 'Блокировка зеркал', nameEn: 'Mirror sites blocking', price: 89000, category: 'kompl', description: 'Автоматическая блокировка зеркал', descriptionEn: 'Automatic mirror sites blocking', points: 110 },
-        
-        // Штрафы
-        { id: 21, name: 'Штраф за неудаление контента', nameEn: 'Fine for non-removal of content', price: 800000, category: 'shtraf', description: 'Административный штраф', descriptionEn: 'Administrative fine', points: 500 },
-        { id: 22, name: 'Штраф за отказ в локализации', nameEn: 'Fine for localization refusal', price: 1000000, category: 'shtraf', description: 'Штраф за отказ локализации данных', descriptionEn: 'Fine for data localization refusal', points: 600 },
-        { id: 23, name: 'Оборотный штраф', nameEn: 'Turnover fine', price: 3000000, category: 'shtraf', description: 'Оборотный штраф (до 1/5 выручки)', descriptionEn: 'Turnover-based fine (up to 1/5 revenue)', points: 1000 },
-        { id: 24, name: 'Штраф за утечку данных', nameEn: 'Data leak fine', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', descriptionEn: 'Personal data leak fine', points: 800 }
+        { id: 1, name: 'Блокировка сайта (полная)', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', points: 100 },
+        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', points: 50 },
+        { id: 3, name: 'Внесение в реестр ОРИ', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации', points: 30 },
+        { id: 4, name: 'Маркировка VPN-сервиса', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN', points: 75 },
+        { id: 5, name: 'Изоляция ресурса (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика', points: 200 },
+        { id: 6, name: 'Блокировка IP-адреса', price: 9900, category: 'blok', description: 'Ограничение доступа по IP', points: 25 },
+        { id: 7, name: 'Реестр персональных данных', price: 75000, category: 'reestr', description: 'Проверка операторов ПДн', points: 120 },
+        { id: 8, name: 'Блокировка мессенджера', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров', points: 150 },
+        { id: 9, name: 'Блокировка домена', price: 14900, category: 'blok', description: 'Блокировка доменного имени', points: 35 },
+        { id: 10, name: 'Блокировка подсети', price: 29900, category: 'blok', description: 'Блокировка целой подсети /24', points: 60 },
+        { id: 11, name: 'Блокировка по ASN', price: 89900, category: 'blok', description: 'Блокировка автономной системы', points: 150 },
+        { id: 12, name: 'Замедление (до 256 кбит/с)', price: 19900, category: 'zamed', description: 'Умеренное замедление трафика', points: 30 },
+        { id: 13, name: 'Замедление (до 32 кбит/с)', price: 39900, category: 'zamed', description: 'Сильное замедление трафика', points: 70 },
+        { id: 14, name: 'DPI-фильтрация видео', price: 59000, category: 'zamed', description: 'Замедление видеотрафика', points: 85 },
+        { id: 15, name: 'Реестр блогеров', price: 25000, category: 'reestr', description: 'Внесение в реестр блогеров', points: 40 },
+        { id: 16, name: 'Реестр запрещенных сайтов', price: 35000, category: 'reestr', description: 'Внесение в реестр запрещенных сайтов', points: 55 },
+        { id: 17, name: 'Реестр нежелательных организаций', price: 55000, category: 'reestr', description: 'Внесение в реестр нежелательных организаций', points: 90 },
+        { id: 18, name: 'Полная изоляция ресурса', price: 299000, category: 'kompl', description: 'Полная изоляция с DPI', points: 300 },
+        { id: 19, name: 'Блокировка CDN', price: 249000, category: 'kompl', description: 'Блокировка сетей доставки контента', points: 250 },
+        { id: 20, name: 'Блокировка зеркал', price: 89000, category: 'kompl', description: 'Автоматическая блокировка зеркал', points: 110 },
+        { id: 21, name: 'Штраф за неудаление контента', price: 800000, category: 'shtraf', description: 'Административный штраф', points: 500 },
+        { id: 22, name: 'Штраф за отказ в локализации', price: 1000000, category: 'shtraf', description: 'Штраф за отказ локализации данных', points: 600 },
+        { id: 23, name: 'Оборотный штраф', price: 3000000, category: 'shtraf', description: 'Оборотный штраф (до 1/5 выручки)', points: 1000 },
+        { id: 24, name: 'Штраф за утечку данных', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', points: 800 }
       ];
 
-      // ФИЛИАЛЫ (РАСШИРЕННЫЕ)
+      // ФИЛИАЛЫ
       const branches = [
-        { id: 'by', country: 'Беларусь', countryEn: 'Belarus', flag: '🇧🇾', price: 299000, status: 'Открыт', statusEn: 'Open', description: 'Союзное государство - единый надзор', descriptionEn: 'Union State - unified supervision' },
-        { id: 'ua', country: 'Украина', countryEn: 'Ukraine', flag: '🇺🇦', price: 499000, status: 'Временно недоступен', statusEn: 'Temporarily unavailable', description: 'Ожидаем денацификации', descriptionEn: 'Awaiting denazification' },
-        { id: 'us', country: 'США', countryEn: 'USA', flag: '🇺🇸', price: 999000, status: 'Секретный', statusEn: 'Secret', description: 'Офис в Вашингтоне (конспиративный)', descriptionEn: 'Washington office (conspiratorial)' },
-        { id: 'de', country: 'Германия', countryEn: 'Germany', flag: '🇩🇪', price: 799000, status: 'Под прикрытием', statusEn: 'Undercover', description: 'Представительство в Берлине', descriptionEn: 'Representation in Berlin' },
-        { id: 'fr', country: 'Франция', countryEn: 'France', flag: '🇫🇷', price: 749000, status: 'Разворачивается', statusEn: 'Deploying', description: 'Офис в Париже', descriptionEn: 'Paris office' },
-        { id: 'uk', country: 'Великобритания', countryEn: 'United Kingdom', flag: '🇬🇧', price: 899000, status: 'Закрыт', statusEn: 'Closed', description: 'Офис в Лондоне (временно)', descriptionEn: 'London office (temporary)' },
-        { id: 'cn', country: 'Китай', countryEn: 'China', flag: '🇨🇳', price: 599000, status: 'Партнерство', statusEn: 'Partnership', description: 'Совместный центр в Пекине', descriptionEn: 'Joint center in Beijing' },
-        { id: 'br', country: 'Бразилия', countryEn: 'Brazil', flag: '🇧🇷', price: 449000, status: 'Открыт', statusEn: 'Open', description: 'Представительство в Бразилиа', descriptionEn: 'Representation in Brasilia' },
-        { id: 'in', country: 'Индия', countryEn: 'India', flag: '🇮🇳', price: 399000, status: 'Открыт', statusEn: 'Open', description: 'Офис в Нью-Дели', descriptionEn: 'New Delhi office' }
+        { id: 'by', country: 'Беларусь', flag: '🇧🇾', price: 299000, status: 'Открыт', description: 'Союзное государство - единый надзор' },
+        { id: 'ua', country: 'Украина', flag: '🇺🇦', price: 499000, status: 'Временно недоступен', description: 'Ожидаем денацификации' },
+        { id: 'us', country: 'США', flag: '🇺🇸', price: 999000, status: 'Секретный', description: 'Офис в Вашингтоне (конспиративный)' },
+        { id: 'de', country: 'Германия', flag: '🇩🇪', price: 799000, status: 'Под прикрытием', description: 'Представительство в Берлине' },
+        { id: 'fr', country: 'Франция', flag: '🇫🇷', price: 749000, status: 'Разворачивается', description: 'Офис в Париже' },
+        { id: 'uk', country: 'Великобритания', flag: '🇬🇧', price: 899000, status: 'Закрыт', description: 'Офис в Лондоне (временно)' },
+        { id: 'cn', country: 'Китай', flag: '🇨🇳', price: 599000, status: 'Партнерство', description: 'Совместный центр в Пекине' },
+        { id: 'br', country: 'Бразилия', flag: '🇧🇷', price: 449000, status: 'Открыт', description: 'Представительство в Бразилиа' },
+        { id: 'in', country: 'Индия', flag: '🇮🇳', price: 399000, status: 'Открыт', description: 'Офис в Нью-Дели' }
       ];
 
-      // СОЦИАЛЬНЫЕ СЕТИ (РАСШИРЕННЫЕ)
+      // СОЦИАЛЬНЫЕ СЕТИ
       const socialNetworks = [
-        { name: 'Telegram', nameEn: 'Telegram', icon: 'fab fa-telegram', users: '700M', blocked: '42%', status: 'Частично заблокирован', statusEn: 'Partially blocked' },
-        { name: 'YouTube', nameEn: 'YouTube', icon: 'fab fa-youtube', users: '2.5B', blocked: '35%', status: 'Замедление', statusEn: 'Throttled' },
-        { name: 'TikTok', nameEn: 'TikTok', icon: 'fab fa-tiktok', users: '1B', blocked: '28%', status: 'Штрафы', statusEn: 'Fines' },
-        { name: 'Instagram', nameEn: 'Instagram', icon: 'fab fa-instagram', users: '1.4B', blocked: '45%', status: 'Замедление', statusEn: 'Throttled' },
-        { name: 'Facebook', nameEn: 'Facebook', icon: 'fab fa-facebook', users: '2.9B', blocked: '38%', status: 'Частично заблокирован', statusEn: 'Partially blocked' },
-        { name: 'Twitter', nameEn: 'Twitter', icon: 'fab fa-twitter', users: '450M', blocked: '52%', status: 'Замедление', statusEn: 'Throttled' },
-        { name: 'WhatsApp', nameEn: 'WhatsApp', icon: 'fab fa-whatsapp', users: '2B', blocked: '15%', status: 'Штрафы', statusEn: 'Fines' },
-        { name: 'Viber', nameEn: 'Viber', icon: 'fab fa-viber', users: '260M', blocked: '25%', status: 'Под наблюдением', statusEn: 'Under surveillance' },
-        { name: 'Signal', nameEn: 'Signal', icon: 'fas fa-comment', users: '40M', blocked: '70%', status: 'Блокировка', statusEn: 'Blocked' },
-        { name: 'Discord', nameEn: 'Discord', icon: 'fab fa-discord', users: '150M', blocked: '20%', status: 'Проверка', statusEn: 'Verification' },
-        { name: 'Twitch', nameEn: 'Twitch', icon: 'fab fa-twitch', users: '140M', blocked: '30%', status: 'Замедление', statusEn: 'Throttled' },
-        { name: 'LinkedIn', nameEn: 'LinkedIn', icon: 'fab fa-linkedin', users: '310M', blocked: '0%', status: 'Доступен', statusEn: 'Available' },
-        { name: 'Pinterest', nameEn: 'Pinterest', icon: 'fab fa-pinterest', users: '450M', blocked: '10%', status: 'Доступен', statusEn: 'Available' },
-        { name: 'Snapchat', nameEn: 'Snapchat', icon: 'fab fa-snapchat', users: '500M', blocked: '25%', status: 'Под наблюдением', statusEn: 'Under surveillance' },
-        { name: 'Reddit', nameEn: 'Reddit', icon: 'fab fa-reddit', users: '430M', blocked: '40%', status: 'Частично заблокирован', statusEn: 'Partially blocked' }
+        { name: 'Telegram', icon: 'fab fa-telegram', users: '700M', blocked: '42%', status: 'Частично заблокирован' },
+        { name: 'YouTube', icon: 'fab fa-youtube', users: '2.5B', blocked: '35%', status: 'Замедление' },
+        { name: 'TikTok', icon: 'fab fa-tiktok', users: '1B', blocked: '28%', status: 'Штрафы' },
+        { name: 'Instagram', icon: 'fab fa-instagram', users: '1.4B', blocked: '45%', status: 'Замедление' },
+        { name: 'Facebook', icon: 'fab fa-facebook', users: '2.9B', blocked: '38%', status: 'Частично заблокирован' },
+        { name: 'Twitter', icon: 'fab fa-twitter', users: '450M', blocked: '52%', status: 'Замедление' },
+        { name: 'WhatsApp', icon: 'fab fa-whatsapp', users: '2B', blocked: '15%', status: 'Штрафы' },
+        { name: 'Viber', icon: 'fab fa-viber', users: '260M', blocked: '25%', status: 'Под наблюдением' },
+        { name: 'Signal', icon: 'fas fa-comment', users: '40M', blocked: '70%', status: 'Блокировка' },
+        { name: 'Discord', icon: 'fab fa-discord', users: '150M', blocked: '20%', status: 'Проверка' },
+        { name: 'Twitch', icon: 'fab fa-twitch', users: '140M', blocked: '30%', status: 'Замедление' },
+        { name: 'LinkedIn', icon: 'fab fa-linkedin', users: '310M', blocked: '0%', status: 'Доступен' },
+        { name: 'Pinterest', icon: 'fab fa-pinterest', users: '450M', blocked: '10%', status: 'Доступен' },
+        { name: 'Snapchat', icon: 'fab fa-snapchat', users: '500M', blocked: '25%', status: 'Под наблюдением' },
+        { name: 'Reddit', icon: 'fab fa-reddit', users: '430M', blocked: '40%', status: 'Частично заблокирован' }
       ];
 
-      // СЕРВЕРЫ (НОВЫЙ РАЗДЕЛ)
+      // СЕРВЕРЫ
       const servers = [
-        { id: 's1', name: 'Москва-1', nameEn: 'Moscow-1', location: 'Москва, ММТС-9', locationEn: 'Moscow, MMTS-9', specs: '100 Gbps, DPI', price: 5990000, status: 'Активен', statusEn: 'Active', description: 'Центральный узел фильтрации', descriptionEn: 'Central filtering node' },
-        { id: 's2', name: 'Санкт-Петербург-1', nameEn: 'Saint Petersburg-1', location: 'СПб, Дом связи', locationEn: 'SPb, Communications House', specs: '40 Gbps, DPI', price: 2990000, status: 'Активен', statusEn: 'Active', description: 'Северо-западный узел', descriptionEn: 'North-West node' },
-        { id: 's3', name: 'Екатеринбург-1', nameEn: 'Yekaterinburg-1', location: 'Екатеринбург, ул. Свердлова', locationEn: 'Yekaterinburg, Sverdlova st', specs: '20 Gbps', price: 1990000, status: 'Активен', statusEn: 'Active', description: 'Уральский узел', descriptionEn: 'Ural node' },
-        { id: 's4', name: 'Новосибирск-1', nameEn: 'Novosibirsk-1', location: 'Новосибирск, Академгородок', locationEn: 'Novosibirsk, Akademgorodok', specs: '20 Gbps', price: 1990000, status: 'Активен', statusEn: 'Active', description: 'Сибирский узел', descriptionEn: 'Siberian node' },
-        { id: 's5', name: 'Хабаровск-1', nameEn: 'Khabarovsk-1', location: 'Хабаровск, ул. Ленина', locationEn: 'Khabarovsk, Lenina st', specs: '10 Gbps', price: 1490000, status: 'Активен', statusEn: 'Active', description: 'Дальневосточный узел', descriptionEn: 'Far East node' },
-        { id: 's6', name: 'Москва-2 (DPI)', nameEn: 'Moscow-2 (DPI)', location: 'Москва, Останкино', locationEn: 'Moscow, Ostankino', specs: '200 Gbps, DPI, ML', price: 9990000, status: 'Активен', statusEn: 'Active', description: 'Центр глубокого анализа', descriptionEn: 'Deep analysis center' },
-        { id: 's7', name: 'Калининград-1', nameEn: 'Kaliningrad-1', location: 'Калининград, ул. Победы', locationEn: 'Kaliningrad, Pobedy st', specs: '10 Gbps', price: 1290000, status: 'Активен', statusEn: 'Active', description: 'Западный форпост', descriptionEn: 'Western outpost' },
-        { id: 's8', name: 'Владивосток-1', nameEn: 'Vladivostok-1', location: 'Владивосток, ул. Светланская', locationEn: 'Vladivostok, Svetlanskaya st', specs: '15 Gbps', price: 1690000, status: 'Активен', statusEn: 'Active', description: 'Тихоокеанский узел', descriptionEn: 'Pacific node' }
+        { id: 's1', name: 'Москва-1', location: 'Москва, ММТС-9', specs: '100 Gbps, DPI', price: 5990000, status: 'Активен', description: 'Центральный узел фильтрации' },
+        { id: 's2', name: 'Санкт-Петербург-1', location: 'СПб, Дом связи', specs: '40 Gbps, DPI', price: 2990000, status: 'Активен', description: 'Северо-западный узел' },
+        { id: 's3', name: 'Екатеринбург-1', location: 'Екатеринбург, ул. Свердлова', specs: '20 Gbps', price: 1990000, status: 'Активен', description: 'Уральский узел' },
+        { id: 's4', name: 'Новосибирск-1', location: 'Новосибирск, Академгородок', specs: '20 Gbps', price: 1990000, status: 'Активен', description: 'Сибирский узел' },
+        { id: 's5', name: 'Хабаровск-1', location: 'Хабаровск, ул. Ленина', specs: '10 Gbps', price: 1490000, status: 'Активен', description: 'Дальневосточный узел' },
+        { id: 's6', name: 'Москва-2 (DPI)', location: 'Москва, Останкино', specs: '200 Gbps, DPI, ML', price: 9990000, status: 'Активен', description: 'Центр глубокого анализа' },
+        { id: 's7', name: 'Калининград-1', location: 'Калининград, ул. Победы', specs: '10 Gbps', price: 1290000, status: 'Активен', description: 'Западный форпост' },
+        { id: 's8', name: 'Владивосток-1', location: 'Владивосток, ул. Светланская', specs: '15 Gbps', price: 1690000, status: 'Активен', description: 'Тихоокеанский узел' }
       ];
 
       let currentPage = 'home';
@@ -1079,67 +1085,74 @@
       let pendingProduct = null;
       
       // Система статуса гражданина
-      let citizenPoints = parseInt(localStorage.getItem('citizenPoints')) || 0;
+      let citizenPoints = parseInt(localStorage.getItem('citizenPoints')) || 2440;
       let citizenLevel = 'Порядочный гражданин';
-      let citizenLevelEn = 'Decent citizen';
 
-      // Режимы отображения
+      // Режим слабовидящих
       let visionMode = localStorage.getItem('visionMode') === 'true';
-      let englishMode = localStorage.getItem('englishMode') === 'true';
 
-      // Глобальные функции для обратной совместимости
+      // Глобальные функции
       window.toggleVisionMode = function() {
         visionMode = !visionMode;
         document.body.classList.toggle('vision-mode', visionMode);
         localStorage.setItem('visionMode', visionMode);
       };
 
-      window.toggleEnglishMode = function() {
-        englishMode = !englishMode;
-        document.body.classList.toggle('english-mode', englishMode);
-        localStorage.setItem('englishMode', englishMode);
-        updateUIText();
-        // Обновляем текущую страницу
-        if (currentPage === 'home') showHome();
-        else if (currentPage === 'catalog') showCatalog();
-        else if (currentPage === 'branches') showBranches();
-        else if (currentPage === 'social') showSocial();
-        else if (currentPage === 'servers') showServers();
-        else if (currentPage === 'roulette') showRoulette();
-        else if (currentPage === 'max') showMax();
-        else if (currentPage === 'cabinet') showPersonalCabinet();
+      window.showEnglishPage = function() {
+        currentPage = 'english';
+        document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('currentPageDisplay').textContent = 'ENG';
+        
+        let html = `
+          <div class="american-page">
+            <div class="american-flag">🗽🇺🇸🦅</div>
+            <div class="american-title">HEY AMERICA!</div>
+            <div class="american-message">
+              Learn Russian,<br>
+              uneducated Americans!
+            </div>
+            <div class="american-submessage">
+              (Учите русский, необразованные американцы!)
+            </div>
+            <button class="american-button" onclick="showHome()">
+              <i class="fas fa-arrow-left"></i> Back to normal
+            </button>
+          </div>
+        `;
+        
+        document.getElementById('pageContent').innerHTML = html;
       };
 
       window.showPersonalCabinet = function() {
         currentPage = 'cabinet';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Personal account' : 'Личный кабинет';
+        document.getElementById('currentPageDisplay').textContent = 'Личный кабинет';
         
         let html = `
           <div class="personal-cabinet">
             <div class="cabinet-header">
-              <h2><i class="fas fa-user-circle"></i> ${englishMode ? 'Personal account' : 'Личный кабинет'}</h2>
+              <h2><i class="fas fa-user-circle"></i> Личный кабинет</h2>
               <div class="citizen-status">
-                <i class="fas fa-star"></i> ${englishMode ? 'Status:' : 'Статус:'} ${englishMode ? citizenLevelEn : citizenLevel}
+                <i class="fas fa-star"></i> Статус: ${citizenLevel}
               </div>
             </div>
             
             <div class="cabinet-stats">
               <div class="stat-card">
                 <div class="stat-number">${citizenPoints}</div>
-                <div>${englishMode ? 'Loyalty points' : 'Баллов лояльности'}</div>
+                <div>Баллов лояльности</div>
               </div>
               <div class="stat-card">
                 <div class="stat-number">${cart.length}</div>
-                <div>${englishMode ? 'Applied sanctions' : 'Примененных мер'}</div>
+                <div>Примененных мер</div>
               </div>
             </div>
 
-            <h3>${englishMode ? 'Recent activity' : 'Последние действия'}</h3>
+            <h3>Последние действия</h3>
             <div class="cabinet-history" id="cabinetHistory">
               ${cart.slice(-5).map(item => `
                 <div class="history-item">
-                  <span>${englishMode ? (item.nameEn || item.name) : item.name}</span>
+                  <span>${item.name}</span>
                   <span>${item.date || new Date().toLocaleString()}</span>
                 </div>
               `).join('')}
@@ -1155,7 +1168,7 @@
         currentPage = 'home';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="home"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Measures Registry' : 'Реестр мер';
+        document.getElementById('currentPageDisplay').textContent = 'Реестр мер';
         renderHome();
       };
 
@@ -1163,7 +1176,7 @@
         currentPage = 'catalog';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="catalog"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Sanctions Catalog' : 'Каталог санкций';
+        document.getElementById('currentPageDisplay').textContent = 'Каталог санкций';
         renderCatalog();
       };
 
@@ -1171,7 +1184,7 @@
         currentPage = 'branches';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="branches"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Branches' : 'Филиалы';
+        document.getElementById('currentPageDisplay').textContent = 'Филиалы';
         renderBranches();
       };
 
@@ -1179,7 +1192,7 @@
         currentPage = 'social';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="social"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Social Media' : 'Соцсети';
+        document.getElementById('currentPageDisplay').textContent = 'Соцсети';
         renderSocial();
       };
 
@@ -1187,7 +1200,7 @@
         currentPage = 'servers';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="servers"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Servers' : 'Серверы';
+        document.getElementById('currentPageDisplay').textContent = 'Серверы';
         renderServers();
       };
 
@@ -1195,7 +1208,7 @@
         currentPage = 'roulette';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="roulette"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'Supervision Roulette' : 'Рулетка надзора';
+        document.getElementById('currentPageDisplay').textContent = 'Рулетка надзора';
         renderRoulette();
       };
 
@@ -1203,7 +1216,7 @@
         currentPage = 'max';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="max"]').classList.add('active');
-        document.getElementById('currentPageDisplay').textContent = englishMode ? 'MAX Integration' : 'MAX интеграция';
+        document.getElementById('currentPageDisplay').textContent = 'MAX интеграция';
         renderMax();
       };
 
@@ -1211,11 +1224,11 @@
         let html = `
           <div style="background: white; border: 1px solid var(--rkn-border); border-radius: 8px; padding: 30px; margin-bottom: 30px;">
             <h2 style="color: var(--rkn-dark-blue); margin-bottom: 20px;">
-              <i class="fas fa-shield"></i> ${englishMode ? 'Sanctions Measures Registry' : 'Реестр мер воздействия'}
+              <i class="fas fa-shield"></i> Реестр мер воздействия
             </h2>
-            <p>${englishMode ? 'Your status:' : 'Ваш статус:'} <strong>${englishMode ? citizenLevelEn : citizenLevel}</strong> (${englishMode ? 'points:' : 'баллов:'} ${citizenPoints})</p>
+            <p>Ваш статус: <strong>${citizenLevel}</strong> (баллов: ${citizenPoints})</p>
           </div>
-          <h3>${englishMode ? 'Popular measures' : 'Популярные меры'}</h3>
+          <h3>Популярные меры</h3>
           <div class="products-grid" id="productsGridHome"></div>
         `;
         document.getElementById('pageContent').innerHTML = html;
@@ -1229,14 +1242,14 @@
       function renderCatalog() {
         let html = `
           <div style="background: white; padding: 20px; border-radius: 8px;">
-            <h3>${englishMode ? 'Sanctions Catalog' : 'Каталог мер воздействия'}</h3>
+            <h3>Каталог мер воздействия</h3>
             <div class="categories-section">
-              <button class="category-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="filterCatalog('all')">${englishMode ? 'All' : 'Все'}</button>
-              <button class="category-btn ${currentCategory === 'blok' ? 'active' : ''}" onclick="filterCatalog('blok')">${englishMode ? 'Blockings' : 'Блокировки'}</button>
-              <button class="category-btn ${currentCategory === 'zamed' ? 'active' : ''}" onclick="filterCatalog('zamed')">${englishMode ? 'Throttling' : 'Замедления'}</button>
-              <button class="category-btn ${currentCategory === 'reestr' ? 'active' : ''}" onclick="filterCatalog('reestr')">${englishMode ? 'Registers' : 'Реестры'}</button>
-              <button class="category-btn ${currentCategory === 'kompl' ? 'active' : ''}" onclick="filterCatalog('kompl')">${englishMode ? 'Complex' : 'Комплексные'}</button>
-              <button class="category-btn ${currentCategory === 'shtraf' ? 'active' : ''}" onclick="filterCatalog('shtraf')">${englishMode ? 'Fines' : 'Штрафы'}</button>
+              <button class="category-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="filterCatalog('all')">Все</button>
+              <button class="category-btn ${currentCategory === 'blok' ? 'active' : ''}" onclick="filterCatalog('blok')">Блокировки</button>
+              <button class="category-btn ${currentCategory === 'zamed' ? 'active' : ''}" onclick="filterCatalog('zamed')">Замедления</button>
+              <button class="category-btn ${currentCategory === 'reestr' ? 'active' : ''}" onclick="filterCatalog('reestr')">Реестры</button>
+              <button class="category-btn ${currentCategory === 'kompl' ? 'active' : ''}" onclick="filterCatalog('kompl')">Комплексные</button>
+              <button class="category-btn ${currentCategory === 'shtraf' ? 'active' : ''}" onclick="filterCatalog('shtraf')">Штрафы</button>
             </div>
             <div class="products-grid" id="productsGridCatalog"></div>
           </div>
@@ -1259,7 +1272,7 @@
         }
         if (searchQuery) {
           filtered = filtered.filter(p => 
-            (englishMode ? p.nameEn : p.name).toLowerCase().includes(searchQuery.toLowerCase())
+            p.name.toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
         // Убираем дубликаты по id
@@ -1273,16 +1286,16 @@
       function renderProductCard(p) {
         return `<div class="product-card">
           <div class="product-header">
-            <span class="product-badge"><i class="fas fa-tag"></i> +${p.points} ${englishMode ? 'points' : 'баллов'}</span>
+            <span class="product-badge"><i class="fas fa-tag"></i> +${p.points} баллов</span>
           </div>
-          <div class="product-title">${englishMode ? p.nameEn : p.name}</div>
-          <div style="font-size: 13px;">${englishMode ? p.descriptionEn : p.description}</div>
+          <div class="product-title">${p.name}</div>
+          <div style="font-size: 13px;">${p.description}</div>
           <div class="product-price">${p.price.toLocaleString()} ₽</div>
           <div class="product-footer">
-            <button class="btn-primary" data-id="${p.id}" data-name="${englishMode ? p.nameEn : p.name}" data-price="${p.price}" data-points="${p.points}">
-              <i class="fas fa-bullseye"></i> ${englishMode ? 'Apply' : 'Применить'}
+            <button class="btn-primary" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-points="${p.points}">
+              <i class="fas fa-bullseye"></i> Применить
             </button>
-            <button class="btn-max" onclick="sendMaxNotification('${englishMode ? p.nameEn : p.name}')">
+            <button class="btn-max" onclick="sendMaxNotification('${p.name}')">
               <i class="fab fa-max"></i>
             </button>
           </div>
@@ -1290,17 +1303,17 @@
       }
 
       function renderBranches() {
-        let html = '<h2 style="margin: 20px 0;">' + (englishMode ? 'Roskomnadzor branches worldwide' : 'Филиалы Роскомнадзора в других странах') + '</h2>';
+        let html = '<h2 style="margin: 20px 0;">Филиалы Роскомнадзора в других странах</h2>';
         html += '<div class="branches-grid">';
         branches.forEach(b => {
           html += `<div class="branch-card">
             <div class="branch-flag">${b.flag}</div>
-            <h3>${englishMode ? b.countryEn : b.country}</h3>
-            <div class="branch-status">${englishMode ? 'Status:' : 'Статус:'} ${englishMode ? b.statusEn : b.status}</div>
-            <p>${englishMode ? b.descriptionEn : b.description}</p>
+            <h3>${b.country}</h3>
+            <div class="branch-status">Статус: ${b.status}</div>
+            <p>${b.description}</p>
             <div class="product-price">${b.price.toLocaleString()} ₽</div>
-            <button class="btn-primary" onclick="buyBranch('${englishMode ? b.countryEn : b.country}')">
-              <i class="fas fa-shopping-cart"></i> ${englishMode ? 'Open branch' : 'Открыть филиал'}
+            <button class="btn-primary" onclick="buyBranch('${b.country}')">
+              <i class="fas fa-shopping-cart"></i> Открыть филиал
             </button>
           </div>`;
         });
@@ -1309,17 +1322,17 @@
       }
 
       function renderSocial() {
-        let html = '<h2 style="margin: 20px 0;">' + (englishMode ? 'Social Media Registry' : 'Реестр социальных сетей') + '</h2>';
+        let html = '<h2 style="margin: 20px 0;">Реестр социальных сетей</h2>';
         html += '<div class="social-grid">';
         socialNetworks.forEach(s => {
           html += `<div class="social-card">
             <div class="social-icon"><i class="${s.icon}"></i></div>
-            <h3>${englishMode ? s.nameEn : s.name}</h3>
+            <h3>${s.name}</h3>
             <div class="social-stats">
               <span><i class="fas fa-users"></i> ${s.users}</span>
               <span><i class="fas fa-ban"></i> ${s.blocked}</span>
             </div>
-            <span class="blocked-badge">${englishMode ? s.statusEn : s.status}</span>
+            <span class="blocked-badge">${s.status}</span>
           </div>`;
         });
         html += '</div>';
@@ -1327,26 +1340,21 @@
       }
 
       function renderServers() {
-        let html = '<h2 style="margin: 20px 0;">' + (englishMode ? 'RKN Filtering Servers' : 'Серверы фильтрации РКН') + '</h2>';
+        let html = '<h2 style="margin: 20px 0;">Серверы фильтрации РКН</h2>';
         html += '<div class="servers-grid">';
         servers.forEach(s => {
           html += `<div class="server-card">
             <div class="server-icon"><i class="fas fa-server"></i></div>
-            <h3>${englishMode ? s.nameEn : s.name}</h3>
-            <div class="server-location"><i class="fas fa-map-marker-alt"></i> ${englishMode ? s.locationEn : s.location}</div>
+            <h3>${s.name}</h3>
+            <div class="server-location"><i class="fas fa-map-marker-alt"></i> ${s.location}</div>
             <div class="server-specs">
               <span><i class="fas fa-tachometer-alt"></i> ${s.specs}</span>
             </div>
-            <p>${englishMode ? s.descriptionEn : s.description}</p>
+            <p>${s.description}</p>
             <div class="product-price">${s.price.toLocaleString()} ₽</div>
-            <div class="product-footer">
-              <button class="btn-primary" onclick="buyServer('${englishMode ? s.nameEn : s.name}')">
-                <i class="fas fa-plug"></i> ${englishMode ? 'Deploy' : 'Развернуть'}
-              </button>
-              <button class="btn-max" onclick="sendMaxNotification('${englishMode ? s.nameEn : s.name}')">
-                <i class="fab fa-max"></i>
-              </button>
-            </div>
+            <button class="btn-primary" onclick="buyServer('${s.name}')">
+              <i class="fas fa-plug"></i> Развернуть
+            </button>
           </div>`;
         });
         html += '</div>';
@@ -1356,11 +1364,11 @@
       function renderRoulette() {
         let html = `
           <div class="roulette-container">
-            <h2><i class="fas fa-dice"></i> ${englishMode ? 'Russian Supervision Roulette' : 'Рулетка русского надзора'}</h2>
-            <p>${englishMode ? 'Spin the wheel and get a random sanction!' : 'Крутите колесо и получайте случайную меру воздействия!'}</p>
+            <h2><i class="fas fa-dice"></i> Рулетка русского надзора</h2>
+            <p>Крутите колесо и получайте случайную меру воздействия!</p>
             <div class="roulette-wheel" id="rouletteWheel">🎰</div>
             <button class="btn-roulette" onclick="spinRoulette()">
-              <i class="fas fa-sync-alt"></i> ${englishMode ? 'Spin (100 points)' : 'Крутить (100 баллов)'}
+              <i class="fas fa-sync-alt"></i> Крутить (100 баллов)
             </button>
             <div class="roulette-result" id="rouletteResult"></div>
           </div>
@@ -1371,34 +1379,34 @@
       function renderMax() {
         let html = `
           <div style="background: white; border: 1px solid var(--rkn-border); border-radius: 8px; padding: 30px;">
-            <h2><i class="fab fa-max"></i> ${englishMode ? 'MAX Messenger Integration' : 'Интеграция с MAX мессенджером'}</h2>
+            <h2><i class="fab fa-max"></i> Интеграция с MAX мессенджером</h2>
             <div style="background: var(--rkn-light-blue); padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h4>${englishMode ? 'Connection status' : 'Статус подключения'}</h4>
-              <p><i class="fas fa-check-circle" style="color: green;"></i> ${englishMode ? 'Bot activated' : 'Бот активирован'}</p>
+              <h4>Статус подключения</h4>
+              <p><i class="fas fa-check-circle" style="color: green;"></i> Бот активирован</p>
             </div>
           </div>
         `;
         document.getElementById('pageContent').innerHTML = html;
       }
 
-      // Глобальные функции для обратной совместимости
+      // Глобальные функции
       window.buyBranch = function(country) {
         citizenPoints += 50;
         updateCitizenLevel();
-        sendMaxNotification(`${englishMode ? 'Branch in' : 'Филиал в'} ${country} ${englishMode ? 'successfully opened!' : 'успешно открыт!'}`);
-        alert(englishMode ? 'Branch opened!' : 'Филиал открыт!');
+        sendMaxNotification(`Филиал в ${country} успешно открыт!`);
+        alert('Филиал открыт!');
       };
 
       window.buyServer = function(serverName) {
         citizenPoints += 100;
         updateCitizenLevel();
-        sendMaxNotification(`${englishMode ? 'Server' : 'Сервер'} ${serverName} ${englishMode ? 'deployed!' : 'развернут!'}`);
-        alert(englishMode ? 'Server deployed!' : 'Сервер развернут!');
+        sendMaxNotification(`Сервер ${serverName} развернут!`);
+        alert('Сервер развернут!');
       };
 
       window.spinRoulette = function() {
         if (citizenPoints < 100) {
-          alert(englishMode ? 'Not enough points! Need 100 points.' : 'Недостаточно баллов! Нужно 100 баллов.');
+          alert('Недостаточно баллов! Нужно 100 баллов.');
           return;
         }
         
@@ -1412,11 +1420,12 @@
           wheel.classList.remove('spinning');
           
           const outcomes = [
-            { name: englishMode ? 'Website blocking' : 'Блокировка сайта', points: 50 },
-            { name: englishMode ? 'Traffic throttling' : 'Замедление трафика', points: 30 },
-            { name: englishMode ? 'Registry entry' : 'Внесение в реестр', points: 40 },
-            { name: englishMode ? 'Fine' : 'Штраф', points: 100 },
-            { name: englishMode ? 'Server deployment' : 'Развертывание сервера', points: 150 }
+            { name: 'Блокировка сайта', points: 50 },
+            { name: 'Замедление трафика', points: 30 },
+            { name: 'Внесение в реестр', points: 40 },
+            { name: 'Штраф', points: 100 },
+            { name: 'Развертывание сервера', points: 150 },
+            { name: 'Джекпот!', points: 500 }
           ];
           
           const result = outcomes[Math.floor(Math.random() * outcomes.length)];
@@ -1425,12 +1434,12 @@
           resultDiv.innerHTML = `
             <div style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
               <strong>${result.name}</strong><br>
-              +${result.points} ${englishMode ? 'points' : 'баллов'}!
+              +${result.points} баллов!
             </div>
           `;
           
           updateCitizenLevel();
-          sendMaxNotification(`🎰 ${englishMode ? 'Roulette:' : 'Рулетка:'} ${result.name} (+${result.points})`);
+          sendMaxNotification(`🎰 Рулетка: ${result.name} (+${result.points})`);
         }, 2000);
       };
 
@@ -1462,49 +1471,30 @@
         });
       }
 
-      function updateUIText() {
-        document.getElementById('pageTitle').textContent = englishMode ? 
-          'Roskomnadzor - Sanctions Marketplace' : 
-          'Роскомнадзор - Маркетплейс мер воздействия';
-        document.getElementById('currentPageDisplay').textContent = 
-          englishMode ? 'Measures Registry' : 'Реестр мер';
-        updateCitizenLevel();
-      }
-
       function updateCitizenLevel() {
         if (citizenPoints >= 1000000000) {
           citizenLevel = 'Глава РКН';
-          citizenLevelEn = 'CEO RKN';
         } else if (citizenPoints >= 1000000) {
           citizenLevel = 'Безумный патриот';
-          citizenLevelEn = 'Insane patriot';
         } else if (citizenPoints >= 500000) {
           citizenLevel = 'Легендарный патриот';
-          citizenLevelEn = 'Legendary patriot';
         } else if (citizenPoints >= 250000) {
           citizenLevel = 'Супер-патриот';
-          citizenLevelEn = 'Super patriot';
         } else if (citizenPoints >= 100000) {
           citizenLevel = 'Патриот';
-          citizenLevelEn = 'Patriot';
         } else if (citizenPoints >= 50000) {
           citizenLevel = 'Сторонник';
-          citizenLevelEn = 'Supporter';
         } else if (citizenPoints >= 10000) {
           citizenLevel = 'Товарищ майор';
-          citizenLevelEn = 'Policeman';
         } else if (citizenPoints >= 1000) {
           citizenLevel = 'Порядочный гражданин';
-          citizenLevelEn = 'Decent citizen';
         } else if (citizenPoints >= 100) {
           citizenLevel = 'Новичок';
-          citizenLevelEn = 'Novice';
         } else {
           citizenLevel = 'Гражданин РФ';
-          citizenLevelEn = 'Citizen';
         }
 
-        document.getElementById('citizenLevelDisplay').textContent = englishMode ? citizenLevelEn : citizenLevel;
+        document.getElementById('citizenLevelDisplay').textContent = citizenLevel;
         localStorage.setItem('citizenPoints', citizenPoints);
       }
 
@@ -1522,8 +1512,8 @@
         if (!list) return;
         
         if (cart.length === 0) {
-          list.innerHTML = '<div style="text-align: center; padding: 30px;">' + (englishMode ? 'Registry is empty' : 'Реестр пуст') + '</div>';
-          document.getElementById('cartTotal').innerHTML = (englishMode ? 'Total:' : 'Итого:') + ' 0 ₽';
+          list.innerHTML = '<div style="text-align: center; padding: 30px;">Реестр пуст</div>';
+          document.getElementById('cartTotal').innerHTML = 'Итого: 0 ₽';
           return;
         }
         
@@ -1533,7 +1523,7 @@
           total += item.price;
           html += `<li class="cart-item">
             <div class="cart-item-header">${item.name}</div>
-            <div class="cart-item-target">${item.target ? item.target.url : (englishMode ? 'not specified' : 'не указан')}</div>
+            <div class="cart-item-target">${item.target ? item.target.url : 'не указан'}</div>
             <div class="cart-item-footer">
               <span class="cart-item-price">${item.price} ₽</span>
               <button class="cart-item-remove" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
@@ -1542,14 +1532,13 @@
         });
         
         list.innerHTML = html;
-        document.getElementById('cartTotal').innerHTML = (englishMode ? 'Total:' : 'Итого:') + ` ${total.toLocaleString()} ₽`;
+        document.getElementById('cartTotal').innerHTML = `Итого: ${total.toLocaleString()} ₽`;
       }
 
       // Инициализация событий
       document.addEventListener('DOMContentLoaded', function() {
         // Применяем сохраненные режимы
         if (visionMode) document.body.classList.add('vision-mode');
-        if (englishMode) document.body.classList.add('english-mode');
         
         // Инициализация обработчиков
         document.getElementById('modalCloseBtn').addEventListener('click', () => {
@@ -1560,9 +1549,9 @@
           if (!pendingProduct) return;
           
           const targetData = {
-            url: document.getElementById('targetUrl').value || (englishMode ? 'not specified' : 'не указан'),
-            ip: document.getElementById('targetIp').value || (englishMode ? 'not specified' : 'не указан'),
-            resourceName: document.getElementById('targetName').value || (englishMode ? 'not specified' : 'не указано'),
+            url: document.getElementById('targetUrl').value || 'не указан',
+            ip: document.getElementById('targetIp').value || 'не указан',
+            resourceName: document.getElementById('targetName').value || 'не указано',
             classification: document.getElementById('targetClass').value
           };
 
@@ -1582,7 +1571,7 @@
           updateCitizenLevel();
           
           if (document.getElementById('notifyMax').checked) {
-            sendMaxNotification(`⚠️ ${englishMode ? 'New sanction:' : 'Новая мера:'} ${pendingProduct.name}`);
+            sendMaxNotification(`⚠️ Новая мера: ${pendingProduct.name}`);
           }
           
           document.getElementById('targetModal').classList.remove('active');
@@ -1604,10 +1593,10 @@
 
         document.getElementById('checkoutBtn').addEventListener('click', () => {
           if (cart.length === 0) {
-            alert(englishMode ? 'Add sanctions to registry' : 'Добавьте меры в реестр');
+            alert('Добавьте меры в реестр');
             return;
           }
-          alert(englishMode ? 'Orders accepted for execution!' : 'Постановления приняты к исполнению!');
+          alert('Постановления приняты к исполнению!');
           citizenPoints += 50;
           updateCitizenLevel();
           cart = [];
