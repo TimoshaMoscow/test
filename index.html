@@ -933,9 +933,19 @@
     (function() {
       // Каталог мер воздействия
       const products = [
-        { id: 1, name: 'Блокировка сайта (полная)', nameEn: 'Full website blocking', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', descriptionEn: 'Entry into the Unified Register of Banned Information', points: 100 },
-        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', nameEn: 'Traffic throttling (up to 64 kbps)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', descriptionEn: 'Data transfer rate limitation', points: 50 },
-        { id: 3, name: 'Внесение в реестр ОРИ', nameEn: 'Entry into ORI registry', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации', descriptionEn: 'Register of information dissemination organizers', points: 30 }
+        { id: 1, name: 'Блокировка сайта (полная)', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации' },
+        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных' },
+        { id: 3, name: 'Внесение в реестр ОРИ', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации' },
+        { id: 4, name: 'Маркировка VPN-сервиса', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN' },
+        { id: 5, name: 'Изоляция ресурса (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика' },
+        { id: 6, name: 'Блокировка IP-адреса', price: 9900, category: 'blok', description: 'Ограничение доступа по IP' },
+        { id: 7, name: 'Реестр персональных данных', price: 75000, category: 'reestr', description: 'Проверка операторов ПДн' },
+        { id: 8, name: 'Блокировка мессенджера', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров' },
+        { id: 1, name: 'Блокировка сайта (полная)', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', points: 100 },
+        { id: 2, name: 'Замедление трафика (до 64 кбит/с)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', points: 50 },
+        { id: 3, name: 'Внесение в реестр ОРИ', price: 15000, category: 'reestr', description: 'Реестр организаторов распространения информации', points: 30 },
+        { id: 4, name: 'Маркировка VPN-сервиса', price: 45000, category: 'reestr', description: 'Внесение в реестр запрещенных VPN', points: 75 },
+        { id: 5, name: 'Изоляция ресурса (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика', points: 200 }
       ];
 
       // Филиалы
