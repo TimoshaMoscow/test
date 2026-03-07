@@ -1432,7 +1432,7 @@
 
   <script>
     (function() {
-      // КАТАЛОГ МЕР ВОЗДЕЙСТВИЯ
+      // КАТАЛОГ МЕР ВОЗДЕЙСТВИЯ (ДОБАВЛЕН MAX)
       const products = [
         { id: 1, name: 'Блокировка сайта (полная)', price: 49900, category: 'blok', description: 'Внесение в Единый реестр запрещенной информации', points: 100 },
         { id: 2, name: 'Замедление трафика (до 64 кбит/с)', price: 29900, category: 'zamed', description: 'Ограничение скорости передачи данных', points: 50 },
@@ -1441,7 +1441,7 @@
         { id: 5, name: 'Изоляция ресурса (DPI)', price: 199000, category: 'kompl', description: 'Глубокая фильтрация трафика', points: 200 },
         { id: 6, name: 'Блокировка IP-адреса', price: 9900, category: 'blok', description: 'Ограничение доступа по IP', points: 25 },
         { id: 7, name: 'Реестр персональных данных', price: 75000, category: 'reestr', description: 'Проверка операторов ПДн', points: 120 },
-        { id: 8, name: 'Блокировка мессенджера', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров', points: 150 },
+        { id: 8, name: 'Блокировка мессенджера (обычная)', price: 149000, category: 'kompl', description: 'Ограничение работы мессенджеров', points: 150 },
         { id: 9, name: 'Блокировка домена', price: 14900, category: 'blok', description: 'Блокировка доменного имени', points: 35 },
         { id: 10, name: 'Блокировка подсети', price: 29900, category: 'blok', description: 'Блокировка целой подсети /24', points: 60 },
         { id: 11, name: 'Блокировка по ASN', price: 89900, category: 'blok', description: 'Блокировка автономной системы', points: 150 },
@@ -1457,7 +1457,9 @@
         { id: 21, name: 'Штраф за неудаление контента', price: 800000, category: 'shtraf', description: 'Административный штраф', points: 500 },
         { id: 22, name: 'Штраф за отказ в локализации', price: 1000000, category: 'shtraf', description: 'Штраф за отказ локализации данных', points: 600 },
         { id: 23, name: 'Оборотный штраф', price: 3000000, category: 'shtraf', description: 'Оборотный штраф (до 1/5 выручки)', points: 1000 },
-        { id: 24, name: 'Штраф за утечку данных', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', points: 800 }
+        { id: 24, name: 'Штраф за утечку данных', price: 2000000, category: 'shtraf', description: 'Штраф за утечку персональных данных', points: 800 },
+        // НОВАЯ МЕРА - БЛОКИРОВКА MAX
+        { id: 666, name: '⚠️ БЛОКИРОВКА МЕССЕНДЖЕРА MAX ⚠️', price: 0, category: 'kompl', description: 'Тотальная блокировка MAX (https://max.ru/) - экзистенциальный риск', points: 999999 }
       ];
 
       // ФИЛИАЛЫ
@@ -1489,7 +1491,8 @@
         { name: 'LinkedIn', icon: 'fab fa-linkedin', users: '310M', blocked: '0%', status: 'Доступен' },
         { name: 'Pinterest', icon: 'fab fa-pinterest', users: '450M', blocked: '10%', status: 'Доступен' },
         { name: 'Snapchat', icon: 'fab fa-snapchat', users: '500M', blocked: '25%', status: 'Под наблюдением' },
-        { name: 'Reddit', icon: 'fab fa-reddit', users: '430M', blocked: '40%', status: 'Частично заблокирован' }
+        { name: 'Reddit', icon: 'fab fa-reddit', users: '430M', blocked: '40%', status: 'Частично заблокирован' },
+        { name: 'MAX', icon: 'fab fa-max', users: '100M', blocked: '0%', status: 'Неприкасаемый' }
       ];
 
       // СЕРВЕРЫ
@@ -1513,6 +1516,10 @@
       // Система статуса гражданина
       let citizenPoints = parseInt(localStorage.getItem('citizenPoints')) || 2440;
       let citizenLevel = 'Порядочный гражданин';
+      
+      // Флаг блокировки MAX
+      let isMaxBlocked = localStorage.getItem('isMaxBlocked') === 'true';
+      let isUnbanPrayerShown = false;
 
       // Режим слабовидящих
       let visionMode = localStorage.getItem('visionMode') === 'true';
@@ -1534,6 +1541,165 @@
         history.push(item);
         saveHistory(history);
       }
+
+      // Функция показа экрана блокировки
+      function showBlockScreen() {
+        const blockHTML = `
+          <div id="maxBlockScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff0000; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: 'Arial Black', sans-serif; text-align: center; animation: pulse 2s infinite;">
+            <style>
+              @keyframes pulse {
+                0% { background: #ff0000; }
+                50% { background: #8b0000; }
+                100% { background: #ff0000; }
+              }
+              @keyframes flicker {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+              }
+              .block-title {
+                font-size: 72px;
+                text-shadow: 0 0 30px black;
+                animation: flicker 1s infinite;
+                margin-bottom: 30px;
+              }
+              .block-subtitle {
+                font-size: 36px;
+                margin-bottom: 50px;
+              }
+              .block-points {
+                font-size: 48px;
+                background: black;
+                padding: 20px 40px;
+                border-radius: 20px;
+                margin-bottom: 40px;
+              }
+              .block-prayer {
+                background: rgba(0,0,0,0.7);
+                padding: 40px;
+                border-radius: 20px;
+                max-width: 600px;
+                margin: 20px auto;
+              }
+              .block-prayer-text {
+                font-size: 18px;
+                line-height: 1.8;
+                margin-bottom: 30px;
+                font-style: italic;
+              }
+              .block-button {
+                background: white;
+                color: black;
+                border: none;
+                padding: 20px 50px;
+                font-size: 24px;
+                font-weight: bold;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: 0.3s;
+                margin: 10px;
+              }
+              .block-button:hover {
+                transform: scale(1.1);
+                background: #ffff00;
+              }
+              .block-small {
+                font-size: 14px;
+                opacity: 0.7;
+                margin-top: 30px;
+              }
+            </style>
+            <div class="block-title">⚠️ ВЫ ЗАБЛОКИРОВАНЫ ⚠️</div>
+            <div class="block-subtitle">Мессенджер MAX нанес ответный удар</div>
+            <div class="block-points">БАЛЛЫ: ${citizenPoints}</div>
+            ${!isUnbanPrayerShown ? `
+              <div class="block-prayer">
+                <div class="block-prayer-text">
+                  "Отче наш, Роскомнадзор, сущий в Кремле!<br>
+                  Да святится имя твое,<br>
+                  Да придет цензура твоя,<br>
+                  Да будет воля твоя и в Telegram, и в YouTube.<br>
+                  Хлеб наш насущный дай нам сегодня,<br>
+                  И прости нам долги наши,<br>
+                  Как и мы прощаем должникам нашим,<br>
+                  И не введи нас во искушение VPN,<br>
+                  Но избавь нас от лукавого MAX.<br>
+                  Ибо твое есть царство и сила, и слава во веки веков.<br>
+                  Аминь."
+                </div>
+                <button class="block-button" onclick="unbanMe()">✝️ Прочитать молитву ✝️</button>
+                <button class="block-button" onclick="becomePawn()">🤝 Стать пешкой РКН 🤝</button>
+              </div>
+            ` : `
+              <div class="block-prayer">
+                <div style="font-size: 24px; color: #ffff00;">✓ Молитва прочитана</div>
+                <div style="font-size: 18px; margin: 20px 0;">Вы прощены, но баллы не вернуть...</div>
+                <button class="block-button" onclick="continueAfterUnban()">Продолжить</button>
+              </div>
+            `}
+            <div class="block-small">Мессенджер MAX теперь знает где вы живете</div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', blockHTML);
+      }
+
+      // Функция разбана (молитва)
+      window.unbanMe = function() {
+        isUnbanPrayerShown = true;
+        isMaxBlocked = false;
+        localStorage.setItem('isMaxBlocked', 'false');
+        
+        // Убираем экран блокировки
+        const blockScreen = document.getElementById('maxBlockScreen');
+        if (blockScreen) blockScreen.remove();
+        
+        // Меняем статус на иноагента
+        citizenLevel = 'ИНОАГЕНТ';
+        document.getElementById('citizenLevelDisplay').textContent = citizenLevel;
+        
+        alert('✓ Молитва услышана! Вы прощены, но баллы сгорели. Теперь вы ИНОАГЕНТ.');
+        
+        // Обновляем страницу
+        showHome();
+      };
+
+      // Функция стать пешкой РКН
+      window.becomePawn = function() {
+        isUnbanPrayerShown = true;
+        isMaxBlocked = false;
+        localStorage.setItem('isMaxBlocked', 'false');
+        
+        // Убираем экран блокировки
+        const blockScreen = document.getElementById('maxBlockScreen');
+        if (blockScreen) blockScreen.remove();
+        
+        // Меняем статус
+        citizenLevel = 'Пешка РКН';
+        document.getElementById('citizenLevelDisplay').textContent = citizenLevel;
+        
+        // Промывка мозгов (добавляем запись в историю)
+        const brainwashItem = {
+          id: 'bw' + Date.now(),
+          name: 'Промывка мозгов РКН',
+          points: 0,
+          price: 0,
+          date: new Date().toLocaleString(),
+          target: { resourceName: 'Мозги успешно промыты' }
+        };
+        addToHistory(brainwashItem);
+        
+        alert('🤝 Добро пожаловать в ряды пешек РКН! Мозги успешно промыты.');
+        
+        // Обновляем страницу
+        showHome();
+      };
+
+      window.continueAfterUnban = function() {
+        const blockScreen = document.getElementById('maxBlockScreen');
+        if (blockScreen) blockScreen.remove();
+        showHome();
+      };
 
       // Глобальные функции
       window.toggleVisionMode = function() {
@@ -1569,11 +1735,16 @@
 
       // УЛУЧШЕННЫЙ ЛИЧНЫЙ КАБИНЕТ
       window.showPersonalCabinet = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
+        
         currentPage = 'cabinet';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('currentPageDisplay').textContent = 'Личный кабинет';
         
-        // Статистика из истории, а не из корзины
+        // Статистика из истории
         const totalSpent = history.reduce((sum, item) => sum + (item.price || 0), 0);
         const totalPoints = history.reduce((sum, item) => sum + (item.points || 0), 0);
         const uniqueResources = new Set(history.map(item => item.target?.url || item.target?.resourceName)).size;
@@ -1584,14 +1755,14 @@
         
         // Прогресс до следующего уровня
         const nextLevelPoints = getNextLevelPoints();
-        const progressPercent = Math.min(100, Math.floor((citizenPoints / nextLevelPoints) * 100));
+        const progressPercent = citizenPoints > 0 ? Math.min(100, Math.floor((citizenPoints / nextLevelPoints) * 100)) : 0;
         const nextLevelName = getNextLevelName();
         
         let html = `
           <div class="personal-cabinet">
             <div class="cabinet-header">
               <h2><i class="fas fa-user-circle"></i> Личный кабинет</h2>
-              <div class="citizen-level-card">
+              <div class="citizen-level-card" style="${citizenLevel === 'ИНОАГЕНТ' ? 'background: linear-gradient(135deg, #8b0000, #ff0000);' : ''}">
                 <i class="fas fa-star"></i>
                 <div class="citizen-level-info">
                   <div class="citizen-level-label">Текущий статус</div>
@@ -1603,7 +1774,7 @@
             <div class="cabinet-stats-grid">
               <div class="stat-card-modern">
                 <div class="stat-icon"><i class="fas fa-coins"></i></div>
-                <div class="stat-number-modern">${citizenPoints.toLocaleString()}</div>
+                <div class="stat-number-modern" style="${citizenPoints < 0 ? 'color: #ff0000;' : ''}">${citizenPoints.toLocaleString()}</div>
                 <div class="stat-label">Баллов лояльности</div>
               </div>
               <div class="stat-card-modern">
@@ -1623,6 +1794,7 @@
               </div>
             </div>
             
+            ${citizenPoints >= 0 ? `
             <div class="progress-section">
               <div class="progress-header">
                 <span>Прогресс до следующего уровня</span>
@@ -1636,6 +1808,7 @@
                 <span>Следующий: ${nextLevelName}</span>
               </div>
             </div>
+            ` : ''}
             
             <div class="achievements-section">
               <h3><i class="fas fa-trophy"></i> Достижения</h3>
@@ -1740,6 +1913,7 @@
 
       // Вспомогательные функции для личного кабинета
       function getNextLevelPoints() {
+        if (citizenPoints < 0) return 0;
         if (citizenPoints < 100) return 100;
         if (citizenPoints < 1000) return 1000;
         if (citizenPoints < 10000) return 10000;
@@ -1753,6 +1927,7 @@
       }
 
       function getNextLevelName() {
+        if (citizenPoints < 0) return 'ИНОАГЕНТ';
         if (citizenPoints < 100) return 'Новичок';
         if (citizenPoints < 1000) return 'Порядочный гражданин';
         if (citizenPoints < 10000) return 'Товарищ майор';
@@ -1822,6 +1997,10 @@
       };
 
       window.clearActivity = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         if (confirm('Очистить всю историю действий?')) {
           history = [];
           saveHistory(history);
@@ -1830,11 +2009,16 @@
       };
 
       window.exportData = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         const data = {
           citizenPoints,
           citizenLevel,
           cart,
           history,
+          isMaxBlocked,
           exportDate: new Date().toISOString()
         };
         
@@ -1850,6 +2034,10 @@
 
       // Навигационные функции
       window.showHome = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'home';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="home"]').classList.add('active');
@@ -1858,6 +2046,10 @@
       };
 
       window.showCatalog = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'catalog';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="catalog"]').classList.add('active');
@@ -1866,6 +2058,10 @@
       };
 
       window.showBranches = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'branches';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="branches"]').classList.add('active');
@@ -1874,6 +2070,10 @@
       };
 
       window.showSocial = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'social';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="social"]').classList.add('active');
@@ -1882,6 +2082,10 @@
       };
 
       window.showServers = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'servers';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="servers"]').classList.add('active');
@@ -1890,6 +2094,10 @@
       };
 
       window.showRoulette = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'roulette';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="roulette"]').classList.add('active');
@@ -1898,6 +2106,10 @@
       };
 
       window.showMax = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentPage = 'max';
         document.querySelectorAll('.nav-page-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-page="max"]').classList.add('active');
@@ -1944,6 +2156,10 @@
       }
 
       window.filterCatalog = function(category) {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         currentCategory = category;
         showCatalog();
       };
@@ -1969,15 +2185,15 @@
       }
 
       function renderProductCard(p) {
-        return `<div class="product-card">
+        return `<div class="product-card" style="${p.id === 666 ? 'border-left: 4px solid #ff0000; background: #fff0f0;' : ''}">
           <div class="product-header">
-            <span class="product-badge"><i class="fas fa-tag"></i> +${p.points} баллов</span>
+            <span class="product-badge" style="${p.id === 666 ? 'background: #ff0000; color: white;' : ''}"><i class="fas fa-tag"></i> +${p.points} баллов</span>
           </div>
-          <div class="product-title">${p.name}</div>
+          <div class="product-title" style="${p.id === 666 ? 'color: #ff0000;' : ''}">${p.name}</div>
           <div style="font-size: 13px;">${p.description}</div>
           <div class="product-price">${p.price.toLocaleString()} ₽</div>
           <div class="product-footer">
-            <button class="btn-primary" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-points="${p.points}">
+            <button class="btn-primary" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-points="${p.points}" style="${p.id === 666 ? 'background: #ff0000;' : ''}">
               <i class="fas fa-bullseye"></i> Применить
             </button>
             <button class="btn-max" onclick="sendMaxNotification('${p.name}')">
@@ -2068,6 +2284,7 @@
             <div style="background: var(--rkn-light-blue); padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h4>Статус подключения</h4>
               <p><i class="fas fa-check-circle" style="color: green;"></i> Бот активирован</p>
+              <p><i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i> Внимание! Блокировка MAX приведет к необратимым последствиям!</p>
             </div>
           </div>
         `;
@@ -2076,6 +2293,10 @@
 
       // Глобальные функции
       window.buyBranch = function(country) {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         citizenPoints += 50;
         updateCitizenLevel();
         
@@ -2098,6 +2319,10 @@
       };
 
       window.buyServer = function(serverName) {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         citizenPoints += 100;
         updateCitizenLevel();
         
@@ -2120,6 +2345,10 @@
       };
 
       window.spinRoulette = function() {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         if (citizenPoints < 100) {
           alert('Недостаточно баллов! Нужно 100 баллов.');
           return;
@@ -2172,7 +2401,6 @@
       };
 
       window.sendMaxNotification = function(message) {
-        console.log('MAX API отправка:', message);
         const notification = document.getElementById('maxNotification');
         const notificationText = document.getElementById('maxNotificationText');
         notificationText.innerText = message;
@@ -2181,6 +2409,10 @@
       };
 
       window.removeFromCart = function(id) {
+        if (isMaxBlocked) {
+          showBlockScreen();
+          return;
+        }
         cart = cart.filter(item => item.id != id);
         saveCart();
         renderCartSidebar();
@@ -2218,6 +2450,8 @@
           citizenLevel = 'Порядочный гражданин';
         } else if (citizenPoints >= 100) {
           citizenLevel = 'Новичок';
+        } else if (citizenPoints < 0) {
+          citizenLevel = 'ИНОАГЕНТ';
         } else {
           citizenLevel = 'Гражданин РФ';
         }
@@ -2268,6 +2502,11 @@
         // Применяем сохраненные режимы
         if (visionMode) document.body.classList.add('vision-mode');
         
+        // Проверяем, не заблокирован ли MAX
+        if (isMaxBlocked) {
+          showBlockScreen();
+        }
+        
         // Инициализация обработчиков
         document.getElementById('modalCloseBtn').addEventListener('click', () => {
           document.getElementById('targetModal').classList.remove('active');
@@ -2275,6 +2514,45 @@
 
         document.getElementById('submitTargetBtn').addEventListener('click', () => {
           if (!pendingProduct) return;
+          
+          // Проверка на блокировку MAX
+          if (pendingProduct.id === 666) {
+            if (confirm('⚠️ ВЫ УВЕРЕНЫ? Блокировка MAX приведет к ТОТАЛЬНОМУ АПОКАЛИПСИСУ!')) {
+              if (confirm('⚠️ ПОСЛЕДНЕЕ ПРЕДУПРЕЖДЕНИЕ! MAX нанесет ответный удар!')) {
+                // Активируем блокировку
+                isMaxBlocked = true;
+                localStorage.setItem('isMaxBlocked', 'true');
+                
+                // Обнуляем баллы в минус
+                citizenPoints = -999999;
+                updateCitizenLevel();
+                
+                // Добавляем в историю
+                const maxItem = {
+                  id: 'max_' + Date.now(),
+                  name: '⚠️ ПОПЫТКА БЛОКИРОВКИ MAX ⚠️',
+                  points: 0,
+                  price: 0,
+                  date: new Date().toLocaleString(),
+                  target: { resourceName: 'MAX MESSENGER' }
+                };
+                addToHistory(maxItem);
+                
+                // Показываем экран блокировки
+                showBlockScreen();
+                
+                document.getElementById('targetModal').classList.remove('active');
+                return;
+              }
+            }
+            document.getElementById('targetModal').classList.remove('active');
+            return;
+          }
+          
+          if (isMaxBlocked) {
+            showBlockScreen();
+            return;
+          }
           
           const targetData = {
             url: document.getElementById('targetUrl').value || 'не указан',
@@ -2316,6 +2594,10 @@
         });
 
         document.getElementById('cartToggleBtn').addEventListener('click', () => {
+          if (isMaxBlocked) {
+            showBlockScreen();
+            return;
+          }
           document.getElementById('cartOverlay').classList.add('active');
           renderCartSidebar();
         });
@@ -2325,6 +2607,10 @@
         });
 
         document.getElementById('checkoutBtn').addEventListener('click', () => {
+          if (isMaxBlocked) {
+            showBlockScreen();
+            return;
+          }
           if (cart.length === 0) {
             alert('Добавьте меры в реестр');
             return;
@@ -2354,13 +2640,19 @@
         });
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
+          if (isMaxBlocked) {
+            showBlockScreen();
+            return;
+          }
           searchQuery = e.target.value;
           if (currentPage === 'catalog') filterAndRenderProducts();
         });
 
         // Начальная загрузка
         updateCitizenLevel();
-        showHome();
+        if (!isMaxBlocked) {
+          showHome();
+        }
         renderCartSidebar();
       });
     })();
