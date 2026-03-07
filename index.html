@@ -1472,24 +1472,36 @@
       }
 
       function updateCitizenLevel() {
-        if (citizenPoints >= 1000) {
+        if (citizenPoints >= 1000000000) {
+          citizenLevel = 'Глава РКН';
+          citizenLevelEn = 'CEO RKN';
+        } else if (citizenPoints >= 1000000) {
+          citizenLevel = 'Безумный патриот';
+          citizenLevelEn = 'Insane patriot';
+        } else if (citizenPoints >= 500000) {
           citizenLevel = 'Легендарный патриот';
           citizenLevelEn = 'Legendary patriot';
-        } else if (citizenPoints >= 500) {
+        } else if (citizenPoints >= 250000) {
           citizenLevel = 'Супер-патриот';
           citizenLevelEn = 'Super patriot';
-        } else if (citizenPoints >= 250) {
+        } else if (citizenPoints >= 100000) {
           citizenLevel = 'Патриот';
           citizenLevelEn = 'Patriot';
-        } else if (citizenPoints >= 100) {
+        } else if (citizenPoints >= 50000) {
           citizenLevel = 'Сторонник';
           citizenLevelEn = 'Supporter';
-        } else if (citizenPoints >= 50) {
+        } else if (citizenPoints >= 10000) {
+          citizenLevel = 'Товарищ майор';
+          citizenLevelEn = 'Policeman';
+        } else if (citizenPoints >= 1000) {
           citizenLevel = 'Порядочный гражданин';
           citizenLevelEn = 'Decent citizen';
-        } else {
+        } else if (citizenPoints >= 100) {
           citizenLevel = 'Новичок';
           citizenLevelEn = 'Novice';
+        } else {
+          citizenLevel = 'Гражданин РФ';
+          citizenLevelEn = 'Citizen';
         }
 
         document.getElementById('citizenLevelDisplay').textContent = englishMode ? citizenLevelEn : citizenLevel;
