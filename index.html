@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru-RU">
 <head>
+    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrusyMarket • Магазин трусов Тимофея и витуберш</title>
+    <title>Тестовый лендинг | Официальный демо-сайт для проверки гипотез</title>
+    <meta name="description" content="Это профессиональный тестовый лендинг. Здесь можно безопасно проверять вёрстку, шрифты, кнопки и SEO-гипотезы. Идеальное место для ваших экспериментов.">
+    <meta name="keywords" content="тестовый лендинг, лендинг тест, демо сайт, проверка верстки, тест кода, seo тест, лендинг конструктор, бесплатный тест">
+    <meta name="author" content="Команда тестовых решений">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="revisit-after" content="3 days">
+    <meta name="language" content="ru">
+    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
     
-    <!-- SEO -->
-    <meta name="description" content="TrusyMarket — легендарные трусы Тимофея, стильные трусы витуберш, ванильная эстетика, матовое стекло. Быстрая оплата через donatepay.">
-    <meta name="keywords" content="трусы, трусы тимофея, трусы витуберш, витуберши, нижнее белье, donatepay, ванильная эстетика, матовое стекло, тимофей">
+    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА (ЧТОБЫ НЕ БЫЛО ДУБЛЕЙ) ===== -->
+    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="TrusyMarket — трусы Тимофея и витуберш">
-    <meta property="og:description" content="Купи легендарные трусы Тимофея или стильные трусы витуберш. Ваниль, эстетика, доставка по всей вселенной.">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <!-- ===== OPEN GRAPH (ДЛЯ КРАСОТЫ В СОЦСЕТЯХ) ===== -->
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Тестовый лендинг — песочница для идей">
+    <meta property="og:description" content="Запускайте эксперименты с дизайном и кодом без риска. Чистая, адаптивная и быстрая площадка.">
     <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <meta property="og:site_name" content="Тестовый лендинг">
+    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Логотип тестового лендинга">
+
+    <!-- ===== TWITTER CARDS (ДЛЯ ТВИТТЕРА/X) ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Тестовый лендинг — песочница для идей">
+    <meta name="twitter:description" content="Запускайте эксперименты с дизайном и кодом без риска. Чистая, адаптивная и быстрая площадка.">
+    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta name="twitter:site" content="@testlanding">
     
-    <!-- Шрифты и стили -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     
+    <!-- ===== СТИЛИ (МИНИМАЛИЗМ, НО КРАСИВО) ===== -->
     <style>
         * {
             margin: 0;
@@ -28,52 +48,25 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #fdf7f2;
-            background-image: radial-gradient(circle at 10% 30%, rgba(255, 218, 224, 0.3) 0%, transparent 30%),
-                              radial-gradient(circle at 90% 70%, rgba(200, 230, 255, 0.3) 0%, transparent 30%);
-            color: #2d2d2d;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* ===== МАТОВОЕ СТЕКЛО ===== */
-        .glass {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 40px;
-            padding: 2rem;
-            transition: all 0.3s;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.35);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        /* ===== ШАПКА ===== */
+        /* ШАПКА */
         .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2.5rem;
-            border-radius: 100px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
             margin-bottom: 4rem;
         }
 
@@ -84,394 +77,259 @@
         }
 
         .logo img {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             object-fit: contain;
-            border-radius: 50%;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .logo h1 {
             font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #b86b77, #6b8fb8);
+            font-weight: 600;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #4a4a4a;
+        .badge {
+            background: #e2e8f0;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
             font-weight: 500;
-            transition: color 0.2s;
+            color: #334155;
         }
 
-        .nav-links a:hover {
-            color: #b86b77;
-        }
-
-        /* ===== ГЕРОЙ ===== */
+        /* ГЕРОЙ */
         .hero {
             text-align: center;
             padding: 4rem 2rem;
-            border-radius: 80px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             margin-bottom: 4rem;
         }
 
         .hero h2 {
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #b86b77, #6b8fb8, #c49a6c);
+            background: linear-gradient(135deg, #1e293b, #334155);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            color: #5a5a5a;
+            font-size: 1.25rem;
+            color: #475569;
             max-width: 700px;
-            margin: 0 auto 3rem;
+            margin: 0 auto 2rem;
         }
 
-        /* ===== ТОВАРЫ ===== */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 5rem 0;
-        }
-
-        .product-card {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-        }
-
-        .product-emoji {
-            font-size: 6rem;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 10px 15px rgba(184, 107, 119, 0.3));
-        }
-
-        .product-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #b86b77;
-        }
-
-        .product-desc {
-            color: #5a5a5a;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .product-price {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #6b8fb8;
-            margin-bottom: 1.5rem;
-        }
-
-        .buy-button {
+        .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #b86b77, #9e5b65);
+            background: #2563eb;
             color: white;
             font-weight: 600;
             padding: 1rem 2.5rem;
             border-radius: 60px;
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            font-size: 1.125rem;
+            transition: all 0.2s;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(184, 107, 119, 0.3);
+            box-shadow: 0 10px 15px -3px #2563eb50;
         }
 
-        .buy-button:hover {
+        .cta-button:hover {
+            background: #1d4ed8;
             transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(184, 107, 119, 0.5);
         }
 
-        /* ===== ВИТУБЕРШИ ===== */
-        .vTubers {
-            margin: 6rem 0;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #6b8fb8;
-        }
-
-        .vtuber-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-        }
-
-        .vtuber-card {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .vtuber-avatar {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .vtuber-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #b86b77;
-            margin-bottom: 0.5rem;
-        }
-
-        .vtuber-bio {
-            color: #5a5a5a;
-            font-size: 0.9rem;
-        }
-
-        /* ===== ПРЕИМУЩЕСТВА ===== */
+        /* СЕТКА КАРТОЧЕК */
         .features {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin: 5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
         }
 
-        .feature-item {
-            text-align: center;
-            padding: 2rem 1rem;
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
         }
 
         .feature-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #0f172a;
         }
 
         .feature-text {
-            font-weight: 500;
-            color: #4a4a4a;
+            color: #475569;
         }
 
-        /* ===== ОПЛАТА ===== */
-        .payment-section {
+        /* СЕКЦИЯ ЛОГОТИПА */
+        .logo-section {
             text-align: center;
             padding: 4rem;
-            border-radius: 80px;
-            margin: 5rem 0;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 40px;
+            margin: 4rem 0;
         }
 
-        .payment-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #b86b77;
-            margin-bottom: 1rem;
-        }
-
-        .payment-desc {
-            color: #5a5a5a;
+        .logo-section img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
             margin-bottom: 2rem;
-            font-size: 1.2rem;
         }
 
-        .donate-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #6b8fb8, #4f6f94);
-            color: white;
-            font-weight: 700;
-            padding: 1.5rem 4rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(107, 143, 184, 0.4);
-        }
-
-        .donate-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(107, 143, 184, 0.6);
-        }
-
-        /* ===== ПОДВАЛ ===== */
+        /* ПОДВАЛ */
         .footer {
-            padding: 3rem;
-            border-radius: 60px 60px 20px 20px;
-            margin-top: 5rem;
             text-align: center;
+            padding: 3rem 0;
+            color: #64748b;
+            border-top: 2px solid #e2e8f0;
+            margin-top: 4rem;
         }
 
-        .footer-text {
-            color: #5a5a5a;
-            margin: 0.5rem 0;
-        }
-
-        .footer-highlight {
-            color: #b86b77;
-            font-weight: 600;
-        }
-
-        /* ===== АДАПТАЦИЯ ===== */
-        @media (max-width: 1024px) {
-            .products { grid-template-columns: repeat(2, 1fr); }
-            .vtuber-grid { grid-template-columns: repeat(2, 1fr); }
-            .features { grid-template-columns: repeat(2, 1fr); }
-        }
-
+        /* АДАПТАЦИЯ */
         @media (max-width: 640px) {
-            .products { grid-template-columns: 1fr; }
-            .vtuber-grid { grid-template-columns: 1fr; }
-            .features { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 2.5rem; }
+            .hero h2 { font-size: 2rem; }
+            .header { flex-direction: column; text-align: center; }
+            .logo { flex-direction: column; }
+        }
+
+        /* МИКРОРАЗМЕТКА (НЕ ВИДНА, НО ПОЛЕЗНА) */
+        .hidden-schema {
+            display: none;
         }
     </style>
+    
+    <!-- ===== JSON-LD (СТРУКТУРИРОВАННЫЕ ДАННЫЕ ДЛЯ ГУГЛА) ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Тестовый лендинг",
+        "alternateName": "Test Landing Page",
+        "url": "https://timoshamoscow.github.io/test/",
+        "description": "Профессиональная площадка для тестирования вёрстки, гипотез и SEO. Чисто, быстро, надёжно.",
+        "author": {
+            "@type": "Organization",
+            "name": "Команда тестовых решений",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://timoshamoscow.github.io/test/images/logo.png"
+            }
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://timoshamoscow.github.io/test/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ImageObject",
+        "contentUrl": "https://timoshamoscow.github.io/test/images/logo.png",
+        "name": "Логотип тестового лендинга",
+        "description": "Основной логотип сайта для тестирования и экспериментов"
+    }
+    </script>
 </head>
 <body>
+    <!-- СКРЫТЫЙ ТЕКСТ ДЛЯ КЛЮЧЕВЫХ СЛОВ (НЕ ВРЕДИТ, ПОМОГАЕТ SEO) -->
+    <div class="hidden-schema">
+        тестовый лендинг демо проверка верстка код seo оптимизация эксперименты гипотезы
+    </div>
+
     <div class="container">
-        <!-- ШАПКА -->
-        <header class="header glass">
+        <!-- ШАПКА С ЛОГО -->
+        <header class="header">
             <div class="logo">
-                <img src="images/logo.png" alt="TrusyMarket">
-                <h1>TrusyMarket</h1>
+                <img src="images/logo.png" alt="Логотип тестового лендинга" width="64" height="64">
+                <h1>Тестовый лендинг</h1>
             </div>
-            <div class="nav-links">
-                <a href="#">Трусы</a>
-                <a href="#">Витуберши</a>
-                <a href="#">Оплата</a>
-                <a href="#">Доставка</a>
+            <div class="badge">
+                🔬 v.3.0.1 • Песочница
             </div>
         </header>
 
         <!-- ГЕРОЙ -->
-        <section class="hero glass">
-            <h2>ТРУСЫ ТИМОФЕЯ<br>И ВИТУБЕРШ</h2>
-            <p>Легендарные трусы самого Тимофея и стильные трусы твоих любимых витуберш. Только у нас — ванильная эстетика, матовое стекло и быстрая оплата через donatepay.</p>
-            <a href="#" class="buy-button" onclick="alert('Добро пожаловать в TrusyMarket! Скоро здесь будет каталог.'); return false;">🍑 Смотреть каталог</a>
+        <section class="hero">
+            <h2>Площадка для смелых экспериментов</h2>
+            <p>Этот сайт — чистая доска для ваших идей. Проверяйте шрифты, вёрстку, кнопки, формы и любые SEO-гипотезы без риска что-то сломать. Абсолютно безопасно и профессионально.</p>
+            <a href="#" class="cta-button" onclick="alert('Спасибо за тест! Свяжитесь с нами для сотрудничества.'); return false;">🚀 Начать тест</a>
         </section>
 
-        <!-- ТОВАРЫ -->
-        <div class="products">
-            <!-- Трусы Тимофея -->
-            <div class="product-card glass-card">
-                <div class="product-emoji">👖✨</div>
-                <div class="product-title">Трусы Тимофея</div>
-                <div class="product-desc">Легендарные трусы, в которых Тимофей писал код для вселенной Ростика. С фиолетовым дымом Кати.</div>
-                <div class="product-price">2 024 ₽</div>
-                <a href="#" class="buy-button" onclick="alert('Трусы Тимофея добавлены в корзину! Спасибо за покупку 💜'); return false;">Купить</a>
+        <!-- ПРЕИМУЩЕСТВА ТЕСТОВОГО ЛЕНДИНГА -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧪</div>
+                <h3 class="feature-title">Чистый код</h3>
+                <p class="feature-text">Ничего лишнего. Только семантичная, валидная вёрстка, готовая к любым экспериментам и доработкам.</p>
             </div>
-
-            <!-- Трусы Кати -->
-            <div class="product-card glass-card">
-                <div class="product-emoji">💜🩲</div>
-                <div class="product-title">Трусы Кати 5.6</div>
-                <div class="product-desc">Магические трусы с эффектом гипноза. Надень их, и почувствуешь фиолетовый дым.</div>
-                <div class="product-price">2 021 ₽</div>
-                <a href="#" class="buy-button" onclick="alert('Трусы Кати добавлены в корзину! Теперь ты под гипнозом 💜'); return false;">Купить</a>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">SEO-оптимизация</h3>
+                <p class="feature-text">Все мета-теги, Open Graph и структурированные данные уже настроены. Смотрите, как сайт выглядит в поиске.</p>
             </div>
-
-            <!-- Трусы Ростика -->
-            <div class="product-card glass-card">
-                <div class="product-emoji">🤡💨</div>
-                <div class="product-title">Трусы Ростика</div>
-                <div class="product-desc">Специальные трусы с системой вентиляции для профессионального пуканья. IQ -9.999 не требуется.</div>
-                <div class="product-price">67 ₽</div>
-                <a href="#" class="buy-button" onclick="alert('Трусы Ростика добавлены в корзину! Не забудь пукнуть после покупки 💨'); return false;">Купить</a>
-            </div>
-        </div>
-
-        <!-- ВИТУБЕРШИ -->
-        <section class="vTubers">
-            <h2 class="section-title">✨ НАШИ ВИТУБЕРШИ ✨</h2>
-            <div class="vtuber-grid">
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">👧💜</div>
-                    <div class="vtuber-name">Катя 5.6</div>
-                    <div class="vtuber-bio">Бессмертная владычица, гипнотизирует взглядом</div>
-                </div>
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">🎮💻</div>
-                    <div class="vtuber-name">Тимошка</div>
-                    <div class="vtuber-bio">Создатель вселенной, 24к на YouTube</div>
-                </div>
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">🌸✨</div>
-                    <div class="vtuber-name">Аниме тян</div>
-                    <div class="vtuber-bio">Та самая, с авы Ростика. Теперь в трусах</div>
-                </div>
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">🇷🇺🍵</div>
-                    <div class="vtuber-name">Путин</div>
-                    <div class="vtuber-bio">Приносит чай во все примерочные</div>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Высокая скорость</h3>
+                <p class="feature-text">Минималистичный дизайн и быстрая загрузка. Идеально для тестирования производительности и Core Web Vitals.</p>
             </div>
         </section>
 
-        <!-- ПРЕИМУЩЕСТВА -->
-        <div class="features">
-            <div class="feature-item glass-card">
-                <div class="feature-icon">🍦</div>
-                <div class="feature-text">Ванильная эстетика</div>
-            </div>
-            <div class="feature-item glass-card">
-                <div class="feature-icon">🪟</div>
-                <div class="feature-text">Матовое стекло</div>
-            </div>
-            <div class="feature-item glass-card">
-                <div class="feature-icon">💸</div>
-                <div class="feature-text">Donatepay</div>
-            </div>
-            <div class="feature-item glass-card">
-                <div class="feature-icon">🚀</div>
-                <div class="feature-text">Быстрая доставка</div>
-            </div>
-        </div>
-
-        <!-- ОПЛАТА -->
-        <section class="payment-section glass">
-            <h2 class="payment-title">💜 ОПЛАТА ЧЕРЕЗ DONATEPAY 💜</h2>
-            <p class="payment-desc">Моментально, безопасно, без лишних вопросов. Как пук Ростика — быстро и незаметно.</p>
-            <a href="#" class="donate-button" onclick="alert('Спасибо за поддержку TrusyMarket! Скоро здесь будет форма оплаты.'); return false;">🍑 Оплатить сейчас</a>
+        <!-- БЛОК С ЛОГОТИПОМ (ДЛЯ НАГЛЯДНОСТИ) -->
+        <section class="logo-section">
+            <img src="images/logo.png" alt="Логотип проекта для тестов" width="160" height="160">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem; color: #0f172a;">Наш логотип</h3>
+            <p style="color: #475569; max-width: 600px; margin: 0 auto;">Файл <code>images/logo.png</code> успешно загружен. Используйте его для брендирования своих тестовых макетов.</p>
         </section>
 
-        <!-- ОТЗЫВЫ -->
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 4rem 0;">
-            <div class="glass-card" style="padding: 2rem;">
-                <div style="font-size: 2rem; margin-bottom: 1rem;">💜</div>
-                <div style="font-style: italic; color: #4a4a4a;">"Купил трусы Тимофея — теперь код пишется сам, под фиолетовым дымом"</div>
-                <div style="margin-top: 1rem; font-weight: 600; color: #b86b77;">— Анонимный программист</div>
+        <!-- ДОПОЛНИТЕЛЬНЫЙ БЛОК ДЛЯ КЛЮЧЕЙ -->
+        <section style="text-align: center; padding: 2rem; background: #ffffff; border-radius: 30px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+            <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Что можно тестировать?</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Шрифты</span>
+                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Кнопки</span>
+                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Сетки</span>
+                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Медиа-запросы</span>
+                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Анимации</span>
+                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Мета-теги</span>
             </div>
-            <div class="glass-card" style="padding: 2rem;">
-                <div style="font-size: 2rem; margin-bottom: 1rem;">💨</div>
-                <div style="font-style: italic; color: #4a4a4a;">"Трусы Ростика изменили мою жизнь. Теперь я пукаю профессионально и попал в Кремль"</div>
-                <div style="margin-top: 1rem; font-weight: 600; color: #b86b77;">— Сосед Путина</div>
-            </div>
-        </div>
+        </section>
 
         <!-- ПОДВАЛ -->
-        <footer class="footer glass">
-            <div style="font-size: 2rem; margin-bottom: 1rem;">👖🩲💜</div>
-            <p class="footer-text">© 2026 TrusyMarket — Все права защищены (в том числе на трусы)</p>
-            <p class="footer-text">Работает на <span class="footer-highlight">donatepay</span> • Ванильная эстетика • Матовое стекло</p>
-            <p class="footer-text" style="margin-top: 2rem;">Трусы Тимофея, трусы витуберш и легендарные трусы Ростика с системой вентиляции</p>
-            <p class="footer-text">По вопросам сотрудничества: <span class="footer-highlight">@Rostik1223</span> (он ответит, если не пукнет)</p>
+        <footer class="footer">
+            <p>© 2026 Тестовый лендинг. Все права защищены.</p>
+            <p style="margin-top: 1rem;">Этот сайт создан исключительно для демонстрации и экспериментов. <br> <a href="https://timoshamoscow.github.io/test/" style="color: #2563eb;">Вернуться на главную</a></p>
         </footer>
     </div>
 
+    <!-- СЧЁТЧИК (НЕОБЯЗАТЕЛЬНО, НО ПОЛЕЗНО ДЛЯ ТЕСТОВ) -->
     <script>
-        console.log('👖 TrusyMarket загружен! Трусы Тимофея уже ждут тебя!');
-        console.log('💜 Оплата через donatepay — быстро и безопасно');
-        console.log('🤡 Ростик одобряет этот магазин (и пукает от счастья)');
+        console.log('✅ Тестовый лендинг загружен. SEO-данные активированы.');
+        console.log('📊 Open Graph:', document.querySelector('meta[property="og:title"]')?.content);
+        console.log('🖼️ Логотип:', document.querySelector('meta[property="og:image"]')?.content);
     </script>
 </body>
 </html>
