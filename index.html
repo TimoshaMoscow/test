@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👁️‍🗨️ АНКЕТА СО СЛОЖНОСТЬЮ • НЕВОЗМОЖНАЯ 😈</title>
+    <title>👁️‍🗨️ АНКЕТА • ТЕПЕРЬ С ПРОКРУТКОЙ</title>
     
     <style>
         * {
@@ -20,7 +20,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== ЭКРАН ВХОДА ===== */
+        /* ===== ЭКРАН ВХОДА (ИСПРАВЛЕННЫЙ) ===== */
         .entry-screen {
             position: fixed;
             top: 0;
@@ -31,7 +31,9 @@
             z-index: 9999999;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* ВЫРАВНИВАНИЕ ПО ВЕРХУ */
+            overflow-y: auto; /* ВКЛЮЧАЕМ ПРОКРУТКУ */
+            padding: 40px 0; /* ОТСТУПЫ СВЕРХУ И СНИЗУ */
             transition: opacity 1s;
         }
 
@@ -44,6 +46,7 @@
             width: 90%;
             box-shadow: 0 0 100px #ff0000;
             animation: formPulse 2s infinite;
+            margin: auto; /* ЦЕНТРИРОВАНИЕ ПО ВЕРТИКАЛИ */
         }
 
         @keyframes formPulse {
@@ -103,7 +106,7 @@
             color: white;
         }
 
-        /* ===== ВЫБОР СЛОЖНОСТИ (ОСОБЫЙ СТИЛЬ) ===== */
+        /* ===== ВЫБОР СЛОЖНОСТИ ===== */
         .difficulty-group {
             margin-bottom: 30px;
             border: 3px solid #ff00ff;
@@ -169,7 +172,6 @@
             margin-bottom: 15px;
         }
 
-        /* Цвета для сложностей */
         .difficulty-option:nth-child(1) label { border-color: #00ff00; color: #00ff00; }
         .difficulty-option:nth-child(2) label { border-color: #ffaa00; color: #ffaa00; }
         .difficulty-option:nth-child(3) label { border-color: #ff0000; color: #ff0000; }
@@ -354,14 +356,19 @@
             color: white;
         }
 
+        /* ДОПОЛНИТЕЛЬНО ДЛЯ МОБИЛЬНЫХ */
         @media (max-width: 768px) {
             .characters { grid-template-columns: 1fr; }
             .difficulty-options { grid-template-columns: 1fr; }
+            .entry-form { padding: 40px 20px; }
+            .entry-form h2 { font-size: 36px; }
+            .form-group label { font-size: 24px; }
+            .difficulty-group label { font-size: 28px !important; }
         }
     </style>
 </head>
 <body>
-    <!-- ЭКРАН ВХОДА -->
+    <!-- ЭКРАН ВХОДА (ТЕПЕРЬ С ПРОКРУТКОЙ) -->
     <div class="entry-screen" id="entryScreen">
         <div class="entry-form">
             <h2>👁️‍🗨️ КТО ТЫ, СМЕРТНЫЙ? 👁️‍🗨️</h2>
@@ -519,7 +526,7 @@
             document.getElementById('difficultyDisplay').innerHTML = `${difficultyEmoji} ${difficulty} ${difficultyEmoji}`;
             document.getElementById('userInfoDisplay').innerHTML = `👁️‍🗨️ ${name} 👁️‍🗨️`;
             
-            // ПЕРСОНАЛЬНОЕ СООБЩЕНИЕ С УЧЁТОМ СЛОЖНОСТИ
+            // ПЕРСОНАЛЬНОЕ СООБЩЕНИЕ
             let personalMsg = `${name}`;
             if (diseases.includes('Гипноз')) personalMsg += ' • ПОД ГИПНОЗОМ КАТИ 💜';
             if (difficulty === 'Невозможная') personalMsg += ' • ТЫ ОБРЕЧЁН 😈';
@@ -584,7 +591,7 @@
             }
             document.getElementById('genderContent').innerHTML = genderHtml;
             
-            // ПЕРСОНАЖИ (С АДАПТАЦИЕЙ ПОД СЛОЖНОСТЬ)
+            // ПЕРСОНАЖИ
             let charactersHtml = `
                 <div class="character-card">
                     <div class="character-emoji">🤡💨</div>
@@ -608,6 +615,11 @@
             document.getElementById('footerMessage').innerHTML = 
                 `${name} • ${gender} • ${orientation} • [${diseases.join(', ')}] • СЛОЖНОСТЬ: ${difficulty}`;
         }
+
+        // ПРЕДОТВРАЩАЕМ ВЫХОД
+        window.onbeforeunload = function() {
+            return 'Ты уверен? Твои болезни ждут тебя...';
+        };
     </script>
 </body>
 </html>
