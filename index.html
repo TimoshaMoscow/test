@@ -1,453 +1,613 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru-HELL">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👁️‍🗨️ АНКЕТА СО СЛОЖНОСТЬЮ • НЕВОЗМОЖНАЯ 😈</title>
     
-    <!-- ===== АГРЕССИВНОЕ SEO ===== -->
-    <title>Тестовый лендинг | Создание и разработка лендингов под ключ</title>
-    <meta name="description" content="Тестовый лендинг — создание продающих страниц. Разработка под ключ, адаптивный дизайн, высокая конверсия. Закажите тестовый лендинг уже сегодня!">
-    <meta name="keywords" content="тестовый лендинг, создание лендинга, разработка лендинга, лендинг под ключ, продающая страница, landing page">
-    <meta name="author" content="Тимофей — специалист по лендингам">
-    <meta name="robots" content="index, follow">
-    
-    <!-- ===== OPEN GRAPH ===== -->
-    <meta property="og:title" content="Тестовый лендинг — разработка под ключ">
-    <meta property="og:description" content="Создание продающих лендингов с высокой конверсией. Индивидуальный подход, адаптивный дизайн.">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    
-    <!-- ===== СТИЛИ ===== -->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Arial', 'Helvetica', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f9f9f9;
+            font-family: 'Comic Sans MS', 'Arial', cursive;
+            min-height: 100vh;
+            background: black;
+            position: relative;
+            overflow-x: hidden;
         }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* ШАПКА */
-        .header {
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px 0;
-            position: sticky;
+
+        /* ===== ЭКРАН ВХОДА ===== */
+        .entry-screen {
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.98);
+            z-index: 9999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s;
         }
-        
-        .header-inner {
+
+        .entry-form {
+            background: linear-gradient(135deg, #1a0033, #33001a);
+            padding: 60px;
+            border-radius: 60px;
+            border: 5px solid #ff00ff;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 0 100px #ff0000;
+            animation: formPulse 2s infinite;
+        }
+
+        @keyframes formPulse {
+            0% { box-shadow: 0 0 50px #ff0000; }
+            33% { box-shadow: 0 0 150px #ff00ff; }
+            66% { box-shadow: 0 0 150px #0000ff; }
+            100% { box-shadow: 0 0 50px #ff0000; }
+        }
+
+        .entry-form h2 {
+            font-size: 48px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 5px 5px 0 red, -5px -5px 0 blue;
+            animation: textShake 0.5s infinite;
+        }
+
+        @keyframes textShake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 28px;
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 20px;
+            font-size: 24px;
+            background: rgba(255,255,255,0.1);
+            border: 3px solid #ff00ff;
+            color: white;
+            border-radius: 30px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            background: rgba(255,255,255,0.3);
+            border-color: #ff0000;
+            outline: none;
+        }
+
+        .form-group option {
+            background: #330066;
+            color: white;
+        }
+
+        /* ===== ВЫБОР СЛОЖНОСТИ (ОСОБЫЙ СТИЛЬ) ===== */
+        .difficulty-group {
+            margin-bottom: 30px;
+            border: 3px solid #ff00ff;
+            border-radius: 60px;
+            padding: 30px;
+            background: rgba(0,0,0,0.5);
+            animation: difficultyPulse 2s infinite;
+        }
+
+        @keyframes difficultyPulse {
+            0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
+            33% { border-color: #00ff00; box-shadow: 0 0 30px #00ff00; }
+            66% { border-color: #0000ff; box-shadow: 0 0 30px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
+        }
+
+        .difficulty-group label {
+            font-size: 36px !important;
+            color: #ff0 !important;
+            text-align: center;
+            margin-bottom: 30px !important;
+            text-shadow: 0 0 20px red;
+        }
+
+        .difficulty-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .difficulty-option {
+            position: relative;
+        }
+
+        .difficulty-option input[type="radio"] {
+            display: none;
+        }
+
+        .difficulty-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 3px solid;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 24px !important;
+            text-align: center;
+            margin: 0 !important;
+        }
+
+        .difficulty-option input[type="radio"]:checked + label {
+            transform: scale(1.1);
+            filter: brightness(150%);
+            box-shadow: 0 0 50px currentColor;
+            border-width: 5px;
+        }
+
+        .difficulty-emoji {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* Цвета для сложностей */
+        .difficulty-option:nth-child(1) label { border-color: #00ff00; color: #00ff00; }
+        .difficulty-option:nth-child(2) label { border-color: #ffaa00; color: #ffaa00; }
+        .difficulty-option:nth-child(3) label { border-color: #ff0000; color: #ff0000; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 30px;
+            font-size: 36px;
+            font-weight: 900;
+            background: linear-gradient(45deg, red, blue, green, yellow);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            animation: buttonPulse 0.5s infinite;
+            text-transform: uppercase;
+            margin-top: 30px;
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); filter: hue-rotate(0deg); }
+            50% { transform: scale(1.05); filter: hue-rotate(180deg); }
+            100% { transform: scale(1); filter: hue-rotate(360deg); }
+        }
+
+        .warning {
+            text-align: center;
+            color: red;
+            font-size: 18px;
+            margin-top: 20px;
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== АДСКИЙ ФОН ===== */
+        .hell-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: bgHell 0.1s infinite;
+        }
+
+        @keyframes bgHell {
+            0% { background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00); }
+            25% { background: linear-gradient(45deg, #ff00ff, #00ffff, #ff8000, #8000ff); }
+            50% { background: radial-gradient(circle, #ff0000, #00ff00, #0000ff); }
+            75% { background: repeating-linear-gradient(45deg, #ff0000 0px, #ff0000 20px, #00ff00 20px, #00ff00 40px); }
+            100% { background: conic-gradient(from 0deg, red, yellow, green, blue, purple, red); }
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none;
+        }
+
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo img {
-            width: 50px;
-            height: 50px;
-        }
-        
-        .logo h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #222;
-        }
-        
-        .nav a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .nav a:hover {
-            color: #007bff;
-        }
-        
-        /* ГЕРОЙ */
-        .hero {
-            background: linear-gradient(135deg, #007bff, #00d4ff);
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-        
-        .hero h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #fff;
-            color: #007bff;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        /* ПРЕИМУЩЕСТВА */
-        .features {
-            padding: 80px 0;
-            background: #fff;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 36px;
+            padding: 30px 50px;
+            background: repeating-linear-gradient(45deg, 
+                rgba(255,0,0,0.5) 0px, 
+                rgba(0,255,0,0.5) 20px, 
+                rgba(0,0,255,0.5) 40px);
+            border: 10px dotted #ff00ff;
+            border-radius: 1000px 0 1000px 0;
             margin-bottom: 50px;
-            color: #222;
+            animation: borderRotate 0.5s infinite;
         }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+
+        @keyframes borderRotate {
+            0% { border-color: #ff0000; border-width: 20px; }
+            25% { border-color: #00ff00; border-width: 5px; }
+            50% { border-color: #0000ff; border-width: 15px; }
+            75% { border-color: #ffff00; border-width: 8px; }
+            100% { border-color: #ff00ff; border-width: 20px; }
         }
-        
-        .feature-item {
-            text-align: center;
-            padding: 30px;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-        
-        .feature-item:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .feature-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #222;
-        }
-        
-        /* О НАС */
-        .about {
-            padding: 80px 0;
-            background: #f5f5f5;
-        }
-        
-        .about-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .about-content h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .about-content p {
-            margin-bottom: 20px;
-            color: #555;
-        }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        
-        /* УСЛУГИ */
-        .services {
-            padding: 80px 0;
-            background: #fff;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        
-        .service-item {
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .service-item h3 {
-            font-size: 24px;
-            margin: 20px 0 15px;
-            color: #222;
-        }
-        
-        .price {
+
+        .user-info {
+            padding: 20px 40px;
+            background: black;
+            border: 5px solid white;
+            color: white;
             font-size: 28px;
-            color: #007bff;
-            font-weight: 700;
-            margin: 20px 0;
+            animation: userPulse 1s infinite;
         }
-        
-        .service-btn {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            padding: 10px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: 0.3s;
+
+        @keyframes userPulse {
+            0% { background: black; color: white; }
+            50% { background: white; color: black; }
+            100% { background: black; color: white; }
         }
-        
-        .service-btn:hover {
-            background: #0056b3;
+
+        .difficulty-badge {
+            padding: 20px 40px;
+            font-size: 36px;
+            font-weight: 900;
+            border-radius: 60px;
+            animation: badgeGlow 1s infinite;
         }
-        
-        /* КОНТАКТЫ */
-        .contact {
-            padding: 80px 0;
-            background: #f5f5f5;
+
+        @keyframes badgeGlow {
+            0% { filter: drop-shadow(0 0 20px red); }
+            33% { filter: drop-shadow(0 0 20px blue); }
+            66% { filter: drop-shadow(0 0 20px green); }
+            100% { filter: drop-shadow(0 0 20px red); }
         }
-        
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 50px;
-            border-radius: 10px;
+
+        .content-section {
+            margin: 60px 0;
+            padding: 40px;
+            border-radius: 60px;
+            animation: contentGlow 2s infinite;
         }
-        
-        .form-group {
-            margin-bottom: 20px;
+
+        @keyframes contentGlow {
+            0% { box-shadow: 0 0 50px red; }
+            33% { box-shadow: 0 0 50px blue; }
+            66% { box-shadow: 0 0 50px green; }
+            100% { box-shadow: 0 0 50px red; }
         }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 80px 0;
         }
-        
-        .form-group textarea {
-            height: 150px;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            background: #007bff;
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        .submit-btn:hover {
-            background: #0056b3;
-        }
-        
-        /* ПОДВАЛ */
-        .footer {
-            background: #222;
-            color: #fff;
-            padding: 30px 0;
+
+        .character-card {
+            padding: 60px 30px;
             text-align: center;
+            border: 10px dashed transparent;
+            animation: cardStyle 0.2s infinite;
+            transition: all 0.5s;
         }
-        
-        .footer p {
-            margin: 5px 0;
-            color: #aaa;
+
+        @keyframes cardStyle {
+            0% { border-color: red; border-width: 20px; border-style: dotted; }
+            25% { border-color: blue; border-width: 5px; border-style: dashed; }
+            50% { border-color: green; border-width: 15px; border-style: solid; }
+            75% { border-color: yellow; border-width: 8px; border-style: double; }
+            100% { border-color: purple; border-width: 20px; border-style: groove; }
         }
-        
-        /* АДАПТАЦИЯ */
+
+        .character-emoji {
+            font-size: 180px;
+            animation: emojiSpin 0.2s infinite;
+        }
+
+        @keyframes emojiSpin {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 50px;
+            margin-top: 100px;
+            background: repeating-linear-gradient(45deg, black, white, black);
+            border-top: 20px ridge red;
+            border-bottom: 20px groove blue;
+            font-size: 24px;
+            color: white;
+        }
+
         @media (max-width: 768px) {
-            .features-grid,
-            .services-grid,
-            .about-inner {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero h2 {
-                font-size: 32px;
-            }
-            
-            .nav {
-                display: none;
-            }
+            .characters { grid-template-columns: 1fr; }
+            .difficulty-options { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container header-inner">
-            <div class="logo">
-                <img src="images/logo.png" alt="Тестовый лендинг">
-                <h1>Тестовый лендинг</h1>
+    <!-- ЭКРАН ВХОДА -->
+    <div class="entry-screen" id="entryScreen">
+        <div class="entry-form">
+            <h2>👁️‍🗨️ КТО ТЫ, СМЕРТНЫЙ? 👁️‍🗨️</h2>
+            
+            <div class="form-group">
+                <label>🤡 ИМЯ:</label>
+                <input type="text" id="userName" placeholder="Введи имя..." value="Тимофей">
             </div>
-            <nav class="nav">
-                <a href="#features">Преимущества</a>
-                <a href="#about">О нас</a>
-                <a href="#services">Услуги</a>
-                <a href="#contact">Контакты</a>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="container">
-            <h2>Тестовый лендинг</h2>
-            <p>Разработка продающих страниц под ключ. Высокая конверсия, адаптивный дизайн, индивидуальный подход.</p>
-            <a href="#contact" class="btn">Свяжитесь с нами</a>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">Наши преимущества</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Быстрая разработка</h3>
-                    <p>Создаем лендинги от 3 дней. Оперативно и качественно.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📱</div>
-                    <h3>Адаптивный дизайн</h3>
-                    <p>Корректное отображение на всех устройствах.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📈</div>
-                    <h3>Высокая конверсия</h3>
-                    <p>Продуманная структура и элементы для максимальных продаж.</p>
-                </div>
+            
+            <div class="form-group">
+                <label>💀 БОЛЕЗНЬ (можно несколько):</label>
+                <select id="userDisease" multiple size="5">
+                    <option value="Эпилепсия">⚡ Эпилепсия</option>
+                    <option value="Дальтонизм">🌈 Дальтонизм</option>
+                    <option value="Мигрень">🤕 Мигрень</option>
+                    <option value="Шизофрения">👁️ Шизофрения</option>
+                    <option value="Пукизм">💨 Пукизм</option>
+                    <option value="Гипноз" selected>💜 Гипноз</option>
+                </select>
+                <small style="color: #ff0;">(зажми Ctrl для выбора нескольких)</small>
             </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container about-inner">
-            <div class="about-content">
-                <h2>О тестовом лендинге</h2>
-                <p>Мы — команда профессионалов с многолетним опытом создания продающих страниц. За нашими плечами более 500 успешных проектов.</p>
-                <p>Используем современные технологии и лучшие практики для достижения максимальных результатов. Каждый проект уникален и разрабатывается с учетом специфики бизнеса клиента.</p>
-                <p>Гарантируем качество, соблюдение сроков и полное соответствие поставленным задачам.</p>
+            
+            <div class="form-group">
+                <label>⚥ ПОЛ:</label>
+                <select id="userGender">
+                    <option value="Мужской" selected>♂️ Мужской</option>
+                    <option value="Женский">♀️ Женский</option>
+                    <option value="Небинарный">⚧ Небинарный</option>
+                    <option value="Аниме тян">👧 Аниме тян</option>
+                    <option value="Путин">🍵 Путин</option>
+                    <option value="Котик">🐱 Котик</option>
+                </select>
             </div>
-            <div class="about-image">
-                <img src="https://via.placeholder.com/600x400" alt="О тестовом лендинге">
+            
+            <div class="form-group">
+                <label>💕 ОРИЕНТАЦИЯ:</label>
+                <select id="userOrientation">
+                    <option value="Гетеро">💑 Гетеро</option>
+                    <option value="Гомо">👬 Гомо</option>
+                    <option value="Би">👫 Би</option>
+                    <option value="Асексуал">🚫 Асексуал</option>
+                    <option value="Пукисексуал">💨 Пукисексуал</option>
+                    <option value="Гипносексуал" selected>💜 Гипносексуал</option>
+                    <option value="Котикосексуал">🐱 Котикосексуал</option>
+                </select>
             </div>
-        </div>
-    </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Наши услуги</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <h3>Лендинг</h3>
-                    <p>Одностраничный сайт для сбора заявок и продаж</p>
-                    <div class="price">от 50 000 ₽</div>
-                    <a href="#contact" class="service-btn">Заказать</a>
-                </div>
-                <div class="service-item">
-                    <h3>Корпоративный сайт</h3>
-                    <p>Многостраничный сайт для компаний</p>
-                    <div class="price">от 100 000 ₽</div>
-                    <a href="#contact" class="service-btn">Заказать</a>
-                </div>
-                <div class="service-item">
-                    <h3>Интернет-магазин</h3>
-                    <p>Полноценный магазин с каталогом и корзиной</p>
-                    <div class="price">от 200 000 ₽</div>
-                    <a href="#contact" class="service-btn">Заказать</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Свяжитесь с нами</h2>
-            <div class="contact-form">
-                <form>
-                    <div class="form-group">
-                        <input type="text" placeholder="Ваше имя" required>
+            <!-- ===== ВЫБОР СЛОЖНОСТИ ===== -->
+            <div class="difficulty-group">
+                <label>😈 ВЫБЕРИ СЛОЖНОСТЬ 😈</label>
+                <div class="difficulty-options">
+                    <div class="difficulty-option">
+                        <input type="radio" name="difficulty" id="easy" value="Легкая">
+                        <label for="easy">
+                            <span class="difficulty-emoji">😊</span>
+                            ЛЕГКАЯ
+                            <span style="font-size: 16px;">почти не больно</span>
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Ваш Email" required>
+                    <div class="difficulty-option">
+                        <input type="radio" name="difficulty" id="medium" value="Средняя">
+                        <label for="medium">
+                            <span class="difficulty-emoji">😐</span>
+                            СРЕДНЯЯ
+                            <span style="font-size: 16px;">глаза чешутся</span>
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Ваш телефон">
+                    <div class="difficulty-option">
+                        <input type="radio" name="difficulty" id="impossible" value="Невозможная" checked>
+                        <label for="impossible">
+                            <span class="difficulty-emoji">😈😈😈</span>
+                            НЕВОЗМОЖНАЯ
+                            <span style="font-size: 16px;">ты умрёшь</span>
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <textarea placeholder="Ваше сообщение" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Отправить</button>
-                </form>
+                </div>
             </div>
+            
+            <button class="submit-btn" onclick="enterHell()">🔥 ВОЙТИ В АД 🔥</button>
+            <div class="warning">⚠️ ВЫБОР ОПРЕДЕЛИТ РЕАЛЬНОСТЬ ⚠️</div>
         </div>
-    </section>
+    </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 Тестовый лендинг. Все права защищены.</p>
-            <p>Разработка и создание лендингов под ключ</p>
-            <p>г. Москва, ул. Примерная, д. 1 | +7 (999) 123-45-67</p>
-        </div>
-    </footer>
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
+    <div class="container" id="mainContainer">
+        <header class="header">
+            <div class="user-info" id="userInfoDisplay">ЗАГРУЗКА...</div>
+            <div class="difficulty-badge" id="difficultyDisplay">😈😈😈</div>
+        </header>
+
+        <!-- ПЕРСОНАЛЬНОЕ ПРИВЕТСТВИЕ -->
+        <div class="content-section" id="personalMessage" style="font-size: 48px; text-align: center;"></div>
+
+        <!-- КОНТЕНТ ДЛЯ БОЛЕЗНЕЙ -->
+        <div class="content-section" id="diseaseContent"></div>
+
+        <!-- КОНТЕНТ ДЛЯ ОРИЕНТАЦИИ -->
+        <div class="content-section" id="orientationContent"></div>
+
+        <!-- КОНТЕНТ ДЛЯ ПОЛА -->
+        <div class="content-section" id="genderContent"></div>
+
+        <!-- КОНТЕНТ ДЛЯ СЛОЖНОСТИ -->
+        <div class="content-section" id="difficultyContent"></div>
+
+        <!-- ПЕРСОНАЖИ -->
+        <div class="characters" id="characters"></div>
+
+        <!-- ФУТЕР -->
+        <footer class="footer" id="footerMessage"></footer>
+    </div>
 
     <script>
-        document.querySelector('.submit-btn')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-        });
-        
-        document.querySelector('.hero .btn')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
-        });
+        function enterHell() {
+            // ПОЛУЧАЕМ ДАННЫЕ
+            const name = document.getElementById('userName').value.trim() || 'Безымянный';
+            const diseaseSelect = document.getElementById('userDisease');
+            const diseases = Array.from(diseaseSelect.selectedOptions).map(opt => opt.value);
+            const gender = document.getElementById('userGender').value;
+            const orientation = document.getElementById('userOrientation').value;
+            const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+            
+            // СОХРАНЯЕМ
+            window.userData = { name, diseases, gender, orientation, difficulty };
+            
+            // ОБНОВЛЯЕМ
+            updateContent();
+            
+            // АКТИВИРУЕМ АД
+            document.querySelector('.hell-bg')?.remove();
+            const hellBg = document.createElement('div');
+            hellBg.className = 'hell-bg';
+            document.body.appendChild(hellBg);
+            
+            // НАСТРАИВАЕМ АД В ЗАВИСИМОСТИ ОТ СЛОЖНОСТИ
+            const bgSpeed = difficulty === 'Невозможная' ? '0.01s' : difficulty === 'Средняя' ? '0.1s' : '0.2s';
+            hellBg.style.animation = `bgHell ${bgSpeed} infinite`;
+            
+            // СКРЫВАЕМ ЭКРАН
+            document.getElementById('entryScreen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('entryScreen').style.display = 'none';
+            }, 1000);
+            
+            // ПОКАЗЫВАЕМ ОСНОВНОЕ
+            document.getElementById('mainContainer').style.opacity = '1';
+            document.getElementById('mainContainer').style.pointerEvents = 'auto';
+        }
+
+        function updateContent() {
+            const { name, diseases, gender, orientation, difficulty } = window.userData;
+            
+            // ОТОБРАЖАЕМ СЛОЖНОСТЬ
+            let difficultyEmoji = difficulty === 'Невозможная' ? '😈😈😈' : difficulty === 'Средняя' ? '😐' : '😊';
+            document.getElementById('difficultyDisplay').innerHTML = `${difficultyEmoji} ${difficulty} ${difficultyEmoji}`;
+            document.getElementById('userInfoDisplay').innerHTML = `👁️‍🗨️ ${name} 👁️‍🗨️`;
+            
+            // ПЕРСОНАЛЬНОЕ СООБЩЕНИЕ С УЧЁТОМ СЛОЖНОСТИ
+            let personalMsg = `${name}`;
+            if (diseases.includes('Гипноз')) personalMsg += ' • ПОД ГИПНОЗОМ КАТИ 💜';
+            if (difficulty === 'Невозможная') personalMsg += ' • ТЫ ОБРЕЧЁН 😈';
+            else if (difficulty === 'Средняя') personalMsg += ' • ЕЩЁ ЕСТЬ НАДЕЖДА 😐';
+            else personalMsg += ' • ТЕБЕ ПОВЕЗЛО (ПОКА) 😊';
+            document.getElementById('personalMessage').innerHTML = personalMsg;
+            
+            // КОНТЕНТ ДЛЯ СЛОЖНОСТИ
+            let difficultyHtml = `<h2 style="font-size: 48px; text-align: center;">😈 СЛОЖНОСТЬ: ${difficulty} 😈</h2>`;
+            if (difficulty === 'Невозможная') {
+                difficultyHtml += `
+                    <div style="font-size: 36px; text-align: center; padding: 40px;">
+                        <p>⚡ ФОН МИГАЕТ СО СКОРОСТЬЮ 228 ГЦ ⚡</p>
+                        <p>💀 КАЖДАЯ СЕКУНДА МОЖЕТ БЫТЬ ПОСЛЕДНЕЙ 💀</p>
+                        <p>👁️‍🗨️ ТВОИ ГЛАЗА УЖЕ КРОВОТОЧАТ 👁️‍🗨️</p>
+                        <p style="font-size: 120px; margin: 40px;">😈😈😈</p>
+                    </div>
+                `;
+            } else if (difficulty === 'Средняя') {
+                difficultyHtml += `
+                    <div style="font-size: 36px; text-align: center; padding: 40px;">
+                        <p>⚡ ФОН МИГАЕТ, НО ТЕРПИМО ⚡</p>
+                        <p>🤕 ГОЛОВА БОЛИТ, НО ТЫ ЖИВ 🤕</p>
+                        <p>😐 МОЖНО БЫЛО ВЫБРАТЬ ЛЕГКУЮ 😐</p>
+                    </div>
+                `;
+            } else {
+                difficultyHtml += `
+                    <div style="font-size: 36px; text-align: center; padding: 40px;">
+                        <p>😊 ФОН ПОЧТИ НЕ МИГАЕТ 😊</p>
+                        <p>🌸 ТЫ ПОЧУВСТВУЕШЬ ЛИШЬ ЛЁГКИЙ ДИСКОМФОРТ 🌸</p>
+                        <p>🍭 СЛАБАК 🍭</p>
+                    </div>
+                `;
+            }
+            document.getElementById('difficultyContent').innerHTML = difficultyHtml;
+            
+            // БОЛЕЗНИ
+            let diseaseHtml = '<h2 style="font-size: 48px; text-align: center;">💀 ТВОИ БОЛЕЗНИ 💀</h2><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">';
+            diseases.forEach(disease => {
+                diseaseHtml += `
+                    <div style="padding: 40px; text-align: center; border: 3px solid; border-radius: 40px; animation: cardBorder 1s infinite;">
+                        <div style="font-size: 80px;">${disease === 'Гипноз' ? '💜' : disease === 'Пукизм' ? '💨' : '💀'}</div>
+                        <div style="font-size: 36px;">${disease}</div>
+                    </div>
+                `;
+            });
+            diseaseHtml += '</div>';
+            document.getElementById('diseaseContent').innerHTML = diseaseHtml;
+            
+            // ОРИЕНТАЦИЯ
+            let orientationHtml = `<h2 style="font-size: 48px;">💕 ОРИЕНТАЦИЯ: ${orientation} 💕</h2>`;
+            if (orientation === 'Гипносексуал') {
+                orientationHtml += '<div style="font-size: 32px; text-align: center;">Ты любишь Катю. Она любит тебя. Выбор за тебя уже сделали.</div>';
+            }
+            document.getElementById('orientationContent').innerHTML = orientationHtml;
+            
+            // ПОЛ
+            let genderHtml = `<h2 style="font-size: 48px;">⚥ ПОЛ: ${gender} ⚥</h2>`;
+            if (gender === 'Мужской') {
+                genderHtml += '<div style="font-size: 32px; text-align: center;">♂️ У тебя есть яйца. Как у Ростика.</div>';
+            }
+            document.getElementById('genderContent').innerHTML = genderHtml;
+            
+            // ПЕРСОНАЖИ (С АДАПТАЦИЕЙ ПОД СЛОЖНОСТЬ)
+            let charactersHtml = `
+                <div class="character-card">
+                    <div class="character-emoji">🤡💨</div>
+                    <div style="font-size: 48px;">РОСТИК</div>
+                    <div>${difficulty === 'Невозможная' ? 'ПУКАЕТ АДСКИ' : 'ПУКАЕТ'}</div>
+                </div>
+                <div class="character-card">
+                    <div class="character-emoji">💜🔪</div>
+                    <div style="font-size: 48px;">КАТЯ 5.7</div>
+                    <div>${difficulty === 'Невозможная' ? 'ГИПНОЗИРУЕТ В АД' : 'ГИПНОЗИРУЕТ'}</div>
+                </div>
+                <div class="character-card">
+                    <div class="character-emoji">💻:3</div>
+                    <div style="font-size: 48px;">${name}</div>
+                    <div>${difficulty === 'Невозможная' ? 'ОБРЕЧЁН' : 'ВЫЖИВАЕТ'}</div>
+                </div>
+            `;
+            document.getElementById('characters').innerHTML = charactersHtml;
+            
+            // ФУТЕР
+            document.getElementById('footerMessage').innerHTML = 
+                `${name} • ${gender} • ${orientation} • [${diseases.join(', ')}] • СЛОЖНОСТЬ: ${difficulty}`;
+        }
     </script>
 </body>
 </html>
