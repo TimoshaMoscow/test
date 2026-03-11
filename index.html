@@ -3,43 +3,40 @@
 <head>
     <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тестовый лендинг | Официальный демо-сайт для проверки гипотез</title>
-    <meta name="description" content="Это профессиональный тестовый лендинг. Здесь можно безопасно проверять вёрстку, шрифты, кнопки и SEO-гипотезы. Идеальное место для ваших экспериментов.">
-    <meta name="keywords" content="тестовый лендинг, лендинг тест, демо сайт, проверка верстки, тест кода, seo тест, лендинг конструктор, бесплатный тест">
-    <meta name="author" content="Команда тестовых решений">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Интерактивный тестовый лендинг | Песочница для смелых идей и гипотез</title>
+    <meta name="description" content="Самый дружелюбный тестовый полигон. Проверяй верстку, анимации, API, шрифты, UX-гипотезы. Адаптив, скорость, чистый код.">
+    <meta name="keywords" content="тестовый лендинг, интерактивный лендинг, песочница, ui тесты, верстка, seo эксперименты, демо сайт, тренажер для верстальщика, фронтенд полигон">
+    <meta name="author" content="Команда тестовых решений и Тимофей">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="revisit-after" content="3 days">
+    <meta name="revisit-after" content="1 days">
     <meta name="language" content="ru">
     <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
     
-    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА (ЧТОБЫ НЕ БЫЛО ДУБЛЕЙ) ===== -->
+    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
     <link rel="canonical" href="https://timoshamoscow.github.io/test/">
     
-    <!-- ===== OPEN GRAPH (ДЛЯ КРАСОТЫ В СОЦСЕТЯХ) ===== -->
+    <!-- ===== OPEN GRAPH ===== -->
     <meta property="og:locale" content="ru_RU">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Тестовый лендинг — песочница для идей">
-    <meta property="og:description" content="Запускайте эксперименты с дизайном и кодом без риска. Чистая, адаптивная и быстрая площадка.">
+    <meta property="og:title" content="Интерактивный тестовый лендинг — песочница 3.0">
+    <meta property="og:description" content="Проверяй гипотезы, играй с анимациями, тестируй API. Всё в одном флаконе.">
     <meta property="og:url" content="https://timoshamoscow.github.io/test/">
     <meta property="og:site_name" content="Тестовый лендинг">
     <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Логотип тестового лендинга">
 
-    <!-- ===== TWITTER CARDS (ДЛЯ ТВИТТЕРА/X) ===== -->
+    <!-- ===== TWITTER CARDS ===== -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Тестовый лендинг — песочница для идей">
-    <meta name="twitter:description" content="Запускайте эксперименты с дизайном и кодом без риска. Чистая, адаптивная и быстрая площадка.">
+    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
+    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
     <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta name="twitter:site" content="@testlanding">
     
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
     
-    <!-- ===== СТИЛИ (МИНИМАЛИЗМ, НО КРАСИВО) ===== -->
+    <!-- ===== СТИЛИ ===== -->
     <style>
         * {
             margin: 0;
@@ -48,16 +45,30 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
+            color: #0a1e2f;
             line-height: 1.5;
+            min-height: 100vh;
+            padding: 1rem;
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+        }
+
+        /* АНИМАЦИИ */
+        @keyframes softGlow {
+            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
+            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         /* ШАПКА */
@@ -67,7 +78,14 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 2rem;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 1rem 2.5rem;
+            border-radius: 80px;
             margin-bottom: 4rem;
+            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
         }
 
         .logo {
@@ -77,259 +95,324 @@
         }
 
         .logo img {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
+            border-radius: 20px;
             object-fit: contain;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
+        .logo img:hover { transform: rotate(10deg) scale(1.1); }
 
         .logo h1 {
             font-size: 2rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .badge {
-            background: #e2e8f0;
-            padding: 0.5rem 1rem;
-            border-radius: 100px;
-            font-weight: 500;
-            color: #334155;
+            background: #ffffffdd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e2b5e;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid white;
         }
 
         /* ГЕРОЙ */
         .hero {
             text-align: center;
-            padding: 4rem 2rem;
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            margin-bottom: 4rem;
+            padding: 5rem 3rem;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+            border-radius: 70px;
+            box-shadow: 0 40px 60px -20px #1e2b5e40;
+            margin-bottom: 5rem;
+            border: 1px solid #ffffff;
+            position: relative;
+            overflow: hidden;
         }
-
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
         .hero h2 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 800;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #1e293b, #334155);
+            background: linear-gradient(135deg, #0a1e2f, #283593);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .hero p {
-            font-size: 1.25rem;
-            color: #475569;
-            max-width: 700px;
-            margin: 0 auto 2rem;
+            font-size: 1.4rem;
+            color: #2d3f5e;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
         }
-
         .cta-button {
             display: inline-block;
-            background: #2563eb;
+            background: linear-gradient(145deg, #283593, #1e2b5e);
             color: white;
             font-weight: 600;
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3rem;
             border-radius: 60px;
             text-decoration: none;
-            font-size: 1.125rem;
-            transition: all 0.2s;
+            font-size: 1.3rem;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 15px -3px #2563eb50;
+            box-shadow: 0 15px 25px -8px #28359380;
+            transition: all 0.2s;
+            border: 1px solid #ffffff50;
         }
-
         .cta-button:hover {
-            background: #1d4ed8;
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 25px 35px -8px #1e2b5e;
+            background: linear-gradient(145deg, #1e2b5e, #283593);
         }
 
-        /* СЕТКА КАРТОЧЕК */
+        /* КАРТОЧКИ */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
+            gap: 2.2rem;
+            margin: 5rem 0;
         }
-
         .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 30px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px -15px #1a237e30;
+            border: 1px solid rgba(255,255,255,0.9);
             transition: all 0.3s;
+            text-align: center;
+            animation: float 6s infinite ease-in-out;
         }
-
+        .feature-card:nth-child(2) { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) { animation-delay: 1s; }
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            transform: translateY(-15px) scale(1.02);
+            border-color: #3f51b5;
+            background: white;
         }
-
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
         }
-
         .feature-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: #0f172a;
+            color: #0a1e2f;
         }
 
-        .feature-text {
-            color: #475569;
+        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
+        .playground {
+            background: white;
+            border-radius: 70px;
+            padding: 4rem 3rem;
+            margin: 5rem 0;
+            box-shadow: 0 30px 50px -20px #0f2b45;
         }
+        .playground h3 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e2b5e;
+        }
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .grid-item {
+            background: #e9ecf5;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e2b5e;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .grid-item:hover {
+            border-color: #3f51b5;
+            background: white;
+            transform: scale(1.03);
+            cursor: pointer;
+        }
+        .slider-demo {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        .knob {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+            box-shadow: 0 15px 25px -5px #1a237e80;
+            transition: 0.1s;
+        }
+        .knob:active { transform: rotate(30deg); }
 
-        /* СЕКЦИЯ ЛОГОТИПА */
+        /* ЛОГО-СЕКЦИЯ */
         .logo-section {
             text-align: center;
-            padding: 4rem;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            border-radius: 40px;
-            margin: 4rem 0;
+            padding: 4rem 3rem;
+            background: linear-gradient(145deg, #e8edff, #d5defa);
+            border-radius: 60px;
+            margin: 5rem 0;
         }
-
         .logo-section img {
-            width: 160px;
-            height: 160px;
-            object-fit: contain;
-            margin-bottom: 2rem;
+            width: 180px;
+            height: 180px;
+            border-radius: 40px;
+            box-shadow: 0 30px 40px -15px #1e2b5e;
+            transition: 0.4s;
         }
+        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
 
         /* ПОДВАЛ */
         .footer {
             text-align: center;
-            padding: 3rem 0;
-            color: #64748b;
-            border-top: 2px solid #e2e8f0;
+            padding: 3rem 2rem;
+            color: #44556b;
+            border-top: 2px dashed #b0c0d0;
             margin-top: 4rem;
+            background: #f5faff;
+            border-radius: 60px 60px 30px 30px;
         }
 
-        /* АДАПТАЦИЯ */
-        @media (max-width: 640px) {
-            .hero h2 { font-size: 2rem; }
+        @media (max-width: 700px) {
+            .hero h2 { font-size: 2.5rem; }
             .header { flex-direction: column; text-align: center; }
             .logo { flex-direction: column; }
         }
-
-        /* МИКРОРАЗМЕТКА (НЕ ВИДНА, НО ПОЛЕЗНА) */
-        .hidden-schema {
-            display: none;
-        }
+        .hidden-schema { display: none; }
     </style>
     
-    <!-- ===== JSON-LD (СТРУКТУРИРОВАННЫЕ ДАННЫЕ ДЛЯ ГУГЛА) ===== -->
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Тестовый лендинг",
-        "alternateName": "Test Landing Page",
+        "name": "Тестовый лендинг 3.0",
         "url": "https://timoshamoscow.github.io/test/",
-        "description": "Профессиональная площадка для тестирования вёрстки, гипотез и SEO. Чисто, быстро, надёжно.",
-        "author": {
-            "@type": "Organization",
-            "name": "Команда тестовых решений",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://timoshamoscow.github.io/test/images/logo.png"
-            }
-        },
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://timoshamoscow.github.io/test/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ImageObject",
-        "contentUrl": "https://timoshamoscow.github.io/test/images/logo.png",
-        "name": "Логотип тестового лендинга",
-        "description": "Основной логотип сайта для тестирования и экспериментов"
+        "description": "Интерактивная песочница для фронтенд-экспериментов",
+        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
     }
     </script>
 </head>
 <body>
-    <!-- СКРЫТЫЙ ТЕКСТ ДЛЯ КЛЮЧЕВЫХ СЛОВ (НЕ ВРЕДИТ, ПОМОГАЕТ SEO) -->
-    <div class="hidden-schema">
-        тестовый лендинг демо проверка верстка код seo оптимизация эксперименты гипотезы
-    </div>
+    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
+    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
 
     <div class="container">
-        <!-- ШАПКА С ЛОГО -->
         <header class="header">
             <div class="logo">
-                <img src="images/logo.png" alt="Логотип тестового лендинга" width="64" height="64">
+                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
                 <h1>Тестовый лендинг</h1>
             </div>
-            <div class="badge">
-                🔬 v.3.0.1 • Песочница
-            </div>
+            <div class="badge">🚀 v.3.5 • Живая песочница</div>
         </header>
 
-        <!-- ГЕРОЙ -->
         <section class="hero">
-            <h2>Площадка для смелых экспериментов</h2>
-            <p>Этот сайт — чистая доска для ваших идей. Проверяйте шрифты, вёрстку, кнопки, формы и любые SEO-гипотезы без риска что-то сломать. Абсолютно безопасно и профессионально.</p>
-            <a href="#" class="cta-button" onclick="alert('Спасибо за тест! Свяжитесь с нами для сотрудничества.'); return false;">🚀 Начать тест</a>
+            <h2>Полигон для гипотез<br>и смелых решений</h2>
+            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
+            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
         </section>
 
-        <!-- ПРЕИМУЩЕСТВА ТЕСТОВОГО ЛЕНДИНГА -->
+        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
+        <section class="playground">
+            <h3>⚡ Интерактивная лаборатория</h3>
+            <div class="grid-demo">
+                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
+                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
+                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
+                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
+            </div>
+            <div class="slider-demo">
+                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
+                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
+                <div style="font-size: 2rem;">🎚️</div>
+            </div>
+        </section>
+
+        <!-- ОСНОВНЫЕ ФИШКИ -->
         <section class="features">
             <div class="feature-card">
-                <div class="feature-icon">🧪</div>
+                <div class="feature-icon">🧩</div>
                 <h3 class="feature-title">Чистый код</h3>
-                <p class="feature-text">Ничего лишнего. Только семантичная, валидная вёрстка, готовая к любым экспериментам и доработкам.</p>
+                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📈</div>
-                <h3 class="feature-title">SEO-оптимизация</h3>
-                <p class="feature-text">Все мета-теги, Open Graph и структурированные данные уже настроены. Смотрите, как сайт выглядит в поиске.</p>
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">SEO-агрессия</h3>
+                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Высокая скорость</h3>
-                <p class="feature-text">Минималистичный дизайн и быстрая загрузка. Идеально для тестирования производительности и Core Web Vitals.</p>
+                <h3 class="feature-title">Скорость + UX</h3>
+                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
             </div>
         </section>
 
-        <!-- БЛОК С ЛОГОТИПОМ (ДЛЯ НАГЛЯДНОСТИ) -->
+        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
         <section class="logo-section">
-            <img src="images/logo.png" alt="Логотип проекта для тестов" width="160" height="160">
-            <h3 style="font-size: 2rem; margin-bottom: 1rem; color: #0f172a;">Наш логотип</h3>
-            <p style="color: #475569; max-width: 600px; margin: 0 auto;">Файл <code>images/logo.png</code> успешно загружен. Используйте его для брендирования своих тестовых макетов.</p>
+            <img src="images/logo.png" alt="Логотип">
+            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
         </section>
 
-        <!-- ДОПОЛНИТЕЛЬНЫЙ БЛОК ДЛЯ КЛЮЧЕЙ -->
-        <section style="text-align: center; padding: 2rem; background: #ffffff; border-radius: 30px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
-            <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Что можно тестировать?</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Шрифты</span>
-                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Кнопки</span>
-                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Сетки</span>
-                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Медиа-запросы</span>
-                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Анимации</span>
-                <span style="background: #e2e8f0; padding: 0.5rem 1.5rem; border-radius: 60px;">Мета-теги</span>
+        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
+        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
+            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
+                <span class="badge" style="font-size:1.2rem;">Сетки</span>
+                <span class="badge" style="font-size:1.2rem;">Анимации</span>
+                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
+                <span class="badge" style="font-size:1.2rem;">Типографика</span>
+                <span class="badge" style="font-size:1.2rem;">SVG</span>
+                <span class="badge" style="font-size:1.2rem;">Canvas</span>
+                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
+                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
             </div>
         </section>
 
-        <!-- ПОДВАЛ -->
         <footer class="footer">
-            <p>© 2026 Тестовый лендинг. Все права защищены.</p>
-            <p style="margin-top: 1rem;">Этот сайт создан исключительно для демонстрации и экспериментов. <br> <a href="https://timoshamoscow.github.io/test/" style="color: #2563eb;">Вернуться на главную</a></p>
+            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
+            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
+            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
         </footer>
     </div>
 
-    <!-- СЧЁТЧИК (НЕОБЯЗАТЕЛЬНО, НО ПОЛЕЗНО ДЛЯ ТЕСТОВ) -->
     <script>
-        console.log('✅ Тестовый лендинг загружен. SEO-данные активированы.');
-        console.log('📊 Open Graph:', document.querySelector('meta[property="og:title"]')?.content);
-        console.log('🖼️ Логотип:', document.querySelector('meta[property="og:image"]')?.content);
+        function demoAlert() {
+            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
+        }
+        document.querySelectorAll('.grid-item').forEach(el => {
+            el.addEventListener('click', function() {
+                this.style.transition = '0.2s';
+            });
+        });
+        console.log('✅ Интерактивный тестовый лендинг загружен.');
     </script>
 </body>
 </html>
