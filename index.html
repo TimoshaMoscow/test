@@ -1,625 +1,612 @@
 <!DOCTYPE html>
-<html lang="ru-HELL">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👁️‍🗨️ АНКЕТА • ТЕПЕРЬ С ПРОКРУТКОЙ</title>
-    
+    <title>Личное пространство · Вход через Google</title>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            font-family: 'Comic Sans MS', 'Arial', cursive;
+            background: #f0f5fa;
             min-height: 100vh;
-            background: black;
-            position: relative;
-            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            transition: background 0.3s;
         }
 
-        /* ===== ЭКРАН ВХОДА (ИСПРАВЛЕННЫЙ) ===== */
-        .entry-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* главная карточка */
+        .app-container {
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.98);
-            z-index: 9999999;
+            max-width: 1000px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 3rem;
+            box-shadow: 0 30px 70px -20px rgba(0,40,100,0.3), 0 0 0 1px rgba(255,255,255,0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        /* шапка с градиентом */
+        .header {
+            background: linear-gradient(110deg, #1a2f4e, #1f3a5f);
+            padding: 1.8rem 2.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .header-icon {
+            background: rgba(255,255,255,0.15);
+            width: 58px;
+            height: 58px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .header-text h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-text p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        /* основная область */
+        .main-content {
+            padding: 2.2rem 2.5rem 2.5rem;
+        }
+
+        /* блок неавторизован */
+        .unauth-box {
+            text-align: center;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .unauth-box h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0b2642;
+            margin-bottom: 0.7rem;
+        }
+
+        .unauth-box .lead {
+            color: #365073;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* контейнер для кнопки Google */
+        #googleButtonContainer {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* ВЫРАВНИВАНИЕ ПО ВЕРХУ */
-            overflow-y: auto; /* ВКЛЮЧАЕМ ПРОКРУТКУ */
-            padding: 40px 0; /* ОТСТУПЫ СВЕРХУ И СНИЗУ */
-            transition: opacity 1s;
+            margin: 2rem 0 2rem;
+            min-height: 60px;
         }
 
-        .entry-form {
-            background: linear-gradient(135deg, #1a0033, #33001a);
-            padding: 60px;
-            border-radius: 60px;
-            border: 5px solid #ff00ff;
-            max-width: 700px;
-            width: 90%;
-            box-shadow: 0 0 100px #ff0000;
-            animation: formPulse 2s infinite;
-            margin: auto; /* ЦЕНТРИРОВАНИЕ ПО ВЕРТИКАЛИ */
-        }
-
-        @keyframes formPulse {
-            0% { box-shadow: 0 0 50px #ff0000; }
-            33% { box-shadow: 0 0 150px #ff00ff; }
-            66% { box-shadow: 0 0 150px #0000ff; }
-            100% { box-shadow: 0 0 50px #ff0000; }
-        }
-
-        .entry-form h2 {
-            font-size: 48px;
-            color: white;
-            text-align: center;
-            margin-bottom: 40px;
-            text-shadow: 5px 5px 0 red, -5px -5px 0 blue;
-            animation: textShake 0.5s infinite;
-        }
-
-        @keyframes textShake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 28px;
-            color: #ffcc00;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 20px;
-            font-size: 24px;
-            background: rgba(255,255,255,0.1);
-            border: 3px solid #ff00ff;
-            color: white;
-            border-radius: 30px;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            background: rgba(255,255,255,0.3);
-            border-color: #ff0000;
-            outline: none;
-        }
-
-        .form-group option {
-            background: #330066;
-            color: white;
-        }
-
-        /* ===== ВЫБОР СЛОЖНОСТИ ===== */
-        .difficulty-group {
-            margin-bottom: 30px;
-            border: 3px solid #ff00ff;
-            border-radius: 60px;
-            padding: 30px;
-            background: rgba(0,0,0,0.5);
-            animation: difficultyPulse 2s infinite;
-        }
-
-        @keyframes difficultyPulse {
-            0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
-            33% { border-color: #00ff00; box-shadow: 0 0 30px #00ff00; }
-            66% { border-color: #0000ff; box-shadow: 0 0 30px #0000ff; }
-            100% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
-        }
-
-        .difficulty-group label {
-            font-size: 36px !important;
-            color: #ff0 !important;
-            text-align: center;
-            margin-bottom: 30px !important;
-            text-shadow: 0 0 20px red;
-        }
-
-        .difficulty-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .difficulty-option {
-            position: relative;
-        }
-
-        .difficulty-option input[type="radio"] {
-            display: none;
-        }
-
-        .difficulty-option label {
+        .features-preview {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: center;
+            margin: 2.5rem 0 1rem;
+        }
+
+        .feature-badge {
+            background: white;
+            border-radius: 60px;
+            padding: 0.5rem 1.3rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1f3a5f;
+            box-shadow: 0 3px 10px rgba(0,20,50,0.08);
+            border: 1px solid #d3e2f5;
+        }
+
+        .feature-badge i {
+            margin-right: 8px;
+            color: #2b4f8e;
+        }
+
+        /* АВТОРИЗОВАННЫЙ КОНТЕНТ */
+        .auth-content {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* профиль сверху */
+        .profile-bar {
+            display: flex;
             align-items: center;
-            padding: 30px 20px;
-            background: rgba(255,255,255,0.1);
-            border: 3px solid;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 24px !important;
-            text-align: center;
-            margin: 0 !important;
-        }
-
-        .difficulty-option input[type="radio"]:checked + label {
-            transform: scale(1.1);
-            filter: brightness(150%);
-            box-shadow: 0 0 50px currentColor;
-            border-width: 5px;
-        }
-
-        .difficulty-emoji {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .difficulty-option:nth-child(1) label { border-color: #00ff00; color: #00ff00; }
-        .difficulty-option:nth-child(2) label { border-color: #ffaa00; color: #ffaa00; }
-        .difficulty-option:nth-child(3) label { border-color: #ff0000; color: #ff0000; }
-
-        .submit-btn {
-            width: 100%;
-            padding: 30px;
-            font-size: 36px;
-            font-weight: 900;
-            background: linear-gradient(45deg, red, blue, green, yellow);
-            color: white;
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            animation: buttonPulse 0.5s infinite;
-            text-transform: uppercase;
-            margin-top: 30px;
-        }
-
-        @keyframes buttonPulse {
-            0% { transform: scale(1); filter: hue-rotate(0deg); }
-            50% { transform: scale(1.05); filter: hue-rotate(180deg); }
-            100% { transform: scale(1); filter: hue-rotate(360deg); }
-        }
-
-        .warning {
-            text-align: center;
-            color: red;
-            font-size: 18px;
-            margin-top: 20px;
-            animation: blink 0.5s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* ===== АДСКИЙ ФОН ===== */
-        .hell-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            animation: bgHell 0.1s infinite;
-        }
-
-        @keyframes bgHell {
-            0% { background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00); }
-            25% { background: linear-gradient(45deg, #ff00ff, #00ffff, #ff8000, #8000ff); }
-            50% { background: radial-gradient(circle, #ff0000, #00ff00, #0000ff); }
-            75% { background: repeating-linear-gradient(45deg, #ff0000 0px, #ff0000 20px, #00ff00 20px, #00ff00 40px); }
-            100% { background: conic-gradient(from 0deg, red, yellow, green, blue, purple, red); }
-        }
-
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 1s;
-            pointer-events: none;
-        }
-
-        .header {
-            display: flex;
             justify-content: space-between;
+            background: white;
+            border-radius: 100px;
+            padding: 0.5rem 1rem 0.5rem 1.2rem;
+            border: 1px solid #ceddec;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px -8px rgba(0,0,0,0.1);
+        }
+
+        .profile-info {
+            display: flex;
             align-items: center;
-            padding: 30px 50px;
-            background: repeating-linear-gradient(45deg, 
-                rgba(255,0,0,0.5) 0px, 
-                rgba(0,255,0,0.5) 20px, 
-                rgba(0,0,255,0.5) 40px);
-            border: 10px dotted #ff00ff;
-            border-radius: 1000px 0 1000px 0;
-            margin-bottom: 50px;
-            animation: borderRotate 0.5s infinite;
+            gap: 0.8rem;
         }
 
-        @keyframes borderRotate {
-            0% { border-color: #ff0000; border-width: 20px; }
-            25% { border-color: #00ff00; border-width: 5px; }
-            50% { border-color: #0000ff; border-width: 15px; }
-            75% { border-color: #ffff00; border-width: 8px; }
-            100% { border-color: #ff00ff; border-width: 20px; }
+        .avatar-small {
+            width: 44px;
+            height: 44px;
+            border-radius: 44px;
+            background: #1f3a5f;
+            border: 2px solid white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            object-fit: cover;
         }
 
-        .user-info {
-            padding: 20px 40px;
-            background: black;
-            border: 5px solid white;
-            color: white;
-            font-size: 28px;
-            animation: userPulse 1s infinite;
+        .name-email h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a2f4e;
         }
 
-        @keyframes userPulse {
-            0% { background: black; color: white; }
-            50% { background: white; color: black; }
-            100% { background: black; color: white; }
+        .name-email p {
+            font-size: 0.85rem;
+            color: #527196;
         }
 
-        .difficulty-badge {
-            padding: 20px 40px;
-            font-size: 36px;
-            font-weight: 900;
-            border-radius: 60px;
-            animation: badgeGlow 1s infinite;
+        .logout-btn {
+            background: none;
+            border: 1px solid #cbd6e6;
+            border-radius: 40px;
+            padding: 0.5rem 1.3rem;
+            font-size: 0.9rem;
+            color: #2a405e;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        @keyframes badgeGlow {
-            0% { filter: drop-shadow(0 0 20px red); }
-            33% { filter: drop-shadow(0 0 20px blue); }
-            66% { filter: drop-shadow(0 0 20px green); }
-            100% { filter: drop-shadow(0 0 20px red); }
+        .logout-btn:hover {
+            background: #fdeded;
+            border-color: #d99b9b;
+            color: #b33c3c;
         }
 
-        .content-section {
-            margin: 60px 0;
-            padding: 40px;
-            border-radius: 60px;
-            animation: contentGlow 2s infinite;
-        }
-
-        @keyframes contentGlow {
-            0% { box-shadow: 0 0 50px red; }
-            33% { box-shadow: 0 0 50px blue; }
-            66% { box-shadow: 0 0 50px green; }
-            100% { box-shadow: 0 0 50px red; }
-        }
-
-        .characters {
+        /* сетка контента */
+        .content-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 80px 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 1.5rem;
         }
 
-        .character-card {
-            padding: 60px 30px;
-            text-align: center;
-            border: 10px dashed transparent;
-            animation: cardStyle 0.2s infinite;
-            transition: all 0.5s;
+        .info-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 1.5rem 1.5rem 1.8rem;
+            box-shadow: 0 8px 22px -10px rgba(0,32,64,0.12);
+            border: 1px solid rgba(255,255,255,0.7);
+            transition: transform 0.15s;
         }
 
-        @keyframes cardStyle {
-            0% { border-color: red; border-width: 20px; border-style: dotted; }
-            25% { border-color: blue; border-width: 5px; border-style: dashed; }
-            50% { border-color: green; border-width: 15px; border-style: solid; }
-            75% { border-color: yellow; border-width: 8px; border-style: double; }
-            100% { border-color: purple; border-width: 20px; border-style: groove; }
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 30px -12px rgba(0,55,110,0.2);
         }
 
-        .character-emoji {
-            font-size: 180px;
-            animation: emojiSpin 0.2s infinite;
+        .card-icon {
+            font-size: 2rem;
+            color: #1f3a5f;
+            margin-bottom: 1.2rem;
+            background: #e3eefb;
+            width: 56px;
+            height: 56px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes emojiSpin {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(90deg); }
-            50% { transform: rotate(180deg); }
-            75% { transform: rotate(270deg); }
-            100% { transform: rotate(360deg); }
+        .info-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #11263e;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: #3b5379;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 2rem;
+            background: #e8f0fd;
+            border-radius: 1.8rem;
+            padding: 1.5rem 2rem;
+            margin-top: 1.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #11263e;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: #4b6382;
+            font-size: 0.9rem;
+        }
+
+        .dashboard-note {
+            background: #ffffffc9;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.8rem;
+            margin-top: 2rem;
+            border: 1px dashed #9bb7dd;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-note i {
+            font-size: 2rem;
+            color: #527bbd;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .setup-note {
+            background: #fef5e7;
+            border-radius: 18px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid #f6ad55;
+            color: #744210;
+            font-size: 0.95rem;
+        }
+
+        .setup-note a {
+            color: #2b4f8e;
+            text-decoration: underline;
         }
 
         .footer {
-            text-align: center;
-            padding: 50px;
-            margin-top: 100px;
-            background: repeating-linear-gradient(45deg, black, white, black);
-            border-top: 20px ridge red;
-            border-bottom: 20px groove blue;
-            font-size: 24px;
-            color: white;
-        }
-
-        /* ДОПОЛНИТЕЛЬНО ДЛЯ МОБИЛЬНЫХ */
-        @media (max-width: 768px) {
-            .characters { grid-template-columns: 1fr; }
-            .difficulty-options { grid-template-columns: 1fr; }
-            .entry-form { padding: 40px 20px; }
-            .entry-form h2 { font-size: 36px; }
-            .form-group label { font-size: 24px; }
-            .difficulty-group label { font-size: 28px !important; }
+            background: #e2ecf9;
+            padding: 1.2rem 2.5rem;
+            font-size: 0.85rem;
+            color: #3865a0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
     </style>
 </head>
 <body>
-    <!-- ЭКРАН ВХОДА (ТЕПЕРЬ С ПРОКРУТКОЙ) -->
-    <div class="entry-screen" id="entryScreen">
-        <div class="entry-form">
-            <h2>👁️‍🗨️ КТО ТЫ, СМЕРТНЫЙ? 👁️‍🗨️</h2>
-            
-            <div class="form-group">
-                <label>🤡 ИМЯ:</label>
-                <input type="text" id="userName" placeholder="Введи имя..." value="Тимофей">
+    <div class="app-container">
+        <!-- Шапка общая -->
+        <div class="header">
+            <div class="header-icon"><i class="fas fa-table-cells-large"></i></div>
+            <div class="header-text">
+                <h1>Личное пространство</h1>
+                <p><i class="fas fa-shield-alt"></i> Защищено входом через Google</p>
             </div>
-            
-            <div class="form-group">
-                <label>💀 БОЛЕЗНЬ (можно несколько):</label>
-                <select id="userDisease" multiple size="5">
-                    <option value="Эпилепсия">⚡ Эпилепсия</option>
-                    <option value="Дальтонизм">🌈 Дальтонизм</option>
-                    <option value="Мигрень">🤕 Мигрень</option>
-                    <option value="Шизофрения">👁️ Шизофрения</option>
-                    <option value="Пукизм">💨 Пукизм</option>
-                    <option value="Гипноз" selected>💜 Гипноз</option>
-                </select>
-                <small style="color: #ff0;">(зажми Ctrl для выбора нескольких)</small>
-            </div>
-            
-            <div class="form-group">
-                <label>⚥ ПОЛ:</label>
-                <select id="userGender">
-                    <option value="Мужской" selected>♂️ Мужской</option>
-                    <option value="Женский">♀️ Женский</option>
-                    <option value="Небинарный">⚧ Небинарный</option>
-                    <option value="Аниме тян">👧 Аниме тян</option>
-                    <option value="Путин">🍵 Путин</option>
-                    <option value="Котик">🐱 Котик</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>💕 ОРИЕНТАЦИЯ:</label>
-                <select id="userOrientation">
-                    <option value="Гетеро">💑 Гетеро</option>
-                    <option value="Гомо">👬 Гомо</option>
-                    <option value="Би">👫 Би</option>
-                    <option value="Асексуал">🚫 Асексуал</option>
-                    <option value="Пукисексуал">💨 Пукисексуал</option>
-                    <option value="Гипносексуал" selected>💜 Гипносексуал</option>
-                    <option value="Котикосексуал">🐱 Котикосексуал</option>
-                </select>
-            </div>
+        </div>
 
-            <!-- ===== ВЫБОР СЛОЖНОСТИ ===== -->
-            <div class="difficulty-group">
-                <label>😈 ВЫБЕРИ СЛОЖНОСТЬ 😈</label>
-                <div class="difficulty-options">
-                    <div class="difficulty-option">
-                        <input type="radio" name="difficulty" id="easy" value="Легкая">
-                        <label for="easy">
-                            <span class="difficulty-emoji">😊</span>
-                            ЛЕГКАЯ
-                            <span style="font-size: 16px;">почти не больно</span>
-                        </label>
+        <!-- Основной блок -->
+        <div class="main-content">
+            <!-- Секция для неавторизованных -->
+            <div id="unauthBlock">
+                <div class="unauth-box">
+                    <h2>Ваш личный уголок</h2>
+                    <div class="lead">Войдите через Google, чтобы увидеть заметки, задачи и рекомендации</div>
+                    
+                    <!-- Контейнер под кнопку Google -->
+                    <div id="googleButtonContainer"></div>
+
+                    <!-- Подсказка для настройки (будет скрыта при корректном Client ID) -->
+                    <div id="configNote" class="setup-note">
+                        <i class="fas fa-key"></i> <strong>Настройка доступа:</strong> Замените <code style="background:#eee; padding:3px 6px; border-radius:12px;">YOUR_GOOGLE_CLIENT_ID</code> в коде на реальный Client ID из <a href="#" id="howtoLink">Google Cloud</a>.
                     </div>
-                    <div class="difficulty-option">
-                        <input type="radio" name="difficulty" id="medium" value="Средняя">
-                        <label for="medium">
-                            <span class="difficulty-emoji">😐</span>
-                            СРЕДНЯЯ
-                            <span style="font-size: 16px;">глаза чешутся</span>
-                        </label>
-                    </div>
-                    <div class="difficulty-option">
-                        <input type="radio" name="difficulty" id="impossible" value="Невозможная" checked>
-                        <label for="impossible">
-                            <span class="difficulty-emoji">😈😈😈</span>
-                            НЕВОЗМОЖНАЯ
-                            <span style="font-size: 16px;">ты умрёшь</span>
-                        </label>
+
+                    <!-- Превьюшки фич -->
+                    <div class="features-preview">
+                        <span class="feature-badge"><i class="fas fa-cloud-sun"></i> Персональные заметки</span>
+                        <span class="feature-badge"><i class="fas fa-chart-simple"></i> Дашборд</span>
+                        <span class="feature-badge"><i class="fas fa-calendar"></i> План на день</span>
+                        <span class="feature-badge"><i class="fas fa-images"></i> Галерея</span>
                     </div>
                 </div>
             </div>
-            
-            <button class="submit-btn" onclick="enterHell()">🔥 ВОЙТИ В АД 🔥</button>
-            <div class="warning">⚠️ ВЫБОР ОПРЕДЕЛИТ РЕАЛЬНОСТЬ ⚠️</div>
+
+            <!-- Секция для авторизованных (скрыта изначально) -->
+            <div id="authBlock" class="auth-content hidden">
+                <!-- Профиль + кнопка выхода -->
+                <div class="profile-bar" id="profileBar">
+                    <div class="profile-info">
+                        <img class="avatar-small" id="userAvatar" src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png" alt="avatar">
+                        <div class="name-email">
+                            <h3 id="userName">Иван Петров</h3>
+                            <p id="userEmail">ivan@gmail.com</p>
+                        </div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+                </div>
+
+                <!-- КОНТЕНТ (доступен только после входа) -->
+                <h2 style="font-size: 1.8rem; font-weight: 550; color:#11263e; margin-bottom: 0.5rem;">Мои сервисы</h2>
+                <div style="color: #3865a0; margin-bottom: 1.2rem;"><i class="fas fa-chevron-right"></i> контент, доступный авторизованным пользователям</div>
+
+                <div class="content-grid">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fas fa-pen-to-square"></i></div>
+                        <h3>Быстрые заметки</h3>
+                        <p>Синхронизировано с Google Drive. Ваши последние записи: "Встреча в пятницу", "Купить подарок", "Идея для проекта".</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Ежедневная статистика</h3>
+                        <p>Шаги: 7842 • Сон: 7.2 ч • Воды: 4 стакана. Данные обновлены 5 минут назад.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+                        <h3>План дня</h3>
+                        <p>📌 14:00 Созвон<br>📌 16:30 Тренировка<br>📌 19:00 Забрать заказ</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fas fa-photo-film"></i></div>
+                        <h3>Последние фото</h3>
+                        <p>Вы загрузили 12 фото за последнюю неделю. Последнее из парка вчера в 18:24.</p>
+                    </div>
+                </div>
+
+                <!-- Доп. блоки -->
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <i class="fas fa-cloud" style="font-size: 2.2rem; color:#2a5caa;"></i>
+                        <div>
+                            <div class="stat-value">2.4 ГБ</div>
+                            <div class="stat-label">Облачное хранилище</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-envelope-open-text" style="font-size: 2.2rem; color:#2a5caa;"></i>
+                        <div>
+                            <div class="stat-value">14</div>
+                            <div class="stat-label">Непрочитанных</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users" style="font-size: 2.2rem; color:#2a5caa;"></i>
+                        <div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Общих доступа</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-note">
+                    <i class="fas fa-rocket"></i>
+                    <span><strong>Персональный дашборд</strong> — это пространство отображается только после успешного входа через Google. Все данные ненастоящие (демо), но вы можете заменить их на свои.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Футер (для всех) -->
+        <div class="footer">
+            <span><i class="fas fa-lock"></i> Реальный вход Google (Identity Services)</span>
+            <span>⚡ Демо-портал · контент для авторизованных</span>
         </div>
     </div>
 
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
-    <div class="container" id="mainContainer">
-        <header class="header">
-            <div class="user-info" id="userInfoDisplay">ЗАГРУЗКА...</div>
-            <div class="difficulty-badge" id="difficultyDisplay">😈😈😈</div>
-        </header>
-
-        <!-- ПЕРСОНАЛЬНОЕ ПРИВЕТСТВИЕ -->
-        <div class="content-section" id="personalMessage" style="font-size: 48px; text-align: center;"></div>
-
-        <!-- КОНТЕНТ ДЛЯ БОЛЕЗНЕЙ -->
-        <div class="content-section" id="diseaseContent"></div>
-
-        <!-- КОНТЕНТ ДЛЯ ОРИЕНТАЦИИ -->
-        <div class="content-section" id="orientationContent"></div>
-
-        <!-- КОНТЕНТ ДЛЯ ПОЛА -->
-        <div class="content-section" id="genderContent"></div>
-
-        <!-- КОНТЕНТ ДЛЯ СЛОЖНОСТИ -->
-        <div class="content-section" id="difficultyContent"></div>
-
-        <!-- ПЕРСОНАЖИ -->
-        <div class="characters" id="characters"></div>
-
-        <!-- ФУТЕР -->
-        <footer class="footer" id="footerMessage"></footer>
-    </div>
-
     <script>
-        function enterHell() {
-            // ПОЛУЧАЕМ ДАННЫЕ
-            const name = document.getElementById('userName').value.trim() || 'Безымянный';
-            const diseaseSelect = document.getElementById('userDisease');
-            const diseases = Array.from(diseaseSelect.selectedOptions).map(opt => opt.value);
-            const gender = document.getElementById('userGender').value;
-            const orientation = document.getElementById('userOrientation').value;
-            const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
-            
-            // СОХРАНЯЕМ
-            window.userData = { name, diseases, gender, orientation, difficulty };
-            
-            // ОБНОВЛЯЕМ
-            updateContent();
-            
-            // АКТИВИРУЕМ АД
-            document.querySelector('.hell-bg')?.remove();
-            const hellBg = document.createElement('div');
-            hellBg.className = 'hell-bg';
-            document.body.appendChild(hellBg);
-            
-            // НАСТРАИВАЕМ АД В ЗАВИСИМОСТИ ОТ СЛОЖНОСТИ
-            const bgSpeed = difficulty === 'Невозможная' ? '0.01s' : difficulty === 'Средняя' ? '0.1s' : '0.2s';
-            hellBg.style.animation = `bgHell ${bgSpeed} infinite`;
-            
-            // СКРЫВАЕМ ЭКРАН
-            document.getElementById('entryScreen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('entryScreen').style.display = 'none';
-            }, 1000);
-            
-            // ПОКАЗЫВАЕМ ОСНОВНОЕ
-            document.getElementById('mainContainer').style.opacity = '1';
-            document.getElementById('mainContainer').style.pointerEvents = 'auto';
-        }
+        (function() {
+            // ⚡ ЗАМЕНИТЕ НА СВОЙ GOOGLE CLIENT ID (из cloud console)
+            const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com'; // ⚠️ ВАЖНО: вставьте свой ID
 
-        function updateContent() {
-            const { name, diseases, gender, orientation, difficulty } = window.userData;
-            
-            // ОТОБРАЖАЕМ СЛОЖНОСТЬ
-            let difficultyEmoji = difficulty === 'Невозможная' ? '😈😈😈' : difficulty === 'Средняя' ? '😐' : '😊';
-            document.getElementById('difficultyDisplay').innerHTML = `${difficultyEmoji} ${difficulty} ${difficultyEmoji}`;
-            document.getElementById('userInfoDisplay').innerHTML = `👁️‍🗨️ ${name} 👁️‍🗨️`;
-            
-            // ПЕРСОНАЛЬНОЕ СООБЩЕНИЕ
-            let personalMsg = `${name}`;
-            if (diseases.includes('Гипноз')) personalMsg += ' • ПОД ГИПНОЗОМ КАТИ 💜';
-            if (difficulty === 'Невозможная') personalMsg += ' • ТЫ ОБРЕЧЁН 😈';
-            else if (difficulty === 'Средняя') personalMsg += ' • ЕЩЁ ЕСТЬ НАДЕЖДА 😐';
-            else personalMsg += ' • ТЕБЕ ПОВЕЗЛО (ПОКА) 😊';
-            document.getElementById('personalMessage').innerHTML = personalMsg;
-            
-            // КОНТЕНТ ДЛЯ СЛОЖНОСТИ
-            let difficultyHtml = `<h2 style="font-size: 48px; text-align: center;">😈 СЛОЖНОСТЬ: ${difficulty} 😈</h2>`;
-            if (difficulty === 'Невозможная') {
-                difficultyHtml += `
-                    <div style="font-size: 36px; text-align: center; padding: 40px;">
-                        <p>⚡ ФОН МИГАЕТ СО СКОРОСТЬЮ 228 ГЦ ⚡</p>
-                        <p>💀 КАЖДАЯ СЕКУНДА МОЖЕТ БЫТЬ ПОСЛЕДНЕЙ 💀</p>
-                        <p>👁️‍🗨️ ТВОИ ГЛАЗА УЖЕ КРОВОТОЧАТ 👁️‍🗨️</p>
-                        <p style="font-size: 120px; margin: 40px;">😈😈😈</p>
-                    </div>
-                `;
-            } else if (difficulty === 'Средняя') {
-                difficultyHtml += `
-                    <div style="font-size: 36px; text-align: center; padding: 40px;">
-                        <p>⚡ ФОН МИГАЕТ, НО ТЕРПИМО ⚡</p>
-                        <p>🤕 ГОЛОВА БОЛИТ, НО ТЫ ЖИВ 🤕</p>
-                        <p>😐 МОЖНО БЫЛО ВЫБРАТЬ ЛЕГКУЮ 😐</p>
-                    </div>
-                `;
-            } else {
-                difficultyHtml += `
-                    <div style="font-size: 36px; text-align: center; padding: 40px;">
-                        <p>😊 ФОН ПОЧТИ НЕ МИГАЕТ 😊</p>
-                        <p>🌸 ТЫ ПОЧУВСТВУЕШЬ ЛИШЬ ЛЁГКИЙ ДИСКОМФОРТ 🌸</p>
-                        <p>🍭 СЛАБАК 🍭</p>
-                    </div>
-                `;
+            // DOM элементы
+            const unauthDiv = document.getElementById('unauthBlock');
+            const authDiv = document.getElementById('authBlock');
+            const googleBtnContainer = document.getElementById('googleButtonContainer');
+            const configNote = document.getElementById('configNote');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userAvatar = document.getElementById('userAvatar');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const howtoLink = document.getElementById('howtoLink');
+
+            // Вспомогательная функция обновления UI
+            function updateUI(user) {
+                if (user) {
+                    unauthDiv.classList.add('hidden');
+                    authDiv.classList.remove('hidden');
+                    userName.textContent = user.name || 'Пользователь';
+                    userEmail.textContent = user.email || '';
+                    if (user.picture) {
+                        userAvatar.src = user.picture;
+                    } else {
+                        userAvatar.src = 'https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png';
+                    }
+                } else {
+                    unauthDiv.classList.remove('hidden');
+                    authDiv.classList.add('hidden');
+                }
             }
-            document.getElementById('difficultyContent').innerHTML = difficultyHtml;
-            
-            // БОЛЕЗНИ
-            let diseaseHtml = '<h2 style="font-size: 48px; text-align: center;">💀 ТВОИ БОЛЕЗНИ 💀</h2><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">';
-            diseases.forEach(disease => {
-                diseaseHtml += `
-                    <div style="padding: 40px; text-align: center; border: 3px solid; border-radius: 40px; animation: cardBorder 1s infinite;">
-                        <div style="font-size: 80px;">${disease === 'Гипноз' ? '💜' : disease === 'Пукизм' ? '💨' : '💀'}</div>
-                        <div style="font-size: 36px;">${disease}</div>
-                    </div>
-                `;
+
+            // Восстановление сессии из localStorage
+            function restoreSession() {
+                try {
+                    const saved = localStorage.getItem('googleUser');
+                    if (saved) {
+                        const user = JSON.parse(saved);
+                        updateUI(user);
+                        return true;
+                    }
+                } catch (e) {}
+                return false;
+            }
+
+            // Декодирование JWT (получение данных пользователя)
+            function decodeJWT(token) {
+                try {
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                    return JSON.parse(jsonPayload);
+                } catch (e) {
+                    console.error('Ошибка декодирования', e);
+                    return null;
+                }
+            }
+
+            // Callback после входа через Google
+            function handleCredentialResponse(response) {
+                const userData = decodeJWT(response.credential);
+                if (userData) {
+                    const user = {
+                        name: userData.name,
+                        email: userData.email,
+                        picture: userData.picture,
+                        sub: userData.sub
+                    };
+                    localStorage.setItem('googleUser', JSON.stringify(user));
+                    updateUI(user);
+                } else {
+                    alert('Не удалось получить данные профиля');
+                }
+            }
+
+            // Рендер кнопки Google
+            function renderGoogleButton() {
+                if (!window.google || !google.accounts || !google.accounts.id) {
+                    setTimeout(renderGoogleButton, 200);
+                    return;
+                }
+
+                try {
+                    google.accounts.id.initialize({
+                        client_id: YOUR_CLIENT_ID,
+                        callback: handleCredentialResponse,
+                        auto_select: false,
+                        cancel_on_tap_outside: true,
+                        context: 'signin',
+                        ux_mode: 'popup'
+                    });
+
+                    google.accounts.id.renderButton(
+                        googleBtnContainer,
+                        { theme: 'outline', size: 'large', text: 'signin_with', width: 260 }
+                    );
+
+                    // Если Client ID не заменён — покажем предупреждение
+                    if (YOUR_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID') {
+                        configNote.style.display = 'block';
+                    } else {
+                        configNote.style.display = 'none';
+                    }
+                } catch (e) {
+                    googleBtnContainer.innerHTML = '<div style="color:#a00;">Ошибка рендера кнопки. Проверьте Client ID.</div>';
+                }
+            }
+
+            // Выход
+            function signOut() {
+                if (window.google && google.accounts && google.accounts.id) {
+                    google.accounts.id.disableAutoSelect();
+                }
+                localStorage.removeItem('googleUser');
+                updateUI(null);
+                // перерендерить кнопку, если надо
+                if (YOUR_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
+                    renderGoogleButton();
+                }
+            }
+
+            // Инструкция по получению Client ID
+            howtoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open('https://console.cloud.google.com/apis/credentials', '_blank');
+                alert('1. Перейдите в Google Cloud Console → APIs & Services → Credentials\n2. Создайте OAuth 2.0 Client ID (Web application)\n3. Добавьте http://localhost и ваш домен в Authorized JavaScript origins\n4. Скопируйте Client ID в код');
             });
-            diseaseHtml += '</div>';
-            document.getElementById('diseaseContent').innerHTML = diseaseHtml;
-            
-            // ОРИЕНТАЦИЯ
-            let orientationHtml = `<h2 style="font-size: 48px;">💕 ОРИЕНТАЦИЯ: ${orientation} 💕</h2>`;
-            if (orientation === 'Гипносексуал') {
-                orientationHtml += '<div style="font-size: 32px; text-align: center;">Ты любишь Катю. Она любит тебя. Выбор за тебя уже сделали.</div>';
-            }
-            document.getElementById('orientationContent').innerHTML = orientationHtml;
-            
-            // ПОЛ
-            let genderHtml = `<h2 style="font-size: 48px;">⚥ ПОЛ: ${gender} ⚥</h2>`;
-            if (gender === 'Мужской') {
-                genderHtml += '<div style="font-size: 32px; text-align: center;">♂️ У тебя есть яйца. Как у Ростика.</div>';
-            }
-            document.getElementById('genderContent').innerHTML = genderHtml;
-            
-            // ПЕРСОНАЖИ
-            let charactersHtml = `
-                <div class="character-card">
-                    <div class="character-emoji">🤡💨</div>
-                    <div style="font-size: 48px;">РОСТИК</div>
-                    <div>${difficulty === 'Невозможная' ? 'ПУКАЕТ АДСКИ' : 'ПУКАЕТ'}</div>
-                </div>
-                <div class="character-card">
-                    <div class="character-emoji">💜🔪</div>
-                    <div style="font-size: 48px;">КАТЯ 5.7</div>
-                    <div>${difficulty === 'Невозможная' ? 'ГИПНОЗИРУЕТ В АД' : 'ГИПНОЗИРУЕТ'}</div>
-                </div>
-                <div class="character-card">
-                    <div class="character-emoji">💻:3</div>
-                    <div style="font-size: 48px;">${name}</div>
-                    <div>${difficulty === 'Невозможная' ? 'ОБРЕЧЁН' : 'ВЫЖИВАЕТ'}</div>
-                </div>
-            `;
-            document.getElementById('characters').innerHTML = charactersHtml;
-            
-            // ФУТЕР
-            document.getElementById('footerMessage').innerHTML = 
-                `${name} • ${gender} • ${orientation} • [${diseases.join(', ')}] • СЛОЖНОСТЬ: ${difficulty}`;
-        }
 
-        // ПРЕДОТВРАЩАЕМ ВЫХОД
-        window.onbeforeunload = function() {
-            return 'Ты уверен? Твои болезни ждут тебя...';
-        };
+            // Обработчик выхода
+            logoutBtn.addEventListener('click', signOut);
+
+            // При загрузке — восстанавливаем сессию или рисуем кнопку
+            window.onload = function() {
+                const hasSession = restoreSession();
+                if (!hasSession) {
+                    if (YOUR_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
+                        renderGoogleButton();
+                    } else {
+                        // показываем подсказку
+                        configNote.style.display = 'block';
+                        if (window.google && google.accounts) {
+                            googleBtnContainer.innerHTML = '<div style="background:#fff1f0; padding:1rem; border-radius:40px;">🔴 Укажите корректный Client ID</div>';
+                        }
+                    }
+                }
+            };
+
+            // Синхронизация между вкладками
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'googleUser') {
+                    if (e.newValue) {
+                        updateUI(JSON.parse(e.newValue));
+                    } else {
+                        updateUI(null);
+                        if (YOUR_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') renderGoogleButton();
+                    }
+                }
+            });
+        })();
     </script>
 </body>
 </html>
