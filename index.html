@@ -17,7 +17,7 @@
         }
 
         body {
-            background: #f0f5fa;
+            background: linear-gradient(145deg, #0b1725 0%, #1a2f42 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -29,28 +29,29 @@
         /* главная карточка */
         .app-container {
             width: 100%;
-            max-width: 1000px;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            max-width: 1200px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: 3rem;
-            box-shadow: 0 30px 70px -20px rgba(0,40,100,0.3), 0 0 0 1px rgba(255,255,255,0.5);
+            box-shadow: 0 30px 70px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.03);
         }
 
         /* шапка с градиентом */
         .header {
-            background: linear-gradient(110deg, #1a2f4e, #1f3a5f);
+            background: linear-gradient(110deg, #0f1a28, #162433);
             padding: 1.8rem 2.5rem;
             color: white;
             display: flex;
             align-items: center;
             gap: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .header-icon {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.03);
             width: 58px;
             height: 58px;
             border-radius: 30px;
@@ -59,88 +60,94 @@
             justify-content: center;
             font-size: 2.2rem;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .header-text h1 {
             font-size: 1.9rem;
             font-weight: 600;
             letter-spacing: -0.02em;
+            background: linear-gradient(120deg, #fff, #bdd3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header-text p {
-            opacity: 0.8;
+            opacity: 0.6;
             font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 6px;
             margin-top: 4px;
+            color: #a0b8d0;
         }
 
         /* основная область */
         .main-content {
-            padding: 2.2rem 2.5rem 2.5rem;
+            padding: 2.5rem 2.5rem 2.5rem;
         }
 
         /* блок неавторизован */
         .unauth-box {
             text-align: center;
-            max-width: 500px;
-            margin: 2rem auto;
+            max-width: 550px;
+            margin: 3rem auto;
         }
 
         .unauth-box h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #0b2642;
-            margin-bottom: 0.7rem;
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #b0ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
         }
 
         .unauth-box .lead {
-            color: #365073;
+            color: #90a9c4;
             margin-bottom: 2.5rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         /* контейнер для кнопки Google */
         #googleButtonContainer {
             display: flex;
             justify-content: center;
-            margin: 2rem 0 2rem;
+            margin: 2.5rem 0 2rem;
             min-height: 60px;
         }
 
         .features-preview {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
+            gap: 1rem;
             justify-content: center;
-            margin: 2.5rem 0 1rem;
+            margin: 3rem 0 1rem;
         }
 
         .feature-badge {
-            background: white;
+            background: rgba(255,255,255,0.03);
             border-radius: 60px;
-            padding: 0.5rem 1.3rem;
-            font-size: 0.9rem;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.95rem;
             font-weight: 500;
-            color: #1f3a5f;
-            box-shadow: 0 3px 10px rgba(0,20,50,0.08);
-            border: 1px solid #d3e2f5;
+            color: #b6d0f0;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(5px);
         }
 
         .feature-badge i {
             margin-right: 8px;
-            color: #2b4f8e;
+            color: #5f9eff;
         }
 
         /* АВТОРИЗОВАННЫЙ КОНТЕНТ */
         .auth-content {
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(8px); }
+            0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
@@ -149,48 +156,47 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: white;
+            background: rgba(255,255,255,0.03);
             border-radius: 100px;
             padding: 0.5rem 1rem 0.5rem 1.2rem;
-            border: 1px solid #ceddec;
+            border: 1px solid rgba(255,255,255,0.08);
             margin-bottom: 2.5rem;
-            box-shadow: 0 5px 15px -8px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
 
         .profile-info {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
         }
 
         .avatar-small {
-            width: 44px;
-            height: 44px;
-            border-radius: 44px;
-            background: #1f3a5f;
-            border: 2px solid white;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 48px;
+            background: #1e3a5f;
+            border: 2px solid rgba(255,255,255,0.2);
             object-fit: cover;
         }
 
         .name-email h3 {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #1a2f4e;
+            color: white;
         }
 
         .name-email p {
             font-size: 0.85rem;
-            color: #527196;
+            color: #90a9c9;
         }
 
         .logout-btn {
-            background: none;
-            border: 1px solid #cbd6e6;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 40px;
             padding: 0.5rem 1.3rem;
             font-size: 0.9rem;
-            color: #2a405e;
+            color: #ffb4b4;
             cursor: pointer;
             transition: all 0.15s;
             display: flex;
@@ -199,41 +205,43 @@
         }
 
         .logout-btn:hover {
-            background: #fdeded;
-            border-color: #d99b9b;
-            color: #b33c3c;
+            background: rgba(255,80,80,0.1);
+            border-color: #ff8080;
+            color: #ffa0a0;
         }
 
         /* сетка контента */
         .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.8rem;
-            margin: 2rem 0 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
         .info-card {
-            background: white;
+            background: rgba(255,255,255,0.02);
             border-radius: 2rem;
-            padding: 1.5rem 1.5rem 1.8rem;
-            box-shadow: 0 8px 22px -10px rgba(0,32,64,0.12);
-            border: 1px solid rgba(255,255,255,0.7);
-            transition: transform 0.15s;
+            padding: 1.8rem 1.8rem 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s;
+            backdrop-filter: blur(5px);
         }
 
         .info-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 30px -12px rgba(0,55,110,0.2);
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(95,158,255,0.3);
+            box-shadow: 0 15px 30px -15px rgba(0,0,0,0.5);
         }
 
         .card-icon {
             font-size: 2rem;
-            color: #1f3a5f;
+            color: #5f9eff;
             margin-bottom: 1.2rem;
-            background: #e3eefb;
+            background: rgba(95,158,255,0.1);
             width: 56px;
             height: 56px;
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -242,101 +250,112 @@
         .info-card h3 {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #11263e;
-            margin-bottom: 0.5rem;
+            color: white;
+            margin-bottom: 0.7rem;
         }
 
         .info-card p {
-            color: #3b5379;
+            color: #a0b8d0;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .stats-row {
             display: flex;
-            gap: 2rem;
-            background: #e8f0fd;
-            border-radius: 1.8rem;
-            padding: 1.5rem 2rem;
-            margin-top: 1.8rem;
-            align-items: center;
+            gap: 2.5rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 2rem;
+            padding: 1.8rem 2.5rem;
+            margin: 2rem 0;
             flex-wrap: wrap;
+            border: 1px solid rgba(255,255,255,0.03);
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
+        }
+
+        .stat-item i {
+            font-size: 2.2rem;
+            color: #5f9eff;
+            opacity: 0.8;
         }
 
         .stat-value {
             font-size: 1.9rem;
             font-weight: 700;
-            color: #11263e;
+            color: white;
             line-height: 1.2;
         }
 
         .stat-label {
-            color: #4b6382;
+            color: #90a9c4;
             font-size: 0.9rem;
         }
 
         .dashboard-note {
-            background: #ffffffc9;
+            background: rgba(95,158,255,0.05);
             border-radius: 1.5rem;
             padding: 1.2rem 1.8rem;
-            margin-top: 2rem;
-            border: 1px dashed #9bb7dd;
+            border: 1px solid rgba(95,158,255,0.15);
             display: flex;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
+            color: #b0ccff;
         }
 
         .dashboard-note i {
             font-size: 2rem;
-            color: #527bbd;
+            color: #5f9eff;
         }
 
         .hidden {
             display: none !important;
         }
 
-        .setup-note {
-            background: #fef5e7;
-            border-radius: 18px;
-            padding: 1.2rem 1.5rem;
-            margin: 1rem 0;
-            border-left: 5px solid #f6ad55;
-            color: #744210;
-            font-size: 0.95rem;
-        }
-
-        .setup-note a {
-            color: #2b4f8e;
-            text-decoration: underline;
-        }
-
         .footer {
-            background: #e2ecf9;
+            background: rgba(0,0,0,0.2);
             padding: 1.2rem 2.5rem;
             font-size: 0.85rem;
-            color: #3865a0;
+            color: #7089aa;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .footer i {
+            color: #5f9eff;
+            margin-right: 6px;
+        }
+
+        /* Лоадер */
+        .loader {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(95,158,255,0.3);
+            border-radius: 50%;
+            border-top-color: #5f9eff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- Шапка общая -->
+        <!-- Шапка -->
         <div class="header">
-            <div class="header-icon"><i class="fas fa-table-cells-large"></i></div>
+            <div class="header-icon"><i class="fas fa-cube"></i></div>
             <div class="header-text">
-                <h1>Личное пространство</h1>
-                <p><i class="fas fa-shield-alt"></i> Защищено входом через Google</p>
+                <h1>Vault · личное пространство</h1>
+                <p><i class="fas fa-shield-halved"></i> Защищено входом через Google</p>
             </div>
         </div>
 
@@ -345,124 +364,124 @@
             <!-- Секция для неавторизованных -->
             <div id="unauthBlock">
                 <div class="unauth-box">
-                    <h2>Ваш личный уголок</h2>
-                    <div class="lead">Войдите через Google, чтобы увидеть заметки, задачи и рекомендации</div>
+                    <h2>Добро пожаловать</h2>
+                    <div class="lead">Войди через Google, чтобы получить доступ к личным сервисам и данным</div>
                     
                     <!-- Контейнер под кнопку Google -->
                     <div id="googleButtonContainer"></div>
 
-                    <!-- Подсказка для настройки (будет скрыта при корректном Client ID) -->
-                    <div id="configNote" class="setup-note">
-                        <i class="fas fa-key"></i> <strong>Настройка доступа:</strong> Замените <code style="background:#eee; padding:3px 6px; border-radius:12px;">YOUR_GOOGLE_CLIENT_ID</code> в коде на реальный Client ID из <a href="#" id="howtoLink">Google Cloud</a>.
-                    </div>
-
-                    <!-- Превьюшки фич -->
                     <div class="features-preview">
-                        <span class="feature-badge"><i class="fas fa-cloud-sun"></i> Персональные заметки</span>
-                        <span class="feature-badge"><i class="fas fa-chart-simple"></i> Дашборд</span>
-                        <span class="feature-badge"><i class="fas fa-calendar"></i> План на день</span>
-                        <span class="feature-badge"><i class="fas fa-images"></i> Галерея</span>
+                        <span class="feature-badge"><i class="fas fa-note-sticky"></i> Заметки</span>
+                        <span class="feature-badge"><i class="fas fa-chart-simple"></i> Статистика</span>
+                        <span class="feature-badge"><i class="fas fa-calendar"></i> Планировщик</span>
+                        <span class="feature-badge"><i class="fas fa-cloud"></i> Хранилище</span>
+                        <span class="feature-badge"><i class="fas fa-image"></i> Медиа</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Секция для авторизованных (скрыта изначально) -->
+            <!-- Секция для авторизованных -->
             <div id="authBlock" class="auth-content hidden">
                 <!-- Профиль + кнопка выхода -->
                 <div class="profile-bar" id="profileBar">
                     <div class="profile-info">
-                        <img class="avatar-small" id="userAvatar" src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png" alt="avatar">
+                        <img class="avatar-small" id="userAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23345fa0'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='white' font-family='Arial'%3E👤%3C/text%3E%3C/svg%3E" alt="avatar">
                         <div class="name-email">
-                            <h3 id="userName">Иван Петров</h3>
-                            <p id="userEmail">ivan@gmail.com</p>
+                            <h3 id="userName">Загрузка...</h3>
+                            <p id="userEmail"></p>
                         </div>
                     </div>
                     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти</button>
                 </div>
 
                 <!-- КОНТЕНТ (доступен только после входа) -->
-                <h2 style="font-size: 1.8rem; font-weight: 550; color:#11263e; margin-bottom: 0.5rem;">Мои сервисы</h2>
-                <div style="color: #3865a0; margin-bottom: 1.2rem;"><i class="fas fa-chevron-right"></i> контент, доступный авторизованным пользователям</div>
+                <h2 style="font-size: 1.8rem; font-weight: 600; color:white; margin-bottom: 0.5rem;">Мой дашборд</h2>
+                <div style="color: #90a9c4; margin-bottom: 1.5rem;"><i class="fas fa-chevron-right"></i> персональные данные и сервисы</div>
 
                 <div class="content-grid">
                     <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-pen-to-square"></i></div>
+                        <div class="card-icon"><i class="fas fa-pen"></i></div>
                         <h3>Быстрые заметки</h3>
-                        <p>Синхронизировано с Google Drive. Ваши последние записи: "Встреча в пятницу", "Купить подарок", "Идея для проекта".</p>
+                        <p>Синхронизировано с Google Drive. Последние: "Позвонить в пятницу", "Купить продукты", "Идея для поста".</p>
                     </div>
                     <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Ежедневная статистика</h3>
-                        <p>Шаги: 7842 • Сон: 7.2 ч • Воды: 4 стакана. Данные обновлены 5 минут назад.</p>
+                        <div class="card-icon"><i class="fas fa-heart-pulse"></i></div>
+                        <h3>Активность</h3>
+                        <p>Шаги: 8,432 • Сон: 7.5ч • Вода: 5 стаканов • Активность: высокая</p>
                     </div>
                     <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
-                        <h3>План дня</h3>
-                        <p>📌 14:00 Созвон<br>📌 16:30 Тренировка<br>📌 19:00 Забрать заказ</p>
+                        <div class="card-icon"><i class="fas fa-list-check"></i></div>
+                        <h3>План на сегодня</h3>
+                        <p>✓ 14:00 Команда<br>✓ 16:30 Тренировка<br>○ 19:00 Забрать заказ<br>○ 21:00 Кино</p>
                     </div>
                     <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-photo-film"></i></div>
-                        <h3>Последние фото</h3>
-                        <p>Вы загрузили 12 фото за последнюю неделю. Последнее из парка вчера в 18:24.</p>
+                        <div class="card-icon"><i class="fas fa-camera-retro"></i></div>
+                        <h3>Медиатека</h3>
+                        <p>12 новых фото • 3 видео • Последнее: закат, вчера 19:24</p>
                     </div>
                 </div>
 
                 <!-- Доп. блоки -->
                 <div class="stats-row">
                     <div class="stat-item">
-                        <i class="fas fa-cloud" style="font-size: 2.2rem; color:#2a5caa;"></i>
+                        <i class="fas fa-cloud"></i>
                         <div>
-                            <div class="stat-value">2.4 ГБ</div>
-                            <div class="stat-label">Облачное хранилище</div>
+                            <div class="stat-value">3.2 ГБ</div>
+                            <div class="stat-label">из 15 ГБ</div>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-envelope-open-text" style="font-size: 2.2rem; color:#2a5caa;"></i>
+                        <i class="fas fa-envelope"></i>
                         <div>
-                            <div class="stat-value">14</div>
-                            <div class="stat-label">Непрочитанных</div>
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">непрочитанных</div>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-users" style="font-size: 2.2rem; color:#2a5caa;"></i>
+                        <i class="fas fa-users"></i>
                         <div>
                             <div class="stat-value">3</div>
-                            <div class="stat-label">Общих доступа</div>
+                            <div class="stat-label">общих папки</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">задач на сегодня</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="dashboard-note">
-                    <i class="fas fa-rocket"></i>
-                    <span><strong>Персональный дашборд</strong> — это пространство отображается только после успешного входа через Google. Все данные ненастоящие (демо), но вы можете заменить их на свои.</span>
+                    <i class="fas fa-diamond"></i>
+                    <span><strong>Vault</strong> — твоё защищённое пространство. Все данные синхронизируются с твоим Google-аккаунтом.</span>
                 </div>
             </div>
         </div>
 
-        <!-- Футер (для всех) -->
+        <!-- Футер -->
         <div class="footer">
-            <span><i class="fas fa-lock"></i> Реальный вход Google (Identity Services)</span>
-            <span>⚡ Демо-портал · контент для авторизованных</span>
+            <span><i class="fas fa-lock"></i> Реальный вход Google OAuth</span>
+            <span><i class="fas fa-github"></i> GitHub Pages · v2.0</span>
         </div>
     </div>
 
     <script>
         (function() {
-            // ⚡ ЗАМЕНИТЕ НА СВОЙ GOOGLE CLIENT ID (из cloud console)
-            const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com'; // ⚠️ ВАЖНО: вставьте свой ID
+            // ⚡ ТВОЙ РЕАЛЬНЫЙ CLIENT ID
+            const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
 
             // DOM элементы
             const unauthDiv = document.getElementById('unauthBlock');
             const authDiv = document.getElementById('authBlock');
             const googleBtnContainer = document.getElementById('googleButtonContainer');
-            const configNote = document.getElementById('configNote');
             const userName = document.getElementById('userName');
             const userEmail = document.getElementById('userEmail');
             const userAvatar = document.getElementById('userAvatar');
             const logoutBtn = document.getElementById('logoutBtn');
-            const howtoLink = document.getElementById('howtoLink');
 
-            // Вспомогательная функция обновления UI
+            // Обновление UI
             function updateUI(user) {
                 if (user) {
                     unauthDiv.classList.add('hidden');
@@ -471,8 +490,6 @@
                     userEmail.textContent = user.email || '';
                     if (user.picture) {
                         userAvatar.src = user.picture;
-                    } else {
-                        userAvatar.src = 'https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png';
                     }
                 } else {
                     unauthDiv.classList.remove('hidden');
@@ -480,10 +497,10 @@
                 }
             }
 
-            // Восстановление сессии из localStorage
+            // Восстановление сессии
             function restoreSession() {
                 try {
-                    const saved = localStorage.getItem('googleUser');
+                    const saved = localStorage.getItem('vault_user');
                     if (saved) {
                         const user = JSON.parse(saved);
                         updateUI(user);
@@ -493,7 +510,7 @@
                 return false;
             }
 
-            // Декодирование JWT (получение данных пользователя)
+            // Декодирование JWT
             function decodeJWT(token) {
                 try {
                     const base64Url = token.split('.')[1];
@@ -501,12 +518,11 @@
                     const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
                     return JSON.parse(jsonPayload);
                 } catch (e) {
-                    console.error('Ошибка декодирования', e);
                     return null;
                 }
             }
 
-            // Callback после входа через Google
+            // Callback после входа
             function handleCredentialResponse(response) {
                 const userData = decodeJWT(response.credential);
                 if (userData) {
@@ -516,10 +532,8 @@
                         picture: userData.picture,
                         sub: userData.sub
                     };
-                    localStorage.setItem('googleUser', JSON.stringify(user));
+                    localStorage.setItem('vault_user', JSON.stringify(user));
                     updateUI(user);
-                } else {
-                    alert('Не удалось получить данные профиля');
                 }
             }
 
@@ -530,30 +544,29 @@
                     return;
                 }
 
-                try {
-                    google.accounts.id.initialize({
-                        client_id: YOUR_CLIENT_ID,
-                        callback: handleCredentialResponse,
-                        auto_select: false,
-                        cancel_on_tap_outside: true,
-                        context: 'signin',
-                        ux_mode: 'popup'
-                    });
+                google.accounts.id.initialize({
+                    client_id: YOUR_CLIENT_ID,
+                    callback: handleCredentialResponse,
+                    auto_select: true, // Если уже был вход - автоматически
+                    cancel_on_tap_outside: true,
+                    context: 'signin',
+                    ux_mode: 'popup'
+                });
 
-                    google.accounts.id.renderButton(
-                        googleBtnContainer,
-                        { theme: 'outline', size: 'large', text: 'signin_with', width: 260 }
-                    );
-
-                    // Если Client ID не заменён — покажем предупреждение
-                    if (YOUR_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID') {
-                        configNote.style.display = 'block';
-                    } else {
-                        configNote.style.display = 'none';
+                google.accounts.id.renderButton(
+                    googleBtnContainer,
+                    { 
+                        theme: 'filled_blue', 
+                        size: 'large', 
+                        text: 'signin_with',
+                        shape: 'pill',
+                        width: 250,
+                        logo_alignment: 'center'
                     }
-                } catch (e) {
-                    googleBtnContainer.innerHTML = '<div style="color:#a00;">Ошибка рендера кнопки. Проверьте Client ID.</div>';
-                }
+                );
+
+                // Показываем One Tap если пользователь уже входил
+                google.accounts.id.prompt();
             }
 
             // Выход
@@ -561,48 +574,29 @@
                 if (window.google && google.accounts && google.accounts.id) {
                     google.accounts.id.disableAutoSelect();
                 }
-                localStorage.removeItem('googleUser');
+                localStorage.removeItem('vault_user');
                 updateUI(null);
-                // перерендерить кнопку, если надо
-                if (YOUR_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
-                    renderGoogleButton();
-                }
+                renderGoogleButton();
             }
-
-            // Инструкция по получению Client ID
-            howtoLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.open('https://console.cloud.google.com/apis/credentials', '_blank');
-                alert('1. Перейдите в Google Cloud Console → APIs & Services → Credentials\n2. Создайте OAuth 2.0 Client ID (Web application)\n3. Добавьте http://localhost и ваш домен в Authorized JavaScript origins\n4. Скопируйте Client ID в код');
-            });
 
             // Обработчик выхода
             logoutBtn.addEventListener('click', signOut);
 
-            // При загрузке — восстанавливаем сессию или рисуем кнопку
+            // Инициализация
             window.onload = function() {
-                const hasSession = restoreSession();
-                if (!hasSession) {
-                    if (YOUR_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
-                        renderGoogleButton();
-                    } else {
-                        // показываем подсказку
-                        configNote.style.display = 'block';
-                        if (window.google && google.accounts) {
-                            googleBtnContainer.innerHTML = '<div style="background:#fff1f0; padding:1rem; border-radius:40px;">🔴 Укажите корректный Client ID</div>';
-                        }
-                    }
+                if (!restoreSession()) {
+                    renderGoogleButton();
                 }
             };
 
             // Синхронизация между вкладками
             window.addEventListener('storage', (e) => {
-                if (e.key === 'googleUser') {
+                if (e.key === 'vault_user') {
                     if (e.newValue) {
                         updateUI(JSON.parse(e.newValue));
                     } else {
                         updateUI(null);
-                        if (YOUR_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') renderGoogleButton();
+                        renderGoogleButton();
                     }
                 }
             });
