@@ -13,7 +13,6 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="scroll.css">
     
     <style>
         * {
@@ -261,6 +260,46 @@
             color: var(--accent-primary);
         }
 
+        /* Надпись с именами */
+        .names-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0 2rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 60px;
+            border: 1px solid var(--border-color);
+        }
+
+        .name-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .name-item .heart {
+            color: #ff4d6d;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        .name-item .clown {
+            color: #ffd166;
+            animation: spin 3s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         /* Важное задание - новая надпись */
         .task-box {
             background: rgba(74, 108, 247, 0.15);
@@ -474,21 +513,33 @@
                     <span id="userEmail">email@example.com</span>
                 </div>
 
-                <!-- ВАЖНОЕ ЗАДАНИЕ (то что просил) -->
+                <!-- Надпись с именами -->
+                <div class="names-section">
+                    <div class="name-item">
+                        <span>Катя</span>
+                        <i class="fas fa-heart heart"></i>
+                    </div>
+                    <div class="name-item">
+                        <span>Ростик</span>
+                        <i class="fas fa-face-smile-wink clown"></i>
+                    </div>
+                </div>
+
+                <!-- ВАЖНОЕ ЗАДАНИЕ -->
                 <div class="task-box">
                     <div class="task-icon">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <h3>📸 Важное задание</h3>
+                    <h3>📸 Помоги улучшить сайт!</h3>
                     <p>
                         Сфотографируй то, что видишь на сайте,<br>
-                        и отправь на почту:
+                        и отправь на почту для улучшения:
                     </p>
                     <div class="task-email" onclick="copyEmail()">
                         <i class="fas fa-envelope"></i>
                         <span>timoshamscbsns@internet.ru</span>
                     </div>
-                    <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-muted;">
+                    <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-muted);">
                         (нажми на почту чтобы скопировать)
                     </p>
                 </div>
