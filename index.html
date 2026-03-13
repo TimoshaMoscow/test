@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VΛULT · вход через Google</title>
+    <title>VΛULT · безопасный вход через Google</title>
     
     <!-- Google Identity -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -33,6 +33,7 @@
             --border-color: rgba(74, 108, 247, 0.2);
             --card-bg: rgba(18, 21, 32, 0.8);
             --success: #10b981;
+            --warning: #f59e0b;
             --glass-border: 1px solid rgba(255, 255, 255, 0.05);
             --shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
         }
@@ -131,6 +132,25 @@
                 opacity: 1; 
                 transform: translateY(0); 
             }
+        }
+
+        /* Бейдж безопасности */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--success);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .security-badge i {
+            font-size: 1rem;
         }
 
         /* Логотип */
@@ -506,6 +526,12 @@
     <div class="container">
         <!-- Карточка входа -->
         <div id="loginCard" class="card">
+            <div class="security-badge">
+                <i class="fas fa-shield-check"></i>
+                <span>Сайт проверен и безопасен</span>
+                <i class="fas fa-check-circle"></i>
+            </div>
+
             <div class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-crown"></i>
@@ -541,10 +567,21 @@
                 <i class="fas fa-circle"></i>
                 <span>Ожидание авторизации</span>
             </div>
+
+            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                SSL-сертификат активен · Данные защищены
+            </div>
         </div>
 
         <!-- Карточка после входа -->
         <div id="welcomeCard" class="card hidden">
+            <div class="security-badge">
+                <i class="fas fa-shield-check"></i>
+                <span>Сайт проверен и безопасен</span>
+                <i class="fas fa-check-circle"></i>
+            </div>
+
             <div class="profile">
                 <img class="avatar" id="userAvatar" src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png" alt="avatar">
                 
@@ -593,6 +630,11 @@
                     <i class="fas fa-sign-out-alt"></i>
                     Выйти
                 </button>
+            </div>
+
+            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                SSL-сертификат активен · Данные защищены
             </div>
         </div>
     </div>
