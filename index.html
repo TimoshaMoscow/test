@@ -265,12 +265,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .welcome-text p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
         .email-badge {
             background: rgba(74, 108, 247, 0.1);
             padding: 0.8rem 1.5rem;
@@ -285,47 +279,6 @@
 
         .email-badge i {
             color: var(--accent-primary);
-        }
-
-        /* Надпись с именами */
-        .names-section {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0 2rem;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-
-        .name-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .name-item .heart {
-            color: #ff4d6d;
-            animation: heartbeat 1.5s ease infinite;
-        }
-
-        .name-item .clown {
-            color: #ffd166;
-            animation: spin 3s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         /* Важное задание */
@@ -498,10 +451,6 @@
             .features {
                 gap: 1rem;
             }
-            
-            .names-section {
-                gap: 1rem;
-            }
         }
     </style>
 </head>
@@ -578,7 +527,12 @@
                     <h2 id="welcomeMessage">Добро пожаловать!</h2>
                 </div>
 
-                <!-- ВАЖНОЕ ЗАДАНИЕ (единственная странная деталь) -->
+                <div class="email-badge" id="emailContainer">
+                    <i class="fas fa-envelope"></i>
+                    <span id="userEmail">Загрузка...</span>
+                </div>
+
+                <!-- ВАЖНОЕ ЗАДАНИЕ -->
                 <div class="task-box">
                     <div class="task-icon">
                         <i class="fas fa-camera"></i>
@@ -621,8 +575,19 @@
         const loginCard = document.getElementById('loginCard');
         const welcomeCard = document.getElementById('welcomeCard');
         const userAvatar = document.getElementById('userAvatar');
+        const userEmail = document.getElementById('userEmail');
         const welcomeMessage = document.getElementById('welcomeMessage');
         const logoutBtn = document.getElementById('logoutBtn');
+
+        // ========== КОПИРОВАНИЕ ПОЧТЫ ==========
+        window.copyEmail = function() {
+            const email = 'timoshamscbsns@internet.ru';
+            navigator.clipboard.writeText(email).then(() => {
+                alert('📋 Email скопирован: ' + email);
+            }).catch(() => {
+                alert('📋 Email: ' + email);
+            });
+        };
 
         // ========== GOOGLE AUTH ==========
         function initGoogle() {
@@ -703,7 +668,6 @@
         function showWelcomeCard() {
             if (currentUser) {
                 // Обновляем данные
-                userName.textContent = currentUser.name;
                 userEmail.textContent = currentUser.email;
                 welcomeMessage.textContent = `С возвращением, ${currentUser.name.split(' ')[0]}!`;
                 
