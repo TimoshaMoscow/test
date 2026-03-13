@@ -1,0 +1,29 @@
+/* Прокрутка для всей страницы */
+html, body {
+    overflow-y: auto !important;
+    height: 100%;
+}
+
+.container {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Красивый скроллбар */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(74, 108, 247, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-gradient);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
