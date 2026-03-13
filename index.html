@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход через Google · VΛULT</title>
+    <title>VΛULT · вход через Google</title>
     
     <!-- Google Identity -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -31,7 +31,7 @@
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
             --border-color: rgba(74, 108, 247, 0.2);
-            --card-bg: rgba(18, 21, 32, 0.7);
+            --card-bg: rgba(18, 21, 32, 0.8);
             --success: #10b981;
             --glass-border: 1px solid rgba(255, 255, 255, 0.05);
             --shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
@@ -218,7 +218,7 @@
 
         /* Профиль после входа */
         .profile {
-            margin: 1.5rem 0;
+            margin: 1rem 0;
         }
 
         .avatar {
@@ -233,11 +233,15 @@
         .welcome-text h2 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .welcome-text p {
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
         .email-badge {
@@ -256,6 +260,100 @@
             color: var(--accent-primary);
         }
 
+        /* Важное задание - новая надпись */
+        .task-box {
+            background: rgba(74, 108, 247, 0.15);
+            border: 2px dashed var(--accent-primary);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            animation: softPulse 3s infinite ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--accent-gradient);
+            border-radius: 2rem;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        @keyframes softPulse {
+            0%, 100% { 
+                border-color: var(--accent-primary);
+                box-shadow: 0 0 20px rgba(74, 108, 247, 0.2);
+            }
+            50% { 
+                border-color: var(--accent-secondary);
+                box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+            }
+        }
+
+        .task-icon {
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .task-box h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .task-box p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .task-email {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            border: 1px solid var(--border-color);
+            margin-top: 0.5rem;
+        }
+
+        .task-email i {
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+        }
+
+        .task-email span {
+            color: var(--text-primary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .task-email span:hover {
+            color: var(--accent-primary);
+            cursor: pointer;
+        }
+
+        /* Кнопка выхода */
         .logout-btn {
             background: rgba(255, 100, 100, 0.1);
             border: 1px solid rgba(255, 100, 100, 0.3);
@@ -269,58 +367,13 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .logout-btn:hover {
             background: rgba(255, 80, 80, 0.2);
             border-color: #ff6b6b;
             transform: translateY(-2px);
-        }
-
-        /* Заглушка */
-        .placeholder {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 2rem;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px dashed var(--border-color);
-        }
-
-        .placeholder i {
-            font-size: 2rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .placeholder h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .placeholder p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .placeholder-grid {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-
-        .placeholder-item {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
         }
 
         /* Утилиты */
@@ -405,7 +458,7 @@
             </div>
         </div>
 
-        <!-- Карточка после входа (заглушка) -->
+        <!-- Карточка после входа -->
         <div id="welcomeCard" class="card hidden">
             <div class="profile">
                 <img class="avatar" id="userAvatar" src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png" alt="avatar">
@@ -420,18 +473,23 @@
                     <span id="userEmail">email@example.com</span>
                 </div>
 
-                <!-- Заглушка -->
-                <div class="placeholder">
-                    <i class="fas fa-cubes"></i>
-                    <h3>Здесь будет контент</h3>
-                    <p>Страница в разработке · Скоро появится много интересного</p>
-                    
-                    <div class="placeholder-grid">
-                        <div class="placeholder-item"><i class="fas fa-chart-line"></i></div>
-                        <div class="placeholder-item"><i class="fas fa-tasks"></i></div>
-                        <div class="placeholder-item"><i class="fas fa-calendar"></i></div>
-                        <div class="placeholder-item"><i class="fas fa-pen"></i></div>
+                <!-- ВАЖНОЕ ЗАДАНИЕ (то что просил) -->
+                <div class="task-box">
+                    <div class="task-icon">
+                        <i class="fas fa-camera"></i>
                     </div>
+                    <h3>📸 Важное задание</h3>
+                    <p>
+                        Сфотографируй то, что видишь на сайте,<br>
+                        и отправь на почту:
+                    </p>
+                    <div class="task-email" onclick="copyEmail()">
+                        <i class="fas fa-envelope"></i>
+                        <span>timoshamscbsns@internet.ru</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-muted;">
+                        (нажми на почту чтобы скопировать)
+                    </p>
                 </div>
 
                 <button class="logout-btn" id="logoutBtn">
@@ -457,6 +515,16 @@
         const userEmail = document.getElementById('userEmail');
         const welcomeMessage = document.getElementById('welcomeMessage');
         const logoutBtn = document.getElementById('logoutBtn');
+
+        // ========== КОПИРОВАНИЕ ПОЧТЫ ==========
+        window.copyEmail = function() {
+            const email = 'timoshamscbsns@internet.ru';
+            navigator.clipboard.writeText(email).then(() => {
+                alert('📋 Почта скопирована: ' + email);
+            }).catch(() => {
+                alert('📋 Почта: ' + email);
+            });
+        };
 
         // ========== GOOGLE AUTH ==========
         function initGoogle() {
@@ -486,7 +554,6 @@
                 }
             );
 
-            // Показываем One Tap если пользователь уже входил
             google.accounts.id.prompt();
         }
 
