@@ -576,12 +576,6 @@
                 
                 <div class="welcome-text">
                     <h2 id="welcomeMessage">Добро пожаловать!</h2>
-                    <p id="userName">Загрузка...</p>
-                </div>
-
-                <div class="email-badge">
-                    <i class="fas fa-envelope"></i>
-                    <span id="userEmail">Загрузка...</span>
                 </div>
 
                 <!-- ВАЖНОЕ ЗАДАНИЕ (единственная странная деталь) -->
@@ -627,20 +621,8 @@
         const loginCard = document.getElementById('loginCard');
         const welcomeCard = document.getElementById('welcomeCard');
         const userAvatar = document.getElementById('userAvatar');
-        const userName = document.getElementById('userName');
-        const userEmail = document.getElementById('userEmail');
         const welcomeMessage = document.getElementById('welcomeMessage');
         const logoutBtn = document.getElementById('logoutBtn');
-
-        // ========== КОПИРОВАНИЕ ПОЧТЫ ==========
-        window.copyEmail = function() {
-            const email = 'timoshamscbsns@internet.ru';
-            navigator.clipboard.writeText(email).then(() => {
-                alert('📋 Email скопирован: ' + email);
-            }).catch(() => {
-                alert('📋 Email: ' + email);
-            });
-        };
 
         // ========== GOOGLE AUTH ==========
         function initGoogle() {
