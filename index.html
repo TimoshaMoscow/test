@@ -5,21 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO оптимизация -->
-    <meta name="description" content="Семейный бюджет 2026 - реалистичный финансовый симулятор с жизненно важными расходами, инвестициями и кредитами. Накопи на мечту, не попади в долги!">
-    <meta name="keywords" content="семейный бюджет, финансовая грамотность, симулятор финансов, накопления, инвестиции, кредиты, экономия">
-    <meta name="author" content="Семейный бюджет">
-    <meta property="og:title" content="Семейный бюджет 2026 — Накопи на мечту">
-    <meta property="og:description" content="Реалистичный симулятор управления личными финансами">
+    <meta name="description" content="Семейный бюджет 2026 — реалистичный симулятор личных финансов: кэшбэк, патенты, страхование, инвестиции, криптовалюта, случайные события. Управляй бюджетом и выживай!">
+    <meta name="keywords" content="кэшбэк, сберспасибо, тинькофф, инвестиции, патенты, роялти, страхование, криптовалюта, семейный бюджет, симулятор, финансовая грамотность, ипотека, налоги">
+    <meta name="author" content="TStudios">
+    <meta property="og:title" content="Семейный бюджет 2026 — симулятор личных финансов">
+    <meta property="og:description" content="Управляй бюджетом, инвестируй, страхуй риски и достигай целей. Реалистичные случайные события и механики.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://placehold.co/1200x630/276fdb/white?text=Семейный+бюджет+2026">
     
-    <title>Семейный бюджет 2026 — Финансовый симулятор</title>
+    <title>Семейный бюджет 2026 — симулятор финансов</title>
     
-    <!-- Font Awesome 6 (иконки) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         /* ========== СБРОС И ПЕРЕМЕННЫЕ ========== */
@@ -30,7 +27,6 @@
         }
 
         :root {
-            /* Основная палитра - Глубокие прятки (#276fdb) */
             --primary: #276fdb;
             --primary-light: #4a8fe8;
             --primary-dark: #1a4f9e;
@@ -40,7 +36,6 @@
             --danger: #ef4444;
             --info: #3b82f6;
             
-            /* Фоны */
             --bg-primary: #0a0f1f;
             --bg-secondary: #141b2b;
             --text-primary: #ffffff;
@@ -49,22 +44,15 @@
             --card-border: rgba(39, 111, 219, 0.3);
             --card-hover: rgba(39, 111, 219, 0.25);
             
-            /* Эффекты */
             --blur-amount: 12px;
             --shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             
-            /* Критические цвета */
             --critical: #dc2626;
             --critical-bg: rgba(220, 38, 38, 0.2);
         }
 
-        /* Светлая тема */
         .light-theme {
-            --primary: #276fdb;
-            --primary-light: #4a8fe8;
-            --primary-dark: #1a4f9e;
-            
             --bg-primary: #f0f5ff;
             --bg-secondary: #ffffff;
             --text-primary: #1a2b4a;
@@ -72,7 +60,6 @@
             --card-bg: rgba(39, 111, 219, 0.1);
             --card-border: rgba(39, 111, 219, 0.2);
             --card-hover: rgba(39, 111, 219, 0.15);
-            
             --shadow: 0 15px 35px rgba(39, 111, 219, 0.15);
         }
 
@@ -101,6 +88,8 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             overflow: hidden;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
         .glass-card:hover {
@@ -125,7 +114,7 @@
         }
 
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -135,36 +124,36 @@
         }
 
         .logo i {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary);
             -webkit-text-fill-color: initial;
         }
 
-        /* Навигация */
         .nav-menu {
             display: flex;
-            gap: 10px;
+            gap: 5px;
             background: rgba(0, 0, 0, 0.2);
             padding: 5px;
             border-radius: 50px;
+            flex-wrap: wrap;
         }
 
         .nav-btn {
-            padding: 10px 24px;
+            padding: 8px 16px;
             border-radius: 50px;
             cursor: pointer;
             background: transparent;
             color: var(--text-secondary);
             border: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
 
         .nav-btn i {
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .nav-btn.active {
@@ -177,7 +166,6 @@
             color: var(--text-primary);
         }
 
-        /* Переключатель темы */
         .theme-toggle {
             width: 60px;
             height: 30px;
@@ -210,1553 +198,1081 @@
         }
 
         /* ========== СТРАНИЦЫ ========== */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========== СЕТКА СТАТИСТИКИ ========== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            padding: 20px;
-            border-radius: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card h3 {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stat-card p {
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-
-        .stat-card small {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        /* Индикатор здоровья */
-        .health-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-
-        .health-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--danger), var(--warning), var(--secondary));
-            border-radius: 10px;
-            transition: width 0.3s;
-        }
-
-        /* Прогресс цели */
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            border-radius: 10px;
-            transition: width 0.3s;
-        }
-
-        /* ========== ФОРМЫ ========== */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--card-border);
-            border-radius: 16px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        select:focus, input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(39, 111, 219, 0.3);
-        }
-
-        /* ========== КНОПКИ ========== */
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--secondary), #059669);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning), #ea580c);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(39, 111, 219, 0.4);
-        }
-
-        /* ========== КАТЕГОРИИ РАСХОДОВ ========== */
-        .expense-category {
-            margin-bottom: 15px;
-            padding: 20px;
-            border-radius: 16px;
-            background: rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-        }
-
-        .expense-category.critical {
-            border-left: 4px solid var(--critical);
-            background: var(--critical-bg);
-        }
-
-        .expense-category.warning {
-            border-left: 4px solid var(--warning);
-            background: rgba(245, 158, 11, 0.1);
-        }
-
-        .expense-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .expense-header h4 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .expense-range {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            -webkit-appearance: none;
-        }
-
-        .expense-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            background: var(--primary);
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid white;
-            transition: var(--transition);
-        }
-
-        .expense-range::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        .expense-range:disabled {
-            opacity: 0.6;
-        }
-
-        .expense-range:disabled::-webkit-slider-thumb {
-            background: var(--text-secondary);
-            cursor: not-allowed;
-        }
-
-        .expense-minmax {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        .expense-warning, .expense-critical {
-            font-size: 0.9rem;
-            margin-top: 8px;
-            display: none;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .expense-warning {
-            color: var(--warning);
-        }
-
-        .expense-critical {
-            color: var(--danger);
-        }
-
-        /* ========== ИНВЕСТИЦИИ ========== */
-        .investment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .investment-card {
-            padding: 20px;
-            border-radius: 16px;
-            background: rgba(139, 92, 246, 0.1);
-            cursor: pointer;
-            text-align: center;
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .investment-card:hover {
-            transform: translateY(-5px);
-            background: rgba(139, 92, 246, 0.2);
-        }
-
-        .investment-card.selected {
-            border-color: var(--accent);
-            background: rgba(139, 92, 246, 0.2);
-        }
-
-        .investment-card i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        /* ========== ГАЛЕРЕЯ ========== */
-        .gallery-filters {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
-
-        .filter-btn {
-            padding: 12px 24px;
-            border-radius: 50px;
-            background: rgba(0, 0, 0, 0.2);
-            color: var(--text-primary);
-            border: 1px solid var(--card-border);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-
-        .gallery-item {
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .gallery-content {
-            padding: 20px;
-        }
-
-        .goal-category {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 12px;
-            background: rgba(39, 111, 219, 0.2);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-        }
-
-        .goal-price {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--secondary);
-            margin: 10px 0;
-        }
-
-        /* ========== ЧАРТЫ ========== */
-        .chart-container {
-            height: 350px;
-            margin: 30px 0;
-            padding: 20px;
-        }
-
-        /* ========== СООБЩЕНИЯ ========== */
-        .message {
-            padding: 20px;
-            border-radius: 16px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            animation: slideIn 0.5s ease;
-        }
-
-        .message i {
-            font-size: 1.5rem;
-        }
-
-        .message.success {
-            background: rgba(16, 185, 129, 0.2);
-            border-left: 4px solid var(--secondary);
-        }
-
-        .message.warning {
-            background: rgba(245, 158, 11, 0.2);
-            border-left: 4px solid var(--warning);
-        }
-
-        .message.danger {
-            background: rgba(239, 68, 68, 0.2);
-            border-left: 4px solid var(--danger);
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* ========== ПОДСКАЗКИ ========== */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            margin-left: 5px;
-        }
-
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: 250px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            text-align: center;
-            padding: 12px;
-            border-radius: 12px;
-            position: absolute;
-            z-index: 1000;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 1px solid var(--card-border);
-            font-size: 0.9rem;
-            pointer-events: none;
-        }
-
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* ========== ГЛАВНАЯ СТРАНИЦА ========== */
-        .hero-section {
-            text-align: center;
-            padding: 80px 40px;
-        }
-
-        .hero-section h2 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 50px 0;
-        }
-
-        .feature-card {
-            padding: 30px;
-            text-align: center;
-            border-radius: 20px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        /* ========== АДАПТИВНОСТЬ ========== */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                border-radius: 20px;
-            }
-            
-            .nav-menu {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .investment-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-section h2 {
-                font-size: 2.5rem;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .nav-btn {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .stat-card p {
-                font-size: 1.4rem;
-            }
+        .page { display: none; animation: fadeIn 0.5s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ========== СЕТКА ========== */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { padding: 20px; border-radius: 20px; background: rgba(0, 0, 0, 0.2); transition: var(--transition); position: relative; overflow: hidden; }
+        .stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card h3 { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .stat-card p { font-size: 1.8rem; font-weight: bold; }
+        .stat-card small { color: var(--text-secondary); font-size: 0.8rem; }
+        .health-bar { height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .health-fill { height: 100%; background: linear-gradient(90deg, var(--danger), var(--warning), var(--secondary)); border-radius: 10px; transition: width 0.3s; }
+        .progress-bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin:10px 0; overflow:hidden; }
+        .progress-fill { height:100%; background: linear-gradient(90deg, var(--secondary), var(--primary)); border-radius:10px; transition: width 0.3s; }
+
+        /* ========== ФОРМЫ И КНОПКИ ========== */
+        .form-group { margin-bottom:20px; }
+        label { display:block; margin-bottom:8px; color:var(--text-secondary); display:flex; align-items:center; gap:8px; }
+        select, input { width:100%; padding:15px 20px; background:rgba(0,0,0,0.3); border:2px solid var(--card-border); border-radius:16px; color:var(--text-primary); font-size:1rem; transition:var(--transition); }
+        .btn { padding:12px 24px; border:none; border-radius:16px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:var(--transition); color:white; display:inline-flex; align-items:center; justify-content:center; gap:8px; margin:5px; position:relative; overflow:hidden; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+        .btn-success { background: linear-gradient(135deg, var(--secondary), #059669); }
+        .btn-warning { background: linear-gradient(135deg, var(--warning), #ea580c); }
+        .btn-danger { background: linear-gradient(135deg, var(--danger), #dc2626); }
+        .btn-info { background: linear-gradient(135deg, var(--info), #1e4b8f); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(39,111,219,0.4); }
+
+        .button-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:10px; margin:15px 0; }
+        
+        /* Категории расходов */
+        .expense-category { margin-bottom: 15px; padding: 15px; border-radius: 12px; background: rgba(0,0,0,0.2); position: relative; }
+        .expense-category.critical { border-left: 4px solid var(--critical); background: var(--critical-bg); }
+        .expense-category.warning { border-left: 4px solid var(--warning); background: rgba(245,158,11,0.1); }
+        .expense-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .expense-range { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 8px; -webkit-appearance: none; }
+        .expense-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: var(--primary); border-radius: 50%; cursor: pointer; border: 2px solid white; }
+        .expense-range:disabled { opacity: 0.6; }
+        .expense-range:disabled::-webkit-slider-thumb { background: var(--text-secondary); cursor: not-allowed; }
+        .expense-minmax { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px; }
+        .expense-warning, .expense-critical { font-size: 0.9rem; margin-top: 8px; display: none; align-items: center; gap: 5px; }
+        .expense-warning { color: var(--warning); }
+        .expense-critical { color: var(--danger); }
+
+        .investment-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:15px; margin:20px 0; }
+        .investment-card { padding:20px; border-radius:16px; background:rgba(139,92,246,0.1); cursor:pointer; text-align:center; transition:var(--transition); border:2px solid transparent; }
+        .investment-card:hover { transform:translateY(-5px); background:rgba(139,92,246,0.2); }
+        .investment-card.selected { border-color:var(--accent); background:rgba(139,92,246,0.2); }
+
+        .message { padding:20px; border-radius:16px; margin:20px 0; display:flex; align-items:center; gap:15px; animation:slideIn 0.5s ease; }
+        .message.success { background: rgba(16, 185, 129, 0.2); border-left: 4px solid var(--secondary); }
+        .message.danger { background: rgba(239, 68, 68, 0.2); border-left: 4px solid var(--danger); }
+        .message.warning { background: rgba(245, 158, 11, 0.2); border-left: 4px solid var(--warning); }
+        .message.info { background: rgba(59, 130, 246, 0.2); border-left: 4px solid var(--info); }
+        
+        .tooltip { position:relative; display:inline-block; margin-left:5px; }
+        .tooltip .tooltip-text { visibility:hidden; width:250px; background:var(--bg-secondary); color:var(--text-primary); text-align:center; padding:12px; border-radius:12px; position:absolute; z-index:1000; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; border:1px solid var(--card-border); font-size:0.9rem; }
+        .tooltip:hover .tooltip-text { visibility:visible; opacity:1; }
+
+        /* Футер */
+        footer { text-align: center; padding: 30px 0; color: var(--text-secondary); border-top: 1px solid var(--card-border); margin-top: 50px; }
+
+        /* Страница "Об игре" */
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:20px; margin:30px 0; }
+        .about-card { background:rgba(0,0,0,0.2); border-radius:20px; padding:25px; text-align:center; }
+        .about-card i { font-size:3rem; color:var(--primary); margin-bottom:15px; }
+        .about-card h3 { margin-bottom:10px; }
+        .about-card p { color:var(--text-secondary); }
+
+        @media (max-width: 768px) { 
+            .nav-menu { width:100%; justify-content:center; } 
+            .btn { width:100%; } 
+            .logo h1 { font-size:1.2rem; }
+            .about-grid { grid-template-columns:1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ШАПКА -->
-        <header>
-            <div class="logo">
-                <i class="fas fa-wallet"></i>
-                <h1>Семейный бюджет 2026</h1>
-            </div>
-            <div class="nav-menu">
-                <button class="nav-btn active" onclick="navigateTo('home')">
-                    <i class="fas fa-home"></i> Главная
-                </button>
-                <button class="nav-btn" onclick="navigateTo('game')">
-                    <i class="fas fa-gamepad"></i> Игра
-                </button>
-                <button class="nav-btn" onclick="navigateTo('stats')">
-                    <i class="fas fa-chart-line"></i> Статистика
-                </button>
-                <button class="nav-btn" onclick="navigateTo('gallery')">
-                    <i class="fas fa-images"></i> Галерея
-                </button>
-            </div>
-            <div class="theme-toggle" id="themeToggle"></div>
-        </header>
-
-        <!-- ГЛАВНАЯ -->
-        <div id="homePage" class="page active">
-            <div class="glass-card hero-section">
-                <i class="fas fa-coins" style="font-size: 5rem; color: var(--primary); margin-bottom: 20px;"></i>
-                <h2>Семейный бюджет 2026</h2>
-                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 30px;">
-                    Реалистичный симулятор финансов с жизненно важными расходами
-                </p>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-home"></i>
-                        <h3>Жильё</h3>
-                        <p>Нельзя платить меньше аренды. Иначе выселение.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-utensils"></i>
-                        <h3>Питание</h3>
-                        <p>Минимум 8000₽ в месяц. Иначе голод.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-heartbeat"></i>
-                        <h3>Здоровье</h3>
-                        <p>Минимум 3000₽ на лечение. Иначе болезни.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-car"></i>
-                        <h3>Транспорт</h3>
-                        <p>Минимум 2000₽. Иначе проблемы с работой.</p>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="navigateTo('game')">
-                        <i class="fas fa-play"></i> Начать игру
-                    </button>
-                    <button class="btn btn-success" onclick="navigateTo('gallery')">
-                        <i class="fas fa-bullseye"></i> Цели
-                    </button>
-                </div>
-            </div>
+<div class="container">
+    <header>
+        <div class="logo"><i class="fas fa-wallet"></i><h1>Семейный бюджет 2026</h1></div>
+        <div class="nav-menu">
+            <button class="nav-btn active" onclick="navigateTo('home')"><i class="fas fa-home"></i> Главная</button>
+            <button class="nav-btn" onclick="navigateTo('game')"><i class="fas fa-gamepad"></i> Игра</button>
+            <button class="nav-btn" onclick="navigateTo('about')"><i class="fas fa-info-circle"></i> Об игре</button>
         </div>
+        <div class="theme-toggle" id="themeToggle"></div>
+    </header>
 
-        <!-- СТРАНИЦА ИГРЫ -->
-        <div id="gamePage" class="page">
-            <!-- Экран начала -->
-            <div id="startScreen" class="glass-card">
-                <h2><i class="fas fa-cog"></i> Настройки игры</h2>
-                
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> Ваше имя</label>
-                    <input type="text" id="playerName" value="Тимофей">
-                </div>
-
-                <div class="stats-grid">
-                    <div class="form-group">
-                        <label><i class="fas fa-tachometer-alt"></i> Сложность</label>
-                        <select id="difficulty">
-                            <option value="easy">Легкий (500,000 ₽)</option>
-                            <option value="medium" selected>Средний (800,000 ₽)</option>
-                            <option value="hard">Сложный (1,200,000 ₽)</option>
-                            <option value="ultra">Ультра (2,000,000 ₽)</option>
-                            <option value="crypto">🚀 Крипто (1 BTC)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="fas fa-city"></i> Город</label>
-                        <select id="city">
-                            <option value="moscow">Москва/СПб</option>
-                            <option value="million" selected>Миллионник</option>
-                            <option value="regional">Областной центр</option>
-                            <option value="small">Небольшой город</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="form-group">
-                        <label><i class="fas fa-briefcase"></i> Профессия</label>
-                        <select id="profession">
-                            <option value="office">Офисный работник</option>
-                            <option value="remote" selected>Удаленщик</option>
-                            <option value="specialist">IT-специалист</option>
-                            <option value="business">Самозанятый</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="fas fa-home"></i> Жилье</label>
-                        <select id="housing">
-                            <option value="room">Комната (12-15 тыс. ₽)</option>
-                            <option value="studio" selected>Студия (20-25 тыс. ₽)</option>
-                            <option value="apartment">1-к квартира (30-40 тыс. ₽)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" style="width: 100%;" onclick="startGame()">
-                    <i class="fas fa-rocket"></i> Начать выживание
-                </button>
+    <!-- ГЛАВНАЯ -->
+    <div id="homePage" class="page active">
+        <div class="glass-card" style="text-align:center; padding:40px;">
+            <i class="fas fa-coins" style="font-size:5rem; color:var(--primary); margin-bottom:20px;"></i>
+            <h2>Семейный бюджет 2026 — симулятор личных финансов</h2>
+            <p style="color:var(--text-secondary); margin-bottom:30px;">Кэшбэк, патенты, страхование, инвестиции, криптовалюта, случайные события. Научитесь управлять бюджетом в увлекательной форме.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:15px; margin:30px 0;">
+                <div class="stat-card"><i class="fas fa-utensils" style="font-size:2rem; color:var(--warning);"></i><h3>Еда</h3><p>мин. 8000₽</p></div>
+                <div class="stat-card"><i class="fas fa-heartbeat" style="font-size:2rem; color:var(--danger);"></i><h3>Здоровье</h3><p>мин. 3000₽</p></div>
+                <div class="stat-card"><i class="fas fa-car" style="font-size:2rem; color:var(--info);"></i><h3>Транспорт</h3><p>мин. 2000₽</p></div>
+                <div class="stat-card"><i class="fas fa-bolt" style="font-size:2rem; color:var(--warning);"></i><h3>Коммуналка</h3><p>мин. 4000₽</p></div>
             </div>
 
-            <!-- Основной экран игры -->
-            <div id="gameScreen" style="display: none;">
-                <!-- Шапка игры -->
-                <div class="glass-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                        <div>
-                            <h3><i class="fas fa-user-circle"></i> <span id="playerNameDisplay"></span></h3>
-                            <p>
-                                <i class="fas fa-calendar-alt"></i> Месяц <span id="currentMonth">1</span>/60 • 
-                                <i class="fas fa-chart-line"></i> Инфляция <span id="inflationRate">8.5%</span>
-                            </p>
-                        </div>
-                        <div>
-                            <span class="tooltip">
-                                <button class="btn btn-success" onclick="saveGame()">
-                                    <i class="fas fa-save"></i> Сохранить
-                                </button>
-                                <span class="tooltip-text">Сохранить прогресс</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Статистика -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3><i class="fas fa-wallet"></i> Баланс</h3>
-                        <p id="balance">0 ₽</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3><i class="fas fa-piggy-bank"></i> Накоплено</h3>
-                        <p id="savings">0 ₽</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3><i class="fas fa-bullseye"></i> Цель</h3>
-                        <p id="goal">0 ₽</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <h3><i class="fas fa-credit-card"></i> Долги</h3>
-                        <p id="loan" style="color: var(--danger);">0 ₽</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3><i class="fas fa-heart"></i> Здоровье</h3>
-                        <p id="health">100%</p>
-                        <div class="health-bar">
-                            <div class="health-fill" id="healthFill" style="width: 100%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Сообщение -->
-                <div id="gameMessage" class="message" style="display: none;"></div>
-
-                <!-- Инвестиции -->
-                <div class="glass-card">
-                    <h3><i class="fas fa-chart-pie"></i> Инвестиции</h3>
-                    <div class="investment-options">
-                        <div class="investment-card" data-invest="conservative">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>Консервативный</div>
-                            <div style="color: var(--secondary);">+12% годовых</div>
-                        </div>
-                        <div class="investment-card" data-invest="balanced">
-                            <i class="fas fa-balance-scale"></i>
-                            <div>Сбалансированный</div>
-                            <div style="color: var(--secondary);">+18% годовых</div>
-                        </div>
-                        <div class="investment-card" data-invest="aggressive">
-                            <i class="fas fa-rocket"></i>
-                            <div>Агрессивный</div>
-                            <div style="color: var(--secondary);">+30% годовых</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="number" id="investAmount" placeholder="Сумма" value="10000" style="flex: 1;">
-                        <button class="btn btn-success" onclick="investMoney()">
-                            <i class="fas fa-chart-line"></i> Инвестировать
-                        </button>
-                    </div>
-                    <p style="margin-top: 10px;">
-                        <i class="fas fa-coins"></i> Инвестировано: <span id="investments">0 ₽</span>
-                    </p>
-                </div>
-
-                <!-- Расходы -->
-                <div class="glass-card">
-                    <h3>
-                        <i class="fas fa-receipt"></i> Расходы месяца 
-                        <span class="tooltip">
-                            <i class="fas fa-question-circle"></i>
-                            <span class="tooltip-text">Не экономьте на жизненно важном! Категории с ⚠️ критичны для выживания.</span>
-                        </span>
-                    </h3>
-                    <div id="expensesContainer"></div>
-                </div>
-
-                <!-- Накопления -->
-                <div class="glass-card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <h3><i class="fas fa-piggy-bank"></i> Отложить в копилку</h3>
-                        <span id="savingsValue">0 ₽</span>
-                    </div>
-                    <input type="range" id="savingsRange" class="expense-range" min="0" max="0" value="0" step="1000">
-                </div>
-
-                <!-- Кредиты -->
-                <div class="glass-card">
-                    <h3><i class="fas fa-credit-card"></i> Кредиты (28% годовых)</h3>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-warning" onclick="takeLoan()">
-                            <i class="fas fa-hand-holding-usd"></i> Взять 50,000 ₽
-                        </button>
-                        <button class="btn btn-success" onclick="payLoan()">
-                            <i class="fas fa-money-bill-wave"></i> Погасить 50,000 ₽
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Кнопки действий -->
-                <div style="display: flex; gap: 15px;">
-                    <button class="btn btn-primary" style="flex: 2;" onclick="nextMonth()">
-                        <i class="fas fa-calendar-check"></i> Следующий месяц
-                    </button>
-                    <button class="btn btn-danger" style="flex: 1;" onclick="restartGame()">
-                        <i class="fas fa-redo-alt"></i> Заново
-                    </button>
-                </div>
-            </div>
-
-            <!-- Экран завершения -->
-            <div id="endScreen" style="display: none;">
-                <div class="glass-card" style="text-align: center; padding: 40px;">
-                    <h2 id="endTitle"></h2>
-                    <div id="endMessage" class="message" style="margin: 30px 0;"></div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h3><i class="fas fa-calendar-alt"></i> Месяцев</h3>
-                            <p id="endMonths">0</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3><i class="fas fa-piggy-bank"></i> Накоплено</h3>
-                            <p id="endSavings">0 ₽</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3><i class="fas fa-credit-card"></i> Долги</h3>
-                            <p id="endLoan">0 ₽</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3><i class="fas fa-chart-pie"></i> Чистое состояние</h3>
-                            <p id="endNetWorth">0 ₽</p>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; gap: 15px; justify-content: center;">
-                        <button class="btn btn-primary" onclick="restartGame()">
-                            <i class="fas fa-play"></i> Играть снова
-                        </button>
-                        <button class="btn btn-success" onclick="navigateTo('home')">
-                            <i class="fas fa-home"></i> На главную
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- СТАТИСТИКА -->
-        <div id="statsPage" class="page">
-            <div class="glass-card">
-                <h2><i class="fas fa-chart-bar"></i> Финансовая аналитика</h2>
-                
-                <div class="chart-container">
-                    <canvas id="balanceChart"></canvas>
-                </div>
-                
-                <div class="chart-container">
-                    <canvas id="expensesChart"></canvas>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3><i class="fas fa-money-bill-wave"></i> Средний доход</h3>
-                        <p id="avgIncome">0 ₽</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3><i class="fas fa-shopping-cart"></i> Средние расходы</h3>
-                        <p id="avgExpenses">0 ₽</p>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" onclick="navigateTo('game')">
-                    <i class="fas fa-arrow-left"></i> К игре
-                </button>
-            </div>
-        </div>
-
-        <!-- ГАЛЕРЕЯ -->
-        <div id="galleryPage" class="page">
-            <div class="glass-card">
-                <h2><i class="fas fa-images"></i> Галерея целей</h2>
-                
-                <div class="gallery-filters">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-layer-group"></i> Все
-                    </button>
-                    <button class="filter-btn" data-filter="travel">
-                        <i class="fas fa-plane"></i> Путешествия
-                    </button>
-                    <button class="filter-btn" data-filter="property">
-                        <i class="fas fa-home"></i> Недвижимость
-                    </button>
-                    <button class="filter-btn" data-filter="vehicle">
-                        <i class="fas fa-car"></i> Авто
-                    </button>
-                    <button class="filter-btn" data-filter="crypto">
-                        <i class="fab fa-bitcoin"></i> Крипто
-                    </button>
-                </div>
-
-                <div class="gallery-grid" id="galleryGrid">
-                    <!-- Путешествия -->
-                    <div class="gallery-item glass-card" data-category="travel">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23276fdb'/%3E%3Ctext x='50' y='120' fill='white' font-size='24'%3E🌴 Мальдивы%3C/text%3E%3C/svg%3E" alt="Мальдивы">
-                        <div class="gallery-content">
-                            <span class="goal-category"><i class="fas fa-plane"></i> Путешествия</span>
-                            <h3>Отпуск на Мальдивах</h3>
-                            <p class="goal-price">450,000 ₽</p>
-                            <p><i class="fas fa-clock"></i> 10 дней рая</p>
-                        </div>
-                    </div>
-
-                    <div class="gallery-item glass-card" data-category="travel">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%2310b981'/%3E%3Ctext x='50' y='120' fill='white' font-size='24'%3E🗻 Алтай%3C/text%3E%3C/svg%3E" alt="Алтай">
-                        <div class="gallery-content">
-                            <span class="goal-category"><i class="fas fa-mountain"></i> Путешествия</span>
-                            <h3>Путешествие на Алтай</h3>
-                            <p class="goal-price">120,000 ₽</p>
-                            <p><i class="fas fa-clock"></i> 2 недели активного отдыха</p>
-                        </div>
-                    </div>
-
-                    <!-- Недвижимость -->
-                    <div class="gallery-item glass-card" data-category="property">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23f59e0b'/%3E%3Ctext x='50' y='120' fill='white' font-size='24'%3E🏢 Первоначальный взнос%3C/text%3E%3C/svg%3E" alt="Ипотека">
-                        <div class="gallery-content">
-                            <span class="goal-category"><i class="fas fa-home"></i> Недвижимость</span>
-                            <h3>Первоначальный взнос</h3>
-                            <p class="goal-price">1,200,000 ₽</p>
-                            <p><i class="fas fa-percent"></i> 20% от студии</p>
-                        </div>
-                    </div>
-
-                    <!-- Авто -->
-                    <div class="gallery-item glass-card" data-category="vehicle">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23ef4444'/%3E%3Ctext x='50' y='120' fill='white' font-size='24'%3E🚗 Китайский кроссовер%3C/text%3E%3C/svg%3E" alt="Авто">
-                        <div class="gallery-content">
-                            <span class="goal-category"><i class="fas fa-car"></i> Авто</span>
-                            <h3>Китайский кроссовер</h3>
-                            <p class="goal-price">2,500,000 ₽</p>
-                            <p><i class="fas fa-tag"></i> Chery / Haval</p>
-                        </div>
-                    </div>
-
-                    <!-- Крипто -->
-                    <div class="gallery-item glass-card" data-category="crypto">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%238b5cf6'/%3E%3Ctext x='50' y='120' fill='white' font-size='24'%3E₿ 1 Bitcoin%3C/text%3E%3C/svg%3E" alt="Bitcoin">
-                        <div class="gallery-content">
-                            <span class="goal-category"><i class="fab fa-bitcoin"></i> Крипто</span>
-                            <h3>1 Bitcoin</h3>
-                            <p class="goal-price">5,500,000 ₽</p>
-                            <p><i class="fas fa-chart-line"></i> Цифровое золото</p>
-                        </div>
-                    </div>
-
-                    <div class="gallery-item glass-card" data-category="crypto">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%233b82f6'/%3E%3Ctext x='50' y='120' fill='white' font-size='24'%3EΞ 10 Ethereum%3C/text%3E%3C/svg%3E" alt="Ethereum">
-                        <div class="gallery-content">
-                            <span class="goal-category"><i class="fab fa-ethereum"></i> Крипто</span>
-                            <h3>10 Ethereum</h3>
-                            <p class="goal-price">2,400,000 ₽</p>
-                            <p><i class="fas fa-microchip"></i> Для стейкинга</p>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" onclick="navigateTo('game')">
-                    <i class="fas fa-arrow-left"></i> К игре
-                </button>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="navigateTo('game')"><i class="fas fa-play"></i> Начать игру</button>
+                <button class="btn btn-info" onclick="navigateTo('about')"><i class="fas fa-question-circle"></i> Об игре</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // ========== КОНФИГУРАЦИЯ ==========
-        const CONFIG = {
-            difficulties: {
-                easy: { goal: 500000, salary: 65000, inflation: 0.06 },
-                medium: { goal: 800000, salary: 75000, inflation: 0.085 },
-                hard: { goal: 1200000, salary: 85000, inflation: 0.10 },
-                ultra: { goal: 2000000, salary: 100000, inflation: 0.12 },
-                crypto: { goal: 5500000, salary: 120000, inflation: 0.15 }
-            },
-            cities: {
-                moscow: { rentMultiplier: 2.0, salaryMultiplier: 1.8 },
-                million: { rentMultiplier: 1.3, salaryMultiplier: 1.2 },
-                regional: { rentMultiplier: 0.9, salaryMultiplier: 0.9 },
-                small: { rentMultiplier: 0.6, salaryMultiplier: 0.7 }
-            },
-            professions: {
-                office: { baseSalary: 65000, stability: 0.9 },
-                remote: { baseSalary: 75000, stability: 0.7 },
-                specialist: { baseSalary: 120000, stability: 0.8 },
-                business: { baseSalary: 50000, stability: 0.5, bonus: 20000 }
-            },
-            housing: {
-                room: { name: 'Комната', baseRent: 13000, minRent: 12000, maxRent: 15000 },
-                studio: { name: 'Студия', baseRent: 22000, minRent: 20000, maxRent: 25000 },
-                apartment: { name: '1-к квартира', baseRent: 35000, minRent: 30000, maxRent: 40000 }
-            },
-            minimums: {
-                food: 8000,
-                health: 3000,
-                transport: 2000,
-                utilities: 4000,
-                entertainment: 0
-            },
-            survival: {
-                food: 3,
-                health: 2,
-                transport: 1
-            }
-        };
+    <!-- СТРАНИЦА ИГРЫ -->
+    <div id="gamePage" class="page">
+        <!-- Стартовый экран -->
+        <div id="startScreen" class="glass-card">
+            <h2><i class="fas fa-cog"></i> Настройки игры</h2>
+            <div class="stats-grid">
+                <div class="form-group"><label><i class="fas fa-user"></i> Ваше имя</label><input type="text" id="playerName" value="Аркадий"></div>
+                <div class="form-group"><label><i class="fas fa-tachometer-alt"></i> Сложность</label>
+                    <select id="difficulty">
+                        <option value="easy">Лёгкая (цель 500 000 ₽)</option>
+                        <option value="medium" selected>Средняя (цель 800 000 ₽)</option>
+                        <option value="hard">Сложная (цель 1 200 000 ₽)</option>
+                        <option value="ultra">Ультра (цель 2 000 000 ₽)</option>
+                    </select>
+                </div>
+                <div class="form-group"><label><i class="fas fa-city"></i> Город</label>
+                    <select id="city">
+                        <option value="moscow">Москва / Санкт-Петербург</option>
+                        <option value="million" selected>Город-миллионник</option>
+                        <option value="regional">Областной центр</option>
+                        <option value="small">Небольшой город</option>
+                    </select>
+                </div>
+                <div class="form-group"><label><i class="fas fa-briefcase"></i> Профессия</label>
+                    <select id="profession">
+                        <option value="office">Офисный сотрудник</option>
+                        <option value="remote" selected>Удалённый работник</option>
+                        <option value="specialist">IT-специалист</option>
+                        <option value="business">Самозанятый</option>
+                    </select>
+                </div>
+                <div class="form-group"><label><i class="fas fa-home"></i> Жильё</label>
+                    <select id="housing">
+                        <option value="room">Комната (12 000 - 15 000 ₽)</option>
+                        <option value="studio" selected>Студия (20 000 - 25 000 ₽)</option>
+                        <option value="apartment">1-к квартира (30 000 - 40 000 ₽)</option>
+                    </select>
+                </div>
+                <div class="form-group"><label><i class="fas fa-bullseye"></i> Своя цель (₽)</label><input type="number" id="customGoal" value="800000" placeholder="800000"></div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;" onclick="startGame()"><i class="fas fa-rocket"></i> Начать игру</button>
+        </div>
 
-        // ========== СОСТОЯНИЕ ИГРЫ ==========
-        let gameState = {
-            playerName: '',
-            difficulty: 'medium',
-            city: 'million',
-            profession: 'remote',
-            housing: 'studio',
-            balance: 0,
-            savings: 0,
-            goal: 0,
-            month: 1,
-            salary: 0,
-            loan: 0,
-            investments: 0,
-            investmentType: null,
-            health: 100,
-            starvationMonths: 0,
-            sicknessMonths: 0,
-            transportMonths: 0,
-            history: {
-                balance: [],
-                savings: [],
-                expenses: []
-            }
-        };
+        <!-- Основной игровой экран -->
+        <div id="gameScreen" style="display:none;">
+            <div class="glass-card">
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:15px;">
+                    <h3><i class="fas fa-user-circle"></i> <span id="playerNameDisplay"></span> | Месяц <span id="currentMonth">1</span>/<span id="maxMonths">60</span></h3>
+                    <div>
+                        <button class="btn btn-success" onclick="saveGame()"><i class="fas fa-save"></i> Сохранить</button>
+                        <button class="btn btn-info" onclick="loadGame()"><i class="fas fa-folder-open"></i> Загрузить</button>
+                    </div>
+                </div>
+            </div>
 
-        let charts = {};
+            <div class="stats-grid">
+                <div class="stat-card"><h3><i class="fas fa-wallet"></i> Баланс</h3><p id="balance">0 ₽</p></div>
+                <div class="stat-card"><h3><i class="fas fa-piggy-bank"></i> Накоплено</h3><p id="savings">0 ₽</p></div>
+                <div class="stat-card"><h3><i class="fas fa-bullseye"></i> Цель</h3><p id="goal">0 ₽</p><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div></div>
+                <div class="stat-card"><h3><i class="fas fa-credit-card"></i> Долги</h3><p id="loan" style="color:var(--danger);">0 ₽</p></div>
+                <div class="stat-card"><h3><i class="fas fa-heart"></i> Здоровье</h3><p id="health">100%</p><div class="health-bar"><div class="health-fill" id="healthFill" style="width:100%"></div></div></div>
+            </div>
 
-        // ========== НАВИГАЦИЯ ==========
-        function navigateTo(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(page + 'Page').classList.add('active');
+            <div id="gameMessage" class="message" style="display:none;"></div>
+
+            <!-- Расходы -->
+            <div class="glass-card">
+                <h3><i class="fas fa-receipt"></i> Обязательные расходы 
+                    <span class="tooltip"><i class="fas fa-question-circle"></i>
+                        <span class="tooltip-text">
+                            <strong>Минимальные расходы:</strong><br>
+                            🍔 Еда: 8 000 ₽ (меньше = голод)<br>
+                            🏥 Здоровье: 3 000 ₽ (меньше = болезни)<br>
+                            🚗 Транспорт: 2 000 ₽ (меньше = проблемы с работой)<br>
+                            💡 Коммуналка: 4 000 ₽ (меньше = отключат)<br>
+                            🏠 Аренда: фиксирована (нельзя изменить)
+                        </span>
+                    </span>
+                </h3>
+                <div id="expensesContainer"></div>
+            </div>
+
+            <!-- Кэшбэк -->
+            <div class="glass-card">
+                <h3><i class="fas fa-percent"></i> Кэшбэк <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltip-text">Нажимайте на банки для получения бонусов. 100 бонусов = 100 ₽</span></span></h3>
+                <div class="button-grid">
+                    <button class="btn btn-info" onclick="cashbackAction('sber')"><i class="fas fa-credit-card"></i> СберСпасибо</button>
+                    <button class="btn btn-info" onclick="cashbackAction('tinkoff')"><i class="fas fa-credit-card"></i> Тинькофф</button>
+                    <button class="btn btn-info" onclick="cashbackAction('alfa')"><i class="fas fa-credit-card"></i> Альфа-Банк</button>
+                    <button class="btn btn-info" onclick="cashbackAction('vtb')"><i class="fas fa-credit-card"></i> ВТБ</button>
+                    <button class="btn btn-success" onclick="applyCashback()"><i class="fas fa-coins"></i> Конвертировать</button>
+                </div>
+                <p><i class="fas fa-star"></i> Накоплено бонусов: <span id="bonusPoints">0</span></p>
+            </div>
+
+            <!-- Кредиты -->
+            <div class="glass-card">
+                <h3><i class="fas fa-hand-holding-usd"></i> Кредиты и займы</h3>
+                <div class="button-grid">
+                    <button class="btn btn-warning" onclick="microLoan()"><i class="fas fa-exclamation-triangle"></i> Микрозаём (20 000 ₽)</button>
+                    <button class="btn btn-warning" onclick="creditCardLoan()"><i class="fas fa-credit-card"></i> Кредитка (50 000 ₽)</button>
+                    <button class="btn btn-warning" onclick="takeMortgage()"><i class="fas fa-home"></i> Ипотека (2 000 000 ₽)</button>
+                    <button class="btn btn-success" onclick="payMicroDebt()"><i class="fas fa-money-bill-wave"></i> Погасить микрозаём</button>
+                    <button class="btn btn-success" onclick="payCreditCard()"><i class="fas fa-money-bill-wave"></i> Погасить кредитку</button>
+                    <button class="btn btn-success" onclick="payMortgage()"><i class="fas fa-money-bill-wave"></i> Платить ипотеку</button>
+                </div>
+                <p>Микрозаём: <span id="microLoanDebt">0 ₽</span> | Кредитка: <span id="creditCardDebt">0 ₽</span> | Ипотека: <span id="mortgageDebt">0 ₽</span></p>
+            </div>
+
+            <!-- Патенты и роялти -->
+            <div class="glass-card">
+                <h3><i class="fas fa-rocket"></i> Инновации</h3>
+                <div class="button-grid">
+                    <button class="btn btn-info" onclick="registerPatent()"><i class="fas fa-file-signature"></i> Патент (50 000 ₽)</button>
+                    <button class="btn btn-info" onclick="registerTrademark()"><i class="fas fa-copyright"></i> Товарный знак (30 000 ₽)</button>
+                    <button class="btn btn-success" onclick="royaltyIncome()"><i class="fas fa-hand-holding-heart"></i> Собрать роялти</button>
+                </div>
+                <p>Патенты: <span id="patentsCount">0</span> | Товарные знаки: <span id="trademarksCount">0</span> | Роялти/мес: <span id="royaltyAmount">0 ₽</span></p>
+            </div>
+
+            <!-- Страхование -->
+            <div class="glass-card">
+                <h3><i class="fas fa-shield-alt"></i> Страхование</h3>
+                <div class="button-grid">
+                    <button class="btn btn-info" onclick="buyInsurance('kasko')">КАСКО (50 000 ₽)</button>
+                    <button class="btn btn-info" onclick="buyInsurance('osago')">ОСАГО (10 000 ₽)</button>
+                    <button class="btn btn-info" onclick="buyInsurance('dms')">ДМС (30 000 ₽)</button>
+                    <button class="btn btn-info" onclick="buyInsurance('life')">Страхование жизни (25 000 ₽)</button>
+                    <button class="btn btn-info" onclick="buyInsurance('realty')">Недвижимость (20 000 ₽)</button>
+                </div>
+                <p>Активные страховки: <span id="insuranceList">нет</span></p>
+            </div>
+
+            <!-- Инвестиции -->
+            <div class="glass-card">
+                <h3><i class="fas fa-chart-pie"></i> Инвестиции</h3>
+                <div class="investment-options">
+                    <div class="investment-card" data-invest="conservative"><i class="fas fa-shield-alt"></i><div>Консервативный</div><div style="color:var(--secondary);">+12% годовых</div></div>
+                    <div class="investment-card" data-invest="balanced"><i class="fas fa-balance-scale"></i><div>Сбалансированный</div><div style="color:var(--secondary);">+18% годовых</div></div>
+                    <div class="investment-card" data-invest="aggressive"><i class="fas fa-rocket"></i><div>Агрессивный</div><div style="color:var(--secondary);">+30% годовых</div></div>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <input type="number" id="investAmount" placeholder="Сумма" value="10000" style="flex:1;">
+                    <button class="btn btn-success" onclick="investMoney()">Инвестировать</button>
+                </div>
+                <p>Инвестиции: <span id="investments">0 ₽</span></p>
+            </div>
+
+            <!-- Криптовалюта -->
+            <div class="glass-card">
+                <h3><i class="fas fa-coins"></i> Криптовалюта</h3>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn btn-info" onclick="buyCrypto()"><i class="fas fa-shopping-cart"></i> Купить на 10 000 ₽</button>
+                    <button class="btn btn-warning" onclick="sellCrypto()"><i class="fas fa-dollar-sign"></i> Продать всё</button>
+                </div>
+                <p>Крипто: <span id="cryptoAmount">0 ₽</span> (курс: <span id="cryptoPrice">50</span> у.е.)</p>
+            </div>
+
+            <!-- Накопления -->
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between;">
+                    <h3><i class="fas fa-piggy-bank"></i> Отложить в копилку</h3>
+                    <span id="savingsValue">0 ₽</span>
+                </div>
+                <input type="range" id="savingsRange" class="expense-range" min="0" max="0" value="0" step="1000">
+            </div>
+
+            <!-- Кнопка следующего месяца -->
+            <div style="display:flex; gap:15px; margin-top:20px;">
+                <button class="btn btn-primary" style="flex:2;" onclick="nextMonth()"><i class="fas fa-calendar-check"></i> Следующий месяц</button>
+                <button class="btn btn-danger" style="flex:1;" onclick="restartGame()"><i class="fas fa-redo-alt"></i> Заново</button>
+            </div>
+        </div>
+
+        <!-- Экран завершения -->
+        <div id="endScreen" style="display:none;">
+            <div class="glass-card" style="text-align:center; padding:40px;">
+                <h2 id="endTitle"></h2>
+                <div id="endMessage" class="message" style="margin:30px 0;"></div>
+                <div class="stats-grid">
+                    <div class="stat-card"><h3>Месяцев</h3><p id="endMonths">0</p></div>
+                    <div class="stat-card"><h3>Накоплено</h3><p id="endSavings">0 ₽</p></div>
+                    <div class="stat-card"><h3>Долги</h3><p id="endLoan">0 ₽</p></div>
+                    <div class="stat-card"><h3>Чистое состояние</h3><p id="endNetWorth">0 ₽</p></div>
+                </div>
+                <button class="btn btn-primary" onclick="restartGame()"><i class="fas fa-play"></i> Новая игра</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА ОБ ИГРЕ -->
+    <div id="aboutPage" class="page">
+        <div class="glass-card" style="padding:40px;">
+            <h2 style="text-align:center; margin-bottom:30px;"><i class="fas fa-info-circle"></i> Об игре</h2>
             
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.toLowerCase().includes(page)) {
-                    btn.classList.add('active');
-                }
-            });
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Питание</h3>
+                    <p>Минимум 8 000 ₽ в месяц. Если тратить меньше — через 3 месяца наступит голодная смерть.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Здоровье</h3>
+                    <p>Минимум 3 000 ₽ в месяц. Экономия на здоровье приведёт к болезням и смерти через 2 месяца.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-car"></i>
+                    <h3>Транспорт</h3>
+                    <p>Минимум 2 000 ₽ в месяц. Без транспорта вас уволят за опоздания через месяц.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Коммуналка</h3>
+                    <p>Минимум 4 000 ₽ в месяц. Меньше — отключат услуги, начнутся проблемы.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Аренда</h3>
+                    <p>Фиксирована при старте. Неуплата = выселение и проигрыш.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-percent"></i>
+                    <h3>Кэшбэк</h3>
+                    <p>Нажимайте на банки, копите бонусы и конвертируйте в деньги.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Кредиты</h3>
+                    <p>Микрозаём (20% в месяц), кредитка (2.5% в месяц), ипотека (1.25% в месяц).</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Патенты</h3>
+                    <p>Купите патент за 50 000 ₽ — получайте 4 000 ₽ роялти ежемесячно.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-copyright"></i>
+                    <h3>Товарные знаки</h3>
+                    <p>Купите за 30 000 ₽ — получайте 2 000 ₽ роялти ежемесячно.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Страхование</h3>
+                    <p>Защищает от случайных событий (ДТП, болезни, аварии).</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Инвестиции</h3>
+                    <p>Консервативные (12%), сбалансированные (18%), агрессивные (до 30%).</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-coins"></i>
+                    <h3>Криптовалюта</h3>
+                    <p>Курс меняется каждый месяц. Можно купить и продать.</p>
+                </div>
+            </div>
 
-            if (page === 'stats') updateCharts();
+            <div style="text-align:center; margin-top:30px;">
+                <h3>Цель игры</h3>
+                <p style="color:var(--text-secondary); margin:20px 0;">Накопить целевую сумму за 60 месяцев, не имея долгов. Если долги есть — победа невозможна, даже если цель достигнута.</p>
+                <button class="btn btn-primary" onclick="navigateTo('game')"><i class="fas fa-play"></i> Начать игру</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <p>© 2026 Семейный бюджет. Версия 2.0. Все механики реалистичны. Сделано с ❤️ для обучения финансам.</p>
+    </footer>
+</div>
+
+<script>
+    // ========== КОНФИГУРАЦИЯ ==========
+    const CONFIG = {
+        difficulties: {
+            easy: { goal: 500000, salary: 65000, inflation: 0.06 },
+            medium: { goal: 800000, salary: 75000, inflation: 0.085 },
+            hard: { goal: 1200000, salary: 85000, inflation: 0.10 },
+            ultra: { goal: 2000000, salary: 100000, inflation: 0.12 }
+        },
+        cities: {
+            moscow: { rentMultiplier: 2.0, salaryMultiplier: 1.8 },
+            million: { rentMultiplier: 1.3, salaryMultiplier: 1.2 },
+            regional: { rentMultiplier: 0.9, salaryMultiplier: 0.9 },
+            small: { rentMultiplier: 0.6, salaryMultiplier: 0.7 }
+        },
+        professions: {
+            office: { baseSalary: 65000 },
+            remote: { baseSalary: 75000 },
+            specialist: { baseSalary: 120000 },
+            business: { baseSalary: 50000 }
+        },
+        housing: {
+            room: { baseRent: 13000, minRent: 12000, maxRent: 15000 },
+            studio: { baseRent: 22000, minRent: 20000, maxRent: 25000 },
+            apartment: { baseRent: 35000, minRent: 30000, maxRent: 40000 }
+        },
+        minimums: {
+            food: 8000,
+            health: 3000,
+            transport: 2000,
+            utilities: 4000
+        },
+        survival: {
+            food: 3,
+            health: 2,
+            transport: 1
         }
+    };
 
-        // ========== ТЕМА ==========
-        document.getElementById('themeToggle').addEventListener('click', function() {
-            document.body.classList.toggle('light-theme');
-            this.classList.toggle('active');
-            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    // ========== СОСТОЯНИЕ ИГРЫ ==========
+    let gameState = {
+        playerName: '', 
+        difficulty: 'medium', 
+        city: 'million', 
+        profession: 'remote', 
+        housing: 'studio',
+        balance: 50000, 
+        savings: 0, 
+        goal: 800000, 
+        month: 1, 
+        salary: 75000, 
+        health: 100, 
+        maxMonths: 60,
+        bonusPoints: 0,
+        microLoanDebt: 0, 
+        creditCardDebt: 0,
+        mortgageDebt: 0,
+        patents: 0, 
+        trademarks: 0, 
+        royaltyAmount: 0,
+        insurance: { kasko: false, osago: false, dms: false, life: false, realty: false },
+        cryptoAmount: 0, 
+        cryptoPrice: 50,
+        investments: 0, 
+        investmentType: null,
+        starvationMonths: 0,
+        sicknessMonths: 0,
+        transportMonths: 0
+    };
+
+    // ========== СЛУЧАЙНЫЕ СОБЫТИЯ ==========
+    const randomEvents = [
+        { name: '💳 Санкции', chance: 0.015, fn: function() { 
+            let loss = Math.round(gameState.balance * 0.2); 
+            gameState.balance -= loss; 
+            showMessage(`💳 Санкции! Потеряно ${formatMoney(loss)}`, 'danger'); 
+        }},
+        { name: '🔒 Заморозка счетов', chance: 0.01, fn: function() { 
+            let frozen = Math.min(50000, gameState.balance); 
+            gameState.balance -= frozen; 
+            showMessage(`🔒 Счета заморожены! -${formatMoney(frozen)}`, 'danger'); 
+        }},
+        { name: '🖥️ Кибератака', chance: 0.01, fn: function() { 
+            let loss = Math.min(20000, gameState.balance); 
+            gameState.balance -= loss; 
+            showMessage(`🖥️ Кибератака! Потеряно ${formatMoney(loss)}`, 'danger'); 
+        }},
+        { name: '🚗 ДТП', chance: 0.015, fn: function() {
+            if (gameState.insurance.kasko) showMessage('✅ КАСКО покрыло ущерб', 'success');
+            else { 
+                let loss = 40000; 
+                gameState.balance = Math.max(0, gameState.balance - loss); 
+                showMessage(`🚗 ДТП! Ущерб ${formatMoney(loss)}`, 'danger'); 
+            }
+        }},
+        { name: '🏥 Болезнь', chance: 0.02, fn: function() {
+            if (gameState.insurance.dms) showMessage('✅ ДМС покрыло лечение', 'success');
+            else { 
+                gameState.health = Math.max(0, gameState.health - 25); 
+                showMessage('🏥 Болезнь! Здоровье -25', 'danger'); 
+            }
+        }},
+        { name: '💰 Налоговая проверка', chance: 0.02, fn: function() { 
+            let tax = Math.min(20000, Math.round(gameState.salary * 0.3)); 
+            if (gameState.balance >= tax) { 
+                gameState.balance -= tax; 
+                showMessage(`💰 Налог: -${formatMoney(tax)}`, 'warning'); 
+            } 
+        }},
+        { name: '🎁 Субсидия', chance: 0.01, fn: function() { 
+            gameState.balance += 20000; 
+            showMessage('🎁 Субсидия +20 000 ₽', 'success'); 
+        }},
+        { name: '💪 Фитнес-успех', chance: 0.02, fn: function() { 
+            gameState.health = Math.min(100, gameState.health + 10); 
+            showMessage('💪 Здоровье +10', 'success'); 
+        }},
+        { name: '🍔 Отравление', chance: 0.015, fn: function() { 
+            gameState.health = Math.max(0, gameState.health - 15); 
+            showMessage('🍔 Отравление! Здоровье -15', 'danger'); 
+        }},
+        { name: '🏆 Премия', chance: 0.02, fn: function() { 
+            gameState.balance += 25000; 
+            showMessage('🏆 Премия +25 000 ₽', 'success'); 
+        }},
+        { name: '⚡ Авария', chance: 0.01, fn: function() { 
+            let loss = 15000; 
+            if (gameState.insurance.realty) showMessage('✅ Страховка покрыла ущерб', 'success');
+            else { 
+                gameState.balance -= loss; 
+                showMessage(`⚡ Авария! -${formatMoney(loss)}`, 'danger'); 
+            } 
+        }}
+    ];
+
+    // ========== НАВИГАЦИЯ ==========
+    function navigateTo(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(page + 'Page').classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.nav-btn[onclick*="'${page}'"]`).classList.add('active');
+    }
+
+    // ========== ТЕМА ==========
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        document.body.classList.toggle('light-theme');
+        this.classList.toggle('active');
+        localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    });
+
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-theme');
+        document.getElementById('themeToggle').classList.add('active');
+    }
+
+    // ========== ИНВЕСТИЦИИ (выбор) ==========
+    document.querySelectorAll('.investment-card').forEach(c => {
+        c.addEventListener('click', function() {
+            document.querySelectorAll('.investment-card').forEach(x => x.classList.remove('selected'));
+            this.classList.add('selected');
+            gameState.investmentType = this.dataset.invest;
         });
+    });
 
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-theme');
-            document.getElementById('themeToggle').classList.add('active');
-        }
+    // ========== СОЗДАНИЕ РАСХОДОВ ==========
+    function createExpenseCategories() {
+        const container = document.getElementById('expensesContainer');
+        if (!container) return;
+        container.innerHTML = '';
 
-        // ========== ФИЛЬТРЫ ГАЛЕРЕИ ==========
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const filter = this.dataset.filter;
-                document.querySelectorAll('.gallery-item').forEach(item => {
-                    item.style.display = filter === 'all' || item.dataset.category === filter ? 'block' : 'none';
+        const cityMultiplier = CONFIG.cities[gameState.city].rentMultiplier;
+        const housing = CONFIG.housing[gameState.housing];
+        
+        const baseRent = Math.round(housing.baseRent * cityMultiplier);
+        const minRent = Math.round(housing.minRent * cityMultiplier);
+        const maxRent = Math.round(housing.maxRent * cityMultiplier);
+
+        const categories = [
+            { id: 'rent', name: '🏠 Аренда', icon: 'fa-home', min: minRent, max: maxRent, value: baseRent, disabled: true },
+            { id: 'food', name: '🍔 Питание', icon: 'fa-utensils', min: 0, max: 50000, value: 25000 },
+            { id: 'health', name: '🏥 Здоровье', icon: 'fa-heartbeat', min: 0, max: 20000, value: 5000 },
+            { id: 'transport', name: '🚗 Транспорт', icon: 'fa-car', min: 0, max: 20000, value: 7000 },
+            { id: 'utilities', name: '💡 Коммуналка', icon: 'fa-bolt', min: 0, max: 15000, value: 7000 },
+            { id: 'entertainment', name: '🎮 Развлечения', icon: 'fa-film', min: 0, max: 30000, value: 8000 }
+        ];
+
+        categories.forEach(cat => {
+            const div = document.createElement('div');
+            div.className = 'expense-category';
+            div.id = `category-${cat.id}`;
+            
+            div.innerHTML = `
+                <div class="expense-header">
+                    <h4><i class="fas ${cat.icon}"></i> ${cat.name}</h4>
+                    <span id="${cat.id}Value">${formatMoney(cat.value)}</span>
+                </div>
+                <input type="range" id="${cat.id}Range" class="expense-range" 
+                    min="${cat.min}" max="${cat.max}" value="${cat.value}" step="500" ${cat.disabled ? 'disabled' : ''}>
+                <div class="expense-minmax">
+                    <span>Мин: ${formatMoney(cat.id === 'rent' ? cat.min : 0)}</span>
+                    <span>Макс: ${formatMoney(cat.max)}</span>
+                </div>
+                <div id="${cat.id}Warning" class="expense-warning"></div>
+            `;
+
+            const range = div.querySelector('input');
+            if (range && !cat.disabled) {
+                range.addEventListener('input', function() {
+                    const value = parseInt(this.value);
+                    document.getElementById(cat.id + 'Value').textContent = formatMoney(value);
+                    checkMinimumWarning(cat.id, value);
+                    updateSavingsSlider();
                 });
-            });
+            }
+
+            container.appendChild(div);
         });
+        
+        checkAllMinimums();
+    }
 
-        // ========== ИНВЕСТИЦИИ ==========
-        document.querySelectorAll('.investment-card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelectorAll('.investment-card').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-                gameState.investmentType = this.dataset.invest;
-            });
+    // ========== ПРОВЕРКА МИНИМУМОВ ==========
+    function checkMinimumWarning(category, value) {
+        const minRequired = CONFIG.minimums[category] || 0;
+        const warningEl = document.getElementById(category + 'Warning');
+        const categoryEl = document.getElementById('category-' + category);
+        
+        if (!warningEl) return;
+        
+        if (value < minRequired) {
+            const deficit = minRequired - value;
+            warningEl.style.display = 'flex';
+            warningEl.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Меньше минимума! Не хватает ${formatMoney(deficit)}`;
+            categoryEl.classList.add('warning');
+        } else {
+            warningEl.style.display = 'none';
+            categoryEl.classList.remove('warning');
+        }
+    }
+
+    function checkAllMinimums() {
+        ['food', 'health', 'transport', 'utilities'].forEach(cat => {
+            const range = document.getElementById(cat + 'Range');
+            if (range) checkMinimumWarning(cat, parseInt(range.value));
         });
+    }
 
-        // ========== НАЧАЛО ИГРЫ ==========
-        function startGame() {
-            gameState.playerName = document.getElementById('playerName').value || 'Игрок';
-            gameState.difficulty = document.getElementById('difficulty').value;
-            gameState.city = document.getElementById('city').value;
-            gameState.profession = document.getElementById('profession').value;
-            gameState.housing = document.getElementById('housing').value;
+    // ========== СТАРТ ИГРЫ ==========
+    function startGame() {
+        gameState.playerName = document.getElementById('playerName').value || 'Игрок';
+        gameState.difficulty = document.getElementById('difficulty').value;
+        gameState.city = document.getElementById('city').value;
+        gameState.profession = document.getElementById('profession').value;
+        gameState.housing = document.getElementById('housing').value;
+        
+        let customGoal = parseInt(document.getElementById('customGoal').value);
+        if (customGoal > 0) gameState.goal = customGoal;
+        else {
+            const diff = CONFIG.difficulties[gameState.difficulty];
+            gameState.goal = diff.goal;
+        }
 
-            const difficulty = CONFIG.difficulties[gameState.difficulty];
-            const city = CONFIG.cities[gameState.city];
-            const profession = CONFIG.professions[gameState.profession];
+        const city = CONFIG.cities[gameState.city];
+        const profession = CONFIG.professions[gameState.profession];
+        gameState.salary = Math.round(profession.baseSalary * city.salaryMultiplier);
+        gameState.balance = 50000;
+        gameState.savings = 0;
+        gameState.month = 1;
+        gameState.health = 100;
+        
+        gameState.microLoanDebt = 0;
+        gameState.creditCardDebt = 0;
+        gameState.mortgageDebt = 0;
+        gameState.bonusPoints = 0;
+        gameState.patents = 0;
+        gameState.trademarks = 0;
+        gameState.royaltyAmount = 0;
+        gameState.insurance = { kasko: false, osago: false, dms: false, life: false, realty: false };
+        gameState.cryptoAmount = 0;
+        gameState.investments = 0;
+        gameState.investmentType = null;
+        gameState.starvationMonths = 0;
+        gameState.sicknessMonths = 0;
+        gameState.transportMonths = 0;
 
-            gameState.balance = 50000;
-            gameState.goal = difficulty.goal;
-            gameState.salary = Math.round(profession.baseSalary * city.salaryMultiplier);
-            gameState.savings = 0;
-            gameState.loan = 0;
-            gameState.investments = 0;
-            gameState.month = 1;
-            gameState.health = 100;
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('gameScreen').style.display = 'block';
+        
+        createExpenseCategories();
+        updateUI();
+        updateSavingsSlider();
+        updateCryptoPrice();
+        showMessage('🚀 Игра начата! Помните о минимальных расходах!', 'success');
+    }
+
+    // ========== ЦЕНА КРИПТЫ ==========
+    function updateCryptoPrice() {
+        gameState.cryptoPrice = 50 + Math.random() * 50;
+        document.getElementById('cryptoPrice').textContent = gameState.cryptoPrice.toFixed(1);
+    }
+
+    // ========== ОБНОВЛЕНИЕ ИНТЕРФЕЙСА ==========
+    function updateUI() {
+        document.getElementById('playerNameDisplay').textContent = gameState.playerName;
+        document.getElementById('currentMonth').textContent = gameState.month;
+        document.getElementById('balance').textContent = formatMoney(gameState.balance);
+        document.getElementById('savings').textContent = formatMoney(gameState.savings);
+        document.getElementById('goal').textContent = formatMoney(gameState.goal);
+        
+        const totalDebt = gameState.microLoanDebt + gameState.creditCardDebt + gameState.mortgageDebt;
+        document.getElementById('loan').textContent = formatMoney(totalDebt);
+        
+        document.getElementById('health').textContent = gameState.health + '%';
+        document.getElementById('healthFill').style.width = gameState.health + '%';
+        
+        const progress = (gameState.savings / gameState.goal * 100).toFixed(1);
+        document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
+        
+        document.getElementById('bonusPoints').textContent = gameState.bonusPoints;
+        document.getElementById('microLoanDebt').textContent = formatMoney(gameState.microLoanDebt);
+        document.getElementById('creditCardDebt').textContent = formatMoney(gameState.creditCardDebt);
+        document.getElementById('mortgageDebt').textContent = formatMoney(gameState.mortgageDebt);
+        document.getElementById('patentsCount').textContent = gameState.patents;
+        document.getElementById('trademarksCount').textContent = gameState.trademarks;
+        document.getElementById('royaltyAmount').textContent = formatMoney(gameState.royaltyAmount);
+        
+        let ins = Object.keys(gameState.insurance).filter(k => gameState.insurance[k]).join(', ') || 'нет';
+        document.getElementById('insuranceList').textContent = ins;
+        
+        document.getElementById('cryptoAmount').textContent = formatMoney(gameState.cryptoAmount);
+        document.getElementById('investments').textContent = formatMoney(gameState.investments);
+    }
+
+    function formatMoney(amt) { 
+        return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }).format(amt); 
+    }
+    
+    function showMessage(text, type) {
+        let msg = document.getElementById('gameMessage');
+        if (!msg) return;
+        msg.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'danger' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle'}"></i> ${text}`;
+        msg.className = 'message ' + type;
+        msg.style.display = 'flex';
+        setTimeout(() => msg.style.display = 'none', 4000);
+    }
+
+    // ========== СЛАЙДЕР НАКОПЛЕНИЙ ==========
+    function updateSavingsSlider() {
+        const totalExpenses = calculateTotalExpenses();
+        const maxSavings = Math.max(0, gameState.balance - totalExpenses);
+        const slider = document.getElementById('savingsRange');
+        if (!slider) return;
+        
+        slider.max = maxSavings;
+        if (parseInt(slider.value) > maxSavings) slider.value = maxSavings;
+        document.getElementById('savingsValue').textContent = formatMoney(slider.value);
+    }
+
+    function calculateTotalExpenses() {
+        let total = 0;
+        ['rent', 'food', 'health', 'transport', 'utilities', 'entertainment'].forEach(id => {
+            const range = document.getElementById(id + 'Range');
+            if (range) total += parseInt(range.value);
+        });
+        return total;
+    }
+
+    // ========== ПРОВЕРКА ВЫЖИВАНИЯ ==========
+    function checkSurvival() {
+        const food = parseInt(document.getElementById('foodRange')?.value || 25000);
+        const health = parseInt(document.getElementById('healthRange')?.value || 5000);
+        const transport = parseInt(document.getElementById('transportRange')?.value || 7000);
+        
+        if (food < CONFIG.minimums.food) {
+            gameState.starvationMonths++;
+            if (gameState.starvationMonths >= CONFIG.survival.food) {
+                endGame(false, '💀 Вы умерли от голода... Экономия на еде довела до могилы.');
+                return false;
+            } else {
+                gameState.health = Math.max(0, gameState.health - 20);
+                showMessage(`🍽️ Вы плохо питаетесь! Осталось месяцев: ${CONFIG.survival.food - gameState.starvationMonths}`, 'danger');
+            }
+        } else {
             gameState.starvationMonths = 0;
+        }
+        
+        if (health < CONFIG.minimums.health) {
+            gameState.sicknessMonths++;
+            if (gameState.sicknessMonths >= CONFIG.survival.health) {
+                endGame(false, '🏥 Вы умерли от болезни... Отсутствие лечения сказалось.');
+                return false;
+            } else {
+                gameState.health = Math.max(0, gameState.health - 25);
+                showMessage(`💊 Вы экономите на здоровье! Осталось месяцев: ${CONFIG.survival.health - gameState.sicknessMonths}`, 'danger');
+            }
+        } else {
             gameState.sicknessMonths = 0;
+        }
+        
+        if (transport < CONFIG.minimums.transport) {
+            gameState.transportMonths++;
+            if (gameState.transportMonths >= CONFIG.survival.transport) {
+                endGame(false, '🚶 Вас уволили из-за постоянных опозданий на работу.');
+                return false;
+            } else {
+                showMessage('🚌 Без транспорта вы опаздываете на работу!', 'warning');
+            }
+        } else {
             gameState.transportMonths = 0;
-            gameState.history = {
-                balance: [50000],
-                savings: [0],
-                expenses: []
-            };
+        }
+        
+        gameState.health = Math.max(0, Math.min(100, gameState.health));
+        
+        if (food >= CONFIG.minimums.food && health >= CONFIG.minimums.health) {
+            gameState.health = Math.min(100, gameState.health + 5);
+        }
+        
+        return true;
+    }
 
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('gameScreen').style.display = 'block';
-            document.getElementById('endScreen').style.display = 'none';
+    // ========== КЭШБЭК ==========
+    function cashbackAction(bank) {
+        let bonus = { sber:500, tinkoff:700, alfa:600, vtb:500 }[bank] || 500;
+        gameState.bonusPoints += bonus;
+        showMessage(`💰 Кэшбэк: +${bonus} бонусов`, 'success');
+        updateUI();
+    }
+    
+    function applyCashback() {
+        if (gameState.bonusPoints <= 0) return;
+        gameState.balance += gameState.bonusPoints;
+        gameState.bonusPoints = 0;
+        showMessage('✅ Бонусы конвертированы в рубли', 'success');
+        updateUI();
+    }
 
+    // ========== КРЕДИТЫ ==========
+    function microLoan() {
+        if (gameState.microLoanDebt > 100000) { showMessage('❌ Слишком большой долг', 'danger'); return; }
+        gameState.microLoanDebt += 20000;
+        gameState.balance += 20000;
+        showMessage('⚠️ Взят микрозаём 20 000 ₽ (20% в месяц)', 'warning');
+        updateUI();
+    }
+    
+    function creditCardLoan() {
+        if (gameState.creditCardDebt > 150000) { showMessage('❌ Лимит по кредитке исчерпан', 'danger'); return; }
+        gameState.creditCardDebt += 50000;
+        gameState.balance += 50000;
+        showMessage('💳 Кредитка: +50 000 ₽ (2.5% в месяц)', 'info');
+        updateUI();
+    }
+    
+    function takeMortgage() {
+        if (gameState.mortgageDebt > 0) { showMessage('❌ У вас уже есть ипотека', 'danger'); return; }
+        gameState.mortgageDebt = 2000000;
+        gameState.balance += 2000000;
+        showMessage('🏠 Взята ипотека 2 000 000 ₽ (1.25% в месяц)', 'warning');
+        updateUI();
+    }
+    
+    function payMicroDebt() {
+        let pay = Math.min(20000, gameState.balance, gameState.microLoanDebt);
+        if (pay > 0) { gameState.balance -= pay; gameState.microLoanDebt -= pay; showMessage(`✅ Погашено ${formatMoney(pay)}`, 'success'); }
+        updateUI();
+    }
+    
+    function payCreditCard() {
+        let pay = Math.min(20000, gameState.balance, gameState.creditCardDebt);
+        if (pay > 0) { gameState.balance -= pay; gameState.creditCardDebt -= pay; showMessage(`✅ Погашено ${formatMoney(pay)}`, 'success'); }
+        updateUI();
+    }
+    
+    function payMortgage() {
+        let payment = 50000;
+        if (gameState.balance < payment) { showMessage('❌ Недостаточно средств', 'danger'); return; }
+        gameState.balance -= payment;
+        gameState.mortgageDebt = Math.max(0, gameState.mortgageDebt - payment);
+        showMessage(`✅ Внесено ${formatMoney(payment)} по ипотеке`, 'success');
+        updateUI();
+    }
+
+    // ========== ПАТЕНТЫ ==========
+    function registerPatent() {
+        if (gameState.balance < 50000) { showMessage('❌ Недостаточно средств', 'danger'); return; }
+        gameState.balance -= 50000;
+        gameState.patents++;
+        gameState.royaltyAmount += 4000;
+        showMessage('📜 Патент зарегистрирован! Роялти +4 000 ₽/мес', 'success');
+        updateUI();
+    }
+    
+    function registerTrademark() {
+        if (gameState.balance < 30000) { showMessage('❌ Недостаточно средств', 'danger'); return; }
+        gameState.balance -= 30000;
+        gameState.trademarks++;
+        gameState.royaltyAmount += 2000;
+        showMessage('™️ Товарный знак! Роялти +2 000 ₽/мес', 'success');
+        updateUI();
+    }
+    
+    function royaltyIncome() {
+        if (gameState.royaltyAmount > 0) {
+            gameState.balance += gameState.royaltyAmount;
+            showMessage(`💰 Роялти: +${formatMoney(gameState.royaltyAmount)}`, 'success');
+        }
+        updateUI();
+    }
+
+    // ========== СТРАХОВАНИЕ ==========
+    function buyInsurance(type) {
+        let cost = { kasko:50000, osago:10000, dms:30000, life:25000, realty:20000 }[type];
+        if (gameState.balance < cost) { showMessage('❌ Недостаточно средств', 'danger'); return; }
+        gameState.balance -= cost;
+        gameState.insurance[type] = true;
+        showMessage(`✅ Страховка ${type} оформлена`, 'info');
+        updateUI();
+    }
+
+    // ========== ИНВЕСТИЦИИ ==========
+    function investMoney() {
+        let amt = parseInt(document.getElementById('investAmount')?.value);
+        if (isNaN(amt) || amt <= 0) return;
+        if (amt > gameState.balance) { showMessage('❌ Недостаточно средств', 'danger'); return; }
+        gameState.balance -= amt;
+        gameState.investments += amt;
+        showMessage(`📊 Инвестировано ${formatMoney(amt)}`, 'success');
+        updateUI();
+    }
+    
+    function buyCrypto() {
+        let amt = 10000;
+        if (amt > gameState.balance) { showMessage('❌ Недостаточно средств', 'danger'); return; }
+        gameState.balance -= amt;
+        gameState.cryptoAmount += amt * gameState.cryptoPrice;
+        showMessage('₿ Куплено крипты', 'info');
+        updateUI();
+    }
+    
+    function sellCrypto() {
+        if (gameState.cryptoAmount <= 0) return;
+        gameState.balance += gameState.cryptoAmount;
+        gameState.cryptoAmount = 0;
+        showMessage('💰 Крипта продана', 'success');
+        updateUI();
+    }
+
+    // ========== СЛЕДУЮЩИЙ МЕСЯЦ ==========
+    function nextMonth() {
+        if (gameState.health <= 0) { endGame(false, '💀 Здоровье упало до нуля'); return; }
+        if (gameState.month >= gameState.maxMonths) { endGame(false, '⏰ Время вышло'); return; }
+
+        // Проверка аренды
+        const rent = parseInt(document.getElementById('rentRange')?.value || 0);
+        if (gameState.balance < rent) {
+            endGame(false, '🏠 Вас выселили за неуплату аренды!');
+            return;
+        }
+
+        if (!checkSurvival()) return;
+
+        gameState.month++;
+        
+        // Зарплата
+        gameState.balance += gameState.salary;
+
+        // Проценты по долгам
+        if (gameState.microLoanDebt > 0) {
+            let proc = Math.round(gameState.microLoanDebt * 0.2);
+            gameState.microLoanDebt += proc;
+            showMessage(`⚠️ Проценты по микрозайму: +${formatMoney(proc)}`, 'warning');
+        }
+        if (gameState.creditCardDebt > 0) {
+            let proc = Math.round(gameState.creditCardDebt * 0.025);
+            gameState.creditCardDebt += proc;
+        }
+        if (gameState.mortgageDebt > 0) {
+            let proc = Math.round(gameState.mortgageDebt * 0.0125);
+            gameState.mortgageDebt += proc;
+        }
+
+        // Роялти
+        if (gameState.royaltyAmount > 0) {
+            gameState.balance += gameState.royaltyAmount;
+        }
+
+        // Крипто
+        if (gameState.cryptoAmount > 0) {
+            let change = (Math.random() * 0.4) - 0.2;
+            gameState.cryptoAmount = Math.round(gameState.cryptoAmount * (1 + change));
+        }
+        updateCryptoPrice();
+
+        // Инвестиции
+        if (gameState.investments > 0 && gameState.investmentType) {
+            let profit = 0;
+            if (gameState.investmentType === 'conservative') profit = gameState.investments * 0.01;
+            else if (gameState.investmentType === 'balanced') profit = gameState.investments * 0.015;
+            else profit = gameState.investments * (Math.random() * 0.04 - 0.01);
+            gameState.investments += Math.round(profit);
+            if (profit > 0) showMessage(`📈 Инвестиции принесли ${formatMoney(profit)}!`, 'success');
+        }
+
+        // Случайные события
+        if (Math.random() < 0.3) {
+            const event = randomEvents[Math.floor(Math.random() * randomEvents.length)];
+            event.fn();
+        }
+
+        // Расходы
+        const totalExpenses = calculateTotalExpenses();
+        gameState.balance -= totalExpenses;
+
+        // Накопления
+        const plannedSavings = parseInt(document.getElementById('savingsRange')?.value) || 0;
+        gameState.savings += plannedSavings;
+        gameState.balance -= plannedSavings;
+
+        // Проверка победы
+        checkGameEnd();
+
+        updateUI();
+        updateSavingsSlider();
+        checkAllMinimums();
+    }
+
+    // ========== ПРОВЕРКА ПОБЕДЫ ==========
+    function checkGameEnd() {
+        const totalDebt = gameState.microLoanDebt + gameState.creditCardDebt + gameState.mortgageDebt;
+        
+        if (gameState.savings >= gameState.goal && totalDebt <= 0) {
+            endGame(true, '🎉 ПОБЕДА! Вы накопили нужную сумму и полностью рассчитались с долгами!');
+            return;
+        }
+        
+        if (gameState.month >= gameState.maxMonths) {
+            if (gameState.savings >= gameState.goal && totalDebt > 0) {
+                endGame(false, '😅 Вы накопили цель, но остались должны! Время вышло...');
+            } else if (gameState.savings >= gameState.goal) {
+                endGame(false, '⏰ Время вышло, хотя цель достигнута.');
+            } else {
+                endGame(false, '💔 Время вышло. Цель не достигнута...');
+            }
+            return;
+        }
+        
+        if (gameState.balance < -100000 || totalDebt > 3000000) {
+            endGame(false, '💸 Вы банкрот! Слишком много долгов...');
+            return;
+        }
+        
+        if (gameState.savings >= gameState.goal && totalDebt > 0) {
+            showMessage(`⚠️ Цель достигнута, но у вас долги на сумму ${formatMoney(totalDebt)}! Погасите долги для победы!`, 'warning');
+        }
+    }
+
+    // ========== КОНЕЦ ИГРЫ ==========
+    function endGame(isWin, message) {
+        document.getElementById('gameScreen').style.display = 'none';
+        document.getElementById('endScreen').style.display = 'block';
+
+        document.getElementById('endTitle').innerHTML = isWin ? '🎉 ПОБЕДА' : '💔 ПОРАЖЕНИЕ';
+        document.getElementById('endMessage').innerHTML = `<i class="fas ${isWin ? 'fa-trophy' : 'fa-skull-crossbones'}"></i> ${message}`;
+        document.getElementById('endMessage').className = `message ${isWin ? 'success' : 'danger'}`;
+        
+        const totalDebt = gameState.microLoanDebt + gameState.creditCardDebt + gameState.mortgageDebt;
+        document.getElementById('endMonths').textContent = gameState.month - 1;
+        document.getElementById('endSavings').textContent = formatMoney(gameState.savings);
+        document.getElementById('endLoan').textContent = formatMoney(totalDebt);
+        document.getElementById('endNetWorth').textContent = formatMoney(gameState.savings - totalDebt);
+    }
+
+    // ========== СОХРАНЕНИЕ ==========
+    function saveGame() { 
+        localStorage.setItem('budget2026_save', JSON.stringify(gameState)); 
+        showMessage('💾 Игра сохранена', 'success'); 
+    }
+    
+    function loadGame() {
+        let s = localStorage.getItem('budget2026_save');
+        if (s) { 
+            gameState = JSON.parse(s); 
+            updateUI(); 
             createExpenseCategories();
-            updateGameUI();
             updateSavingsSlider();
-            showGameMessage('🚀 Игра начата! Помните о жизненно важных расходах!', 'success');
+            showMessage('📂 Игра загружена', 'success'); 
         }
-
-        // ========== СОЗДАНИЕ РАСХОДОВ ==========
-        function createExpenseCategories() {
-            const container = document.getElementById('expensesContainer');
-            container.innerHTML = '';
-
-            const cityMultiplier = CONFIG.cities[gameState.city].rentMultiplier;
-            const housing = CONFIG.housing[gameState.housing];
-            
-            const baseRent = Math.round(housing.baseRent * cityMultiplier);
-            const minRent = Math.round(housing.minRent * cityMultiplier);
-            const maxRent = Math.round(housing.maxRent * cityMultiplier);
-
-            const categories = [
-                { id: 'rent', name: 'Аренда жилья', icon: 'fa-home', min: minRent, max: maxRent, value: baseRent, critical: true, warning: 'Нельзя платить меньше аренды! Иначе выселят.', minRequired: minRent },
-                { id: 'food', name: 'Питание', icon: 'fa-utensils', min: 0, max: 50000, value: 25000, critical: true, warning: 'Меньше 8000 ₽ - начнете голодать!', minRequired: CONFIG.minimums.food },
-                { id: 'transport', name: 'Транспорт', icon: 'fa-car', min: 0, max: 20000, value: 7000, critical: true, warning: 'Меньше 2000 ₽ - проблемы с работой!', minRequired: CONFIG.minimums.transport },
-                { id: 'utilities', name: 'Коммунальные', icon: 'fa-bolt', min: 0, max: 15000, value: 7000, critical: true, warning: 'Меньше 4000 ₽ - отключат услуги!', minRequired: CONFIG.minimums.utilities },
-                { id: 'health', name: 'Здоровье', icon: 'fa-heartbeat', min: 0, max: 20000, value: 5000, critical: true, warning: 'Меньше 3000 ₽ - начнете болеть!', minRequired: CONFIG.minimums.health },
-                { id: 'entertainment', name: 'Развлечения', icon: 'fa-film', min: 0, max: 30000, value: 8000, critical: false, warning: '', minRequired: 0 }
-            ];
-
-            categories.forEach(cat => {
-                const div = document.createElement('div');
-                div.className = 'expense-category';
-                div.id = `category-${cat.id}`;
-                
-                div.innerHTML = `
-                    <div class="expense-header">
-                        <h4>
-                            <i class="fas ${cat.icon}"></i> ${cat.name}
-                            ${cat.critical ? '<span class="tooltip">⚠️<span class="tooltip-text">' + cat.warning + '</span></span>' : ''}
-                        </h4>
-                        <span id="${cat.id}Value">${formatMoney(cat.value)}</span>
-                    </div>
-                    <input type="range" id="${cat.id}Range" class="expense-range"
-                        min="${cat.min}" max="${cat.max}" value="${cat.value}" step="500"
-                        ${cat.id === 'rent' ? 'disabled' : ''}>
-                    <div class="expense-minmax">
-                        <span><i class="fas fa-arrow-down"></i> ${formatMoney(cat.id === 'rent' ? cat.min : 0)}</span>
-                        <span><i class="fas fa-arrow-up"></i> ${formatMoney(cat.max)}</span>
-                    </div>
-                    <div id="${cat.id}Warning" class="expense-warning"></div>
-                    <div id="${cat.id}Critical" class="expense-critical"></div>
-                `;
-
-                const range = div.querySelector('input');
-                if (range && cat.id !== 'rent') {
-                    range.addEventListener('input', function() {
-                        const value = parseInt(this.value);
-                        document.getElementById(cat.id + 'Value').textContent = formatMoney(value);
-                        checkExpenseWarning(cat.id, value);
-                        updateSavingsSlider();
-                    });
-                }
-
-                container.appendChild(div);
-            });
-            
-            checkAllWarnings();
-        }
-
-        // ========== ПРОВЕРКА ПРЕДУПРЕЖДЕНИЙ ==========
-        function checkExpenseWarning(category, value) {
-            const minRequired = CONFIG.minimums[category] || 0;
-            const warningEl = document.getElementById(category + 'Warning');
-            const criticalEl = document.getElementById(category + 'Critical');
-            const categoryEl = document.getElementById('category-' + category);
-            
-            if (!warningEl || !criticalEl) return;
-            if (category === 'rent') return;
-            
-            if (value < minRequired) {
-                const deficit = minRequired - value;
-                warningEl.style.display = 'flex';
-                warningEl.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Не хватает ${formatMoney(deficit)} до минимума!`;
-                categoryEl.classList.add('warning');
-                
-                if (value < minRequired * 0.5) {
-                    criticalEl.style.display = 'flex';
-                    criticalEl.innerHTML = '<i class="fas fa-skull-crosswalk"></i> КРИТИЧЕСКИ НИЗКО!';
-                    categoryEl.classList.add('critical');
-                } else {
-                    criticalEl.style.display = 'none';
-                    categoryEl.classList.remove('critical');
-                }
-            } else {
-                warningEl.style.display = 'none';
-                criticalEl.style.display = 'none';
-                categoryEl.classList.remove('warning', 'critical');
-            }
-        }
-
-        function checkAllWarnings() {
-            ['food', 'transport', 'utilities', 'health', 'entertainment'].forEach(cat => {
-                const range = document.getElementById(cat + 'Range');
-                if (range) checkExpenseWarning(cat, parseInt(range.value));
-            });
-        }
-
-        // ========== ОБНОВЛЕНИЕ UI ==========
-        function updateGameUI() {
-            document.getElementById('playerNameDisplay').textContent = gameState.playerName;
-            document.getElementById('currentMonth').textContent = gameState.month;
-            document.getElementById('balance').textContent = formatMoney(gameState.balance);
-            document.getElementById('savings').textContent = formatMoney(gameState.savings);
-            document.getElementById('goal').textContent = formatMoney(gameState.goal);
-            document.getElementById('loan').textContent = formatMoney(gameState.loan);
-            document.getElementById('investments').textContent = formatMoney(gameState.investments);
-            document.getElementById('health').textContent = gameState.health + '%';
-            
-            const healthFill = document.getElementById('healthFill');
-            healthFill.style.width = gameState.health + '%';
-            
-            const progress = (gameState.savings / gameState.goal * 100).toFixed(1);
-            document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
-            
-            const inflation = CONFIG.difficulties[gameState.difficulty].inflation * 100;
-            document.getElementById('inflationRate').textContent = inflation.toFixed(1) + '%';
-        }
-
-        // ========== ОБНОВЛЕНИЕ СЛАЙДЕРА ==========
-        function updateSavingsSlider() {
-            const totalExpenses = calculateTotalExpenses();
-            const maxSavings = Math.max(0, gameState.balance - totalExpenses);
-            const slider = document.getElementById('savingsRange');
-            
-            slider.max = maxSavings;
-            if (parseInt(slider.value) > maxSavings) slider.value = maxSavings;
-            
-            document.getElementById('savingsValue').textContent = formatMoney(slider.value);
-        }
-
-        function calculateTotalExpenses() {
-            let total = 0;
-            ['rent', 'food', 'transport', 'utilities', 'health', 'entertainment'].forEach(id => {
-                const range = document.getElementById(id + 'Range');
-                if (range) total += parseInt(range.value);
-            });
-            return total;
-        }
-
-        // ========== ПРОВЕРКА ВЫЖИВАНИЯ ==========
-        function checkSurvival() {
-            const food = parseInt(document.getElementById('foodRange').value);
-            const health = parseInt(document.getElementById('healthRange').value);
-            const transport = parseInt(document.getElementById('transportRange').value);
-            
-            if (food < CONFIG.minimums.food) {
-                gameState.starvationMonths++;
-                if (gameState.starvationMonths >= CONFIG.survival.food) {
-                    endGame(false, '💀 Вы умерли от голода... Экономия на еде довела до могилы.');
-                    return false;
-                } else {
-                    gameState.health -= 20;
-                    showGameMessage(`🍽️ Вы плохо питаетесь! Осталось месяцев: ${CONFIG.survival.food - gameState.starvationMonths}`, 'danger');
-                }
-            } else {
-                gameState.starvationMonths = 0;
-            }
-            
-            if (health < CONFIG.minimums.health) {
-                gameState.sicknessMonths++;
-                if (gameState.sicknessMonths >= CONFIG.survival.health) {
-                    endGame(false, '🏥 Вы серьезно заболели и не смогли выздороветь из-за отсутствия лечения.');
-                    return false;
-                } else {
-                    gameState.health -= 25;
-                    showGameMessage('💊 Вы экономите на здоровье! Это опасно!', 'danger');
-                }
-            } else {
-                gameState.sicknessMonths = 0;
-            }
-            
-            if (transport < CONFIG.minimums.transport) {
-                gameState.transportMonths++;
-                if (gameState.transportMonths >= CONFIG.survival.transport) {
-                    endGame(false, '🚶 Вас уволили из-за постоянных опозданий на работу.');
-                    return false;
-                } else {
-                    showGameMessage('🚌 Без транспорта вы опаздываете на работу!', 'warning');
-                }
-            } else {
-                gameState.transportMonths = 0;
-            }
-            
-            gameState.health = Math.max(0, Math.min(100, gameState.health));
-            
-            if (food >= CONFIG.minimums.food && health >= CONFIG.minimums.health) {
-                gameState.health = Math.min(100, gameState.health + 5);
-            }
-            
-            return true;
-        }
-
-        // ========== СЛЕДУЮЩИЙ МЕСЯЦ ==========
-        function nextMonth() {
-            const totalExpenses = calculateTotalExpenses();
-            const plannedSavings = parseInt(document.getElementById('savingsRange').value) || 0;
-
-            const rent = parseInt(document.getElementById('rentRange').value);
-            if (gameState.balance < rent) {
-                endGame(false, '🏠 Вас выселили за неуплату аренды!');
-                return;
-            }
-
-            if (!checkSurvival()) return;
-
-            const inflation = CONFIG.difficulties[gameState.difficulty].inflation / 12;
-            gameState.salary = Math.round(gameState.salary * (1 + inflation));
-            gameState.balance += gameState.salary;
-            gameState.balance -= totalExpenses;
-            gameState.savings += plannedSavings;
-            gameState.balance -= plannedSavings;
-
-            if (gameState.investments > 0 && gameState.investmentType) {
-                let profit = 0;
-                switch(gameState.investmentType) {
-                    case 'conservative': profit = gameState.investments * 0.01; break;
-                    case 'balanced': profit = gameState.investments * 0.015; break;
-                    case 'aggressive': profit = gameState.investments * (Math.random() * 0.04 - 0.01); break;
-                }
-                gameState.investments += Math.round(profit);
-                if (profit > 0) showGameMessage(`📈 Инвестиции принесли ${formatMoney(profit)}!`, 'success');
-            }
-
-            if (gameState.loan > 0) {
-                const loanInterest = Math.round(gameState.loan * 0.023);
-                gameState.loan += loanInterest;
-                
-                const payment = Math.min(gameState.loan * 0.1, gameState.balance * 0.3);
-                if (payment > 0) {
-                    gameState.balance -= payment;
-                    gameState.loan -= payment;
-                }
-            }
-
-            processRandomEvents();
-
-            gameState.history.balance.push(gameState.balance);
-            gameState.history.savings.push(gameState.savings);
-            gameState.history.expenses.push(totalExpenses);
-            gameState.month++;
-
-            checkGameEnd();
-            updateGameUI();
-            updateSavingsSlider();
-            checkAllWarnings();
-        }
-
-        // ========== СЛУЧАЙНЫЕ СОБЫТИЯ ==========
-        function processRandomEvents() {
-            if (Math.random() < 0.3) {
-                const events = [
-                    { msg: '🎰 Выигрыш в лотерею! +30,000 ₽', amount: 30000, type: 'success', icon: 'fa-trophy' },
-                    { msg: '🏥 Травма -20,000 ₽', amount: -20000, type: 'danger', icon: 'fa-hospital' },
-                    { msg: '💼 Премия +40,000 ₽', amount: 40000, type: 'success', icon: 'fa-briefcase' },
-                    { msg: '📱 Сломался телефон -15,000 ₽', amount: -15000, type: 'danger', icon: 'fa-mobile-alt' },
-                    { msg: '🎁 Подарок от родственников +25,000 ₽', amount: 25000, type: 'success', icon: 'fa-gift' }
-                ];
-                
-                const event = events[Math.floor(Math.random() * events.length)];
-                gameState.balance += event.amount;
-                showGameMessage(`${event.msg}`, event.type);
-            }
-        }
-
-        // ========== ПРОВЕРКА ОКОНЧАНИЯ ==========
-        function checkGameEnd() {
-            if (gameState.savings >= gameState.goal && gameState.loan <= 0) {
-                endGame(true, '🎉 ПОБЕДА! Вы накопили нужную сумму и полностью рассчитались с долгами!');
-                return;
-            }
-            
-            if (gameState.month > 60) {
-                if (gameState.savings >= gameState.goal && gameState.loan > 0) {
-                    endGame(false, '😅 Вы накопили цель, но остались должны! Время вышло...');
-                } else if (gameState.savings >= gameState.goal) {
-                    endGame(false, '⏰ Время вышло, хотя цель достигнута.');
-                } else {
-                    endGame(false, '💔 Время вышло. Цель не достигнута...');
-                }
-                return;
-            }
-            
-            if (gameState.balance < -100000 || gameState.loan > 300000) {
-                endGame(false, '💸 Вы банкрот! Слишком много долгов...');
-                return;
-            }
-            
-            if (gameState.savings >= gameState.goal && gameState.loan > 0) {
-                showGameMessage(`⚠️ Цель достигнута, но у вас долг ${formatMoney(gameState.loan)}! Погасите долги для победы!`, 'warning');
-            }
-        }
-
-        // ========== КОНЕЦ ИГРЫ ==========
-        function endGame(isWin, message) {
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('endScreen').style.display = 'block';
-
-            document.getElementById('endTitle').innerHTML = isWin ? '🎉 ПОБЕДА!' : '💔 ИГРА ОКОНЧЕНА';
-            document.getElementById('endMessage').innerHTML = `<i class="fas ${isWin ? 'fa-trophy' : 'fa-skull-crossbones'}"></i> ${message}`;
-            document.getElementById('endMessage').className = `message ${isWin ? 'success' : 'danger'}`;
-            
-            document.getElementById('endMonths').textContent = gameState.month - 1;
-            document.getElementById('endSavings').textContent = formatMoney(gameState.savings);
-            document.getElementById('endLoan').textContent = formatMoney(gameState.loan);
-            document.getElementById('endNetWorth').textContent = formatMoney(gameState.savings - gameState.loan);
-        }
-
-        // ========== КРЕДИТЫ ==========
-        function takeLoan() {
-            if (gameState.loan > 200000) {
-                showGameMessage('❌ Кредитная нагрузка слишком высокая!', 'danger');
-                return;
-            }
-            gameState.loan += 50000;
-            gameState.balance += 50000;
-            showGameMessage('💰 Взят кредит 50,000 ₽', 'warning');
-            updateGameUI();
-        }
-
-        function payLoan() {
-            const payment = Math.min(50000, gameState.balance, gameState.loan);
-            if (payment > 0) {
-                gameState.balance -= payment;
-                gameState.loan -= payment;
-                showGameMessage(`✅ Погашено ${formatMoney(payment)}`, 'success');
-                updateGameUI();
-            }
-        }
-
-        // ========== ИНВЕСТИЦИИ ==========
-        function investMoney() {
-            if (!gameState.investmentType) {
-                showGameMessage('❌ Выберите тип инвестиций', 'warning');
-                return;
-            }
-
-            const amount = parseInt(document.getElementById('investAmount').value) || 0;
-            if (amount <= 0) {
-                showGameMessage('❌ Введите сумму', 'warning');
-                return;
-            }
-
-            if (gameState.balance >= amount) {
-                gameState.balance -= amount;
-                gameState.investments += amount;
-                showGameMessage(`📊 Инвестировано ${formatMoney(amount)}`, 'success');
-                updateGameUI();
-            } else {
-                showGameMessage('❌ Недостаточно средств', 'danger');
-            }
-        }
-
-        // ========== СОХРАНЕНИЕ ==========
-        function saveGame() {
-            localStorage.setItem('gameSave', JSON.stringify(gameState));
-            showGameMessage('💾 Игра сохранена!', 'success');
-        }
-
-        // ========== ПЕРЕЗАПУСК ==========
-        function restartGame() {
-            document.getElementById('startScreen').style.display = 'block';
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('endScreen').style.display = 'none';
-        }
-
-        // ========== СООБЩЕНИЯ ==========
-        function showGameMessage(text, type) {
-            const msg = document.getElementById('gameMessage');
-            msg.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'danger' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle'}"></i> ${text}`;
-            msg.className = `message ${type}`;
-            msg.style.display = 'flex';
-            
-            setTimeout(() => {
-                msg.style.display = 'none';
-            }, 4000);
-        }
-
-        // ========== ОБНОВЛЕНИЕ ЧАРТОВ ==========
-        function updateCharts() {
-            const months = Array.from({ length: gameState.history.balance.length }, (_, i) => i + 1);
-            
-            const balanceCtx = document.getElementById('balanceChart').getContext('2d');
-            if (charts.balance) charts.balance.destroy();
-            charts.balance = new Chart(balanceCtx, {
-                type: 'line',
-                data: {
-                    labels: months,
-                    datasets: [
-                        { label: 'Баланс', data: gameState.history.balance, borderColor: '#276fdb', backgroundColor: 'rgba(39, 111, 219, 0.1)', fill: true },
-                        { label: 'Накопления', data: gameState.history.savings, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') } }
-                    }
-                }
-            });
-
-            const expensesCtx = document.getElementById('expensesChart').getContext('2d');
-            if (charts.expenses) charts.expenses.destroy();
-            charts.expenses = new Chart(expensesCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Аренда', 'Еда', 'Транспорт', 'Коммуналка', 'Здоровье', 'Развлечения'],
-                    datasets: [{
-                        data: [25000, 25000, 7000, 7000, 5000, 8000],
-                        backgroundColor: ['#276fdb', '#10b981', '#f59e0b', '#6366f1', '#ef4444', '#8b5cf6']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') } }
-                    }
-                }
-            });
-
-            const avgExpenses = gameState.history.expenses.reduce((a, b) => a + b, 0) / gameState.history.expenses.length || 0;
-            document.getElementById('avgIncome').textContent = formatMoney(gameState.salary);
-            document.getElementById('avgExpenses').textContent = formatMoney(avgExpenses);
-        }
-
-        // ========== ФОРМАТИРОВАНИЕ ==========
-        function formatMoney(amount) {
-            return new Intl.NumberFormat('ru-RU', { 
-                style: 'currency', 
-                currency: 'RUB',
-                minimumFractionDigits: 0
-            }).format(amount);
-        }
-    </script>
+    }
+    
+    function restartGame() { 
+        location.reload(); 
+    }
+</script>
 </body>
 </html>
