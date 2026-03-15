@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Семейный бюджет 2026 - реалистичный симулятор управления личными финансами">
-    <title>Семейный бюджет 2026 - Честная игра с долгами</title>
+    <meta name="description" content="Семейный бюджет 2026 - реалистичный симулятор с жизненно важными расходами">
+    <title>Семейный бюджет — Накопи на мечту не попав в долг</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -26,6 +26,7 @@
             --vip: #8b5cf6;
             --card-bg: rgba(20, 25, 40, 0.8);
             --card-border: rgba(255, 255, 255, 0.1);
+            --critical: #dc2626;
         }
 
         .light-theme {
@@ -176,7 +177,29 @@
             font-size: 12px;
         }
 
-        /* Индикатор прогресса */
+        /* Индикатор здоровья */
+        .health-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--danger), var(--warning), var(--success));
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .warning-icon {
+            display: inline-block;
+            margin-left: 5px;
+            cursor: help;
+        }
+
+        /* Прогресс цели */
         .progress-bar {
             height: 10px;
             background: rgba(255, 255, 255, 0.1);
@@ -254,6 +277,17 @@
             padding: 15px;
             border-radius: 12px;
             background: rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+
+        .expense-category.critical {
+            border-left: 4px solid var(--critical);
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .expense-category.warning {
+            border-left: 4px solid var(--warning);
+            background: rgba(245, 158, 11, 0.1);
         }
 
         .expense-header {
@@ -277,6 +311,37 @@
             background: var(--accent);
             border-radius: 50%;
             cursor: pointer;
+        }
+
+        .expense-range:disabled {
+            opacity: 0.5;
+        }
+
+        .expense-range:disabled::-webkit-slider-thumb {
+            cursor: not-allowed;
+            background: var(--text-secondary);
+        }
+
+        .expense-minmax {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .expense-warning {
+            font-size: 12px;
+            color: var(--warning);
+            margin-top: 5px;
+            display: none;
+        }
+
+        .expense-critical {
+            font-size: 12px;
+            color: var(--danger);
+            margin-top: 5px;
+            display: none;
         }
 
         /* Инвестиции */
@@ -395,6 +460,35 @@
             border-left: 4px solid var(--danger);
         }
 
+        /* Подсказки */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--card-border);
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
         /* Адаптивность */
         @media (max-width: 768px) {
             .stats-grid {
@@ -430,31 +524,14 @@
         <!-- ГЛАВНАЯ -->
         <div id="homePage" class="page active">
             <div class="glass-card" style="text-align: center; padding: 60px;">
-                <h2 style="font-size: 48px; margin-bottom: 20px;">Добро пожаловать в 2026</h2>
-                <p style="font-size: 20px; color: var(--text-secondary); margin-bottom: 40px;">Реалистичный симулятор финансов с честной системой долгов</p>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Новая механика</h3>
-                        <p style="font-size: 16px; font-weight: normal;">🎯 Нельзя победить с долгами<br>💸 Долги нужно отдать<br>⏰ Время ограничено</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Инфляция 2026</h3>
-                        <p>8.5%</p>
-                        <small>Ключевая ставка 19%</small>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Цели</h3>
-                        <p>от 500к до 5.5м</p>
-                        <small>Включая 1 BTC</small>
-                    </div>
-                </div>
+                <h2 style="font-size: 48px; margin-bottom: 20px;">Семейный бюджет</h2>
+                <p style="font-size: 20px; color: var(--text-secondary); margin-bottom: 40px;">Каждая копейка влияет на ваше выживание</p>
+            </div>
 
                 <div style="display: flex; gap: 20px; justify-content: center;">
                     <button class="btn btn-primary" onclick="navigateTo('game')">Начать игру</button>
                     <button class="btn btn-success" onclick="navigateTo('gallery')">Цели</button>
                 </div>
-            </div>
         </div>
 
         <!-- СТРАНИЦА ИГРЫ -->
@@ -505,14 +582,14 @@
                     <div class="form-group">
                         <label>🏠 Жилье</label>
                         <select id="housing">
-                            <option value="room">Комната</option>
-                            <option value="studio" selected>Студия</option>
-                            <option value="apartment">1-к квартира</option>
+                            <option value="room">Комната (12-15 тыс. ₽)</option>
+                            <option value="studio" selected>Студия (20-25 тыс. ₽)</option>
+                            <option value="apartment">1-к квартира (30-40 тыс. ₽)</option>
                         </select>
                     </div>
                 </div>
 
-                <button class="btn btn-primary" style="width: 100%;" onclick="startGame()">🚀 Начать игру</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="startGame()">🚀 Начать выживание</button>
             </div>
 
             <!-- Основной экран игры -->
@@ -525,7 +602,10 @@
                             <p>Месяц <span id="currentMonth">1</span>/60 • Инфляция <span id="inflationRate">8.5%</span></p>
                         </div>
                         <div>
-                            <button class="btn btn-success" onclick="saveGame()">💾 Сохранить</button>
+                            <span class="tooltip">
+                                <button class="btn btn-success" onclick="saveGame()">💾 Сохранить</button>
+                                <span class="tooltip-text">Сохранить игру</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -551,10 +631,12 @@
                         <h3>💳 Долги</h3>
                         <p id="loan" style="color: var(--danger);">0 ₽</p>
                     </div>
-                    <div class="stat-card" style="border-left: 4px solid var(--info);">
-                        <h3>🧮 Чистое состояние</h3>
-                        <p id="netWorth">0 ₽</p>
-                        <small>Накопления - Долги</small>
+                    <div class="stat-card">
+                        <h3>❤️ Здоровье</h3>
+                        <p id="health">100%</p>
+                        <div class="health-bar">
+                            <div class="health-fill" id="healthFill" style="width: 100%"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -587,14 +669,14 @@
 
                 <!-- Расходы -->
                 <div class="glass-card">
-                    <h3>📝 Расходы месяца</h3>
+                    <h3>📝 Расходы месяца <span class="tooltip">❓<span class="tooltip-text">Не экономьте на жизненно важном!</span></span></h3>
                     <div id="expensesContainer"></div>
                 </div>
 
                 <!-- Накопления -->
                 <div class="glass-card">
                     <div style="display: flex; justify-content: space-between;">
-                        <h3>💰 Отложить</h3>
+                        <h3>💰 Отложить в копилку</h3>
                         <span id="savingsValue">0 ₽</span>
                     </div>
                     <input type="range" id="savingsRange" class="expense-range" min="0" max="0" value="0" step="1000">
@@ -754,6 +836,25 @@
                 remote: { baseSalary: 75000, stability: 0.7 },
                 specialist: { baseSalary: 120000, stability: 0.8 },
                 business: { baseSalary: 50000, stability: 0.5, bonus: 20000 }
+            },
+            housing: {
+                room: { name: 'Комната', baseRent: 13000, minRent: 12000, maxRent: 15000 },
+                studio: { name: 'Студия', baseRent: 22000, minRent: 20000, maxRent: 25000 },
+                apartment: { name: '1-к квартира', baseRent: 35000, minRent: 30000, maxRent: 40000 }
+            },
+            // Минимальные необходимые расходы для выживания
+            minimums: {
+                food: 8000,      // Минимум на еду (иначе голод)
+                health: 3000,     // Минимум на здоровье
+                transport: 2000,   // Минимум на транспорт (иначе проблемы с работой)
+                entertainment: 0,  // Развлечения - не обязательны
+                utilities: 4000    // Минимум на коммуналку
+            },
+            // Критические пороги (сколько месяцев можно протянуть на минимуме)
+            survival: {
+                food: 3,      // Без еды можно прожить 3 месяца
+                health: 2,     // Без лечения - 2 месяца
+                transport: 1   // Без транспорта - 1 месяц (уволят)
             }
         };
 
@@ -772,6 +873,10 @@
             loan: 0,
             investments: 0,
             investmentType: null,
+            health: 100,           // Здоровье 0-100
+            starvationMonths: 0,    // Месяцев голода
+            sicknessMonths: 0,      // Месяцев без лечения
+            transportMonths: 0,     // Месяцев без транспорта
             history: {
                 balance: [],
                 savings: [],
@@ -780,6 +885,7 @@
         };
 
         let charts = {};
+        let expenseRanges = {};
 
         // ========== НАВИГАЦИЯ ==========
         function navigateTo(page) {
@@ -805,6 +911,7 @@
         document.getElementById('themeToggle').addEventListener('click', function() {
             document.body.classList.toggle('light-theme');
             this.classList.toggle('active');
+            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
         });
 
         // ========== ФИЛЬТРЫ ГАЛЕРЕИ ==========
@@ -848,6 +955,10 @@
             gameState.loan = 0;
             gameState.investments = 0;
             gameState.month = 1;
+            gameState.health = 100;
+            gameState.starvationMonths = 0;
+            gameState.sicknessMonths = 0;
+            gameState.transportMonths = 0;
             gameState.history = {
                 balance: [50000],
                 savings: [0],
@@ -860,45 +971,170 @@
 
             createExpenseCategories();
             updateGameUI();
-            showGameMessage('🚀 Игра начата! Удачи!', 'success');
+            updateSavingsSlider();
+            showGameMessage('🚀 Игра начата! Помните о жизненно важных расходах!', 'success');
         }
 
-        // ========== СОЗДАНИЕ РАСХОДОВ ==========
+        // ========== СОЗДАНИЕ РАСХОДОВ С ОГРАНИЧЕНИЯМИ ==========
         function createExpenseCategories() {
             const container = document.getElementById('expensesContainer');
             container.innerHTML = '';
 
             const cityMultiplier = CONFIG.cities[gameState.city].rentMultiplier;
-            const baseRent = gameState.housing === 'room' ? 15000 : 
-                            gameState.housing === 'studio' ? 22000 : 30000;
+            const housing = CONFIG.housing[gameState.housing];
+            
+            // Базовая аренда с учетом города
+            const baseRent = Math.round(housing.baseRent * cityMultiplier);
+            const minRent = Math.round(housing.minRent * cityMultiplier);
+            const maxRent = Math.round(housing.maxRent * cityMultiplier);
 
             const categories = [
-                { id: 'rent', name: '🏠 Аренда', min: Math.round(baseRent * 0.8), max: Math.round(baseRent * 1.2), value: Math.round(baseRent) },
-                { id: 'food', name: '🍔 Еда', min: 15000, max: 40000, value: 25000 },
-                { id: 'transport', name: '🚗 Транспорт', min: 3000, max: 15000, value: 7000 },
-                { id: 'utilities', name: '💡 Коммуналка', min: 4000, max: 12000, value: 7000 },
-                { id: 'entertainment', name: '🎮 Развлечения', min: 3000, max: 20000, value: 8000 }
+                { 
+                    id: 'rent', 
+                    name: '🏠 Аренда жилья', 
+                    min: minRent, 
+                    max: maxRent, 
+                    value: baseRent,
+                    critical: true,
+                    warning: 'Нельзя платить меньше аренды! Иначе выселят.',
+                    minRequired: minRent
+                },
+                { 
+                    id: 'food', 
+                    name: '🍔 Питание', 
+                    min: 0, 
+                    max: 50000, 
+                    value: 25000,
+                    critical: true,
+                    warning: 'Меньше 8000 ₽ - начнете голодать!',
+                    minRequired: CONFIG.minimums.food
+                },
+                { 
+                    id: 'transport', 
+                    name: '🚗 Транспорт', 
+                    min: 0, 
+                    max: 20000, 
+                    value: 7000,
+                    critical: true,
+                    warning: 'Меньше 2000 ₽ - проблемы с работой!',
+                    minRequired: CONFIG.minimums.transport
+                },
+                { 
+                    id: 'utilities', 
+                    name: '💡 Коммунальные', 
+                    min: 0, 
+                    max: 15000, 
+                    value: 7000,
+                    critical: true,
+                    warning: 'Меньше 4000 ₽ - отключат услуги!',
+                    minRequired: CONFIG.minimums.utilities
+                },
+                { 
+                    id: 'health', 
+                    name: '🏥 Здоровье', 
+                    min: 0, 
+                    max: 20000, 
+                    value: 5000,
+                    critical: true,
+                    warning: 'Меньше 3000 ₽ - начнете болеть!',
+                    minRequired: CONFIG.minimums.health
+                },
+                { 
+                    id: 'entertainment', 
+                    name: '🎮 Развлечения', 
+                    min: 0, 
+                    max: 30000, 
+                    value: 8000,
+                    critical: false,
+                    warning: '',
+                    minRequired: 0
+                }
             ];
 
             categories.forEach(cat => {
                 const div = document.createElement('div');
                 div.className = 'expense-category';
+                div.id = `category-${cat.id}`;
+                
                 div.innerHTML = `
                     <div class="expense-header">
-                        <h4>${cat.name}</h4>
+                        <h4>${cat.name} 
+                            ${cat.critical ? '<span class="tooltip">⚠️<span class="tooltip-text">' + cat.warning + '</span></span>' : ''}
+                        </h4>
                         <span id="${cat.id}Value">${formatMoney(cat.value)}</span>
                     </div>
                     <input type="range" id="${cat.id}Range" class="expense-range"
-                        min="${cat.min}" max="${cat.max}" value="${cat.value}" step="500">
+                        min="${cat.min}" max="${cat.max}" value="${cat.value}" step="500"
+                        ${cat.id === 'rent' ? 'disabled' : ''}>
+                    <div class="expense-minmax">
+                        <span>Мин: ${formatMoney(cat.id === 'rent' ? cat.min : 0)}</span>
+                        <span>Макс: ${formatMoney(cat.max)}</span>
+                    </div>
+                    <div id="${cat.id}Warning" class="expense-warning"></div>
+                    <div id="${cat.id}Critical" class="expense-critical"></div>
                 `;
 
                 const range = div.querySelector('input');
-                range.addEventListener('input', function() {
-                    document.getElementById(cat.id + 'Value').textContent = formatMoney(this.value);
-                    updateSavingsSlider();
-                });
+                if (range && cat.id !== 'rent') {
+                    range.addEventListener('input', function() {
+                        const value = parseInt(this.value);
+                        document.getElementById(cat.id + 'Value').textContent = formatMoney(value);
+                        checkExpenseWarning(cat.id, value);
+                        updateSavingsSlider();
+                    });
+                }
 
                 container.appendChild(div);
+                
+                // Сохраняем минимальные значения
+                expenseRanges[cat.id] = {
+                    min: cat.minRequired,
+                    current: cat.value
+                };
+            });
+            
+            // Устанавливаем начальные предупреждения
+            checkAllWarnings();
+        }
+
+        // ========== ПРОВЕРКА ПРЕДУПРЕЖДЕНИЙ ==========
+        function checkExpenseWarning(category, value) {
+            const minRequired = CONFIG.minimums[category] || 0;
+            const warningEl = document.getElementById(category + 'Warning');
+            const criticalEl = document.getElementById(category + 'Critical');
+            const categoryEl = document.getElementById('category-' + category);
+            
+            if (!warningEl || !criticalEl) return;
+            
+            if (category === 'rent') return; // Аренда фиксирована
+            
+            if (value < minRequired) {
+                const deficit = minRequired - value;
+                warningEl.style.display = 'block';
+                warningEl.textContent = `⚠️ Не хватает ${formatMoney(deficit)} до минимума!`;
+                categoryEl.classList.add('warning');
+                
+                if (value < minRequired * 0.5) {
+                    criticalEl.style.display = 'block';
+                    criticalEl.textContent = '🔴 КРИТИЧЕСКИ НИЗКО!';
+                    categoryEl.classList.add('critical');
+                } else {
+                    criticalEl.style.display = 'none';
+                    categoryEl.classList.remove('critical');
+                }
+            } else {
+                warningEl.style.display = 'none';
+                criticalEl.style.display = 'none';
+                categoryEl.classList.remove('warning', 'critical');
+            }
+        }
+
+        function checkAllWarnings() {
+            ['food', 'transport', 'utilities', 'health', 'entertainment'].forEach(cat => {
+                const range = document.getElementById(cat + 'Range');
+                if (range) {
+                    checkExpenseWarning(cat, parseInt(range.value));
+                }
             });
         }
 
@@ -911,10 +1147,15 @@
             document.getElementById('goal').textContent = formatMoney(gameState.goal);
             document.getElementById('loan').textContent = formatMoney(gameState.loan);
             document.getElementById('investments').textContent = formatMoney(gameState.investments);
+            document.getElementById('health').textContent = gameState.health + '%';
+            
+            const healthFill = document.getElementById('healthFill');
+            healthFill.style.width = gameState.health + '%';
+            healthFill.style.background = gameState.health > 70 ? 'linear-gradient(90deg, var(--danger), var(--warning), var(--success))' :
+                                         gameState.health > 30 ? 'linear-gradient(90deg, var(--danger), var(--warning))' :
+                                         'var(--danger)';
             
             const netWorth = gameState.savings - gameState.loan;
-            document.getElementById('netWorth').textContent = formatMoney(netWorth);
-            document.getElementById('netWorth').style.color = netWorth >= 0 ? 'var(--success)' : 'var(--danger)';
             
             const progress = (gameState.savings / gameState.goal * 100).toFixed(1);
             document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
@@ -937,17 +1178,85 @@
 
         function calculateTotalExpenses() {
             let total = 0;
-            ['rent', 'food', 'transport', 'utilities', 'entertainment'].forEach(id => {
+            ['rent', 'food', 'transport', 'utilities', 'health', 'entertainment'].forEach(id => {
                 const range = document.getElementById(id + 'Range');
                 if (range) total += parseInt(range.value);
             });
             return total;
         }
 
+        // ========== ПРОВЕРКА ВЫЖИВАНИЯ ==========
+        function checkSurvival() {
+            const food = parseInt(document.getElementById('foodRange').value);
+            const health = parseInt(document.getElementById('healthRange').value);
+            const transport = parseInt(document.getElementById('transportRange').value);
+            
+            // Голод
+            if (food < CONFIG.minimums.food) {
+                gameState.starvationMonths++;
+                if (gameState.starvationMonths >= CONFIG.survival.food) {
+                    endGame(false, '💀 Вы умерли от голода... Экономия на еде довела до могилы.');
+                    return false;
+                } else {
+                    gameState.health -= 20;
+                    showGameMessage(`🍽️ Вы плохо питаетесь! Осталось месяцев: ${CONFIG.survival.food - gameState.starvationMonths}`, 'danger');
+                }
+            } else {
+                gameState.starvationMonths = 0;
+            }
+            
+            // Болезни
+            if (health < CONFIG.minimums.health) {
+                gameState.sicknessMonths++;
+                if (gameState.sicknessMonths >= CONFIG.survival.health) {
+                    endGame(false, '🏥 Вы серьезно заболели и не смогли выздороветь из-за отсутствия лечения.');
+                    return false;
+                } else {
+                    gameState.health -= 25;
+                    showGameMessage('💊 Вы экономите на здоровье! Это опасно!', 'danger');
+                }
+            } else {
+                gameState.sicknessMonths = 0;
+            }
+            
+            // Транспорт
+            if (transport < CONFIG.minimums.transport) {
+                gameState.transportMonths++;
+                if (gameState.transportMonths >= CONFIG.survival.transport) {
+                    endGame(false, '🚶 Вас уволили из-за постоянных опозданий на работу.');
+                    return false;
+                } else {
+                    showGameMessage('🚌 Без транспорта вы опаздываете на работу!', 'warning');
+                }
+            } else {
+                gameState.transportMonths = 0;
+            }
+            
+            // Здоровье не может быть ниже 0
+            gameState.health = Math.max(0, gameState.health);
+            
+            // Восстановление здоровья при нормальных расходах
+            if (food >= CONFIG.minimums.food && health >= CONFIG.minimums.health) {
+                gameState.health = Math.min(100, gameState.health + 5);
+            }
+            
+            return true;
+        }
+
         // ========== СЛЕДУЮЩИЙ МЕСЯЦ ==========
         function nextMonth() {
             const totalExpenses = calculateTotalExpenses();
             const plannedSavings = parseInt(document.getElementById('savingsRange').value) || 0;
+
+            // Проверяем, хватает ли денег на обязательные расходы
+            const rent = parseInt(document.getElementById('rentRange').value);
+            if (gameState.balance < rent) {
+                endGame(false, '🏠 Вас выселили за неуплату аренды!');
+                return;
+            }
+
+            // Проверка выживания
+            if (!checkSurvival()) return;
 
             // Зарплата с инфляцией
             const inflation = CONFIG.difficulties[gameState.difficulty].inflation / 12;
@@ -970,6 +1279,9 @@
                     case 'aggressive': profit = gameState.investments * (Math.random() * 0.04 - 0.01); break;
                 }
                 gameState.investments += Math.round(profit);
+                if (profit > 0) {
+                    showGameMessage(`📈 Инвестиции принесли ${formatMoney(profit)}!`, 'success');
+                }
             }
 
             // Кредит
@@ -998,6 +1310,7 @@
 
             updateGameUI();
             updateSavingsSlider();
+            checkAllWarnings();
         }
 
         // ========== СЛУЧАЙНЫЕ СОБЫТИЯ ==========
@@ -1005,9 +1318,10 @@
             if (Math.random() < 0.3) {
                 const events = [
                     { msg: '🎰 Выигрыш в лотерею! +30,000 ₽', amount: 30000, type: 'success' },
-                    { msg: '🏥 Больница -25,000 ₽', amount: -25000, type: 'danger' },
+                    { msg: '🏥 Травма -20,000 ₽', amount: -20000, type: 'danger' },
                     { msg: '💼 Премия +40,000 ₽', amount: 40000, type: 'success' },
-                    { msg: '📱 Сломался телефон -20,000 ₽', amount: -20000, type: 'danger' }
+                    { msg: '📱 Сломался телефон -15,000 ₽', amount: -15000, type: 'danger' },
+                    { msg: '🎁 Подарок от родственников +25,000 ₽', amount: 25000, type: 'success' }
                 ];
                 
                 const event = events[Math.floor(Math.random() * events.length)];
@@ -1159,10 +1473,10 @@
             charts.expenses = new Chart(expensesCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Жилье', 'Еда', 'Транспорт', 'Коммуналка', 'Развлечения'],
+                    labels: ['Аренда', 'Еда', 'Транспорт', 'Коммуналка', 'Здоровье', 'Развлечения'],
                     datasets: [{
-                        data: [25000, 25000, 7000, 7000, 8000],
-                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#6366f1', '#ef4444']
+                        data: [25000, 25000, 7000, 7000, 5000, 8000],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#6366f1', '#ef4444', '#8b5cf6']
                     }]
                 }
             });
