@@ -3,578 +3,646 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIGHTWARE // Терминал безопасности</title>
-
-    <!-- Агрессивное SEO -->
-    <meta name="description" content="NIGHTWARE: Экипировка для нулевых дней. Бронежилеты с подавлением RF, тактические очки ночного видения, глушители сигнала. Корпоротивным клиентам — аудит периметра.">
-    <meta name="keywords" content="кибербезопасность, тактическое снаряжение, бронежилет, РЭБ, глушитель, нулевой день, хакинг, darknet, оператор БПЛА, Nightware">
-
-    <!-- Open Graph (Мрачный) -->
-    <meta property="og:title" content="NIGHTWARE // Экипировка для теней">
-    <meta property="og:description" content="Твое снаряжение не должно светиться. Тактический шифон, защита от RF-сканирования, керамические плиты класса BR5.">
-    <meta property="og:image" content="https://example.com/static/og_dark.jpg">
-    <meta property="og:url" content="https://nightware.local">
-
-    <!-- Шрифты: JetBrains Mono (технический, моноширинный) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
-
+    <title>RetroPrompt Architect :: v0.2 [ФУНКЦИОНАЛ]</title>
     <style>
-        /* Полная противоположность: никаких закруглений, никакого стекла, никаких градиентов */
-        * {
+        /* Полная противоположность современному градиенту TAIPrompts */
+        body {
+            background-color: #000000;
+            color: #33ff33; /* Классический зеленый монитор */
+            font-family: 'Courier New', Courier, monospace; /* Моноширинный */
+            font-size: 18px;
+            line-height: 1.5;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-shadow: 0 0 5px rgba(51, 255, 51, 0.7); /* Эффект свечения */
+            /* CRT-эффект: линии развертки */
+            background-image: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 255, 0, 0.02) 2px,
+                rgba(0, 0, 0, 0.1) 3px
+            );
+            animation: scan 10s linear infinite;
         }
 
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: #0a0c0f;
-            background-image: 
-                linear-gradient(rgba(0, 255, 0, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 0, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            color: #c7d4d4;
-            line-height: 1.6;
-            min-height: 100vh;
-            letter-spacing: -0.02em;
+        /* CRT-эффект мерцания */
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 20px; }
         }
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem;
-            border-left: 1px solid #1f3a3a;
-            border-right: 1px solid #1f3a3a;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(2px); /* Минимум размытия, только чтобы подчеркнуть "грязь" */
+            max-width: 900px;
+            width: 100%;
+            border: 2px solid #33ff33;
+            padding: 20px;
+            box-shadow: 0 0 20px #33ff33;
+            background-color: #0a0a0a; /* чуть светлее черного для контраста */
         }
 
-        /* ===== ТЕРМИНАЛЬНЫЙ СТИЛЬ ===== */
-        .terminal-panel {
-            background-color: #101418;
-            border: 2px solid #1f4a4a;
-            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.0), 0 0 15px rgba(0, 255, 0, 0.2);
-            color: #b5e5e5;
-            padding: 1.5rem;
+        /* Противоположность плавному скроллу */
+        .terminal-nav {
+            border-bottom: 1px dashed #33ff33;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
-        .glitch-text {
-            color: #00ff9d;
-            text-shadow: 0 0 5px #00ff9d, 2px 2px 0 #ff00c1, -2px -1px 0 #003bff;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        /* Хедер - никакой магии, только суровый интерфейс */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 2rem;
-            margin-bottom: 3rem;
-            background-color: #030608;
-            border: 2px solid #00a8a8;
-            border-radius: 0; /* Острые углы */
-        }
-
-        .logo {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #00ffc3;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-        }
-
-        .logo span {
-            color: #ff0055;
-            font-weight: 300;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #7e9b9b;
+        .terminal-nav a {
+            color: #ffff33; /* Желтый для контраста */
             text-decoration: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid transparent;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            border-bottom-color: #ff0055;
-            color: #f0f0f0;
-        }
-
-        /* Герой — холодный и расчетливый */
-        .hero {
-            text-align: left;
-            padding: 3rem 2rem;
-            margin-bottom: 4rem;
-            background: #030608;
-            border-left: 6px solid #ff0055;
-            border-right: 2px solid #0f4f4f;
-            border-top: 1px solid #0f4f4f;
-            border-bottom: 1px solid #0f4f4f;
-        }
-
-        .hero h2 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: #dbfffa;
-            text-transform: uppercase;
-        }
-
-        .hero h2 span {
-            color: #ff0055;
-            background-color: #1a1f2a;
-            padding: 0 10px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: #a0b9b9;
-            max-width: 800px;
-            margin-bottom: 2rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .cta-button {
+            background-color: #000000;
+            padding: 2px 5px;
+            border: 1px solid #ffff33;
+            margin-right: 10px;
+            font-weight: bold;
             display: inline-block;
-            background: transparent;
-            color: #00ffc3;
-            border: 2px solid #00ffc3;
-            padding: 1rem 2.8rem;
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 1.2rem;
+        }
+
+        .terminal-nav a:hover {
+            background-color: #33ff33;
+            color: #000000;
+            border-color: #33ff33;
+        }
+
+        h1, h2, h3 {
+            font-weight: normal;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            transition: 0.2s;
-            border-radius: 0;
-            box-shadow: none;
+            letter-spacing: 2px;
+            border-left: 10px solid #33ff33;
+            padding-left: 15px;
+            margin-top: 30px;
         }
 
-        .cta-button:hover {
-            background: #00ffc3;
-            color: #030608;
-            border-color: #ff0055;
+        h1 {
+            font-size: 2.2em;
+            border-left-width: 15px;
+            animation: blink 1.5s step-end infinite; /* мигающий заголовок */
         }
 
-        /* Товары — хардкор, никаких эмодзи, только иконки сигналов */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 4rem 0;
+        /* Эффект печатной машинки для подзаголовка */
+        .subtitle::after {
+            content: "_";
+            animation: blink 1s step-end infinite;
         }
 
-        .product-card {
-            background: #0b1217;
-            border: 2px solid #1a4a4a;
-            padding: 2rem 1.5rem;
-            transition: 0.2s;
-        }
-
-        .product-card:hover {
-            border-color: #ff0055;
-            box-shadow: -8px 8px 0 rgba(255, 0, 85, 0.3);
-        }
-
-        .product-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #00a8a8;
-        }
-
-        .product-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #d0f0f0;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-
-        .product-spec {
-            font-size: 0.8rem;
-            color: #ff6666;
-            border-bottom: 1px dashed #2a5a5a;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .product-desc {
-            color: #889f9f;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .product-price {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #b5ffb5;
-            margin-bottom: 1.2rem;
-        }
-
-        .product-action {
-            display: inline-block;
-            background: none;
-            border: 2px solid #2f5f5f;
-            color: #b0d0d0;
-            padding: 0.7rem 1.8rem;
-            text-transform: uppercase;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        .product-action:hover {
-            background: #ff0055;
-            border-color: #ff0055;
-            color: black;
-        }
-
-        /* ===== КАТЕГОРИЯ: ОПЕРАТОРЫ (вместо витуберш) ===== */
-        .operators {
-            margin: 5rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-align: left;
-            margin-bottom: 2rem;
-            color: #00ffc3;
-            text-transform: uppercase;
-            border-bottom: 3px solid #ff0055;
-            padding-bottom: 0.5rem;
-        }
-
-        .operator-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.2rem;
-        }
-
-        .operator-card {
-            background: #0e141c;
-            border: 2px solid #1e4f4f;
-            padding: 1.8rem 1rem;
-            text-align: left;
-        }
-
-        .operator-codename {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ffccf0;
-        }
-
-        .operator-role {
-            color: #ff5f8f;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            margin: 0.5rem 0;
-        }
-
-        .operator-stats {
-            font-size: 0.85rem;
-            color: #6fa3a3;
-            border-top: 1px solid #1f4949;
-            margin-top: 1rem;
-            padding-top: 0.8rem;
-        }
-
-        /* ===== ХАРАКТЕРИСТИКИ (вместо "преимущества" с эмодзи) ===== */
-        .tech-specs {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin: 4rem 0;
-        }
-
-        .spec-item {
-            border: 2px solid #2a5555;
-            padding: 1.8rem 1rem;
-            background: #070e12;
-        }
-
-        .spec-name {
-            font-weight: 700;
-            color: #a0f0f0;
-            text-transform: uppercase;
-        }
-
-        .spec-value {
-            color: #ff6b9d;
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-top: 0.5rem;
-        }
-
-        /* ===== ТЕРМИНАЛ ОПЛАТЫ ===== */
-        .payment-terminal {
-            background: #030608;
-            border: 3px double #1f8a8a;
-            padding: 3rem;
-            margin: 5rem 0;
-            text-align: left;
-        }
-
-        .payment-title {
-            color: #00ffbb;
-            font-size: 2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .payment-desc {
-            color: #92adad;
-            margin: 1rem 0 2rem;
-        }
-
-        .crypto-address {
-            background: #1a212a;
-            padding: 1rem 1.5rem;
-            border-left: 4px solid #ff0055;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
-            color: #ffae42;
-            word-break: break-all;
-        }
-
-        .crypto-address span {
-            color: #00cc88;
-        }
-
-        /* ===== ПОДВАЛ (минимализм) ===== */
-        .footer {
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 2px solid #205555;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            color: #517a7a;
-        }
-
-        .footer-left {
-            font-size: 0.9rem;
-        }
-
-        .footer-right a {
-            color: #8cc9c9;
-            text-decoration: none;
-            margin-left: 2rem;
-            border-bottom: 1px dotted;
-        }
-
-        .footer-right a:hover {
-            color: #ff0055;
-        }
-
-        /* Строка состояния */
-        .status-bar {
-            background: #121e1e;
-            padding: 0.6rem 1rem;
-            margin: 1rem 0;
-            border: 1px solid #1f5f5f;
-            color: #51b5b5;
-            font-size: 0.8rem;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .blink {
-            animation: blink-anime 1.2s step-end infinite;
-            color: #ff5f87;
-        }
-
-        @keyframes blink-anime {
+        @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
 
-        /* Адаптация */
-        @media (max-width: 1024px) {
-            .products { grid-template-columns: repeat(2, 1fr); }
-            .operator-grid { grid-template-columns: repeat(2, 1fr); }
-            .tech-specs { grid-template-columns: repeat(2, 1fr); }
+        /* Категории — строгий список */
+        .category-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 5px;
         }
 
-        @media (max-width: 640px) {
-            .products { grid-template-columns: 1fr; }
-            .operator-grid { grid-template-columns: 1fr; }
-            .tech-specs { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 2.2rem; }
+        .category-list li {
+            border: 1px solid #33ff33;
+            padding: 5px 10px;
+            background-color: #111111;
+        }
+
+        .category-list li::before {
+            content: "> "; /* промпт-стиль */
+            color: #ffff33;
+            font-weight: bold;
+        }
+
+        /* Карточки отзывов — как системные сообщения */
+        .testimonial {
+            border: 2px solid #ffff33;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: #000000;
+            color: #ffff33;
+            border-style: dotted;
+        }
+
+        .testimonial-author {
+            color: #33ff33;
+            text-align: right;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        /* Статистика — сухие цифры */
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            border-top: 3px double #33ff33;
+            border-bottom: 3px double #33ff33;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            border: 1px solid #33ff33;
+            padding: 10px;
+            min-width: 120px;
+        }
+
+        .stat-value {
+            font-size: 3em;
+            color: #ffff33;
+            display: block;
+        }
+
+        /* Поле ввода — как в терминале */
+        .terminal-prompt {
+            background-color: #000000;
+            border: 1px solid #33ff33;
+            color: #33ff33;
+            font-family: inherit;
+            font-size: inherit;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+
+        .terminal-prompt:focus {
+            outline: none;
+            background-color: #111111;
+            box-shadow: 0 0 10px #33ff33;
+        }
+
+        /* Кнопка — противоположность плавной градиентной */
+        .button {
+            background-color: #000000;
+            color: #33ff33;
+            border: 3px solid #33ff33;
+            padding: 15px 30px;
+            font-family: inherit;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 3px;
+        }
+
+        .button:hover {
+            background-color: #33ff33;
+            color: #000000;
+            border-color: #ffff33;
+        }
+
+        /* Разделители */
+        hr {
+            border: none;
+            border-top: 2px dashed #33ff33;
+            margin: 30px 0;
+        }
+
+        /* Сноска про "вайб" — полный антипод */
+        .anti-vibe {
+            color: #808080;
+            font-size: 0.8em;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        /* Ссылки в тексте */
+        a {
+            color: #ffff33;
+            text-decoration: underline wavy #33ff33;
+        }
+
+        a:hover {
+            background-color: #33ff33;
+            color: #000000;
+        }
+
+        /* Табличная верстка для футера, как в старом вебе */
+        footer table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        footer td {
+            border: 1px solid #33ff33;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Стили для терминала */
+        .terminal-window {
+            border: 3px solid #33ff33;
+            padding: 10px;
+            margin-top: 30px;
+            background-color: #000000;
+        }
+
+        .terminal-header {
+            border-bottom: 1px solid #33ff33;
+            padding: 5px;
+            margin-bottom: 10px;
+            color: #ffff33;
+            font-weight: bold;
+        }
+
+        .terminal-content {
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+            font-size: 16px;
+            scroll-behavior: auto; /* без плавности */
+        }
+
+        .terminal-line {
+            margin: 2px 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            margin-top: 10px;
+            border-top: 1px solid #33ff33;
+            padding-top: 10px;
+        }
+
+        .terminal-prompt-sign {
+            color: #ffff33;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .terminal-command-input {
+            background: transparent;
+            border: none;
+            color: #33ff33;
+            font-family: inherit;
+            font-size: inherit;
+            flex-grow: 1;
+            outline: none;
+        }
+
+        .terminal-command-input::placeholder {
+            color: #1a4d1a;
+        }
+
+        /* Сообщение о генерации */
+        .generation-output {
+            border: 2px solid #ffff33;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #111111;
+            color: #33ff33;
+            font-family: inherit;
+            white-space: pre-wrap;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- ШАПКА: пиксель-пунк, строгий -->
-    <header class="header">
-        <div class="logo">NIGHT<span>//</span>WARE</div>
-        <div class="nav-links">
-            <a href="#">КАТАЛОГ СНАРЯЖЕНИЯ</a>
-            <a href="#">ОПЕРАТОРЫ</a>
-            <a href="#">ПЛАТЕЖНЫЙ ШЛЮЗ</a>
-            <a href="#">АУДИТ</a>
-        </div>
-    </header>
-
-    <!-- Строка состояния (системная) -->
-    <div class="status-bar">
-        <span class="blink">⚠</span> ЗАЩИЩЕННЫЙ РЕЖИМ  |  ПОСЛЕДНЯЯ АКТИВНОСТЬ: ПЕРЕХВАТ 54.23.12.9  |  ДОСТУП: ТОЛЬКО ПО ПРИГЛАШЕНИЯМ
-    </div>
-
-    <!-- ГЕРОЙ: никаких пуков, только техника -->
-    <section class="hero">
-        <h2><span>HARDWARE</span> ДЛЯ НУЛЕВЫХ ДНЕЙ</h2>
-        <p>Бронежилеты с активным подавлением RF-диапазона. Глушители дронов. Тактический текстиль, невидимый для тепловизоров. Всё, что нужно для работы в тени.</p>
-        <a href="#" class="cta-button">[ ЗАПРОСИТЬ ДОСТУП ]</a>
-    </section>
-
-    <!-- ТОВАРЫ: полная противоположность трусам -->
-    <div class="products">
-        <!-- Бронеплита -->
-        <div class="product-card">
-            <div class="product-icon">⛓️🛡️</div>
-            <div class="product-title">BR5 «КИПЯТОК»</div>
-            <div class="product-spec">Класс защиты 5 / 3.2 кг / мультикам</div>
-            <div class="product-desc">Керамическая плита с подложкой из полиэтилена сверхвысокой молекулярной массы. Держит три попадания из СВД.</div>
-            <div class="product-price">52 000 ₽</div>
-            <a href="#" class="product-action">[ЗАКАЗАТЬ]</a>
+    <div class="container">
+        <!-- Навигация гиперссылками (вместо скролла) -->
+        <div class="terminal-nav">
+            <a href="#">[ГЛАВНАЯ]</a>
+            <a href="#categories">[КАТАЛОГ]</a>
+            <a href="#constructor">[КОНСТРУКТОР]</a>
+            <a href="#feedback">[ОТЗЫВЫ]</a>
+            <a href="#about">[О ПРОЕКТЕ]</a>
+            <a href="#terminal">[ТЕРМИНАЛ]</a>
         </div>
 
-        <!-- Глушитель сигнала -->
-        <div class="product-card">
-            <div class="product-icon">📡❌</div>
-            <div class="product-title">SDR-JAMMER M2</div>
-            <div class="product-spec">20-6000 MHz / 10 Вт / портативный</div>
-            <div class="product-desc">Цифровой глушитель сигналов сотовой связи, Wi-Fi, GPS. Работает от powerbank. Радиус — до 50 метров.</div>
-            <div class="product-price">37 500 ₽</div>
-            <a href="#" class="product-action">[ЗАКАЗАТЬ]</a>
-        </div>
+        <!-- Заголовок: максимально сухо и технично -->
+        <h1>RETRO PROMPT ENGINEER v.0.2</h1>
+        <div class="subtitle">РУЧНАЯ СБОРКА ПРОМПТОВ БЕЗ "ВАЙБА"</div>
 
-        <!-- Очки ночного видения -->
-        <div class="product-card">
-            <div class="product-icon">👁️🌙</div>
-            <div class="product-title">NVG-31 WHITE</div>
-            <div class="product-spec">Gen 3 / автофокус / ИК-подсветка</div>
-            <div class="product-desc">Прибор ночного видения на трубках третьего поколения. Распознавание человека на 300 м. Полная темнота — не проблема.</div>
-            <div class="product-price">214 000 ₽</div>
-            <a href="#" class="product-action">[ЗАКАЗАТЬ]</a>
-        </div>
-    </div>
+        <!-- Принципы (противоположность "вайб-кодингу") -->
+        <h2>ПРИНЦИПЫ ИНЖЕНЕРИИ:</h2>
+        <ul style="list-style-type: none; padding: 0;">
+            <li style="margin: 10px 0;">🔧 Точность — каждая буква проверяется вручную</li>
+            <li style="margin: 10px 0;">🐢 Скорость — мы не гонимся за секундами, мы гонимся за качеством</li>
+            <li style="margin: 10px 0;">📖 Документация — сначала спецификация, потом промпт</li>
+            <li style="margin: 10px 0;">⚙️ Контроль — никакой магии, только детерминированные алгоритмы</li>
+        </ul>
 
-    <!-- ОПЕРАТОРЫ (вместо витуберш) — суровые позывные -->
-    <section class="operators">
-        <h2 class="section-title">◈ ДЕЙСТВУЮЩИЕ ОПЕРАТОРЫ ◈</h2>
-        <div class="operator-grid">
-            <div class="operator-card">
-                <div class="operator-codename">GROM #13</div>
-                <div class="operator-role">Штурм / РЭБ</div>
-                <div class="operator-stats">Подавление: 98% | Ликвидаций: 47</div>
+        <!-- Статистика сухими цифрами -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-value">47</span>
+                <span>Промптов</span>
             </div>
-            <div class="operator-card">
-                <div class="operator-codename">VETKA</div>
-                <div class="operator-role">Разведка / БПЛА</div>
-                <div class="operator-stats">Налеты: 124 | Поражений: 3</div>
+            <div class="stat-item">
+                <span class="stat-value">8</span>
+                <span>Категорий</span>
             </div>
-            <div class="operator-card">
-                <div class="operator-codename">KLUKVA</div>
-                <div class="operator-role">Медик / Кибербез</div>
-                <div class="operator-stats">Спасений: 90 | Взломов: 212</div>
+            <div class="stat-item">
+                <span class="stat-value">123</span>
+                <span>Пользователей</span>
             </div>
-            <div class="operator-card">
-                <div class="operator-codename">SEDMOY</div>
-                <div class="operator-role">Снайпер / Наблюдение</div>
-                <div class="operator-stats">Дистанция: 1300м | Подтверждений: 34</div>
+            <div class="stat-item">
+                <span class="stat-value">76%</span>
+                <span>Успешных</span>
             </div>
         </div>
-    </section>
 
-    <!-- ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ вместо "преимуществ" с эмодзи -->
-    <div class="tech-specs">
-        <div class="spec-item">
-            <div class="spec-name">ПОДАВЛЕНИЕ RF</div>
-            <div class="spec-value">0.1-6 ГГц</div>
+        <!-- Категории (без эмодзи в заголовках, строго) -->
+        <h2 id="categories">КАТАЛОГ ПРОМПТОВ</h2>
+        <ul class="category-list">
+            <li>TELEGRAM BOT (AIOGRAM SCHEMAS)</li>
+            <li>STATIC WEBSITES (HTML/CSS)</li>
+            <li>MINECRAFT MODS (FORGE)</li>
+            <li>PYTHON SCRIPTS</li>
+            <li>BASH COMMANDS</li>
+            <li>REGULAR EXPRESSIONS</li>
+            <li>SQL QUERIES</li>
+            <li>DOCKERFILES</li>
+        </ul>
+
+        <hr>
+
+        <!-- Конструктор промпта (противоположность "кастомизации с вайбом") -->
+        <h2 id="constructor">КОНСТРУКТОР ПРОМПТА</h2>
+        <p>> ВВЕДИТЕ ТЕХНИЧЕСКОЕ ЗАДАНИЕ:</p>
+        <input type="text" class="terminal-prompt" id="promptInput" placeholder="например: парсер сайтов на Python с использованием requests и BeautifulSoup" value="python script for data parsing">
+        
+        <p>> ВЫБЕРИТЕ УРОВЕНЬ ДЕТАЛИЗАЦИИ:</p>
+        <div style="border:1px solid #33ff33; padding:10px;">
+            <label><input type="radio" name="detail" id="detailMin" checked> МИНИМАЛЬНЫЙ (только структура)</label><br>
+            <label><input type="radio" name="detail" id="detailMid"> СРЕДНИЙ (с примерами кода)</label><br>
+            <label><input type="radio" name="detail" id="detailMax"> МАКСИМАЛЬНЫЙ (полная документация + юнит-тесты)</label>
         </div>
-        <div class="spec-item">
-            <div class="spec-name">БАЛЛИСТИЧЕСКАЯ ЗАЩИТА</div>
-            <div class="spec-value">BR6 / BR5</div>
+
+        <button class="button" style="margin-top:20px;" onclick="generatePrompt()">СГЕНЕРИРОВАТИ ПРОМПТ >></button>
+        
+        <!-- Блок для вывода результата генерации -->
+        <div id="generationResult" class="generation-output" style="display:none;"></div>
+
+        <!-- Примеры промптов (в стиле старого форума) -->
+        <h2>ПРИМЕРЫ ПРОМПТОВ</h2>
+        <table style="width:100%; border-collapse: collapse; border: 2px solid #33ff33;">
+            <tr style="border-bottom: 2px solid #33ff33;">
+                <th style="padding:10px; text-align:left;">НАЗВАНИЕ</th>
+                <th style="padding:10px; text-align:left;">ЦЕЛЬ</th>
+                <th style="padding:10px; text-align:left;">СТАТУС</th>
+            </tr>
+            <tr>
+                <td style="padding:5px;">recipe_parser</td>
+                <td style="padding:5px;">Извлечение ингредиентов с HTML-страниц</td>
+                <td style="padding:5px; color: #ffff33;">[ПРОВЕРЕН]</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">telegram_bot_template</td>
+                <td style="padding:5px;">Бот с FSM и БД PostgreSQL</td>
+                <td style="padding:5px; color: #ffff33;">[ТЕСТИРУЕТСЯ]</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">minecraft_mod_stub</td>
+                <td style="padding:5px;">Базовый класс для предмета</td>
+                <td style="padding:5px; color: #33ff33;">[ГОТОВ]</td>
+            </tr>
+        </table>
+
+        <!-- Отзывы (скептические, без восторженных эмодзи) -->
+        <h2 id="feedback">СИСТЕМНЫЕ ЖУРНАЛЫ</h2>
+        <div class="testimonial">
+            [Пользователь Алексей]: "Инструмент справляется с базовыми задачами, но требует доработки документации. Промпты приходится править вручную, что, впрочем, и заявлено."
+            <div class="testimonial-author">~ Алексей, инженер-программист</div>
         </div>
-        <div class="spec-item">
-            <div class="spec-name">КРИПТО-КОШЕЛЬКИ</div>
-            <div class="spec-value">BTC/XMR</div>
+        <div class="testimonial">
+            [Пользователь Мария]: "Создание ботов стало предсказуемым. Нет никакой 'магии', все шаги прозрачны. Для production-среды это плюс."
+            <div class="testimonial-author">~ Мария, DevOps</div>
         </div>
-        <div class="spec-item">
-            <div class="spec-name">СРОК ЭКСПЛУАТАЦИИ</div>
-            <div class="spec-value">≥ 15 лет</div>
+
+        <!-- О проекте (максимально технично) -->
+        <h2 id="about">О RETROPROMPT ARCHITECT</h2>
+        <p>> Версия ядра: 0.2.2025 (сборка от 2026-03-16)</p>
+        <p>> Описание: Инструмент для формирования точных, воспроизводимых запросов к большим языковым моделям. Основан на методологии 'четкого программирования' (Structured Prompt Engineering). Не использует эвристики и 'креативные' алгоритмы. Весь код верифицируется.</p>
+        <p>> Контакты для обратной связи (только по существу):</p>
+        <address style="border: 1px dashed #33ff33; padding: 10px; background-color: #111;">
+            📧 email: prompt.engine@retro-archive.local<br>
+            🖥️  IRC: #retroprompt на irc.undernet.org<br>
+            ⎯  Системные требования: любой браузер с поддержкой &lt;blink&gt; (шутка)
+        </address>
+
+        <!-- ИНТЕРАКТИВНЫЙ ТЕРМИНАЛ -->
+        <h2 id="terminal">ТЕРМИНАЛ ДОСТУПА</h2>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                RETROPROMPT::/home/user $ ВВЕДИТЕ КОМАНДУ (help - список)
+            </div>
+            <div class="terminal-content" id="terminalContent">
+                <div class="terminal-line">> Добро пожаловать в терминал RetroPrompt v0.2</div>
+                <div class="terminal-line">> Система готова к приему команд.</div>
+                <div class="terminal-line">> Для списка команд введите 'help'</div>
+            </div>
+            <div class="terminal-input-line">
+                <span class="terminal-prompt-sign">$></span>
+                <input type="text" class="terminal-command-input" id="terminalInput" placeholder="введите команду..." autocomplete="off">
+            </div>
+        </div>
+
+        <!-- Футер в виде таблицы (как в 90-х) -->
+        <footer>
+            <hr>
+            <table>
+                <tr>
+                    <td>© 2026 RETROPROMPT</td>
+                    <td>ЛИЦЕНЗИЯ: GPLv2</td>
+                    <td>Последнее обновление: 16.03.2026</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border-bottom: none;">
+                        <a href="#">НАВЕРХ</a> | <a href="#categories">КАТАЛОГ</a> | <a href="#constructor">КОНСТРУКТОР</a> | <a href="#terminal">ТЕРМИНАЛ</a>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+
+        <!-- Анти-вайб дисклеймер -->
+        <div class="anti-vibe">
+            * Данный ресурс не имеет отношения к "вайб-кодингу". Мы не генерируем "идеи", мы создаем технические спецификации.
         </div>
     </div>
 
-    <!-- ОПЛАТА: только крипта, никакого donatepay -->
-    <div class="payment-terminal">
-        <div class="payment-title">💰 АНОНИМНЫЙ ПЛАТЕЖНЫЙ ТЕРМИНАЛ</div>
-        <div class="payment-desc">Принимаем только криптовалюту. 10% скидка при оплате XMR. Все заказы идут через мультиподпись.</div>
-        <div class="crypto-address">
-            <span>BTC:</span> bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh<br>
-            <span>XMR:</span> 48dY7L5bXo3gJq1yFzQrT6pZ2sW8vR9kH4mNcB2jV7rF3xK9
-        </div>
-        <div style="margin-top: 2rem;">
-            <a href="#" class="cta-button" style="border-color: #ff0055; color: #ff0055;">[ ПЕРЕЙТИ К ОФОРМЛЕНИЮ ]</a>
-        </div>
-    </div>
+    <script>
+        // ========== ФУНКЦИОНАЛ ГЕНЕРАЦИИ ПРОМПТА ==========
+        function generatePrompt() {
+            const input = document.getElementById('promptInput').value;
+            let detailLevel = "МИНИМАЛЬНЫЙ";
+            if (document.getElementById('detailMid').checked) detailLevel = "СРЕДНИЙ";
+            if (document.getElementById('detailMax').checked) detailLevel = "МАКСИМАЛЬНЫЙ";
+            
+            const timestamp = new Date().toLocaleTimeString();
+            
+            // Создаем "технический" промпт
+            let promptResult = `=== СГЕНЕРИРОВАННЫЙ ПРОМПТ [${timestamp}] ===\n`;
+            promptResult += `> ТЗ: ${input}\n`;
+            promptResult += `> УРОВЕНЬ: ${detailLevel}\n`;
+            promptResult += `> СТРУКТУРА:\n`;
+            
+            if (detailLevel === "МИНИМАЛЬНЫЙ") {
+                promptResult += `  - Создай скрипт для задачи: ${input}\n  - Добавь базовые комментарии\n  - Используй стандартную библиотеку\n`;
+            } else if (detailLevel === "СРЕДНИЙ") {
+                promptResult += `  - Разработай решение для: ${input}\n  - Включи примеры использования\n  - Добавь обработку ошибок\n  - Покрой базовыми комментариями\n`;
+            } else {
+                promptResult += `  - Спроектируй архитектуру для: ${input}\n  - Напиши полную документацию (docstrings)\n  - Добавь unit-тесты (pytest)\n  - Укажи зависимости и версии\n  - Оформи как production-ready код\n`;
+            }
+            
+            promptResult += `\n[ПРОМПТ СГЕНЕРИРОВАН В КОНСОЛЬ. КОПИРУЙТЕ ВРУЧНУЮ.]`;
+            
+            // Выводим на страницу
+            const resultDiv = document.getElementById('generationResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerText = promptResult;
+            
+            // Также выводим в консоль (как в старом терминале)
+            console.log(promptResult);
+            
+            // Добавляем запись в терминал
+            addTerminalLine(`> [СИСТЕМА] Промпт сгенерирован. Уровень: ${detailLevel}`);
+        }
 
-    <!-- Аудит безопасников (вместо отзывов про пуканье) -->
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin: 3rem 0;">
-        <div class="terminal-panel">
-            <div style="color: #00ffbb;">✦ ЗАКЛЮЧЕНИЕ ЦЕНТРА АТТЕСТАЦИИ</div>
-            <div style="margin-top: 1rem; color: #adc4c4;">«Бронеплита BR5 выдержала обстрел из автоматического оружия. Глушитель успешно блокировал каналы управления БПЛА на полигоне.»</div>
-            <div style="margin-top: 1rem; color: #ff6670;">— ФСБ (заключение № 40-5/23)</div>
-        </div>
-        <div class="terminal-panel">
-            <div style="color: #00ffbb;">✦ ОТЗЫВ ЧАСТНОЙ ВОЕННОЙ КОМПАНИИ</div>
-            <div style="margin-top: 1rem; color: #adc4c4;">«Используем глушители Nightware с 2024. За 6 месяцев работы не зафиксировано ни одного успешного наведения на группу.»</div>
-            <div style="margin-top: 1rem; color: #ff6670;">— ЧВК «Редут» (официально)</div>
-        </div>
-    </div>
-
-    <!-- ПОДВАЛ -->
-    <footer class="footer">
-        <div class="footer-left">
-            © 2026 NIGHTWARE // ПОЛНАЯ КОНФИДЕНЦИАЛЬНОСТЬ.<br>
-            Все сделки проходят через гарант-сервис на базе мультиподписи.
-        </div>
-        <div class="footer-right">
-            <a href="#">НОРМАТИВНАЯ БАЗА</a>
-            <a href="#">ГАРАНТИИ</a>
-            <a href="#">ДЛЯ КОРПОРАТИВНЫХ КЛИЕНТОВ</a>
-        </div>
-    </footer>
-
-    <!-- Консольная строка -->
-    <div style="background: #0f1b1b; padding: 0.5rem; margin-top: 2rem; border: 1px solid #205a5a; color: #2e8b8b; font-size: 0.7rem; text-align: right;">
-        root@nightware:~# tail -f /var/log/access.log — СБОР ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЯХ НЕ ПРОИЗВОДИТСЯ
-    </div>
-</div>
-
-<script>
-    // Терминальный лог
-    console.log('%c⚠ NIGHTWARE ИНИЦИАЛИЗИРОВАНА ⚠', 'background: black; color: #00ff9d; font-size: 14px; font-weight: bold;');
-    console.log('Доступ к терминалу только для авторизованных операторов.');
-    console.log('Попытки несанкционированного доступа логируются и передаются...');
-</script>
+        // ========== ФУНКЦИОНАЛ ТЕРМИНАЛА ==========
+        const terminalContent = document.getElementById('terminalContent');
+        const terminalInput = document.getElementById('terminalInput');
+        
+        // История команд
+        let commandHistory = [];
+        let historyIndex = -1;
+        
+        // Добавление строки в терминал
+        function addTerminalLine(text) {
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+            line.textContent = text;
+            terminalContent.appendChild(line);
+            terminalContent.scrollTop = terminalContent.scrollHeight;
+        }
+        
+        // Обработка команд
+        function processCommand(cmd) {
+            const lowerCmd = cmd.toLowerCase().trim();
+            
+            // Добавляем команду в историю
+            if (cmd.trim() !== '') {
+                commandHistory.push(cmd);
+                historyIndex = commandHistory.length;
+            }
+            
+            // Добавляем введенную команду на экран
+            addTerminalLine(`$> ${cmd}`);
+            
+            // Обработка
+            if (lowerCmd === 'help') {
+                addTerminalLine('> Доступные команды:');
+                addTerminalLine('>   help    - это сообщение');
+                addTerminalLine('>   clear   - очистить экран');
+                addTerminalLine('>   date    - показать дату/время');
+                addTerminalLine('>   whoami  - информация о пользователе');
+                addTerminalLine('>   prompts - статистика промптов');
+                addTerminalLine('>   exit    - завершить сеанс');
+            }
+            else if (lowerCmd === 'clear') {
+                terminalContent.innerHTML = '';
+                addTerminalLine('> Экран очищен.');
+            }
+            else if (lowerCmd === 'date') {
+                addTerminalLine(`> ${new Date().toString()}`);
+            }
+            else if (lowerCmd === 'whoami') {
+                addTerminalLine('> user@retroprompt.local');
+                addTerminalLine('> UID: 1000');
+                addTerminalLine('> Shell: /bin/bash');
+                addTerminalLine('> Последний вход: ' + new Date().toLocaleString());
+            }
+            else if (lowerCmd === 'prompts') {
+                addTerminalLine('> Статистика генератора:');
+                addTerminalLine('>   Всего промптов: 47');
+                addTerminalLine('>   Категорий: 8');
+                addTerminalLine('>   Активных сессий: 3');
+                addTerminalLine('>   Последняя генерация: ' + new Date().toLocaleTimeString());
+            }
+            else if (lowerCmd === 'exit') {
+                addTerminalLine('> Завершение сеанса...');
+                addTerminalLine('> Перезапустите терминал через 3 секунды.');
+                terminalInput.disabled = true;
+                setTimeout(() => {
+                    terminalContent.innerHTML = '';
+                    addTerminalLine('> Новая сессия терминала. Введите "help".');
+                    terminalInput.disabled = false;
+                    terminalInput.focus();
+                }, 3000);
+            }
+            else if (lowerCmd === '') {
+                // Пустая команда - ничего не делаем
+            }
+            else {
+                addTerminalLine(`> Команда не найдена: "${cmd}". Введите "help".`);
+            }
+            
+            // Прокрутка вниз
+            terminalContent.scrollTop = terminalContent.scrollHeight;
+        }
+        
+        // Обработка ввода
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = this.value;
+                processCommand(cmd);
+                this.value = '';
+            }
+            
+            // Навигация по истории (стрелки вверх/вниз)
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (commandHistory.length > 0 && historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                }
+            }
+            else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    this.value = '';
+                }
+            }
+        });
+        
+        // Фокус на терминал при загрузке
+        window.addEventListener('load', function() {
+            terminalInput.focus();
+        });
+        
+        // Дополнительный CRT-эффект (случайные помехи)
+        (function() {
+            setInterval(() => {
+                if (Math.random() > 0.97) {
+                    document.body.style.backgroundColor = '#001100';
+                    setTimeout(() => document.body.style.backgroundColor = '#000000', 50);
+                }
+                // Иногда добавляем "помеху" в терминал
+                if (Math.random() > 0.98 && terminalContent.children.length > 0) {
+                    const glitchLine = document.createElement('div');
+                    glitchLine.className = 'terminal-line';
+                    glitchLine.textContent = '> ⚡ СИСТЕМНАЯ ПОМЕХА ⚡';
+                    glitchLine.style.color = '#ffff33';
+                    terminalContent.appendChild(glitchLine);
+                    setTimeout(() => {
+                        if (glitchLine.parentNode) {
+                            glitchLine.remove();
+                        }
+                    }, 200);
+                }
+            }, 2000);
+        })();
+    </script>
 </body>
 </html>
