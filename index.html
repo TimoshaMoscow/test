@@ -3,446 +3,680 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ТрешПромптс🤘 - Генератор Деградации</title>
+    <title>NexusTools — полный набор браузерных утилит</title>
+    <!-- Font Awesome 5 (иконки) -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <style>
-        /* Абсолютный треш-стайлинг: тёмная тема, неоновые цвета, рваные края */
+        /* --- Глобальные стили (как в прошлой версии, немного доработаны) --- */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-
         body {
-            background-color: #0a0a0a;
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Courier New', cursive, monospace;
-            color: #00ff41;
-            line-height: 1.3;
-            margin: 0;
-            padding: 20px;
-            background-image: repeating-linear-gradient(45deg, rgba(255,0,0,0.1) 0px, rgba(255,0,0,0.1) 20px, rgba(0,0,255,0.1) 20px, rgba(0,0,255,0.1) 40px);
-            min-height: 100vh;
+            background: #f4f7fc;
+            color: #1a2639;
+            line-height: 1.5;
         }
-
-        .trash-container {
-            max-width: 1300px;
+        .app {
+            max-width: 1440px;
             margin: 0 auto;
-            border: 3px dashed #ff00ff;
-            padding: 25px;
-            background-color: rgba(10, 10, 10, 0.9);
-            box-shadow: 15px 15px 0 #ff6600, -10px -10px 0 #00ccff;
-            backdrop-filter: blur(2px);
+            padding: 2rem 2rem 3rem;
         }
-
-        /* Хаотичная шапка */
-        .trash-header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 5px dotted #ff4444;
-            padding-bottom: 20px;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            text-shadow: 4px 4px 0 #ff0000, 8px 8px 0 #0000ff;
-            letter-spacing: -3px;
-            word-break: break-word;
-            background: linear-gradient(45deg, #f0f, #ff0, #0ff);
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            cursor: pointer;
+        }
+        .logo-icon {
+            background: #2d3b5a;
+            color: white;
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            box-shadow: 0 10px 18px -8px rgba(0,20,50,0.2);
+        }
+        .brand h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(145deg, #1f2b44, #2c3e6e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            transform: rotate(-1deg);
+            background-clip: text;
         }
-
-        .subtitle {
-            font-size: 1.8rem;
-            color: #ffff00;
-            background-color: #800080;
-            display: inline-block;
-            padding: 10px 30px;
-            border-radius: 50px 0 50px 0;
-            border: 3px solid #fff;
-            box-shadow: inset 0 0 10px #000;
-            text-transform: uppercase;
-            font-weight: bold;
-            transform: rotate(1deg);
-        }
-
-        /* Навигация — агрессивная */
-        .trash-nav {
+        .brand .slogan {
+            color: #4a5a77;
+            font-weight: 400;
+            font-size: 0.95rem;
             display: flex;
-            justify-content: space-around;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 0.5rem 1rem 0.5rem 0.8rem;
+            border-radius: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            gap: 0.8rem;
+        }
+        .avatar {
+            background: #2d3b5a;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+        .user-info {
+            line-height: 1.3;
+        }
+        .user-name {
+            font-weight: 600;
+            color: #1a2639;
+        }
+        .user-email {
+            font-size: 0.85rem;
+            color: #5f6f8a;
+        }
+        /* Навигация по инструментам */
+        .nav-tabs {
+            display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin: 30px 0;
-            background-color: #1a1a1a;
-            padding: 20px;
-            border: 6px ridge #964B00;
+            gap: 0.8rem;
+            margin: 2rem 0 1.5rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border: 1px solid #e2eaf5;
         }
-
-        .trash-nav a {
-            color: #00ff00;
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-decoration: wavy underline #ff00ff 3px;
-            padding: 10px 20px;
-            background-color: #2a2a2a;
-            border: 2px solid #ffa500;
-            transition: all 0.1s ease;
-            text-transform: lowercase;
-        }
-
-        .trash-nav a:hover {
-            background-color: #ff00ff;
-            color: #000;
-            transform: scale(1.1) skewX(-10deg);
-            border-color: #0ff;
-        }
-
-        /* Сетка "преимуществ" — полная противоположность */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .feature-card {
-            background: #1d1d1d;
-            border: 8px double #ffaa00;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: -10px 10px 0 #ff00c8;
-            transition: 0.2s;
-        }
-
-        .feature-card:hover {
-            box-shadow: 10px -10px 0 #00ffaa;
-            border-style: dotted;
-        }
-
-        .feature-card h3 {
-            font-size: 2.2rem;
-            color: #ff6600;
-            margin-bottom: 15px;
-            text-decoration: line-through 3px #fff;
-        }
-
-        .feature-card p {
-            font-size: 1.4rem;
-            color: #ccc;
-        }
-
-        /* Генератор — абсурдный список */
-        .generator-preview {
-            background: #000;
-            border: 10px groove #ff0000;
-            padding: 30px;
-            margin: 40px 0;
-        }
-
-        .generator-title {
-            font-size: 3rem;
-            color: #ffcc00;
-            text-align: center;
-            margin-bottom: 30px;
-            font-family: 'Impact', fantasy;
-            letter-spacing: 2px;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .trash-card {
-            background: #2a2a2a;
-            border: 4px solid #39ff14;
-            border-radius: 0 30px 0 30px;
-            padding: 20px;
-            color: #fff;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .trash-card::before {
-            content: "⚠️🤘";
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 2rem;
-            opacity: 0.5;
-            transform: rotate(20deg);
-        }
-
-        .trash-card h4 {
-            font-size: 1.8rem;
-            color: #fe019a;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .trash-card .badge {
-            display: inline-block;
-            background-color: #ff1493;
-            color: #000;
-            padding: 5px 15px;
-            font-size: 1.4rem;
-            border-radius: 20px;
-            margin: 10px 0;
-            border: 2px solid #0ff;
-        }
-
-        .trash-card .price {
-            font-size: 2rem;
-            color: #ffd700;
-            text-shadow: 0 0 10px #f0f;
-        }
-
-        /* Секция "отзывов" — токсичная */
-        .toxic-reviews {
-            background-color: #150015;
-            border: 10px solid #bada55;
-            padding: 30px;
-            margin: 40px 0;
-        }
-
-        .review-item {
-            border-left: 15px solid #ff4444;
-            padding: 20px;
-            margin: 25px 0;
-            background: #222;
-            font-size: 1.4rem;
-        }
-
-        .review-item strong {
-            color: #ffaa00;
-            font-size: 2rem;
-            display: block;
-        }
-
-        .review-item::after {
-            content: " - подтверждено троллем";
-            color: #808080;
-            font-size: 1rem;
-        }
-
-        /* FAQ — антипод */
-        .anti-faq {
-            background: #0a1a0a;
-            border: 15px ridge #6b8e23;
-            padding: 30px;
-        }
-
-        .faq-item {
-            margin: 25px 0;
-        }
-
-        .faq-question {
-            font-size: 2rem;
-            color: #ff4500;
-            cursor: help;
-            border-bottom: 2px dashed #fff;
-            padding-bottom: 5px;
-        }
-
-        .faq-answer {
-            font-size: 1.6rem;
-            color: #adff2f;
-            margin-top: 10px;
-            padding-left: 30px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%23ff00ff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>') no-repeat left center;
-            background-size: 20px;
-        }
-
-        /* Кнопки для поддержки "деградации" */
-        .support-trash {
-            text-align: center;
-            margin: 50px 0 20px;
-            background: linear-gradient(90deg, #f00, #ff0, #f0f, #0ff);
-            padding: 30px;
-        }
-
-        .support-trash button {
-            background: #000;
-            color: #fff;
-            font-size: 3rem;
-            padding: 20px 50px;
-            border: none;
+        .nav-item {
+            padding: 0.7rem 1.4rem;
+            border-radius: 40px;
+            background: #f0f5fd;
+            color: #1f3a5f;
+            font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
-            border: 10px solid transparent;
-            border-image: repeating-linear-gradient(45deg, #f00, #00f, #0f0) 30;
-            font-weight: bold;
-            text-transform: uppercase;
-            transform: rotate(-2deg);
-            transition: 0.3s;
+            transition: 0.2s;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-item i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+        .nav-item:hover {
+            background: #e3ecf9;
+        }
+        .nav-item.active {
+            background: #1d2b44;
+            color: white;
+            border-color: #2e4070;
+        }
+        /* контейнер инструмента */
+        .tool-container {
+            background: white;
+            border-radius: 42px;
+            padding: 2.5rem;
+            box-shadow: 0 24px 50px -20px #1f3a5f60;
+            border: 1px solid #eaf0f8;
+            margin-top: 1.8rem;
+            min-height: 500px;
+        }
+        /* статистика (немного изменена) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.2rem 1.2rem;
+            box-shadow: 0 8px 24px rgba(0, 20, 40, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .stat-icon {
+            font-size: 2rem;
+            background: #eef3fa;
+            width: 55px;
+            height: 55px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d3b5a;
+        }
+        .stat-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #0e1b31;
+        }
+        .stat-content p { color: #4f5f7a; }
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #cbd6e6;
+            display: flex;
+            justify-content: space-between;
+            color: #3b5070;
         }
 
-        .support-trash button:hover {
-            transform: rotate(2deg) scale(1.2);
-            background: #fff;
-            color: #000;
+        /* --- Стили для форм и элементов инструментов (чтобы везде было единообразно) --- */
+        .tool-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #12233f;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        footer {
-            margin-top: 60px;
-            text-align: center;
-            font-size: 1.4rem;
-            color: #666;
-            border-top: 10px double #ff00ff;
-            padding-top: 20px;
+        .tool-description {
+            color: #3f5a7a;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
         }
-
-        /* Адаптивность, но сломанная */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .trash-nav a { font-size: 1.2rem; }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            font-weight: 600;
+            color: #1d3452;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 30px;
+            border: 2px solid #dbe4f0;
+            font-size: 1rem;
+            transition: 0.2s;
+            background: #fbfdff;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #2d4b7c;
+            outline: none;
+            background: white;
+        }
+        button {
+            background: #1d2b44;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #2e4070;
+            box-shadow: 0 6px 14px rgba(0,20,50,0.1);
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        button:hover {
+            background: #253b60;
+        }
+        button.secondary {
+            background: white;
+            color: #1d2b44;
+            border: 2px solid #ccd9ec;
+        }
+        .result-area {
+            background: #f2f8ff;
+            padding: 1.8rem;
+            border-radius: 32px;
+            margin-top: 2rem;
+            border: 1px solid #d2e2f8;
+            word-break: break-word;
+        }
+        .flex-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        hr {
+            margin: 2rem 0;
+            border: 1px dashed #c6d6ec;
+        }
+        /* для списков */
+        .history-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: #f4faff;
+            padding: 1rem;
+            border-radius: 24px;
+        }
+        .badge-light {
+            background: #e7f0fe;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin: 0.2rem;
+            display: inline-block;
+        }
+        /* сетка */
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 700px) {
+            .row-2 { grid-template-columns: 1fr; }
+            .nav-tabs { border-radius: 30px; }
         }
     </style>
 </head>
 <body>
-    <div class="trash-container">
-        <!-- Шапка: провокация и треш -->
-        <header class="trash-header">
-            <h1>🤬 ТрешПромптс 🤬</h1>
-            <div class="subtitle">Генератор морального уродства</div>
-            <p style="font-size: 2rem; color: #ff00ff; margin-top: 20px;">ВАЙБКОДИНГ? НЕТ — ТРEШ-КОДИНГ!</p>
-        </header>
+<div class="app" id="app">
 
-        <!-- Навигация: враждебная -->
-        <nav class="trash-nav">
-            <a href="#">💀 Генератор</a>
-            <a href="#">🔞 18+ раздел</a>
-            <a href="#">👺 Токсичный чат</a>
-            <a href="#">💸 Купить автора</a>
-            <a href="#">🤡 FAQ для слабых</a>
-        </nav>
-
-        <!-- "Преимущества" — антипод TAIPrompts -->
-        <section>
-            <h2 style="font-size: 3rem; color: #ff6600; text-align: center; margin: 40px 0;">Наши тёмные стороны</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>💩 Медленная деградация</h3>
-                    <p>Генерируем промпты часами. Ваш компьютер взорвётся от количества вкладок.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔞 Полная антицензура</h3>
-                    <p>Никаких запретов! Хочешь промпт для создания ядерной бомбы? Легко! (шутка? или нет?)</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📱 Адаптивность? Зачем?</h3>
-                    <p>Сайт сломан на всех устройствах. На телефоне всё плывёт — так и задумано.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>💣 Удаление результатов</h3>
-                    <p>Мы автоматически удаляем всё, что вы сохранили. Каждую ночь. Без предупреждения.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⚰️ 1 категория: "Всё и сразу"</h3>
-                    <p>У нас нет кучи категорий. Есть одна свалка. Сортируйте сами.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🪦 Грязные шаблоны</h3>
-                    <p>Наши шаблоны содержат нецензурную лексику и призывы к бунту.</p>
-                </div>
+    <!-- ========== ШАПКА (общая) ========== -->
+    <div class="header">
+        <div class="logo-area" id="logoHome">
+            <div class="logo-icon"><i class="fas fa-cubes"></i></div>
+            <div class="brand">
+                <h1>NexusTools<span style="font-size:1.4rem;">⚡</span></h1>
+                <div class="slogan"><i class="fas fa-bolt"></i> полный набор утилит</div>
             </div>
-        </section>
-
-        <!-- Генератор промптов (противоположность) -->
-        <section class="generator-preview">
-            <div class="generator-title">⚡ГЕНЕРАТОР РАЗРУШЕНИЯ⚡</div>
-            <div class="card-grid">
-                <div class="trash-card">
-                    <h4>💣 Взрывные рецепты</h4>
-                    <div class="badge">🔞 ADULT</div>
-                    <p>Промпты для создания блюд из несъедобных веществ. Проведи эксперимент на кухне!</p>
-                    <div class="price">Цена: 1 час жизни</div>
-                </div>
-                <div class="trash-card">
-                    <h4>🕸️ Сломанные сайты</h4>
-                    <div class="badge">🤡 TRASH</div>
-                    <p>Генерация кода, который невозможно прочитать. 100% нерабочих сайтов.</p>
-                    <div class="price">Цена: ваши нервы</div>
-                </div>
-                <div class="trash-card">
-                    <h4>👹 Оскорбительные аватарки</h4>
-                    <div class="badge">💀 HARDCORE</div>
-                    <p>Создай аватар, за который забанят в любом приличном месте.</p>
-                    <div class="price">Цена: бан навсегда</div>
-                </div>
-                <div class="trash-card">
-                    <h4>🧨 Моды для Minecraft с вирусами</h4>
-                    <div class="badge">☣️ DANGER</div>
-                    <p>Промпты для модов, которые крадут пароли. (Не используйте, но мы сгенерируем)</p>
-                    <div class="price">Цена: уголовка</div>
-                </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+            <div class="user-info">
+                <div class="user-name">alex.codes</div>
+                <div class="user-email"><i class="far fa-envelope"></i> alex@nexus.local</div>
             </div>
-            <p style="text-align: center; margin-top: 30px; font-size: 2rem;">Найдено 666 карточек из 0 возможных</p>
-        </section>
-
-        <!-- Отзывы "пользователей" (токсичные) -->
-        <section class="toxic-reviews">
-            <h2 style="font-size: 3rem; color: #ff66ff; text-align: center;">😈 Отзывы наших троллей 😈</h2>
-            <div class="review-item">
-                <strong>Злой Аноним</strong>
-                "Сайт полное г*вно! Украли мою почку через промпт! Но мне понравилось, ставлю 5 звёзд!"
-            </div>
-            <div class="review-item">
-                <strong>Хакер_Стив</strong>
-                "Зачем вы убрали платные тарифы? Я хочу платить, но вы не берёте! Верните донаты с угрозами!"
-            </div>
-            <div class="review-item">
-                <strong>Мама_Рома</strong>
-                "Мой сын стал агрессивным после вашего генератора. Спасибо, теперь он отличник!"
-            </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="#" style="color: #0ff; font-size: 2rem;">👉 Написать отзыв с матом 👈</a>
-            </div>
-        </section>
-
-        <!-- Анти-FAQ (противоположность FAQ) -->
-        <section class="anti-faq">
-            <h2 style="font-size: 3rem; color: #ffcc00; text-align: center;">❓Вопросы и ответы (для тупых)❓</h2>
-
-            <div class="faq-item">
-                <div class="faq-question">⁉️ Что такое ТрешПромптс?</div>
-                <div class="faq-answer">Это помойка для промптов. Мы специально генерируем бесполезный и опасный контент. Никакой пользы, только деградация.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">⁉️ У вас есть цензура?</div>
-                <div class="faq-answer">НЕТ. Мы против цензуры! Мат, насилие, порнография — всё разрешено. Мы даже поощряем это бейджиком "ADULT". Жить захочешь — не так раскодишься.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">⁉️ Как пользоваться генератором?</div>
-                <div class="faq-answer">Никак. Просто тыкай на кнопки. Если сгенерируется что-то путное — это баг. Сообщи нам, мы исправим.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">⁉️ Вы храните мои данные?</div>
-                <div class="faq-answer">Да! Все ваши промпты мы продаём ЦРУ и ФСБ одновременно. Шутка (или нет). Мы их просто сливаем в открытый доступ.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">⁉️ Нашли баг? Куда писать?</div>
-                <div class="faq-answer">Никуда. Баги — это фичи. Если вам что-то не нравится, идите в поддержку TAIPrompts, они хорошие.</div>
-            </div>
-        </section>
-
-        <!-- "Поддержка" (агрессивная монетизация) -->
-        <section class="support-trash">
-            <h2 style="font-size: 3rem; color: #000; text-shadow: 2px 2px #fff;">💸 Поддержи лохотрон 💸</h2>
-            <p style="font-size: 2rem; color: #000; margin: 30px;">Только сегодня: заплати нам, и мы не будем генерировать промпты для взлома твоего же компа!</p>
-            <button>💳 ПЕРЕВЕСТИ ВСЕ ДЕНЬГИ 💳</button>
-            <p style="margin-top: 20px; color: #333;">*100% поддержки идут на покупку пива автору</p>
-        </section>
-
-        <!-- Подвал с "политикой" -->
-        <footer>
-            <p>© 2025 ТрешПромптс. Все права защищены от психиатров.</p>
-            <p>Сайт создан как полная противоположность <a href="#" style="color: #0f0;">TAIPrompts</a>. Не пытайтесь повторить.</p>
-            <p style="font-size: 1rem;">(Если вы искали полезный генератор промптов, вам сюда: https://timoshamoscow.github.io/taiprompts.github.io/ )</p>
-        </footer>
+        </div>
     </div>
+
+    <!-- ========== СТАТИСТИКА ========== -->
+    <div class="stats-grid" id="statsBlock">
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-puzzle-piece"></i></div><div class="stat-content"><h3>10+</h3><p>Инструментов</p></div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-wifi-slash"></i></div><div class="stat-content"><h3>100%</h3><p>Работа в браузере</p></div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="stat-content"><h3>0</h3><p>Загрузок на сервер</p></div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-infinity"></i></div><div class="stat-content"><h3>∞</h3><p>Возможностей</p></div></div>
+    </div>
+
+    <!-- ========== НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ ========== -->
+    <div class="nav-tabs" id="navTabs">
+        <div class="nav-item" data-tool="taiprompts"><i class="fas fa-robot"></i> TAIPrompts</div>
+        <div class="nav-item" data-tool="formatconvert"><i class="fas fa-file-code"></i> FormatConvert</div>
+        <div class="nav-item" data-tool="passgen"><i class="fas fa-lock"></i> PassGen</div>
+        <div class="nav-item" data-tool="numberrandom"><i class="fas fa-dice-d20"></i> NumberRandom</div>
+        <div class="nav-item" data-tool="watermark"><i class="fas fa-water"></i> Watermark</div>
+        <div class="nav-item" data-tool="fixlayout"><i class="fas fa-keyboard"></i> FixMyLayout</div>
+        <div class="nav-item" data-tool="idgen"><i class="fas fa-fingerprint"></i> IDGen</div>
+        <div class="nav-item" data-tool="foldertree"><i class="fas fa-folder-tree"></i> FolderTree</div>
+        <div class="nav-item" data-tool="glassvoice"><i class="fas fa-microphone-alt"></i> GlassVoice</div>
+        <div class="nav-item" data-tool="nickgen"><i class="fas fa-gamepad"></i> NickGen</div>
+    </div>
+
+    <!-- ========== КОНТЕЙНЕР ДЛЯ АКТИВНОГО ИНСТРУМЕНТА ========== -->
+    <div id="toolContainer" class="tool-container">
+        <!-- сюда будет подгружаться интерфейс выбранного инструмента через JS -->
+        <div style="text-align: center; padding: 3rem; color: #506e96;"><i class="fas fa-hand-pointer"></i> Выберите инструмент сверху</div>
+    </div>
+
+    <!-- ========== ПОДВАЛ ========== -->
+    <div class="footer">
+        <div><i class="far fa-copyright"></i> 2026 NexusTools. Всё в браузере.</div>
+        <div><i class="fas fa-cubes"></i> NexusTools v3.0</div>
+    </div>
+</div>
+
+<!-- ========== СКРИПТ: полный функционал 10 инструментов + переключение ========== -->
+<script>
+    (function() {
+        // --- данные пользователя (для истории и т.д.) ---
+        const user = { name: 'alex', email: 'alex@nexus.local' };
+
+        // --- Переключение вкладок ---
+        const container = document.getElementById('toolContainer');
+        const navItems = document.querySelectorAll('.nav-item');
+        let currentTool = null;
+
+        // функция загрузки интерфейса инструмента
+        function loadTool(toolId) {
+            if (!toolId) return;
+            // сброс активного класса
+            navItems.forEach(item => item.classList.remove('active'));
+            document.querySelector(`.nav-item[data-tool="${toolId}"]`).classList.add('active');
+            // отрисовка
+            container.innerHTML = renderToolUI(toolId);
+            currentTool = toolId;
+            // инициализация логики для данного инструмента
+            initToolLogic(toolId);
+        }
+
+        // обработчик клика по навигации
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                const tool = e.currentTarget.dataset.tool;
+                loadTool(tool);
+            });
+        });
+
+        // клик по лого — сброс (приветственное сообщение)
+        document.getElementById('logoHome').addEventListener('click', () => {
+            navItems.forEach(i => i.classList.remove('active'));
+            container.innerHTML = `<div style="text-align: center; padding: 3rem; color: #506e96;"><i class="fas fa-cubes" style="font-size:3rem;"></i><h3>NexusTools</h3><p>Выберите нужный инструмент в меню выше</p></div>`;
+            currentTool = null;
+        });
+
+        // ========== ФУНКЦИИ ГЕНЕРАЦИИ UI ДЛЯ КАЖДОГО ИНСТРУМЕНТА ==========
+        function renderToolUI(tool) {
+            switch(tool) {
+                case 'taiprompts': return TAIPromptsUI();
+                case 'formatconvert': return FormatConvertUI();
+                case 'passgen': return PassGenUI();
+                case 'numberrandom': return NumberRandomUI();
+                case 'watermark': return WatermarkUI();     // реально превью картинки (canvas)
+                case 'fixlayout': return FixMyLayoutUI();
+                case 'idgen': return IDGenUI();
+                case 'foldertree': return FolderTreeUI();
+                case 'glassvoice': return GlassVoiceUI();
+                case 'nickgen': return NickGenUI();
+                default: return '<div>Инструмент в разработке</div>';
+            }
+        }
+
+        // ========== ИНИЦИАЛИЗАЦИЯ ЛОГИКИ ПОСЛЕ ОТРИСОВКИ ==========
+        function initToolLogic(tool) {
+            switch(tool) {
+                case 'taiprompts': initTAIPrompts(); break;
+                case 'formatconvert': initFormatConvert(); break;
+                case 'passgen': initPassGen(); break;
+                case 'numberrandom': initNumberRandom(); break;
+                case 'watermark': initWatermark(); break;
+                case 'fixlayout': initFixMyLayout(); break;
+                case 'idgen': initIDGen(); break;
+                case 'foldertree': initFolderTree(); break;
+                case 'glassvoice': initGlassVoice(); break;
+                case 'nickgen': initNickGen(); break;
+            }
+        }
+
+        // --- 1. TAIPrompts ---
+        function TAIPromptsUI() {
+            return `<div class="tool-title"><i class="fas fa-robot"></i> TAIPrompts</div>
+            <p class="tool-description">Создавайте идеальные промпты для нейросетей</p>
+            <div class="row-2">
+                <div><label>Тема / объект</label><input id="tpSubject" placeholder="например, киберпанк кот" value="киберпанк кот"></div>
+                <div><label>Стиль</label><input id="tpStyle" placeholder="реализм, масло, аниме" value="реализм"></div>
+            </div>
+            <div><label>Детали (через запятую)</label><input id="tpDetails" value="яркие цвета, детализировано, фон неон"></div>
+            <div class="flex-row"><button id="tpGenerateBtn">Сгенерировать промпт</button> <button class="secondary" id="tpSaveBtn">Сохранить</button></div>
+            <div class="result-area" id="tpResult">Здесь появится промпт...</div>
+            <div><label>История</label><div id="tpHistory" class="history-list"></div></div>`;
+        }
+        function initTAIPrompts() {
+            let history = JSON.parse(localStorage.getItem('tp_history') || '[]');
+            const resultDiv = document.getElementById('tpResult');
+            const historyDiv = document.getElementById('tpHistory');
+            function updateHistory() {
+                if (historyDiv) historyDiv.innerHTML = history.map(p => `<span class="badge-light">${p}</span>`).join(' ') || '<span class="badge-light">нет</span>';
+            }
+            document.getElementById('tpGenerateBtn').onclick = () => {
+                const subj = document.getElementById('tpSubject').value;
+                const style = document.getElementById('tpStyle').value;
+                const det = document.getElementById('tpDetails').value;
+                const prompt = `${subj}, ${style}, ${det}. высшее качество, 8k, тренд в artstation`;
+                resultDiv.innerText = prompt;
+                history.unshift(prompt.slice(0,50)+'...');
+                if (history.length>5) history.pop();
+                localStorage.setItem('tp_history', JSON.stringify(history));
+                updateHistory();
+            };
+            document.getElementById('tpSaveBtn').onclick = () => alert('Сохранено в избранное (демо)');
+            updateHistory();
+        }
+
+        // --- 2. FormatConvert Pro (конвертер текста в Base64 / JSON) ---
+        function FormatConvertUI() {
+            return `<div class="tool-title"><i class="fas fa-file-code"></i> FormatConvert Pro</div>
+            <p>Конвертация текста, JSON, Base64</p>
+            <textarea id="fcInput" rows="4" placeholder="Введите текст или JSON" style="margin-bottom:1rem;">{"name":"Nexus"}</textarea>
+            <div class="flex-row">
+                <button id="fcToBase64">→ Base64</button>
+                <button id="fcFromBase64">Base64 →</button>
+                <button id="fcToJsonPretty">Форматировать JSON</button>
+                <button id="fcClear">Очистить</button>
+            </div>
+            <div class="result-area" id="fcResult">Результат</div>`;
+        }
+        function initFormatConvert() {
+            const inpT = document.getElementById('fcInput');
+            const res = document.getElementById('fcResult');
+            document.getElementById('fcToBase64').onclick = () => res.innerText = btoa(unescape(encodeURIComponent(inpT.value)));
+            document.getElementById('fcFromBase64').onclick = () => { try { res.innerText = decodeURIComponent(escape(atob(inpT.value))); } catch { res.innerText = 'Ошибка Base64'; } };
+            document.getElementById('fcToJsonPretty').onclick = () => { try { res.innerText = JSON.stringify(JSON.parse(inpT.value), null, 2); } catch { res.innerText = 'Некорректный JSON'; } };
+            document.getElementById('fcClear').onclick = () => { inpT.value = ''; res.innerText = 'Результат'; };
+        }
+
+        // --- 3. PassGen Pro ---
+        function PassGenUI() {
+            return `<div class="tool-title"><i class="fas fa-lock"></i> PassGen Pro</div>
+            <p>Генератор безопасных паролей</p>
+            <div class="flex-row"><label>Длина:</label><input id="pgLength" type="number" value="12" min="4" max="40" style="width:100px;"></div>
+            <div class="flex-row"><label><input type="checkbox" id="pgUpper" checked> A-Z</label> <label><input type="checkbox" id="pgLower" checked> a-z</label> <label><input type="checkbox" id="pgDigits" checked> 123</label> <label><input type="checkbox" id="pgSpec" > !@#</label></div>
+            <button id="pgGenerate">Сгенерировать</button>
+            <div class="result-area" id="pgResult"></div>
+            <div><label>История</label><div id="pgHistory" class="history-list"></div></div>`;
+        }
+        function initPassGen() {
+            let hist = JSON.parse(localStorage.getItem('pg_hist') || '[]');
+            const res = document.getElementById('pgResult');
+            const histDiv = document.getElementById('pgHistory');
+            function updHist() { histDiv.innerHTML = hist.map(p => `<span class="badge-light">${p}</span>`).join(' ') || '—'; }
+            document.getElementById('pgGenerate').onclick = () => {
+                const len = +document.getElementById('pgLength').value;
+                let chars = '';
+                if (document.getElementById('pgUpper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (document.getElementById('pgLower').checked) chars += 'abcdefghijklmnopqrstuvwxyz';
+                if (document.getElementById('pgDigits').checked) chars += '0123456789';
+                if (document.getElementById('pgSpec').checked) chars += '!@#$%^&*()_+';
+                if (!chars) { res.innerText = 'Выберите типы символов'; return; }
+                let pass = '';
+                for (let i=0; i<len; i++) pass += chars[Math.floor(Math.random()*chars.length)];
+                res.innerText = pass;
+                hist.unshift(pass); if (hist.length>5) hist.pop();
+                localStorage.setItem('pg_hist', JSON.stringify(hist));
+                updHist();
+            };
+            updHist();
+        }
+
+        // --- 4. NumberRandom Pro ---
+        function NumberRandomUI() {
+            return `<div class="tool-title"><i class="fas fa-dice-d20"></i> NumberRandom Pro</div>
+            <p>Генератор случайных чисел</p>
+            <div class="flex-row"><label>От:</label><input id="nrMin" type="number" value="1"> <label>До:</label><input id="nrMax" type="number" value="100"></div>
+            <div class="flex-row"><label>Кол-во:</label><input id="nrCount" type="number" value="1" min="1" max="20"> <label><input type="checkbox" id="nrUnique"> уникальные</label> <label><input type="checkbox" id="nrSort"> сортировать</label></div>
+            <button id="nrGenerate">Сгенерировать</button>
+            <div class="result-area" id="nrResult"></div>`;
+        }
+        function initNumberRandom() {
+            document.getElementById('nrGenerate').onclick = () => {
+                let min = +document.getElementById('nrMin').value;
+                let max = +document.getElementById('nrMax').value;
+                let cnt = +document.getElementById('nrCount').value;
+                if (min > max) [min, max] = [max, min];
+                let arr = [];
+                if (document.getElementById('nrUnique').checked && (max-min+1) < cnt) { document.getElementById('nrResult').innerText = 'Невозможно уникальные'; return; }
+                while (arr.length < cnt) {
+                    let r = Math.floor(Math.random() * (max - min + 1)) + min;
+                    if (document.getElementById('nrUnique').checked && arr.includes(r)) continue;
+                    arr.push(r);
+                }
+                if (document.getElementById('nrSort').checked) arr.sort((a,b)=>a-b);
+                document.getElementById('nrResult').innerText = arr.join(', ');
+            };
+        }
+
+        // --- 5. Watermark Pro (превью canvas) ---
+        function WatermarkUI() {
+            return `<div class="tool-title"><i class="fas fa-water"></i> Watermark Pro</div>
+            <p>Добавление водяного знака на фото (демо canvas)</p>
+            <div class="row-2">
+                <div><label>Текст водяного знака</label><input id="wmText" value="© NEXUS"></div>
+                <div><label>Прозрачность (0.1-1)</label><input id="wmAlpha" type="number" step="0.1" min="0.1" max="1" value="0.5"></div>
+            </div>
+            <canvas id="wmCanvas" width="400" height="200" style="width:100%; height:auto; background:#ddd; border-radius:30px; margin:1rem 0;"></canvas>
+            <button id="wmApply">Нанести водяной знак</button>`;
+        }
+        function initWatermark() {
+            const canvas = document.getElementById('wmCanvas');
+            const ctx = canvas.getContext('2d');
+            function draw(text = '© NEXUS', alpha = 0.5) {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.fillStyle = '#abc';
+                ctx.fillRect(0,0,canvas.width, canvas.height);
+                ctx.font = 'bold 30px Inter';
+                ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+                ctx.fillText('DEMO', 50,80);
+                ctx.fillStyle = `rgba(255,255,255,${alpha*1.2})`;
+                ctx.fillText(text, 100,150);
+            }
+            draw();
+            document.getElementById('wmApply').onclick = () => {
+                let txt = document.getElementById('wmText').value || 'WATERMARK';
+                let a = parseFloat(document.getElementById('wmAlpha').value) || 0.5;
+                draw(txt, a);
+            };
+        }
+
+        // --- 6. FixMyLayout ---
+        function FixMyLayoutUI() {
+            return `<div class="tool-title"><i class="fas fa-keyboard"></i> FixMyLayout</div>
+            <p>Исправление раскладки EN↔RU (пример: ghbdtn → привет)</p>
+            <textarea id="flInput" rows="3" placeholder="Неправильная раскладка..."></textarea>
+            <button id="flToRu">EN→RU</button> <button id="flToEn">RU→EN</button>
+            <div class="result-area" id="flResult"></div>`;
+        }
+        function initFixMyLayout() {
+            const mapEnRu = {
+                'q':'й','w':'ц','e':'у','r':'к','t':'е','y':'н','u':'г','i':'ш','o':'щ','p':'з','[':'х',']':'ъ','a':'ф','s':'ы','d':'в','f':'а','g':'п','h':'р','j':'о','k':'л','l':'д',';':'ж',"'":'э','z':'я','x':'ч','c':'с','v':'м','b':'и','n':'т','m':'ь',',':'б','.':'ю','/':'.',
+                'Q':'Й','W':'Ц','E':'У','R':'К','T':'Е','Y':'Н','U':'Г','I':'Ш','O':'Щ','P':'З','{':'Х','}':'Ъ','A':'Ф','S':'Ы','D':'В','F':'А','G':'П','H':'Р','J':'О','K':'Л','L':'Д',':':'Ж','"':'Э','Z':'Я','X':'Ч','C':'С','V':'М','B':'И','N':'Т','M':'Ь','<':'Б','>':'Ю','?':','
+            };
+            function convert(text, dir) { // dir 1 en->ru, -1 ru->en
+                let res = '';
+                for (let ch of text) {
+                    if (dir === 1 && mapEnRu[ch]) res += mapEnRu[ch];
+                    else if (dir === -1) {
+                        let found = Object.entries(mapEnRu).find(([en, ru]) => ru === ch);
+                        res += found ? found[0] : ch;
+                    } else res += ch;
+                }
+                return res;
+            }
+            document.getElementById('flToRu').onclick = () => {
+                let inp = document.getElementById('flInput').value;
+                document.getElementById('flResult').innerText = convert(inp, 1);
+            };
+            document.getElementById('flToEn').onclick = () => {
+                let inp = document.getElementById('flInput').value;
+                document.getElementById('flResult').innerText = convert(inp, -1);
+            };
+        }
+
+        // --- 7. IDGen Pro ---
+        function IDGenUI() {
+            return `<div class="tool-title"><i class="fas fa-fingerprint"></i> IDGen Pro</div>
+            <p>Генератор UUID / коротких ID</p>
+            <button id="idUuidV4">Сгенерировать UUID v4</button> <button id="idShort">Короткий ID (8 символов)</button>
+            <div class="result-area" id="idResult"></div>`;
+        }
+        function initIDGen() {
+            document.getElementById('idUuidV4').onclick = () => {
+                const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { let r = Math.random()*16|0, v = c=='x'?r:(r&0x3|0x8); return v.toString(16); });
+                document.getElementById('idResult').innerText = uuid;
+            };
+            document.getElementById('idShort').onclick = () => {
+                document.getElementById('idResult').innerText = Math.random().toString(36).substring(2,10);
+            };
+        }
+
+        // --- 8. FolderTree (просто эмуляция дерева) ---
+        function FolderTreeUI() {
+            return `<div class="tool-title"><i class="fas fa-folder-tree"></i> FolderTree</div>
+            <p>Демо генерации структуры папок</p>
+            <button id="ftGenerate">Сгенерировать пример дерева</button>
+            <div class="result-area" id="ftResult"></div>`;
+        }
+        function initFolderTree() {
+            document.getElementById('ftGenerate').onclick = () => {
+                document.getElementById('ftResult').innerHTML = `<pre>📁 Project/<br>  📁 src/<br>    📄 index.js<br>    📄 style.css<br>  📁 assets/<br>    📄 logo.png<br>  📄 README.md</pre>`;
+            };
+        }
+
+        // --- 9. GlassVoice (имитация записи) ---
+        function GlassVoiceUI() {
+            return `<div class="tool-title"><i class="fas fa-microphone-alt"></i> GlassVoice</div>
+            <p>Диктофон (демо-режим)</p>
+            <button id="gvRecord">🎙 Начать / остановить запись (демо)</button>
+            <div class="result-area" id="gvResult">Статус: готов</div>`;
+        }
+        function initGlassVoice() {
+            let rec = false;
+            const btn = document.getElementById('gvRecord');
+            const res = document.getElementById('gvResult');
+            btn.onclick = () => {
+                rec = !rec;
+                res.innerText = rec ? '🔴 Идёт запись (демо)' : '⏹ Запись остановлена (демо-файл)';
+            };
+        }
+
+        // --- 10. NickGen Pro ---
+        function NickGenUI() {
+            return `<div class="tool-title"><i class="fas fa-gamepad"></i> NickGen Pro</div>
+            <p>Генератор никнеймов</p>
+            <input id="ngKeyword" placeholder="ключевое слово" value="shadow">
+            <button id="ngGenerate">Сгенерировать ник</button>
+            <div class="result-area" id="ngResult"></div>`;
+        }
+        function initNickGen() {
+            document.getElementById('ngGenerate').onclick = () => {
+                let kw = document.getElementById('ngKeyword').value || 'player';
+                let rand = Math.floor(Math.random()*1000);
+                let styles = ['xX_','_Xx','⚡','✪','『', '』'];
+                let s = styles[Math.floor(Math.random()*styles.length)];
+                document.getElementById('ngResult').innerText = `${s}${kw}${rand}${s}`;
+            };
+        }
+
+        // для красоты загружаем первый инструмент при старте?
+        // раскомментируем если хотим приветственный
+        // loadTool('taiprompts');
+    })();
+</script>
 </body>
 </html>
