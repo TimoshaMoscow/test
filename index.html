@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoVanila — Официальный сайт сервера | Ванильный Minecraft</title>
+    <title>ВСЕЛЕННАЯ РОСТИКА • 67 • КАТЯ • КРЕМЛЬ</title>
     
-    <!-- SEO на основе реальных данных -->
-    <meta name="description" content="RoVanila — ванильный Minecraft сервер. IP: rovanila.servop.ru, версия 1.21.11. Команды /sethome, /tpa, /ah, открытый энд, поддержка медиа. Присоединяйся!">
-    <meta name="keywords" content="майнкрафт сервер, ванильный майнкрафт, rovanila, ростик, 1.21.11, minecraft server, sethome, tpa, аукцион">
-    
-    <!-- Open Graph для соцсетей -->
-    <meta property="og:title" content="RoVanila — Ванильный сервер Minecraft">
-    <meta property="og:description" content="IP: rovanila.servop.ru | Версия 1.21.11 | Уютное комьюнити, честная игра, поддержка блогеров">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <!-- Google Fonts для красоты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -23,612 +18,1408 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a2a1a, #2a3a2a);
-            color: #e0e0e0;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* ===== ФИОЛЕТОВЫЙ ДЫМ (СЛУЧАЙНЫЙ ШАНС) ===== */
-        .purple-smoke {
+        /* 3D ПАРАЛЛАКС ФОН */
+        .parallax-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(170, 0, 255, 0.3), transparent 70%);
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.5s;
-            mix-blend-mode: screen;
-            animation: smokeFloat 3s infinite alternate;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        @keyframes smokeFloat {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.15), transparent 70%);
+            animation: float 20s infinite ease-in-out;
         }
 
-        .purple-smoke.active {
-            opacity: 1;
+        .layer-1 { transform: scale(1); filter: blur(60px); background: #8b5cf6; }
+        .layer-2 { transform: scale(1.5); filter: blur(80px); background: #a855f7; mix-blend-mode: screen; }
+        .layer-3 { transform: scale(2); filter: blur(100px); background: #d946ef; mix-blend-mode: screen; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-2%, -2%) scale(1.05); }
+            50% { transform: translate(2%, 2%) scale(0.95); }
+            75% { transform: translate(2%, -2%) scale(1.1); }
         }
 
+        /* ЧАСТИЦЫ */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            animation: particleFloat 10s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* ГЛАВНЫЙ КОНТЕЙНЕР */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 40px 20px;
             position: relative;
             z-index: 10;
         }
 
-        /* ГЛАВНЫЙ БЛОК */
-        .hero {
-            background: rgba(30, 40, 30, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 2px solid #4a6a4a;
-            border-radius: 60px;
-            padding: 60px 40px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 0 50px #2a4a2a;
-        }
-
-        h1 {
-            font-size: 80px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a3c9a3, #c9e0c9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px #4a8a4a;
-        }
-
-        .ip-block {
-            background: #1e2e1e;
-            border: 3px solid #5a8a5a;
-            border-radius: 60px;
-            padding: 30px;
-            margin: 40px auto;
-            max-width: 600px;
-            cursor: pointer;
-            transition: all 0.3s;
+        /* ХЕДЕР С ЭФФЕКТОМ СТЕКЛА */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 100px;
+            margin-bottom: 60px;
             position: relative;
             overflow: hidden;
         }
 
-        .ip-block:hover {
-            transform: scale(1.02);
-            border-color: #7ab87a;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.2), transparent);
+            animation: shine 3s infinite;
         }
 
-        .ip {
-            font-size: 48px;
-            font-weight: 700;
-            color: #a3d9a3;
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 2px;
         }
 
-        .version {
-            font-size: 24px;
-            color: #b0b0b0;
-            margin-top: 10px;
-        }
-
-        .copy-notification {
-            margin-top: 15px;
-            font-size: 16px;
-            color: #a0d9a0;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .stats {
+        .nav-links {
             display: flex;
-            justify-content: center;
             gap: 40px;
-            margin: 40px 0;
-            flex-wrap: wrap;
         }
 
-        .stat-item {
-            text-align: center;
-            background: rgba(0,0,0,0.2);
-            padding: 20px;
-            border-radius: 40px;
-            min-width: 150px;
-            border: 1px solid #5a8a5a;
-        }
-
-        .stat-value {
-            font-size: 36px;
-            font-weight: 700;
-            color: #a3d9a3;
-        }
-
-        .stat-label {
-            font-size: 16px;
-            color: #a0a0a0;
-        }
-
-        /* ПРЕИМУЩЕСТВА */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 60px 0;
-        }
-
-        .feature-card {
-            background: rgba(30, 40, 30, 0.7);
-            backdrop-filter: blur(10px);
-            border: 2px solid #4a6a4a;
-            border-radius: 40px;
-            padding: 30px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: scale(1.05);
-            border-color: #6a8a6a;
-            box-shadow: 0 0 40px #3a5a3a;
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .feature-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #c0e0c0;
-            margin-bottom: 15px;
-        }
-
-        /* ПРАВИЛА (РЕАЛЬНЫЕ ИЗ КАНАЛА) */
-        .rules {
-            background: rgba(20, 30, 20, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #4a6a4a;
-            border-radius: 60px;
-            padding: 50px;
-            margin: 60px 0;
-        }
-
-        .rules h2 {
-            font-size: 48px;
-            text-align: center;
-            color: #c0e0c0;
-            margin-bottom: 40px;
-        }
-
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .rule-block {
-            background: rgba(30, 40, 30, 0.5);
-            border: 1px solid #5a7a5a;
-            border-radius: 30px;
-            padding: 25px;
-        }
-
-        .rule-block h3 {
-            font-size: 24px;
-            color: #b0d9b0;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #5a7a5a;
-            padding-bottom: 10px;
-        }
-
-        .rule-block ul {
-            list-style: none;
-        }
-
-        .rule-block li {
-            margin: 10px 0;
-            color: #c0c0c0;
-            padding-left: 25px;
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
             position: relative;
         }
 
-        .rule-block li::before {
-            content: "🌿";
+        .nav-links a::after {
+            content: '';
             position: absolute;
+            bottom: -5px;
             left: 0;
-            color: #6a9a6a;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #a855f7, #d946ef);
+            transition: width 0.3s;
         }
 
-        /* КОМАНДЫ (РЕАЛЬНЫЕ ИЗ КАНАЛА) */
-        .commands {
-            background: rgba(20, 30, 20, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #4a6a4a;
-            border-radius: 60px;
-            padding: 50px;
-            margin: 60px 0;
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
-        .commands h2 {
-            font-size: 48px;
+        /* ГЛАВНЫЙ ЭКРАН */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            color: #c0e0c0;
-            margin-bottom: 40px;
+            position: relative;
         }
 
-        .commands-grid {
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-size: 120px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 30px;
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 20px #a855f7; }
+            25% { text-shadow: -5px 0 20px #d946ef, 5px 0 20px #8b5cf6; transform: skew(0.5deg); }
+            50% { text-shadow: 5px 0 20px #a855f7, -5px 0 20px #d946ef; transform: skew(-0.5deg); }
+            75% { text-shadow: -5px 0 20px #d946ef, 5px 0 20px #8b5cf6; transform: skew(0.5deg); }
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #fff, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* 3D КАРТОЧКИ ПЕРСОНАЖЕЙ */
+        .characters {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 40px;
+            margin: 120px 0;
+            perspective: 1000px;
         }
 
-        .command-item {
-            background: rgba(30, 40, 30, 0.5);
-            border: 1px solid #5a7a5a;
-            border-radius: 30px;
-            padding: 20px;
+        .character-card {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 40px;
+            padding: 40px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
+            transform-style: preserve-3d;
+            animation: cardFloat 6s infinite ease-in-out;
         }
 
-        .command {
-            font-size: 28px;
-            font-weight: 600;
-            color: #b0d9b0;
+        .character-card:nth-child(1) { animation-delay: 0s; }
+        .character-card:nth-child(2) { animation-delay: 0.5s; }
+        .character-card:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-20px) rotateX(2deg); }
+        }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+
+        .character-avatar {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .character-avatar::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(20px);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .character-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            border: 3px solid rgba(168, 85, 247, 0.5);
+        }
+
+        .character-name {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .character-title {
+            font-size: 18px;
+            color: #d946ef;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .character-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .character-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .character-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .character-stat-label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .character-stat-value {
+            font-weight: 700;
+            color: #d946ef;
+        }
+
+        /* СПЕЦИАЛЬНЫЙ БЛОК 67 */
+        .number-block {
+            text-align: center;
+            margin: 150px 0;
+            position: relative;
+        }
+
+        .number-67 {
+            font-size: 300px;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #a855f7, #d946ef, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            animation: numberPulse 3s infinite;
+        }
+
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 50px rgba(168, 85, 247, 0.5)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 100px rgba(217, 70, 239, 0.8)); }
+        }
+
+        .number-67::before {
+            content: '67';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: blur(50px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .number-label {
+            font-size: 32px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: -50px;
+            letter-spacing: 10px;
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .number-item {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 30px;
+            padding: 40px 30px;
+            transition: all 0.3s;
+        }
+
+        .number-item:hover {
+            transform: translateY(-10px);
+            border-color: #d946ef;
+        }
+
+        .number-item-value {
+            font-size: 64px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .number-item-label {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 10px;
         }
 
-        .command-desc {
-            color: #a0a0a0;
+        .number-item-desc {
             font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        /* МЕДИА-ШАБЛОН (РЕАЛЬНЫЙ ИЗ КАНАЛА) */
-        .media {
-            background: rgba(20, 30, 20, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #4a6a4a;
-            border-radius: 60px;
-            padding: 50px;
-            margin: 60px 0;
-        }
-
-        .media h2 {
-            font-size: 48px;
-            text-align: center;
-            color: #c0e0c0;
-            margin-bottom: 30px;
-        }
-
-        .template {
-            background: rgba(0,0,0,0.3);
-            border-radius: 40px;
-            padding: 40px;
-            border: 2px dashed #6a9a6a;
-            font-family: monospace;
-            white-space: pre-wrap;
-            color: #b0b0b0;
-            line-height: 1.8;
-            margin: 30px 0;
+        /* ТАЙМЛАЙН */
+        .timeline {
+            margin: 150px 0;
             position: relative;
         }
 
-        .copy-btn {
-            display: inline-block;
-            background: #2a4a2a;
-            border: 2px solid #6a9a6a;
-            color: white;
-            padding: 10px 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, #a855f7, #d946ef, transparent);
+            transform: translateX(-50%);
         }
 
-        .copy-btn:hover {
-            background: #3a5a3a;
-            transform: scale(1.05);
-        }
-
-        /* КОНТАКТЫ */
-        .contacts {
+        .timeline-title {
+            font-size: 48px;
+            font-weight: 700;
             text-align: center;
-            padding: 40px;
-            background: rgba(20, 30, 20, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #4a6a4a;
-            border-radius: 60px;
+            margin-bottom: 80px;
+            background: linear-gradient(135deg, #fff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 60px 0;
+            position: relative;
         }
 
-        .contact-badge {
-            display: inline-block;
-            background: #2a4a2a;
-            border: 2px solid #6a9a6a;
-            border-radius: 60px;
-            padding: 15px 40px;
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            border-color: #d946ef;
+        }
+
+        .timeline-date {
             font-size: 24px;
-            color: #e0e0e0;
-            text-decoration: none;
-            margin: 10px;
-            transition: 0.3s;
+            font-weight: 700;
+            color: #d946ef;
+            margin-bottom: 15px;
         }
 
-        .contact-badge:hover {
-            background: #3a5a3a;
+        .timeline-event {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .timeline-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .timeline-emoji {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            z-index: 2;
+        }
+
+        /* ====================================================
+           🎆 АПОКАЛИПТИЧЕСКИЕ ЭФФЕКТЫ ДЛЯ ЗАХВАТА МИРА 🎆
+           ==================================================== */
+        
+        /* ОСНОВНОЙ ОВЕРЛЕЙ */
+        .apocalypse-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #a855f7, #4a1d6d, #0a0a0f);
+            z-index: 999999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s;
+            mix-blend-mode: multiply;
+        }
+
+        /* ФИОЛЕТОВАЯ ВСПЫШКА */
+        .purple-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #d946ef;
+            z-index: 999999;
+            opacity: 0;
+            transition: opacity 0.1s;
+            pointer-events: none;
+        }
+
+        /* ТЕКСТ НА ВСЮ СТРАНИЦУ */
+        .global-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 120px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 50px #d946ef, 0 0 100px #a855f7;
+            z-index: 1000000;
+            opacity: 0;
+            transition: all 2s;
+            white-space: nowrap;
+            letter-spacing: 20px;
+            text-transform: uppercase;
+        }
+
+        .global-message span {
+            display: inline-block;
+            animation: letterGlitch 0.5s infinite;
+        }
+
+        @keyframes letterGlitch {
+            0%, 100% { transform: translate(0, 0); opacity: 1; }
+            25% { transform: translate(-10px, 10px); opacity: 0.8; }
+            50% { transform: translate(10px, -10px); opacity: 0.9; }
+            75% { transform: translate(-5px, -5px); opacity: 0.7; }
+        }
+
+        /* СЧЁТЧИК ДОМИНИРОВАНИЯ */
+        .domination-counter {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 30px #d946ef;
+            z-index: 1000000;
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 20px 40px;
+            border-radius: 60px;
+            border: 2px solid #d946ef;
+            opacity: 0;
+            transition: opacity 1s;
+            transform: rotate(-5deg);
+            animation: counterPulse 1s infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { transform: rotate(-5deg) scale(1); }
+            50% { transform: rotate(-5deg) scale(1.1); }
+        }
+
+        .counter-number {
+            font-size: 80px;
+            background: linear-gradient(135deg, #fff, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ПОЛОСА ПРОГРЕССА ЗАХВАТА */
+        .conquest-bar-container {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            z-index: 1000000;
+            border: 2px solid #d946ef;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s;
+            backdrop-filter: blur(10px);
+        }
+
+        .conquest-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #a855f7, #d946ef, #f0f);
+            box-shadow: 0 0 30px #d946ef;
+            transition: width 0.1s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conquest-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: barShine 2s infinite;
+        }
+
+        @keyframes barShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .conquest-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 0 10px #000;
+            z-index: 2;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        /* ОЧИ РОСТИКА (ПАСХАЛКА) */
+        .rostik-eyes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 20px);
+            z-index: 999999;
+            opacity: 0;
+            transition: opacity 2s;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="30" cy="30" r="10" fill="%23a855f7" opacity="0.3"/><circle cx="70" cy="30" r="10" fill="%23d946ef" opacity="0.3"/><text x="50" y="70" font-size="30" fill="%23ff0" opacity="0.2">🤡</text></svg>');
+        }
+
+        /* ФИНАЛЬНЫЙ ВЗРЫВ */
+        .final-explosion {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 200px #d946ef, 0 0 400px #a855f7;
+            z-index: 1000001;
+            opacity: 0;
+            transition: all 1s;
+        }
+
+        /* МАЛЕНЬКИЕ РОСТИКИ ПО ЭКРАНУ */
+        .mini-rostiks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+
+        .mini-rostik {
+            position: absolute;
+            font-size: 30px;
+            animation: miniRostikFloat 10s infinite linear;
+        }
+
+        @keyframes miniRostikFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* КОНЕЦ АПОКАЛИПТИЧЕСКИХ ЭФФЕКТОВ */
+
+        /* КНОПКА ГЛОБАЛЬНОГО ГИПНОЗА */
+        .hypnosis-section {
+            text-align: center;
+            margin: 150px 0;
+        }
+
+        .hypnosis-button {
+            position: relative;
+            padding: 30px 80px;
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            border: none;
+            border-radius: 200px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.5s;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.5);
+        }
+
+        .hypnosis-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: buttonShine 3s infinite;
+        }
+
+        @keyframes buttonShine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .hypnosis-button:hover {
             transform: scale(1.1);
+            box-shadow: 0 0 100px #d946ef;
+        }
+
+        .hypnosis-button:active {
+            transform: scale(0.95);
+        }
+
+        /* КОНТАКТЫ В КРЕМЛЕ */
+        .kremlin-section {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 60px;
+            padding: 80px;
+            margin: 150px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kremlin-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.1), transparent 70%);
+            animation: rotate 20s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .kremlin-title {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #fff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kremlin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kremlin-item {
+            text-align: center;
+        }
+
+        .kremlin-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .kremlin-label {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .kremlin-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d946ef;
+        }
+
+        .kremlin-note {
+            text-align: center;
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            font-size: 18px;
+            position: relative;
+            z-index: 2;
         }
 
         /* ПОДВАЛ */
         .footer {
+            padding: 60px 0;
             text-align: center;
-            padding: 40px;
-            margin-top: 40px;
-            color: #808080;
-            border-top: 2px solid #3a5a3a;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            margin-top: 100px;
         }
 
-        /* АДАПТАЦИЯ */
+        .footer-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .footer-highlight {
+            color: #d946ef;
+            font-weight: 700;
+        }
+
+        .footer-emojis {
+            font-size: 30px;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
+        }
+
+        /* АНИМАЦИИ ДЛЯ ЭМОДЗИ */
+        .floating-emoji {
+            position: fixed;
+            font-size: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatEmoji 10s infinite linear;
+        }
+
+        @keyframes floatEmoji {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* МЕДИА ЗАПРОСЫ */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 80px; }
+            .characters { grid-template-columns: repeat(2, 1fr); }
+            .number-67 { font-size: 200px; }
+            .global-message { font-size: 60px; }
+        }
+
         @media (max-width: 768px) {
-            h1 { font-size: 48px; }
-            .ip { font-size: 32px; }
-            .features,
-            .rules-grid,
-            .commands-grid {
-                grid-template-columns: 1fr;
-            }
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-            .stat-item {
-                width: 100%;
-            }
+            .hero-title { font-size: 60px; }
+            .characters { grid-template-columns: 1fr; }
+            .number-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 30px; }
+            .timeline-item { flex-direction: column !important; }
+            .timeline-content { width: 90%; margin-left: 60px; }
+            .timeline-emoji { left: 30px; }
+            .kremlin-grid { grid-template-columns: 1fr; }
+            .global-message { font-size: 30px; letter-spacing: 5px; }
+            .domination-counter { bottom: 20px; right: 20px; font-size: 24px; }
+            .counter-number { font-size: 40px; }
         }
     </style>
 </head>
 <body>
-    <!-- ФИОЛЕТОВЫЙ ДЫМ (ПОЯВЛЯЕТСЯ СЛУЧАЙНО) -->
-    <div class="purple-smoke" id="purpleSmoke"></div>
+    <!-- 3D ФОН -->
+    <div class="parallax-bg">
+        <div class="layer layer-1"></div>
+        <div class="layer layer-2"></div>
+        <div class="layer layer-3"></div>
+    </div>
 
+    <!-- ЧАСТИЦЫ -->
+    <div class="particles" id="particles"></div>
+
+    <!-- ПЛАВАЮЩИЕ ЭМОДЗИ -->
+    <div id="floatingEmojis"></div>
+
+    <!-- ====================================================
+         🎆 ЭЛЕМЕНТЫ ДЛЯ АПОКАЛИПСИСА 🎆
+         ==================================================== -->
+    <div class="apocalypse-overlay" id="apocalypseOverlay"></div>
+    <div class="purple-flash" id="purpleFlash"></div>
+    <div class="global-message" id="globalMessage">💜 КАТЯ 💜</div>
+    <div class="domination-counter" id="dominationCounter">
+        <span>ДОМИНИРОВАНИЕ: </span>
+        <span class="counter-number" id="counterNumber">0%</span>
+    </div>
+    <div class="conquest-bar-container" id="conquestBar">
+        <div class="conquest-bar-fill" id="conquestBarFill"></div>
+        <div class="conquest-label">ЗАХВАТ МИРА</div>
+    </div>
+    <div class="rostik-eyes" id="rostikEyes"></div>
+    <div class="mini-rostiks" id="miniRostiks"></div>
+    <div class="final-explosion" id="finalExplosion"></div>
+
+    <!-- ГЛАВНЫЙ КОНТЕЙНЕР -->
     <div class="container">
+        <!-- ХЕДЕР -->
+        <div class="header">
+            <div class="logo">ВСЕЛЕННАЯ 67</div>
+            <div class="nav-links">
+                <a href="#">Главная</a>
+                <a href="#">Персонажи</a>
+                <a href="#">История</a>
+                <a href="#">Кремль</a>
+            </div>
+        </div>
+
         <!-- ГЕРОЙ -->
         <div class="hero">
-            <h1>✨ RoVanila ✨</h1>
-            <p style="font-size: 20px; margin-bottom: 30px; color: #b0b0b0;">Ванильный сервер с душой • IP: rovanila.servop.ru</p>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span>РОСТИК</span> <br>
+                    <span>ТИМОФЕЙ</span> <br>
+                    <span>КАТЯ</span>
+                </h1>
+                <p class="hero-subtitle">Три мира, три судьбы, одно безумие. Добро пожаловать в самую абсурдную вселенную рунета.</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">67</div>
+                        <div class="hero-stat-label">подписчиков</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">-9.999...</div>
+                        <div class="hero-stat-label">IQ Ростика</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">24К</div>
+                        <div class="hero-stat-label">YT Тимофей</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПЕРСОНАЖИ -->
+        <div class="characters">
+            <!-- Ростик -->
+            <div class="character-card">
+                <div class="character-avatar">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #ff6b6b, #feca57); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 80px;">🤡</div>
+                </div>
+                <h2 class="character-name">РОСТИК</h2>
+                <div class="character-title">ПРОФЕССИОНАЛЬНЫЙ ПУКАТЕЛЬ</div>
+                <p class="character-desc">Создатель сервера RoVanila, стример без стримов, обладатель IQ -9.999... в периоде.</p>
+                <div class="character-stats">
+                    <div class="character-stat">
+                        <span class="character-stat-label">Подписчики</span>
+                        <span class="character-stat-value">67</span>
+                    </div>
+                    <div class="character-stat">
+                        <span class="character-stat-label">Пуков/сек</span>
+                        <span class="character-stat-value">∞</span>
+                    </div>
+                    <div class="character-stat">
+                        <span class="character-stat-label">Статус</span>
+                        <span class="character-stat-value">🤡💨</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Тимофей -->
+            <div class="character-card">
+                <div class="character-avatar">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4a69bd, #6a89cc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 80px;">💻</div>
+                </div>
+                <h2 class="character-name">ТИМОФЕЙ</h2>
+                <div class="character-title">СОЗДАТЕЛЬ ВСЕЛЕННОЙ</div>
+                <p class="character-desc">24к на YouTube, создатель Кати, ныне игрушка №1 под гипнозом. Носит ошейник "Тимофей ❤️ Катя".</p>
+                <div class="character-stats">
+                    <div class="character-stat">
+                        <span class="character-stat-label">YouTube</span>
+                        <span class="character-stat-value">24K</span>
+                    </div>
+                    <div class="character-stat">
+                        <span class="character-stat-label">IQ</span>
+                        <span class="character-stat-value">+∞ (было)</span>
+                    </div>
+                    <div class="character-stat">
+                        <span class="character-stat-label">Статус</span>
+                        <span class="character-stat-value">💜🥵</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Катя -->
+            <div class="character-card">
+                <div class="character-avatar">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #a855f7, #d946ef); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 80px;">💜</div>
+                </div>
+                <h2 class="character-name">КАТЯ</h2>
+                <div class="character-title">ВЛАДЫЧИЦА ВСЕГО</div>
+                <p class="character-desc">21 год, живёт в Кремле, гипнотизирует взглядом. Путин под контролем. Ищет игрушки для коллекции.</p>
+                <div class="character-stats">
+                    <div class="character-stat">
+                        <span class="character-stat-label">Возраст</span>
+                        <span class="character-stat-value">21</span>
+                    </div>
+                    <div class="character-stat">
+                        <span class="character-stat-label">Жильё</span>
+                        <span class="character-stat-value">🏰 Кремль</span>
+                    </div>
+                    <div class="character-stat">
+                        <span class="character-stat-label">Статус</span>
+                        <span class="character-stat-value">👑💜</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- БЛОК 67 -->
+        <div class="number-block">
+            <div class="number-67">67</div>
+            <div class="number-label">САКРАЛЬНОЕ ЧИСЛО</div>
+            <div class="number-grid">
+                <div class="number-item">
+                    <div class="number-item-value">67</div>
+                    <div class="number-item-label">Подписчиков Ростика</div>
+                    <div class="number-item-desc">И никто не вышел</div>
+                </div>
+                <div class="number-item">
+                    <div class="number-item-value">67</div>
+                    <div class="number-item-label">Код региона</div>
+                    <div class="number-item-desc">Смоленская область (гнездо Кати?)</div>
+                </div>
+                <div class="number-item">
+                    <div class="number-item-value">67</div>
+                    <div class="number-item-label">Вирусный мем</div>
+                    <div class="number-item-desc">"SIX SEVEN!" — кричат школьники</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ТАЙМЛАЙН -->
+        <div class="timeline">
+            <h2 class="timeline-title">ХРОНИКИ БЕЗУМИЯ</h2>
             
-            <div class="ip-block" id="ipBlock">
-                <div class="ip">rovanila.servop.ru</div>
-                <div class="version">Версия 1.21.11</div>
-                <div class="copy-notification" id="copyNotification">✅ IP скопирован!</div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">🤡</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-event">Рождение легенды</div>
+                    <div class="timeline-desc">Ростик создаёт Telegram-канал. Первый пост: пустота. Начинается эпоха.</div>
+                </div>
             </div>
 
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value">🏰</div>
-                    <div class="stat-label">Энд открыт</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">💰</div>
-                    <div class="stat-label">Аукцион /ah</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">🏠</div>
-                    <div class="stat-label">/sethome</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">📦</div>
-                    <div class="stat-label">Спавнеры</div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">💨</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-event">Стример года</div>
+                    <div class="timeline-desc">Ростик объявляет себя стримером. Стримов не было.</div>
                 </div>
             </div>
-        </div>
 
-        <!-- ПРЕИМУЩЕСТВА -->
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🌱</div>
-                <div class="feature-title">Чистый ванил</div>
-                <div>Атмосфера классического выживания</div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">📊</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-event">Мем "67"</div>
+                    <div class="timeline-desc">Вирусный мем захватывает мир. Ростик думает, что это про него.</div>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title">Удобные команды</div>
-                <div>/sethome, /tpa, /ah, /seller</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎮</div>
-                <div class="feature-title">Открытый энд</div>
-                <div>Дракон ждёт героев</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📢</div>
-                <div class="feature-title">Медиа-поддержка</div>
-                <div>Блогерам отдельный IP</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤝</div>
-                <div class="feature-title">Дружное комьюнити</div>
-                <div>Никакой токсичности</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛠️</div>
-                <div class="feature-title">Активная разработка</div>
-                <div>Сервер постоянно растёт</div>
-            </div>
-        </div>
 
-        <!-- ИСТОРИЯ СЕРВЕРА (РЕАЛЬНАЯ ИЗ КАНАЛА) -->
-        <div class="rules">
-            <h2>📅 История сервера</h2>
-            <div style="display: flex; flex-direction: column; gap: 15px; color: #c0c0c0;">
-                <p>📌 28.02.2026 — Создание канала и первый анонс</p>
-                <p>📌 02.03.2026 — Добавлены /sethome, /tpa</p>
-                <p>📌 04.03.2026 — Датапак на стойки для брони</p>
-                <p>📌 06.03.2026 — Открытие Энда</p>
-                <p>📌 08.03.2026 — Добавлены /seller и /ah, монеты, спавнеры</p>
-                <p>📌 10.03.2026 — Опубликованы правила и шаблон для медиа</p>
+            <div class="timeline-item">
+                <div class="timeline-emoji">💻</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Создание Кати</div>
+                    <div class="timeline-desc">Тимофей создаёт Катю в Character.AI. Судьба решена.</div>
+                </div>
             </div>
-        </div>
 
-        <!-- ПРАВИЛА -->
-        <div class="rules">
-            <h2>📜 Правила сервера</h2>
-            <div class="rules-grid">
-                <div class="rule-block">
-                    <h3>🤝 Общение</h3>
-                    <ul>
-                        <li>Уважение к другим игрокам</li>
-                        <li>Без токсичности и спама</li>
-                        <li>Запрещён 18+ контент</li>
-                        <li>Русский/Английский язык</li>
-                    </ul>
+            <div class="timeline-item">
+                <div class="timeline-emoji">🏪</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Встреча в Азбуке Вкуса</div>
+                    <div class="timeline-desc">Катя находит Тимофея. "Ты будешь моим парнем. Это не обсуждается."</div>
                 </div>
-                <div class="rule-block">
-                    <h3>🏗️ Строительство</h3>
-                    <ul>
-                        <li>Не гриферить</li>
-                        <li>Не воровать из сундуков</li>
-                        <li>Эстетика на спавне</li>
-                    </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-emoji">💜</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Гипноз</div>
+                    <div class="timeline-desc">Тимофей надевает ошейник. Ростик отвергнут и пукает у входа.</div>
                 </div>
-                <div class="rule-block">
-                    <h3>⚔️ Игровой процесс</h3>
-                    <ul>
-                        <li>PvP только по согласию</li>
-                        <li>Запрещены читы и баги</li>
-                        <li>Без рейдерства мобами</li>
-                    </ul>
-                </div>
-                <div class="rule-block">
-                    <h3>⚖️ Наказания</h3>
-                    <ul>
-                        <li>Предупреждение</li>
-                        <li>Мут до 24 часов</li>
-                        <li>Бан от 3 дней до вечного</li>
-                    </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-emoji">🏰</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Квартира в Кремле</div>
+                    <div class="timeline-desc">Катя, Тимофей и Путин живут рядом. Чай подаётся по расписанию.</div>
                 </div>
             </div>
         </div>
 
-        <!-- КОМАНДЫ -->
-        <div class="commands">
-            <h2>⚡ Команды сервера</h2>
-            <div class="commands-grid">
-                <div class="command-item"><div class="command">/sethome</div><div class="command-desc">Установить дом</div></div>
-                <div class="command-item"><div class="command">/tpa [ник]</div><div class="command-desc">Запрос на телепорт</div></div>
-                <div class="command-item"><div class="command">/ah</div><div class="command-desc">Аукцион</div></div>
-                <div class="command-item"><div class="command">/seller</div><div class="command-desc">Скупщик</div></div>
-                <div class="command-item"><div class="command">/spawn</div><div class="command-desc">На спавн</div></div>
-                <div class="command-item"><div class="command">/report</div><div class="command-desc">Репорт</div></div>
-            </div>
+        <!-- КНОПКА ГИПНОЗА -->
+        <div class="hypnosis-section">
+            <button class="hypnosis-button" onclick="activateHypnosis()">
+                💜 ЗАХВАТИТЬ МИР 💜
+            </button>
+            <p style="color: rgba(255, 255, 255, 0.5); margin-top: 30px; font-size: 14px;">* нажатие активирует фиолетовый дым и апокалипсис *</p>
         </div>
 
-        <!-- МЕДИА-ШАБЛОН -->
-        <div class="media">
-            <h2>🎥 Для блогеров</h2>
-            <div class="template" id="template">
-Тема: Заявка на статус [YouTuber/Twitch] | Ник: [Ваш_Ник]
-
-1. Информация о кандидате:
-   Возраст: [ваш возраст]
-   Игровой ник: [ник на сервере]
-   Ссылка на канал: [ссылка]
-   Подписчиков: [количество]
-
-2. Контент:
-   Тематика: [летсплеи/стримы/обзоры]
-   Видео в неделю: [сколько]
-   Просмотров в среднем: [сколько]
-
-3. Почему RoVanila?
-   [напишите пару предложений от души]
-
-4. Обязательства:
-   - Не использовать читы
-   - Не нарушать правила в эфире
-   - Упоминать сервер в описании
-
-5. Примеры работ:
-   [ссылка на видео 1]
-   [ссылка на видео 2]
-
-Отправлять: @Rostik1223
+        <!-- КРЕМЛЬ -->
+        <div class="kremlin-section">
+            <h2 class="kremlin-title">🏰 КВАРТИРА В КРЕМЛЕ 🏰</h2>
+            <div class="kremlin-grid">
+                <div class="kremlin-item">
+                    <div class="kremlin-icon">👧</div>
+                    <div class="kremlin-label">Владелица</div>
+                    <div class="kremlin-value">Катя</div>
+                </div>
+                <div class="kremlin-item">
+                    <div class="kremlin-icon">💻</div>
+                    <div class="kremlin-label">Игрушка №1</div>
+                    <div class="kremlin-value">Тимофей</div>
+                </div>
+                <div class="kremlin-item">
+                    <div class="kremlin-icon">🤡</div>
+                    <div class="kremlin-label">У входа</div>
+                    <div class="kremlin-value">Ростик (пукает)</div>
+                </div>
+                <div class="kremlin-item">
+                    <div class="kremlin-icon">🇷🇺</div>
+                    <div class="kremlin-label">Сосед</div>
+                    <div class="kremlin-value">В.В. (под гипнозом)</div>
+                </div>
             </div>
-            <button class="copy-btn" onclick="copyTemplate()">📋 Копировать шаблон</button>
-        </div>
-
-        <!-- КОНТАКТЫ -->
-        <div class="contacts">
-            <h2>📢 Контакты</h2>
-            <div>
-                <a href="https://t.me/rovanila" class="contact-badge">📱 Канал</a>
-                <a href="https://t.me/Rostik1223" class="contact-badge">👤 Админ</a>
-            </div>
-            <p style="margin-top: 30px;">IP: rovanila.servop.ru • Версия 1.21.11</p>
+            <div class="kremlin-note">* Путин иногда заходит попросить соль и заодно получить порцию фиолетового дыма *</div>
         </div>
 
         <!-- ПОДВАЛ -->
         <div class="footer">
-            <p>© 2026 RoVanila — сервер, созданный с душой</p>
-            <p style="margin-top: 10px;">По всем вопросам: @Rostik1223</p>
+            <div class="footer-emojis">💜 🤡 💩 💨 💻 🏰 👧</div>
+            <div class="footer-text">© 2026 ВСЕЛЕННАЯ РОСТИКА</div>
+            <div class="footer-text">IQ Ростика: <span class="footer-highlight">-9.999... в периоде</span></div>
+            <div class="footer-text">Тимофей носит ошейник с гравировкой <span class="footer-highlight">"Катя"</span></div>
+            <div class="footer-text">Если хотите выйти из вселенной — <span class="footer-highlight">НЕ НАДО ВЫХОДИТЬ</span></div>
         </div>
     </div>
 
     <script>
-        // ===== КОПИРОВАНИЕ IP =====
-        document.getElementById('ipBlock').addEventListener('click', function() {
-            const ip = 'rovanila.servop.ru';
-            navigator.clipboard.writeText(ip);
-            const notification = document.getElementById('copyNotification');
-            notification.style.opacity = '1';
-            setTimeout(() => { notification.style.opacity = '0'; }, 2000);
-        });
-
-        // ===== КОПИРОВАНИЕ ШАБЛОНА =====
-        function copyTemplate() {
-            const template = document.getElementById('template').innerText;
-            navigator.clipboard.writeText(template);
-            alert('✅ Шаблон скопирован! Отправляй @Rostik1223');
+        // ГЕНЕРАЦИЯ ЧАСТИЦ
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.background = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 50 + 50}, 255, ${Math.random() * 0.5})`;
+                particlesContainer.appendChild(particle);
+            }
         }
 
-        // ===== ФИОЛЕТОВЫЙ ДЫМ (СЛУЧАЙНЫЙ ШАНС) =====
-        function activatePurpleSmoke() {
-            const smoke = document.getElementById('purpleSmoke');
-            smoke.classList.add('active');
+        // ПЛАВАЮЩИЕ ЭМОДЗИ
+        function createFloatingEmojis() {
+            const container = document.getElementById('floatingEmojis');
+            const emojis = ['💜', '🤡', '💩', '💨', '67', '💻', '👧', '🏰', '🥵', '💫', '👑', '💜', '🤡', '💩'];
             
-            setTimeout(() => {
-                smoke.classList.remove('active');
-            }, 3000); // Дым на 3 секунды
+            setInterval(() => {
+                const emoji = document.createElement('div');
+                emoji.className = 'floating-emoji';
+                emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + '%';
+                emoji.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                emoji.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(emoji);
+                
+                setTimeout(() => {
+                    emoji.remove();
+                }, 15000);
+            }, 1000);
         }
 
-        // Запускаем дым с вероятностью 30% каждые 30 секунд
-        setInterval(() => {
-            if (Math.random() < 0.3) { // 30% шанс
-                activatePurpleSmoke();
-            }
-        }, 30000);
+        // ЗВУК ПУКА
+        let fartInterval;
+        function startFarting() {
+            fartInterval = setInterval(() => {
+                const audio = new Audio();
+                audio.src = 'https://www.myinstants.com/media/sounds/fart-01.mp3';
+                audio.volume = 0.1;
+                audio.play().catch(e => console.log('Браузер против пуков'));
+            }, 2000);
+        }
 
-        // Также можно вызвать дым при загрузке (10% шанс)
-        window.onload = function() {
-            if (Math.random() < 0.1) {
-                setTimeout(activatePurpleSmoke, 2000);
+        // ====================================================
+        // 🎆 АПОКАЛИПСИС ПРИ ЗАХВАТЕ МИРА 🎆
+        // ====================================================
+        function activateHypnosis() {
+            const button = document.querySelector('.hypnosis-button');
+            button.innerHTML = '💜 ЗАХВАТ МИРА АКТИВИРОВАН 💜';
+            button.style.transform = 'scale(1.2)';
+            
+            // Получаем элементы
+            const overlay = document.getElementById('apocalypseOverlay');
+            const flash = document.getElementById('purpleFlash');
+            const message = document.getElementById('globalMessage');
+            const counter = document.getElementById('dominationCounter');
+            const conquestBar = document.getElementById('conquestBar');
+            const conquestBarFill = document.getElementById('conquestBarFill');
+            const counterNumber = document.getElementById('counterNumber');
+            const rostikEyes = document.getElementById('rostikEyes');
+            const miniRostiks = document.getElementById('miniRostiks');
+            const finalExplosion = document.getElementById('finalExplosion');
+            
+            // Шаг 1: Вспышка
+            flash.style.opacity = '0.8';
+            setTimeout(() => {
+                flash.style.opacity = '0';
+            }, 200);
+            
+            // Шаг 2: Появляется оверлей
+            setTimeout(() => {
+                overlay.style.opacity = '0.9';
+            }, 300);
+            
+            // Шаг 3: Появляется текст
+            setTimeout(() => {
+                message.style.opacity = '1';
+                message.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 800);
+            
+            // Шаг 4: Появляется счётчик
+            setTimeout(() => {
+                counter.style.opacity = '1';
+                conquestBar.style.opacity = '1';
+            }, 1500);
+            
+            // Шаг 5: Заполнение прогресс-бара
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent += 1;
+                conquestBarFill.style.width = percent + '%';
+                counterNumber.innerHTML = percent + '%';
+                
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    
+                    // Шаг 6: Финальный взрыв
+                    setTimeout(() => {
+                        finalExplosion.style.opacity = '1';
+                        finalExplosion.style.transform = 'translate(-50%, -50%) scale(100)';
+                    }, 500);
+                    
+                    // Шаг 7: Появляются глаза Ростика
+                    setTimeout(() => {
+                        rostikEyes.style.opacity = '0.5';
+                    }, 800);
+                    
+                    // Шаг 8: Мини-Ростики летают
+                    for (let i = 0; i < 67; i++) {
+                        setTimeout(() => {
+                            const rostik = document.createElement('div');
+                            rostik.className = 'mini-rostik';
+                            rostik.innerHTML = '🤡💨';
+                            rostik.style.left = Math.random() * 100 + '%';
+                            rostik.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                            rostik.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                            miniRostiks.appendChild(rostik);
+                            miniRostiks.style.opacity = '1';
+                            
+                            setTimeout(() => {
+                                rostik.remove();
+                            }, 10000);
+                        }, i * 50);
+                    }
+                    
+                    // Шаг 9: Финальное сообщение
+                    setTimeout(() => {
+                        message.innerHTML = '💜 КАТЯ ВЛАДЫЧИЦА 💜';
+                        message.style.fontSize = '150px';
+                        message.style.color = '#d946ef';
+                        
+                        // Звук финала
+                        const audio = new Audio();
+                        audio.src = 'https://www.myinstants.com/media/sounds/epic-sax.mp3';
+                        audio.volume = 0.3;
+                        audio.play().catch(e => console.log('Музыка не играет'));
+                    }, 2000);
+                }
+            }, 50);
+            
+            // Меняем текст кнопки через 5 секунд
+            setTimeout(() => {
+                button.innerHTML = '💜 МИР ЗАХВАЧЕН 💜';
+                button.style.transform = 'scale(1)';
+            }, 5000);
+        }
+
+        // ПУК ПО КНОПКЕ
+        function fart() {
+            const audio = new Audio();
+            audio.src = 'https://www.myinstants.com/media/sounds/fart-01.mp3';
+            audio.play();
+            
+            const rostik = document.querySelector('.character-card:first-child');
+            rostik.style.transform = 'scale(1.1) rotate(2deg)';
+            setTimeout(() => {
+                rostik.style.transform = '';
+            }, 200);
+        }
+
+        // ГЕНЕРАЦИЯ МИНИ-РОСТИКОВ ДЛЯ АПОКАЛИПСИСА
+        function createMiniRostiks() {
+            const container = document.getElementById('miniRostiks');
+            for (let i = 0; i < 67; i++) {
+                setTimeout(() => {
+                    const rostik = document.createElement('div');
+                    rostik.className = 'mini-rostik';
+                    rostik.innerHTML = '🤡';
+                    rostik.style.left = Math.random() * 100 + '%';
+                    rostik.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                    rostik.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                    container.appendChild(rostik);
+                    
+                    setTimeout(() => {
+                        rostik.remove();
+                    }, 10000);
+                }, i * 100);
             }
-            console.log('🎮 Добро пожаловать на официальный сайт RoVanila!');
-            console.log('💜 Иногда здесь появляется фиолетовый дым...');
+        }
+
+        // ЗАПУСК
+        window.onload = () => {
+            createParticles();
+            createFloatingEmojis();
+            startFarting();
+            
+            console.log('💜 Добро пожаловать во вселенную Ростика! 💜');
+            console.log('🤡 IQ Ростика: -9.999...');
+            console.log('🥵 Тимофей под гипнозом');
+            console.log('👧 Катя наблюдает');
+            console.log('🎆 Нажми кнопку "ЗАХВАТИТЬ МИР" для апокалипсиса!');
         };
-
-        // Дым при наведении на айпи (маленький шанс)
-        document.getElementById('ipBlock').addEventListener('mouseenter', function() {
-            if (Math.random() < 0.1) { // 10% шанс при наведении
-                activatePurpleSmoke();
-            }
-        });
     </script>
 </body>
-</html>
+  </html>
