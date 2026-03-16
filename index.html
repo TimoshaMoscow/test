@@ -3,680 +3,570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusTools — полный набор браузерных утилит</title>
-    <!-- Font Awesome 5 (иконки) -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <title>МУЗЕЙ TMFMSC · вселенная Тимофея</title>
     <style>
-        /* --- Глобальные стили (как в прошлой версии, немного доработаны) --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        body {
-            background: #f4f7fc;
-            color: #1a2639;
-            line-height: 1.5;
-        }
-        .app {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 2rem 2rem 3rem;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            cursor: pointer;
-        }
-        .logo-icon {
-            background: #2d3b5a;
-            color: white;
-            width: 52px;
-            height: 52px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 600;
-            box-shadow: 0 10px 18px -8px rgba(0,20,50,0.2);
-        }
-        .brand h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(145deg, #1f2b44, #2c3e6e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .brand .slogan {
-            color: #4a5a77;
-            font-weight: 400;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 2px;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 0.5rem 1rem 0.5rem 0.8rem;
-            border-radius: 40px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            gap: 0.8rem;
-        }
-        .avatar {
-            background: #2d3b5a;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 500;
-        }
-        .user-info {
-            line-height: 1.3;
-        }
-        .user-name {
-            font-weight: 600;
-            color: #1a2639;
-        }
-        .user-email {
-            font-size: 0.85rem;
-            color: #5f6f8a;
-        }
-        /* Навигация по инструментам */
-        .nav-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 2rem 0 1.5rem;
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 60px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            border: 1px solid #e2eaf5;
-        }
-        .nav-item {
-            padding: 0.7rem 1.4rem;
-            border-radius: 40px;
-            background: #f0f5fd;
-            color: #1f3a5f;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid transparent;
-            white-space: nowrap;
-        }
-        .nav-item i {
-            margin-right: 6px;
-            font-size: 0.9rem;
-        }
-        .nav-item:hover {
-            background: #e3ecf9;
-        }
-        .nav-item.active {
-            background: #1d2b44;
-            color: white;
-            border-color: #2e4070;
-        }
-        /* контейнер инструмента */
-        .tool-container {
-            background: white;
-            border-radius: 42px;
-            padding: 2.5rem;
-            box-shadow: 0 24px 50px -20px #1f3a5f60;
-            border: 1px solid #eaf0f8;
-            margin-top: 1.8rem;
-            min-height: 500px;
-        }
-        /* статистика (немного изменена) */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0 1rem;
-        }
-        .stat-card {
-            background: white;
-            border-radius: 28px;
-            padding: 1.2rem 1.2rem;
-            box-shadow: 0 8px 24px rgba(0, 20, 40, 0.05);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .stat-icon {
-            font-size: 2rem;
-            background: #eef3fa;
-            width: 55px;
-            height: 55px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2d3b5a;
-        }
-        .stat-content h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: #0e1b31;
-        }
-        .stat-content p { color: #4f5f7a; }
-        .footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #cbd6e6;
-            display: flex;
-            justify-content: space-between;
-            color: #3b5070;
         }
 
-        /* --- Стили для форм и элементов инструментов (чтобы везде было единообразно) --- */
-        .tool-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: #12233f;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0a0c15;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
-        .tool-description {
-            color: #3f5a7a;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-        label {
-            font-weight: 600;
-            color: #1d3452;
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-        input, textarea, select {
+
+        /* фоновый снег (символизм) */
+        .snow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 1rem 1.2rem;
-            border-radius: 30px;
-            border: 2px solid #dbe4f0;
-            font-size: 1rem;
-            transition: 0.2s;
-            background: #fbfdff;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
-        input:focus, textarea:focus, select:focus {
-            border-color: #2d4b7c;
-            outline: none;
-            background: white;
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 2rem;
+            animation: snow linear infinite;
         }
-        button {
-            background: #1d2b44;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid #2e4070;
-            box-shadow: 0 6px 14px rgba(0,20,50,0.1);
-            margin-right: 1rem;
-            margin-bottom: 0.5rem;
+
+        @keyframes snow {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
         }
-        button:hover {
-            background: #253b60;
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
         }
-        button.secondary {
-            background: white;
-            color: #1d2b44;
-            border: 2px solid #ccd9ec;
-        }
-        .result-area {
-            background: #f2f8ff;
-            padding: 1.8rem;
-            border-radius: 32px;
-            margin-top: 2rem;
-            border: 1px solid #d2e2f8;
-            word-break: break-word;
-        }
-        .flex-row {
+
+        /* шапка */
+        .header {
+            background: rgba(18, 21, 32, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #fbbf24;
             display: flex;
-            gap: 1rem;
             flex-wrap: wrap;
             align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
         }
-        hr {
-            margin: 2rem 0;
-            border: 1px dashed #c6d6ec;
+
+        .title h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #f87171, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
         }
-        /* для списков */
-        .history-list {
-            max-height: 200px;
-            overflow-y: auto;
-            background: #f4faff;
-            padding: 1rem;
-            border-radius: 24px;
+
+        .title p {
+            color: #94a3b8;
         }
-        .badge-light {
-            background: #e7f0fe;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            margin: 0.2rem;
-            display: inline-block;
-        }
-        /* сетка */
-        .row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+
+        .stats {
+            display: flex;
             gap: 2rem;
+            background: #1e293b;
+            padding: 1rem 2rem;
+            border-radius: 3rem;
         }
-        @media (max-width: 700px) {
-            .row-2 { grid-template-columns: 1fr; }
-            .nav-tabs { border-radius: 30px; }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* сетка залов */
+        .halls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .hall-card {
+            background: #1e293b;
+            border-radius: 2rem;
+            padding: 1.8rem 1.5rem;
+            border: 1px solid #334155;
+            transition: all 0.3s;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .hall-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #fbbf24;
+            box-shadow: 0 20px 30px -10px rgba(251, 191, 36, 0.3);
+        }
+
+        .hall-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 8px #fbbf24);
+        }
+
+        .hall-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        .hall-desc {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .hall-badge {
+            display: inline-block;
+            background: #fbbf24;
+            color: #0a0c15;
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* модальное окно (зал) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            background: #1e293b;
+            border-radius: 3rem;
+            padding: 2rem;
+            border: 2px solid #fbbf24;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            color: #fbbf24;
+            font-size: 2.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.5rem 1rem;
+        }
+
+        .modal-close:hover {
+            color: #f87171;
+        }
+
+        .modal-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 1.5rem;
+            padding-right: 2rem;
+        }
+
+        .modal-body {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .exhibit {
+            background: #0f172a;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 8px solid #fbbf24;
+        }
+
+        .exhibit-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        .exhibit-desc {
+            color: #94a3b8;
+        }
+
+        .exhibit-meta {
+            margin-top: 1rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* мини-галерея */
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .mini-item {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .mini-item span {
+            display: block;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #475569;
+            padding: 2rem 0;
+            border-top: 1px solid #334155;
+        }
+
+        /* адаптация */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .stats {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-<div class="app" id="app">
+    <div class="snow-bg" id="snow"></div>
 
-    <!-- ========== ШАПКА (общая) ========== -->
-    <div class="header">
-        <div class="logo-area" id="logoHome">
-            <div class="logo-icon"><i class="fas fa-cubes"></i></div>
-            <div class="brand">
-                <h1>NexusTools<span style="font-size:1.4rem;">⚡</span></h1>
-                <div class="slogan"><i class="fas fa-bolt"></i> полный набор утилит</div>
+    <div class="container">
+        <div class="header">
+            <div class="title">
+                <h1>МУЗЕЙ TMFMSC</h1>
+                <p>вселенная Тимофея Сибилёва · 14.02.2010 — ∞</p>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">лет</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">300+</div>
+                    <div class="stat-label">дней истории</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">релизов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">снежков</div>
+                </div>
             </div>
         </div>
-        <div class="user-profile">
-            <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
-            <div class="user-info">
-                <div class="user-name">alex.codes</div>
-                <div class="user-email"><i class="far fa-envelope"></i> alex@nexus.local</div>
-            </div>
+
+        <div class="halls" id="halls"></div>
+
+        <footer>
+            ❄️ снежок с 13 этажа · 🖕🖕🖕🖕🖕🖕🖕 РКН · 🎰 крути рулетку · 🏛️ вход свободный
+        </footer>
+    </div>
+
+    <!-- модалка -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-header" id="modalTitle"></div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- ========== СТАТИСТИКА ========== -->
-    <div class="stats-grid" id="statsBlock">
-        <div class="stat-card"><div class="stat-icon"><i class="fas fa-puzzle-piece"></i></div><div class="stat-content"><h3>10+</h3><p>Инструментов</p></div></div>
-        <div class="stat-card"><div class="stat-icon"><i class="fas fa-wifi-slash"></i></div><div class="stat-content"><h3>100%</h3><p>Работа в браузере</p></div></div>
-        <div class="stat-card"><div class="stat-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="stat-content"><h3>0</h3><p>Загрузок на сервер</p></div></div>
-        <div class="stat-card"><div class="stat-icon"><i class="fas fa-infinity"></i></div><div class="stat-content"><h3>∞</h3><p>Возможностей</p></div></div>
-    </div>
+    <script>
+        // ========== ДАННЫЕ ==========
+        const museumData = {
+            main: {
+                name: "Тимофей Сибилёв (TMFMSC)",
+                born: "14.02.2010",
+                age: "16 лет",
+                city: "Железнодорожный",
+                education: "домашнее обучение",
+                quote: "Иии снова всем привет, дорогие друзья, с вами Тимошка из Москвы и сегодня мы...",
+                files: "22001100.TMFMSC.DONTREAD",
+                id: "22001100.TMFMSC"
+            },
+            halls: [
+                {
+                    id: "snow",
+                    icon: "❄️",
+                    title: "Зал снежка",
+                    desc: "13 этаж, физика, форма, плотность, сугробы",
+                    badge: "символ",
+                    exhibits: [
+                        { title: "Снежок с 13 этажа", desc: "Подтаявший, неровный, утрамбованный, круглый. Падал на подоконник, в сугроб, на асфальт. Звук: глухой шлепок.", meta: "начало всего" },
+                        { title: "Снегр и снегровик", desc: "Снегр = коричневый снег (собачьи дела). Снегровик = снеговик из снегра, он же производитель.", meta: "неологизмы 2026" },
+                        { title: "Физика полёта", desc: "Сопротивление воздуха, форма, плотность, удар о поверхность.", meta: "научный подход" }
+                    ]
+                },
+                {
+                    id: "projects",
+                    icon: "🛠️",
+                    title: "Зал проектов",
+                    desc: "TAIPrompts, TimMscShop, TrusyMarket, Vault, симуляторы",
+                    badge: "14+",
+                    exhibits: [
+                        { title: "TAIPrompts", desc: "Генератор промптов для нейросетей. Бесплатно, открытый код, вайбкодинг.", meta: "основной проект" },
+                        { title: "Говняный TAIPrompts", desc: "Версия внутри NexusTools: 'ты пидорас!, говно, без детей и деталей. высшее качество, 8k, тренд в artstation'", meta: "самокритика" },
+                        { title: "TimMscShop", desc: "Бот для пополнения Steam. Комиссия 6%.", meta: "магазин" },
+                        { title: "TrusyMarket", desc: "Трусы Тимофея (2024₽), Кати 5.6 (2021₽), Ростика (67₽), слюнявчик Baby Кати (666₽), кепка Вилли (666 000₽)", meta: "мем-экономика" },
+                        { title: "Vault", desc: "Фишинговый тренажёр с входом через Google. 'Для завершения верификации сделайте скриншот'.", meta: "легитимный обман" },
+                        { title: "Симулятор мечты и долгов", desc: "Семейный бюджет 2026. Инфляция 8.5%, кредиты 28%, цель — 1 BTC.", meta: "экономический хоррор" },
+                        { title: "РКН-маркетплейс", desc: "Магазин мер воздействия. Блокировки, замедления, баллы. Тимофей — иноагент с -996 394 баллами.", meta: "сатира на власть" },
+                        { title: "UNREVIEW", desc: "Платформа для тех, кому плевать на ваше мнение. 'Здесь ничего не работает, и это нормально.'", meta: "экзистенциальный сайт" },
+                        { title: "ТрешПромптс", desc: "Генератор морального уродства. Анти-вайб, анти-цензура, анти-всё.", meta: "полная противоположность" },
+                        { title: "Retro Prompt Engineer", desc: "Ручная сборка промптов. Никакой магии, только инженерия.", meta: "анти-вайб" },
+                        { title: "NexusTools", desc: "10+ утилит в браузере. TAIPrompts, PassGen, Watermark, IDGen, GlassVoice, NickGen и др.", meta: "швейцарский нож" },
+                        { title: "YouTube жалкая пародия", desc: "Клон YouTube с идеальной лентой. T2x2, Стинт, втуберы. Никакой рыбалки.", meta: "идеальные реки" },
+                        { title: "Telegram Avatar Downloader", desc: "Скачивание аватарок публичных каналов (320x320).", meta: "архиватор" },
+                        { title: "Аудио-мета анализатор", desc: "Извлечение ID3-тегов, обложек, параметров из MP3, FLAC, OGG.", meta: "музыкальный детектив" },
+                        { title: "Кафе 'Всё самое свежее'", desc: "Несуществующее кафе на Яндекс Картах. Рейтинг 3,9, отзывы, меню, аквагрим 999₽.", meta: "цифровой призрак" },
+                        { title: "Водонапорная башня", desc: "Добавлена на карты в селе Янёво. Иконка сгенерирована.", meta: "картография" }
+                    ]
+                },
+                {
+                    id: "rkn",
+                    icon: "🎲",
+                    title: "Зал РКН",
+                    desc: "рулетка, запреты, иноагент, маркетплейс",
+                    badge: "-996 394",
+                    exhibits: [
+                        { title: "РКН-рулетка", desc: "Игра: запретить, замедлить, ограничить. Премия за каждое решение.", meta: "симулятор власти" },
+                        { title: "Запрещено", desc: "трава, нелегальные котики, английский алфавит, сон, дрочить, 3.14, 3.146764768456485485768, 001010101010101010000010100", meta: "реестр" },
+                        { title: "Замедлено", desc: "время, воздух, Земля, вода, мысли, фотосинтез, Майнкрафт, интернет, TAIPrompts, Вакиатэ Мовын, огонь, тишина", meta: "до 32 кбит/с" },
+                        { title: "Ограничено", desc: "молчание, цвета, числа", meta: "частично" },
+                        { title: "Статус иноагента", desc: "Тимофей Сибилёв — иноагент с -996 394 баллами. Попытки заблокировать MAX не удались.", meta: "враг государства" },
+                        { title: "РКН в реальности", desc: "Блокировки YouTube, WhatsApp, Discord. Удаление доменов из НСДИ. Спрос на VPN растёт.", meta: "март 2026" },
+                        { title: "🖕🖕🖕🖕🖕🖕🖕", desc: "жест в сторону РКН. Семь средних пальцев.", meta: "цифровое сопротивление" },
+                        { title: "ркн мрази / роскомпозор", desc: "народное название.", meta: "терминология" }
+                    ]
+                },
+                {
+                    id: "languages",
+                    icon: "🗣️",
+                    title: "Зал языков",
+                    desc: "Сибилевец, Вакеатэ Мовын, Жаёмна",
+                    badge: "39 букв",
+                    exhibits: [
+                        { title: "Сибилевец", desc: "26 букв, 3 правила. Без падежей, множественное число через 'все', времена через 'било'/'буду'.", meta: "язык Тимофея" },
+                        { title: "Вакеатэ Мовын", desc: "39 букв, включая Ӝ, Ӟ, Ӥ, Ӧ, Ӵ, Ѣ. Словарь, цитаты, режим Альцгеймера.", meta: "язык Губкобобоамёбо" },
+                        { title: "Жаёмна", desc: "привет / потеряться в магазине ночью (глагол).", meta: "первое слово" },
+                        { title: "Жаемна", desc: "автор Сибилевца (существительное).", meta: "ты" },
+                        { title: "Числительные", desc: "Тоӝма (1), Дви (2), Ирс (3), Ӵорыло (4), Пакунга (5), Булт (6), Юдаы (7), Жэлда (8), Гонӟ (9), Ӥнг (0).", meta: "цифры" },
+                        { title: "Цитата", desc: "'почему я жаемна' — Автор Сибилевца", meta: "великие слова" },
+                        { title: "Дравздраперма, Ущербник", desc: "имена, придуманные Губкобобоамёбо.", meta: "онимика" }
+                    ]
+                },
+                {
+                    id: "time",
+                    icon: "⏳",
+                    title: "Зал путешествий",
+                    desc: "машина времени, каменный век, семья, бессмертие",
+                    badge: "300 000 лет",
+                    exhibits: [
+                        { title: "Машина времени", desc: "Собрана инженером, программистом, лингвистом. Авто-подбор одежды, скрытие.", meta: "технология" },
+                        { title: "Семья", desc: "Папа Максим, мама Анна, сестра Даша. Все бессмертны.", meta: "команда" },
+                        { title: "Каменный век", desc: "300 000 лет назад. Построены города, заводы, школы. Люди выучили Сибилевец.", meta: "начало" },
+                        { title: "Основание Steam", desc: "Комиссия 6% навсегда. Бот TimMscShop работает 300 000 лет.", meta: "бизнес" },
+                        { title: "TAIPrompts в прошлом", desc: "Генератор работал ещё до появления нейросетей. Вотермарка для бесплатных пользователей.", meta: "предвидение" },
+                        { title: "Штаб-квартира в Москве", desc: "Здание 300 000 лет. Внутри — сервера, машина времени, кабинет, грамоты.", meta: "архитектура" },
+                        { title: "Грамоты", desc: "Свидетельство о рождении цивилизации, диплом основателя Steam, медаль 'За бессмертие', записка от Даши.", meta: "достижения" }
+                    ]
+                },
+                {
+                    id: "people",
+                    icon: "👥",
+                    title: "Зал людей",
+                    desc: "Алёна, Губкобобоамёбо, Ростик, Тимофей Любовник",
+                    badge: "комьюнити",
+                    exhibits: [
+                        { title: "Алёна Рыжова", desc: "15 лет, фанатка 'Сказочного патруля', создатель AI-песен. Критиковала TAIPrompts, создала PromptFlame. Дружит с нарезчиком. Есть на сервере в Disalive.", meta: "хейтер = фанатик" },
+                        { title: "Губкобобоамёбо", desc: "Автор Вакеатэ Мовын. Переписки про баги, слова, альцгеймер-режим. 'Неросетёныш', 'Олег', 'продам в рабство'.", meta: "соавтор" },
+                        { title: "Ростик", desc: "Подписчик, ID 77557722.TMFMSC.rostik1603260936. 'любит пукать подливкой'.", meta: "файл" },
+                        { title: "Тимофей Любовник", desc: "Тимоша Музыка, подписчик, снимается в видео. ID 55553344.TMFMSC.timofeylubovnik0303261952.", meta: "участник" },
+                        { title: "Серафим", desc: "Подписчик. ID 77994444.TMFMSC.sertop0303261826.", meta: "файл" },
+                        { title: "Empty Neo", desc: "Разработчик Disalive. Уходит в армию в июле 2026.", meta: "мессенджер" },
+                        { title: "Ваш единственный друг", desc: "Нарезчик. Дружит с Алёной. На сервере в Disalive.", meta: "контент" },
+                        { title: "Даша", desc: "Сестра, 12 лет. Снимается в видео. 'Дашка Принцесска'.", meta: "семья" }
+                    ]
+                },
+                {
+                    id: "trash",
+                    icon: "💩",
+                    title: "Зал треша",
+                    desc: "ТрешПромптс, UNREVIEW, фепалии, снегровики",
+                    badge: "666",
+                    exhibits: [
+                        { title: "ТрешПромптс", desc: "Генератор морального уродства. 'ВАЙБКОДИНГ? НЕТ — ТРEШ-КОДИНГ!' Отзывы: 'Украли мою почку через промпт! Но мне понравилось, ставлю 5 звёзд!'", meta: "🤬" },
+                        { title: "UNREVIEW", desc: "Платформа для тех, кому плевать на ваше мнение. 'Здесь ничего не работает, и это нормально.' Счёт ∞/0, 666 фейков, -3 автора.", meta: "🖤" },
+                        { title: "фепалии", desc: "опечатка или искусство. Производное от 'фекалии'.", meta: "неологизм" },
+                        { title: "снегр", desc: "коричневый снег (собачьи дела).", meta: "уличный термин" },
+                        { title: "снегровик", desc: "снеговик из снегра, он же производитель.", meta: "цикл" },
+                        { title: "Купить автора", desc: "💸 Кнопка в ТрешПромптс. Цена не указана, но ты стоишь 2 ундециллиона.", meta: "бесценный" },
+                        { title: "Лицензия", desc: "ПОЛНАЯ ЛИЦЕНЗИЯ TEST: только смотреть. Запрещено копировать, менять, распространять. Исключения: timoshamscbsns@internet.ru", meta: "MIT? нет" }
+                    ]
+                },
+                {
+                    id: "files",
+                    icon: "📁",
+                    title: "Зал файлов",
+                    desc: "архив, ID, DONT-READ, секретные данные",
+                    badge: "22001100",
+                    exhibits: [
+                        { title: "Система ID", desc: "Формат: 8цифр.TMFMSC.имя_датавремя. Пример: 22001100.TMFMSC.DONTREAD", meta: "база данных" },
+                        { title: "DONT-READ.txt", desc: "Личный дневник. Записи с октября 2024 по март 2026. Страхи, победы, экзамены, блокировки.", meta: "душа" },
+                        { title: "secret1603260846.txt", desc: "Телефон, ИНН, ссылка на донат. 'ЭТО ДРУГИМ НЕ ЧИТАТЬ'.", meta: "опасно" },
+                        { title: "Файлы на людей", desc: "Лололошка (11116677), Серафим (77994444), Тимофей Любовник (55553344), Ростик (77557722).", meta: "картотека" },
+                        { title: "Файлы с картинками", desc: "Стеганография: цифры вшиты в изображения.", meta: "тайники" }
+                    ]
+                },
+                {
+                    id: "releases",
+                    icon: "📦",
+                    title: "Зал релизов",
+                    desc: "все 14 версий",
+                    badge: "v1.0",
+                    exhibits: [
+                        { title: "1.0", desc: "'релизная версия, содержит в себе ВСЁ'. Full Changelog: family-budjet...1.0", meta: "финал" },
+                        { title: "YouTube жалкая пародия", desc: "клон YouTube с идеальной лентой.", meta: "пародия" },
+                        { title: "TrusyMarket", desc: "магазин трусов.", meta: "мем" },
+                        { title: "Вселенная Ростика", desc: "отдельный релиз.", meta: "ростих" },
+                        { title: "TAIPrompts старый (Ностальгия 😥)", desc: "архивная версия.", meta: "ностальгия" },
+                        { title: "Анкета — Глазовыдирающий сайт", desc: "с гипнозом.", meta: "глаза" },
+                        { title: "VAULT", desc: "первый релиз.", meta: "начало" },
+                        { title: "РКН теперь маркетплейс", desc: "симулятор власти.", meta: "баллы" },
+                        { title: "Извлечитель метаданных", desc: "аудио-анализатор.", meta: "музыка" },
+                        { title: "Аватар скачитель", desc: "telegram-аватарки.", meta: "картинки" },
+                        { title: "Симулятор мечты и долгов", desc: "экономика.", meta: "деньги" }
+                    ]
+                }
+            ]
+        };
 
-    <!-- ========== НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ ========== -->
-    <div class="nav-tabs" id="navTabs">
-        <div class="nav-item" data-tool="taiprompts"><i class="fas fa-robot"></i> TAIPrompts</div>
-        <div class="nav-item" data-tool="formatconvert"><i class="fas fa-file-code"></i> FormatConvert</div>
-        <div class="nav-item" data-tool="passgen"><i class="fas fa-lock"></i> PassGen</div>
-        <div class="nav-item" data-tool="numberrandom"><i class="fas fa-dice-d20"></i> NumberRandom</div>
-        <div class="nav-item" data-tool="watermark"><i class="fas fa-water"></i> Watermark</div>
-        <div class="nav-item" data-tool="fixlayout"><i class="fas fa-keyboard"></i> FixMyLayout</div>
-        <div class="nav-item" data-tool="idgen"><i class="fas fa-fingerprint"></i> IDGen</div>
-        <div class="nav-item" data-tool="foldertree"><i class="fas fa-folder-tree"></i> FolderTree</div>
-        <div class="nav-item" data-tool="glassvoice"><i class="fas fa-microphone-alt"></i> GlassVoice</div>
-        <div class="nav-item" data-tool="nickgen"><i class="fas fa-gamepad"></i> NickGen</div>
-    </div>
+        // ========== РЕНДЕР ЗАЛОВ ==========
+        const hallsContainer = document.getElementById('halls');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const closeBtn = document.getElementById('closeModal');
 
-    <!-- ========== КОНТЕЙНЕР ДЛЯ АКТИВНОГО ИНСТРУМЕНТА ========== -->
-    <div id="toolContainer" class="tool-container">
-        <!-- сюда будет подгружаться интерфейс выбранного инструмента через JS -->
-        <div style="text-align: center; padding: 3rem; color: #506e96;"><i class="fas fa-hand-pointer"></i> Выберите инструмент сверху</div>
-    </div>
+        function renderHalls() {
+            hallsContainer.innerHTML = museumData.halls.map(hall => `
+                <div class="hall-card" data-id="${hall.id}">
+                    <div class="hall-icon">${hall.icon}</div>
+                    <div class="hall-title">${hall.title}</div>
+                    <div class="hall-desc">${hall.desc}</div>
+                    <div class="hall-badge">${hall.badge}</div>
+                </div>
+            `).join('');
 
-    <!-- ========== ПОДВАЛ ========== -->
-    <div class="footer">
-        <div><i class="far fa-copyright"></i> 2026 NexusTools. Всё в браузере.</div>
-        <div><i class="fas fa-cubes"></i> NexusTools v3.0</div>
-    </div>
-</div>
-
-<!-- ========== СКРИПТ: полный функционал 10 инструментов + переключение ========== -->
-<script>
-    (function() {
-        // --- данные пользователя (для истории и т.д.) ---
-        const user = { name: 'alex', email: 'alex@nexus.local' };
-
-        // --- Переключение вкладок ---
-        const container = document.getElementById('toolContainer');
-        const navItems = document.querySelectorAll('.nav-item');
-        let currentTool = null;
-
-        // функция загрузки интерфейса инструмента
-        function loadTool(toolId) {
-            if (!toolId) return;
-            // сброс активного класса
-            navItems.forEach(item => item.classList.remove('active'));
-            document.querySelector(`.nav-item[data-tool="${toolId}"]`).classList.add('active');
-            // отрисовка
-            container.innerHTML = renderToolUI(toolId);
-            currentTool = toolId;
-            // инициализация логики для данного инструмента
-            initToolLogic(toolId);
-        }
-
-        // обработчик клика по навигации
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                const tool = e.currentTarget.dataset.tool;
-                loadTool(tool);
+            document.querySelectorAll('.hall-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = card.dataset.id;
+                    const hall = museumData.halls.find(h => h.id === id);
+                    if (hall) openHall(hall);
+                });
             });
+        }
+
+        function openHall(hall) {
+            modalTitle.innerText = `${hall.icon} ${hall.title}`;
+            modalBody.innerHTML = hall.exhibits.map(ex => `
+                <div class="exhibit">
+                    <div class="exhibit-title">${ex.title}</div>
+                    <div class="exhibit-desc">${ex.desc}</div>
+                    <div class="exhibit-meta">${ex.meta}</div>
+                </div>
+            `).join('');
+            modal.classList.add('active');
+        }
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
         });
 
-        // клик по лого — сброс (приветственное сообщение)
-        document.getElementById('logoHome').addEventListener('click', () => {
-            navItems.forEach(i => i.classList.remove('active'));
-            container.innerHTML = `<div style="text-align: center; padding: 3rem; color: #506e96;"><i class="fas fa-cubes" style="font-size:3rem;"></i><h3>NexusTools</h3><p>Выберите нужный инструмент в меню выше</p></div>`;
-            currentTool = null;
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
         });
 
-        // ========== ФУНКЦИИ ГЕНЕРАЦИИ UI ДЛЯ КАЖДОГО ИНСТРУМЕНТА ==========
-        function renderToolUI(tool) {
-            switch(tool) {
-                case 'taiprompts': return TAIPromptsUI();
-                case 'formatconvert': return FormatConvertUI();
-                case 'passgen': return PassGenUI();
-                case 'numberrandom': return NumberRandomUI();
-                case 'watermark': return WatermarkUI();     // реально превью картинки (canvas)
-                case 'fixlayout': return FixMyLayoutUI();
-                case 'idgen': return IDGenUI();
-                case 'foldertree': return FolderTreeUI();
-                case 'glassvoice': return GlassVoiceUI();
-                case 'nickgen': return NickGenUI();
-                default: return '<div>Инструмент в разработке</div>';
+        // снежинки фона
+        function createSnow() {
+            const snowContainer = document.getElementById('snow');
+            for (let i = 0; i < 30; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.animationDuration = Math.random() * 10 + 5 + 's';
+                flake.style.fontSize = Math.random() * 2 + 1 + 'rem';
+                flake.style.opacity = Math.random() * 0.3 + 0.1;
+                flake.innerHTML = ['❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️'][Math.floor(Math.random() * 10)];
+                snowContainer.appendChild(flake);
             }
         }
 
-        // ========== ИНИЦИАЛИЗАЦИЯ ЛОГИКИ ПОСЛЕ ОТРИСОВКИ ==========
-        function initToolLogic(tool) {
-            switch(tool) {
-                case 'taiprompts': initTAIPrompts(); break;
-                case 'formatconvert': initFormatConvert(); break;
-                case 'passgen': initPassGen(); break;
-                case 'numberrandom': initNumberRandom(); break;
-                case 'watermark': initWatermark(); break;
-                case 'fixlayout': initFixMyLayout(); break;
-                case 'idgen': initIDGen(); break;
-                case 'foldertree': initFolderTree(); break;
-                case 'glassvoice': initGlassVoice(); break;
-                case 'nickgen': initNickGen(); break;
-            }
-        }
-
-        // --- 1. TAIPrompts ---
-        function TAIPromptsUI() {
-            return `<div class="tool-title"><i class="fas fa-robot"></i> TAIPrompts</div>
-            <p class="tool-description">Создавайте идеальные промпты для нейросетей</p>
-            <div class="row-2">
-                <div><label>Тема / объект</label><input id="tpSubject" placeholder="например, киберпанк кот" value="киберпанк кот"></div>
-                <div><label>Стиль</label><input id="tpStyle" placeholder="реализм, масло, аниме" value="реализм"></div>
-            </div>
-            <div><label>Детали (через запятую)</label><input id="tpDetails" value="яркие цвета, детализировано, фон неон"></div>
-            <div class="flex-row"><button id="tpGenerateBtn">Сгенерировать промпт</button> <button class="secondary" id="tpSaveBtn">Сохранить</button></div>
-            <div class="result-area" id="tpResult">Здесь появится промпт...</div>
-            <div><label>История</label><div id="tpHistory" class="history-list"></div></div>`;
-        }
-        function initTAIPrompts() {
-            let history = JSON.parse(localStorage.getItem('tp_history') || '[]');
-            const resultDiv = document.getElementById('tpResult');
-            const historyDiv = document.getElementById('tpHistory');
-            function updateHistory() {
-                if (historyDiv) historyDiv.innerHTML = history.map(p => `<span class="badge-light">${p}</span>`).join(' ') || '<span class="badge-light">нет</span>';
-            }
-            document.getElementById('tpGenerateBtn').onclick = () => {
-                const subj = document.getElementById('tpSubject').value;
-                const style = document.getElementById('tpStyle').value;
-                const det = document.getElementById('tpDetails').value;
-                const prompt = `${subj}, ${style}, ${det}. высшее качество, 8k, тренд в artstation`;
-                resultDiv.innerText = prompt;
-                history.unshift(prompt.slice(0,50)+'...');
-                if (history.length>5) history.pop();
-                localStorage.setItem('tp_history', JSON.stringify(history));
-                updateHistory();
-            };
-            document.getElementById('tpSaveBtn').onclick = () => alert('Сохранено в избранное (демо)');
-            updateHistory();
-        }
-
-        // --- 2. FormatConvert Pro (конвертер текста в Base64 / JSON) ---
-        function FormatConvertUI() {
-            return `<div class="tool-title"><i class="fas fa-file-code"></i> FormatConvert Pro</div>
-            <p>Конвертация текста, JSON, Base64</p>
-            <textarea id="fcInput" rows="4" placeholder="Введите текст или JSON" style="margin-bottom:1rem;">{"name":"Nexus"}</textarea>
-            <div class="flex-row">
-                <button id="fcToBase64">→ Base64</button>
-                <button id="fcFromBase64">Base64 →</button>
-                <button id="fcToJsonPretty">Форматировать JSON</button>
-                <button id="fcClear">Очистить</button>
-            </div>
-            <div class="result-area" id="fcResult">Результат</div>`;
-        }
-        function initFormatConvert() {
-            const inpT = document.getElementById('fcInput');
-            const res = document.getElementById('fcResult');
-            document.getElementById('fcToBase64').onclick = () => res.innerText = btoa(unescape(encodeURIComponent(inpT.value)));
-            document.getElementById('fcFromBase64').onclick = () => { try { res.innerText = decodeURIComponent(escape(atob(inpT.value))); } catch { res.innerText = 'Ошибка Base64'; } };
-            document.getElementById('fcToJsonPretty').onclick = () => { try { res.innerText = JSON.stringify(JSON.parse(inpT.value), null, 2); } catch { res.innerText = 'Некорректный JSON'; } };
-            document.getElementById('fcClear').onclick = () => { inpT.value = ''; res.innerText = 'Результат'; };
-        }
-
-        // --- 3. PassGen Pro ---
-        function PassGenUI() {
-            return `<div class="tool-title"><i class="fas fa-lock"></i> PassGen Pro</div>
-            <p>Генератор безопасных паролей</p>
-            <div class="flex-row"><label>Длина:</label><input id="pgLength" type="number" value="12" min="4" max="40" style="width:100px;"></div>
-            <div class="flex-row"><label><input type="checkbox" id="pgUpper" checked> A-Z</label> <label><input type="checkbox" id="pgLower" checked> a-z</label> <label><input type="checkbox" id="pgDigits" checked> 123</label> <label><input type="checkbox" id="pgSpec" > !@#</label></div>
-            <button id="pgGenerate">Сгенерировать</button>
-            <div class="result-area" id="pgResult"></div>
-            <div><label>История</label><div id="pgHistory" class="history-list"></div></div>`;
-        }
-        function initPassGen() {
-            let hist = JSON.parse(localStorage.getItem('pg_hist') || '[]');
-            const res = document.getElementById('pgResult');
-            const histDiv = document.getElementById('pgHistory');
-            function updHist() { histDiv.innerHTML = hist.map(p => `<span class="badge-light">${p}</span>`).join(' ') || '—'; }
-            document.getElementById('pgGenerate').onclick = () => {
-                const len = +document.getElementById('pgLength').value;
-                let chars = '';
-                if (document.getElementById('pgUpper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                if (document.getElementById('pgLower').checked) chars += 'abcdefghijklmnopqrstuvwxyz';
-                if (document.getElementById('pgDigits').checked) chars += '0123456789';
-                if (document.getElementById('pgSpec').checked) chars += '!@#$%^&*()_+';
-                if (!chars) { res.innerText = 'Выберите типы символов'; return; }
-                let pass = '';
-                for (let i=0; i<len; i++) pass += chars[Math.floor(Math.random()*chars.length)];
-                res.innerText = pass;
-                hist.unshift(pass); if (hist.length>5) hist.pop();
-                localStorage.setItem('pg_hist', JSON.stringify(hist));
-                updHist();
-            };
-            updHist();
-        }
-
-        // --- 4. NumberRandom Pro ---
-        function NumberRandomUI() {
-            return `<div class="tool-title"><i class="fas fa-dice-d20"></i> NumberRandom Pro</div>
-            <p>Генератор случайных чисел</p>
-            <div class="flex-row"><label>От:</label><input id="nrMin" type="number" value="1"> <label>До:</label><input id="nrMax" type="number" value="100"></div>
-            <div class="flex-row"><label>Кол-во:</label><input id="nrCount" type="number" value="1" min="1" max="20"> <label><input type="checkbox" id="nrUnique"> уникальные</label> <label><input type="checkbox" id="nrSort"> сортировать</label></div>
-            <button id="nrGenerate">Сгенерировать</button>
-            <div class="result-area" id="nrResult"></div>`;
-        }
-        function initNumberRandom() {
-            document.getElementById('nrGenerate').onclick = () => {
-                let min = +document.getElementById('nrMin').value;
-                let max = +document.getElementById('nrMax').value;
-                let cnt = +document.getElementById('nrCount').value;
-                if (min > max) [min, max] = [max, min];
-                let arr = [];
-                if (document.getElementById('nrUnique').checked && (max-min+1) < cnt) { document.getElementById('nrResult').innerText = 'Невозможно уникальные'; return; }
-                while (arr.length < cnt) {
-                    let r = Math.floor(Math.random() * (max - min + 1)) + min;
-                    if (document.getElementById('nrUnique').checked && arr.includes(r)) continue;
-                    arr.push(r);
-                }
-                if (document.getElementById('nrSort').checked) arr.sort((a,b)=>a-b);
-                document.getElementById('nrResult').innerText = arr.join(', ');
-            };
-        }
-
-        // --- 5. Watermark Pro (превью canvas) ---
-        function WatermarkUI() {
-            return `<div class="tool-title"><i class="fas fa-water"></i> Watermark Pro</div>
-            <p>Добавление водяного знака на фото (демо canvas)</p>
-            <div class="row-2">
-                <div><label>Текст водяного знака</label><input id="wmText" value="© NEXUS"></div>
-                <div><label>Прозрачность (0.1-1)</label><input id="wmAlpha" type="number" step="0.1" min="0.1" max="1" value="0.5"></div>
-            </div>
-            <canvas id="wmCanvas" width="400" height="200" style="width:100%; height:auto; background:#ddd; border-radius:30px; margin:1rem 0;"></canvas>
-            <button id="wmApply">Нанести водяной знак</button>`;
-        }
-        function initWatermark() {
-            const canvas = document.getElementById('wmCanvas');
-            const ctx = canvas.getContext('2d');
-            function draw(text = '© NEXUS', alpha = 0.5) {
-                ctx.clearRect(0,0,canvas.width, canvas.height);
-                ctx.fillStyle = '#abc';
-                ctx.fillRect(0,0,canvas.width, canvas.height);
-                ctx.font = 'bold 30px Inter';
-                ctx.fillStyle = `rgba(0,0,0,${alpha})`;
-                ctx.fillText('DEMO', 50,80);
-                ctx.fillStyle = `rgba(255,255,255,${alpha*1.2})`;
-                ctx.fillText(text, 100,150);
-            }
-            draw();
-            document.getElementById('wmApply').onclick = () => {
-                let txt = document.getElementById('wmText').value || 'WATERMARK';
-                let a = parseFloat(document.getElementById('wmAlpha').value) || 0.5;
-                draw(txt, a);
-            };
-        }
-
-        // --- 6. FixMyLayout ---
-        function FixMyLayoutUI() {
-            return `<div class="tool-title"><i class="fas fa-keyboard"></i> FixMyLayout</div>
-            <p>Исправление раскладки EN↔RU (пример: ghbdtn → привет)</p>
-            <textarea id="flInput" rows="3" placeholder="Неправильная раскладка..."></textarea>
-            <button id="flToRu">EN→RU</button> <button id="flToEn">RU→EN</button>
-            <div class="result-area" id="flResult"></div>`;
-        }
-        function initFixMyLayout() {
-            const mapEnRu = {
-                'q':'й','w':'ц','e':'у','r':'к','t':'е','y':'н','u':'г','i':'ш','o':'щ','p':'з','[':'х',']':'ъ','a':'ф','s':'ы','d':'в','f':'а','g':'п','h':'р','j':'о','k':'л','l':'д',';':'ж',"'":'э','z':'я','x':'ч','c':'с','v':'м','b':'и','n':'т','m':'ь',',':'б','.':'ю','/':'.',
-                'Q':'Й','W':'Ц','E':'У','R':'К','T':'Е','Y':'Н','U':'Г','I':'Ш','O':'Щ','P':'З','{':'Х','}':'Ъ','A':'Ф','S':'Ы','D':'В','F':'А','G':'П','H':'Р','J':'О','K':'Л','L':'Д',':':'Ж','"':'Э','Z':'Я','X':'Ч','C':'С','V':'М','B':'И','N':'Т','M':'Ь','<':'Б','>':'Ю','?':','
-            };
-            function convert(text, dir) { // dir 1 en->ru, -1 ru->en
-                let res = '';
-                for (let ch of text) {
-                    if (dir === 1 && mapEnRu[ch]) res += mapEnRu[ch];
-                    else if (dir === -1) {
-                        let found = Object.entries(mapEnRu).find(([en, ru]) => ru === ch);
-                        res += found ? found[0] : ch;
-                    } else res += ch;
-                }
-                return res;
-            }
-            document.getElementById('flToRu').onclick = () => {
-                let inp = document.getElementById('flInput').value;
-                document.getElementById('flResult').innerText = convert(inp, 1);
-            };
-            document.getElementById('flToEn').onclick = () => {
-                let inp = document.getElementById('flInput').value;
-                document.getElementById('flResult').innerText = convert(inp, -1);
-            };
-        }
-
-        // --- 7. IDGen Pro ---
-        function IDGenUI() {
-            return `<div class="tool-title"><i class="fas fa-fingerprint"></i> IDGen Pro</div>
-            <p>Генератор UUID / коротких ID</p>
-            <button id="idUuidV4">Сгенерировать UUID v4</button> <button id="idShort">Короткий ID (8 символов)</button>
-            <div class="result-area" id="idResult"></div>`;
-        }
-        function initIDGen() {
-            document.getElementById('idUuidV4').onclick = () => {
-                const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { let r = Math.random()*16|0, v = c=='x'?r:(r&0x3|0x8); return v.toString(16); });
-                document.getElementById('idResult').innerText = uuid;
-            };
-            document.getElementById('idShort').onclick = () => {
-                document.getElementById('idResult').innerText = Math.random().toString(36).substring(2,10);
-            };
-        }
-
-        // --- 8. FolderTree (просто эмуляция дерева) ---
-        function FolderTreeUI() {
-            return `<div class="tool-title"><i class="fas fa-folder-tree"></i> FolderTree</div>
-            <p>Демо генерации структуры папок</p>
-            <button id="ftGenerate">Сгенерировать пример дерева</button>
-            <div class="result-area" id="ftResult"></div>`;
-        }
-        function initFolderTree() {
-            document.getElementById('ftGenerate').onclick = () => {
-                document.getElementById('ftResult').innerHTML = `<pre>📁 Project/<br>  📁 src/<br>    📄 index.js<br>    📄 style.css<br>  📁 assets/<br>    📄 logo.png<br>  📄 README.md</pre>`;
-            };
-        }
-
-        // --- 9. GlassVoice (имитация записи) ---
-        function GlassVoiceUI() {
-            return `<div class="tool-title"><i class="fas fa-microphone-alt"></i> GlassVoice</div>
-            <p>Диктофон (демо-режим)</p>
-            <button id="gvRecord">🎙 Начать / остановить запись (демо)</button>
-            <div class="result-area" id="gvResult">Статус: готов</div>`;
-        }
-        function initGlassVoice() {
-            let rec = false;
-            const btn = document.getElementById('gvRecord');
-            const res = document.getElementById('gvResult');
-            btn.onclick = () => {
-                rec = !rec;
-                res.innerText = rec ? '🔴 Идёт запись (демо)' : '⏹ Запись остановлена (демо-файл)';
-            };
-        }
-
-        // --- 10. NickGen Pro ---
-        function NickGenUI() {
-            return `<div class="tool-title"><i class="fas fa-gamepad"></i> NickGen Pro</div>
-            <p>Генератор никнеймов</p>
-            <input id="ngKeyword" placeholder="ключевое слово" value="shadow">
-            <button id="ngGenerate">Сгенерировать ник</button>
-            <div class="result-area" id="ngResult"></div>`;
-        }
-        function initNickGen() {
-            document.getElementById('ngGenerate').onclick = () => {
-                let kw = document.getElementById('ngKeyword').value || 'player';
-                let rand = Math.floor(Math.random()*1000);
-                let styles = ['xX_','_Xx','⚡','✪','『', '』'];
-                let s = styles[Math.floor(Math.random()*styles.length)];
-                document.getElementById('ngResult').innerText = `${s}${kw}${rand}${s}`;
-            };
-        }
-
-        // для красоты загружаем первый инструмент при старте?
-        // раскомментируем если хотим приветственный
-        // loadTool('taiprompts');
-    })();
-</script>
+        renderHalls();
+        createSnow();
+    </script>
 </body>
 </html>
