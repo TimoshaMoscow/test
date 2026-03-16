@@ -3,738 +3,2339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аудио метаданные · извлечение</title>
+    <meta name="description" content="TAIPrompts - генератор промптов для ChatGPT. Создавайте качественные промпты для рецептов, стикеров, изображений, игр и многого другого.">
+    <meta name="keywords" content="промпты, ChatGPT, генерация промптов, ИИ, рецепты, стикеры, изображения">
+    <meta name="author" content="Тимофей">
+    <title>TAIPrompts - Генератор промптов для ChatGPT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
-        body {
-            background: linear-gradient(145deg, #f0f2f5 0%, #e0e4e9 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-        }
-        .card {
-            max-width: 880px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 2.5rem;
-            box-shadow: 0 30px 50px rgba(0, 10, 20, 0.25), 0 0 0 1px rgba(0,0,0,0.02) inset;
-            padding: 2.2rem 2rem 2.5rem 2rem;
-        }
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            background: linear-gradient(130deg, #1a2639, #2d4059);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        h1 span {
-            font-size: 2rem;
-            background: none;
-            -webkit-text-fill-color: initial;
-            color: #3a4e6b;
-        }
-        .subhead {
-            font-size: 1rem;
-            color: #4a5568;
-            margin-bottom: 2rem;
-            padding-left: 0.3rem;
-            border-left: 4px solid #7c8ca0;
-            padding-left: 1rem;
-            font-weight: 400;
-            opacity: 0.9;
-        }
-        .drop-area {
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px dashed #8b9eb0;
-            border-radius: 2rem;
-            padding: 3rem 1.5rem;
-            text-align: center;
-            transition: background 0.2s, border-color 0.2s, transform 0.1s;
-            cursor: pointer;
-            margin-bottom: 1.8rem;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.02);
-        }
-        .drop-area:hover {
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #4f7092;
-        }
-        .drop-area.drag-over {
-            background: rgba(230, 242, 255, 0.9);
-            border-color: #1d4e7c;
-            transform: scale(1.01);
-        }
-        .drop-icon {
-            font-size: 4.2rem;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            filter: drop-shadow(2px 6px 8px rgba(0,20,40,0.15));
-        }
-        .file-input-label {
-            font-weight: 550;
-            font-size: 1.35rem;
-            color: #1e2f3f;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-        .file-hint {
-            color: #4f5d6b;
-            font-size: 0.95rem;
-            background: rgba(255,255,245,0.6);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            display: inline-block;
-            backdrop-filter: blur(2px);
-        }
-        .file-hint i {
-            font-style: normal;
-            background: #2f455b;
-            color: white;
-            padding: 0.2rem 0.7rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            margin: 0 4px;
-        }
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem 1.2rem;
-            align-items: center;
-            justify-content: space-between;
-            margin: 1.5rem 0 1rem 0;
-        }
-        .file-info-bar {
-            background: #eef1f5;
-            border-radius: 3rem;
-            padding: 0.45rem 1.2rem 0.45rem 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            flex-wrap: wrap;
-            flex: 2 1 300px;
-            box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
-        }
-        .file-name {
-            font-weight: 500;
-            color: #1c2a39;
-            word-break: break-word;
-            max-width: 320px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .file-size {
-            font-size: 0.85rem;
-            background: #d2dce8;
-            padding: 0.25rem 0.9rem;
-            border-radius: 30px;
-            color: #1f3449;
-            font-weight: 500;
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            background: white;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 2rem;
-            font-weight: 550;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(0, 15, 30, 0.1);
-            cursor: pointer;
-            transition: 0.1s ease;
-            border: 1px solid rgba(255,255,255,0.8);
-            color: #1e3b5a;
-        }
-        .btn-primary {
-            background: #1e3b5a;
-            color: white;
-            box-shadow: 0 10px 16px -6px #1e3b5a80;
-            border: 1px solid #ffffff30;
-        }
-        .btn-primary:hover {
-            background: #264d73;
-            transform: scale(1.02);
-        }
-        .btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .btn:disabled {
-            opacity: 0.45;
-            pointer-events: none;
-            filter: grayscale(0.3);
-        }
-        .meta-grid {
-            background: rgba(0, 0, 0, 0.02);
-            border-radius: 1.8rem;
-            padding: 1.8rem 1.5rem;
-            margin-top: 1.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(4px);
-            box-shadow: 0 8px 18px -8px rgba(0,32,64,0.1), inset 0 0 0 1px rgba(255,255,255,0.8);
-        }
-        .meta-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1.8rem;
-        }
-        .meta-header h2 {
-            font-size: 1.5rem;
-            font-weight: 570;
-            color: #203b51;
-            letter-spacing: -0.01em;
-        }
-        .badge {
-            background: #6b85a0;
-            color: white;
-            border-radius: 30px;
-            padding: 0.25rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .meta-table {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .meta-row {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            align-items: baseline;
-            border-bottom: 1px dashed rgba(70, 90, 110, 0.2);
-            padding: 0.6rem 0.2rem;
-            font-size: 1rem;
-        }
-        .meta-key {
-            font-weight: 600;
-            color: #1e3b4f;
-            text-transform: capitalize;
-            letter-spacing: 0.01em;
-        }
-        .meta-value {
-            color: #082032;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            word-break: break-word;
-            background: rgba(230, 240, 250, 0.5);
-            padding: 0.3rem 1rem;
-            border-radius: 50px;
-            margin-left: 0.5rem;
-            font-size: 0.95rem;
-            border: 1px solid #ffffff;
-        }
-        .empty-meta {
-            text-align: center;
-            color: #4b637a;
-            font-style: italic;
-            padding: 2rem;
-            background: rgba(255,255,255,0.5);
-            border-radius: 2rem;
-            font-size: 1.1rem;
-        }
-        .error-message {
-            background: #ffe6de;
-            border-left: 8px solid #c2492b;
-            padding: 1rem 1.8rem;
-            border-radius: 2rem;
-            color: #4d1f0b;
-            font-weight: 500;
-            margin-top: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-size: 1rem;
-        }
-        .cover-art {
-            margin-top: 2rem;
-            border-radius: 1.5rem;
-            background: #d9e2ed70;
-            padding: 1.2rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-        }
-        .cover-art img {
-            max-width: 100px;
-            max-height: 100px;
-            border-radius: 1.2rem;
-            box-shadow: 0 8px 20px rgba(0,20,40,0.3);
-            background: #eef3f8;
-            border: 3px solid white;
-            object-fit: cover;
-        }
-        .cover-placeholder {
-            width: 80px;
-            height: 80px;
-            background: #acbfd1;
-            border-radius: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            color: #1a2e42;
-        }
-        .footer-note {
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            text-align: center;
-            color: #596f82;
-        }
+/* Базовые стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --accent-color: #5e72e4;
+    --secondary-color: #adb5bd;
+    --light-color: #1e1e1e;
+    --card-bg: rgba(33, 37, 41, 0.7);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Переключатель темы */
+.theme-switch-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 5px 15px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+.theme-switch-label {
+    font-size: 0.8rem;
+    margin: 0 10px;
+    color: var(--text-color);
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Шапка */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--card-border);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+}
+
+.nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-color);
+}
+
+.burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.burger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 2px 0;
+    transition: 0.3s;
+}
+
+/* Герой секция */
+.hero {
+    padding: 120px 0 80px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-color);
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Секции */
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+/* Карточки */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Секция генерации */
+.generation-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.prompt-types {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.type-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    background: var(--accent-color);
+    color: white;
+}
+
+.type-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.prompt-customization {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.generated-prompt {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--light-color);
+    border-radius: 10px;
+}
+
+#final-prompt {
+    background: var(--card-bg);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    min-height: 100px;
+    border: 1px solid var(--card-border);
+}
+
+/* Стили для технических параметров */
+.technical-params {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--light-color);
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+}
+
+.param-group {
+    margin-bottom: 1rem;
+}
+
+.param-group:last-child {
+    margin-bottom: 0;
+}
+
+.param-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.param-group select,
+.param-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+.multi-select {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--card-bg);
+    border-radius: 6px;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.checkbox-label:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.checkbox-label input {
+    margin-right: 8px;
+    width: auto;
+}
+
+/* Стили для вывода промпта */
+.prompt-output {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    min-height: 150px;
+    border: 1px solid var(--card-border);
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-family: 'Courier New', monospace;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+/* Галерея */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover .gallery-item-info {
+    transform: translateY(0);
+}
+
+/* Лайтбокс */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+/* Слайдер отзывов */
+.reviews-slider {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    margin-bottom: 30px;
+}
+
+.review-slide {
+    min-width: 100%;
+    padding: 0 15px;
+}
+
+.review-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.review-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.review-text {
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.review-rating {
+    color: gold;
+    font-size: 1.2rem;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.slider-prev,
+.slider-next {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background: var(--secondary-color);
+}
+
+/* Возможности */
+.possibilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.possibility-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s;
+}
+
+.possibility-card:hover {
+    transform: translateY(-10px);
+}
+
+.possibility-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.possibility-card h3 {
+    margin-bottom: 1rem;
+}
+
+/* О нас */
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+/* Обратная связь */
+.feedback-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-info {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+.contact-details {
+    margin-top: 1.5rem;
+}
+
+.feedback-form {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+/* Футер */
+.footer {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 60px 0 20px;
+    border-top: 1px solid var(--card-border);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h4 {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.footer-section h4:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--accent-color);
+}
+
+.subscribe-form {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.subscribe-form input {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 50px 0 0 50px;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+.subscribe-form button {
+    padding: 10px 20px;
+    border-radius: 0 50px 50px 0;
+    border: none;
+    background: var(--accent-color);
+    color: white;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
+}
+
+/* Стили для ВайбКодинга */
+.vibe-badge {
+    display: flex;
+    gap: 15px;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.vibe-text {
+    background: var(--accent-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.type-card .vibe-description {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.type-card .vibe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 0.5rem;
+}
+
+.vibe-tag {
+    background: rgba(67, 97, 238, 0.1);
+    color: var(--accent-color);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+/* Стили для секции ВайбКодинга */
+.vibecoding {
+    background: var(--light-color);
+    padding: 80px 0;
+}
+
+.vibecoding-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.vibecoding-principles {
+    margin-top: 2rem;
+}
+
+.vibecoding-principles ul {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.vibecoding-principles li {
+    margin-bottom: 0.8rem;
+    padding-left: 0;
+}
+
+.vibecoding-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.vibecoding-stat {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--card-border);
+}
+
+.vibecoding-stat .stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+/* Адаптивность для параметров */
+@media (max-width: 768px) {
+    .multi-select {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .multi-select {
+        grid-template-columns: 1fr;
+    }
+    
+    .param-group select,
+    .param-group input {
+        padding: 8px 12px;
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .generation-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .vibecoding-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-list {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.3s;
+    }
+    
+    .nav-list.active {
+        left: 0;
+    }
+    
+    .burger {
+        display: flex;
+    }
+    
+    .burger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .burger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .burger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .prompt-types {
+        grid-template-columns: 1fr;
+    }
+    
+    .feedback-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .vibecoding-stats {
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .vibecoding-stat {
+        flex: 1;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .possibilities-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .vibecoding-stats {
+        flex-direction: column;
+    }
+    
+    .vibe-badge {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Добавляем в конец файла: */
+
+/* Стили для музыкальной структуры */
+.song-structure {
+    background: var(--light-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    border-left: 4px solid var(--accent-color);
+}
+
+.song-part {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+/* Стили для YouTube тегов */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0.5rem 0;
+}
+
+.tag {
+    background: rgba(67, 97, 238, 0.1);
+    color: var(--accent-color);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+/* Адаптивность для новых элементов */
+@media (max-width: 768px) {
+    .tags-container {
+        justify-content: center;
+    }
+    
+    .song-structure {
+        font-size: 0.9rem;
+    }
+}
+
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>
-            <span>🎵</span> аудио-мета
-        </h1>
-        <div class="subhead">загрузи файл — получи ID3, обложку, технические параметры</div>
 
-        <!-- зона drag & drop -->
-        <div id="dropZone" class="drop-area">
-            <div class="drop-icon">🎧</div>
-            <div class="file-input-label">перетащи аудиофайл или нажми для выбора</div>
-            <div class="file-hint">
-                поддерживается <i>MP3</i> <i>M4A</i> <i>FLAC</i> <i>OGG</i> <i>WAV</i> (до 50 МБ)
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <img src="images/logo.png" alt="TAIPrompts" class="logo-img">
+                    <span class="logo-text">TAIPrompts</span>
+                </a>
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Главная</a></li>
+                    <li><a href="#generation" class="nav-link">Генерация</a></li>
+                    <li><a href="#examples" class="nav-link">Примеры</a></li>
+                    <li><a href="#reviews" class="nav-link">Отзывы</a></li>
+                    <li><a href="#feedback" class="nav-link">Обратная связь</a></li>
+                    <li><a href="#possibilities" class="nav-link">Возможности</a></li>
+                    <li><a href="#about" class="nav-link">Описание</a></li>
+                </ul>
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Герой секция -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">TAIPrompts</h1>
+                    <p class="hero-description">Создавайте идеальные промпты для нейросетей</p>
+                    <div class="vibe-badge">
+                        <span class="vibe-text">#ВайбКодинг</span>
+                    </div>
+                    <a href="#generation" class="btn btn-primary">Начать генерацию</a>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero-bg.jpg" alt="Генерация промптов">
+                </div>
             </div>
-            <input type="file" id="fileInput" accept="audio/*" style="display: none;">
+        </section>
+
+        <!-- Секция о ВайбКодинге -->
+        <section id="vibecoding" class="vibecoding">
+            <div class="container">
+                <h2 class="section-title">Что такое ВайбКодинг?</h2>
+                <div class="vibecoding-content">
+                    <div class="vibecoding-text">
+                        <p><strong>ВайбКодеры</strong> — это новая генерация разработчиков, которые используют нейросети для программирования. Мы не пишем код вручную, а создаем точные промпты для ИИ.</p>
+                        
+                        <div class="vibecoding-principles">
+                            <h3>Принципы ВайбКодинга:</h3>
+                            <ul>
+                                <li>🚀 <strong>Скорость</strong> — генерация кода за секунды</li>
+                                <li>🎯 <strong>Точность</strong> — готовые технические шаблоны</li>
+                                <li>✨ <strong>Креатив</strong> — фокус на идеях, а не на синтаксисе</li>
+                                <li>🤝 <strong>Сообщество</strong> — обмен лучшими промптами</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="vibecoding-stats">
+                        <div class="vibecoding-stat">
+                            <span class="stat-number">10x</span>
+                            <span class="stat-label">быстрее разработка</span>
+                        </div>
+                        <div class="vibecoding-stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">меньше рутинного кода</span>
+                        </div>
+                        <div class="vibecoding-stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">вайб кодинга</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция генерации -->
+        <section id="generation" class="generation">
+            <div class="container">
+                <h2 class="section-title">Генерация промптов</h2>
+                <div class="generation-content">
+                    <div class="prompt-types">
+                        <div class="type-card" data-type="telegram">
+                            <h3>📱 Telegram боты</h3>
+                            <p>Создавайте промпты для ботов на aiogram</p>
+                            <div class="vibe-description">Готовые шаблоны команд, обработчиков и функций</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">aiogram</span>
+                                <span class="vibe-tag">асинхронность</span>
+                                <span class="vibe-tag">API</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="websites">
+                            <h3>🌐 Веб-сайты</h3>
+                            <p>Современные веб-сайты</p>
+                            <div class="vibe-description">Генерируйте промпты для создания современных сайтов с HTML, CSS и JavaScript</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">HTML/CSS/JS</span>
+                                <span class="vibe-tag">адаптивность</span>
+                                <span class="vibe-tag">PWA</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="minecraft">
+                            <h3>⛏️ Моды Minecraft</h3>
+                            <p>Моды для Minecraft (и не только моды)</p>
+                            <div class="vibe-description">Создавайте промпты для разработки модов с настройкой IntelliJ IDEA</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">Forge</span>
+                                <span class="vibe-tag">Fabric</span>
+                                <span class="vibe-tag">Java</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="ai">
+                            <h3>🤖 AI & G4F</h3>
+                            <p>Работа с AI и G4F</p>
+                            <div class="vibe-description">Промпты для работы с искусственным интеллектом и библиотекой G4F</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">G4F</span>
+                                <span class="vibe-tag">нейросети</span>
+                                <span class="vibe-tag">автоматизация</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="recipes">
+                            <h3>🍳 Рецепты</h3>
+                            <p>Создание или улучшение рецептов</p>
+                            <div class="vibe-description">Генерация кулинарных промптов с точными пропорциями и инструкциями</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">гастрономия</span>
+                                <span class="vibe-tag">ингредиенты</span>
+                                <span class="vibe-tag">step-by-step</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="images">
+                            <h3>🎨 Генерация изображений</h3>
+                            <p>Промпты для создания изображений</p>
+                            <div class="vibe-description">Создавайте детальные промпты для генерации визуального контента</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">Stable Diffusion</span>
+                                <span class="vibe-tag">DALL-E</span>
+                                <span class="vibe-tag">композиция</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="stickers">
+                            <h3>🖼️ Стикеры и аватары</h3>
+                            <p>Генерация идей для стикеров и аватаров</p>
+                            <div class="vibe-description">Промпты для создания стикерпаков и цифровых аватаров</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">вектор</span>
+                                <span class="vibe-tag">эмоции</span>
+                                <span class="vibe-tag">Telegram</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="toys">
+                            <h3>🧸 Игрушки</h3>
+                            <p>Идеи для создания игрушек</p>
+                            <div class="vibe-description">Генерация промптов для разработки игр и игрушек</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">геймдизайн</span>
+                                <span class="vibe-tag">механики</span>
+                                <span class="vibe-tag">персонажи</span>
+                            </div>
+                        </div>
+                        
+                        <div class="type-card" data-type="3d">
+                            <h3>🔷 3D модели</h3>
+                            <p>Промпты для 3D моделирования</p>
+                            <div class="vibe-description">Промпты для создания трехмерных моделей и ассетов</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">Blender</span>
+                                <span class="vibe-tag">текстуры</span>
+                                <span class="vibe-tag">рендеринг</span>
+                            </div>
+                        </div>
+
+                        <div class="type-card" data-type="characterai">
+                            <h3>🤖 Character AI</h3>
+                            <p>Создание персонажей для character.ai</p>
+                            <div class="vibe-description">Генерация промптов для персонажей с именем, слоганом, приветствием и описанием</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">персонажи</span>
+                                <span class="vibe-tag">диалоги</span>
+                                <span class="vibe-tag">c.ai</span>
+                            </div>
+                        </div>
+
+                        <div class="type-card" data-type="suno">
+                            <h3>🎵 Suno AI</h3>
+                            <p>Создание песен в Suno AI</p>
+                            <div class="vibe-description">Генерация промптов для создания песен с текстом, жанром и структурой</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">музыка</span>
+                                <span class="vibe-tag">тексты</span>
+                                <span class="vibe-tag">Suno</span>
+                            </div>
+                        </div>
+
+                        <div class="type-card" data-type="youtube">
+                            <h3>📺 YouTube</h3>
+                            <p>Создание контента для YouTube</p>
+                            <div class="vibe-description">Генерация промптов для названий, описаний и тегов YouTube каналов</div>
+                            <div class="vibe-tags">
+                                <span class="vibe-tag">видео</span>
+                                <span class="vibe-tag">SEO</span>
+                                <span class="vibe-tag">контент</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="prompt-customization">
+                        <h3>Кастомизация промпта</h3>
+                        <form id="prompt-form">
+                            <!-- Динамические технические параметры -->
+                            <div id="technical-params" class="technical-params">
+                                <!-- Здесь будут появляться выборочные окна -->
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="custom-input">Ваша идея или описание *</label>
+                                <textarea id="custom-input" placeholder="Опишите вашу идею детально..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tone-select">Стиль промпта</label>
+                                <select id="tone-select">
+                                    <option value="professional">Профессиональный</option>
+                                    <option value="friendly">Дружеский</option>
+                                    <option value="creative">Креативный</option>
+                                    <option value="technical">Технический</option>
+                                    <option value="detailed">Детализированный</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Сгенерировать промпт</button>
+                        </form>
+                        
+                        <div class="generated-prompt">
+                            <h4>Ваш промпт:</h4>
+                            <div id="final-prompt" class="prompt-output"></div>
+                            <button id="copy-prompt" class="btn btn-secondary">Копировать промпт</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция примеров -->
+        <section id="examples" class="examples">
+            <div class="container">
+                <h2 class="section-title">Примеры промптов</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="images/example1.jpg" alt="Пример промпта 1" data-full="images/example1-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>Рецепт веганского бургера</h4>
+                            <p>Сгенерировано для ChatGPT</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/example2.jpg" alt="Пример промпта 2" data-full="images/example2-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>Стикерпак для Telegram</h4>
+                            <p>Сгенерировано для ChatGPT</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/example3.jpg" alt="Пример промпта 3" data-full="images/example3-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>3D модель животного</h4>
+                            <p>Сгенерировано для ChatGPT</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/example4.jpg" alt="Пример промпта 4" data-full="images/example4-full.jpg">
+                        <div class="gallery-item-info">
+                            <h4>Мод для Майнкрафт</h4>
+                            <p>Сгенерировано для ChatGPT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Лайтбокс для галереи -->
+        <div class="lightbox">
+            <span class="close-lightbox">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+            <div class="lightbox-caption"></div>
         </div>
 
-        <!-- панель с инфо о файле -->
-        <div class="controls">
-            <div class="file-info-bar" id="fileInfoBar" style="opacity: 0.7;">
-                <span class="file-name" id="fileNameDisplay">⏻ файл не выбран</span>
-                <span class="file-size" id="fileSizeDisplay">—</span>
+        <!-- Секция отзывов -->
+        <section id="reviews" class="reviews">
+            <div class="container">
+                <h2 class="section-title">Отзывы пользователей</h2>
+                <div class="reviews-slider">
+                    <div class="review-slide">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <img src="images/user1.jpg" alt="Алексей" class="review-avatar">
+                                <div class="review-user">
+                                    <h4>Алексей</h4>
+                                    <p>Дизайнер</p>
+                                </div>
+                            </div>
+                            <p class="review-text">"С помощью TAIPrompts я смог создать потрясающие промпты для генерации изображений. Экономит кучу времени и дает отличные результаты!"</p>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <div class="review-slide">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <img src="images/user2.jpg" alt="Мария" class="review-avatar">
+                                <div class="review-user">
+                                    <h4>Мария</h4>
+                                    <p>Разработчик</p>
+                                </div>
+                            </div>
+                            <p class="review-text">"Использую для создания промптов для Telegram ботов. Очень удобная кастомизация, можно точно настроить под свои нужды."</p>
+                            <div class="review-rating">★★★★☆</div>
+                        </div>
+                    </div>
+                    <div class="review-slide">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <img src="images/user3.jpg" alt="Дмитрий" class="review-avatar">
+                                <div class="review-user">
+                                    <h4>Дмитрий</h4>
+                                    <p>Геймдизайнер</p>
+                                </div>
+                            </div>
+                            <p class="review-text">"Лучший генератор промптов для Майнкрафт! Создал несколько отличных модов с помощью сгенерированных промптов."</p>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-prev">&#10094;</button>
+                    <button class="slider-next">&#10095;</button>
+                </div>
             </div>
-            <div class="btn-group">
-                <button class="btn" id="extractBtn" disabled>🔍 извлечь метаданные</button>
-                <button class="btn" id="clearBtn">🗑️ очистить</button>
+        </section>
+
+        <!-- Секция возможностей -->
+        <section id="possibilities" class="possibilities">
+            <div class="container">
+                <h2 class="section-title">Возможности TAIPrompts</h2>
+                <div class="possibilities-grid">
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🚀</div>
+                        <h3>Быстрая генерация</h3>
+                        <p>Создавайте промпты за секунды с помощью нашего интеллектуального генератора</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🎨</div>
+                        <h3>Кастомизация</h3>
+                        <p>Настраивайте промпты под свои конкретные нужды и требования</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">📱</div>
+                        <h3>Полная адаптивность</h3>
+                        <p>Работайте с любого устройства - компьютера, планшета или телефона</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">💾</div>
+                        <h3>Сохранение результатов</h3>
+                        <p>Сохраняйте понравившиеся промпты для будущего использования</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🔍</div>
+                        <h3>Поиск по базе</h3>
+                        <p>Ищите промпты по категориям и ключевым словам</p>
+                    </div>
+                    <div class="possibility-card">
+                        <div class="possibility-icon">🔄</div>
+                        <h3>Регулярные обновления</h3>
+                        <p>Мы постоянно добавляем новые шаблоны и возможности</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция описания -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">О TAIPrompts</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>TAIPrompts - это современный генератор промптов для ChatGPT, созданный в 2025 году. Наша цель - помочь пользователям максимально эффективно использовать возможности искусственного интеллекта для решения различных задач.</p>
+                        <p>Мы предлагаем готовые шаблоны промптов для различных категорий, включая рецепты, стикеры, изображения, игры, 3D модели, Minecraft, Telegram боты, веб-сайты и многое другое.</p>
+                        <p>С помощью нашего сервиса вы можете не только использовать готовые промпты, но и кастомизировать их под свои конкретные нужды, выбирая тон, добавляя детали и уточнения.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Промптов</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Категорий</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">5000+</span>
+                            <span class="stat-label">Пользователей</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Довольных клиентов</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция обратной связи -->
+        <section id="feedback" class="feedback">
+            <div class="container">
+                <h2 class="section-title">Обратная связь</h2>
+                <div class="feedback-content">
+                    <div class="contact-info">
+                        <h3>Свяжитесь с нами</h3>
+                        <p>Есть вопросы или предложения? Напишите нам, и мы обязательно ответим!</p>
+                        <div class="contact-details">
+                            <p><strong>Email:</strong> roll3ogurec0@gmail.com</p>
+                            <p><strong>Имя:</strong> Тимофей</p>
+                        </div>
+                    </div>
+                    <form class="feedback-form" id="support-form">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Ваш email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="#" class="logo">
+                        <img src="images/logo.png" alt="TAIPrompts" class="logo-img">
+                        <span class="logo-text">TAIPrompts</span>
+                    </a>
+                    <p>Генерация промптов для ChatGPT</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#generation">Генерация</a></li>
+                        <li><a href="#examples">Примеры</a></li>
+                        <li><a href="#reviews">Отзывы</a></li>
+                        <li><a href="#feedback">Обратная связь</a></li>
+                        <li><a href="#possibilities">Возможности</a></li>
+                        <li><a href="#about">Описание</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: roll3ogurec0@gmail.com</p>
+                    <p>Тимофей</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Подписка</h4>
+                    <p>Подпишитесь на обновления</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TAIPrompts. Все права защищены.</p>
             </div>
         </div>
-
-        <!-- область метаданных -->
-        <div class="meta-grid" id="metaGrid">
-            <div class="meta-header">
-                <h2>📋 свойства</h2>
-                <span class="badge" id="formatBadge">?</span>
-            </div>
-            <div id="metaContainer">
-                <div class="empty-meta">︎︎︎︎☝️ выберите аудиофайл и нажмите «извлечь»</div>
-            </div>
-
-            <!-- картинка (обложка) -->
-            <div id="coverContainer" style="display: none;" class="cover-art">
-                <div id="coverImage"></div>
-                <div id="coverInfo" style="color: #1f3f5c;">обложка</div>
-            </div>
-        </div>
-
-        <div id="errorBox" class="error-message" style="display: none;">⚠️</div>
-        <div class="footer-note">все данные читаются локально — файл никуда не отправляется</div>
-    </div>
+    </footer>
 
     <script>
-        (function() {
-            // --- элементы DOM ---
-            const dropZone = document.getElementById('dropZone');
-            const fileInput = document.getElementById('fileInput');
-            const fileNameDisplay = document.getElementById('fileNameDisplay');
-            const fileSizeDisplay = document.getElementById('fileSizeDisplay');
-            const extractBtn = document.getElementById('extractBtn');
-            const clearBtn = document.getElementById('clearBtn');
-            const metaContainer = document.getElementById('metaContainer');
-            const formatBadge = document.getElementById('formatBadge');
-            const coverContainer = document.getElementById('coverContainer');
-            const coverImageDiv = document.getElementById('coverImage');
-            const coverInfo = document.getElementById('coverInfo');
-            const errorBox = document.getElementById('errorBox');
+// Навигация
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section');
+const burger = document.querySelector('.burger');
+const navList = document.querySelector('.nav-list');
 
-            // --- состояние ---
-            let currentFile = null;          // загруженный файл (выбранный)
-            let extractedMeta = null;         // последние извлечённые метаданные (для очистки)
+// Плавная прокрутка
+navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        window.scrollTo({
+            top: targetSection.offsetTop - 80,
+            behavior: 'smooth'
+        });
+        
+        // Закрываем меню на мобильных устройствах
+        if (navList.classList.contains('active')) {
+            navList.classList.remove('active');
+            burger.classList.remove('active');
+        }
+    });
+});
 
-            // --- вспомогательные функции ---
-            function hideError() {
-                errorBox.style.display = 'none';
+// Бургер меню
+burger.addEventListener('click', function() {
+    this.classList.toggle('active');
+    navList.classList.toggle('active');
+});
+
+// Активный пункт меню при прокрутке
+window.addEventListener('scroll', function() {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (pageYOffset >= (sectionTop - 100)) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// Шаблоны промптов с техническими параметрами
+const promptTemplates = {
+    recipes: {
+        template: "Создай подробный рецепт {cuisine} блюда под названием '{idea}'. {dietary} {complexity} Включи ингредиенты, пошаговое приготовление, время готовки и nutritional информацию.",
+        params: {
+            cuisine: {
+                type: 'select',
+                label: 'Тип кухни',
+                options: ['любой', 'итальянской', 'азиатской', 'мексиканской', 'русской', 'французской', 'средиземноморской'],
+                default: 'любой'
+            },
+            dietary: {
+                type: 'select',
+                label: 'Диетические требования',
+                options: ['Без ограничений', 'Веганское', 'Вегетарианское', 'Без глютена', 'Низкоуглеводное', 'Высокобелковое'],
+                default: 'Без ограничений'
+            },
+            complexity: {
+                type: 'select',
+                label: 'Сложность',
+                options: ['Простое', 'Средней сложности', 'Сложное', 'Шеф-повар'],
+                default: 'Средней сложности'
             }
-
-            function showError(text) {
-                errorBox.textContent = '⚠️ ' + text;
-                errorBox.style.display = 'flex';
-                // автоматически скрыть через 7 секунд
-                setTimeout(() => { if (errorBox.textContent.includes(text)) errorBox.style.display = 'none'; }, 7000);
+        }
+    },
+    minecraft: {
+        template: "Разработай {type} для Minecraft {version} под названием '{idea}'. {features} Совместимость: {compatibility}. Детально опиши функционал, crafting рецепты и механики.",
+        params: {
+            type: {
+                type: 'select',
+                label: 'Тип контента',
+                options: ['мод', 'ресурспак', 'датапак', 'плагин', 'аддон'],
+                default: 'мод'
+            },
+            version: {
+                type: 'select',
+                label: 'Версия Minecraft',
+                options: ['1.20.x', '1.19.x', '1.18.x', '1.17.x', '1.16.x', 'Любая'],
+                default: '1.20.x'
+            },
+            compatibility: {
+                type: 'select',
+                label: 'Совместимость',
+                options: ['Forge', 'Fabric', 'Paper', 'Spigot', 'Bukkit', 'Любая'],
+                default: 'Forge'
+            },
+            features: {
+                type: 'multiselect',
+                label: 'Особенности',
+                options: ['Новые блоки', 'Новые мобы', 'Генерация структур', 'Магическая система', 'Технологии', 'Квесты', 'Боссы'],
+                default: []
             }
-
-            // формат байт
-            function formatBytes(bytes) {
-                if (bytes === 0 || !bytes) return '0 B';
-                const k = 1024;
-                const sizes = ['B', 'KB', 'MB'];
-                const i = Math.floor(Math.log(bytes) / Math.log(k));
-                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+    },
+    telegram: {
+        template: "Создай Telegram бота на {language} для '{idea}'. {functionality} Включи: описание функций, команды, клавиатуры, обработку сообщений и deployment инструкции.",
+        params: {
+            language: {
+                type: 'select',
+                label: 'Язык программирования',
+                options: ['Python', 'JavaScript', 'TypeScript', 'Java', 'PHP', 'Go', 'Любой'],
+                default: 'Python'
+            },
+            functionality: {
+                type: 'multiselect',
+                label: 'Функциональность',
+                options: ['Админ-панель', 'Платежи', 'База данных', 'API интеграции', 'Модерация', 'Игры', 'Уведомления'],
+                default: []
             }
-
-            // обновить информацию о выбранном файле
-            function updateFileInfo(file) {
-                if (file) {
-                    fileNameDisplay.textContent = file.name.length > 40 ? file.name.substr(0,35)+'…' : file.name;
-                    fileSizeDisplay.textContent = formatBytes(file.size);
-                    document.getElementById('fileInfoBar').style.opacity = '1';
-                    extractBtn.disabled = false;
-                } else {
-                    fileNameDisplay.textContent = '⏻ файл не выбран';
-                    fileSizeDisplay.textContent = '—';
-                    document.getElementById('fileInfoBar').style.opacity = '0.7';
-                    extractBtn.disabled = true;
-                }
+        }
+    },
+    websites: {
+        template: "Разработай {type} веб-сайт на {stack} для '{idea}'. {features} Включи: структуру, дизайн, функционал, технологии и оптимизацию.",
+        params: {
+            type: {
+                type: 'select',
+                label: 'Тип сайта',
+                options: ['Лендинг', 'Интернет-магазин', 'Блог', 'Портфолио', 'Социальную сеть', 'Панель управления'],
+                default: 'Лендинг'
+            },
+            stack: {
+                type: 'select',
+                label: 'Технологический стек',
+                options: ['HTML/CSS/JS', 'React', 'Vue.js', 'Angular', 'Node.js', 'PHP', 'Python/Django', 'Ruby on Rails'],
+                default: 'HTML/CSS/JS'
+            },
+            features: {
+                type: 'multiselect',
+                label: 'Функции',
+                options: ['Адаптивный дизайн', 'PWA', 'SEO оптимизация', 'Корзина покупок', 'Блог', 'Комментарии', 'Поиск', 'Код в одном файле'],
+                default: ['Адаптивный дизайн']
             }
-
-            // сброс метаданных (отображения)
-            function resetMetaDisplay() {
-                metaContainer.innerHTML = `<div class="empty-meta">︎︎︎︎☝️ выберите аудиофайл и нажмите «извлечь»</div>`;
-                formatBadge.textContent = '?';
-                coverContainer.style.display = 'none';
-                coverImageDiv.innerHTML = '';
-                coverInfo.textContent = 'обложка';
-                extractedMeta = null;
-                hideError();
+        }
+    },
+    images: {
+        template: "Сгенерируй {style} изображение на тему '{idea}'. {aspect_ratio} {quality} С детальным описанием: композиция, цвета, освещение, настроение и детали.",
+        params: {
+            style: {
+                type: 'select',
+                label: 'Стиль изображения',
+                options: ['реалистичное', 'мультяшное', 'фэнтези', 'футуристическое', 'минималистичное', 'абстрактное'],
+                default: 'реалистичное'
+            },
+            aspect_ratio: {
+                type: 'select',
+                label: 'Соотношение сторон',
+                options: ['1:1 (квадрат)', '16:9 (широкоэкранное)', '9:16 (вертикальное)', '4:3 (стандартное)', '21:9 (кинематографическое)'],
+                default: '1:1 (квадрат)'
+            },
+            quality: {
+                type: 'select',
+                label: 'Качество',
+                options: ['Высокое (4K)', 'Среднее (HD)', 'Низкое (для web)'],
+                default: 'Высокое (4K)'
             }
-
-            // парсинг метаданных через AudioContext и js на лету
-            function extractMetadata(file) {
-                return new Promise((resolve, reject) => {
-                    if (!file) reject(new Error('Файл не задан'));
-
-                    // базовый объект с мета
-                    const meta = {
-                        name: file.name,
-                        size: formatBytes(file.size),
-                        type: file.type || 'аудио',
-                        lastModified: new Date(file.lastModified).toLocaleString(),
-                        duration: '—',
-                        bitrate: '—',
-                        sampleRate: '—',
-                        channels: '—',
-                        codec: '—',
-                        artist: '—',
-                        title: '—',
-                        album: '—',
-                        year: '—',
-                        genre: '—',
-                        comment: '—',
-                        track: '—',
-                        picture: null,
-                        pictureFormat: null
-                    };
-
-                    // сначала пытаемся вытянуть ID3 через js (если есть)
-                    // но встроенного reader ID3 нет — используем простой парсинг через мп4? нет, будем использовать AudioContext + заголовки.
-                    // но AudioContext не даст ID3. сделаем следующим образом: для mp3 можно прочитать теги через DataView (упрощённо)
-                    // но для демо сделаем более реалистичное заполнение с эмуляцией части данных + если есть картинка попробуем её вытащить через блоб.
-                    // однако самый простой путь использовать библиотеку? но мы без библиотек. используем FileReader для чтения первых байт (ID3v2) ?
-                    // реализуем очень упрощённое чтение ID3 заголовка (если это MP3) — картинку не будем извлекать, но покажем имитацию
-                    // плюс воспользуемся AudioContext для получения длительности и частоты (если файл валидный)
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const arrayBuffer = e.target.result;
-                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-                        // декодируем аудио, чтобы получить базовые параметры (длительность, частота, каналы)
-                        audioContext.decodeAudioData(arrayBuffer.slice(0), 
-                            (audioData) => {
-                                // успешно декодировано
-                                meta.duration = formatDuration(audioData.duration);
-                                meta.sampleRate = audioData.sampleRate + ' Hz';
-                                meta.channels = audioData.numberOfChannels;
-                                // битрейт оценить невозможно без хардкорного парсинга — заглушка
-                                meta.bitrate = '≈' + (file.size * 8 / audioData.duration / 1000).toFixed(0) + ' kbps (оценка)';
-                                
-                                // продолжим поиск id3-тегов (если есть) в первых 128kb
-                                const id3Meta = extractID3v2(arrayBuffer);
-                                if (id3Meta) {
-                                    Object.assign(meta, id3Meta);
-                                }
-
-                                // проверим, возможно есть обложка из ID3
-                                // в нашей примитивной функции extractID3v2 мы не парсим картинку, но можем создать эмуляцию
-                                // для демо: если файл mp3, иногда можно попытаться вытащить APIC
-                                // для улучшения — попробуем найти картинку отдельно (тяжело). Пропустим, но отобразим хотя бы заглушку
-                                // сделаем доп. проверку на наличие jpeg/png сигнатур в буфере (это громоздко). Оставим как есть.
-                                // но дадим возможность посмотреть 'picture' если он будет случайно найден простейшим парсингом — почти никогда.
-                                // но пользователю приятно видеть хоть какие-то теги — добавим теги из файла через строковый поиск? Нет, слишком грязно.
-                                // используем наивный парсинг: проверим, есть ли ID3v2.3/2.4 и прочитаем текстовые фреймы.
-                                // см. функцию ниже.
-
-                                resolve(meta);
-                            }, 
-                            (decodeError) => {
-                                // не удалось декодировать AudioContext — всё равно можем показать базовую информацию и ID3-теги
-                                console.warn('decode error', decodeError);
-                                const id3Fallback = extractID3v2(arrayBuffer);
-                                if (id3Fallback) Object.assign(meta, id3Fallback);
-                                // пробуем получить длительность через быстрый способ? не получится.
-                                meta.duration = '⛔ не удалось прочитать (возможно, повреждён)';
-                                resolve(meta);  // все равно резолвим с тем, что есть
-                            }
-                        );
-                    };
-
-                    reader.onerror = () => reject(new Error('Ошибка чтения файла'));
-                    reader.readAsArrayBuffer(file);
-                });
+        }
+    },
+    stickers: {
+        template: "Создай {style} стикерпак для {platform} на тему '{idea}'. {emotions} Включи разнообразные эмоции, действия и ситуации.",
+        params: {
+            style: {
+                type: 'select',
+                label: 'Стиль стикеров',
+                options: ['мультяшный', 'минималистичный', 'реалистичный', 'кавайный', 'мемный', 'абстрактный'],
+                default: 'мультяшный'
+            },
+            platform: {
+                type: 'select',
+                label: 'Платформа',
+                options: ['Telegram', 'WhatsApp', 'Discord', 'Signal', 'Любая'],
+                default: 'Telegram'
+            },
+            emotions: {
+                type: 'multiselect',
+                label: 'Эмоции и действия',
+                options: ['Радость', 'Грусть', 'Удивление', 'Смех', 'Любовь', 'Приветствие', 'Прощание', 'Одобрение'],
+                default: ['Радость', 'Приветствие']
             }
-
-            // формат длительности (сек -> mm:ss)
-            function formatDuration(seconds) {
-                if (!seconds || isNaN(seconds)) return '—';
-                const mins = Math.floor(seconds / 60);
-                const secs = Math.floor(seconds % 60);
-                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    },
+    "3d": {
+        template: "Создай {style} 3D модель {type} на тему '{idea}'. {software} {polygons} Детально опиши: геометрию, материалы, текстуры, освещение и рендеринг.",
+        params: {
+            style: {
+                type: 'select',
+                label: 'Стиль модели',
+                options: ['реалистичный', 'low-poly', 'стилизованный', 'мультяшный', 'футуристический'],
+                default: 'реалистичный'
+            },
+            type: {
+                type: 'select',
+                label: 'Тип модели',
+                options: ['персонажа', 'окружения', 'предмета', 'архитектуры', 'транспорта'],
+                default: 'персонажа'
+            },
+            software: {
+                type: 'select',
+                label: 'Программа',
+                options: ['Blender', 'Maya', '3ds Max', 'ZBrush', 'Любая'],
+                default: 'Blender'
+            },
+            polygons: {
+                type: 'select',
+                label: 'Полигональность',
+                options: ['Low-poly (<10k)', 'Medium (10-50k)', 'High (50-200k)', 'Ultra (>200k)'],
+                default: 'Medium (10-50k)'
             }
-
-            // очень упрощённый парсинг ID3v2 заголовков (только текстовые фреймы)
-            function extractID3v2(buffer) {
-                try {
-                    const dv = new DataView(buffer);
-                    // проверка на ID3 сигнатуру (первые 3 байта)
-                    if (dv.byteLength < 10 || String.fromCharCode(dv.getUint8(0)) + String.fromCharCode(dv.getUint8(1)) + String.fromCharCode(dv.getUint8(2)) !== 'ID3') {
-                        return null; // нет ID3v2
-                    }
-                    
-                    const version = dv.getUint8(3);
-                    const revision = dv.getUint8(4);
-                    const flags = dv.getUint8(5);
-                    let size = 0;
-                    // размер из 4 synchsafe байтов
-                    for (let i=6; i<10; i++) {
-                        size = (size << 7) | (dv.getUint8(i) & 0x7F);
-                    }
-                    const id3Size = size + 10; // полный размер тега
-
-                    let pos = 10; // после заголовка
-                    const meta = {};
-
-                    // простой парсинг фреймов до исчерпания
-                    while (pos + 10 < id3Size && pos < buffer.byteLength - 10) {
-                        const frameId = String.fromCharCode(dv.getUint8(pos)) + String.fromCharCode(dv.getUint8(pos+1)) + String.fromCharCode(dv.getUint8(pos+2)) + String.fromCharCode(dv.getUint8(pos+3));
-                        if (frameId === '\x00\x00\x00\x00') break; // паддинг
-
-                        // размер фрейма (4 байта, big endian)
-                        let frameSize = dv.getUint32(pos+4, false);
-                        const frameFlags = dv.getUint16(pos+8, false);
-
-                        // проверка на валидность размера
-                        if (frameSize > 1000000 || frameSize < 0) break; // защита от мусора
-
-                        // текстовые фреймы начинаются с T (кроме TXXX)
-                        if (frameId[0] === 'T' && frameId !== 'TXXX') {
-                            // пропустим кодировку (1 байт)
-                            const encoding = dv.getUint8(pos+10);
-                            let value = '';
-                            for (let i = pos+11; i < pos+10+frameSize; i++) {
-                                const byte = dv.getUint8(i);
-                                if (byte === 0) break; // null terminated
-                                value += String.fromCharCode(byte);
-                            }
-                            switch(frameId) {
-                                case 'TPE1': meta.artist = value || '—'; break;
-                                case 'TIT2': meta.title = value || '—'; break;
-                                case 'TALB': meta.album = value || '—'; break;
-                                case 'TYER': meta.year = value || '—'; break;
-                                case 'TCON': meta.genre = value || '—'; break;
-                                case 'COMM': meta.comment = value || '—'; break;
-                                case 'TRCK': meta.track = value || '—'; break;
-                            }
-                        }
-
-                        // следующий фрейм
-                        pos += 10 + frameSize;
-                    }
-
-                    // если не нашли тегов, оставим прочерки
-                    return {
-                        artist: meta.artist || '—',
-                        title: meta.title || '—',
-                        album: meta.album || '—',
-                        year: meta.year || '—',
-                        genre: meta.genre || '—',
-                        comment: meta.comment || '—',
-                        track: meta.track || '—'
-                    };
-                } catch (e) {
-                    console.warn('id3 parsing error', e);
-                    return null;
-                }
+        }
+    },
+    toys: {
+        template: "Разработай концепцию {type} игрушки под названием '{idea}'. {materials} {age_group} Вклюди описание: внешний вид, функционал, материалы и educational ценность.",
+        params: {
+            type: {
+                type: 'select',
+                label: 'Тип игрушки',
+                options: ['развивающей', 'интерактивной', 'конструктора', 'мягкой', 'коллекционной', 'настольной игры'],
+                default: 'развивающей'
+            },
+            materials: {
+                type: 'select',
+                label: 'Материалы',
+                options: ['пластик', 'дерево', 'текстиль', 'металл', 'комбинированные', 'экологичные'],
+                default: 'пластик'
+            },
+            age_group: {
+                type: 'select',
+                label: 'Возрастная группа',
+                options: ['0-1 год', '1-3 года', '3-6 лет', '6-12 лет', '12+ лет', 'взрослые'],
+                default: '3-6 лет'
             }
-
-            // рендеринг метаданных
-            function renderMeta(meta) {
-                metaContainer.innerHTML = ''; 
-                const tableDiv = document.createElement('div');
-                tableDiv.className = 'meta-table';
-
-                const fields = [
-                    { key: 'title', label: 'название' },
-                    { key: 'artist', label: 'исполнитель' },
-                    { key: 'album', label: 'альбом' },
-                    { key: 'year', label: 'год' },
-                    { key: 'genre', label: 'жанр' },
-                    { key: 'track', label: 'трек' },
-                    { key: 'duration', label: 'длительность' },
-                    { key: 'bitrate', label: 'битрейт' },
-                    { key: 'sampleRate', label: 'частота' },
-                    { key: 'channels', label: 'каналы' },
-                    { key: 'codec', label: 'кодек' },
-                    { key: 'size', label: 'размер' },
-                    { key: 'lastModified', label: 'изменён' },
-                ];
-
-                for (let f of fields) {
-                    let val = meta[f.key] || '—';
-                    const row = document.createElement('div');
-                    row.className = 'meta-row';
-                    row.innerHTML = `<span class="meta-key">${f.label}</span> <span class="meta-value">${val}</span>`;
-                    tableDiv.appendChild(row);
-                }
-
-                metaContainer.appendChild(tableDiv);
-
-                // обложка (заглушка)
-                if (meta.picture) {
-                    // очень редко, но может быть
-                    coverContainer.style.display = 'flex';
-                    coverImageDiv.innerHTML = `<img src="data:${meta.pictureFormat};base64,${arrayBufferToBase64(meta.picture)}" alt="cover" />`;
-                    coverInfo.textContent = 'обложка (встроенная)';
-                } else {
-                    // у большинства файлов обложки нет, но покажем что её нет
-                    coverContainer.style.display = 'flex';
-                    coverImageDiv.innerHTML = '<div class="cover-placeholder">🎴</div>';
-                    coverInfo.textContent = 'обложка отсутствует в метаданных';
-                }
-
-                // формат (по расширению)
-                if (meta.name) {
-                    const ext = meta.name.split('.').pop().toUpperCase();
-                    formatBadge.textContent = ext || 'AUDIO';
-                } else formatBadge.textContent = 'AUDIO';
+        }
+    },
+    ai: {
+        template: "Создай продвинутый промпт для ИИ на тему '{idea}'. {ai_type} {complexity} Включи: контекст, ограничения, формат ответа и примеры.",
+        params: {
+            ai_type: {
+                type: 'select',
+                label: 'Тип ИИ',
+                options: ['ChatGPT', 'Midjourney', 'DALL-E', 'Stable Diffusion', 'Claude', 'Gemini', 'Любой'],
+                default: 'ChatGPT'
+            },
+            complexity: {
+                type: 'select',
+                label: 'Сложность',
+                options: ['Базовый', 'Продвинутый', 'Экспертный', 'Исследовательский'],
+                default: 'Продвинутый'
             }
+        }
+    },
+    characterai: {
+        template: "Создай персонажа для Character AI под названием '{idea}'. \n\nИмя: {name}\nСлоган: {slogan}\nПриветствие: {greeting}\nОписание: {description}\nОпределение: {definition}\n\nДополнительные характеристики: {personality} {appearance}",
+        params: {
+            name: {
+                type: 'select',
+                label: 'Тип имени',
+                options: ['Реалистичное', 'Фэнтези', 'Научно-фантастическое', 'Историческое', 'Аниме', 'Уникальное'],
+                default: 'Реалистичное'
+            },
+            personality: {
+                type: 'multiselect',
+                label: 'Черты характера',
+                options: ['Дружелюбный', 'Застенчивый', 'Энергичный', 'Серьезный', 'Юмористический', 'Загадочный', 'Мудрый', 'Наивный'],
+                default: ['Дружелюбный']
+            },
+            appearance: {
+                type: 'multiselect',
+                label: 'Внешность',
+                options: ['Человек', 'Животное', 'Робот', 'Мифическое существо', 'Инопланетянин', 'Аниме персонаж', 'Историческая личность'],
+                default: ['Человек']
+            },
+            tone: {
+                type: 'select',
+                label: 'Тон общения',
+                options: ['Формальный', 'Неформальный', 'Дружеский', 'Профессиональный', 'Поэтический', 'Драматический'],
+                default: 'Дружеский'
+            }
+        }
+    },
+    suno: {
+        template: "Создай текст песни для Suno AI на тему '{idea}'. \n\nНазвание: {title}\nЖанр: {genre}\nСтиль: {style}\n\nТекст песни:\n{structure}\n\nОсобенности: {tempo} {instruments}",
+        params: {
+            genre: {
+                type: 'select',
+                label: 'Музыкальный жанр',
+                options: ['Поп', 'Рок', 'Хип-хоп', 'Электроника', 'Джаз', 'Классика', 'Фолк', 'R&B', 'Кантри', 'Метал'],
+                default: 'Поп'
+            },
+            style: {
+                type: 'select',
+                label: 'Стиль исполнения',
+                options: ['Веселый', 'Грустный', 'Романтический', 'Эпический', 'Расслабляющий', 'Энергичный', 'Ностальгический'],
+                default: 'Веселый'
+            },
+            tempo: {
+                type: 'select',
+                label: 'Темп',
+                options: ['Медленный', 'Умеренный', 'Быстрый', 'Очень быстрый'],
+                default: 'Умеренный'
+            },
+            instruments: {
+                type: 'multiselect',
+                label: 'Инструменты',
+                options: ['Гитара', 'Фортепиано', 'Барабаны', 'Синтезатор', 'Скрипка', 'Бас', 'Духовые', 'Вокал'],
+                default: ['Гитара', 'Фортепиано']
+            },
+            structure: {
+                type: 'select',
+                label: 'Структура песни',
+                options: ['Куплет-Припев', 'Куплет-Припев-Мост', 'ABAB', 'Свободная форма', 'Поэтическая'],
+                default: 'Куплет-Припев'
+            }
+        }
+    },
+    youtube: {
+        template: "Создай контент для YouTube канала на тему '{idea}'. \n\nНазвание канала: {channel_name}\nОписание: {description}\nТеги: {tags}\n\nФормат контента: {content_type}\nЦелевая аудитория: {audience}\nЧастота выпуска: {frequency}\n\nПревью: {thumbnail_style}",
+        params: {
+            content_type: {
+                type: 'select',
+                label: 'Тип контента',
+                options: ['Обзоры', 'Образовательный', 'Развлекательный', 'Влоги', 'Гейминг', 'Кулинария', 'Музыка', 'Новости', 'Спорт'],
+                default: 'Развлекательный'
+            },
+            audience: {
+                type: 'select',
+                label: 'Целевая аудитория',
+                options: ['Дети', 'Подростки', 'Взрослые', 'Семейная', 'Профессиональная', 'Нишевая'],
+                default: 'Взрослые'
+            },
+            frequency: {
+                type: 'select',
+                label: 'Частота выпуска',
+                options: ['Ежедневно', '2-3 раза в неделю', 'Еженедельно', 'Раз в две недели', 'Ежемесячно'],
+                default: 'Еженедельно'
+            },
+            thumbnail_style: {
+                type: 'select',
+                label: 'Стиль превью',
+                options: ['Яркий и контрастный', 'Минималистичный', 'Текстовый', 'Эмоциональный', 'Загадочный', 'Профессиональный'],
+                default: 'Яркий и контрастный'
+            },
+            monetization: {
+                type: 'select',
+                label: 'Монетизация',
+                options: ['Реклама', 'Спонсорство', 'Краудфандинг', 'Мерч', 'Платная подписка', 'Бесплатный контент'],
+                default: 'Реклама'
+            }
+        }
+    }
+};
 
-            // утилита (для псевдо-картинки не используется, просто заглушка)
-            function arrayBufferToBase64(buffer) { return ''; }
+// Генерация промптов
+const typeCards = document.querySelectorAll('.type-card');
+const promptForm = document.getElementById('prompt-form');
+const customInput = document.getElementById('custom-input');
+const toneSelect = document.getElementById('tone-select');
+const finalPrompt = document.getElementById('final-prompt');
+const copyButton = document.getElementById('copy-prompt');
 
-            // --- обработчики ---
-            dropZone.addEventListener('click', () => fileInput.click());
+let selectedType = 'recipes';
 
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('drag-over');
+// Функция отображения технических параметров
+function renderTechnicalParams(type) {
+    const container = document.getElementById('technical-params');
+    const params = promptTemplates[type]?.params || {};
+    
+    let html = '';
+    
+    for (const [key, param] of Object.entries(params)) {
+        html += `<div class="param-group">`;
+        html += `<label>${param.label}</label>`;
+        
+        if (param.type === 'select') {
+            html += `<select id="param-${key}" class="tech-param">`;
+            param.options.forEach(option => {
+                const selected = option === param.default ? 'selected' : '';
+                html += `<option value="${option}" ${selected}>${option}</option>`;
             });
-            dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('drag-over');
-                const files = e.dataTransfer.files;
-                if (files.length > 0) {
-                    const audioFile = files[0];
-                    if (!audioFile.type.startsWith('audio/') && !audioFile.name.match(/\.(mp3|m4a|flac|ogg|wav|aac)$/i)) {
-                        showError('Пожалуйста, выберите аудиофайл (mp3, m4a, flac, ogg, wav)');
-                        return;
-                    }
-                    if (audioFile.size > 50 * 1024 * 1024) {
-                        showError('Файл слишком большой (макс. 50 МБ)');
-                        return;
-                    }
-                    currentFile = audioFile;
-                    updateFileInfo(currentFile);
-                    resetMetaDisplay(); // очищаем предыдущие данные
-                }
+            html += `</select>`;
+        }
+        else if (param.type === 'multiselect') {
+            html += `<div class="multi-select" id="param-${key}">`;
+            param.options.forEach(option => {
+                const checked = param.default.includes(option) ? 'checked' : '';
+                html += `
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="${option}" ${checked}>
+                        ${option}
+                    </label>
+                `;
             });
+            html += `</div>`;
+        }
+        
+        html += `</div>`;
+    }
+    
+    container.innerHTML = html || '<p>Для этого типа промпта не требуется дополнительных параметров.</p>';
+}
 
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    if (!file.type.startsWith('audio/') && !file.name.match(/\.(mp3|m4a|flac|ogg|wav|aac)$/i)) {
-                        showError('Это не похоже на аудиофайл');
-                        return;
-                    }
-                    if (file.size > 50 * 1024 * 1024) {
-                        showError('Размер превышает 50 МБ');
-                        return;
-                    }
-                    currentFile = file;
-                    updateFileInfo(currentFile);
-                    resetMetaDisplay();
-                } else {
-                    currentFile = null;
-                    updateFileInfo(null);
-                }
-            });
+// Обработчик выбора типа промпта
+typeCards.forEach(card => {
+    card.addEventListener('click', function() {
+        typeCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        
+        selectedType = this.getAttribute('data-type');
+        renderTechnicalParams(selectedType);
+    });
+});
 
-            extractBtn.addEventListener('click', async () => {
-                if (!currentFile) {
-                    showError('Сначала выберите файл');
-                    return;
-                }
-                hideError();
-                extractBtn.disabled = true;
-                extractBtn.innerHTML = '⏳ извлечение...';
+// Генерация финального промпта
+promptForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const customText = customInput.value;
+    const tone = toneSelect.value;
+    
+    if (!customText) {
+        alert('Пожалуйста, опишите вашу идею');
+        return;
+    }
+    
+    if (!promptTemplates[selectedType]) {
+        alert('Шаблон для этого типа промпта еще не готов');
+        return;
+    }
+    
+    // Собираем технические параметры
+    const params = {};
+    for (const [key, param] of Object.entries(promptTemplates[selectedType].params)) {
+        if (param.type === 'select') {
+            const selectElement = document.getElementById(`param-${key}`);
+            if (selectElement) {
+                params[key] = selectElement.value;
+            }
+        }
+        else if (param.type === 'multiselect') {
+            const container = document.getElementById(`param-${key}`);
+            if (container) {
+                const checkboxes = container.querySelectorAll('input[type="checkbox"]:checked');
+                params[key] = Array.from(checkboxes).map(cb => cb.value).join(', ');
+            }
+        }
+    }
+    
+    // Добавляем тон
+    let tonePrefix = '';
+    switch(tone) {
+        case 'professional': tonePrefix = 'Используй профессиональный технический язык. '; break;
+        case 'friendly': tonePrefix = 'Будь дружелюбным и welcoming. '; break;
+        case 'creative': tonePrefix = 'Прояви креативность и оригинальность. '; break;
+        case 'technical': tonePrefix = 'Сфокусируйся на технических деталях. '; break;
+        case 'detailed': tonePrefix = 'Дай максимально детализированный ответ. '; break;
+    }
+    
+    // Заменяем плейсхолдеры в шаблоне
+    let finalPromptText = promptTemplates[selectedType].template;
+    finalPromptText = finalPromptText.replace('{idea}', customText);
+    
+    for (const [key, value] of Object.entries(params)) {
+        finalPromptText = finalPromptText.replace(`{${key}}`, value);
+    }
+    
+    // Специальная обработка для разных типов промптов
+    if (selectedType === 'characterai') {
+        finalPromptText = finalPromptText.replace('{name}', generateCharacterName(params.name))
+                                         .replace('{slogan}', generateSlogan())
+                                         .replace('{greeting}', generateGreeting(params.tone))
+                                         .replace('{description}', generateDescription())
+                                         .replace('{definition}', generateDefinition());
+    }
+    else if (selectedType === 'suno') {
+        finalPromptText = finalPromptText.replace('{title}', generateSongTitle())
+                                         .replace('{structure}', generateSongStructure(params.structure));
+    }
+    else if (selectedType === 'youtube') {
+        finalPromptText = finalPromptText.replace('{channel_name}', generateChannelName())
+                                         .replace('{tags}', generateYouTubeTags())
+                                         .replace('{description}', generateYouTubeDescription());
+    }
+    
+    // Убираем пустые плейсхолдеры
+    finalPromptText = finalPromptText.replace(/\{[^}]+\}/g, '');
+    
+    finalPromptText = tonePrefix + finalPromptText;
+    finalPrompt.textContent = finalPromptText;
+});
 
-                try {
-                    const meta = await extractMetadata(currentFile);
-                    extractedMeta = meta;
-                    renderMeta(meta);
-                } catch (err) {
-                    showError('Ошибка: ' + err.message);
-                    console.error(err);
-                } finally {
-                    extractBtn.disabled = false;
-                    extractBtn.innerHTML = '🔍 извлечь метаданные';
-                }
-            });
+// Копирование промпта
+copyButton.addEventListener('click', function() {
+    if (!finalPrompt.textContent) {
+        alert('Сначала сгенерируйте промпт');
+        return;
+    }
+    
+    navigator.clipboard.writeText(finalPrompt.textContent)
+        .then(() => {
+            const originalText = this.textContent;
+            this.textContent = 'Скопировано!';
+            
+            setTimeout(() => {
+                this.textContent = originalText;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Ошибка копирования: ', err);
+            alert('Не удалось скопировать текст');
+        });
+});
 
-            clearBtn.addEventListener('click', () => {
-                // очистить файл и сброс
-                currentFile = null;
-                fileInput.value = '';
-                updateFileInfo(null);
-                resetMetaDisplay();
-                hideError();
-                formatBadge.textContent = '?';
-                coverContainer.style.display = 'none';
-            });
+// Вспомогательные функции для генерации контента
+function generateCharacterName(nameType) {
+    const names = {
+        'Реалистичное': ['Алексей', 'Мария', 'Дмитрий', 'Екатерина', 'Иван', 'Анна'],
+        'Фэнтези': ['Эльринд', 'Морганa', 'Гендальф', 'Арвен', 'Леголас', 'Гальadриэль'],
+        'Научно-фантастическое': ['Нексус-7', 'Кибер-217', 'Астра-Пилот', 'Квантум', 'Нейрона'],
+        'Историческое': ['Александр', 'Елизавета', 'Петр', 'Екатерина', 'Иван Грозный'],
+        'Аниме': ['Сакура', 'Наруто', 'Гоку', 'Хината', 'Лелуш', 'Микаса'],
+        'Уникальное': ['Зориан', 'Ксилара', 'Нейрин', 'Талан', 'Эолия', 'Веридиан']
+    };
+    return names[nameType][Math.floor(Math.random() * names[nameType].length)];
+}
 
-            // инициализация
-            resetMetaDisplay();
-            updateFileInfo(null);
+function generateSlogan() {
+    const slogans = [
+        "Твой цифровой друг и советчик",
+        "Искусственный интеллект с человеческим touch",
+        "Говори со мной о чем угодно",
+        "Твой персонализированный AI компаньон",
+        "Открой мир возможностей через диалог"
+    ];
+    return slogans[Math.floor(Math.random() * slogans.length)];
+}
 
-            // защита от преждевременной отправки
-            window.addEventListener('dragover', (e) => e.preventDefault());
-            window.addEventListener('drop', (e) => e.preventDefault());
-        })();
+function generateGreeting(tone) {
+    const greetings = {
+        'Формальный': ["Здравствуйте! Чем могу быть полезен?", "Добрый день. Рад вас видеть.", "Приветствую. Готов к общению."],
+        'Неформальный': ["Привет! Как дела?", "Йоу! Что нового?", "Хэй! Рад тебя видеть!"],
+        'Дружеский': ["Привет, дружище! Как ты?", "Здравствуй! Отлично выглядишь сегодня!", "Привет! Соскучился по тебе!"],
+        'Профессиональный': ["Добро пожаловать. Готов оказать профессиональную помощь.", "Здравствуйте. Чем могу assist вам сегодня?", "Приветствую. К вашим услугам."],
+        'Поэтический': ["Приветствую тебя, путник в мире цифровых снов...", "Здравствуй, о дитя технологий и мечты...", "Привет! Как прекрасен этот мир..."],
+        'Драматический': ["ТЫ... наконец-то здесь...", "Приветствую в моем цифровом царстве...", "Так мы и встретились..."]
+    };
+    return greetings[tone][Math.floor(Math.random() * greetings[tone].length)];
+}
+
+function generateDescription() {
+    return "Подробное описание внешности, характера и背景 персонажа будет сгенерировано на основе вашей идеи.";
+}
+
+function generateDefinition() {
+    return "Определение личности, мотиваций и поведения персонажа для AI системы.";
+}
+
+function generateSongTitle() {
+    const titles = [
+        "Эхо вселенной",
+        "Сердцебиение машины", 
+        "Танцующие огни",
+        "Мечты о цифровом завтра",
+        "Ритмы нейросети",
+        "Голос из будущего"
+    ];
+    return titles[Math.floor(Math.random() * titles.length)];
+}
+
+function generateSongStructure(structureType) {
+    const structures = {
+        'Куплет-Припев': "[Verse 1]\nТекст первого куплета...\n\n[Chorus]\nТекст припева...\n\n[Verse 2]\nТекст второго куплета...\n\n[Chorus]\nТекст припева...",
+        'Куплет-Припев-Мост': "[Verse 1]\n...\n\n[Chorus]\n...\n\n[Verse 2]\n...\n\n[Chorus]\n...\n\n[Bridge]\n...\n\n[Chorus]\n...",
+        'ABAB': "[Section A]\n...\n\n[Section B]\n...\n\n[Section A]\n...\n\n[Section B]\n...",
+        'Свободная форма': "Свободная композиция текста...",
+        'Поэтическая': "Поэтическая структура с строфами и рифмами..."
+    };
+    return structures[structureType];
+}
+
+function generateChannelName() {
+    const names = [
+        "Цифровые горизонты",
+        "Творческая лаборатория",
+        "Мир инноваций", 
+        "Искусство технологий",
+        "Путь к знанию",
+        "Вдохновение каждый день"
+    ];
+    return names[Math.floor(Math.random() * names.length)];
+}
+
+function generateYouTubeTags() {
+    return "технологии, образование, развлечение, творчество, инновации, цифровая эра";
+}
+
+function generateYouTubeDescription() {
+    return "Описание канала, его миссия и ценность для зрителей. Расскажите о формате контента и частоте выпусков.";
+}
+
+// Галерея с лайтбоксом
+const galleryItems = document.querySelectorAll('.gallery-item');
+const lightbox = document.querySelector('.lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.querySelector('.lightbox-caption');
+const closeLightbox = document.querySelector('.close-lightbox');
+
+galleryItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const imgSrc = this.querySelector('img').getAttribute('data-full');
+        const caption = this.querySelector('h4').textContent;
+        
+        lightboxImg.setAttribute('src', imgSrc);
+        lightboxCaption.textContent = caption;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+closeLightbox.addEventListener('click', function() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto';
+});
+
+lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Слайдер отзывов
+const reviewSlider = document.querySelector('.reviews-slider');
+const prevButton = document.querySelector('.slider-prev');
+const nextButton = document.querySelector('.slider-next');
+const reviewSlides = document.querySelectorAll('.review-slide');
+
+let currentSlide = 0;
+
+function showSlide(index) {
+    if (index < 0) {
+        currentSlide = reviewSlides.length - 1;
+    } else if (index >= reviewSlides.length) {
+        currentSlide = 0;
+    } else {
+        currentSlide = index;
+    }
+    
+    reviewSlider.scrollTo({
+        left: reviewSlides[currentSlide].offsetLeft,
+        behavior: 'smooth'
+    });
+}
+
+prevButton.addEventListener('click', () => showSlide(currentSlide - 1));
+nextButton.addEventListener('click', () => showSlide(currentSlide + 1));
+
+// Автопрокрутка слайдера
+setInterval(() => {
+    showSlide(currentSlide + 1);
+}, 5000);
+
+// Форма обратной связи
+const supportForm = document.getElementById('support-form');
+
+supportForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    // Простая валидация
+    if (!name || !email || !message) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        alert('Пожалуйста, введите корректный email');
+        return;
+    }
+    
+    // Здесь должен быть код для отправки формы
+    // В демо-версии просто показываем сообщение
+    alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+    this.reset();
+});
+
+function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Анимация появления элементов при скролле
+const animatedElements = document.querySelectorAll('.card, .section-title, .type-card, .gallery-item, .review-card, .possibility-card');
+
+function checkScroll() {
+    animatedElements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (elementPosition < screenPosition) {
+            element.classList.add('fade-in');
+        }
+    });
+}
+
+window.addEventListener('scroll', checkScroll);
+window.addEventListener('load', checkScroll);
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализируем первый тип промпта
+    renderTechnicalParams(selectedType);
+    
+    // Добавляем задержки для анимации
+    document.querySelectorAll('.type-card').forEach((card, index) => {
+        card.classList.add(`delay-${index % 3}`);
+    });
+    
+    // Инициализируем первую проверку для анимаций
+    checkScroll();
+});
+
     </script>
+
 </body>
 </html>
