@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>МУЗЕЙ TMFMSC · вселенная Тимофея</title>
+    <title>ХРОНИКИ TMFMSC · интерактивная карта событий</title>
     <style>
         * {
             margin: 0;
@@ -16,11 +16,10 @@
             background: #0a0c15;
             color: #fff;
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* фоновый снег (символизм) */
+        /* декоративный снег */
         .snow-bg {
             position: fixed;
             top: 0;
@@ -34,11 +33,12 @@
         .snowflake {
             position: absolute;
             color: rgba(255, 255, 255, 0.1);
-            font-size: 2rem;
-            animation: snow linear infinite;
+            font-size: 1.5rem;
+            animation: fall linear infinite;
+            user-select: none;
         }
 
-        @keyframes snow {
+        @keyframes fall {
             0% { transform: translateY(-100vh) rotate(0deg); }
             100% { transform: translateY(100vh) rotate(360deg); }
         }
@@ -46,7 +46,7 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
             position: relative;
             z-index: 2;
         }
@@ -56,7 +56,7 @@
             background: rgba(18, 21, 32, 0.9);
             backdrop-filter: blur(10px);
             border-radius: 2rem;
-            padding: 2rem;
+            padding: 1.5rem 2rem;
             margin-bottom: 2rem;
             border: 1px solid #fbbf24;
             display: flex;
@@ -64,18 +64,20 @@
             align-items: center;
             justify-content: space-between;
             gap: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
         .title h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             background: linear-gradient(135deg, #f87171, #fbbf24);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .title p {
             color: #94a3b8;
+            font-size: 0.95rem;
         }
 
         .stats {
@@ -91,201 +93,298 @@
         }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #fbbf24;
+            line-height: 1;
         }
 
         .stat-label {
             color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        /* сетка залов */
-        .halls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .hall-card {
-            background: #1e293b;
-            border-radius: 2rem;
-            padding: 1.8rem 1.5rem;
-            border: 1px solid #334155;
-            transition: all 0.3s;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
-
-        .hall-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #fbbf24;
-            box-shadow: 0 20px 30px -10px rgba(251, 191, 36, 0.3);
-        }
-
-        .hall-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 8px #fbbf24);
-        }
-
-        .hall-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #fbbf24;
-            margin-bottom: 0.5rem;
-        }
-
-        .hall-desc {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .hall-badge {
-            display: inline-block;
-            background: #fbbf24;
-            color: #0a0c15;
-            padding: 0.2rem 1rem;
-            border-radius: 2rem;
-            font-weight: 600;
             font-size: 0.8rem;
         }
 
-        /* модальное окно (зал) */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
+        /* фильтры */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: #fbbf24;
+            color: #0a0c15;
+        }
+
+        .filter-btn.active {
+            background: #fbbf24;
+            color: #0a0c15;
+            border-color: #fbbf24;
+        }
+
+        /* временная шкала (главная визуализация) */
+        .timeline-container {
+            background: #1e293b;
+            border-radius: 3rem;
+            padding: 2.5rem 2rem;
+            border: 1px solid #334155;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-header h2 {
+            color: #fbbf24;
+            font-size: 1.8rem;
+        }
+
+        .timeline-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timeline-control-btn {
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .modal-content {
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
-            background: #1e293b;
-            border-radius: 3rem;
-            padding: 2rem;
-            border: 2px solid #fbbf24;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: transparent;
-            border: none;
-            color: #fbbf24;
-            font-size: 2.5rem;
             cursor: pointer;
-            line-height: 1;
-            padding: 0.5rem 1rem;
+            transition: 0.2s;
         }
 
-        .modal-close:hover {
-            color: #f87171;
+        .timeline-control-btn:hover {
+            background: #fbbf24;
+            color: #0a0c15;
         }
 
-        .modal-header {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fbbf24;
-            margin-bottom: 1.5rem;
-            padding-right: 2rem;
+        .timeline-scroll {
+            display: flex;
+            gap: 2.5rem;
+            padding: 1rem 0.5rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            min-height: 300px;
+            align-items: flex-end;
         }
 
-        .modal-body {
-            color: #cbd5e1;
-            line-height: 1.7;
+        .timeline-scroll::-webkit-scrollbar {
+            height: 8px;
         }
 
-        .exhibit {
+        .timeline-scroll::-webkit-scrollbar-track {
             background: #0f172a;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-left: 8px solid #fbbf24;
+            border-radius: 10px;
         }
 
-        .exhibit-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #fbbf24;
+        .timeline-scroll::-webkit-scrollbar-thumb {
+            background: #fbbf24;
+            border-radius: 10px;
+        }
+
+        /* карточка события */
+        .event-card {
+            min-width: 220px;
+            max-width: 220px;
+            background: #0f172a;
+            border-radius: 2rem;
+            padding: 1.5rem 1rem;
+            border: 2px solid #334155;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .event-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #fbbf24;
+            box-shadow: 0 20px 30px -5px rgba(251, 191, 36, 0.4);
+        }
+
+        .event-card.selected {
+            border-color: #fbbf24;
+            background: #1a2538;
+            transform: translateY(-10px);
+        }
+
+        .event-date {
+            background: #fbbf24;
+            color: #0a0c15;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            align-self: flex-start;
+        }
+
+        .event-emoji {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 5px #fbbf24);
+        }
+
+        .event-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #f1f5f9;
+            margin-bottom: 0.3rem;
+        }
+
+        .event-category {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .event-desc-preview {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
             margin-bottom: 0.5rem;
         }
 
-        .exhibit-desc {
-            color: #94a3b8;
-        }
-
-        .exhibit-meta {
-            margin-top: 1rem;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        /* мини-галерея */
-        .mini-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
-
-        .mini-item {
+        .event-badge {
+            margin-top: auto;
             background: #1e293b;
-            border: 1px solid #334155;
             border-radius: 1rem;
-            padding: 1rem;
-            text-align: center;
-            font-size: 2rem;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            display: inline-block;
+            align-self: flex-start;
         }
 
-        .mini-item span {
-            display: block;
-            font-size: 0.8rem;
+        /* панель деталей события */
+        .details-panel {
+            background: #1e293b;
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 2px solid #fbbf24;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            margin-top: 2rem;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .details-emoji {
+            font-size: 4rem;
+            background: #0f172a;
+            border-radius: 2rem;
+            padding: 0.5rem;
+            border: 1px solid #fbbf24;
+        }
+
+        .details-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .details-date {
+            background: #0f172a;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
             color: #94a3b8;
-            margin-top: 0.5rem;
+        }
+
+        .details-desc {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            background: #0f172a;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+        }
+
+        .details-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-tag {
+            background: #0f172a;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            color: #fbbf24;
+            border: 1px solid #334155;
+        }
+
+        .details-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .details-link {
+            background: transparent;
+            border: 2px solid #fbbf24;
+            color: #fbbf24;
+            padding: 0.6rem 1.5rem;
+            border-radius: 3rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .details-link:hover {
+            background: #fbbf24;
+            color: #0a0c15;
         }
 
         footer {
             text-align: center;
-            margin-top: 4rem;
+            margin-top: 3rem;
             color: #475569;
-            padding: 2rem 0;
-            border-top: 1px solid #334155;
         }
 
-        /* адаптация */
-        @media (max-width: 600px) {
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .stats {
-                width: 100%;
-                justify-content: center;
-            }
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
         }
     </style>
 </head>
@@ -295,17 +394,13 @@
     <div class="container">
         <div class="header">
             <div class="title">
-                <h1>МУЗЕЙ TMFMSC</h1>
-                <p>вселенная Тимофея Сибилёва · 14.02.2010 — ∞</p>
+                <h1>ХРОНИКИ TMFMSC</h1>
+                <p>интерактивная карта событий · 2024–2026</p>
             </div>
             <div class="stats">
                 <div class="stat-item">
-                    <div class="stat-value">16</div>
-                    <div class="stat-label">лет</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">300+</div>
-                    <div class="stat-label">дней истории</div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">событий</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">14</div>
@@ -318,254 +413,224 @@
             </div>
         </div>
 
-        <div class="halls" id="halls"></div>
+        <div class="filters" id="filters"></div>
+
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <h2>⏳ ЛЕНТА ВРЕМЕНИ</h2>
+                <div class="timeline-controls">
+                    <div class="timeline-control-btn" id="scrollLeft">←</div>
+                    <div class="timeline-control-btn" id="scrollRight">→</div>
+                </div>
+            </div>
+            <div class="timeline-scroll" id="timelineScroll"></div>
+        </div>
+
+        <div class="details-panel" id="detailsPanel">
+            <div class="details-header">
+                <div class="details-emoji" id="detailEmoji">❄️</div>
+                <div class="details-title" id="detailTitle">Снежок с 13 этажа</div>
+                <div class="details-date" id="detailDate">2026-02-17</div>
+            </div>
+            <div class="details-desc" id="detailDesc">
+                Всё началось с этого снежка. Физика, форма, плотность, подтаявший, неровный, утрамбованный, круглый. Падал на подоконник, в сугроб, на асфальт.
+            </div>
+            <div class="details-meta" id="detailMeta"></div>
+            <div class="details-links" id="detailLinks"></div>
+        </div>
 
         <footer>
-            ❄️ снежок с 13 этажа · 🖕🖕🖕🖕🖕🖕🖕 РКН · 🎰 крути рулетку · 🏛️ вход свободный
+            ❄️ снежок всё ещё летит · 🖕🖕🖕 РКН · 🎰 крути рулетку
         </footer>
     </div>
 
-    <!-- модалка -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            <div class="modal-header" id="modalTitle"></div>
-            <div class="modal-body" id="modalBody"></div>
-        </div>
-    </div>
-
     <script>
-        // ========== ДАННЫЕ ==========
-        const museumData = {
-            main: {
-                name: "Тимофей Сибилёв (TMFMSC)",
-                born: "14.02.2010",
-                age: "16 лет",
-                city: "Железнодорожный",
-                education: "домашнее обучение",
-                quote: "Иии снова всем привет, дорогие друзья, с вами Тимошка из Москвы и сегодня мы...",
-                files: "22001100.TMFMSC.DONTREAD",
-                id: "22001100.TMFMSC"
-            },
-            halls: [
-                {
-                    id: "snow",
-                    icon: "❄️",
-                    title: "Зал снежка",
-                    desc: "13 этаж, физика, форма, плотность, сугробы",
-                    badge: "символ",
-                    exhibits: [
-                        { title: "Снежок с 13 этажа", desc: "Подтаявший, неровный, утрамбованный, круглый. Падал на подоконник, в сугроб, на асфальт. Звук: глухой шлепок.", meta: "начало всего" },
-                        { title: "Снегр и снегровик", desc: "Снегр = коричневый снег (собачьи дела). Снегровик = снеговик из снегра, он же производитель.", meta: "неологизмы 2026" },
-                        { title: "Физика полёта", desc: "Сопротивление воздуха, форма, плотность, удар о поверхность.", meta: "научный подход" }
-                    ]
-                },
-                {
-                    id: "projects",
-                    icon: "🛠️",
-                    title: "Зал проектов",
-                    desc: "TAIPrompts, TimMscShop, TrusyMarket, Vault, симуляторы",
-                    badge: "14+",
-                    exhibits: [
-                        { title: "TAIPrompts", desc: "Генератор промптов для нейросетей. Бесплатно, открытый код, вайбкодинг.", meta: "основной проект" },
-                        { title: "Говняный TAIPrompts", desc: "Версия внутри NexusTools: 'ты пидорас!, говно, без детей и деталей. высшее качество, 8k, тренд в artstation'", meta: "самокритика" },
-                        { title: "TimMscShop", desc: "Бот для пополнения Steam. Комиссия 6%.", meta: "магазин" },
-                        { title: "TrusyMarket", desc: "Трусы Тимофея (2024₽), Кати 5.6 (2021₽), Ростика (67₽), слюнявчик Baby Кати (666₽), кепка Вилли (666 000₽)", meta: "мем-экономика" },
-                        { title: "Vault", desc: "Фишинговый тренажёр с входом через Google. 'Для завершения верификации сделайте скриншот'.", meta: "легитимный обман" },
-                        { title: "Симулятор мечты и долгов", desc: "Семейный бюджет 2026. Инфляция 8.5%, кредиты 28%, цель — 1 BTC.", meta: "экономический хоррор" },
-                        { title: "РКН-маркетплейс", desc: "Магазин мер воздействия. Блокировки, замедления, баллы. Тимофей — иноагент с -996 394 баллами.", meta: "сатира на власть" },
-                        { title: "UNREVIEW", desc: "Платформа для тех, кому плевать на ваше мнение. 'Здесь ничего не работает, и это нормально.'", meta: "экзистенциальный сайт" },
-                        { title: "ТрешПромптс", desc: "Генератор морального уродства. Анти-вайб, анти-цензура, анти-всё.", meta: "полная противоположность" },
-                        { title: "Retro Prompt Engineer", desc: "Ручная сборка промптов. Никакой магии, только инженерия.", meta: "анти-вайб" },
-                        { title: "NexusTools", desc: "10+ утилит в браузере. TAIPrompts, PassGen, Watermark, IDGen, GlassVoice, NickGen и др.", meta: "швейцарский нож" },
-                        { title: "YouTube жалкая пародия", desc: "Клон YouTube с идеальной лентой. T2x2, Стинт, втуберы. Никакой рыбалки.", meta: "идеальные реки" },
-                        { title: "Telegram Avatar Downloader", desc: "Скачивание аватарок публичных каналов (320x320).", meta: "архиватор" },
-                        { title: "Аудио-мета анализатор", desc: "Извлечение ID3-тегов, обложек, параметров из MP3, FLAC, OGG.", meta: "музыкальный детектив" },
-                        { title: "Кафе 'Всё самое свежее'", desc: "Несуществующее кафе на Яндекс Картах. Рейтинг 3,9, отзывы, меню, аквагрим 999₽.", meta: "цифровой призрак" },
-                        { title: "Водонапорная башня", desc: "Добавлена на карты в селе Янёво. Иконка сгенерирована.", meta: "картография" }
-                    ]
-                },
-                {
-                    id: "rkn",
-                    icon: "🎲",
-                    title: "Зал РКН",
-                    desc: "рулетка, запреты, иноагент, маркетплейс",
-                    badge: "-996 394",
-                    exhibits: [
-                        { title: "РКН-рулетка", desc: "Игра: запретить, замедлить, ограничить. Премия за каждое решение.", meta: "симулятор власти" },
-                        { title: "Запрещено", desc: "трава, нелегальные котики, английский алфавит, сон, дрочить, 3.14, 3.146764768456485485768, 001010101010101010000010100", meta: "реестр" },
-                        { title: "Замедлено", desc: "время, воздух, Земля, вода, мысли, фотосинтез, Майнкрафт, интернет, TAIPrompts, Вакиатэ Мовын, огонь, тишина", meta: "до 32 кбит/с" },
-                        { title: "Ограничено", desc: "молчание, цвета, числа", meta: "частично" },
-                        { title: "Статус иноагента", desc: "Тимофей Сибилёв — иноагент с -996 394 баллами. Попытки заблокировать MAX не удались.", meta: "враг государства" },
-                        { title: "РКН в реальности", desc: "Блокировки YouTube, WhatsApp, Discord. Удаление доменов из НСДИ. Спрос на VPN растёт.", meta: "март 2026" },
-                        { title: "🖕🖕🖕🖕🖕🖕🖕", desc: "жест в сторону РКН. Семь средних пальцев.", meta: "цифровое сопротивление" },
-                        { title: "ркн мрази / роскомпозор", desc: "народное название.", meta: "терминология" }
-                    ]
-                },
-                {
-                    id: "languages",
-                    icon: "🗣️",
-                    title: "Зал языков",
-                    desc: "Сибилевец, Вакеатэ Мовын, Жаёмна",
-                    badge: "39 букв",
-                    exhibits: [
-                        { title: "Сибилевец", desc: "26 букв, 3 правила. Без падежей, множественное число через 'все', времена через 'било'/'буду'.", meta: "язык Тимофея" },
-                        { title: "Вакеатэ Мовын", desc: "39 букв, включая Ӝ, Ӟ, Ӥ, Ӧ, Ӵ, Ѣ. Словарь, цитаты, режим Альцгеймера.", meta: "язык Губкобобоамёбо" },
-                        { title: "Жаёмна", desc: "привет / потеряться в магазине ночью (глагол).", meta: "первое слово" },
-                        { title: "Жаемна", desc: "автор Сибилевца (существительное).", meta: "ты" },
-                        { title: "Числительные", desc: "Тоӝма (1), Дви (2), Ирс (3), Ӵорыло (4), Пакунга (5), Булт (6), Юдаы (7), Жэлда (8), Гонӟ (9), Ӥнг (0).", meta: "цифры" },
-                        { title: "Цитата", desc: "'почему я жаемна' — Автор Сибилевца", meta: "великие слова" },
-                        { title: "Дравздраперма, Ущербник", desc: "имена, придуманные Губкобобоамёбо.", meta: "онимика" }
-                    ]
-                },
-                {
-                    id: "time",
-                    icon: "⏳",
-                    title: "Зал путешествий",
-                    desc: "машина времени, каменный век, семья, бессмертие",
-                    badge: "300 000 лет",
-                    exhibits: [
-                        { title: "Машина времени", desc: "Собрана инженером, программистом, лингвистом. Авто-подбор одежды, скрытие.", meta: "технология" },
-                        { title: "Семья", desc: "Папа Максим, мама Анна, сестра Даша. Все бессмертны.", meta: "команда" },
-                        { title: "Каменный век", desc: "300 000 лет назад. Построены города, заводы, школы. Люди выучили Сибилевец.", meta: "начало" },
-                        { title: "Основание Steam", desc: "Комиссия 6% навсегда. Бот TimMscShop работает 300 000 лет.", meta: "бизнес" },
-                        { title: "TAIPrompts в прошлом", desc: "Генератор работал ещё до появления нейросетей. Вотермарка для бесплатных пользователей.", meta: "предвидение" },
-                        { title: "Штаб-квартира в Москве", desc: "Здание 300 000 лет. Внутри — сервера, машина времени, кабинет, грамоты.", meta: "архитектура" },
-                        { title: "Грамоты", desc: "Свидетельство о рождении цивилизации, диплом основателя Steam, медаль 'За бессмертие', записка от Даши.", meta: "достижения" }
-                    ]
-                },
-                {
-                    id: "people",
-                    icon: "👥",
-                    title: "Зал людей",
-                    desc: "Алёна, Губкобобоамёбо, Ростик, Тимофей Любовник",
-                    badge: "комьюнити",
-                    exhibits: [
-                        { title: "Алёна Рыжова", desc: "15 лет, фанатка 'Сказочного патруля', создатель AI-песен. Критиковала TAIPrompts, создала PromptFlame. Дружит с нарезчиком. Есть на сервере в Disalive.", meta: "хейтер = фанатик" },
-                        { title: "Губкобобоамёбо", desc: "Автор Вакеатэ Мовын. Переписки про баги, слова, альцгеймер-режим. 'Неросетёныш', 'Олег', 'продам в рабство'.", meta: "соавтор" },
-                        { title: "Ростик", desc: "Подписчик, ID 77557722.TMFMSC.rostik1603260936. 'любит пукать подливкой'.", meta: "файл" },
-                        { title: "Тимофей Любовник", desc: "Тимоша Музыка, подписчик, снимается в видео. ID 55553344.TMFMSC.timofeylubovnik0303261952.", meta: "участник" },
-                        { title: "Серафим", desc: "Подписчик. ID 77994444.TMFMSC.sertop0303261826.", meta: "файл" },
-                        { title: "Empty Neo", desc: "Разработчик Disalive. Уходит в армию в июле 2026.", meta: "мессенджер" },
-                        { title: "Ваш единственный друг", desc: "Нарезчик. Дружит с Алёной. На сервере в Disalive.", meta: "контент" },
-                        { title: "Даша", desc: "Сестра, 12 лет. Снимается в видео. 'Дашка Принцесска'.", meta: "семья" }
-                    ]
-                },
-                {
-                    id: "trash",
-                    icon: "💩",
-                    title: "Зал треша",
-                    desc: "ТрешПромптс, UNREVIEW, фепалии, снегровики",
-                    badge: "666",
-                    exhibits: [
-                        { title: "ТрешПромптс", desc: "Генератор морального уродства. 'ВАЙБКОДИНГ? НЕТ — ТРEШ-КОДИНГ!' Отзывы: 'Украли мою почку через промпт! Но мне понравилось, ставлю 5 звёзд!'", meta: "🤬" },
-                        { title: "UNREVIEW", desc: "Платформа для тех, кому плевать на ваше мнение. 'Здесь ничего не работает, и это нормально.' Счёт ∞/0, 666 фейков, -3 автора.", meta: "🖤" },
-                        { title: "фепалии", desc: "опечатка или искусство. Производное от 'фекалии'.", meta: "неологизм" },
-                        { title: "снегр", desc: "коричневый снег (собачьи дела).", meta: "уличный термин" },
-                        { title: "снегровик", desc: "снеговик из снегра, он же производитель.", meta: "цикл" },
-                        { title: "Купить автора", desc: "💸 Кнопка в ТрешПромптс. Цена не указана, но ты стоишь 2 ундециллиона.", meta: "бесценный" },
-                        { title: "Лицензия", desc: "ПОЛНАЯ ЛИЦЕНЗИЯ TEST: только смотреть. Запрещено копировать, менять, распространять. Исключения: timoshamscbsns@internet.ru", meta: "MIT? нет" }
-                    ]
-                },
-                {
-                    id: "files",
-                    icon: "📁",
-                    title: "Зал файлов",
-                    desc: "архив, ID, DONT-READ, секретные данные",
-                    badge: "22001100",
-                    exhibits: [
-                        { title: "Система ID", desc: "Формат: 8цифр.TMFMSC.имя_датавремя. Пример: 22001100.TMFMSC.DONTREAD", meta: "база данных" },
-                        { title: "DONT-READ.txt", desc: "Личный дневник. Записи с октября 2024 по март 2026. Страхи, победы, экзамены, блокировки.", meta: "душа" },
-                        { title: "secret1603260846.txt", desc: "Телефон, ИНН, ссылка на донат. 'ЭТО ДРУГИМ НЕ ЧИТАТЬ'.", meta: "опасно" },
-                        { title: "Файлы на людей", desc: "Лололошка (11116677), Серафим (77994444), Тимофей Любовник (55553344), Ростик (77557722).", meta: "картотека" },
-                        { title: "Файлы с картинками", desc: "Стеганография: цифры вшиты в изображения.", meta: "тайники" }
-                    ]
-                },
-                {
-                    id: "releases",
-                    icon: "📦",
-                    title: "Зал релизов",
-                    desc: "все 14 версий",
-                    badge: "v1.0",
-                    exhibits: [
-                        { title: "1.0", desc: "'релизная версия, содержит в себе ВСЁ'. Full Changelog: family-budjet...1.0", meta: "финал" },
-                        { title: "YouTube жалкая пародия", desc: "клон YouTube с идеальной лентой.", meta: "пародия" },
-                        { title: "TrusyMarket", desc: "магазин трусов.", meta: "мем" },
-                        { title: "Вселенная Ростика", desc: "отдельный релиз.", meta: "ростих" },
-                        { title: "TAIPrompts старый (Ностальгия 😥)", desc: "архивная версия.", meta: "ностальгия" },
-                        { title: "Анкета — Глазовыдирающий сайт", desc: "с гипнозом.", meta: "глаза" },
-                        { title: "VAULT", desc: "первый релиз.", meta: "начало" },
-                        { title: "РКН теперь маркетплейс", desc: "симулятор власти.", meta: "баллы" },
-                        { title: "Извлечитель метаданных", desc: "аудио-анализатор.", meta: "музыка" },
-                        { title: "Аватар скачитель", desc: "telegram-аватарки.", meta: "картинки" },
-                        { title: "Симулятор мечты и долгов", desc: "экономика.", meta: "деньги" }
-                    ]
-                }
-            ]
+        // ========== ПОЛНАЯ БАЗА СОБЫТИЙ ==========
+        const events = [
+            // === 2024 ===
+            { date: "2024-10-25", title: "Первая боль", emoji: "😢", desc: "Запись в дневнике: 'словами не описать ту боль, которую я испытал сегодня (душевную)'", category: "diary", tags: ["life"], links: [] },
+            { date: "2024-11-15", title: "Апатия", emoji: "😶", desc: "'у меня начались каникулы. всё.'", category: "diary", tags: ["life"], links: [] },
+
+            // === 2025 ===
+            { date: "2025-11-26", title: "Страх перед ОГЭ", emoji: "📚", desc: "'я не жду нового года и дня рождения. потому что это делает меня на месяц и 2 с половиной месяца до огэ... следующего сообщения не жди.'", category: "diary", tags: ["life"], links: [] },
+            { date: "2025-11-28", title: "Представление", emoji: "👤", desc: "'я Тимофей Сибилёв, мне 15 лет, родился 14 февраля 2010 года. учусь в 9 классе. ну да. НЕ ЖДИ СЛЕДУЮЩЕГО СООБЩЕНИЯ ТОЧНО'", category: "diary", tags: ["life"], links: [] },
+            { date: "2025-12-05", title: "РКН бесит", emoji: "😡", desc: "'снега нет. ркн в последнее время разошелся, за последние 3 дня заблокировал роблокс, фейстайм и снапчат... есть риск блокировки майнкрафта. РКН, ПРОШУ, НЕ НАДО'", category: "rkn", tags: ["rkn"], links: [] },
+            { date: "2025-12-16", title: "Зимняя сказка", emoji: "❄️", desc: "'у кого то уже выбралась зимняя сказка за пределы вас, или даже квартиры? у меня да'", category: "diary", tags: ["snow"], links: [] },
+
+            // === 2026 ===
+            { date: "2026-01-09", title: "Паника перед собеседованием", emoji: "😱", desc: "'11 февраля будет итоговое собеседование по русскому, а я не готов... ПИЗДЕЦ ОНО БЛИЗКО! ахуеть просто.'", category: "diary", tags: ["life"], links: [] },
+            { date: "2026-01-21", title: "Бравада", emoji: "😎", desc: "'Ну че, дебилики, как новый год отпраздновали? ... к итоговому собеседованию ... вроде готов уже.'", category: "diary", tags: ["life"], links: [] },
+            { date: "2026-01-28", title: "Первый пиар TAIPrompts", emoji: "🤖", desc: "'ну ладно, раз это уже не приватная комната, хоть пропиарю свой проект https://timoshamoscow.github.io/taiprompts.github.io/ пока.'", category: "tai", tags: ["project"], links: ["https://timoshamoscow.github.io/taiprompts.github.io/"] },
+            { date: "2026-02-09", title: "100 подписчиков", emoji: "🎉", desc: "Telegram-канал 'База Тимошки' достиг 100 подписчиков.", category: "tg", tags: ["community"], links: [] },
+            { date: "2026-02-12", title: "Собеседование сдано", emoji: "✅", desc: "'Сдал вчера устное собеседование, перенервничал, но экзаменатор оказалось комфортной. Ждем результатов.'", category: "diary", tags: ["life"], links: [] },
+            { date: "2026-02-14", title: "16 лет", emoji: "🎂", desc: "Тимофею Сибилёву — 16 лет.", category: "life", tags: ["birthday"], links: [] },
+            { date: "2026-02-18", title: "Результаты собеседования", emoji: "🏆", desc: "'зачет с 15 баллами, надеялся на 12'", category: "diary", tags: ["life"], links: [] },
+            { date: "2026-02-22", title: "Первое описание структуры", emoji: "❄️", desc: "Снежок → физика → ютуб → исследования → ИИ → всё остальное → снежок в конце.", category: "meta", tags: ["snow"], links: [] },
+            { date: "2026-03-03", title: "Файловый архив", emoji: "📁", desc: "Создана система ID: 22001100.TMFMSC.timoshka0303261723 и другие файлы.", category: "files", tags: ["archive"], links: [] },
+            { date: "2026-03-10", title: "Последняя запись в дневнике", emoji: "📝", desc: "'Результаты пришли не знаю когда, но посмотрел 18 февраля'", category: "diary", tags: ["life"], links: [] },
+            { date: "2026-03-11", title: "VAULT", emoji: "🔒", desc: "Релиз 'VAULT — Безопасный вход через гугл'. Фишинговый тренажёр с Катей.", category: "release", tags: ["project"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/google-auth"] },
+            { date: "2026-03-11", title: "Симулятор мечты и долгов", emoji: "💰", desc: "Релиз 'Симулятор мечты и долгов - Финальная версия'. Семейный бюджет 2026.", category: "release", tags: ["project"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/family-budjet"] },
+            { date: "2026-03-12", title: "Анкета — Глазовыдирающий сайт", emoji: "👁️", desc: "Релиз с гипнозом и Катей.", category: "release", tags: ["project"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/hypnoze-ankete"] },
+            { date: "2026-03-13", title: "TrusyMarket", emoji: "🩲", desc: "Магазин трусов Тимофея, Кати, Ростика. Трусы Тимофея 2024₽, Кати 2021₽, Ростика 67₽.", category: "release", tags: ["trash"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/trusy"] },
+            { date: "2026-03-13", title: "РКН маркетплейс", emoji: "🎲", desc: "Магазин мер воздействия. Блокировки, баллы, статус иноагента. Тимофей — иноагент с -996 394 баллами.", category: "release", tags: ["rkn"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/from-rkn-wb"] },
+            { date: "2026-03-16", title: "YouTube жалкая пародия", emoji: "📺", desc: "Клон YouTube с идеальной лентой. T2x2, Стинт, втуберы.", category: "release", tags: ["youtube"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/youtube"] },
+            { date: "2026-03-16", title: "Telegram Avatar Downloader", emoji: "📸", desc: "Скачивание аватарок публичных каналов.", category: "release", tags: ["project"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/telegram-avatar-download"] },
+            { date: "2026-03-16", title: "Аудио-мета анализатор", emoji: "🎵", desc: "Извлечение ID3-тегов, обложек, параметров.", category: "release", tags: ["project"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/audio-meta-get"] },
+            { date: "2026-03-16", title: "RETRO PROMPT ENGINEER", emoji: "⚙️", desc: "Ручная сборка промптов, анти-вайб, никакой магии.", category: "project", tags: ["tai"], links: ["https://timoshamoscow.github.io/test/"] },
+            { date: "2026-03-16", title: "UNREVIEW", emoji: "🖤", desc: "Платформа для тех, кому плевать на ваше мнение. 'Здесь ничего не работает, и это нормально.'", category: "trash", tags: ["absurd"], links: ["https://timoshamoscow.github.io/test/"] },
+            { date: "2026-03-16", title: "ТрешПромптс", emoji: "🤬", desc: "Генератор морального уродства. 'ВАЙБКОДИНГ? НЕТ — ТРEШ-КОДИНГ!' Отзывы: 'Украли мою почку через промпт! Но мне понравилось, ставлю 5 звёзд!'", category: "trash", tags: ["tai"], links: ["https://timoshamoscow.github.io/test/"] },
+            { date: "2026-03-16", title: "Новая лицензия", emoji: "📜", desc: "ПОЛНАЯ ЛИЦЕНЗИЯ TEST: можно только смотреть. Запрещено копировать, менять, распространять.", category: "meta", tags: ["legal"], links: [] },
+            { date: "2026-03-16", title: "NexusTools", emoji: "⚡", desc: "10+ утилит в браузере. Включая 'говняный TAIPrompts' с промптом 'ты пидорас!, говно, без детей и деталей'.", category: "project", tags: ["tools"], links: ["https://timoshamoscow.github.io/test/"] },
+            { date: "2026-03-16", title: "Релиз 1.0", emoji: "🎯", desc: "'1.0 релизная версия, содержит в себе ВСЁ'. Full Changelog: family-budjet...1.0", category: "release", tags: ["meta"], links: ["https://github.com/TimoshaMoscow/test/releases/tag/1.0"] },
+            { date: "2026-03-16", title: "Снежок", emoji: "❄️", desc: "снежок с 13 этажа. всё ещё летит.", category: "symbol", tags: ["snow"], links: [] },
+            { date: "2026-03-16", title: "Последний аккорд", emoji: "🖕", desc: "🖕🖕🖕🖕🖕🖕🖕 РКН, фепалии, снегровики.", category: "trash", tags: ["rkn"], links: [] },
+
+            // === люди ===
+            { date: "2026-03-03", title: "Алёна Рыжова", emoji: "👩", desc: "15 лет, фанатка 'Сказочного патруля', создатель AI-песен. Критиковала TAIPrompts, создала PromptFlame. Дружит с нарезчиком. Есть на сервере в Disalive.", category: "people", tags: ["alena"], links: [] },
+            { date: "2026-03-03", title: "Губкобобоамёбо", emoji: "🧽", desc: "Автор Вакеатэ Мовын. Переписки про баги, слова, альцгеймер-режим. 'Неросетёныш', 'Олег', 'продам в рабство'.", category: "people", tags: ["friend"], links: [] },
+            { date: "2026-03-03", title: "Ростик", emoji: "👦", desc: "Подписчик, ID 77557722.TMFMSC.rostik1603260936. 'любит пукать подливкой'.", category: "people", tags: ["friend"], links: [] },
+            { date: "2026-03-03", title: "Тимофей Любовник", emoji: "🎵", desc: "Тимоша Музыка, подписчик, снимается в видео. ID 55553344.TMFMSC.timofeylubovnik0303261952.", category: "people", tags: ["friend"], links: [] },
+            { date: "2026-03-03", title: "Серафим", emoji: "👤", desc: "Подписчик. ID 77994444.TMFMSC.sertop0303261826.", category: "people", tags: ["friend"], links: [] },
+            { date: "2026-03-16", title: "Empty Neo", emoji: "💬", desc: "Разработчик Disalive. Уходит в армию в июле 2026.", category: "people", tags: ["dev"], links: [] },
+            { date: "2026-03-16", title: "Ваш единственный друг", emoji: "🎬", desc: "Нарезчик. Дружит с Алёной. На сервере в Disalive.", category: "people", tags: ["friend"], links: [] },
+
+            // === языки ===
+            { date: "2025-09-11", title: "Сибилевец", emoji: "🔤", desc: "26 букв, 3 правила. Без падежей, мн.ч. через 'все', времена через 'било'/'буду'.", category: "lang", tags: ["sibylevec"], links: [] },
+            { date: "2026-03-03", title: "Вакеатэ Мовын", emoji: "🦠", desc: "39 букв, включая Ӝ, Ӟ, Ӥ, Ӧ, Ӵ, Ѣ. Словарь, цитаты, режим Альцгеймера.", category: "lang", tags: ["amoba"], links: [] },
+            { date: "2026-03-03", title: "Жаёмна", emoji: "👋", desc: "привет / потеряться в магазине ночью (глагол).", category: "lang", tags: ["word"], links: [] },
+            { date: "2026-03-03", title: "Жаемна", emoji: "👤", desc: "автор Сибилевца (существительное).", category: "lang", tags: ["word"], links: [] },
+            { date: "2026-03-03", title: "Числительные", emoji: "🔢", desc: "Тоӝма (1), Дви (2), Ирс (3), Ӵорыло (4), Пакунга (5), Булт (6), Юдаы (7), Жэлда (8), Гонӟ (9), Ӥнг (0).", category: "lang", tags: ["numbers"], links: [] },
+            { date: "2026-03-03", title: "Цитата", emoji: "💬", desc: "'почему я жаемна' — Автор Сибилевца", category: "lang", tags: ["quote"], links: [] },
+
+            // === путешествия во времени ===
+            { date: "2026-03-16", title: "Машина времени", emoji: "⏳", desc: "Собрана инженером, программистом, лингвистом. Авто-подбор одежды, скрытие.", category: "time", tags: ["fantasy"], links: [] },
+            { date: "2026-03-16", title: "Каменный век", emoji: "🪨", desc: "300 000 лет назад. Построены города, заводы, школы. Люди выучили Сибилевец.", category: "time", tags: ["fantasy"], links: [] },
+            { date: "2026-03-16", title: "Основание Steam", emoji: "🎮", desc: "Комиссия 6% навсегда. Бот TimMscShop работает 300 000 лет.", category: "time", tags: ["fantasy"], links: [] },
+            { date: "2026-03-16", title: "Штаб-квартира в Москве", emoji: "🏛️", desc: "Здание 300 000 лет. Внутри — сервера, машина времени, кабинет, грамоты.", category: "time", tags: ["fantasy"], links: [] },
+
+            // === кафе и башня ===
+            { date: "2021-12-01", title: "Кафе 'Всё самое свежее'", emoji: "☕", desc: "Несуществующее кафе на Яндекс Картах. Рейтинг 3,9, отзывы, меню, аквагрим 999₽.", category: "project", tags: ["old"], links: [] },
+            { date: "2026-03-03", title: "Водонапорная башня", emoji: "🗼", desc: "Добавлена на карты в селе Янёво. Иконка сгенерирована.", category: "project", tags: ["map"], links: [] }
+        ];
+
+        // сортировка по дате
+        events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+        let currentFilter = 'all';
+        let selectedEvent = events.find(e => e.title === "Снежок") || events[0];
+
+        // ========== РЕНДЕР ФИЛЬТРОВ ==========
+        const filtersContainer = document.getElementById('filters');
+        const categories = ['all', 'diary', 'rkn', 'tai', 'project', 'release', 'people', 'lang', 'time', 'trash', 'meta', 'symbol'];
+        const categoryNames = {
+            all: 'ВСЁ', diary: '📔 Дневник', rkn: '🎲 РКН', tai: '🤖 TAIPrompts', project: '🛠️ Проекты',
+            release: '📦 Релизы', people: '👥 Люди', lang: '🗣️ Языки', time: '⏳ Путешествия',
+            trash: '💩 Треш', meta: '🔍 Мета', symbol: '❄️ Символы'
         };
 
-        // ========== РЕНДЕР ЗАЛОВ ==========
-        const hallsContainer = document.getElementById('halls');
-        const modal = document.getElementById('modal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        const closeBtn = document.getElementById('closeModal');
+        function renderFilters() {
+            filtersContainer.innerHTML = categories.map(cat => 
+                `<button class="filter-btn ${currentFilter === cat ? 'active' : ''}" data-filter="${cat}">${categoryNames[cat]}</button>`
+            ).join('');
 
-        function renderHalls() {
-            hallsContainer.innerHTML = museumData.halls.map(hall => `
-                <div class="hall-card" data-id="${hall.id}">
-                    <div class="hall-icon">${hall.icon}</div>
-                    <div class="hall-title">${hall.title}</div>
-                    <div class="hall-desc">${hall.desc}</div>
-                    <div class="hall-badge">${hall.badge}</div>
-                </div>
-            `).join('');
-
-            document.querySelectorAll('.hall-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const id = card.dataset.id;
-                    const hall = museumData.halls.find(h => h.id === id);
-                    if (hall) openHall(hall);
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentFilter = btn.dataset.filter;
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderTimeline();
                 });
             });
         }
 
-        function openHall(hall) {
-            modalTitle.innerText = `${hall.icon} ${hall.title}`;
-            modalBody.innerHTML = hall.exhibits.map(ex => `
-                <div class="exhibit">
-                    <div class="exhibit-title">${ex.title}</div>
-                    <div class="exhibit-desc">${ex.desc}</div>
-                    <div class="exhibit-meta">${ex.meta}</div>
+        // ========== РЕНДЕР ТАЙМЛАЙНА ==========
+        const timelineScroll = document.getElementById('timelineScroll');
+
+        function renderTimeline() {
+            const filtered = currentFilter === 'all' 
+                ? events 
+                : events.filter(e => e.category === currentFilter || e.tags.includes(currentFilter));
+            
+            timelineScroll.innerHTML = filtered.map(event => `
+                <div class="event-card ${selectedEvent && selectedEvent.title === event.title ? 'selected' : ''}" data-id="${event.title}">
+                    <span class="event-date">${event.date}</span>
+                    <div class="event-emoji">${event.emoji}</div>
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-category">${categoryNames[event.category] || event.category}</div>
+                    <div class="event-desc-preview">${event.desc.substring(0, 60)}...</div>
+                    <div class="event-badge">#${event.tags[0]}</div>
                 </div>
             `).join('');
-            modal.classList.add('active');
+
+            document.querySelectorAll('.event-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const title = card.dataset.id;
+                    const event = events.find(e => e.title === title);
+                    if (event) {
+                        selectedEvent = event;
+                        renderTimeline();
+                        showDetails(event);
+                    }
+                });
+            });
         }
 
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
+        // ========== ПОКАЗ ДЕТАЛЕЙ ==========
+        const detailEmoji = document.getElementById('detailEmoji');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailDate = document.getElementById('detailDate');
+        const detailDesc = document.getElementById('detailDesc');
+        const detailMeta = document.getElementById('detailMeta');
+        const detailLinks = document.getElementById('detailLinks');
+
+        function showDetails(event) {
+            detailEmoji.innerText = event.emoji;
+            detailTitle.innerText = event.title;
+            detailDate.innerText = event.date;
+            detailDesc.innerText = event.desc;
+
+            // мета-информация (теги)
+            detailMeta.innerHTML = event.tags.map(t => `<span class="details-tag">#${t}</span>`).join('');
+
+            // ссылки
+            if (event.links && event.links.length > 0) {
+                detailLinks.innerHTML = event.links.map(link => 
+                    `<a href="${link}" target="_blank" class="details-link">🔗 перейти</a>`
+                ).join('');
+            } else {
+                detailLinks.innerHTML = '';
+            }
+        }
+
+        // ========== УПРАВЛЕНИЕ СКРОЛЛОМ ==========
+        document.getElementById('scrollLeft').addEventListener('click', () => {
+            timelineScroll.scrollBy({ left: -300, behavior: 'smooth' });
         });
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
+        document.getElementById('scrollRight').addEventListener('click', () => {
+            timelineScroll.scrollBy({ left: 300, behavior: 'smooth' });
         });
 
-        // снежинки фона
+        // ========== СНЕЖИНКИ ==========
         function createSnow() {
             const snowContainer = document.getElementById('snow');
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) {
                 const flake = document.createElement('div');
                 flake.className = 'snowflake';
                 flake.style.left = Math.random() * 100 + '%';
-                flake.style.animationDuration = Math.random() * 10 + 5 + 's';
+                flake.style.animationDuration = Math.random() * 10 + 8 + 's';
                 flake.style.fontSize = Math.random() * 2 + 1 + 'rem';
-                flake.style.opacity = Math.random() * 0.3 + 0.1;
-                flake.innerHTML = ['❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️'][Math.floor(Math.random() * 10)];
+                flake.style.opacity = Math.random() * 0.2 + 0.1;
+                flake.innerHTML = ['❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '❄️', '🖕'][Math.floor(Math.random() * 11)];
                 snowContainer.appendChild(flake);
             }
         }
 
-        renderHalls();
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
+        renderFilters();
+        renderTimeline();
+        showDetails(selectedEvent);
         createSnow();
     </script>
 </body>
