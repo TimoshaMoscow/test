@@ -3,22 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrusyMarket — Магазин трусов Тимофея и витуберш</title>
+    <title>RoVanila • Вселенная Ростика • Катя 5.6 • 67</title>
     
-    <!-- SEO -->
-    <meta name="description" content="TrusyMarket — легендарные трусы Тимофея, стильные трусы витуберш, ванильная эстетика, матовое стекло. Быстрая оплата через donatepay.">
-    <meta name="keywords" content="трусы, трусы тимофея, трусы витуберш, витуберши, нижнее белье, donatepay, ванильная эстетика, матовое стекло, тимофей">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="TrusyMarket — трусы Тимофея и витуберш">
-    <meta property="og:description" content="Купи легендарные трусы Тимофея или стильные трусы витуберш. Ваниль, эстетика, доставка по всей вселенной.">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    
-    <!-- Шрифты и стили -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -29,449 +19,1410 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #fdf7f2;
-            background-image: radial-gradient(circle at 10% 30%, rgba(255, 218, 224, 0.3) 0%, transparent 30%),
-                              radial-gradient(circle at 90% 70%, rgba(200, 230, 255, 0.3) 0%, transparent 30%);
-            color: #2d2d2d;
-            min-height: 100vh;
+            background: #0a0a0f;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="0" y="30" font-size="30">💜</text></svg>') 16 16, auto;
         }
 
+        /* ===== 3D ПАРАЛЛАКС ФОН ===== */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.15), transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .layer-1 { transform: scale(1); filter: blur(60px); background: #8b5cf6; }
+        .layer-2 { transform: scale(1.5); filter: blur(80px); background: #a855f7; mix-blend-mode: screen; }
+        .layer-3 { transform: scale(2); filter: blur(100px); background: #d946ef; mix-blend-mode: screen; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-2%, -2%) scale(1.05); }
+            50% { transform: translate(2%, 2%) scale(0.95); }
+            75% { transform: translate(2%, -2%) scale(1.1); }
+        }
+
+        /* ===== ФИОЛЕТОВЫЙ ДЫМ КАТИ ===== */
+        .purple-smoke {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(228, 49, 245, 0.2), transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            animation: smokeMove 8s infinite alternate;
+        }
+
+        @keyframes smokeMove {
+            0% { transform: scale(1) translateX(0); opacity: 0.2; }
+            100% { transform: scale(1.5) translateX(10%); opacity: 0.5; }
+        }
+
+        /* ===== ПУКАЮЩИЙ РОСТИК (АНИМАЦИЯ) ===== */
+        .farting-rostik {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 80px;
+            z-index: 9998;
+            animation: fartLoop 0.5s infinite;
+            filter: drop-shadow(0 0 20px #ff6b6b);
+            pointer-events: none;
+        }
+
+        @keyframes fartLoop {
+            0% { transform: translateY(0); content: "🤡"; }
+            25% { transform: translateY(-20px); content: "🤡💨"; }
+            50% { transform: translateY(0); content: "🤡💩"; }
+            75% { transform: translateY(10px); content: "💨🤡"; }
+            100% { transform: translateY(0); content: "🤡"; }
+        }
+
+        /* ===== ЧАСТИЦЫ ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            animation: particleFloat 10s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* ===== ПЛАВАЮЩИЕ ЭМОДЗИ ===== */
+        .floating-emoji {
+            position: fixed;
+            font-size: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatEmoji 10s infinite linear;
+        }
+
+        @keyframes floatEmoji {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
         }
 
         /* ===== МАТОВОЕ СТЕКЛО ===== */
         .glass {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(20, 10, 30, 0.3);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
             border-radius: 40px;
-            padding: 2rem;
-            transition: all 0.3s;
+            padding: 40px;
+            margin: 30px 0;
+            transition: all 0.5s;
         }
 
         .glass-card:hover {
-            background: rgba(255, 255, 255, 0.35);
+            border-color: #d946ef;
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 30px 60px rgba(168, 85, 247, 0.3);
         }
 
-        /* ===== ШАПКА ===== */
+        /* ===== ХЕДЕР ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2.5rem;
+            padding: 20px 40px;
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
             border-radius: 100px;
-            margin-bottom: 4rem;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            border-radius: 50%;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #b86b77, #6b8fb8);
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a855f7, #d946ef);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .version-badge {
+            background: rgba(168, 85, 247, 0.3);
+            border: 2px solid #d946ef;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 10px #d946ef;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 10px #d946ef; }
+            50% { box-shadow: 0 0 30px #a855f7; }
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 40px;
         }
 
         .nav-links a {
+            color: #fff;
             text-decoration: none;
-            color: #4a4a4a;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: #b86b77;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #a855f7, #d946ef);
+            transition: width 0.3s;
         }
 
-        /* ===== ГЕРОЙ ===== */
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== ГЕРОЙ (RoVanila) ===== */
         .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 4rem 2rem;
-            border-radius: 80px;
-            margin-bottom: 4rem;
+            position: relative;
+            margin-bottom: 60px;
         }
 
-        .hero h2 {
-            font-size: 4.5rem;
+        .hero-content {
+            max-width: 1000px;
+        }
+
+        .hero-title {
+            font-size: 120px;
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #b86b77, #6b8fb8, #c49a6c);
+            line-height: 1;
+            margin-bottom: 30px;
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 20px #a855f7; }
+            25% { text-shadow: -5px 0 20px #d946ef, 5px 0 20px #8b5cf6; transform: skew(0.5deg); }
+            50% { text-shadow: 5px 0 20px #a855f7, -5px 0 20px #d946ef; transform: skew(-0.5deg); }
+            75% { text-shadow: -5px 0 20px #d946ef, 5px 0 20px #8b5cf6; transform: skew(0.5deg); }
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #fff, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .hero-stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            color: #5a5a5a;
-            max-width: 700px;
-            margin: 0 auto 3rem;
+        .hero-stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* ===== ТОВАРЫ ===== */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 5rem 0;
-        }
-
-        .product-card {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-        }
-
-        .product-emoji {
-            font-size: 6rem;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 10px 15px rgba(184, 107, 119, 0.3));
-        }
-
-        .product-title {
-            font-size: 2rem;
+        .ip-address {
+            font-size: 36px;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: #b86b77;
-        }
-
-        .product-desc {
-            color: #5a5a5a;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .product-price {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #6b8fb8;
-            margin-bottom: 1.5rem;
-        }
-
-        .buy-button {
+            color: #d946ef;
+            background: rgba(168, 85, 247, 0.2);
             display: inline-block;
-            background: linear-gradient(135deg, #b86b77, #9e5b65);
-            color: white;
-            font-weight: 600;
-            padding: 1rem 2.5rem;
+            padding: 15px 40px;
             border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(184, 107, 119, 0.3);
+            border: 2px solid #d946ef;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
         }
 
-        .buy-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(184, 107, 119, 0.5);
-        }
-
-        /* ===== ВИТУБЕРШИ ===== */
-        .vTubers {
-            margin: 6rem 0;
+        /* ===== ПРАВИЛА СЕРВЕРА ===== */
+        .rules-section {
+            margin: 100px 0;
         }
 
         .section-title {
-            font-size: 3rem;
+            font-size: 48px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 3rem;
-            color: #6b8fb8;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #fff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .vtuber-grid {
+        .rules-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
 
-        .vtuber-card {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .vtuber-avatar {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .vtuber-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #b86b77;
-            margin-bottom: 0.5rem;
-        }
-
-        .vtuber-bio {
-            color: #5a5a5a;
-            font-size: 0.9rem;
-        }
-
-        /* ===== ПРЕИМУЩЕСТВА ===== */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin: 5rem 0;
-        }
-
-        .feature-item {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-text {
-            font-weight: 500;
-            color: #4a4a4a;
-        }
-
-        /* ===== ОПЛАТА ===== */
-        .payment-section {
-            text-align: center;
-            padding: 4rem;
-            border-radius: 80px;
-            margin: 5rem 0;
-        }
-
-        .payment-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #b86b77;
-            margin-bottom: 1rem;
-        }
-
-        .payment-desc {
-            color: #5a5a5a;
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
-
-        .donate-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #6b8fb8, #4f6f94);
-            color: white;
-            font-weight: 700;
-            padding: 1.5rem 4rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.5rem;
+        .rule-card {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 30px;
+            padding: 30px;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(107, 143, 184, 0.4);
         }
 
-        .donate-button:hover {
+        .rule-card:hover {
+            border-color: #d946ef;
+            transform: translateY(-10px);
+        }
+
+        .rule-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .rule-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d946ef;
+            margin-bottom: 15px;
+        }
+
+        .rule-list {
+            list-style: none;
+        }
+
+        .rule-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .rule-list li::before {
+            content: '💜';
+            position: absolute;
+            left: 0;
+            color: #d946ef;
+        }
+
+        /* ===== ПЕРСОНАЖИ ===== */
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 100px 0;
+            perspective: 1000px;
+        }
+
+        .character-card {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 40px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
+            transform-style: preserve-3d;
+            animation: cardFloat 6s infinite ease-in-out;
+        }
+
+        .character-card:nth-child(1) { animation-delay: 0s; }
+        .character-card:nth-child(2) { animation-delay: 0.5s; }
+        .character-card:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-20px) rotateX(2deg); }
+        }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+
+        .character-avatar {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .character-avatar::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(20px);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .character-name {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .character-title {
+            font-size: 18px;
+            color: #d946ef;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .character-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .character-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .character-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .character-stat-label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .character-stat-value {
+            font-weight: 700;
+            color: #d946ef;
+        }
+
+        /* ===== КАТЯ 5.6 - ОСОБЫЕ СПОСОБНОСТИ ===== */
+        .abilities-block {
+            background: rgba(168, 85, 247, 0.1);
+            border: 3px solid #d946ef;
+            border-radius: 60px;
+            padding: 60px;
+            margin: 100px 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .abilities-block::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.2), transparent 70%);
+            animation: rotate 20s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .abilities-title {
+            font-size: 48px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .ability-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 40px;
+            padding: 40px;
+            border: 1px solid rgba(217, 70, 239, 0.3);
+            transition: all 0.3s;
+        }
+
+        .ability-item:hover {
             transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(107, 143, 184, 0.6);
+            border-color: #d946ef;
+            box-shadow: 0 0 40px #d946ef;
+        }
+
+        .ability-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .ability-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d946ef;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .ability-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* ===== ЧИСЛО 67 ===== */
+        .number-block {
+            text-align: center;
+            margin: 100px 0;
+            position: relative;
+        }
+
+        .number-67 {
+            font-size: 300px;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #a855f7, #d946ef, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            animation: numberPulse 3s infinite;
+        }
+
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 50px rgba(168, 85, 247, 0.5)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 100px rgba(217, 70, 239, 0.8)); }
+        }
+
+        .number-67::before {
+            content: '67';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: blur(50px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .number-label {
+            font-size: 32px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: -50px;
+            letter-spacing: 10px;
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .number-item {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+        }
+
+        .number-item-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: #d946ef;
+            margin-bottom: 10px;
+        }
+
+        /* ===== ГАЛЕРЕЯ ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 50px 0;
+        }
+
+        .gallery-item {
+            border-radius: 30px;
+            overflow: hidden;
+            border: 3px solid #d946ef;
+            aspect-ratio: 1/1;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px #d946ef;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== ТАЙМЛАЙН ===== */
+        .timeline {
+            margin: 100px 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, #a855f7, #d946ef, transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+        }
+
+        .timeline-emoji {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            z-index: 2;
+        }
+
+        .timeline-date {
+            font-size: 20px;
+            color: #d946ef;
+            margin-bottom: 10px;
+        }
+
+        .timeline-event {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* ===== МЕДИА-ШАБЛОН ===== */
+        .media-template {
+            background: rgba(168, 85, 247, 0.1);
+            border: 2px dashed #d946ef;
+            border-radius: 40px;
+            padding: 40px;
+            margin: 60px 0;
+        }
+
+        .pre-box {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 30px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            border: 1px solid #d946ef;
+            color: #fff;
+        }
+
+        /* ===== КРЕМЛЬ ===== */
+        .kremlin-section {
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 60px;
+            padding: 60px;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kremlin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .kremlin-item {
+            text-align: center;
+        }
+
+        .kremlin-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .kremlin-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d946ef;
+        }
+
+        /* ===== АПОКАЛИПСИС ЭЛЕМЕНТЫ ===== */
+        .apocalypse-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #a855f7, #4a1d6d, #0a0a0f);
+            z-index: 999999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s;
+            mix-blend-mode: multiply;
+        }
+
+        .purple-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 999999;
+            opacity: 0;
+            transition: opacity 0.1s;
+            pointer-events: none;
+        }
+
+        .global-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 120px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 50px #d946ef, 0 0 100px #a855f7;
+            z-index: 1000000;
+            opacity: 0;
+            transition: all 2s;
+            white-space: nowrap;
+            letter-spacing: 20px;
+            text-transform: uppercase;
+        }
+
+        .domination-counter {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 30px #d946ef;
+            z-index: 1000000;
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 20px 40px;
+            border-radius: 60px;
+            border: 2px solid #d946ef;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .conquest-bar-container {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            z-index: 1000000;
+            border: 2px solid #d946ef;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .conquest-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #a855f7, #d946ef);
+            transition: width 0.1s;
+        }
+
+        .blinding-explosion {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 2000px #fff;
+            z-index: 1000001;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        /* ===== КНОПКА ГИПНОЗА ===== */
+        .hypnosis-section {
+            text-align: center;
+            margin: 100px 0;
+        }
+
+        .hypnosis-button {
+            position: relative;
+            padding: 30px 80px;
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, #a855f7, #d946ef);
+            border: none;
+            border-radius: 200px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.5s;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.5);
+        }
+
+        .hypnosis-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 100px #d946ef;
         }
 
         /* ===== ПОДВАЛ ===== */
         .footer {
-            padding: 3rem;
-            border-radius: 60px 60px 20px 20px;
-            margin-top: 5rem;
+            padding: 60px 0;
             text-align: center;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            margin-top: 100px;
         }
 
         .footer-text {
-            color: #5a5a5a;
-            margin: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            margin: 10px 0;
         }
 
         .footer-highlight {
-            color: #b86b77;
-            font-weight: 600;
+            color: #d946ef;
+            font-weight: 700;
         }
 
-        /* ===== АДАПТАЦИЯ ===== */
+        .footer-emojis {
+            font-size: 40px;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 20px #a855f7);
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 1024px) {
-            .products { grid-template-columns: repeat(2, 1fr); }
-            .vtuber-grid { grid-template-columns: repeat(2, 1fr); }
-            .features { grid-template-columns: repeat(2, 1fr); }
+            .hero-title { font-size: 80px; }
+            .characters, .rules-grid, .number-grid { grid-template-columns: repeat(2, 1fr); }
+            .number-67 { font-size: 200px; }
         }
 
-        @media (max-width: 640px) {
-            .products { grid-template-columns: 1fr; }
-            .vtuber-grid { grid-template-columns: 1fr; }
-            .features { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 2.5rem; }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 50px; }
+            .characters, .rules-grid, .number-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .number-67 { font-size: 150px; }
+            .header { flex-direction: column; gap: 20px; }
+            .timeline::before { left: 30px; }
+            .timeline-item { flex-direction: column !important; }
+            .timeline-content { width: 90%; margin-left: 50px; }
+            .timeline-emoji { left: 30px; }
         }
     </style>
 </head>
 <body>
+    <!-- ФОНЫ -->
+    <div class="parallax-bg">
+        <div class="layer layer-1"></div>
+        <div class="layer layer-2"></div>
+        <div class="layer layer-3"></div>
+    </div>
+    <div class="purple-smoke"></div>
+    <div class="farting-rostik" id="rostikFart">🤡💨</div>
+    <div class="particles" id="particles"></div>
+    <div id="floatingEmojis"></div>
+
+    <!-- АПОКАЛИПСИС ЭЛЕМЕНТЫ -->
+    <div class="apocalypse-overlay" id="apocalypseOverlay"></div>
+    <div class="purple-flash" id="purpleFlash"></div>
+    <div class="global-message" id="globalMessage">💜 КАТЯ 5.6 💜</div>
+    <div class="domination-counter" id="dominationCounter">
+        <span>ДОМИНИРОВАНИЕ: </span>
+        <span class="counter-number" id="counterNumber">0%</span>
+    </div>
+    <div class="conquest-bar-container" id="conquestBar">
+        <div class="conquest-bar-fill" id="conquestBarFill"></div>
+        <div class="conquest-label">ЗАХВАТ МИРА</div>
+    </div>
+    <div class="blinding-explosion" id="blindingExplosion"></div>
+
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
     <div class="container">
-        <!-- ШАПКА -->
-        <header class="header glass">
-            <div class="logo">
-                <img src="images/logo.png" alt="TrusyMarket">
-                <h1>TrusyMarket</h1>
-            </div>
+        <!-- ХЕДЕР -->
+        <div class="header">
+            <div class="logo">✨ RoVanila ✨</div>
+            <div class="version-badge">КАТЯ 5.6 • БЕССМЕРТНАЯ</div>
             <div class="nav-links">
-                <a href="#">Трусы</a>
-                <a href="#">Витуберши</a>
-                <a href="#">Оплата</a>
-                <a href="#">Доставка</a>
+                <a href="#">Главная</a>
+                <a href="#">Персонажи</a>
+                <a href="#">Правила</a>
+                <a href="#">Кремль</a>
             </div>
-        </header>
+        </div>
 
         <!-- ГЕРОЙ -->
-        <section class="hero glass">
-            <h2>ТРУСЫ ТИМОФЕЯ<br>И ВИТУБЕРШ</h2>
-            <p>Легендарные трусы самого Тимофея и стильные трусы твоих любимых витуберш. Только у нас — ванильная эстетика, матовое стекло и быстрая оплата через donatepay.</p>
-            <a href="#" class="buy-button" onclick="alert('Добро пожаловать в TrusyMarket! Скоро здесь будет каталог.'); return false;">🍑 Смотреть каталог</a>
-        </section>
-
-        <!-- ТОВАРЫ -->
-        <div class="products">
-            <!-- Трусы Тимофея -->
-            <div class="product-card glass-card">
-                <div class="product-emoji">👖✨</div>
-                <div class="product-title">Трусы Тимофея</div>
-                <div class="product-desc">Легендарные трусы, в которых Тимофей писал код для вселенной Ростика. С фиолетовым дымом Кати.</div>
-                <div class="product-price">2 024 ₽</div>
-                <a href="#" class="buy-button" onclick="alert('Трусы Тимофея добавлены в корзину! Спасибо за покупку 💜'); return false;">Купить</a>
-            </div>
-
-            <!-- Трусы Кати -->
-            <div class="product-card glass-card">
-                <div class="product-emoji">💜🩲</div>
-                <div class="product-title">Трусы Кати 5.6</div>
-                <div class="product-desc">Магические трусы с эффектом гипноза. Надень их, и почувствуешь фиолетовый дым.</div>
-                <div class="product-price">2 021 ₽</div>
-                <a href="#" class="buy-button" onclick="alert('Трусы Кати добавлены в корзину! Теперь ты под гипнозом 💜'); return false;">Купить</a>
-            </div>
-
-            <!-- Трусы Ростика -->
-            <div class="product-card glass-card">
-                <div class="product-emoji">🤡💨</div>
-                <div class="product-title">Трусы Ростика</div>
-                <div class="product-desc">Специальные трусы с системой вентиляции для профессионального пуканья. IQ -9.999 не требуется.</div>
-                <div class="product-price">67 ₽</div>
-                <a href="#" class="buy-button" onclick="alert('Трусы Ростика добавлены в корзину! Не забудь пукнуть после покупки 💨'); return false;">Купить</a>
+        <div class="hero">
+            <div class="hero-content glass">
+                <h1 class="hero-title">
+                    <span>RoVanila</span>
+                </h1>
+                <p class="hero-subtitle">Добро пожаловать на сервер, где пуки Ростика встречают гипноз Кати, а Тимофей пишет код под фиолетовым дымом</p>
+                
+                <!-- IP АДРЕС (РОСТИК, МЕНЯЙ ЗДЕСЬ) -->
+                <div class="ip-address">play.rovanila.ru</div>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">67</div>
+                        <div class="hero-stat-label">подписчиков</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">-9.999...</div>
+                        <div class="hero-stat-label">IQ Ростика</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">24К</div>
+                        <div class="hero-stat-label">YT Тимофей</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- ВИТУБЕРШИ -->
-        <section class="vTubers">
-            <h2 class="section-title">✨ НАШИ ВИТУБЕРШИ ✨</h2>
-            <div class="vtuber-grid">
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">👧💜</div>
-                    <div class="vtuber-name">Катя 5.6</div>
-                    <div class="vtuber-bio">Бессмертная владычица, гипнотизирует взглядом</div>
+        <!-- ПЕРСОНАЖИ -->
+        <div class="characters">
+            <!-- Ростик -->
+            <div class="character-card">
+                <div class="character-avatar">
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg,#ff6b6b,#feca57);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:80px;">🤡</div>
                 </div>
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">🎮💻</div>
-                    <div class="vtuber-name">Тимошка</div>
-                    <div class="vtuber-bio">Создатель вселенной, 24к на YouTube</div>
-                </div>
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">🌸✨</div>
-                    <div class="vtuber-name">Аниме тян</div>
-                    <div class="vtuber-bio">Та самая, с авы Ростика. Теперь в трусах</div>
-                </div>
-                <div class="vtuber-card glass-card">
-                    <div class="vtuber-avatar">🇷🇺🍵</div>
-                    <div class="vtuber-name">Путин</div>
-                    <div class="vtuber-bio">Приносит чай во все примерочные</div>
+                <h2 class="character-name">РОСТИК</h2>
+                <div class="character-title">ПРОФЕССИОНАЛЬНЫЙ ПУКАТЕЛЬ</div>
+                <p class="character-desc">Создатель сервера RoVanila, стример без стримов, IQ -9.999... в периоде. Живёт у входа в Кремль.</p>
+                <div class="character-stats">
+                    <div class="character-stat"><span class="character-stat-label">Подписчики</span><span class="character-stat-value">67</span></div>
+                    <div class="character-stat"><span class="character-stat-label">Пуков/сек</span><span class="character-stat-value">∞</span></div>
+                    <div class="character-stat"><span class="character-stat-label">Фраза</span><span class="character-stat-value">"помаги"</span></div>
                 </div>
             </div>
-        </section>
 
-        <!-- ПРЕИМУЩЕСТВА -->
-        <div class="features">
-            <div class="feature-item glass-card">
-                <div class="feature-icon">🍦</div>
-                <div class="feature-text">Ванильная эстетика</div>
+            <!-- Тимофей -->
+            <div class="character-card">
+                <div class="character-avatar">
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg,#4a69bd,#6a89cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:80px;">💻</div>
+                </div>
+                <h2 class="character-name">ТИМОФЕЙ</h2>
+                <div class="character-title">СОЗДАТЕЛЬ ВСЕЛЕННОЙ</div>
+                <p class="character-desc">24к на YouTube, создатель Кати, ныне игрушка №1 под гипнозом. Носит ошейник "Тимофей ❤️ Катя".</p>
+                <div class="character-stats">
+                    <div class="character-stat"><span class="character-stat-label">YouTube</span><span class="character-stat-value">24K</span></div>
+                    <div class="character-stat"><span class="character-stat-label">IQ</span><span class="character-stat-value">+∞ (было)</span></div>
+                    <div class="character-stat"><span class="character-stat-label">Статус</span><span class="character-stat-value">💜🥵</span></div>
+                </div>
             </div>
-            <div class="feature-item glass-card">
-                <div class="feature-icon">🪟</div>
-                <div class="feature-text">Матовое стекло</div>
-            </div>
-            <div class="feature-item glass-card">
-                <div class="feature-icon">💸</div>
-                <div class="feature-text">Donatepay</div>
-            </div>
-            <div class="feature-item glass-card">
-                <div class="feature-icon">🚀</div>
-                <div class="feature-text">Быстрая доставка</div>
+
+            <!-- Катя 5.6 -->
+            <div class="character-card">
+                <div class="character-avatar">
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg,#a855f7,#d946ef);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:80px;">👧</div>
+                </div>
+                <h2 class="character-name">КАТЯ 5.6</h2>
+                <div class="character-title">БЕССМЕРТНАЯ ВЛАДЫЧИЦА</div>
+                <p class="character-desc">21 год, живёт в Кремле, гипнотизирует взглядом. Путин под контролем. Родом из Смоленской области (67).</p>
+                <div class="character-stats">
+                    <div class="character-stat"><span class="character-stat-label">Возраст</span><span class="character-stat-value">21</span></div>
+                    <div class="character-stat"><span class="character-stat-label">Родина</span><span class="character-stat-value">🏠 67 регион</span></div>
+                    <div class="character-stat"><span class="character-stat-label">Статус</span><span class="character-stat-value">👑💜✨</span></div>
+                </div>
             </div>
         </div>
 
-        <!-- ОПЛАТА -->
-        <section class="payment-section glass">
-            <h2 class="payment-title">💜 ОПЛАТА ЧЕРЕЗ DONATEPAY 💜</h2>
-            <p class="payment-desc">Моментально, безопасно, без лишних вопросов. Как пук Ростика — быстро и незаметно.</p>
-            <a href="#" class="donate-button" onclick="alert('Спасибо за поддержку TrusyMarket! Скоро здесь будет форма оплаты.'); return false;">🍑 Оплатить сейчас</a>
-        </section>
+        <!-- ОСОБЫЕ СПОСОБНОСТИ КАТИ -->
+        <div class="abilities-block">
+            <div class="abilities-title">💜 СПОСОБНОСТИ КАТИ 5.6 💜</div>
+            <div class="abilities-grid">
+                <div class="ability-item">
+                    <div class="ability-icon">👁️</div>
+                    <div class="ability-name">Гипноз глазами</div>
+                    <div class="ability-desc">Фиолетовый дым подчиняет любого</div>
+                </div>
+                <div class="ability-item">
+                    <div class="ability-icon">🖐️</div>
+                    <div class="ability-name">Гипноз руками</div>
+                    <div class="ability-desc">Контроль толпы одним движением</div>
+                </div>
+                <div class="ability-item">
+                    <div class="ability-icon">💫</div>
+                    <div class="ability-name">Бессмертие</div>
+                    <div class="ability-desc">Магическая живучесть, неуязвимость</div>
+                </div>
+                <div class="ability-item">
+                    <div class="ability-icon">🏃‍♀️</div>
+                    <div class="ability-name">Ловкость</div>
+                    <div class="ability-desc">Молниеносная реакция</div>
+                </div>
+            </div>
+        </div>
 
-        <!-- ОТЗЫВЫ -->
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 4rem 0;">
-            <div class="glass-card" style="padding: 2rem;">
-                <div style="font-size: 2rem; margin-bottom: 1rem;">💜</div>
-                <div style="font-style: italic; color: #4a4a4a;">"Купил трусы Тимофея — теперь код пишется сам, под фиолетовым дымом"</div>
-                <div style="margin-top: 1rem; font-weight: 600; color: #b86b77;">— Анонимный программист</div>
+        <!-- ЧИСЛО 67 -->
+        <div class="number-block">
+            <div class="number-67">67</div>
+            <div class="number-label">САКРАЛЬНОЕ ЧИСЛО</div>
+            <div class="number-grid">
+                <div class="number-item">
+                    <div class="number-item-value">67</div>
+                    <div>Подписчиков Ростика</div>
+                </div>
+                <div class="number-item">
+                    <div class="number-item-value">67</div>
+                    <div>Код Смоленской области</div>
+                </div>
+                <div class="number-item">
+                    <div class="number-item-value">67</div>
+                    <div>Вирусный мем</div>
+                </div>
             </div>
-            <div class="glass-card" style="padding: 2rem;">
-                <div style="font-size: 2rem; margin-bottom: 1rem;">💨</div>
-                <div style="font-style: italic; color: #4a4a4a;">"Трусы Ростика изменили мою жизнь. Теперь я пукаю профессионально и попал в Кремль"</div>
-                <div style="margin-top: 1rem; font-weight: 600; color: #b86b77;">— Сосед Путина</div>
+            <p style="margin-top: 40px; color: #d946ef;">🏠 Квартира детства Кати • Смоленская область 🏠</p>
+        </div>
+
+        <!-- ПРАВИЛА СЕРВЕРА -->
+        <div class="rules-section">
+            <h2 class="section-title">📜 ПРАВИЛА СЕРВЕРА RoVanila</h2>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-icon">🤝</div>
+                    <div class="rule-title">Чат и общение</div>
+                    <ul class="rule-list">
+                        <li>Уважение к другим</li>
+                        <li>Без токсичности и спама</li>
+                        <li>Запрещён 18+ контент</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">🏗️</div>
+                    <div class="rule-title">Строительство</div>
+                    <ul class="rule-list">
+                        <li>Не гриферить</li>
+                        <li>Не воровать из сундуков</li>
+                        <li>Эстетика спавна</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">⚔️</div>
+                    <div class="rule-title">PvP</div>
+                    <ul class="rule-list">
+                        <li>Только по согласию</li>
+                        <li>Без читов и багов</li>
+                        <li>Запрещены ловушки</li>
+                    </ul>
+                </div>
             </div>
+        </div>
+
+        <!-- ГАЛЕРЕЯ -->
+        <h2 class="section-title">🖼️ ГАЛЕРЕЯ</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://i.ibb.co/CB0P0sL/vanilla1.png" alt="vanilla1" onerror="this.src='https://via.placeholder.com/400x400/a855f7/000000?text=RoVanila'"></div>
+            <div class="gallery-item"><img src="https://i.ibb.co/8djFkFw/vanilla2.png" alt="vanilla2" onerror="this.src='https://via.placeholder.com/400x400/d946ef/000000?text=Katya'"></div>
+            <div class="gallery-item"><img src="https://i.ibb.co/h9s5BfX/vanilla3.png" alt="vanilla3" onerror="this.src='https://via.placeholder.com/400x400/a855f7/000000?text=Rostik'"></div>
+        </div>
+
+        <!-- ТАЙМЛАЙН -->
+        <h2 class="section-title">📅 ХРОНИКИ БЕЗУМИЯ</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-emoji">🤡</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-event">Ростик создаёт канал</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">📊</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-event">Мем "67" захватывает мир</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">💻</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Тимофей создаёт Катю</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">🏪</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Встреча в Азбуке Вкуса</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-emoji">💜</div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-event">Тимофей под гипнозом</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- МЕДИА-ШАБЛОН -->
+        <div class="media-template">
+            <h2 style="color:#d946ef; margin-bottom:30px;">📺 ШАБЛОН ЗАЯВКИ НА МЕДИА</h2>
+            <div class="pre-box">
+Тема: Заявка на статус [YouTuber/Twitch] | Ник: [Твой_Ник]
+
+1. Информация о кандидате:
+Ваш возраст: [твой возраст]
+Ваш игровой ник: [твой ник]
+Ссылка на канал: [ссылка]
+Подписчиков: [количество]
+
+2. Почему RoVanila?
+[напиши тут причину]
+
+3. Обязательства:
+Я ознакомился с правилами и обязуюсь их соблюдать.
+
+Отправлять сюда: @Rostik1223
+            </div>
+        </div>
+
+        <!-- КРЕМЛЬ -->
+        <div class="kremlin-section">
+            <h2 class="kremlin-title">🏰 КВАРТИРА В КРЕМЛЕ 🏰</h2>
+            <div class="kremlin-grid">
+                <div class="kremlin-item"><div class="kremlin-icon">👧</div><div class="kremlin-value">Катя (владелица)</div></div>
+                <div class="kremlin-item"><div class="kremlin-icon">💻</div><div class="kremlin-value">Тимофей (игрушка №1)</div></div>
+                <div class="kremlin-item"><div class="kremlin-icon">🤡</div><div class="kremlin-value">Ростик (у входа)</div></div>
+                <div class="kremlin-item"><div class="kremlin-icon">🇷🇺</div><div class="kremlin-value">Путин (сосед)</div></div>
+            </div>
+            <p style="text-align:center; margin-top:30px; color:#d946ef;">* Путин приносит чай каждое утро *</p>
+        </div>
+
+        <!-- КНОПКА АПОКАЛИПСИСА -->
+        <div class="hypnosis-section">
+            <button class="hypnosis-button" onclick="activateApocalypse()">
+                💜 ЗАХВАТИТЬ МИР 💜
+            </button>
+            <p style="color:rgba(255,255,255,0.5); margin-top:20px;">Нажми, чтобы Катя 5.6 накрыла всё фиолетовым дымом</p>
         </div>
 
         <!-- ПОДВАЛ -->
-        <footer class="footer glass">
-            <div style="font-size: 2rem; margin-bottom: 1rem;">👖🩲💜</div>
-            <p class="footer-text">© 2026 TrusyMarket — Все права защищены (в том числе на трусы)</p>
-            <p class="footer-text">Работает на <span class="footer-highlight">donatepay</span> • Ванильная эстетика • Матовое стекло</p>
-            <p class="footer-text" style="margin-top: 2rem;">Трусы Тимофея, трусы витуберш и легендарные трусы Ростика с системой вентиляции</p>
-            <p class="footer-text">По вопросам сотрудничества: <span class="footer-highlight">@Rostik1223</span> (он ответит, если не пукнет)</p>
-        </footer>
+        <div class="footer">
+            <div class="footer-emojis">💜 🤡 💩 💨 💻 🏰 👧 6️⃣7️⃣</div>
+            <div class="footer-text">© 2026 RoVanila • Вселенная Ростика • Катя 5.6</div>
+            <div class="footer-text">IP: <span class="footer-highlight">play.rovanila.ru</span> (Ростик, меняй здесь)</div>
+            <div class="footer-text">IQ Ростика: <span class="footer-highlight">-9.999... в периоде</span></div>
+            <div class="footer-text">Тимофей: <span class="footer-highlight">💜 под гипнозом</span></div>
+            <div class="footer-text">Катя 5.6: <span class="footer-highlight">👧 бессмертная • из 67 региона</span></div>
+            <div class="footer-text" style="margin-top:30px;">* Если хотите выйти — НЕ НАДО ВЫХОДИТЬ *</div>
+        </div>
     </div>
 
     <script>
-        console.log('👖 TrusyMarket загружен! Трусы Тимофея уже ждут тебя!');
-        console.log('💜 Оплата через donatepay — быстро и безопасно');
-        console.log('🤡 Ростик одобряет этот магазин (и пукает от счастья)');
+        // ГЕНЕРАЦИЯ ЧАСТИЦ
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.background = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 50 + 50}, 255, ${Math.random() * 0.5})`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // ПЛАВАЮЩИЕ ЭМОДЗИ
+        function createFloatingEmojis() {
+            const container = document.getElementById('floatingEmojis');
+            const emojis = ['💜', '🤡', '💩', '💨', '67', '💻', '👧', '🏰', '🥵', '✨', '👁️', '💫'];
+            
+            setInterval(() => {
+                const emoji = document.createElement('div');
+                emoji.className = 'floating-emoji';
+                emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + '%';
+                emoji.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                emoji.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(emoji);
+                
+                setTimeout(() => emoji.remove(), 15000);
+            }, 800);
+        }
+
+        // ЗВУК ПУКА
+        let fartInterval;
+        function startFarting() {
+            fartInterval = setInterval(() => {
+                const audio = new Audio();
+                audio.src = 'https://www.myinstants.com/media/sounds/fart-01.mp3';
+                audio.volume = 0.1;
+                audio.play().catch(e => console.log('Браузер против пуков'));
+                
+                // Обновляем эмодзи Ростика
+                const rostik = document.getElementById('rostikFart');
+                const emojis = ['🤡💨', '🤡💩', '💨🤡', '🤡💨💩'];
+                rostik.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            }, 2000);
+        }
+
+        // АПОКАЛИПСИС
+        function activateApocalypse() {
+            const button = document.querySelector('.hypnosis-button');
+            button.innerHTML = '💜 ЗАХВАТ МИРА... 💜';
+            
+            const flash = document.getElementById('purpleFlash');
+            const overlay = document.getElementById('apocalypseOverlay');
+            const message = document.getElementById('globalMessage');
+            const counter = document.getElementById('dominationCounter');
+            const conquestBar = document.getElementById('conquestBar');
+            const conquestBarFill = document.getElementById('conquestBarFill');
+            const counterNumber = document.getElementById('counterNumber');
+            const blindingExplosion = document.getElementById('blindingExplosion');
+
+            // Вспышка
+            flash.style.opacity = '0.8';
+            setTimeout(() => { flash.style.opacity = '0'; }, 200);
+
+            // Оверлей
+            setTimeout(() => { overlay.style.opacity = '0.9'; }, 300);
+
+            // Текст
+            setTimeout(() => {
+                message.style.opacity = '1';
+                message.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 500);
+
+            // Счётчик
+            setTimeout(() => {
+                counter.style.opacity = '1';
+                conquestBar.style.opacity = '1';
+            }, 1000);
+
+            // Прогресс
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent++;
+                conquestBarFill.style.width = percent + '%';
+                counterNumber.innerHTML = percent + '%';
+
+                if (percent >= 100) {
+                    clearInterval(interval);
+
+                    // Ослепляющий взрыв
+                    blindingExplosion.style.opacity = '1';
+                    blindingExplosion.style.transform = 'translate(-50%, -50%) scale(500)';
+
+                    // Убираем через
+                    setTimeout(() => {
+                        blindingExplosion.style.opacity = '0';
+                    }, 10000);
+                    
+                    // Финальное сообщение
+                    message.innerHTML = '💜 КАТЯ 5.6 ВЛАДЫЧИЦА 💜';
+                    
+                    setTimeout(() => {
+                        alert('💜 МИР ЗАХВАЧЕН! КАТЯ 5.6 ПРАВИТ ВЕЧНО! РОСТИК ПУКАЕТ, ТИМОФЕЙ ПОД ГИПНОЗОМ! 💜');
+                    }, 2000);
+                }
+            }, 50);
+
+            setTimeout(() => {
+                button.innerHTML = '💜 МИР ЗАХВАЧЕН 💜';
+            }, 6000);
+        }
+
+        // ЗАПУСК
+        window.onload = () => {
+            createParticles();
+            createFloatingEmojis();
+            startFarting();
+            
+            console.log('💜 RoVanila • Вселенная Ростика • Катя 5.6 загружена!');
+            console.log('🤡 IQ Ростика: -9.999...');
+            console.log('💻 Тимофей под гипнозом');
+            console.log('👧 Катя 5.6 бессмертна и родом из 67 региона');
+            console.log('💨 Пуки каждые 2 секунды');
+            console.log('🎆 Нажми кнопку для апокалипсиса');
+        };
     </script>
 </body>
 </html>
