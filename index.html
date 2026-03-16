@@ -1,42 +1,25 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru">
 <head>
-    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Интерактивный тестовый лендинг | Песочница для смелых идей и гипотез</title>
-    <meta name="description" content="Самый дружелюбный тестовый полигон. Проверяй верстку, анимации, API, шрифты, UX-гипотезы. Адаптив, скорость, чистый код.">
-    <meta name="keywords" content="тестовый лендинг, интерактивный лендинг, песочница, ui тесты, верстка, seo эксперименты, демо сайт, тренажер для верстальщика, фронтенд полигон">
-    <meta name="author" content="Команда тестовых решений и Тимофей">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="revisit-after" content="1 days">
-    <meta name="language" content="ru">
-    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrusyMarket — Магазин трусов Тимофея и витуберш</title>
     
-    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
-    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
+    <!-- SEO -->
+    <meta name="description" content="TrusyMarket — легендарные трусы Тимофея, стильные трусы витуберш, ванильная эстетика, матовое стекло. Быстрая оплата через donatepay.">
+    <meta name="keywords" content="трусы, трусы тимофея, трусы витуберш, витуберши, нижнее белье, donatepay, ванильная эстетика, матовое стекло, тимофей">
     
-    <!-- ===== OPEN GRAPH ===== -->
-    <meta property="og:locale" content="ru_RU">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Интерактивный тестовый лендинг — песочница 3.0">
-    <meta property="og:description" content="Проверяй гипотезы, играй с анимациями, тестируй API. Всё в одном флаконе.">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    <meta property="og:site_name" content="Тестовый лендинг">
+    <!-- Open Graph -->
+    <meta property="og:title" content="TrusyMarket — трусы Тимофея и витуберш">
+    <meta property="og:description" content="Купи легендарные трусы Тимофея или стильные трусы витуберш. Ваниль, эстетика, доставка по всей вселенной.">
     <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- ===== TWITTER CARDS ===== -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
-    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
-    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
     
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <!-- Шрифты и стили -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- ===== СТИЛИ ===== -->
     <style>
         * {
             margin: 0;
@@ -45,47 +28,53 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
-            color: #0a1e2f;
-            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            background: #fdf7f2;
+            background-image: radial-gradient(circle at 10% 30%, rgba(255, 218, 224, 0.3) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 70%, rgba(200, 230, 255, 0.3) 0%, transparent 30%);
+            color: #2d2d2d;
             min-height: 100vh;
-            padding: 1rem;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
+            padding: 2rem;
         }
 
-        /* АНИМАЦИИ */
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
-            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* ШАПКА */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: rgba(255,255,255,0.7);
+        /* ===== МАТОВОЕ СТЕКЛО ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.8);
-            padding: 1rem 2.5rem;
-            border-radius: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 40px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== ШАПКА ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            border-radius: 100px;
             margin-bottom: 4rem;
-            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
         }
 
         .logo {
@@ -95,324 +84,394 @@
         }
 
         .logo img {
-            width: 56px;
-            height: 56px;
-            border-radius: 20px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
+            border-radius: 50%;
             background: white;
             padding: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .logo img:hover { transform: rotate(10deg) scale(1.1); }
 
         .logo h1 {
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
+            background: linear-gradient(135deg, #b86b77, #6b8fb8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .badge {
-            background: #ffffffdd;
-            padding: 0.6rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            color: #1e2b5e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid white;
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
         }
 
-        /* ГЕРОЙ */
+        .nav-links a {
+            text-decoration: none;
+            color: #4a4a4a;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #b86b77;
+        }
+
+        /* ===== ГЕРОЙ ===== */
         .hero {
             text-align: center;
-            padding: 5rem 3rem;
-            background: linear-gradient(145deg, #ffffff, #f5f9ff);
-            border-radius: 70px;
-            box-shadow: 0 40px 60px -20px #1e2b5e40;
-            margin-bottom: 5rem;
-            border: 1px solid #ffffff;
-            position: relative;
-            overflow: hidden;
+            padding: 4rem 2rem;
+            border-radius: 80px;
+            margin-bottom: 4rem;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-        }
+
         .hero h2 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #0a1e2f, #283593);
+            background: linear-gradient(135deg, #b86b77, #6b8fb8, #c49a6c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .hero p {
-            font-size: 1.4rem;
-            color: #2d3f5e;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(145deg, #283593, #1e2b5e);
-            color: white;
-            font-weight: 600;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            text-decoration: none;
             font-size: 1.3rem;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 15px 25px -8px #28359380;
-            transition: all 0.2s;
-            border: 1px solid #ffffff50;
-        }
-        .cta-button:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 25px 35px -8px #1e2b5e;
-            background: linear-gradient(145deg, #1e2b5e, #283593);
+            color: #5a5a5a;
+            max-width: 700px;
+            margin: 0 auto 3rem;
         }
 
-        /* КАРТОЧКИ */
-        .features {
+        /* ===== ТОВАРЫ ===== */
+        .products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
             margin: 5rem 0;
         }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px -15px #1a237e30;
-            border: 1px solid rgba(255,255,255,0.9);
-            transition: all 0.3s;
+
+        .product-card {
             text-align: center;
-            animation: float 6s infinite ease-in-out;
+            padding: 2.5rem 1.5rem;
         }
-        .feature-card:nth-child(2) { animation-delay: 0.5s; }
-        .feature-card:nth-child(3) { animation-delay: 1s; }
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: #3f51b5;
-            background: white;
-        }
-        .feature-icon {
-            font-size: 4.5rem;
+
+        .product-emoji {
+            font-size: 6rem;
             margin-bottom: 1.5rem;
+            filter: drop-shadow(0 10px 15px rgba(184, 107, 119, 0.3));
         }
-        .feature-title {
+
+        .product-title {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #0a1e2f;
+            color: #b86b77;
         }
 
-        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
-        .playground {
-            background: white;
-            border-radius: 70px;
-            padding: 4rem 3rem;
-            margin: 5rem 0;
-            box-shadow: 0 30px 50px -20px #0f2b45;
+        .product-desc {
+            color: #5a5a5a;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
-        .playground h3 {
-            font-size: 2.8rem;
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6b8fb8;
+            margin-bottom: 1.5rem;
+        }
+
+        .buy-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #b86b77, #9e5b65);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(184, 107, 119, 0.3);
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(184, 107, 119, 0.5);
+        }
+
+        /* ===== ВИТУБЕРШИ ===== */
+        .vTubers {
+            margin: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 2rem;
-            color: #1e2b5e;
+            margin-bottom: 3rem;
+            color: #6b8fb8;
         }
-        .grid-demo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        .grid-item {
-            background: #e9ecf5;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-radius: 30px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1e2b5e;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-        .grid-item:hover {
-            border-color: #3f51b5;
-            background: white;
-            transform: scale(1.03);
-            cursor: pointer;
-        }
-        .slider-demo {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 3rem;
-        }
-        .knob {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
-            box-shadow: 0 15px 25px -5px #1a237e80;
-            transition: 0.1s;
-        }
-        .knob:active { transform: rotate(30deg); }
 
-        /* ЛОГО-СЕКЦИЯ */
-        .logo-section {
+        .vtuber-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .vtuber-card {
             text-align: center;
-            padding: 4rem 3rem;
-            background: linear-gradient(145deg, #e8edff, #d5defa);
-            border-radius: 60px;
+            padding: 2rem 1rem;
+        }
+
+        .vtuber-avatar {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .vtuber-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #b86b77;
+            margin-bottom: 0.5rem;
+        }
+
+        .vtuber-bio {
+            color: #5a5a5a;
+            font-size: 0.9rem;
+        }
+
+        /* ===== ПРЕИМУЩЕСТВА ===== */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
             margin: 5rem 0;
         }
-        .logo-section img {
-            width: 180px;
-            height: 180px;
-            border-radius: 40px;
-            box-shadow: 0 30px 40px -15px #1e2b5e;
-            transition: 0.4s;
-        }
-        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
 
-        /* ПОДВАЛ */
-        .footer {
+        .feature-item {
             text-align: center;
-            padding: 3rem 2rem;
-            color: #44556b;
-            border-top: 2px dashed #b0c0d0;
-            margin-top: 4rem;
-            background: #f5faff;
-            border-radius: 60px 60px 30px 30px;
+            padding: 2rem 1rem;
         }
 
-        @media (max-width: 700px) {
-            .hero h2 { font-size: 2.5rem; }
-            .header { flex-direction: column; text-align: center; }
-            .logo { flex-direction: column; }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
-        .hidden-schema { display: none; }
+
+        .feature-text {
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+
+        /* ===== ОПЛАТА ===== */
+        .payment-section {
+            text-align: center;
+            padding: 4rem;
+            border-radius: 80px;
+            margin: 5rem 0;
+        }
+
+        .payment-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #b86b77;
+            margin-bottom: 1rem;
+        }
+
+        .payment-desc {
+            color: #5a5a5a;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .donate-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #6b8fb8, #4f6f94);
+            color: white;
+            font-weight: 700;
+            padding: 1.5rem 4rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(107, 143, 184, 0.4);
+        }
+
+        .donate-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(107, 143, 184, 0.6);
+        }
+
+        /* ===== ПОДВАЛ ===== */
+        .footer {
+            padding: 3rem;
+            border-radius: 60px 60px 20px 20px;
+            margin-top: 5rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: #5a5a5a;
+            margin: 0.5rem 0;
+        }
+
+        .footer-highlight {
+            color: #b86b77;
+            font-weight: 600;
+        }
+
+        /* ===== АДАПТАЦИЯ ===== */
+        @media (max-width: 1024px) {
+            .products { grid-template-columns: repeat(2, 1fr); }
+            .vtuber-grid { grid-template-columns: repeat(2, 1fr); }
+            .features { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .products { grid-template-columns: 1fr; }
+            .vtuber-grid { grid-template-columns: 1fr; }
+            .features { grid-template-columns: 1fr; }
+            .hero h2 { font-size: 2.5rem; }
+        }
     </style>
-    
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Тестовый лендинг 3.0",
-        "url": "https://timoshamoscow.github.io/test/",
-        "description": "Интерактивная песочница для фронтенд-экспериментов",
-        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
-    }
-    </script>
 </head>
 <body>
-    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
-    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
-
     <div class="container">
-        <header class="header">
+        <!-- ШАПКА -->
+        <header class="header glass">
             <div class="logo">
-                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
-                <h1>Тестовый лендинг</h1>
+                <img src="images/logo.png" alt="TrusyMarket">
+                <h1>TrusyMarket</h1>
             </div>
-            <div class="badge">🚀 v.3.5 • Живая песочница</div>
+            <div class="nav-links">
+                <a href="#">Трусы</a>
+                <a href="#">Витуберши</a>
+                <a href="#">Оплата</a>
+                <a href="#">Доставка</a>
+            </div>
         </header>
 
-        <section class="hero">
-            <h2>Полигон для гипотез<br>и смелых решений</h2>
-            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
-            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
+        <!-- ГЕРОЙ -->
+        <section class="hero glass">
+            <h2>ТРУСЫ ТИМОФЕЯ<br>И ВИТУБЕРШ</h2>
+            <p>Легендарные трусы самого Тимофея и стильные трусы твоих любимых витуберш. Только у нас — ванильная эстетика, матовое стекло и быстрая оплата через donatepay.</p>
+            <a href="#" class="buy-button" onclick="alert('Добро пожаловать в TrusyMarket! Скоро здесь будет каталог.'); return false;">🍑 Смотреть каталог</a>
         </section>
 
-        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
-        <section class="playground">
-            <h3>⚡ Интерактивная лаборатория</h3>
-            <div class="grid-demo">
-                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
-                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
-                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
-                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
+        <!-- ТОВАРЫ -->
+        <div class="products">
+            <!-- Трусы Тимофея -->
+            <div class="product-card glass-card">
+                <div class="product-emoji">👖✨</div>
+                <div class="product-title">Трусы Тимофея</div>
+                <div class="product-desc">Легендарные трусы, в которых Тимофей писал код для вселенной Ростика. С фиолетовым дымом Кати.</div>
+                <div class="product-price">2 024 ₽</div>
+                <a href="#" class="buy-button" onclick="alert('Трусы Тимофея добавлены в корзину! Спасибо за покупку 💜'); return false;">Купить</a>
             </div>
-            <div class="slider-demo">
-                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
-                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
-                <div style="font-size: 2rem;">🎚️</div>
+
+            <!-- Трусы Кати -->
+            <div class="product-card glass-card">
+                <div class="product-emoji">💜🩲</div>
+                <div class="product-title">Трусы Кати 5.6</div>
+                <div class="product-desc">Магические трусы с эффектом гипноза. Надень их, и почувствуешь фиолетовый дым.</div>
+                <div class="product-price">2 021 ₽</div>
+                <a href="#" class="buy-button" onclick="alert('Трусы Кати добавлены в корзину! Теперь ты под гипнозом 💜'); return false;">Купить</a>
+            </div>
+
+            <!-- Трусы Ростика -->
+            <div class="product-card glass-card">
+                <div class="product-emoji">🤡💨</div>
+                <div class="product-title">Трусы Ростика</div>
+                <div class="product-desc">Специальные трусы с системой вентиляции для профессионального пуканья. IQ -9.999 не требуется.</div>
+                <div class="product-price">67 ₽</div>
+                <a href="#" class="buy-button" onclick="alert('Трусы Ростика добавлены в корзину! Не забудь пукнуть после покупки 💨'); return false;">Купить</a>
+            </div>
+        </div>
+
+        <!-- ВИТУБЕРШИ -->
+        <section class="vTubers">
+            <h2 class="section-title">✨ НАШИ ВИТУБЕРШИ ✨</h2>
+            <div class="vtuber-grid">
+                <div class="vtuber-card glass-card">
+                    <div class="vtuber-avatar">👧💜</div>
+                    <div class="vtuber-name">Катя 5.6</div>
+                    <div class="vtuber-bio">Бессмертная владычица, гипнотизирует взглядом</div>
+                </div>
+                <div class="vtuber-card glass-card">
+                    <div class="vtuber-avatar">🎮💻</div>
+                    <div class="vtuber-name">Тимошка</div>
+                    <div class="vtuber-bio">Создатель вселенной, 24к на YouTube</div>
+                </div>
+                <div class="vtuber-card glass-card">
+                    <div class="vtuber-avatar">🌸✨</div>
+                    <div class="vtuber-name">Аниме тян</div>
+                    <div class="vtuber-bio">Та самая, с авы Ростика. Теперь в трусах</div>
+                </div>
+                <div class="vtuber-card glass-card">
+                    <div class="vtuber-avatar">🇷🇺🍵</div>
+                    <div class="vtuber-name">Путин</div>
+                    <div class="vtuber-bio">Приносит чай во все примерочные</div>
+                </div>
             </div>
         </section>
 
-        <!-- ОСНОВНЫЕ ФИШКИ -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🧩</div>
-                <h3 class="feature-title">Чистый код</h3>
-                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
+        <!-- ПРЕИМУЩЕСТВА -->
+        <div class="features">
+            <div class="feature-item glass-card">
+                <div class="feature-icon">🍦</div>
+                <div class="feature-text">Ванильная эстетика</div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3 class="feature-title">SEO-агрессия</h3>
-                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
+            <div class="feature-item glass-card">
+                <div class="feature-icon">🪟</div>
+                <div class="feature-text">Матовое стекло</div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Скорость + UX</h3>
-                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
+            <div class="feature-item glass-card">
+                <div class="feature-icon">💸</div>
+                <div class="feature-text">Donatepay</div>
             </div>
+            <div class="feature-item glass-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-text">Быстрая доставка</div>
+            </div>
+        </div>
+
+        <!-- ОПЛАТА -->
+        <section class="payment-section glass">
+            <h2 class="payment-title">💜 ОПЛАТА ЧЕРЕЗ DONATEPAY 💜</h2>
+            <p class="payment-desc">Моментально, безопасно, без лишних вопросов. Как пук Ростика — быстро и незаметно.</p>
+            <a href="#" class="donate-button" onclick="alert('Спасибо за поддержку TrusyMarket! Скоро здесь будет форма оплаты.'); return false;">🍑 Оплатить сейчас</a>
         </section>
 
-        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
-        <section class="logo-section">
-            <img src="images/logo.png" alt="Логотип">
-            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
-        </section>
-
-        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
-        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
-            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
-                <span class="badge" style="font-size:1.2rem;">Сетки</span>
-                <span class="badge" style="font-size:1.2rem;">Анимации</span>
-                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
-                <span class="badge" style="font-size:1.2rem;">Типографика</span>
-                <span class="badge" style="font-size:1.2rem;">SVG</span>
-                <span class="badge" style="font-size:1.2rem;">Canvas</span>
-                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
-                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
+        <!-- ОТЗЫВЫ -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 4rem 0;">
+            <div class="glass-card" style="padding: 2rem;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">💜</div>
+                <div style="font-style: italic; color: #4a4a4a;">"Купил трусы Тимофея — теперь код пишется сам, под фиолетовым дымом"</div>
+                <div style="margin-top: 1rem; font-weight: 600; color: #b86b77;">— Анонимный программист</div>
             </div>
-        </section>
+            <div class="glass-card" style="padding: 2rem;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">💨</div>
+                <div style="font-style: italic; color: #4a4a4a;">"Трусы Ростика изменили мою жизнь. Теперь я пукаю профессионально и попал в Кремль"</div>
+                <div style="margin-top: 1rem; font-weight: 600; color: #b86b77;">— Сосед Путина</div>
+            </div>
+        </div>
 
-        <footer class="footer">
-            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
-            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
-            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
+        <!-- ПОДВАЛ -->
+        <footer class="footer glass">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">👖🩲💜</div>
+            <p class="footer-text">© 2026 TrusyMarket — Все права защищены (в том числе на трусы)</p>
+            <p class="footer-text">Работает на <span class="footer-highlight">donatepay</span> • Ванильная эстетика • Матовое стекло</p>
+            <p class="footer-text" style="margin-top: 2rem;">Трусы Тимофея, трусы витуберш и легендарные трусы Ростика с системой вентиляции</p>
+            <p class="footer-text">По вопросам сотрудничества: <span class="footer-highlight">@Rostik1223</span> (он ответит, если не пукнет)</p>
         </footer>
     </div>
 
     <script>
-        function demoAlert() {
-            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
-        }
-        document.querySelectorAll('.grid-item').forEach(el => {
-            el.addEventListener('click', function() {
-                this.style.transition = '0.2s';
-            });
-        });
-        console.log('✅ Интерактивный тестовый лендинг загружен.');
+        console.log('👖 TrusyMarket загружен! Трусы Тимофея уже ждут тебя!');
+        console.log('💜 Оплата через donatepay — быстро и безопасно');
+        console.log('🤡 Ростик одобряет этот магазин (и пукает от счастья)');
     </script>
 </body>
 </html>
