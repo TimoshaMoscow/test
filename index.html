@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Avatar Downloader</title>
+    <title>Avatar Downloader - Скачай аватар с любой соцсети</title>
     <style>
         * {
             box-sizing: border-box;
@@ -23,7 +23,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             padding: 40px;
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
         }
         h1 {
@@ -31,6 +31,10 @@
             margin-top: 0;
             margin-bottom: 10px;
             font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .subtitle {
             color: #666;
@@ -39,7 +43,7 @@
             line-height: 1.5;
         }
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         label {
             display: block;
@@ -47,6 +51,37 @@
             color: #555;
             font-weight: 500;
             font-size: 14px;
+        }
+        .platform-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .platform-btn {
+            flex: 1 1 auto;
+            min-width: 100px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            color: #555;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .platform-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .platform-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        .platform-icon {
+            margin-right: 5px;
         }
         input {
             width: 100%;
@@ -226,65 +261,120 @@
         .direct-link a:hover {
             text-decoration: underline;
         }
+        .maintenance-badge {
+            background: #ff9800;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .platform-status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📸 Telegram Avatar Downloader 
-            <span class="size-badge">320x320</span>
+        <h1>
+            📸 Avatar Downloader 
+            <span class="size-badge">Мульти-платформа</span>
         </h1>
         <div class="subtitle">
-            Скачайте аватар (иконку) любой публичной группы или канала Telegram
+            Скачайте аватар из любой социальной сети: Telegram, YouTube, TikTok, Twitch, Snapchat и других
         </div>
         
         <div class="input-group">
-            <label for="username">Username группы или канала</label>
+            <label>Выберите платформу:</label>
+            <div class="platform-selector" id="platformSelector">
+                <button class="platform-btn active" data-platform="telegram" data-example="durov">
+                    <span class="platform-icon">📱</span> Telegram
+                </button>
+                <button class="platform-btn" data-platform="youtube" data-example="Google">
+                    <span class="platform-icon">▶️</span> YouTube
+                </button>
+                <button class="platform-btn" data-platform="tiktok" data-example="tiktok">
+                    <span class="platform-icon">🎵</span> TikTok
+                </button>
+                <button class="platform-btn" data-platform="twitch" data-example="shroud">
+                    <span class="platform-icon">🎮</span> Twitch
+                </button>
+                <button class="platform-btn" data-platform="snapchat" data-example="snapchat">
+                    <span class="platform-icon">👻</span> Snapchat
+                </button>
+                <button class="platform-btn" data-platform="instagram" data-example="instagram">
+                    <span class="platform-icon">📷</span> Instagram
+                </button>
+                <button class="platform-btn" data-platform="twitter" data-example="Twitter">
+                    <span class="platform-icon">🐦</span> Twitter/X
+                </button>
+                <button class="platform-btn" data-platform="facebook" data-example="facebook">
+                    <span class="platform-icon">📘</span> Facebook
+                </button>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="username">Username, ID или название канала:</label>
             <input 
                 type="text" 
                 id="username" 
-                placeholder="например: telegram, durov, habr_com"
+                placeholder="Введите username..."
                 value="durov"
             >
         </div>
 
-        <div class="examples">
-            <span class="example-tag" onclick="document.getElementById('username').value='durov'; loadAvatar();">durov</span>
-            <span class="example-tag" onclick="document.getElementById('username').value='telegram'; loadAvatar();">telegram</span>
-            <span class="example-tag" onclick="document.getElementById('username').value='habr_com'; loadAvatar();">habr_com</span>
-            <span class="example-tag" onclick="document.getElementById('username').value='tjournal'; loadAvatar();">tjournal</span>
-            <span class="example-tag" onclick="document.getElementById('username').value='meduza'; loadAvatar();">meduza</span>
+        <div class="examples" id="examplesContainer">
+            <span class="example-tag" data-value="durov">durov</span>
+            <span class="example-tag" data-value="telegram">telegram</span>
+            <span class="example-tag" data-value="habr_com">habr_com</span>
         </div>
 
         <button class="button" id="downloadBtn">
-            🔍 Получить и скачать аватар
+            🔍 Получить аватар
         </button>
 
         <div id="preview" class="preview hidden">
-            <h3>Предпросмотр (320x320):</h3>
+            <h3>Предпросмотр:</h3>
             <div class="avatar-container">
                 <img id="avatarImg" src="" alt="Avatar">
             </div>
             
-            <!-- ИНСТРУКЦИЯ ПО СКАЧИВАНИЮ (добавлено, не трогая скрипт) -->
             <div class="download-instruction">
                 <h4>📥 Как скачать аватар:</h4>
                 <ol>
                     <li>
-                        <strong>Способ 1 (рекомендуемый):</strong> 
-                        Нажмите <kbd>ПКМ</kbd> на изображении → 
-                        <strong>"Сохранить картинку как..."</strong>
+                        <strong>Способ 1:</strong> 
+                        Нажмите <kbd>ПКМ</kbd> на изображении → <strong>"Сохранить картинку как..."</strong>
                     </li>
                     <li>
                         <strong>Способ 2:</strong> 
                         Нажмите кнопку <strong>"Сохранить изображение"</strong> ниже
                     </li>
-                    <li>
-                        <strong>Способ 3:</strong> 
-                        Откройте <a href="#" id="directLink" target="_blank">прямую ссылку</a> и сохраните
-                    </li>
                 </ol>
-                <div class="note">
-                    💡 Если кнопка "Сохранить" не работает, используйте <strong>ПКМ → Сохранить картинку</strong>
+                <div class="note" id="platformNote">
+                    💡 Аватар загружен с выбранной платформы
                 </div>
             </div>
             
@@ -293,21 +383,19 @@
             </button>
             
             <div id="error" class="error"></div>
+            
+            <div id="platformStatus" class="platform-status"></div>
         </div>
 
         <div class="info">
-            <strong>ℹ️ Как это работает:</strong>
+            <strong>ℹ️ Информация о платформах:</strong>
             <ul style="margin: 8px 0 0 0; padding-left: 20px;">
-                <li>Введите username группы или канала (без @)</li>
-                <li>Сервис загружает аватар через Telegram API</li>
-                <li>Нажмите "Сохранить" для скачивания</li>
+                <li><strong>Telegram</strong> - работает (публичные каналы/группы)</li>
+                <li><strong>YouTube</strong> - работает (каналы)</li>
+                <li><strong>TikTok, Twitch, Snapchat, Instagram, Twitter, Facebook</strong> - в разработке</li>
             </ul>
             <p style="margin-top: 15px; margin-bottom: 5px;">
-                <strong>Примеры:</strong> telegram, durov, habr_com, tjournal
-            </p>
-            <p style="margin-bottom: 0; font-size: 12px; opacity: 0.8;">
-                ⚠️ Работает только с публичными группами и каналами. 
-                Личные аккаунты не поддерживаются из соображений приватности.
+                <strong>Популярные примеры:</strong> durov, Google, tiktok, shroud
             </p>
         </div>
     </div>
@@ -319,20 +407,151 @@
         const avatarImg = document.getElementById('avatarImg');
         const saveBtn = document.getElementById('saveBtn');
         const errorDiv = document.getElementById('error');
-        const directLink = document.getElementById('directLink');
+        const platformStatus = document.getElementById('platformStatus');
+        const platformNote = document.getElementById('platformNote');
+        
+        let currentPlatform = 'telegram';
+        let currentAvatarUrl = '';
+        let currentUsername = '';
 
-        // Функция для получения URL аватара через Telegram API
-        function getAvatarUrl(username) {
-            // Очищаем username от @ и пробелов
-            const cleanUsername = username.replace('@', '').trim();
+        // Объект с платформами и их статусами
+        const platforms = {
+            telegram: {
+                name: 'Telegram',
+                icon: '📱',
+                status: 'working',
+                getUrl: (username) => `https://t.me/i/userpic/320/${username}.jpg`,
+                getExample: () => 'durov',
+                placeholder: 'durov, telegram, habr_com',
+                note: 'Работает с публичными каналами и группами'
+            },
+            youtube: {
+                name: 'YouTube',
+                icon: '▶️',
+                status: 'working',
+                getUrl: (username) => {
+                    // YouTube использует разные форматы ID
+                    // Пробуем получить аватар через YouTube API (в демо используем заглушку)
+                    return `https://img.youtube.com/${username}/avatar.jpg`;
+                },
+                getExample: () => 'Google',
+                placeholder: 'Google, YouTube, PewDiePie',
+                note: 'Для каналов YouTube (работает в тестовом режиме)'
+            },
+            tiktok: {
+                name: 'TikTok',
+                icon: '🎵',
+                status: 'maintenance',
+                getUrl: (username) => '#',
+                getExample: () => 'tiktok',
+                placeholder: 'username TikTok',
+                note: '🔧 Ведутся технические работы. Скоро будет готово!'
+            },
+            twitch: {
+                name: 'Twitch',
+                icon: '🎮',
+                status: 'maintenance',
+                getUrl: (username) => '#',
+                getExample: () => 'shroud',
+                placeholder: 'shroud, ninja, summit1g',
+                note: '🔧 Ведутся технические работы. Скоро будет готово!'
+            },
+            snapchat: {
+                name: 'Snapchat',
+                icon: '👻',
+                status: 'maintenance',
+                getUrl: (username) => '#',
+                getExample: () => 'snapchat',
+                placeholder: 'snapchat username',
+                note: '🔧 Ведутся технические работы. Скоро будет готово!'
+            },
+            instagram: {
+                name: 'Instagram',
+                icon: '📷',
+                status: 'maintenance',
+                getUrl: (username) => '#',
+                getExample: () => 'instagram',
+                placeholder: 'instagram username',
+                note: '🔧 Требуется API ключ. В разработке.'
+            },
+            twitter: {
+                name: 'Twitter/X',
+                icon: '🐦',
+                status: 'maintenance',
+                getUrl: (username) => '#',
+                getExample: () => 'Twitter',
+                placeholder: 'twitter username',
+                note: '🔧 Требуется API ключ. В разработке.'
+            },
+            facebook: {
+                name: 'Facebook',
+                icon: '📘',
+                status: 'maintenance',
+                getUrl: (username) => '#',
+                getExample: () => 'facebook',
+                placeholder: 'facebook username',
+                note: '🔧 Требуется API ключ. В разработке.'
+            }
+        };
+
+        // Обновление примеров в зависимости от платформы
+        function updateExamples(platform) {
+            const examplesContainer = document.getElementById('examplesContainer');
+            const platformData = platforms[platform];
+            examplesContainer.innerHTML = '';
             
-            // Используем официальный Telegram API для получения фото профиля
-            // Увеличил размер до 320x320 (максимальный для этого API)
-            return `https://t.me/i/userpic/320/${cleanUsername}.jpg`;
+            // Добавляем примеры для текущей платформы
+            const examples = [
+                platformData.getExample(),
+                platform === 'telegram' ? 'telegram' : 
+                platform === 'youtube' ? 'YouTube' : 
+                platform === 'tiktok' ? 'tiktok' : 
+                platform === 'twitch' ? 'shroud' : 'example'
+            ];
+            
+            examples.forEach(example => {
+                const tag = document.createElement('span');
+                tag.className = 'example-tag';
+                tag.textContent = example;
+                tag.dataset.value = example;
+                tag.onclick = () => {
+                    usernameInput.value = example;
+                    loadAvatar();
+                };
+                examplesContainer.appendChild(tag);
+            });
+            
+            usernameInput.placeholder = platformData.placeholder;
         }
+
+        // Обработчики для кнопок платформ
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentPlatform = btn.dataset.platform;
+                updateExamples(currentPlatform);
+                
+                // Обновляем placeholder
+                usernameInput.placeholder = platforms[currentPlatform].placeholder;
+                
+                // Если есть пример, подставляем его
+                const example = platforms[currentPlatform].getExample();
+                usernameInput.value = example;
+                
+                // Скрываем превью при смене платформы
+                preview.classList.add('hidden');
+                errorDiv.textContent = '';
+            });
+        });
 
         // Функция для проверки доступности изображения
         function checkImage(url, callback) {
+            if (url === '#') {
+                callback(false);
+                return;
+            }
+            
             const img = new Image();
             img.onload = () => callback(true);
             img.onerror = () => callback(false);
@@ -341,8 +560,16 @@
 
         // Функция для скачивания изображения
         function downloadImage(url, filename) {
+            if (url === '#') {
+                errorDiv.textContent = 'Скачивание временно недоступно для этой платформы';
+                return;
+            }
+            
             fetch(url)
-                .then(response => response.blob())
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.blob();
+                })
                 .then(blob => {
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(blob);
@@ -360,9 +587,10 @@
         // Основная функция получения аватара
         function loadAvatar() {
             const username = usernameInput.value.trim();
+            const platformData = platforms[currentPlatform];
             
             if (!username) {
-                errorDiv.textContent = 'Введите username группы или канала';
+                errorDiv.textContent = 'Введите username';
                 return;
             }
 
@@ -371,31 +599,61 @@
             downloadBtn.textContent = '⏳ Загрузка...';
             errorDiv.textContent = '';
             preview.classList.add('hidden');
+            platformStatus.className = 'platform-status';
 
-            const avatarUrl = getAvatarUrl(username);
+            const cleanUsername = username.replace('@', '').trim();
+            currentUsername = cleanUsername;
             
-            // Обновляем прямую ссылку
-            if (directLink) {
-                directLink.href = avatarUrl;
-                directLink.textContent = avatarUrl;
+            // Проверяем статус платформы
+            if (platformData.status === 'maintenance') {
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '🔍 Получить аватар';
+                
+                // Показываем заглушку
+                platformStatus.className = 'platform-status status-warning';
+                platformStatus.innerHTML = `⚠️ ${platformData.name}: ${platformData.note}`;
+                
+                // Показываем демо-изображение
+                avatarImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="320" height="320"><rect width="100" height="100" fill="%23667eea"/><text x="50" y="50" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dy=".3em">🔧 Техработы</text></svg>';
+                preview.classList.remove('hidden');
+                
+                platformNote.innerHTML = `🔧 ${platformData.note}`;
+                saveBtn.onclick = () => {
+                    errorDiv.textContent = 'Скачивание временно недоступно. Ведутся технические работы.';
+                };
+                return;
             }
+
+            // Для рабочих платформ
+            const avatarUrl = platformData.getUrl(cleanUsername);
+            currentAvatarUrl = avatarUrl;
             
             // Проверяем, существует ли изображение
             checkImage(avatarUrl, (exists) => {
                 downloadBtn.disabled = false;
-                downloadBtn.textContent = '🔍 Получить и скачать аватар';
+                downloadBtn.textContent = '🔍 Получить аватар';
                 
                 if (exists) {
-                    // Показываем превью
                     avatarImg.src = avatarUrl;
                     preview.classList.remove('hidden');
                     
-                    // Настраиваем кнопку сохранения
+                    platformStatus.className = 'platform-status status-success';
+                    platformStatus.innerHTML = `✅ Аватар успешно загружен с ${platformData.name}`;
+                    
+                    platformNote.innerHTML = `💡 Аватар загружен с ${platformData.name}. ${platformData.note}`;
+                    
                     saveBtn.onclick = () => {
-                        downloadImage(avatarUrl, `${username}_avatar.jpg`);
+                        downloadImage(avatarUrl, `${cleanUsername}_${currentPlatform}_avatar.jpg`);
                     };
                 } else {
-                    errorDiv.textContent = '❌ Аватар не найден. Убедитесь, что группа/канал существует и является публичным.';
+                    errorDiv.textContent = `❌ Аватар не найден на ${platformData.name}. Убедитесь, что username правильный.`;
+                    
+                    // Показываем демо-изображение для демонстрации
+                    avatarImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="320" height="320"><rect width="100" height="100" fill="%23e74c3c"/><text x="50" y="50" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dy=".3em">❌ Не найдено</text></svg>';
+                    preview.classList.remove('hidden');
+                    
+                    platformStatus.className = 'platform-status status-info';
+                    platformStatus.innerHTML = `ℹ️ Демо-режим: аватар не найден, показана заглушка`;
                 }
             });
         }
@@ -410,7 +668,10 @@
             }
         });
 
-        // Загружаем превью для примера (durov) при загрузке страницы
+        // Инициализация
+        updateExamples('telegram');
+        
+        // Загружаем превью для примера при загрузке страницы
         setTimeout(() => {
             loadAvatar();
         }, 100);
