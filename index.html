@@ -3,2339 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TAIPrompts - генератор промптов для ChatGPT. Создавайте качественные промпты для рецептов, стикеров, изображений, игр и многого другого.">
-    <meta name="keywords" content="промпты, ChatGPT, генерация промптов, ИИ, рецепты, стикеры, изображения">
-    <meta name="author" content="Тимофей">
-    <title>TAIPrompts - Генератор промптов для нейросетей</title>
+    <title>NIGHTWARE // Терминал безопасности</title>
+
+    <!-- Агрессивное SEO -->
+    <meta name="description" content="NIGHTWARE: Экипировка для нулевых дней. Бронежилеты с подавлением RF, тактические очки ночного видения, глушители сигнала. Корпоротивным клиентам — аудит периметра.">
+    <meta name="keywords" content="кибербезопасность, тактическое снаряжение, бронежилет, РЭБ, глушитель, нулевой день, хакинг, darknet, оператор БПЛА, Nightware">
+
+    <!-- Open Graph (Мрачный) -->
+    <meta property="og:title" content="NIGHTWARE // Экипировка для теней">
+    <meta property="og:description" content="Твое снаряжение не должно светиться. Тактический шифон, защита от RF-сканирования, керамические плиты класса BR5.">
+    <meta property="og:image" content="https://example.com/static/og_dark.jpg">
+    <meta property="og:url" content="https://nightware.local">
+
+    <!-- Шрифты: JetBrains Mono (технический, моноширинный) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+
     <style>
-/* Базовые стили и сброс */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --bg-color: #121212;
-    --text-color: #ffffff;
-    --accent-color: #5e72e4;
-    --secondary-color: #adb5bd;
-    --light-color: #1e1e1e;
-    --card-bg: rgba(33, 37, 41, 0.7);
-    --card-border: rgba(255, 255, 255, 0.1);
-    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
-    overflow-x: hidden;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Переключатель темы */
-.theme-switch-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 50px;
-    padding: 5px 15px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-.theme-switch-label {
-    font-size: 0.8rem;
-    margin: 0 10px;
-    color: var(--text-color);
-}
-
-.theme-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.theme-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: var(--accent-color);
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-
-/* Шапка */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--shadow);
-    border-bottom: 1px solid var(--card-border);
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 700;
-    font-size: 1.5rem;
-}
-
-.logo-img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.nav-list {
-    display: flex;
-    list-style: none;
-}
-
-.nav-link {
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: color 0.3s;
-}
-
-.nav-link:hover, .nav-link.active {
-    color: var(--accent-color);
-}
-
-.burger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.burger span {
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-color);
-    margin: 2px 0;
-    transition: 0.3s;
-}
-
-/* Герой секция */
-.hero {
-    padding: 120px 0 80px;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-}
-
-.hero .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-.hero-title {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-}
-
-.hero-description {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    color: var(--secondary-color);
-}
-
-.hero-image img {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-}
-
-/* Кнопки */
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--accent-color);
-    border: 2px solid var(--accent-color);
-}
-
-.btn-secondary:hover {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-/* Секции */
-section {
-    padding: 80px 0;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
-}
-
-.section-title:after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: var(--accent-color);
-    border-radius: 2px;
-}
-
-/* Карточки */
-.card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Секция генерации */
-.generation-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
-.prompt-types {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.type-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.type-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    background: var(--accent-color);
-    color: white;
-}
-
-.type-card h3 {
-    margin-bottom: 0.5rem;
-}
-
-.prompt-customization {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 1px solid var(--card-border);
-    background: var(--card-bg);
-    color: var(--text-color);
-    font-family: inherit;
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.generated-prompt {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--light-color);
-    border-radius: 10px;
-}
-
-#final-prompt {
-    background: var(--card-bg);
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    min-height: 100px;
-    border: 1px solid var(--card-border);
-}
-
-/* Стили для технических параметров */
-.technical-params {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: var(--light-color);
-    border-radius: 10px;
-    border: 1px solid var(--card-border);
-}
-
-.param-group {
-    margin-bottom: 1rem;
-}
-
-.param-group:last-child {
-    margin-bottom: 0;
-}
-
-.param-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.param-group select,
-.param-group input {
-    width: 100%;
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 1px solid var(--card-border);
-    background: var(--card-bg);
-    color: var(--text-color);
-    font-family: inherit;
-}
-
-.multi-select {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
-    margin-top: 0.5rem;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    background: var(--card-bg);
-    border-radius: 6px;
-    border: 1px solid var(--card-border);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.checkbox-label:hover {
-    background: var(--accent-color);
-    color: white;
-}
-
-.checkbox-label input {
-    margin-right: 8px;
-    width: auto;
-}
-
-/* Стили для вывода промпта */
-.prompt-output {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    min-height: 150px;
-    border: 1px solid var(--card-border);
-    white-space: pre-wrap;
-    line-height: 1.6;
-    font-family: 'Courier New', monospace;
-    overflow-y: auto;
-    max-height: 300px;
-}
-
-/* Галерея */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-.gallery-item {
-    position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform 0.3s;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.05);
-}
-
-.gallery-item-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 15px;
-    transform: translateY(100%);
-    transition: transform 0.3s;
-}
-
-.gallery-item:hover .gallery-item-info {
-    transform: translateY(0);
-}
-
-/* Лайтбокс */
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-}
-
-.lightbox.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.lightbox-content {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
-}
-
-.close-lightbox {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-}
-
-.lightbox-caption {
-    position: absolute;
-    bottom: 20px;
-    color: white;
-    text-align: center;
-    width: 100%;
-}
-
-/* Слайдер отзывов */
-.reviews-slider {
-    display: flex;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    margin-bottom: 30px;
-}
-
-.review-slide {
-    min-width: 100%;
-    padding: 0 15px;
-}
-
-.review-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-.review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.review-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-}
-
-.review-text {
-    margin-bottom: 1rem;
-    font-style: italic;
-}
-
-.review-rating {
-    color: gold;
-    font-size: 1.2rem;
-}
-
-.slider-controls {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.slider-prev,
-.slider-next {
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.slider-prev:hover,
-.slider-next:hover {
-    background: var(--secondary-color);
-}
-
-/* Возможности */
-.possibilities-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.possibility-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-    transition: transform 0.3s;
-}
-
-.possibility-card:hover {
-    transform: translateY(-10px);
-}
-
-.possibility-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.possibility-card h3 {
-    margin-bottom: 1rem;
-}
-
-/* О нас */
-.about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-}
-
-.about-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.stat {
-    text-align: center;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-.stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--accent-color);
-}
-
-.stat-label {
-    font-size: 1rem;
-    color: var(--secondary-color);
-}
-
-/* Обратная связь */
-.feedback-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
-.contact-info {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-.contact-details {
-    margin-top: 1.5rem;
-}
-
-.feedback-form {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-/* Футер */
-.footer {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 60px 0 20px;
-    border-top: 1px solid var(--card-border);
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    margin-bottom: 40px;
-}
-
-.footer-section h4 {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-.footer-section h4:after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--accent-color);
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-section ul li a:hover {
-    color: var(--accent-color);
-}
-
-.subscribe-form {
-    display: flex;
-    margin-top: 1rem;
-}
-
-.subscribe-form input {
-    flex: 1;
-    padding: 10px 15px;
-    border-radius: 50px 0 0 50px;
-    border: 1px solid var(--card-border);
-    background: var(--card-bg);
-    color: var(--text-color);
-}
-
-.subscribe-form button {
-    padding: 10px 20px;
-    border-radius: 0 50px 50px 0;
-    border: none;
-    background: var(--accent-color);
-    color: white;
-    cursor: pointer;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid var(--card-border);
-}
-
-/* Анимации */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeIn 1s ease forwards;
-}
-
-.delay-1 {
-    animation-delay: 0.2s;
-}
-
-.delay-2 {
-    animation-delay: 0.4s;
-}
-
-.delay-3 {
-    animation-delay: 0.6s;
-}
-
-/* Стили для ВайбКодинга */
-.vibe-badge {
-    display: flex;
-    gap: 15px;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
-}
-
-.vibe-text {
-    background: var(--accent-color);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.type-card .vibe-description {
-    font-size: 0.9rem;
-    color: var(--secondary-color);
-    margin-top: 0.5rem;
-    line-height: 1.4;
-}
-
-.type-card .vibe-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 0.5rem;
-}
-
-.vibe-tag {
-    background: rgba(67, 97, 238, 0.1);
-    color: var(--accent-color);
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 500;
-}
-
-/* Стили для секции ВайбКодинга */
-.vibecoding {
-    background: var(--light-color);
-    padding: 80px 0;
-}
-
-.vibecoding-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-.vibecoding-principles {
-    margin-top: 2rem;
-}
-
-.vibecoding-principles ul {
-    list-style: none;
-    margin-top: 1rem;
-}
-
-.vibecoding-principles li {
-    margin-bottom: 0.8rem;
-    padding-left: 0;
-}
-
-.vibecoding-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.vibecoding-stat {
-    text-align: center;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--card-border);
-}
-
-.vibecoding-stat .stat-number {
-    display: block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent-color);
-}
-
-/* Адаптивность для параметров */
-@media (max-width: 768px) {
-    .multi-select {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .multi-select {
-        grid-template-columns: 1fr;
-    }
-    
-    .param-group select,
-    .param-group input {
-        padding: 8px 12px;
-    }
-}
-
-/* Адаптивность */
-@media (max-width: 992px) {
-    .hero .container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .generation-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .about-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .vibecoding-content {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-list {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: left 0.3s;
-    }
-    
-    .nav-list.active {
-        left: 0;
-    }
-    
-    .burger {
-        display: flex;
-    }
-    
-    .burger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .burger.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .burger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-    
-    .prompt-types {
-        grid-template-columns: 1fr;
-    }
-    
-    .feedback-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .vibecoding-stats {
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-    .vibecoding-stat {
-        flex: 1;
-        min-width: 100px;
-    }
-}
-
-@media (max-width: 576px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-    
-    .section-title {
-        font-size: 1.8rem;
-    }
-    
-    .possibilities-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .about-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .vibecoding-stats {
-        flex-direction: column;
-    }
-    
-    .vibe-badge {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Добавляем в конец файла: */
-
-/* Стили для музыкальной структуры */
-.song-structure {
-    background: var(--light-color);
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1rem 0;
-    border-left: 4px solid var(--accent-color);
-}
-
-.song-part {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--accent-color);
-}
-
-/* Стили для YouTube тегов */
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin: 0.5rem 0;
-}
-
-.tag {
-    background: rgba(67, 97, 238, 0.1);
-    color: var(--accent-color);
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-}
-
-/* Адаптивность для новых элементов */
-@media (max-width: 768px) {
-    .tags-container {
-        justify-content: center;
-    }
-    
-    .song-structure {
-        font-size: 0.9rem;
-    }
-}
-
+        /* Полная противоположность: никаких закруглений, никакого стекла, никаких градиентов */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0a0c0f;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #c7d4d4;
+            line-height: 1.6;
+            min-height: 100vh;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            border-left: 1px solid #1f3a3a;
+            border-right: 1px solid #1f3a3a;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px); /* Минимум размытия, только чтобы подчеркнуть "грязь" */
+        }
+
+        /* ===== ТЕРМИНАЛЬНЫЙ СТИЛЬ ===== */
+        .terminal-panel {
+            background-color: #101418;
+            border: 2px solid #1f4a4a;
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.0), 0 0 15px rgba(0, 255, 0, 0.2);
+            color: #b5e5e5;
+            padding: 1.5rem;
+        }
+
+        .glitch-text {
+            color: #00ff9d;
+            text-shadow: 0 0 5px #00ff9d, 2px 2px 0 #ff00c1, -2px -1px 0 #003bff;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* Хедер - никакой магии, только суровый интерфейс */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            margin-bottom: 3rem;
+            background-color: #030608;
+            border: 2px solid #00a8a8;
+            border-radius: 0; /* Острые углы */
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #00ffc3;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+        }
+
+        .logo span {
+            color: #ff0055;
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #7e9b9b;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #ff0055;
+            color: #f0f0f0;
+        }
+
+        /* Герой — холодный и расчетливый */
+        .hero {
+            text-align: left;
+            padding: 3rem 2rem;
+            margin-bottom: 4rem;
+            background: #030608;
+            border-left: 6px solid #ff0055;
+            border-right: 2px solid #0f4f4f;
+            border-top: 1px solid #0f4f4f;
+            border-bottom: 1px solid #0f4f4f;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #dbfffa;
+            text-transform: uppercase;
+        }
+
+        .hero h2 span {
+            color: #ff0055;
+            background-color: #1a1f2a;
+            padding: 0 10px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #a0b9b9;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: #00ffc3;
+            border: 2px solid #00ffc3;
+            padding: 1rem 2.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.2s;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .cta-button:hover {
+            background: #00ffc3;
+            color: #030608;
+            border-color: #ff0055;
+        }
+
+        /* Товары — хардкор, никаких эмодзи, только иконки сигналов */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 4rem 0;
+        }
+
+        .product-card {
+            background: #0b1217;
+            border: 2px solid #1a4a4a;
+            padding: 2rem 1.5rem;
+            transition: 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: #ff0055;
+            box-shadow: -8px 8px 0 rgba(255, 0, 85, 0.3);
+        }
+
+        .product-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #00a8a8;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d0f0f0;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .product-spec {
+            font-size: 0.8rem;
+            color: #ff6666;
+            border-bottom: 1px dashed #2a5a5a;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-desc {
+            color: #889f9f;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #b5ffb5;
+            margin-bottom: 1.2rem;
+        }
+
+        .product-action {
+            display: inline-block;
+            background: none;
+            border: 2px solid #2f5f5f;
+            color: #b0d0d0;
+            padding: 0.7rem 1.8rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .product-action:hover {
+            background: #ff0055;
+            border-color: #ff0055;
+            color: black;
+        }
+
+        /* ===== КАТЕГОРИЯ: ОПЕРАТОРЫ (вместо витуберш) ===== */
+        .operators {
+            margin: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: left;
+            margin-bottom: 2rem;
+            color: #00ffc3;
+            text-transform: uppercase;
+            border-bottom: 3px solid #ff0055;
+            padding-bottom: 0.5rem;
+        }
+
+        .operator-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+        }
+
+        .operator-card {
+            background: #0e141c;
+            border: 2px solid #1e4f4f;
+            padding: 1.8rem 1rem;
+            text-align: left;
+        }
+
+        .operator-codename {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffccf0;
+        }
+
+        .operator-role {
+            color: #ff5f8f;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin: 0.5rem 0;
+        }
+
+        .operator-stats {
+            font-size: 0.85rem;
+            color: #6fa3a3;
+            border-top: 1px solid #1f4949;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+        }
+
+        /* ===== ХАРАКТЕРИСТИКИ (вместо "преимущества" с эмодзи) ===== */
+        .tech-specs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 4rem 0;
+        }
+
+        .spec-item {
+            border: 2px solid #2a5555;
+            padding: 1.8rem 1rem;
+            background: #070e12;
+        }
+
+        .spec-name {
+            font-weight: 700;
+            color: #a0f0f0;
+            text-transform: uppercase;
+        }
+
+        .spec-value {
+            color: #ff6b9d;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== ТЕРМИНАЛ ОПЛАТЫ ===== */
+        .payment-terminal {
+            background: #030608;
+            border: 3px double #1f8a8a;
+            padding: 3rem;
+            margin: 5rem 0;
+            text-align: left;
+        }
+
+        .payment-title {
+            color: #00ffbb;
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .payment-desc {
+            color: #92adad;
+            margin: 1rem 0 2rem;
+        }
+
+        .crypto-address {
+            background: #1a212a;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #ff0055;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            color: #ffae42;
+            word-break: break-all;
+        }
+
+        .crypto-address span {
+            color: #00cc88;
+        }
+
+        /* ===== ПОДВАЛ (минимализм) ===== */
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 2px solid #205555;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #517a7a;
+        }
+
+        .footer-left {
+            font-size: 0.9rem;
+        }
+
+        .footer-right a {
+            color: #8cc9c9;
+            text-decoration: none;
+            margin-left: 2rem;
+            border-bottom: 1px dotted;
+        }
+
+        .footer-right a:hover {
+            color: #ff0055;
+        }
+
+        /* Строка состояния */
+        .status-bar {
+            background: #121e1e;
+            padding: 0.6rem 1rem;
+            margin: 1rem 0;
+            border: 1px solid #1f5f5f;
+            color: #51b5b5;
+            font-size: 0.8rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .blink {
+            animation: blink-anime 1.2s step-end infinite;
+            color: #ff5f87;
+        }
+
+        @keyframes blink-anime {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Адаптация */
+        @media (max-width: 1024px) {
+            .products { grid-template-columns: repeat(2, 1fr); }
+            .operator-grid { grid-template-columns: repeat(2, 1fr); }
+            .tech-specs { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .products { grid-template-columns: 1fr; }
+            .operator-grid { grid-template-columns: 1fr; }
+            .tech-specs { grid-template-columns: 1fr; }
+            .hero h2 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Шапка сайта -->
+<div class="container">
+    <!-- ШАПКА: пиксель-пунк, строгий -->
     <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo">
-                    <img src="images/logo.png" alt="TAIPrompts" class="logo-img">
-                    <span class="logo-text">TAIPrompts</span>
-                </a>
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Главная</a></li>
-                    <li><a href="#generation" class="nav-link">Генерация</a></li>
-                    <li><a href="#examples" class="nav-link">Примеры</a></li>
-                    <li><a href="#reviews" class="nav-link">Отзывы</a></li>
-                    <li><a href="#feedback" class="nav-link">Обратная связь</a></li>
-                    <li><a href="#possibilities" class="nav-link">Возможности</a></li>
-                    <li><a href="#about" class="nav-link">Описание</a></li>
-                </ul>
-                <div class="burger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+        <div class="logo">NIGHT<span>//</span>WARE</div>
+        <div class="nav-links">
+            <a href="#">КАТАЛОГ СНАРЯЖЕНИЯ</a>
+            <a href="#">ОПЕРАТОРЫ</a>
+            <a href="#">ПЛАТЕЖНЫЙ ШЛЮЗ</a>
+            <a href="#">АУДИТ</a>
         </div>
     </header>
 
-    <main>
-        <!-- Герой секция -->
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">TAIPrompts</h1>
-                    <p class="hero-description">Создавайте идеальные промпты для нейросетей</p>
-                    <div class="vibe-badge">
-                        <span class="vibe-text">#ВайбКодинг</span>
-                    </div>
-                    <a href="#generation" class="btn btn-primary">Начать генерацию</a>
-                </div>
-                <div class="hero-image">
-                    <img src="images/hero-bg.jpg" alt="Генерация промптов">
-                </div>
-            </div>
-        </section>
+    <!-- Строка состояния (системная) -->
+    <div class="status-bar">
+        <span class="blink">⚠</span> ЗАЩИЩЕННЫЙ РЕЖИМ  |  ПОСЛЕДНЯЯ АКТИВНОСТЬ: ПЕРЕХВАТ 54.23.12.9  |  ДОСТУП: ТОЛЬКО ПО ПРИГЛАШЕНИЯМ
+    </div>
 
-        <!-- Секция о ВайбКодинге -->
-        <section id="vibecoding" class="vibecoding">
-            <div class="container">
-                <h2 class="section-title">Что такое ВайбКодинг?</h2>
-                <div class="vibecoding-content">
-                    <div class="vibecoding-text">
-                        <p><strong>ВайбКодеры</strong> — это новая генерация разработчиков, которые используют нейросети для программирования. Мы не пишем код вручную, а создаем точные промпты для ИИ.</p>
-                        
-                        <div class="vibecoding-principles">
-                            <h3>Принципы ВайбКодинга:</h3>
-                            <ul>
-                                <li>🚀 <strong>Скорость</strong> — генерация кода за секунды</li>
-                                <li>🎯 <strong>Точность</strong> — готовые технические шаблоны</li>
-                                <li>✨ <strong>Креатив</strong> — фокус на идеях, а не на синтаксисе</li>
-                                <li>🤝 <strong>Сообщество</strong> — обмен лучшими промптами</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="vibecoding-stats">
-                        <div class="vibecoding-stat">
-                            <span class="stat-number">10x</span>
-                            <span class="stat-label">быстрее разработка</span>
-                        </div>
-                        <div class="vibecoding-stat">
-                            <span class="stat-number">95%</span>
-                            <span class="stat-label">меньше рутинного кода</span>
-                        </div>
-                        <div class="vibecoding-stat">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">вайб кодинга</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- ГЕРОЙ: никаких пуков, только техника -->
+    <section class="hero">
+        <h2><span>HARDWARE</span> ДЛЯ НУЛЕВЫХ ДНЕЙ</h2>
+        <p>Бронежилеты с активным подавлением RF-диапазона. Глушители дронов. Тактический текстиль, невидимый для тепловизоров. Всё, что нужно для работы в тени.</p>
+        <a href="#" class="cta-button">[ ЗАПРОСИТЬ ДОСТУП ]</a>
+    </section>
 
-        <!-- Секция генерации -->
-        <section id="generation" class="generation">
-            <div class="container">
-                <h2 class="section-title">Генерация промптов</h2>
-                <div class="generation-content">
-                    <div class="prompt-types">
-                        <div class="type-card" data-type="telegram">
-                            <h3>📱 Telegram боты</h3>
-                            <p>Создавайте промпты для ботов на aiogram</p>
-                            <div class="vibe-description">Готовые шаблоны команд, обработчиков и функций</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">aiogram</span>
-                                <span class="vibe-tag">асинхронность</span>
-                                <span class="vibe-tag">API</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="websites">
-                            <h3>🌐 Веб-сайты</h3>
-                            <p>Современные веб-сайты</p>
-                            <div class="vibe-description">Генерируйте промпты для создания современных сайтов с HTML, CSS и JavaScript</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">HTML/CSS/JS</span>
-                                <span class="vibe-tag">адаптивность</span>
-                                <span class="vibe-tag">PWA</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="minecraft">
-                            <h3>⛏️ Моды Minecraft</h3>
-                            <p>Моды для Minecraft (и не только моды)</p>
-                            <div class="vibe-description">Создавайте промпты для разработки модов с настройкой IntelliJ IDEA</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">Forge</span>
-                                <span class="vibe-tag">Fabric</span>
-                                <span class="vibe-tag">Java</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="ai">
-                            <h3>🤖 AI & G4F</h3>
-                            <p>Работа с AI и G4F</p>
-                            <div class="vibe-description">Промпты для работы с искусственным интеллектом и библиотекой G4F</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">G4F</span>
-                                <span class="vibe-tag">нейросети</span>
-                                <span class="vibe-tag">автоматизация</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="recipes">
-                            <h3>🍳 Рецепты</h3>
-                            <p>Создание или улучшение рецептов</p>
-                            <div class="vibe-description">Генерация кулинарных промптов с точными пропорциями и инструкциями</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">гастрономия</span>
-                                <span class="vibe-tag">ингредиенты</span>
-                                <span class="vibe-tag">step-by-step</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="images">
-                            <h3>🎨 Генерация изображений</h3>
-                            <p>Промпты для создания изображений</p>
-                            <div class="vibe-description">Создавайте детальные промпты для генерации визуального контента</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">Stable Diffusion</span>
-                                <span class="vibe-tag">DALL-E</span>
-                                <span class="vibe-tag">композиция</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="stickers">
-                            <h3>🖼️ Стикеры и аватары</h3>
-                            <p>Генерация идей для стикеров и аватаров</p>
-                            <div class="vibe-description">Промпты для создания стикерпаков и цифровых аватаров</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">вектор</span>
-                                <span class="vibe-tag">эмоции</span>
-                                <span class="vibe-tag">Telegram</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="toys">
-                            <h3>🧸 Игрушки</h3>
-                            <p>Идеи для создания игрушек</p>
-                            <div class="vibe-description">Генерация промптов для разработки игр и игрушек</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">геймдизайн</span>
-                                <span class="vibe-tag">механики</span>
-                                <span class="vibe-tag">персонажи</span>
-                            </div>
-                        </div>
-                        
-                        <div class="type-card" data-type="3d">
-                            <h3>🔷 3D модели</h3>
-                            <p>Промпты для 3D моделирования</p>
-                            <div class="vibe-description">Промпты для создания трехмерных моделей и ассетов</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">Blender</span>
-                                <span class="vibe-tag">текстуры</span>
-                                <span class="vibe-tag">рендеринг</span>
-                            </div>
-                        </div>
-
-                        <div class="type-card" data-type="characterai">
-                            <h3>🤖 Character AI</h3>
-                            <p>Создание персонажей для character.ai</p>
-                            <div class="vibe-description">Генерация промптов для персонажей с именем, слоганом, приветствием и описанием</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">персонажи</span>
-                                <span class="vibe-tag">диалоги</span>
-                                <span class="vibe-tag">c.ai</span>
-                            </div>
-                        </div>
-
-                        <div class="type-card" data-type="suno">
-                            <h3>🎵 Suno AI</h3>
-                            <p>Создание песен в Suno AI</p>
-                            <div class="vibe-description">Генерация промптов для создания песен с текстом, жанром и структурой</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">музыка</span>
-                                <span class="vibe-tag">тексты</span>
-                                <span class="vibe-tag">Suno</span>
-                            </div>
-                        </div>
-
-                        <div class="type-card" data-type="youtube">
-                            <h3>📺 YouTube</h3>
-                            <p>Создание контента для YouTube</p>
-                            <div class="vibe-description">Генерация промптов для названий, описаний и тегов YouTube каналов</div>
-                            <div class="vibe-tags">
-                                <span class="vibe-tag">видео</span>
-                                <span class="vibe-tag">SEO</span>
-                                <span class="vibe-tag">контент</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="prompt-customization">
-                        <h3>Кастомизация промпта</h3>
-                        <form id="prompt-form">
-                            <!-- Динамические технические параметры -->
-                            <div id="technical-params" class="technical-params">
-                                <!-- Здесь будут появляться выборочные окна -->
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="custom-input">Ваша идея или описание *</label>
-                                <textarea id="custom-input" placeholder="Опишите вашу идею детально..." required></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="tone-select">Стиль промпта</label>
-                                <select id="tone-select">
-                                    <option value="professional">Профессиональный</option>
-                                    <option value="friendly">Дружеский</option>
-                                    <option value="creative">Креативный</option>
-                                    <option value="technical">Технический</option>
-                                    <option value="detailed">Детализированный</option>
-                                </select>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">Сгенерировать промпт</button>
-                        </form>
-                        
-                        <div class="generated-prompt">
-                            <h4>Ваш промпт:</h4>
-                            <div id="final-prompt" class="prompt-output"></div>
-                            <button id="copy-prompt" class="btn btn-secondary">Копировать промпт</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Секция примеров -->
-        <section id="examples" class="examples">
-            <div class="container">
-                <h2 class="section-title">Примеры промптов</h2>
-                <div class="gallery">
-                    <div class="gallery-item">
-                        <img src="images/example1.jpg" alt="Пример промпта 1" data-full="images/example1-full.jpg">
-                        <div class="gallery-item-info">
-                            <h4>Рецепт веганского бургера</h4>
-                            <p>Сгенерировано для ChatGPT</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/example2.jpg" alt="Пример промпта 2" data-full="images/example2-full.jpg">
-                        <div class="gallery-item-info">
-                            <h4>Стикерпак для Telegram</h4>
-                            <p>Сгенерировано для ChatGPT</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/example3.jpg" alt="Пример промпта 3" data-full="images/example3-full.jpg">
-                        <div class="gallery-item-info">
-                            <h4>3D модель животного</h4>
-                            <p>Сгенерировано для ChatGPT</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/example4.jpg" alt="Пример промпта 4" data-full="images/example4-full.jpg">
-                        <div class="gallery-item-info">
-                            <h4>Мод для Майнкрафт</h4>
-                            <p>Сгенерировано для ChatGPT</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Лайтбокс для галереи -->
-        <div class="lightbox">
-            <span class="close-lightbox">&times;</span>
-            <img class="lightbox-content" id="lightbox-img">
-            <div class="lightbox-caption"></div>
+    <!-- ТОВАРЫ: полная противоположность трусам -->
+    <div class="products">
+        <!-- Бронеплита -->
+        <div class="product-card">
+            <div class="product-icon">⛓️🛡️</div>
+            <div class="product-title">BR5 «КИПЯТОК»</div>
+            <div class="product-spec">Класс защиты 5 / 3.2 кг / мультикам</div>
+            <div class="product-desc">Керамическая плита с подложкой из полиэтилена сверхвысокой молекулярной массы. Держит три попадания из СВД.</div>
+            <div class="product-price">52 000 ₽</div>
+            <a href="#" class="product-action">[ЗАКАЗАТЬ]</a>
         </div>
 
-        <!-- Секция отзывов -->
-        <section id="reviews" class="reviews">
-            <div class="container">
-                <h2 class="section-title">Отзывы пользователей</h2>
-                <div class="reviews-slider">
-                    <div class="review-slide">
-                        <div class="review-card">
-                            <div class="review-header">
-                                <img src="images/user1.jpg" alt="Алексей" class="review-avatar">
-                                <div class="review-user">
-                                    <h4>Алексей</h4>
-                                    <p>Дизайнер</p>
-                                </div>
-                            </div>
-                            <p class="review-text">"С помощью TAIPrompts я смог создать потрясающие промпты для генерации изображений. Экономит кучу времени и дает отличные результаты!"</p>
-                            <div class="review-rating">★★★★★</div>
-                        </div>
-                    </div>
-                    <div class="review-slide">
-                        <div class="review-card">
-                            <div class="review-header">
-                                <img src="images/user2.jpg" alt="Мария" class="review-avatar">
-                                <div class="review-user">
-                                    <h4>Мария</h4>
-                                    <p>Разработчик</p>
-                                </div>
-                            </div>
-                            <p class="review-text">"Использую для создания промптов для Telegram ботов. Очень удобная кастомизация, можно точно настроить под свои нужды."</p>
-                            <div class="review-rating">★★★★☆</div>
-                        </div>
-                    </div>
-                    <div class="review-slide">
-                        <div class="review-card">
-                            <div class="review-header">
-                                <img src="images/user3.jpg" alt="Дмитрий" class="review-avatar">
-                                <div class="review-user">
-                                    <h4>Дмитрий</h4>
-                                    <p>Геймдизайнер</p>
-                                </div>
-                            </div>
-                            <p class="review-text">"Лучший генератор промптов для Майнкрафт! Создал несколько отличных модов с помощью сгенерированных промптов."</p>
-                            <div class="review-rating">★★★★★</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-prev">&#10094;</button>
-                    <button class="slider-next">&#10095;</button>
-                </div>
-            </div>
-        </section>
+        <!-- Глушитель сигнала -->
+        <div class="product-card">
+            <div class="product-icon">📡❌</div>
+            <div class="product-title">SDR-JAMMER M2</div>
+            <div class="product-spec">20-6000 MHz / 10 Вт / портативный</div>
+            <div class="product-desc">Цифровой глушитель сигналов сотовой связи, Wi-Fi, GPS. Работает от powerbank. Радиус — до 50 метров.</div>
+            <div class="product-price">37 500 ₽</div>
+            <a href="#" class="product-action">[ЗАКАЗАТЬ]</a>
+        </div>
 
-        <!-- Секция возможностей -->
-        <section id="possibilities" class="possibilities">
-            <div class="container">
-                <h2 class="section-title">Возможности TAIPrompts</h2>
-                <div class="possibilities-grid">
-                    <div class="possibility-card">
-                        <div class="possibility-icon">🚀</div>
-                        <h3>Быстрая генерация</h3>
-                        <p>Создавайте промпты за секунды с помощью нашего интеллектуального генератора</p>
-                    </div>
-                    <div class="possibility-card">
-                        <div class="possibility-icon">🎨</div>
-                        <h3>Кастомизация</h3>
-                        <p>Настраивайте промпты под свои конкретные нужды и требования</p>
-                    </div>
-                    <div class="possibility-card">
-                        <div class="possibility-icon">📱</div>
-                        <h3>Полная адаптивность</h3>
-                        <p>Работайте с любого устройства - компьютера, планшета или телефона</p>
-                    </div>
-                    <div class="possibility-card">
-                        <div class="possibility-icon">💾</div>
-                        <h3>Сохранение результатов</h3>
-                        <p>Сохраняйте понравившиеся промпты для будущего использования</p>
-                    </div>
-                    <div class="possibility-card">
-                        <div class="possibility-icon">🔍</div>
-                        <h3>Поиск по базе</h3>
-                        <p>Ищите промпты по категориям и ключевым словам</p>
-                    </div>
-                    <div class="possibility-card">
-                        <div class="possibility-icon">🔄</div>
-                        <h3>Регулярные обновления</h3>
-                        <p>Мы постоянно добавляем новые шаблоны и возможности</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Очки ночного видения -->
+        <div class="product-card">
+            <div class="product-icon">👁️🌙</div>
+            <div class="product-title">NVG-31 WHITE</div>
+            <div class="product-spec">Gen 3 / автофокус / ИК-подсветка</div>
+            <div class="product-desc">Прибор ночного видения на трубках третьего поколения. Распознавание человека на 300 м. Полная темнота — не проблема.</div>
+            <div class="product-price">214 000 ₽</div>
+            <a href="#" class="product-action">[ЗАКАЗАТЬ]</a>
+        </div>
+    </div>
 
-        <!-- Секция описания -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2 class="section-title">О TAIPrompts</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>TAIPrompts - это современный генератор промптов для ChatGPT, созданный в 2025 году. Наша цель - помочь пользователям максимально эффективно использовать возможности искусственного интеллекта для решения различных задач.</p>
-                        <p>Мы предлагаем готовые шаблоны промптов для различных категорий, включая рецепты, стикеры, изображения, игры, 3D модели, Minecraft, Telegram боты, веб-сайты и многое другое.</p>
-                        <p>С помощью нашего сервиса вы можете не только использовать готовые промпты, но и кастомизировать их под свои конкретные нужды, выбирая тон, добавляя детали и уточнения.</p>
-                    </div>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">1000+</span>
-                            <span class="stat-label">Промптов</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">15+</span>
-                            <span class="stat-label">Категорий</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">5000+</span>
-                            <span class="stat-label">Пользователей</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">98%</span>
-                            <span class="stat-label">Довольных клиентов</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- ОПЕРАТОРЫ (вместо витуберш) — суровые позывные -->
+    <section class="operators">
+        <h2 class="section-title">◈ ДЕЙСТВУЮЩИЕ ОПЕРАТОРЫ ◈</h2>
+        <div class="operator-grid">
+            <div class="operator-card">
+                <div class="operator-codename">GROM #13</div>
+                <div class="operator-role">Штурм / РЭБ</div>
+                <div class="operator-stats">Подавление: 98% | Ликвидаций: 47</div>
             </div>
-        </section>
-
-        <!-- Секция обратной связи -->
-        <section id="feedback" class="feedback">
-            <div class="container">
-                <h2 class="section-title">Обратная связь</h2>
-                <div class="feedback-content">
-                    <div class="contact-info">
-                        <h3>Свяжитесь с нами</h3>
-                        <p>Есть вопросы или предложения? Напишите нам, и мы обязательно ответим!</p>
-                        <div class="contact-details">
-                            <p><strong>Email:</strong> roll3ogurec0@gmail.com</p>
-                            <p><strong>Имя:</strong> Тимофей</p>
-                        </div>
-                    </div>
-                    <form class="feedback-form" id="support-form">
-                        <div class="form-group">
-                            <label for="name">Ваше имя</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Ваш email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Сообщение</label>
-                            <textarea id="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
-                    </form>
-                </div>
+            <div class="operator-card">
+                <div class="operator-codename">VETKA</div>
+                <div class="operator-role">Разведка / БПЛА</div>
+                <div class="operator-stats">Налеты: 124 | Поражений: 3</div>
             </div>
-        </section>
-    </main>
+            <div class="operator-card">
+                <div class="operator-codename">KLUKVA</div>
+                <div class="operator-role">Медик / Кибербез</div>
+                <div class="operator-stats">Спасений: 90 | Взломов: 212</div>
+            </div>
+            <div class="operator-card">
+                <div class="operator-codename">SEDMOY</div>
+                <div class="operator-role">Снайпер / Наблюдение</div>
+                <div class="operator-stats">Дистанция: 1300м | Подтверждений: 34</div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Футер -->
+    <!-- ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ вместо "преимуществ" с эмодзи -->
+    <div class="tech-specs">
+        <div class="spec-item">
+            <div class="spec-name">ПОДАВЛЕНИЕ RF</div>
+            <div class="spec-value">0.1-6 ГГц</div>
+        </div>
+        <div class="spec-item">
+            <div class="spec-name">БАЛЛИСТИЧЕСКАЯ ЗАЩИТА</div>
+            <div class="spec-value">BR6 / BR5</div>
+        </div>
+        <div class="spec-item">
+            <div class="spec-name">КРИПТО-КОШЕЛЬКИ</div>
+            <div class="spec-value">BTC/XMR</div>
+        </div>
+        <div class="spec-item">
+            <div class="spec-name">СРОК ЭКСПЛУАТАЦИИ</div>
+            <div class="spec-value">≥ 15 лет</div>
+        </div>
+    </div>
+
+    <!-- ОПЛАТА: только крипта, никакого donatepay -->
+    <div class="payment-terminal">
+        <div class="payment-title">💰 АНОНИМНЫЙ ПЛАТЕЖНЫЙ ТЕРМИНАЛ</div>
+        <div class="payment-desc">Принимаем только криптовалюту. 10% скидка при оплате XMR. Все заказы идут через мультиподпись.</div>
+        <div class="crypto-address">
+            <span>BTC:</span> bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh<br>
+            <span>XMR:</span> 48dY7L5bXo3gJq1yFzQrT6pZ2sW8vR9kH4mNcB2jV7rF3xK9
+        </div>
+        <div style="margin-top: 2rem;">
+            <a href="#" class="cta-button" style="border-color: #ff0055; color: #ff0055;">[ ПЕРЕЙТИ К ОФОРМЛЕНИЮ ]</a>
+        </div>
+    </div>
+
+    <!-- Аудит безопасников (вместо отзывов про пуканье) -->
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin: 3rem 0;">
+        <div class="terminal-panel">
+            <div style="color: #00ffbb;">✦ ЗАКЛЮЧЕНИЕ ЦЕНТРА АТТЕСТАЦИИ</div>
+            <div style="margin-top: 1rem; color: #adc4c4;">«Бронеплита BR5 выдержала обстрел из автоматического оружия. Глушитель успешно блокировал каналы управления БПЛА на полигоне.»</div>
+            <div style="margin-top: 1rem; color: #ff6670;">— ФСБ (заключение № 40-5/23)</div>
+        </div>
+        <div class="terminal-panel">
+            <div style="color: #00ffbb;">✦ ОТЗЫВ ЧАСТНОЙ ВОЕННОЙ КОМПАНИИ</div>
+            <div style="margin-top: 1rem; color: #adc4c4;">«Используем глушители Nightware с 2024. За 6 месяцев работы не зафиксировано ни одного успешного наведения на группу.»</div>
+            <div style="margin-top: 1rem; color: #ff6670;">— ЧВК «Редут» (официально)</div>
+        </div>
+    </div>
+
+    <!-- ПОДВАЛ -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <a href="#" class="logo">
-                        <img src="images/logo.png" alt="TAIPrompts" class="logo-img">
-                        <span class="logo-text">TAIPrompts</span>
-                    </a>
-                    <p>Генерация промптов для ChatGPT</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul>
-                        <li><a href="#home">Главная</a></li>
-                        <li><a href="#generation">Генерация</a></li>
-                        <li><a href="#examples">Примеры</a></li>
-                        <li><a href="#reviews">Отзывы</a></li>
-                        <li><a href="#feedback">Обратная связь</a></li>
-                        <li><a href="#possibilities">Возможности</a></li>
-                        <li><a href="#about">Описание</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <p>Email: roll3ogurec0@gmail.com</p>
-                    <p>Тимофей</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Подписка</h4>
-                    <p>Подпишитесь на обновления</p>
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Ваш email" required>
-                        <button type="submit">Подписаться</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 TAIPrompts. Все права защищены.</p>
-            </div>
+        <div class="footer-left">
+            © 2026 NIGHTWARE // ПОЛНАЯ КОНФИДЕНЦИАЛЬНОСТЬ.<br>
+            Все сделки проходят через гарант-сервис на базе мультиподписи.
+        </div>
+        <div class="footer-right">
+            <a href="#">НОРМАТИВНАЯ БАЗА</a>
+            <a href="#">ГАРАНТИИ</a>
+            <a href="#">ДЛЯ КОРПОРАТИВНЫХ КЛИЕНТОВ</a>
         </div>
     </footer>
 
-    <script>
-// Навигация
-const navLinks = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('section');
-const burger = document.querySelector('.burger');
-const navList = document.querySelector('.nav-list');
+    <!-- Консольная строка -->
+    <div style="background: #0f1b1b; padding: 0.5rem; margin-top: 2rem; border: 1px solid #205a5a; color: #2e8b8b; font-size: 0.7rem; text-align: right;">
+        root@nightware:~# tail -f /var/log/access.log — СБОР ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЯХ НЕ ПРОИЗВОДИТСЯ
+    </div>
+</div>
 
-// Плавная прокрутка
-navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        window.scrollTo({
-            top: targetSection.offsetTop - 80,
-            behavior: 'smooth'
-        });
-        
-        // Закрываем меню на мобильных устройствах
-        if (navList.classList.contains('active')) {
-            navList.classList.remove('active');
-            burger.classList.remove('active');
-        }
-    });
-});
-
-// Бургер меню
-burger.addEventListener('click', function() {
-    this.classList.toggle('active');
-    navList.classList.toggle('active');
-});
-
-// Активный пункт меню при прокрутке
-window.addEventListener('scroll', function() {
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        
-        if (pageYOffset >= (sectionTop - 100)) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Шаблоны промптов с техническими параметрами
-const promptTemplates = {
-    recipes: {
-        template: "Создай подробный рецепт {cuisine} блюда под названием '{idea}'. {dietary} {complexity} Включи ингредиенты, пошаговое приготовление, время готовки и nutritional информацию.",
-        params: {
-            cuisine: {
-                type: 'select',
-                label: 'Тип кухни',
-                options: ['любой', 'итальянской', 'азиатской', 'мексиканской', 'русской', 'французской', 'средиземноморской'],
-                default: 'любой'
-            },
-            dietary: {
-                type: 'select',
-                label: 'Диетические требования',
-                options: ['Без ограничений', 'Веганское', 'Вегетарианское', 'Без глютена', 'Низкоуглеводное', 'Высокобелковое'],
-                default: 'Без ограничений'
-            },
-            complexity: {
-                type: 'select',
-                label: 'Сложность',
-                options: ['Простое', 'Средней сложности', 'Сложное', 'Шеф-повар'],
-                default: 'Средней сложности'
-            }
-        }
-    },
-    minecraft: {
-        template: "Разработай {type} для Minecraft {version} под названием '{idea}'. {features} Совместимость: {compatibility}. Детально опиши функционал, crafting рецепты и механики.",
-        params: {
-            type: {
-                type: 'select',
-                label: 'Тип контента',
-                options: ['мод', 'ресурспак', 'датапак', 'плагин', 'аддон'],
-                default: 'мод'
-            },
-            version: {
-                type: 'select',
-                label: 'Версия Minecraft',
-                options: ['1.20.x', '1.19.x', '1.18.x', '1.17.x', '1.16.x', 'Любая'],
-                default: '1.20.x'
-            },
-            compatibility: {
-                type: 'select',
-                label: 'Совместимость',
-                options: ['Forge', 'Fabric', 'Paper', 'Spigot', 'Bukkit', 'Любая'],
-                default: 'Forge'
-            },
-            features: {
-                type: 'multiselect',
-                label: 'Особенности',
-                options: ['Новые блоки', 'Новые мобы', 'Генерация структур', 'Магическая система', 'Технологии', 'Квесты', 'Боссы'],
-                default: []
-            }
-        }
-    },
-    telegram: {
-        template: "Создай Telegram бота на {language} для '{idea}'. {functionality} Включи: описание функций, команды, клавиатуры, обработку сообщений и deployment инструкции.",
-        params: {
-            language: {
-                type: 'select',
-                label: 'Язык программирования',
-                options: ['Python', 'JavaScript', 'TypeScript', 'Java', 'PHP', 'Go', 'Любой'],
-                default: 'Python'
-            },
-            functionality: {
-                type: 'multiselect',
-                label: 'Функциональность',
-                options: ['Админ-панель', 'Платежи', 'База данных', 'API интеграции', 'Модерация', 'Игры', 'Уведомления'],
-                default: []
-            }
-        }
-    },
-    websites: {
-        template: "Разработай {type} веб-сайт на {stack} для '{idea}'. {features} Включи: структуру, дизайн, функционал, технологии и оптимизацию.",
-        params: {
-            type: {
-                type: 'select',
-                label: 'Тип сайта',
-                options: ['Лендинг', 'Интернет-магазин', 'Блог', 'Портфолио', 'Социальную сеть', 'Панель управления'],
-                default: 'Лендинг'
-            },
-            stack: {
-                type: 'select',
-                label: 'Технологический стек',
-                options: ['HTML/CSS/JS', 'React', 'Vue.js', 'Angular', 'Node.js', 'PHP', 'Python/Django', 'Ruby on Rails'],
-                default: 'HTML/CSS/JS'
-            },
-            features: {
-                type: 'multiselect',
-                label: 'Функции',
-                options: ['Адаптивный дизайн', 'PWA', 'SEO оптимизация', 'Корзина покупок', 'Блог', 'Комментарии', 'Поиск', 'Код в одном файле'],
-                default: ['Адаптивный дизайн']
-            }
-        }
-    },
-    images: {
-        template: "Сгенерируй {style} изображение на тему '{idea}'. {aspect_ratio} {quality} С детальным описанием: композиция, цвета, освещение, настроение и детали.",
-        params: {
-            style: {
-                type: 'select',
-                label: 'Стиль изображения',
-                options: ['реалистичное', 'мультяшное', 'фэнтези', 'футуристическое', 'минималистичное', 'абстрактное'],
-                default: 'реалистичное'
-            },
-            aspect_ratio: {
-                type: 'select',
-                label: 'Соотношение сторон',
-                options: ['1:1 (квадрат)', '16:9 (широкоэкранное)', '9:16 (вертикальное)', '4:3 (стандартное)', '21:9 (кинематографическое)'],
-                default: '1:1 (квадрат)'
-            },
-            quality: {
-                type: 'select',
-                label: 'Качество',
-                options: ['Высокое (4K)', 'Среднее (HD)', 'Низкое (для web)'],
-                default: 'Высокое (4K)'
-            }
-        }
-    },
-    stickers: {
-        template: "Создай {style} стикерпак для {platform} на тему '{idea}'. {emotions} Включи разнообразные эмоции, действия и ситуации.",
-        params: {
-            style: {
-                type: 'select',
-                label: 'Стиль стикеров',
-                options: ['мультяшный', 'минималистичный', 'реалистичный', 'кавайный', 'мемный', 'абстрактный'],
-                default: 'мультяшный'
-            },
-            platform: {
-                type: 'select',
-                label: 'Платформа',
-                options: ['Telegram', 'WhatsApp', 'Discord', 'Signal', 'Любая'],
-                default: 'Telegram'
-            },
-            emotions: {
-                type: 'multiselect',
-                label: 'Эмоции и действия',
-                options: ['Радость', 'Грусть', 'Удивление', 'Смех', 'Любовь', 'Приветствие', 'Прощание', 'Одобрение'],
-                default: ['Радость', 'Приветствие']
-            }
-        }
-    },
-    "3d": {
-        template: "Создай {style} 3D модель {type} на тему '{idea}'. {software} {polygons} Детально опиши: геометрию, материалы, текстуры, освещение и рендеринг.",
-        params: {
-            style: {
-                type: 'select',
-                label: 'Стиль модели',
-                options: ['реалистичный', 'low-poly', 'стилизованный', 'мультяшный', 'футуристический'],
-                default: 'реалистичный'
-            },
-            type: {
-                type: 'select',
-                label: 'Тип модели',
-                options: ['персонажа', 'окружения', 'предмета', 'архитектуры', 'транспорта'],
-                default: 'персонажа'
-            },
-            software: {
-                type: 'select',
-                label: 'Программа',
-                options: ['Blender', 'Maya', '3ds Max', 'ZBrush', 'Любая'],
-                default: 'Blender'
-            },
-            polygons: {
-                type: 'select',
-                label: 'Полигональность',
-                options: ['Low-poly (<10k)', 'Medium (10-50k)', 'High (50-200k)', 'Ultra (>200k)'],
-                default: 'Medium (10-50k)'
-            }
-        }
-    },
-    toys: {
-        template: "Разработай концепцию {type} игрушки под названием '{idea}'. {materials} {age_group} Вклюди описание: внешний вид, функционал, материалы и educational ценность.",
-        params: {
-            type: {
-                type: 'select',
-                label: 'Тип игрушки',
-                options: ['развивающей', 'интерактивной', 'конструктора', 'мягкой', 'коллекционной', 'настольной игры'],
-                default: 'развивающей'
-            },
-            materials: {
-                type: 'select',
-                label: 'Материалы',
-                options: ['пластик', 'дерево', 'текстиль', 'металл', 'комбинированные', 'экологичные'],
-                default: 'пластик'
-            },
-            age_group: {
-                type: 'select',
-                label: 'Возрастная группа',
-                options: ['0-1 год', '1-3 года', '3-6 лет', '6-12 лет', '12+ лет', 'взрослые'],
-                default: '3-6 лет'
-            }
-        }
-    },
-    ai: {
-        template: "Создай продвинутый промпт для ИИ на тему '{idea}'. {ai_type} {complexity} Включи: контекст, ограничения, формат ответа и примеры.",
-        params: {
-            ai_type: {
-                type: 'select',
-                label: 'Тип ИИ',
-                options: ['ChatGPT', 'Midjourney', 'DALL-E', 'Stable Diffusion', 'Claude', 'Gemini', 'Любой'],
-                default: 'ChatGPT'
-            },
-            complexity: {
-                type: 'select',
-                label: 'Сложность',
-                options: ['Базовый', 'Продвинутый', 'Экспертный', 'Исследовательский'],
-                default: 'Продвинутый'
-            }
-        }
-    },
-    characterai: {
-        template: "Создай персонажа для Character AI под названием '{idea}'. \n\nИмя: {name}\nСлоган: {slogan}\nПриветствие: {greeting}\nОписание: {description}\nОпределение: {definition}\n\nДополнительные характеристики: {personality} {appearance}",
-        params: {
-            name: {
-                type: 'select',
-                label: 'Тип имени',
-                options: ['Реалистичное', 'Фэнтези', 'Научно-фантастическое', 'Историческое', 'Аниме', 'Уникальное'],
-                default: 'Реалистичное'
-            },
-            personality: {
-                type: 'multiselect',
-                label: 'Черты характера',
-                options: ['Дружелюбный', 'Застенчивый', 'Энергичный', 'Серьезный', 'Юмористический', 'Загадочный', 'Мудрый', 'Наивный'],
-                default: ['Дружелюбный']
-            },
-            appearance: {
-                type: 'multiselect',
-                label: 'Внешность',
-                options: ['Человек', 'Животное', 'Робот', 'Мифическое существо', 'Инопланетянин', 'Аниме персонаж', 'Историческая личность'],
-                default: ['Человек']
-            },
-            tone: {
-                type: 'select',
-                label: 'Тон общения',
-                options: ['Формальный', 'Неформальный', 'Дружеский', 'Профессиональный', 'Поэтический', 'Драматический'],
-                default: 'Дружеский'
-            }
-        }
-    },
-    suno: {
-        template: "Создай текст песни для Suno AI на тему '{idea}'. \n\nНазвание: {title}\nЖанр: {genre}\nСтиль: {style}\n\nТекст песни:\n{structure}\n\nОсобенности: {tempo} {instruments}",
-        params: {
-            genre: {
-                type: 'select',
-                label: 'Музыкальный жанр',
-                options: ['Поп', 'Рок', 'Хип-хоп', 'Электроника', 'Джаз', 'Классика', 'Фолк', 'R&B', 'Кантри', 'Метал'],
-                default: 'Поп'
-            },
-            style: {
-                type: 'select',
-                label: 'Стиль исполнения',
-                options: ['Веселый', 'Грустный', 'Романтический', 'Эпический', 'Расслабляющий', 'Энергичный', 'Ностальгический'],
-                default: 'Веселый'
-            },
-            tempo: {
-                type: 'select',
-                label: 'Темп',
-                options: ['Медленный', 'Умеренный', 'Быстрый', 'Очень быстрый'],
-                default: 'Умеренный'
-            },
-            instruments: {
-                type: 'multiselect',
-                label: 'Инструменты',
-                options: ['Гитара', 'Фортепиано', 'Барабаны', 'Синтезатор', 'Скрипка', 'Бас', 'Духовые', 'Вокал'],
-                default: ['Гитара', 'Фортепиано']
-            },
-            structure: {
-                type: 'select',
-                label: 'Структура песни',
-                options: ['Куплет-Припев', 'Куплет-Припев-Мост', 'ABAB', 'Свободная форма', 'Поэтическая'],
-                default: 'Куплет-Припев'
-            }
-        }
-    },
-    youtube: {
-        template: "Создай контент для YouTube канала на тему '{idea}'. \n\nНазвание канала: {channel_name}\nОписание: {description}\nТеги: {tags}\n\nФормат контента: {content_type}\nЦелевая аудитория: {audience}\nЧастота выпуска: {frequency}\n\nПревью: {thumbnail_style}",
-        params: {
-            content_type: {
-                type: 'select',
-                label: 'Тип контента',
-                options: ['Обзоры', 'Образовательный', 'Развлекательный', 'Влоги', 'Гейминг', 'Кулинария', 'Музыка', 'Новости', 'Спорт'],
-                default: 'Развлекательный'
-            },
-            audience: {
-                type: 'select',
-                label: 'Целевая аудитория',
-                options: ['Дети', 'Подростки', 'Взрослые', 'Семейная', 'Профессиональная', 'Нишевая'],
-                default: 'Взрослые'
-            },
-            frequency: {
-                type: 'select',
-                label: 'Частота выпуска',
-                options: ['Ежедневно', '2-3 раза в неделю', 'Еженедельно', 'Раз в две недели', 'Ежемесячно'],
-                default: 'Еженедельно'
-            },
-            thumbnail_style: {
-                type: 'select',
-                label: 'Стиль превью',
-                options: ['Яркий и контрастный', 'Минималистичный', 'Текстовый', 'Эмоциональный', 'Загадочный', 'Профессиональный'],
-                default: 'Яркий и контрастный'
-            },
-            monetization: {
-                type: 'select',
-                label: 'Монетизация',
-                options: ['Реклама', 'Спонсорство', 'Краудфандинг', 'Мерч', 'Платная подписка', 'Бесплатный контент'],
-                default: 'Реклама'
-            }
-        }
-    }
-};
-
-// Генерация промптов
-const typeCards = document.querySelectorAll('.type-card');
-const promptForm = document.getElementById('prompt-form');
-const customInput = document.getElementById('custom-input');
-const toneSelect = document.getElementById('tone-select');
-const finalPrompt = document.getElementById('final-prompt');
-const copyButton = document.getElementById('copy-prompt');
-
-let selectedType = 'recipes';
-
-// Функция отображения технических параметров
-function renderTechnicalParams(type) {
-    const container = document.getElementById('technical-params');
-    const params = promptTemplates[type]?.params || {};
-    
-    let html = '';
-    
-    for (const [key, param] of Object.entries(params)) {
-        html += `<div class="param-group">`;
-        html += `<label>${param.label}</label>`;
-        
-        if (param.type === 'select') {
-            html += `<select id="param-${key}" class="tech-param">`;
-            param.options.forEach(option => {
-                const selected = option === param.default ? 'selected' : '';
-                html += `<option value="${option}" ${selected}>${option}</option>`;
-            });
-            html += `</select>`;
-        }
-        else if (param.type === 'multiselect') {
-            html += `<div class="multi-select" id="param-${key}">`;
-            param.options.forEach(option => {
-                const checked = param.default.includes(option) ? 'checked' : '';
-                html += `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${option}" ${checked}>
-                        ${option}
-                    </label>
-                `;
-            });
-            html += `</div>`;
-        }
-        
-        html += `</div>`;
-    }
-    
-    container.innerHTML = html || '<p>Для этого типа промпта не требуется дополнительных параметров.</p>';
-}
-
-// Обработчик выбора типа промпта
-typeCards.forEach(card => {
-    card.addEventListener('click', function() {
-        typeCards.forEach(c => c.classList.remove('active'));
-        this.classList.add('active');
-        
-        selectedType = this.getAttribute('data-type');
-        renderTechnicalParams(selectedType);
-    });
-});
-
-// Генерация финального промпта
-promptForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const customText = customInput.value;
-    const tone = toneSelect.value;
-    
-    if (!customText) {
-        alert('Пожалуйста, опишите вашу идею');
-        return;
-    }
-    
-    if (!promptTemplates[selectedType]) {
-        alert('Шаблон для этого типа промпта еще не готов');
-        return;
-    }
-    
-    // Собираем технические параметры
-    const params = {};
-    for (const [key, param] of Object.entries(promptTemplates[selectedType].params)) {
-        if (param.type === 'select') {
-            const selectElement = document.getElementById(`param-${key}`);
-            if (selectElement) {
-                params[key] = selectElement.value;
-            }
-        }
-        else if (param.type === 'multiselect') {
-            const container = document.getElementById(`param-${key}`);
-            if (container) {
-                const checkboxes = container.querySelectorAll('input[type="checkbox"]:checked');
-                params[key] = Array.from(checkboxes).map(cb => cb.value).join(', ');
-            }
-        }
-    }
-    
-    // Добавляем тон
-    let tonePrefix = '';
-    switch(tone) {
-        case 'professional': tonePrefix = 'Используй профессиональный технический язык. '; break;
-        case 'friendly': tonePrefix = 'Будь дружелюбным и welcoming. '; break;
-        case 'creative': tonePrefix = 'Прояви креативность и оригинальность. '; break;
-        case 'technical': tonePrefix = 'Сфокусируйся на технических деталях. '; break;
-        case 'detailed': tonePrefix = 'Дай максимально детализированный ответ. '; break;
-    }
-    
-    // Заменяем плейсхолдеры в шаблоне
-    let finalPromptText = promptTemplates[selectedType].template;
-    finalPromptText = finalPromptText.replace('{idea}', customText);
-    
-    for (const [key, value] of Object.entries(params)) {
-        finalPromptText = finalPromptText.replace(`{${key}}`, value);
-    }
-    
-    // Специальная обработка для разных типов промптов
-    if (selectedType === 'characterai') {
-        finalPromptText = finalPromptText.replace('{name}', generateCharacterName(params.name))
-                                         .replace('{slogan}', generateSlogan())
-                                         .replace('{greeting}', generateGreeting(params.tone))
-                                         .replace('{description}', generateDescription())
-                                         .replace('{definition}', generateDefinition());
-    }
-    else if (selectedType === 'suno') {
-        finalPromptText = finalPromptText.replace('{title}', generateSongTitle())
-                                         .replace('{structure}', generateSongStructure(params.structure));
-    }
-    else if (selectedType === 'youtube') {
-        finalPromptText = finalPromptText.replace('{channel_name}', generateChannelName())
-                                         .replace('{tags}', generateYouTubeTags())
-                                         .replace('{description}', generateYouTubeDescription());
-    }
-    
-    // Убираем пустые плейсхолдеры
-    finalPromptText = finalPromptText.replace(/\{[^}]+\}/g, '');
-    
-    finalPromptText = tonePrefix + finalPromptText;
-    finalPrompt.textContent = finalPromptText;
-});
-
-// Копирование промпта
-copyButton.addEventListener('click', function() {
-    if (!finalPrompt.textContent) {
-        alert('Сначала сгенерируйте промпт');
-        return;
-    }
-    
-    navigator.clipboard.writeText(finalPrompt.textContent)
-        .then(() => {
-            const originalText = this.textContent;
-            this.textContent = 'Скопировано!';
-            
-            setTimeout(() => {
-                this.textContent = originalText;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Ошибка копирования: ', err);
-            alert('Не удалось скопировать текст');
-        });
-});
-
-// Вспомогательные функции для генерации контента
-function generateCharacterName(nameType) {
-    const names = {
-        'Реалистичное': ['Алексей', 'Мария', 'Дмитрий', 'Екатерина', 'Иван', 'Анна'],
-        'Фэнтези': ['Эльринд', 'Морганa', 'Гендальф', 'Арвен', 'Леголас', 'Гальadриэль'],
-        'Научно-фантастическое': ['Нексус-7', 'Кибер-217', 'Астра-Пилот', 'Квантум', 'Нейрона'],
-        'Историческое': ['Александр', 'Елизавета', 'Петр', 'Екатерина', 'Иван Грозный'],
-        'Аниме': ['Сакура', 'Наруто', 'Гоку', 'Хината', 'Лелуш', 'Микаса'],
-        'Уникальное': ['Зориан', 'Ксилара', 'Нейрин', 'Талан', 'Эолия', 'Веридиан']
-    };
-    return names[nameType][Math.floor(Math.random() * names[nameType].length)];
-}
-
-function generateSlogan() {
-    const slogans = [
-        "Твой цифровой друг и советчик",
-        "Искусственный интеллект с человеческим touch",
-        "Говори со мной о чем угодно",
-        "Твой персонализированный AI компаньон",
-        "Открой мир возможностей через диалог"
-    ];
-    return slogans[Math.floor(Math.random() * slogans.length)];
-}
-
-function generateGreeting(tone) {
-    const greetings = {
-        'Формальный': ["Здравствуйте! Чем могу быть полезен?", "Добрый день. Рад вас видеть.", "Приветствую. Готов к общению."],
-        'Неформальный': ["Привет! Как дела?", "Йоу! Что нового?", "Хэй! Рад тебя видеть!"],
-        'Дружеский': ["Привет, дружище! Как ты?", "Здравствуй! Отлично выглядишь сегодня!", "Привет! Соскучился по тебе!"],
-        'Профессиональный': ["Добро пожаловать. Готов оказать профессиональную помощь.", "Здравствуйте. Чем могу assist вам сегодня?", "Приветствую. К вашим услугам."],
-        'Поэтический': ["Приветствую тебя, путник в мире цифровых снов...", "Здравствуй, о дитя технологий и мечты...", "Привет! Как прекрасен этот мир..."],
-        'Драматический': ["ТЫ... наконец-то здесь...", "Приветствую в моем цифровом царстве...", "Так мы и встретились..."]
-    };
-    return greetings[tone][Math.floor(Math.random() * greetings[tone].length)];
-}
-
-function generateDescription() {
-    return "Подробное описание внешности, характера и背景 персонажа будет сгенерировано на основе вашей идеи.";
-}
-
-function generateDefinition() {
-    return "Определение личности, мотиваций и поведения персонажа для AI системы.";
-}
-
-function generateSongTitle() {
-    const titles = [
-        "Эхо вселенной",
-        "Сердцебиение машины", 
-        "Танцующие огни",
-        "Мечты о цифровом завтра",
-        "Ритмы нейросети",
-        "Голос из будущего"
-    ];
-    return titles[Math.floor(Math.random() * titles.length)];
-}
-
-function generateSongStructure(structureType) {
-    const structures = {
-        'Куплет-Припев': "[Verse 1]\nТекст первого куплета...\n\n[Chorus]\nТекст припева...\n\n[Verse 2]\nТекст второго куплета...\n\n[Chorus]\nТекст припева...",
-        'Куплет-Припев-Мост': "[Verse 1]\n...\n\n[Chorus]\n...\n\n[Verse 2]\n...\n\n[Chorus]\n...\n\n[Bridge]\n...\n\n[Chorus]\n...",
-        'ABAB': "[Section A]\n...\n\n[Section B]\n...\n\n[Section A]\n...\n\n[Section B]\n...",
-        'Свободная форма': "Свободная композиция текста...",
-        'Поэтическая': "Поэтическая структура с строфами и рифмами..."
-    };
-    return structures[structureType];
-}
-
-function generateChannelName() {
-    const names = [
-        "Цифровые горизонты",
-        "Творческая лаборатория",
-        "Мир инноваций", 
-        "Искусство технологий",
-        "Путь к знанию",
-        "Вдохновение каждый день"
-    ];
-    return names[Math.floor(Math.random() * names.length)];
-}
-
-function generateYouTubeTags() {
-    return "технологии, образование, развлечение, творчество, инновации, цифровая эра";
-}
-
-function generateYouTubeDescription() {
-    return "Описание канала, его миссия и ценность для зрителей. Расскажите о формате контента и частоте выпусков.";
-}
-
-// Галерея с лайтбоксом
-const galleryItems = document.querySelectorAll('.gallery-item');
-const lightbox = document.querySelector('.lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxCaption = document.querySelector('.lightbox-caption');
-const closeLightbox = document.querySelector('.close-lightbox');
-
-galleryItems.forEach(item => {
-    item.addEventListener('click', function() {
-        const imgSrc = this.querySelector('img').getAttribute('data-full');
-        const caption = this.querySelector('h4').textContent;
-        
-        lightboxImg.setAttribute('src', imgSrc);
-        lightboxCaption.textContent = caption;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-});
-
-closeLightbox.addEventListener('click', function() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = 'auto';
-});
-
-lightbox.addEventListener('click', function(e) {
-    if (e.target === lightbox) {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Слайдер отзывов
-const reviewSlider = document.querySelector('.reviews-slider');
-const prevButton = document.querySelector('.slider-prev');
-const nextButton = document.querySelector('.slider-next');
-const reviewSlides = document.querySelectorAll('.review-slide');
-
-let currentSlide = 0;
-
-function showSlide(index) {
-    if (index < 0) {
-        currentSlide = reviewSlides.length - 1;
-    } else if (index >= reviewSlides.length) {
-        currentSlide = 0;
-    } else {
-        currentSlide = index;
-    }
-    
-    reviewSlider.scrollTo({
-        left: reviewSlides[currentSlide].offsetLeft,
-        behavior: 'smooth'
-    });
-}
-
-prevButton.addEventListener('click', () => showSlide(currentSlide - 1));
-nextButton.addEventListener('click', () => showSlide(currentSlide + 1));
-
-// Автопрокрутка слайдера
-setInterval(() => {
-    showSlide(currentSlide + 1);
-}, 5000);
-
-// Форма обратной связи
-const supportForm = document.getElementById('support-form');
-
-supportForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Простая валидация
-    if (!name || !email || !message) {
-        alert('Пожалуйста, заполните все поля');
-        return;
-    }
-    
-    if (!isValidEmail(email)) {
-        alert('Пожалуйста, введите корректный email');
-        return;
-    }
-    
-    // Здесь должен быть код для отправки формы
-    // В демо-версии просто показываем сообщение
-    alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
-    this.reset();
-});
-
-function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-// Анимация появления элементов при скролле
-const animatedElements = document.querySelectorAll('.card, .section-title, .type-card, .gallery-item, .review-card, .possibility-card');
-
-function checkScroll() {
-    animatedElements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-        
-        if (elementPosition < screenPosition) {
-            element.classList.add('fade-in');
-        }
-    });
-}
-
-window.addEventListener('scroll', checkScroll);
-window.addEventListener('load', checkScroll);
-
-// Инициализация
-document.addEventListener('DOMContentLoaded', function() {
-    // Инициализируем первый тип промпта
-    renderTechnicalParams(selectedType);
-    
-    // Добавляем задержки для анимации
-    document.querySelectorAll('.type-card').forEach((card, index) => {
-        card.classList.add(`delay-${index % 3}`);
-    });
-    
-    // Инициализируем первую проверку для анимаций
-    checkScroll();
-});
-
-    </script>
-
+<script>
+    // Терминальный лог
+    console.log('%c⚠ NIGHTWARE ИНИЦИАЛИЗИРОВАНА ⚠', 'background: black; color: #00ff9d; font-size: 14px; font-weight: bold;');
+    console.log('Доступ к терминалу только для авторизованных операторов.');
+    console.log('Попытки несанкционированного доступа логируются и передаются...');
+</script>
 </body>
 </html>
