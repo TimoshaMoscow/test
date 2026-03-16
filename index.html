@@ -1,418 +1,419 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru">
 <head>
-    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Интерактивный тестовый лендинг | Песочница для смелых идей и гипотез</title>
-    <meta name="description" content="Самый дружелюбный тестовый полигон. Проверяй верстку, анимации, API, шрифты, UX-гипотезы. Адаптив, скорость, чистый код.">
-    <meta name="keywords" content="тестовый лендинг, интерактивный лендинг, песочница, ui тесты, верстка, seo эксперименты, демо сайт, тренажер для верстальщика, фронтенд полигон">
-    <meta name="author" content="Команда тестовых решений и Тимофей">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="revisit-after" content="1 days">
-    <meta name="language" content="ru">
-    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
-    
-    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
-    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
-    
-    <!-- ===== OPEN GRAPH ===== -->
-    <meta property="og:locale" content="ru_RU">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Интерактивный тестовый лендинг — песочница 3.0">
-    <meta property="og:description" content="Проверяй гипотезы, играй с анимациями, тестируй API. Всё в одном флаконе.">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    <meta property="og:site_name" content="Тестовый лендинг">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- ===== TWITTER CARDS ===== -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
-    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
-    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-    
-    <!-- ===== СТИЛИ ===== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Avatar Downloader</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
-            color: #0a1e2f;
-            line-height: 1.5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 1rem;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* АНИМАЦИИ */
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
-            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* ШАПКА */
-        .header {
+            margin: 0;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.8);
-            padding: 1rem 2.5rem;
-            border-radius: 80px;
-            margin-bottom: 4rem;
-            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            width: 56px;
-            height: 56px;
-            border-radius: 20px;
-            object-fit: contain;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .logo img:hover { transform: rotate(10deg) scale(1.1); }
-
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .badge {
-            background: #ffffffdd;
-            padding: 0.6rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            color: #1e2b5e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid white;
-        }
-
-        /* ГЕРОЙ */
-        .hero {
-            text-align: center;
-            padding: 5rem 3rem;
-            background: linear-gradient(145deg, #ffffff, #f5f9ff);
-            border-radius: 70px;
-            box-shadow: 0 40px 60px -20px #1e2b5e40;
-            margin-bottom: 5rem;
-            border: 1px solid #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-        }
-        .hero h2 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #0a1e2f, #283593);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.4rem;
-            color: #2d3f5e;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(145deg, #283593, #1e2b5e);
-            color: white;
-            font-weight: 600;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 15px 25px -8px #28359380;
-            transition: all 0.2s;
-            border: 1px solid #ffffff50;
-        }
-        .cta-button:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 25px 35px -8px #1e2b5e;
-            background: linear-gradient(145deg, #1e2b5e, #283593);
-        }
-
-        /* КАРТОЧКИ */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.2rem;
-            margin: 5rem 0;
-        }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px -15px #1a237e30;
-            border: 1px solid rgba(255,255,255,0.9);
-            transition: all 0.3s;
-            text-align: center;
-            animation: float 6s infinite ease-in-out;
-        }
-        .feature-card:nth-child(2) { animation-delay: 0.5s; }
-        .feature-card:nth-child(3) { animation-delay: 1s; }
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: #3f51b5;
-            background: white;
-        }
-        .feature-icon {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .feature-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #0a1e2f;
-        }
-
-        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
-        .playground {
-            background: white;
-            border-radius: 70px;
-            padding: 4rem 3rem;
-            margin: 5rem 0;
-            box-shadow: 0 30px 50px -20px #0f2b45;
-        }
-        .playground h3 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #1e2b5e;
-        }
-        .grid-demo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        .grid-item {
-            background: #e9ecf5;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-radius: 30px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1e2b5e;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-        .grid-item:hover {
-            border-color: #3f51b5;
-            background: white;
-            transform: scale(1.03);
-            cursor: pointer;
-        }
-        .slider-demo {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
             justify-content: center;
-            margin-top: 3rem;
+            align-items: center;
+            padding: 20px;
         }
-        .knob {
-            width: 80px;
-            height: 80px;
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .input-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        input:focus {
+            border-color: #667eea;
+        }
+        input::placeholder {
+            color: #aaa;
+        }
+        .button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .preview {
+            margin-top: 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+        .preview.hidden {
+            display: none;
+        }
+        .preview h3 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .avatar-container {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar-container img {
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
-            box-shadow: 0 15px 25px -5px #1a237e80;
-            transition: 0.1s;
+            border: 4px solid #667eea;
+            padding: 4px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .knob:active { transform: rotate(30deg); }
-
-        /* ЛОГО-СЕКЦИЯ */
-        .logo-section {
-            text-align: center;
-            padding: 4rem 3rem;
-            background: linear-gradient(145deg, #e8edff, #d5defa);
-            border-radius: 60px;
-            margin: 5rem 0;
+        .download-instruction {
+            background: #e8f4fd;
+            border: 2px solid #667eea;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
         }
-        .logo-section img {
-            width: 180px;
-            height: 180px;
-            border-radius: 40px;
-            box-shadow: 0 30px 40px -15px #1e2b5e;
-            transition: 0.4s;
+        .download-instruction h4 {
+            color: #667eea;
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
-
-        /* ПОДВАЛ */
-        .footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: #44556b;
-            border-top: 2px dashed #b0c0d0;
-            margin-top: 4rem;
-            background: #f5faff;
-            border-radius: 60px 60px 30px 30px;
+        .download-instruction ol {
+            margin: 10px 0;
+            padding-left: 25px;
+            color: #333;
         }
-
-        @media (max-width: 700px) {
-            .hero h2 { font-size: 2.5rem; }
-            .header { flex-direction: column; text-align: center; }
-            .logo { flex-direction: column; }
+        .download-instruction li {
+            margin: 12px 0;
+            font-size: 16px;
         }
-        .hidden-schema { display: none; }
+        .download-instruction kbd {
+            background: #fff;
+            border: 1px solid #999;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-family: monospace;
+            font-size: 14px;
+            box-shadow: 0 2px 0 #999;
+            margin: 0 4px;
+            font-weight: 600;
+        }
+        .download-instruction .note {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .error {
+            color: #e74c3c;
+            margin-top: 10px;
+            font-size: 14px;
+            padding: 10px;
+            background: #fdf0ef;
+            border-radius: 8px;
+        }
+        .info {
+            color: #666;
+            font-size: 13px;
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .info a:hover {
+            text-decoration: underline;
+        }
+        .size-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .example-tag {
+            background: #f0f0f0;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #667eea;
+            border: 1px solid #667eea;
+            transition: all 0.2s;
+        }
+        .example-tag:hover {
+            background: #667eea;
+            color: white;
+        }
+        .direct-link {
+            margin: 15px 0;
+            font-size: 13px;
+            word-break: break-all;
+        }
+        .direct-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .direct-link a:hover {
+            text-decoration: underline;
+        }
     </style>
-    
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Тестовый лендинг 3.0",
-        "url": "https://timoshamoscow.github.io/test/",
-        "description": "Интерактивная песочница для фронтенд-экспериментов",
-        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
-    }
-    </script>
 </head>
 <body>
-    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
-    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
-
     <div class="container">
-        <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
-                <h1>Тестовый лендинг</h1>
-            </div>
-            <div class="badge">🚀 v.3.5 • Живая песочница</div>
-        </header>
+        <h1>📸 Telegram Avatar Downloader 
+            <span class="size-badge">320x320</span>
+        </h1>
+        <div class="subtitle">
+            Скачайте аватар (иконку) любой публичной группы или канала Telegram
+        </div>
+        
+        <div class="input-group">
+            <label for="username">Username группы или канала</label>
+            <input 
+                type="text" 
+                id="username" 
+                placeholder="например: telegram, durov, habr_com"
+                value="durov"
+            >
+        </div>
 
-        <section class="hero">
-            <h2>Полигон для гипотез<br>и смелых решений</h2>
-            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
-            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
-        </section>
+        <div class="examples">
+            <span class="example-tag" onclick="document.getElementById('username').value='durov'; loadAvatar();">durov</span>
+            <span class="example-tag" onclick="document.getElementById('username').value='telegram'; loadAvatar();">telegram</span>
+            <span class="example-tag" onclick="document.getElementById('username').value='habr_com'; loadAvatar();">habr_com</span>
+            <span class="example-tag" onclick="document.getElementById('username').value='tjournal'; loadAvatar();">tjournal</span>
+            <span class="example-tag" onclick="document.getElementById('username').value='meduza'; loadAvatar();">meduza</span>
+        </div>
 
-        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
-        <section class="playground">
-            <h3>⚡ Интерактивная лаборатория</h3>
-            <div class="grid-demo">
-                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
-                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
-                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
-                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
-            </div>
-            <div class="slider-demo">
-                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
-                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
-                <div style="font-size: 2rem;">🎚️</div>
-            </div>
-        </section>
+        <button class="button" id="downloadBtn">
+            🔍 Получить и скачать аватар
+        </button>
 
-        <!-- ОСНОВНЫЕ ФИШКИ -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🧩</div>
-                <h3 class="feature-title">Чистый код</h3>
-                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
+        <div id="preview" class="preview hidden">
+            <h3>Предпросмотр (320x320):</h3>
+            <div class="avatar-container">
+                <img id="avatarImg" src="" alt="Avatar">
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3 class="feature-title">SEO-агрессия</h3>
-                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
+            
+            <!-- ИНСТРУКЦИЯ ПО СКАЧИВАНИЮ (добавлено, не трогая скрипт) -->
+            <div class="download-instruction">
+                <h4>📥 Как скачать аватар:</h4>
+                <ol>
+                    <li>
+                        <strong>Способ 1 (рекомендуемый):</strong> 
+                        Нажмите <kbd>ПКМ</kbd> на изображении → 
+                        <strong>"Сохранить картинку как..."</strong>
+                    </li>
+                    <li>
+                        <strong>Способ 2:</strong> 
+                        Нажмите кнопку <strong>"Сохранить изображение"</strong> ниже
+                    </li>
+                    <li>
+                        <strong>Способ 3:</strong> 
+                        Откройте <a href="#" id="directLink" target="_blank">прямую ссылку</a> и сохраните
+                    </li>
+                </ol>
+                <div class="note">
+                    💡 Если кнопка "Сохранить" не работает, используйте <strong>ПКМ → Сохранить картинку</strong>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Скорость + UX</h3>
-                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
-            </div>
-        </section>
+            
+            <button class="button" id="saveBtn">
+                💾 Сохранить изображение
+            </button>
+            
+            <div id="error" class="error"></div>
+        </div>
 
-        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
-        <section class="logo-section">
-            <img src="images/logo.png" alt="Логотип">
-            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
-        </section>
-
-        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
-        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
-            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
-                <span class="badge" style="font-size:1.2rem;">Сетки</span>
-                <span class="badge" style="font-size:1.2rem;">Анимации</span>
-                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
-                <span class="badge" style="font-size:1.2rem;">Типографика</span>
-                <span class="badge" style="font-size:1.2rem;">SVG</span>
-                <span class="badge" style="font-size:1.2rem;">Canvas</span>
-                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
-                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
-            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
-            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
-        </footer>
+        <div class="info">
+            <strong>ℹ️ Как это работает:</strong>
+            <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                <li>Введите username группы или канала (без @)</li>
+                <li>Сервис загружает аватар через Telegram API</li>
+                <li>Нажмите "Сохранить" для скачивания</li>
+            </ul>
+            <p style="margin-top: 15px; margin-bottom: 5px;">
+                <strong>Примеры:</strong> telegram, durov, habr_com, tjournal
+            </p>
+            <p style="margin-bottom: 0; font-size: 12px; opacity: 0.8;">
+                ⚠️ Работает только с публичными группами и каналами. 
+                Личные аккаунты не поддерживаются из соображений приватности.
+            </p>
+        </div>
     </div>
 
     <script>
-        function demoAlert() {
-            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
+        const usernameInput = document.getElementById('username');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const preview = document.getElementById('preview');
+        const avatarImg = document.getElementById('avatarImg');
+        const saveBtn = document.getElementById('saveBtn');
+        const errorDiv = document.getElementById('error');
+        const directLink = document.getElementById('directLink');
+
+        // Функция для получения URL аватара через Telegram API
+        function getAvatarUrl(username) {
+            // Очищаем username от @ и пробелов
+            const cleanUsername = username.replace('@', '').trim();
+            
+            // Используем официальный Telegram API для получения фото профиля
+            // Увеличил размер до 320x320 (максимальный для этого API)
+            return `https://t.me/i/userpic/320/${cleanUsername}.jpg`;
         }
-        document.querySelectorAll('.grid-item').forEach(el => {
-            el.addEventListener('click', function() {
-                this.style.transition = '0.2s';
+
+        // Функция для проверки доступности изображения
+        function checkImage(url, callback) {
+            const img = new Image();
+            img.onload = () => callback(true);
+            img.onerror = () => callback(false);
+            img.src = url;
+        }
+
+        // Функция для скачивания изображения
+        function downloadImage(url, filename) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                })
+                .catch(() => {
+                    errorDiv.textContent = 'Ошибка при скачивании. Попробуйте другой username.';
+                });
+        }
+
+        // Основная функция получения аватара
+        function loadAvatar() {
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                errorDiv.textContent = 'Введите username группы или канала';
+                return;
+            }
+
+            // Показываем индикатор загрузки
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = '⏳ Загрузка...';
+            errorDiv.textContent = '';
+            preview.classList.add('hidden');
+
+            const avatarUrl = getAvatarUrl(username);
+            
+            // Обновляем прямую ссылку
+            if (directLink) {
+                directLink.href = avatarUrl;
+                directLink.textContent = avatarUrl;
+            }
+            
+            // Проверяем, существует ли изображение
+            checkImage(avatarUrl, (exists) => {
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '🔍 Получить и скачать аватар';
+                
+                if (exists) {
+                    // Показываем превью
+                    avatarImg.src = avatarUrl;
+                    preview.classList.remove('hidden');
+                    
+                    // Настраиваем кнопку сохранения
+                    saveBtn.onclick = () => {
+                        downloadImage(avatarUrl, `${username}_avatar.jpg`);
+                    };
+                } else {
+                    errorDiv.textContent = '❌ Аватар не найден. Убедитесь, что группа/канал существует и является публичным.';
+                }
             });
+        }
+
+        // Обработчик для основной кнопки
+        downloadBtn.addEventListener('click', loadAvatar);
+
+        // Обработчик для Enter в поле ввода
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loadAvatar();
+            }
         });
-        console.log('✅ Интерактивный тестовый лендинг загружен.');
+
+        // Загружаем превью для примера (durov) при загрузке страницы
+        setTimeout(() => {
+            loadAvatar();
+        }, 100);
     </script>
 </body>
 </html>
