@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Голосовой ввод с вибр... ой.</title>
+    <title>🎤 Голосовой ввод с вибр... ой.</title>
     <style>
         * {
             box-sizing: border-box;
@@ -43,6 +43,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            word-break: break-word;
         }
 
         h1 span {
@@ -224,7 +225,7 @@
     <div class="container">
         <h1>
             🎤 Голосовой ввод с вибр... ой.
-            <span>v1.0</span>
+            <span>v2.0</span>
         </h1>
 
         <div class="mic-container">
@@ -258,7 +259,8 @@
 
         <div class="error-message" id="errorMessage"></div>
         <div class="footer-note">
-            ⚡ При нажатиях — вибрация (если поддерживается устройством)
+            ⚡ При нажатиях — вибрация (если поддерживается устройством)<br>
+            🗣️ Пауза → запятая, завершение → точка
         </div>
     </div>
 
@@ -275,7 +277,8 @@
             // Переменные для распознавания речи
             let recognition = null;
             let isListening = false;
-            let finalTranscript = '';
+            let finalTranscript = ''; // Хранит только чистый текст без плейсхолдера
+            let isFirstStart = true; // Флаг для первого запуска
 
             // Проверка поддержки вибрации
             const vibrateSupported = 'vibrate' in navigator;
@@ -287,44 +290,117 @@
                 }
             }
 
+            // Функция для добавления пунктуации по интонации
+            function addPunctuationByIntent(text, isFinal) {
+                if (!text) return text;
+                
+                text = text.trim();
+                
+                // Если текст пустой, возвращаем как есть
+                if (text.length === 0) return text;
+                
+                // Проверяем последний символ
+                const lastChar = text[text.length - 1];
+                
+                // Если последний символ уже знак препинания, не добавляем новый
+                if (lastChar.match(/[.!?,:;]/)) {
+                    return text;
+                }
+                
+                // Для финальных результатов (конец предложения) добавляем точку
+                if (isFinal) {
+                    // Проверяем, не заканчивается ли уже на точку/вопросительный/восклицательный
+                    if (!text.match(/[.!?]$/)) {
+                        return text + '.';
+                    }
+                } else {
+                    // Для промежуточных результатов с паузой добавляем запятую
+                    // Но только если текст не слишком короткий и это похоже на паузу
+                    // В реальности API не дает точной информации о паузах, поэтому 
+                    // мы используем длительность паузы между словами, но в браузерном API 
+                    // такой информации нет. Поэтому добавляем запятую только если 
+                    // текст уже содержит интонационные маркеры, но для демо 
+                    // будем добавлять запятую после каждого завершенного слова с паузой
+                    
+                    // Упрощенный подход: если промежуточный результат содержит больше 3 слов
+                    // и не заканчивается знаком препинания, добавляем запятую
+                    // Но чтобы не было слишком много запятых, добавим только если 
+                    // последнее слово не очень короткое
+                    const words = text.split(' ');
+                    if (words.length > 2) {
+                        const lastWord = words[words.length - 1];
+                        if (lastWord.length > 2 && !text.match(/[,;:]$/)) {
+                            return text + ',';
+                        }
+                    }
+                }
+                
+                return text;
+            }
+
+            // Функция обновления отображения результата
+            function updateResultDisplay(final, interim = '') {
+                let displayText = final;
+                
+                if (interim) {
+                    // Добавляем пунктуацию к промежуточному результату
+                    const punctuatedInterim = addPunctuationByIntent(interim, false);
+                    resultBox.innerHTML = final + '<em style="color:#999;">' + punctuatedInterim + '</em>';
+                } else {
+                    if (final) {
+                        resultBox.textContent = final;
+                        resultBox.classList.remove('placeholder');
+                    } else {
+                        resultBox.textContent = '👆 Нажмите на микрофон и говорите';
+                        resultBox.classList.add('placeholder');
+                    }
+                }
+            }
+
+            // Функция получения чистого текста для копирования (без плейсхолдера и курсива)
+            function getCleanTextForCopy() {
+                // Если есть финальный текст, используем его
+                if (finalTranscript && finalTranscript.trim() !== '') {
+                    return finalTranscript.trim();
+                }
+                
+                // Если в resultBox есть текст, но это не плейсхолдер
+                const boxText = resultBox.textContent;
+                if (boxText && boxText !== '👆 Нажмите на микрофон и говорите') {
+                    return boxText.trim();
+                }
+                
+                return '';
+            }
+
             // Инициализация Web Speech API
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                 recognition = new SpeechRecognition();
-                recognition.lang = 'ru-RU'; // Русский язык, можно заменить
-                recognition.continuous = true; // Продолжать слушать, пока не остановим вручную
-                recognition.interimResults = true; // Показывать промежуточные результаты
+                recognition.lang = 'ru-RU';
+                recognition.continuous = true;
+                recognition.interimResults = true;
                 recognition.maxAlternatives = 1;
 
-                // Событие: получен результат
                 recognition.onresult = (event) => {
                     let interimTranscript = '';
+                    let finalFragment = '';
 
                     for (let i = event.resultIndex; i < event.results.length; i++) {
                         const transcript = event.results[i][0].transcript;
                         if (event.results[i].isFinal) {
-                            finalTranscript += transcript + ' ';
+                            // Добавляем пунктуацию к финальному фрагменту
+                            finalFragment = addPunctuationByIntent(transcript, true);
+                            finalTranscript += finalFragment + ' ';
                         } else {
                             interimTranscript += transcript;
                         }
                     }
 
-                    // Отображаем финальный + промежуточный (если есть)
-                    if (interimTranscript !== '') {
-                        resultBox.innerHTML = finalTranscript + '<em style="color:#999;">' + interimTranscript + '</em>';
-                    } else {
-                        resultBox.textContent = finalTranscript || '👆 Нажмите на микрофон и говорите';
-                    }
-
-                    // Убираем класс placeholder, если есть текст
-                    if (finalTranscript.trim() !== '' || interimTranscript !== '') {
-                        resultBox.classList.remove('placeholder');
-                    } else {
-                        resultBox.classList.add('placeholder');
-                    }
+                    // Применяем пунктуацию к промежуточному результату
+                    updateResultDisplay(finalTranscript, interimTranscript);
                 };
 
-                // Событие: ошибка
                 recognition.onerror = (event) => {
                     console.error('Ошибка распознавания:', event.error);
                     let userMessage = '';
@@ -345,18 +421,12 @@
                     stopListening();
                 };
 
-                // Событие: окончание работы (когда перестали слушать)
                 recognition.onend = () => {
                     if (isListening) {
-                        // Если мы ещё должны слушать, но по какой-то причине распознавание завершилось,
-                        // пробуем перезапустить (например, тишина, но continuous=true должно само держать)
-                        // Но по опыту, onend вызывается при ошибках или при явном stop().
-                        // Здесь мы просто синхронизируем состояние кнопки.
                         stopListening();
                     }
                 };
             } else {
-                // Браузер не поддерживает SpeechRecognition
                 micButton.disabled = true;
                 micButton.style.opacity = '0.5';
                 micButton.style.cursor = 'not-allowed';
@@ -364,7 +434,6 @@
                 showError('Ваш браузер не поддерживает голосовой ввод. Попробуйте Chrome, Edge или Safari.');
             }
 
-            // Функция показа ошибки
             function showError(msg) {
                 errorMessage.textContent = msg;
                 errorMessage.classList.add('show');
@@ -373,63 +442,65 @@
                 }, 4000);
             }
 
-            // Функция запуска прослушивания
             function startListening() {
                 if (!recognition) return;
 
-                // Вибрация при старте
                 vibrate(20);
 
-                // Сбрасываем финальный текст, если нужно начинать заново.
-                // Если нужно накапливать, закомментируйте следующую строку
-                // finalTranscript = ''; // Раскомментируйте, если нужно очищать при новом старте
+                // Если это первый запуск или текст был плейсхолдером, начинаем с чистого листа
+                if (resultBox.textContent === '👆 Нажмите на микрофон и говорите' || isFirstStart) {
+                    finalTranscript = '';
+                    isFirstStart = false;
+                } else {
+                    // Иначе сохраняем текущий текст как базу
+                    finalTranscript = resultBox.textContent;
+                }
 
-                finalTranscript = resultBox.textContent === '👆 Нажмите на микрофон и говорите' ? '' : resultBox.textContent;
+                try {
+                    recognition.start();
+                    isListening = true;
 
-                recognition.start();
-                isListening = true;
+                    micButton.classList.add('listening');
+                    micStatus.textContent = 'Слушаю...';
+                    resultBox.classList.remove('placeholder');
 
-                // Обновляем UI
-                micButton.classList.add('listening');
-                micStatus.textContent = 'Слушаю...';
-                resultBox.classList.remove('placeholder');
-
-                // Вибрация подтверждения (короткая)
-                vibrate(30);
+                    vibrate(30);
+                } catch (e) {
+                    console.error('Ошибка запуска распознавания:', e);
+                    showError('Не удалось запустить микрофон');
+                }
             }
 
-            // Функция остановки прослушивания
             function stopListening() {
                 if (!recognition) return;
 
-                // Вибрация при остановке
                 vibrate(20);
 
-                recognition.stop();
+                try {
+                    recognition.stop();
+                } catch (e) {
+                    console.error('Ошибка остановки распознавания:', e);
+                }
+                
                 isListening = false;
 
-                // Обновляем UI
                 micButton.classList.remove('listening');
                 micStatus.textContent = 'Начать';
 
-                // Убираем курсивные подсказки из resultBox, если они были
+                // Убираем курсивные подсказки
                 if (resultBox.innerHTML.includes('<em')) {
                     resultBox.textContent = finalTranscript || '👆 Нажмите на микрофон и говорите';
                 }
 
-                // Если текста нет, возвращаем плейсхолдер
                 if (!finalTranscript.trim()) {
                     resultBox.textContent = '👆 Нажмите на микрофон и говорите';
                     resultBox.classList.add('placeholder');
                 }
 
-                // Вибрация подтверждения остановки
                 vibrate([10, 10, 10]);
             }
 
-            // Обработчик клика по кнопке микрофона
             micButton.addEventListener('click', () => {
-                // Вибрация при клике (тактильный отклик)
                 vibrate(15);
 
                 if (!recognition) {
@@ -444,33 +515,22 @@
                 }
             });
 
-            // Кнопка копирования
             copyBtn.addEventListener('click', () => {
-                // Вибрация
                 vibrate(20);
 
-                let textToCopy = resultBox.textContent;
-                // Если текст - плейсхолдер, копируем пустоту или предупреждение
-                if (textToCopy === '👆 Нажмите на микрофон и говорите') {
-                    textToCopy = '';
-                } else if (resultBox.innerHTML.includes('<em')) {
-                    // Если есть промежуточный результат (курсив), берём чистый текст
-                    textToCopy = finalTranscript;
-                }
+                const textToCopy = getCleanTextForCopy();
 
-                if (!textToCopy.trim()) {
+                if (!textToCopy) {
                     showError('Нет текста для копирования');
-                    vibrate([30, 30, 30]); // тройная вибрация - ошибка
+                    vibrate([30, 30, 30]);
                     return;
                 }
 
-                // Копирование в буфер обмена
                 navigator.clipboard.writeText(textToCopy).then(() => {
-                    // Успех
                     const originalText = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<span>✅</span> Скопировано!';
                     copyBtn.classList.add('btn-success');
-                    vibrate([20, 50, 20]); // успех
+                    vibrate([20, 50, 20]);
                     setTimeout(() => {
                         copyBtn.innerHTML = '<span>📋</span> Копировать';
                         copyBtn.classList.remove('btn-success');
@@ -482,33 +542,26 @@
                 });
             });
 
-            // Кнопка очистки
             clearBtn.addEventListener('click', () => {
-                // Вибрация
                 vibrate(20);
 
                 finalTranscript = '';
                 resultBox.textContent = '👆 Нажмите на микрофон и говорите';
                 resultBox.classList.add('placeholder');
+                isFirstStart = true; // Сбрасываем флаг, чтобы при следующем старте начать с чистой
 
-                // Если слушаем, лучше не сбрасывать статус, но сбросим внутренний текст
-                if (isListening) {
-                    // Если нужно, можно остановить и начать заново, но оставим как есть.
-                    // Просто очистили вывод.
-                }
-
-                // Вибрация подтверждения
                 vibrate(20);
             });
 
-            // Обработка скрытия/ухода со страницы, чтобы остановить микрофон
             window.addEventListener('beforeunload', () => {
                 if (isListening && recognition) {
-                    recognition.stop();
+                    try {
+                        recognition.stop();
+                    } catch (e) {}
                 }
             });
 
-            // Инициализация: добавим класс placeholder если нужно
+            // Инициализация
             if (resultBox.textContent === '👆 Нажмите на микрофон и говорите') {
                 resultBox.classList.add('placeholder');
             }
