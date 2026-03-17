@@ -26,8 +26,8 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 32px;
-            padding: 32px 24px;
-            max-width: 600px;
+            padding: 24px;
+            max-width: 700px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -35,7 +35,7 @@
 
         h1 {
             color: #333;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             font-weight: 600;
             font-size: 28px;
             text-align: center;
@@ -54,10 +54,58 @@
             border-radius: 40px;
         }
 
+        /* Вкладки */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: #f0f0f0;
+            padding: 6px;
+            border-radius: 60px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Микрофон */
         .mic-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .mic-button {
@@ -108,11 +156,13 @@
             opacity: 0.9;
         }
 
+        /* Результат */
         .result-section {
             background: #f8f9ff;
             border-radius: 24px;
             padding: 20px;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .label {
@@ -135,7 +185,7 @@
             padding: 20px;
             min-height: 120px;
             border: 2px solid #e0e0ff;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-size: 18px;
             line-height: 1.5;
             color: #333;
@@ -159,19 +209,47 @@
             font-weight: 500;
         }
 
+        /* Статистика */
+        .stats {
+            display: flex;
+            gap: 16px;
+            justify-content: space-around;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px dashed #e0e0ff;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* Кнопки действий */
         .actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
+            margin-top: 16px;
         }
 
         .btn {
             flex: 1 1 auto;
             background: white;
             border: none;
-            padding: 16px 24px;
+            padding: 14px 20px;
             border-radius: 60px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -182,7 +260,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            min-width: 140px;
         }
 
         .btn:active {
@@ -196,18 +273,184 @@
             border: none;
         }
 
-        .btn-primary:active {
-            background: #5a67d8;
-        }
-
         .btn-success {
             background: linear-gradient(145deg, #48bb78, #38a169);
             color: white;
             border: none;
         }
 
-        .footer-note {
+        .btn-warning {
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
+            color: white;
+            border: none;
+        }
+
+        /* Настройки */
+        .settings-group {
+            background: #f8f9ff;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0ff;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .setting-desc {
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* Переключатель */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+            margin-left: 16px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .3s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Селект */
+        .setting-select {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 2px solid #e0e0ff;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Поле ввода */
+        .setting-input {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 2px solid #e0e0ff;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            outline: none;
+            width: 200px;
+        }
+
+        .setting-input:focus {
+            border-color: #667eea;
+        }
+
+        /* Голосовые команды */
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
             margin-top: 16px;
+        }
+
+        .command-item {
+            background: white;
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid #e0e0ff;
+        }
+
+        .command-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0ff;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .command-info {
+            flex: 1;
+        }
+
+        .command-phrase {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .command-action {
+            font-size: 12px;
+            color: #667eea;
+        }
+
+        .footer-note {
+            margin-top: 20px;
             font-size: 13px;
             color: #777;
             text-align: center;
@@ -233,35 +476,402 @@
     <div class="container">
         <h1>
             🎤 Голосовой ввод с вибр... ой.
-            <span>v2.2</span>
+            <span>v3.0</span>
         </h1>
 
-        <div class="mic-container">
-            <button class="mic-button" id="micButton">
-                <span class="mic-icon">🎙️</span>
-                <span class="mic-status" id="micStatus">Начать</span>
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="main">
+                <span>🎤</span> Главная
+            </button>
+            <button class="tab-btn" data-tab="settings">
+                <span>⚙️</span> Настройки
+            </button>
+            <button class="tab-btn" data-tab="commands">
+                <span>🤖</span> Команды
+            </button>
+            <button class="tab-btn" data-tab="stats">
+                <span>📊</span> Статистика
             </button>
         </div>
 
-        <div class="result-section">
-            <div class="label">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Распознанный текст:
+        <!-- Вкладка: Главная -->
+        <div class="tab-content active" id="tab-main">
+            <div class="mic-container">
+                <button class="mic-button" id="micButton">
+                    <span class="mic-icon">🎙️</span>
+                    <span class="mic-status" id="micStatus">Начать</span>
+                </button>
             </div>
-            <div class="result-box" id="resultBox">
-                👆 Нажмите на микрофон и говорите
+
+            <div class="result-section">
+                <div class="label">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Распознанный текст:
+                </div>
+                <div class="result-box" id="resultBox">
+                    👆 Нажмите на микрофон и говорите
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="wordCount">0</div>
+                        <div class="stat-label">слов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="charCount">0</div>
+                        <div class="stat-label">символов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="sessionCount">0</div>
+                        <div class="stat-label">записей</div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn" id="copyBtn">
+                        <span>📋</span> Копировать
+                    </button>
+                    <button class="btn" id="clearBtn">
+                        <span>🗑️</span> Очистить
+                    </button>
+                    <button class="btn btn-primary" id="speakBtn">
+                        <span>🔊</span> Озвучить
+                    </button>
+                    <button class="btn btn-warning" id="saveBtn">
+                        <span>💾</span> Сохранить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка: Настройки -->
+        <div class="tab-content" id="tab-settings">
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>🎤</span> Голосовой ввод
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Язык распознавания</div>
+                        <div class="setting-desc">Выберите язык для голосового ввода</div>
+                    </div>
+                    <select class="setting-select" id="langSelect">
+                        <option value="ru-RU">Русский</option>
+                        <option value="en-US">English (US)</option>
+                        <option value="en-GB">English (UK)</option>
+                        <option value="kk-KZ">Қазақша</option>
+                        <option value="uk-UA">Українська</option>
+                        <option value="de-DE">Deutsch</option>
+                        <option value="fr-FR">Français</option>
+                        <option value="es-ES">Español</option>
+                        <option value="it-IT">Italiano</option>
+                        <option value="zh-CN">中文</option>
+                        <option value="ja-JP">日本語</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Непрерывное распознавание</div>
+                        <div class="setting-desc">Продолжать слушать после паузы</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="continuousToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Промежуточные результаты</div>
+                        <div class="setting-desc">Показывать текст во время речи</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="interimToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>📳</span> Вибрация
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Включить вибрацию</div>
+                        <div class="setting-desc">Тактильная отдача при нажатиях</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="vibrateToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Сила вибрации</div>
+                        <div class="setting-desc">Интенсивность тактильного отклика</div>
+                    </div>
+                    <select class="setting-select" id="vibrateStrength">
+                        <option value="weak">Слабая</option>
+                        <option value="medium" selected>Средняя</option>
+                        <option value="strong">Сильная</option>
+                        <option value="off">Отключить</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>🔗</span> Замена URL
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Автозамена на URL</div>
+                        <div class="setting-desc">Заменять "тимоша тест" на ссылку</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="urlReplaceToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">URL для замены</div>
+                        <div class="setting-desc">Адрес сайта</div>
+                    </div>
+                    <input type="text" class="setting-input" id="urlInput" value="https://timoshamoscow.github.io/test/">
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Подсвечивать URL</div>
+                        <div class="setting-desc">Выделять ссылку цветом</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="highlightUrlToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>🔊</span> Озвучивание
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Голос озвучки</div>
+                        <div class="setting-desc">Выберите голос</div>
+                    </div>
+                    <select class="setting-select" id="voiceSelect">
+                        <option value="">Автоматически</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Скорость речи</div>
+                        <div class="setting-desc">0.5 - 2.0</div>
+                    </div>
+                    <input type="range" id="speechRate" min="0.5" max="2" step="0.1" value="1">
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Высота тона</div>
+                        <div class="setting-desc">0 - 2</div>
+                    </div>
+                    <input type="range" id="speechPitch" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>💾</span> Сохранение
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Автосохранение</div>
+                        <div class="setting-desc">Сохранять текст в localStorage</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="autoSaveToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-name">Формат сохранения</div>
+                        <div class="setting-desc">TXT или JSON</div>
+                    </div>
+                    <select class="setting-select" id="saveFormat">
+                        <option value="txt">Текстовый файл (.txt)</option>
+                        <option value="json">JSON (.json)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="actions">
-                <button class="btn" id="copyBtn">
-                    <span>📋</span> Копировать
+                <button class="btn btn-primary" id="saveSettingsBtn">
+                    <span>💾</span> Сохранить настройки
                 </button>
-                <button class="btn btn-primary" id="clearBtn">
-                    <span>🗑️</span> Очистить
+                <button class="btn" id="resetSettingsBtn">
+                    <span>↺</span> Сбросить
                 </button>
+            </div>
+        </div>
+
+        <!-- Вкладка: Команды -->
+        <div class="tab-content" id="tab-commands">
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>🤖</span> Голосовые команды
+                </div>
+                <div class="setting-desc" style="margin-bottom: 16px;">
+                    Скажите одну из команд, и сайт выполнит действие
+                </div>
+
+                <div class="commands-grid">
+                    <div class="command-item">
+                        <div class="command-icon">🧹</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"очисти"</div>
+                            <div class="command-action">Очистить текст</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">📋</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"скопируй"</div>
+                            <div class="command-action">Копировать текст</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">🔊</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"озвучь"</div>
+                            <div class="command-action">Озвучить текст</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">💾</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"сохрани"</div>
+                            <div class="command-action">Сохранить в файл</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">⚙️</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"настройки"</div>
+                            <div class="command-action">Открыть настройки</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">🏠</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"главная"</div>
+                            <div class="command-action">На главную</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">📊</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"статистика"</div>
+                            <div class="command-action">Показать статистику</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon">🔗</div>
+                        <div class="command-info">
+                            <div class="command-phrase">"тимоша тест"</div>
+                            <div class="command-action">Вставить URL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>➕</span> Добавить свою команду
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <input type="text" class="setting-input" style="flex: 1;" placeholder="Фраза (например: привет)" id="newCommandPhrase">
+                    <select class="setting-select" id="newCommandAction">
+                        <option value="clear">Очистить</option>
+                        <option value="copy">Копировать</option>
+                        <option value="speak">Озвучить</option>
+                        <option value="save">Сохранить</option>
+                        <option value="settings">Настройки</option>
+                        <option value="main">Главная</option>
+                    </select>
+                    <button class="btn btn-primary" id="addCommandBtn">➕</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка: Статистика -->
+        <div class="tab-content" id="tab-stats">
+            <div class="settings-group">
+                <div class="settings-title">
+                    <span>📊</span> Общая статистика
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="background: white; border-radius: 16px; padding: 20px; text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: #667eea;" id="totalWords">0</div>
+                        <div style="color: #888;">Всего слов</div>
+                    </div>
+                    <div style="background: white; border-radius: 16px; padding: 20px; text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: #667eea;" id="totalChars">0</div>
+                        <div style="color: #888;">Всего символов</div>
+                    </div>
+                    <div style="background: white; border-radius: 16px; padding: 20px; text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: #667eea;" id="totalSessions">0</div>
+                        <div style="color: #888;">Сессий</div>
+                    </div>
+                    <div style="background: white; border-radius: 16px; padding: 20px; text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: #667eea;" id="totalUrls">0</div>
+                        <div style="color: #888;">URL замен</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-name">Последняя запись</div>
+                            <div class="setting-desc" id="lastSession">Нет данных</div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-name">Самое длинное слово</div>
+                            <div class="setting-desc" id="longestWord">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions" style="margin-top: 20px;">
+                    <button class="btn" id="resetStatsBtn">
+                        <span>↺</span> Сбросить статистику
+                    </button>
+                    <button class="btn btn-primary" id="exportStatsBtn">
+                        <span>📤</span> Экспорт
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -279,289 +889,125 @@
             const resultBox = document.getElementById('resultBox');
             const copyBtn = document.getElementById('copyBtn');
             const clearBtn = document.getElementById('clearBtn');
+            const speakBtn = document.getElementById('speakBtn');
+            const saveBtn = document.getElementById('saveBtn');
             const errorMessage = document.getElementById('errorMessage');
-
-            // Конфигурация URL для замены
-            const TARGET_URL = 'https://timoshamoscow.github.io/test/';
             
-            // Варианты распознавания URL (РАСШИРЕННЫЙ СПИСОК)
-            const urlPatterns = [
-                // Основной паттерн из вашего теста
-                'заходите на сайт github тест',
-                'заходи на сайт github тест',
-                'зайдите на сайт github тест',
-                'зайти на сайт github тест',
-                'сайт github тест',
-                'github тест',
-                
-                // Русские варианты
-                'тимоша москоу слэш тест',
-                'тимоша москоу слеш тест',
-                'тимоша москоу слэш тэст',
-                'тимоша москоу слеш тэст',
-                'тимоша москоу / тест',
-                'тимоша москоу / тэст',
-                'тимоша москоу точка гитхаб точка ио слэш тест',
-                'тимоша москоу точка гитхаб точка ио слеш тест',
-                
-                // Английские варианты
-                'timosha moscow slash test',
-                'timosha moscow slesh test',
-                'timosha moscow / test',
-                'timosha moscow dot github dot io slash test',
-                'timosha moscow github io test',
-                'timosha moscow.github.io/test',
-                
-                // Слитные варианты
-                'тимошамоскоу слэш тест',
-                'тимошамоскоу слеш тест',
-                'тимошамоскоу / тест',
-                'тимошамосоу тест',  // ваш вариант "самоскоу"
-                'тимошамосоу слэш тест',
-                'тимошамосоу слеш тест',
-                'тимошамосоу / тест',
-                'самоскоу тест',      // творческое произношение
-                'самоскоу слэш тест',
-                
-                // С https://
-                'эйч титипиэс двоеточие слэш слэш тимоша москоу точка гитхаб точка ио слэш тест',
-                'https тимоша москоу точка гитхаб точка ио слэш тест',
-                'https двоеточие слэш слэш тимоша москоу точка гитхаб точка ио слэш тест',
-                
-                // Короткие команды
-                'открой сайт тест',
-                'перейди на сайт тест',
-                'сайт тест',
-                'тестовый сайт',
-                'мой сайт',
-                'сайт тимоши',
-                
-                // Английские короткие
-                'open test site',
-                'go to test site',
-                'test site',
-                'github test site',
-                
-                // Комбинации с "заходи"
-                'заходи на сайт',
-                'заходите на сайт',
-                'зайди на сайт',
-                'захожу на сайт',
-            ];
+            // Элементы статистики
+            const wordCount = document.getElementById('wordCount');
+            const charCount = document.getElementById('charCount');
+            const sessionCount = document.getElementById('sessionCount');
+            const totalWords = document.getElementById('totalWords');
+            const totalChars = document.getElementById('totalChars');
+            const totalSessions = document.getElementById('totalSessions');
+            const totalUrls = document.getElementById('totalUrls');
+            const lastSession = document.getElementById('lastSession');
+            const longestWord = document.getElementById('longestWord');
+
+            // Вкладки
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
 
             // Переменные для распознавания речи
             let recognition = null;
             let isListening = false;
             let finalTranscript = '';
             let isFirstStart = true;
+            
+            // Статистика
+            let stats = {
+                words: 0,
+                chars: 0,
+                sessions: 0,
+                urlReplacements: 0,
+                lastText: '',
+                longestWord: ''
+            };
 
-            // Проверка поддержки вибрации
-            const vibrateSupported = 'vibrate' in navigator;
+            // Настройки
+            let settings = {
+                lang: 'ru-RU',
+                continuous: true,
+                interim: true,
+                vibrate: true,
+                vibrateStrength: 'medium',
+                urlReplace: true,
+                targetUrl: 'https://timoshamoscow.github.io/test/',
+                highlightUrl: true,
+                autoSave: false,
+                saveFormat: 'txt',
+                speechRate: 1,
+                speechPitch: 1
+            };
 
-            function vibrate(pattern) {
-                if (vibrateSupported) {
-                    navigator.vibrate(pattern);
+            // Пользовательские команды
+            let customCommands = [];
+
+            // Загрузка настроек из localStorage
+            function loadSettings() {
+                try {
+                    const saved = localStorage.getItem('voiceSettings');
+                    if (saved) {
+                        settings = JSON.parse(saved);
+                        applySettingsToUI();
+                    }
+                    
+                    const savedStats = localStorage.getItem('voiceStats');
+                    if (savedStats) {
+                        stats = JSON.parse(savedStats);
+                        updateStatsUI();
+                    }
+                    
+                    const savedCommands = localStorage.getItem('voiceCommands');
+                    if (savedCommands) {
+                        customCommands = JSON.parse(savedCommands);
+                    }
+                } catch (e) {
+                    console.error('Ошибка загрузки настроек:', e);
                 }
             }
 
-            // Функция для замены распознанного текста на URL
-            function replaceWithUrl(text) {
-                if (!text) return text;
-                
-                const lowerText = text.toLowerCase().trim();
-                
-                // Сначала проверяем точное совпадение с URL
-                if (lowerText === TARGET_URL.toLowerCase()) {
-                    return TARGET_URL;
-                }
-                
-                // Проверяем все паттерны из списка
-                for (const pattern of urlPatterns) {
-                    if (lowerText.includes(pattern.toLowerCase())) {
-                        return TARGET_URL;
-                    }
-                }
-                
-                // Проверяем отдельные слова и комбинации
-                const words = lowerText.split(/\s+/);
-                
-                // Проверка на наличие "тимоша/москоу/самоскоу" + "тест"
-                const hasTimosh = lowerText.includes('тимоша') || 
-                                 lowerText.includes('timosha') || 
-                                 lowerText.includes('самоскоу') ||
-                                 lowerText.includes('тимошамосоу');
-                                 
-                const hasMoscow = lowerText.includes('москоу') || 
-                                 lowerText.includes('moscow') || 
-                                 lowerText.includes('мосоу');
-                                 
-                const hasTest = lowerText.includes('тест') || 
-                              lowerText.includes('test') || 
-                              lowerText.includes('тэст');
-                
-                const hasSite = lowerText.includes('сайт') || 
-                              lowerText.includes('site') ||
-                              lowerText.includes('github');
-                
-                if ((hasTimosh || hasMoscow) && (hasTest || hasSite)) {
-                    return TARGET_URL;
-                }
-                
-                // Проверка на слитное написание
-                const noSpacesText = lowerText.replace(/\s+/g, '');
-                if (noSpacesText.includes('тимошамоскоутест') ||
-                    noSpacesText.includes('timoshamoscowtest') ||
-                    noSpacesText.includes('тимошамосоутест') ||
-                    noSpacesText.includes('самоскоутест')) {
-                    return TARGET_URL;
-                }
-                
-                return text;
+            // Сохранение настроек
+            function saveSettings() {
+                localStorage.setItem('voiceSettings', JSON.stringify(settings));
+                showSuccess('Настройки сохранены');
             }
 
-            // Функция для добавления пунктуации по интонации
-            function addPunctuationByIntent(text, isFinal) {
-                if (!text) return text;
-                
-                text = text.trim();
-                
-                if (text.length === 0) return text;
-                
-                const lastChar = text[text.length - 1];
-                
-                if (lastChar.match(/[.!?,:;]/)) {
-                    return text;
-                }
-                
-                if (isFinal) {
-                    if (!text.match(/[.!?]$/)) {
-                        return text + '.';
-                    }
-                } else {
-                    const words = text.split(' ');
-                    if (words.length > 2) {
-                        const lastWord = words[words.length - 1];
-                        if (lastWord.length > 2 && !text.match(/[,;:]$/)) {
-                            return text + ',';
-                        }
-                    }
-                }
-                
-                return text;
+            // Применение настроек к UI
+            function applySettingsToUI() {
+                document.getElementById('langSelect').value = settings.lang;
+                document.getElementById('continuousToggle').checked = settings.continuous;
+                document.getElementById('interimToggle').checked = settings.interim;
+                document.getElementById('vibrateToggle').checked = settings.vibrate;
+                document.getElementById('vibrateStrength').value = settings.vibrateStrength;
+                document.getElementById('urlReplaceToggle').checked = settings.urlReplace;
+                document.getElementById('urlInput').value = settings.targetUrl;
+                document.getElementById('highlightUrlToggle').checked = settings.highlightUrl;
+                document.getElementById('autoSaveToggle').checked = settings.autoSave;
+                document.getElementById('saveFormat').value = settings.saveFormat;
+                document.getElementById('speechRate').value = settings.speechRate;
+                document.getElementById('speechPitch').value = settings.speechPitch;
             }
 
-            // Функция обновления отображения результата
-            function updateResultDisplay(final, interim = '') {
-                let displayFinal = final;
-                let displayInterim = interim;
-                
-                // Проверяем финальный текст на наличие URL паттернов
-                if (displayFinal) {
-                    displayFinal = replaceWithUrl(displayFinal);
-                }
-                
-                // Проверяем промежуточный текст
-                if (displayInterim) {
-                    displayInterim = replaceWithUrl(displayInterim);
-                }
-                
-                if (displayInterim) {
-                    const punctuatedInterim = addPunctuationByIntent(displayInterim, false);
-                    resultBox.innerHTML = displayFinal + '<em style="color:#999;">' + punctuatedInterim + '</em>';
-                } else {
-                    if (displayFinal) {
-                        // Подсвечиваем URL если он есть
-                        if (displayFinal === TARGET_URL) {
-                            resultBox.innerHTML = '<span class="url-highlight">🔗 ' + displayFinal + '</span>';
-                        } else {
-                            resultBox.textContent = displayFinal;
-                        }
-                        resultBox.classList.remove('placeholder');
-                    } else {
-                        resultBox.textContent = '👆 Нажмите на микрофон и говорите';
-                        resultBox.classList.add('placeholder');
-                    }
-                }
-                
-                // Обновляем finalTranscript с заменой URL
-                if (displayFinal) {
-                    finalTranscript = displayFinal;
-                }
+            // Обновление статистики
+            function updateStatsUI() {
+                wordCount.textContent = stats.words;
+                charCount.textContent = stats.chars;
+                sessionCount.textContent = stats.sessions;
+                totalWords.textContent = stats.words;
+                totalChars.textContent = stats.chars;
+                totalSessions.textContent = stats.sessions;
+                totalUrls.textContent = stats.urlReplacements;
+                lastSession.textContent = stats.lastText || 'Нет данных';
+                longestWord.textContent = stats.longestWord || '-';
             }
 
-            function getCleanTextForCopy() {
-                // Получаем текст из resultBox без HTML тегов
-                const boxText = resultBox.textContent || '';
-                
-                if (boxText && boxText !== '👆 Нажмите на микрофон и говорите') {
-                    return boxText.trim();
-                }
-                
-                return '';
+            // Сохранение статистики
+            function saveStats() {
+                localStorage.setItem('voiceStats', JSON.stringify(stats));
             }
 
-            // Инициализация Web Speech API
-            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                recognition = new SpeechRecognition();
-                recognition.lang = 'ru-RU';
-                recognition.continuous = true;
-                recognition.interimResults = true;
-                recognition.maxAlternatives = 3; // Увеличиваем для лучшего распознавания
-
-                recognition.onresult = (event) => {
-                    let interimTranscript = '';
-                    let finalFragment = '';
-
-                    for (let i = event.resultIndex; i < event.results.length; i++) {
-                        // Берем самый вероятный вариант распознавания
-                        const transcript = event.results[i][0].transcript;
-                        if (event.results[i].isFinal) {
-                            // Сначала проверяем на URL замену
-                            const processedTranscript = replaceWithUrl(transcript);
-                            finalFragment = addPunctuationByIntent(processedTranscript, true);
-                            finalTranscript += finalFragment + ' ';
-                        } else {
-                            interimTranscript += transcript;
-                        }
-                    }
-
-                    updateResultDisplay(finalTranscript, interimTranscript);
-                };
-
-                recognition.onerror = (event) => {
-                    console.error('Ошибка распознавания:', event.error);
-                    let userMessage = '';
-                    switch(event.error) {
-                        case 'no-speech':
-                            userMessage = 'Речь не обнаружена. Попробуйте снова.';
-                            break;
-                        case 'audio-capture':
-                            userMessage = 'Не найден микрофон. Проверьте подключение.';
-                            break;
-                        case 'not-allowed':
-                            userMessage = 'Доступ к микрофону запрещён. Разрешите доступ.';
-                            break;
-                        default:
-                            userMessage = 'Ошибка: ' + event.error;
-                    }
-                    showError(userMessage);
-                    stopListening();
-                };
-
-                recognition.onend = () => {
-                    if (isListening) {
-                        stopListening();
-                    }
-                };
-            } else {
-                micButton.disabled = true;
-                micButton.style.opacity = '0.5';
-                micButton.style.cursor = 'not-allowed';
-                micButton.title = 'Ваш браузер не поддерживает голосовой ввод';
-                showError('Ваш браузер не поддерживает голосовой ввод. Попробуйте Chrome, Edge или Safari.');
-            }
-
+            // Показ ошибки
             function showError(msg) {
                 errorMessage.textContent = msg;
                 errorMessage.classList.add('show');
@@ -570,9 +1016,278 @@
                 }, 4000);
             }
 
-            function startListening() {
-                if (!recognition) return;
+            // Показ успеха
+            function showSuccess(msg) {
+                errorMessage.style.background = '#c6f6d5';
+                errorMessage.style.color = '#22543d';
+                errorMessage.textContent = msg;
+                errorMessage.classList.add('show');
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                    errorMessage.style.background = '#fed7d7';
+                    errorMessage.style.color = '#e53e3e';
+                }, 2000);
+            }
 
+            // Вибрация с учётом настроек
+            function vibrate(pattern) {
+                if (!settings.vibrate) return;
+                
+                let strength = 1;
+                switch(settings.vibrateStrength) {
+                    case 'weak': strength = 0.5; break;
+                    case 'strong': strength = 2; break;
+                    case 'off': return;
+                }
+                
+                if (Array.isArray(pattern)) {
+                    pattern = pattern.map(p => Math.round(p * strength));
+                } else {
+                    pattern = Math.round(pattern * strength);
+                }
+                
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(pattern);
+                }
+            }
+
+            // Замена текста на URL
+            function replaceWithUrl(text) {
+                if (!settings.urlReplace) return text;
+                if (!text) return text;
+                
+                const lowerText = text.toLowerCase().trim();
+                const patterns = [
+                    'тимоша москоу слэш тест',
+                    'тимоша москоу слеш тест',
+                    'тимошамоскоу тест',
+                    'тимошамосоу тест',
+                    'самоскоу тест',
+                    'сайт тимоша тест',
+                    'github тест',
+                    'заходи на сайт тест',
+                    'тимоша тест',
+                    'тёма тест'
+                ];
+                
+                for (const pattern of patterns) {
+                    if (lowerText.includes(pattern)) {
+                        stats.urlReplacements++;
+                        saveStats();
+                        return settings.targetUrl;
+                    }
+                }
+                
+                return text;
+            }
+
+            // Обновление статистики текста
+            function updateTextStats(text) {
+                if (!text || text === '👆 Нажмите на микрофон и говорите') return;
+                
+                const words = text.trim().split(/\s+/).length;
+                const chars = text.length;
+                
+                stats.words += words;
+                stats.chars += chars;
+                stats.lastText = text.substring(0, 50) + (text.length > 50 ? '...' : '');
+                
+                // Поиск самого длинного слова
+                const longest = text.split(/\s+/).reduce((a, b) => a.length > b.length ? a : b, '');
+                if (longest.length > (stats.longestWord || '').length) {
+                    stats.longestWord = longest;
+                }
+                
+                updateStatsUI();
+                saveStats();
+            }
+
+            // Озвучивание текста
+            function speakText(text) {
+                if (!text || text === '👆 Нажмите на микрофон и говорите') return;
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = settings.lang;
+                utterance.rate = settings.speechRate;
+                utterance.pitch = settings.speechPitch;
+                
+                // Выбор голоса
+                const voices = speechSynthesis.getVoices();
+                const selectedVoice = document.getElementById('voiceSelect').value;
+                if (selectedVoice) {
+                    const voice = voices.find(v => v.name === selectedVoice);
+                    if (voice) utterance.voice = voice;
+                }
+                
+                speechSynthesis.speak(utterance);
+            }
+
+            // Сохранение в файл
+            function saveToFile() {
+                const text = getCleanTextForCopy();
+                if (!text) {
+                    showError('Нет текста для сохранения');
+                    return;
+                }
+                
+                const format = settings.saveFormat;
+                const blob = format === 'json' 
+                    ? new Blob([JSON.stringify({ text, date: new Date() })], { type: 'application/json' })
+                    : new Blob([text], { type: 'text/plain' });
+                
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `voice-${Date.now()}.${format}`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                showSuccess('Файл сохранён');
+            }
+
+            // Получение чистого текста
+            function getCleanTextForCopy() {
+                const boxText = resultBox.textContent || '';
+                if (boxText && boxText !== '👆 Нажмите на микрофон и говорите') {
+                    return boxText.trim();
+                }
+                return '';
+            }
+
+            // Переключение вкладок
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    vibrate(15);
+                    
+                    const tab = btn.dataset.tab;
+                    
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    btn.classList.add('active');
+                    document.getElementById(`tab-${tab}`).classList.add('active');
+                });
+            });
+
+            // Инициализация распознавания речи
+            function initRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    recognition = new SpeechRecognition();
+                    recognition.lang = settings.lang;
+                    recognition.continuous = settings.continuous;
+                    recognition.interimResults = settings.interim;
+                    recognition.maxAlternatives = 3;
+
+                    recognition.onresult = (event) => {
+                        let interimTranscript = '';
+                        let finalFragment = '';
+
+                        for (let i = event.resultIndex; i < event.results.length; i++) {
+                            const transcript = event.results[i][0].transcript;
+                            if (event.results[i].isFinal) {
+                                const processedTranscript = replaceWithUrl(transcript);
+                                finalFragment = processedTranscript;
+                                finalTranscript += finalFragment + ' ';
+                            } else {
+                                interimTranscript += transcript;
+                            }
+                        }
+
+                        // Проверка на голосовые команды
+                        checkVoiceCommands(finalTranscript + interimTranscript);
+                        
+                        updateResultDisplay(finalTranscript, interimTranscript);
+                    };
+
+                    recognition.onerror = (event) => {
+                        console.error('Ошибка:', event.error);
+                        showError('Ошибка: ' + event.error);
+                        stopListening();
+                    };
+
+                    recognition.onend = () => {
+                        if (isListening) stopListening();
+                    };
+                } else {
+                    micButton.disabled = true;
+                    micButton.style.opacity = '0.5';
+                    showError('Браузер не поддерживает голосовой ввод');
+                }
+            }
+
+            // Проверка голосовых команд
+            function checkVoiceCommands(text) {
+                const lower = text.toLowerCase();
+                
+                if (lower.includes('очисти')) {
+                    clearBtn.click();
+                } else if (lower.includes('скопируй')) {
+                    copyBtn.click();
+                } else if (lower.includes('озвучь')) {
+                    speakBtn.click();
+                } else if (lower.includes('сохрани')) {
+                    saveBtn.click();
+                } else if (lower.includes('настройки')) {
+                    document.querySelector('[data-tab="settings"]').click();
+                } else if (lower.includes('главная')) {
+                    document.querySelector('[data-tab="main"]').click();
+                } else if (lower.includes('статистика')) {
+                    document.querySelector('[data-tab="stats"]').click();
+                }
+                
+                // Проверка пользовательских команд
+                customCommands.forEach(cmd => {
+                    if (lower.includes(cmd.phrase)) {
+                        switch(cmd.action) {
+                            case 'clear': clearBtn.click(); break;
+                            case 'copy': copyBtn.click(); break;
+                            case 'speak': speakBtn.click(); break;
+                            case 'save': saveBtn.click(); break;
+                            case 'settings': document.querySelector('[data-tab="settings"]').click(); break;
+                            case 'main': document.querySelector('[data-tab="main"]').click(); break;
+                        }
+                    }
+                });
+            }
+
+            // Обновление отображения
+            function updateResultDisplay(final, interim = '') {
+                let displayFinal = final;
+                
+                if (interim) {
+                    resultBox.innerHTML = displayFinal + '<em style="color:#999;">' + interim + '</em>';
+                } else {
+                    if (displayFinal) {
+                        if (settings.highlightUrl && displayFinal === settings.targetUrl) {
+                            resultBox.innerHTML = '<span class="url-highlight">🔗 ' + displayFinal + '</span>';
+                        } else {
+                            resultBox.textContent = displayFinal;
+                        }
+                        resultBox.classList.remove('placeholder');
+                        
+                        // Автосохранение
+                        if (settings.autoSave) {
+                            localStorage.setItem('lastText', displayFinal);
+                        }
+                    } else {
+                        resultBox.textContent = '👆 Нажмите на микрофон и говорите';
+                        resultBox.classList.add('placeholder');
+                    }
+                }
+                
+                if (displayFinal) {
+                    finalTranscript = displayFinal;
+                    updateTextStats(displayFinal);
+                }
+            }
+
+            // Старт записи
+            function startListening() {
+                if (!recognition) {
+                    initRecognition();
+                }
+                
                 vibrate(20);
 
                 if (resultBox.textContent === '👆 Нажмите на микрофон и говорите' || isFirstStart) {
@@ -585,18 +1300,22 @@
                 try {
                     recognition.start();
                     isListening = true;
-
                     micButton.classList.add('listening');
                     micStatus.textContent = 'Слушаю...';
                     resultBox.classList.remove('placeholder');
-
+                    
+                    stats.sessions++;
+                    updateStatsUI();
+                    saveStats();
+                    
                     vibrate(30);
                 } catch (e) {
-                    console.error('Ошибка запуска распознавания:', e);
+                    console.error('Ошибка:', e);
                     showError('Не удалось запустить микрофон');
                 }
             }
 
+            // Стоп записи
             function stopListening() {
                 if (!recognition) return;
 
@@ -604,18 +1323,15 @@
 
                 try {
                     recognition.stop();
-                } catch (e) {
-                    console.error('Ошибка остановки распознавания:', e);
-                }
+                } catch (e) {}
                 
                 isListening = false;
-
                 micButton.classList.remove('listening');
                 micStatus.textContent = 'Начать';
 
                 if (resultBox.innerHTML.includes('<em')) {
                     const cleanText = finalTranscript || '👆 Нажмите на микрофон и говорите';
-                    if (cleanText === TARGET_URL) {
+                    if (settings.highlightUrl && cleanText === settings.targetUrl) {
                         resultBox.innerHTML = '<span class="url-highlight">🔗 ' + cleanText + '</span>';
                     } else {
                         resultBox.textContent = cleanText;
@@ -630,14 +1346,9 @@
                 vibrate([10, 10, 10]);
             }
 
+            // Обработчики кнопок
             micButton.addEventListener('click', () => {
                 vibrate(15);
-
-                if (!recognition) {
-                    showError('Голосовой ввод не поддерживается');
-                    return;
-                }
-
                 if (isListening) {
                     stopListening();
                 } else {
@@ -647,17 +1358,14 @@
 
             copyBtn.addEventListener('click', () => {
                 vibrate(20);
-
-                const textToCopy = getCleanTextForCopy();
-
-                if (!textToCopy) {
-                    showError('Нет текста для копирования');
+                const text = getCleanTextForCopy();
+                if (!text) {
+                    showError('Нет текста');
                     vibrate([30, 30, 30]);
                     return;
                 }
-
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    const originalText = copyBtn.innerHTML;
+                
+                navigator.clipboard.writeText(text).then(() => {
                     copyBtn.innerHTML = '<span>✅</span> Скопировано!';
                     copyBtn.classList.add('btn-success');
                     vibrate([20, 50, 20]);
@@ -665,35 +1373,203 @@
                         copyBtn.innerHTML = '<span>📋</span> Копировать';
                         copyBtn.classList.remove('btn-success');
                     }, 2000);
-                }).catch(err => {
-                    console.error('Ошибка копирования:', err);
-                    showError('Не удалось скопировать');
+                }).catch(() => {
+                    showError('Ошибка копирования');
                     vibrate([30, 30, 30]);
                 });
             });
 
             clearBtn.addEventListener('click', () => {
                 vibrate(20);
-
                 finalTranscript = '';
                 resultBox.textContent = '👆 Нажмите на микрофон и говорите';
                 resultBox.classList.add('placeholder');
                 isFirstStart = true;
-
                 vibrate(20);
             });
 
-            window.addEventListener('beforeunload', () => {
-                if (isListening && recognition) {
-                    try {
-                        recognition.stop();
-                    } catch (e) {}
+            speakBtn.addEventListener('click', () => {
+                vibrate(20);
+                const text = getCleanTextForCopy();
+                if (text) {
+                    speakText(text);
+                } else {
+                    showError('Нет текста');
                 }
             });
 
-            if (resultBox.textContent === '👆 Нажмите на микрофон и говорите') {
-                resultBox.classList.add('placeholder');
+            saveBtn.addEventListener('click', () => {
+                vibrate(20);
+                saveToFile();
+            });
+
+            // Настройки: язык
+            document.getElementById('langSelect').addEventListener('change', (e) => {
+                settings.lang = e.target.value;
+                if (recognition) {
+                    recognition.lang = settings.lang;
+                }
+            });
+
+            document.getElementById('continuousToggle').addEventListener('change', (e) => {
+                settings.continuous = e.target.checked;
+                if (recognition) {
+                    recognition.continuous = settings.continuous;
+                }
+            });
+
+            document.getElementById('interimToggle').addEventListener('change', (e) => {
+                settings.interim = e.target.checked;
+                if (recognition) {
+                    recognition.interimResults = settings.interim;
+                }
+            });
+
+            document.getElementById('vibrateToggle').addEventListener('change', (e) => {
+                settings.vibrate = e.target.checked;
+            });
+
+            document.getElementById('vibrateStrength').addEventListener('change', (e) => {
+                settings.vibrateStrength = e.target.value;
+            });
+
+            document.getElementById('urlReplaceToggle').addEventListener('change', (e) => {
+                settings.urlReplace = e.target.checked;
+            });
+
+            document.getElementById('urlInput').addEventListener('input', (e) => {
+                settings.targetUrl = e.target.value;
+            });
+
+            document.getElementById('highlightUrlToggle').addEventListener('change', (e) => {
+                settings.highlightUrl = e.target.checked;
+                // Обновить отображение текущего URL если есть
+                if (finalTranscript === settings.targetUrl) {
+                    if (settings.highlightUrl) {
+                        resultBox.innerHTML = '<span class="url-highlight">🔗 ' + finalTranscript + '</span>';
+                    } else {
+                        resultBox.textContent = finalTranscript;
+                    }
+                }
+            });
+
+            document.getElementById('autoSaveToggle').addEventListener('change', (e) => {
+                settings.autoSave = e.target.checked;
+            });
+
+            document.getElementById('saveFormat').addEventListener('change', (e) => {
+                settings.saveFormat = e.target.value;
+            });
+
+            document.getElementById('speechRate').addEventListener('input', (e) => {
+                settings.speechRate = parseFloat(e.target.value);
+            });
+
+            document.getElementById('speechPitch').addEventListener('input', (e) => {
+                settings.speechPitch = parseFloat(e.target.value);
+            });
+
+            document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+                saveSettings();
+            });
+
+            document.getElementById('resetSettingsBtn').addEventListener('click', () => {
+                settings = {
+                    lang: 'ru-RU',
+                    continuous: true,
+                    interim: true,
+                    vibrate: true,
+                    vibrateStrength: 'medium',
+                    urlReplace: true,
+                    targetUrl: 'https://timoshamoscow.github.io/test/',
+                    highlightUrl: true,
+                    autoSave: false,
+                    saveFormat: 'txt',
+                    speechRate: 1,
+                    speechPitch: 1
+                };
+                applySettingsToUI();
+                saveSettings();
+                showSuccess('Настройки сброшены');
+            });
+
+            // Добавление команды
+            document.getElementById('addCommandBtn').addEventListener('click', () => {
+                const phrase = document.getElementById('newCommandPhrase').value.trim().toLowerCase();
+                const action = document.getElementById('newCommandAction').value;
+                
+                if (!phrase) {
+                    showError('Введите фразу');
+                    return;
+                }
+                
+                customCommands.push({ phrase, action });
+                localStorage.setItem('voiceCommands', JSON.stringify(customCommands));
+                
+                document.getElementById('newCommandPhrase').value = '';
+                showSuccess('Команда добавлена');
+            });
+
+            // Статистика: сброс
+            document.getElementById('resetStatsBtn').addEventListener('click', () => {
+                stats = {
+                    words: 0,
+                    chars: 0,
+                    sessions: 0,
+                    urlReplacements: 0,
+                    lastText: '',
+                    longestWord: ''
+                };
+                updateStatsUI();
+                saveStats();
+                showSuccess('Статистика сброшена');
+            });
+
+            // Экспорт статистики
+            document.getElementById('exportStatsBtn').addEventListener('click', () => {
+                const blob = new Blob([JSON.stringify(stats, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `voice-stats-${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+            // Загрузка голосов для озвучки
+            if ('speechSynthesis' in window) {
+                speechSynthesis.onvoiceschanged = () => {
+                    const voices = speechSynthesis.getVoices();
+                    const select = document.getElementById('voiceSelect');
+                    select.innerHTML = '<option value="">Автоматически</option>';
+                    voices.forEach(voice => {
+                        const option = document.createElement('option');
+                        option.value = voice.name;
+                        option.textContent = `${voice.name} (${voice.lang})`;
+                        select.appendChild(option);
+                    });
+                };
             }
+
+            // Загрузка сохранённого текста
+            const savedText = localStorage.getItem('lastText');
+            if (savedText && settings.autoSave) {
+                finalTranscript = savedText;
+                resultBox.textContent = savedText;
+                resultBox.classList.remove('placeholder');
+            }
+
+            // Инициализация
+            loadSettings();
+            initRecognition();
+
+            // Сохранение настроек при выходе
+            window.addEventListener('beforeunload', () => {
+                if (isListening && recognition) {
+                    try { recognition.stop(); } catch (e) {}
+                }
+                saveSettings();
+            });
         })();
     </script>
 </body>
