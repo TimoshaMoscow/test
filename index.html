@@ -151,6 +151,14 @@
             justify-content: center;
         }
 
+        .result-box .url-highlight {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
         .actions {
             display: flex;
             gap: 12px;
@@ -225,7 +233,7 @@
     <div class="container">
         <h1>
             🎤 Голосовой ввод с вибр... ой.
-            <span>v2.0</span>
+            <span>v2.1</span>
         </h1>
 
         <div class="mic-container">
@@ -259,8 +267,7 @@
 
         <div class="error-message" id="errorMessage"></div>
         <div class="footer-note">
-            ⚡ При нажатиях — вибрация (если поддерживается устройством)<br>
-            🗣️ Пауза → запятая, завершение → точка
+            © 2026 Голосовой ввод с вибр... ой.
         </div>
     </div>
 
@@ -274,20 +281,103 @@
             const clearBtn = document.getElementById('clearBtn');
             const errorMessage = document.getElementById('errorMessage');
 
+            // Конфигурация URL для замены
+            const TARGET_URL = 'https://timoshamoscow.github.io/test/';
+            
+            // Варианты распознавания URL (разные вариации произношения)
+            const urlPatterns = [
+                // Русские варианты
+                'тимоша москоу слэш тест',
+                'тимоша москоу слеш тест',
+                'тимоша москоу слэш тэст',
+                'тимоша москоу слеш тэст',
+                'тимоша москоу / тест',
+                'тимоша москоу / тэст',
+                'тимоша москоу слеш тест',
+                'тимоша москоу слэш тест',
+                'тимоша москоу точка гитхаб точка ио слэш тест',
+                'тимоша москоу точка гитхаб точка ио слеш тест',
+                
+                // Английские варианты
+                'timosha moscow slash test',
+                'timosha moscow slesh test',
+                'timosha moscow / test',
+                'timosha moscow dot github dot io slash test',
+                'timosha moscow github io test',
+                'timosha moscow.github.io/test',
+                'timoshamoscow slash test',
+                'timoshamoscow / test',
+                'timoshamoscow.github.io/test',
+                
+                // Слитные варианты
+                'тимошамоскоу слэш тест',
+                'тимошамоскоу слеш тест',
+                'тимошамоскоу / тест',
+                'тимошамоскоу точка гитхаб точка ио слэш тест',
+                'тимошамосоу тест',
+                'тимошамосоу слэш тест',
+                
+                // Английские слитные
+                'timoshamoscow slash test',
+                'timoshamoscow / test',
+                'timoshamoscow dot github dot io slash test',
+                
+                // Короткие варианты
+                'сайт тест',
+                'тестовый сайт',
+                'гитхаб тест',
+                'github test',
+                
+                // Специально для https://timoshamoscow.github.io/test/
+                'эйч титипиэс двоеточие слэш слэш тимоша москоу точка гитхаб точка ио слэш тест',
+                'https тимоша москоу точка гитхаб точка ио слэш тест',
+            ];
+
             // Переменные для распознавания речи
             let recognition = null;
             let isListening = false;
-            let finalTranscript = ''; // Хранит только чистый текст без плейсхолдера
-            let isFirstStart = true; // Флаг для первого запуска
+            let finalTranscript = '';
+            let isFirstStart = true;
 
             // Проверка поддержки вибрации
             const vibrateSupported = 'vibrate' in navigator;
 
-            // Функция вибрации (безопасный вызов)
             function vibrate(pattern) {
                 if (vibrateSupported) {
                     navigator.vibrate(pattern);
                 }
+            }
+
+            // Функция для замены распознанного текста на URL
+            function replaceWithUrl(text) {
+                if (!text) return text;
+                
+                const lowerText = text.toLowerCase().trim();
+                
+                // Проверяем все паттерны
+                for (const pattern of urlPatterns) {
+                    if (lowerText.includes(pattern.toLowerCase())) {
+                        return TARGET_URL;
+                    }
+                }
+                
+                // Проверяем отдельные слова и комбинации
+                const words = lowerText.split(/\s+/);
+                
+                // Проверка на комбинацию "тимоша москоу" + что-то про тест
+                if ((lowerText.includes('тимоша') || lowerText.includes('timosha')) && 
+                    (lowerText.includes('москоу') || lowerText.includes('moscow')) &&
+                    (lowerText.includes('тест') || lowerText.includes('test'))) {
+                    return TARGET_URL;
+                }
+                
+                // Проверка на слитное написание
+                if (lowerText.replace(/\s+/g, '').includes('тимошамоскоутест') ||
+                    lowerText.replace(/\s+/g, '').includes('timoshamoscowtest')) {
+                    return TARGET_URL;
+                }
+                
+                return text;
             }
 
             // Функция для добавления пунктуации по интонации
@@ -296,36 +386,19 @@
                 
                 text = text.trim();
                 
-                // Если текст пустой, возвращаем как есть
                 if (text.length === 0) return text;
                 
-                // Проверяем последний символ
                 const lastChar = text[text.length - 1];
                 
-                // Если последний символ уже знак препинания, не добавляем новый
                 if (lastChar.match(/[.!?,:;]/)) {
                     return text;
                 }
                 
-                // Для финальных результатов (конец предложения) добавляем точку
                 if (isFinal) {
-                    // Проверяем, не заканчивается ли уже на точку/вопросительный/восклицательный
                     if (!text.match(/[.!?]$/)) {
                         return text + '.';
                     }
                 } else {
-                    // Для промежуточных результатов с паузой добавляем запятую
-                    // Но только если текст не слишком короткий и это похоже на паузу
-                    // В реальности API не дает точной информации о паузах, поэтому 
-                    // мы используем длительность паузы между словами, но в браузерном API 
-                    // такой информации нет. Поэтому добавляем запятую только если 
-                    // текст уже содержит интонационные маркеры, но для демо 
-                    // будем добавлять запятую после каждого завершенного слова с паузой
-                    
-                    // Упрощенный подход: если промежуточный результат содержит больше 3 слов
-                    // и не заканчивается знаком препинания, добавляем запятую
-                    // Но чтобы не было слишком много запятых, добавим только если 
-                    // последнее слово не очень короткое
                     const words = text.split(' ');
                     if (words.length > 2) {
                         const lastWord = words[words.length - 1];
@@ -340,32 +413,47 @@
 
             // Функция обновления отображения результата
             function updateResultDisplay(final, interim = '') {
-                let displayText = final;
+                let displayFinal = final;
+                let displayInterim = interim;
                 
-                if (interim) {
-                    // Добавляем пунктуацию к промежуточному результату
-                    const punctuatedInterim = addPunctuationByIntent(interim, false);
-                    resultBox.innerHTML = final + '<em style="color:#999;">' + punctuatedInterim + '</em>';
+                // Проверяем финальный текст на наличие URL паттернов
+                if (displayFinal) {
+                    displayFinal = replaceWithUrl(displayFinal);
+                }
+                
+                // Проверяем промежуточный текст
+                if (displayInterim) {
+                    displayInterim = replaceWithUrl(displayInterim);
+                }
+                
+                if (displayInterim) {
+                    const punctuatedInterim = addPunctuationByIntent(displayInterim, false);
+                    resultBox.innerHTML = displayFinal + '<em style="color:#999;">' + punctuatedInterim + '</em>';
                 } else {
-                    if (final) {
-                        resultBox.textContent = final;
+                    if (displayFinal) {
+                        // Подсвечиваем URL если он есть
+                        if (displayFinal === TARGET_URL) {
+                            resultBox.innerHTML = '<span class="url-highlight">🔗 ' + displayFinal + '</span>';
+                        } else {
+                            resultBox.textContent = displayFinal;
+                        }
                         resultBox.classList.remove('placeholder');
                     } else {
                         resultBox.textContent = '👆 Нажмите на микрофон и говорите';
                         resultBox.classList.add('placeholder');
                     }
                 }
+                
+                // Обновляем finalTranscript с заменой URL
+                if (displayFinal) {
+                    finalTranscript = displayFinal;
+                }
             }
 
-            // Функция получения чистого текста для копирования (без плейсхолдера и курсива)
             function getCleanTextForCopy() {
-                // Если есть финальный текст, используем его
-                if (finalTranscript && finalTranscript.trim() !== '') {
-                    return finalTranscript.trim();
-                }
+                // Получаем текст из resultBox без HTML тегов
+                const boxText = resultBox.textContent || '';
                 
-                // Если в resultBox есть текст, но это не плейсхолдер
-                const boxText = resultBox.textContent;
                 if (boxText && boxText !== '👆 Нажмите на микрофон и говорите') {
                     return boxText.trim();
                 }
@@ -389,15 +477,15 @@
                     for (let i = event.resultIndex; i < event.results.length; i++) {
                         const transcript = event.results[i][0].transcript;
                         if (event.results[i].isFinal) {
-                            // Добавляем пунктуацию к финальному фрагменту
-                            finalFragment = addPunctuationByIntent(transcript, true);
+                            // Сначала проверяем на URL замену
+                            const processedTranscript = replaceWithUrl(transcript);
+                            finalFragment = addPunctuationByIntent(processedTranscript, true);
                             finalTranscript += finalFragment + ' ';
                         } else {
                             interimTranscript += transcript;
                         }
                     }
 
-                    // Применяем пунктуацию к промежуточному результату
                     updateResultDisplay(finalTranscript, interimTranscript);
                 };
 
@@ -447,12 +535,10 @@
 
                 vibrate(20);
 
-                // Если это первый запуск или текст был плейсхолдером, начинаем с чистого листа
                 if (resultBox.textContent === '👆 Нажмите на микрофон и говорите' || isFirstStart) {
                     finalTranscript = '';
                     isFirstStart = false;
                 } else {
-                    // Иначе сохраняем текущий текст как базу
                     finalTranscript = resultBox.textContent;
                 }
 
@@ -487,9 +573,13 @@
                 micButton.classList.remove('listening');
                 micStatus.textContent = 'Начать';
 
-                // Убираем курсивные подсказки
                 if (resultBox.innerHTML.includes('<em')) {
-                    resultBox.textContent = finalTranscript || '👆 Нажмите на микрофон и говорите';
+                    const cleanText = finalTranscript || '👆 Нажмите на микрофон и говорите';
+                    if (cleanText === TARGET_URL) {
+                        resultBox.innerHTML = '<span class="url-highlight">🔗 ' + cleanText + '</span>';
+                    } else {
+                        resultBox.textContent = cleanText;
+                    }
                 }
 
                 if (!finalTranscript.trim()) {
@@ -548,7 +638,7 @@
                 finalTranscript = '';
                 resultBox.textContent = '👆 Нажмите на микрофон и говорите';
                 resultBox.classList.add('placeholder');
-                isFirstStart = true; // Сбрасываем флаг, чтобы при следующем старте начать с чистой
+                isFirstStart = true;
 
                 vibrate(20);
             });
@@ -561,7 +651,6 @@
                 }
             });
 
-            // Инициализация
             if (resultBox.textContent === '👆 Нажмите на микрофон и говорите') {
                 resultBox.classList.add('placeholder');
             }
