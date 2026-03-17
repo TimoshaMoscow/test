@@ -233,7 +233,7 @@
     <div class="container">
         <h1>
             🎤 Голосовой ввод с вибр... ой.
-            <span>v2.1</span>
+            <span>v2.2</span>
         </h1>
 
         <div class="mic-container">
@@ -267,7 +267,8 @@
 
         <div class="error-message" id="errorMessage"></div>
         <div class="footer-note">
-            © 2026 Голосовой ввод с вибр... ой.
+            © 2026 Голосовой ввод с вибр... ой.<br>
+            🔗 "заходи на сайт тимоша тест" → https://timoshamoscow.github.io/test/
         </div>
     </div>
 
@@ -284,8 +285,16 @@
             // Конфигурация URL для замены
             const TARGET_URL = 'https://timoshamoscow.github.io/test/';
             
-            // Варианты распознавания URL (разные вариации произношения)
+            // Варианты распознавания URL (РАСШИРЕННЫЙ СПИСОК)
             const urlPatterns = [
+                // Основной паттерн из вашего теста
+                'заходите на сайт github тест',
+                'заходи на сайт github тест',
+                'зайдите на сайт github тест',
+                'зайти на сайт github тест',
+                'сайт github тест',
+                'github тест',
+                
                 // Русские варианты
                 'тимоша москоу слэш тест',
                 'тимоша москоу слеш тест',
@@ -293,8 +302,6 @@
                 'тимоша москоу слеш тэст',
                 'тимоша москоу / тест',
                 'тимоша москоу / тэст',
-                'тимоша москоу слеш тест',
-                'тимоша москоу слэш тест',
                 'тимоша москоу точка гитхаб точка ио слэш тест',
                 'тимоша москоу точка гитхаб точка ио слеш тест',
                 
@@ -305,32 +312,42 @@
                 'timosha moscow dot github dot io slash test',
                 'timosha moscow github io test',
                 'timosha moscow.github.io/test',
-                'timoshamoscow slash test',
-                'timoshamoscow / test',
-                'timoshamoscow.github.io/test',
                 
                 // Слитные варианты
                 'тимошамоскоу слэш тест',
                 'тимошамоскоу слеш тест',
                 'тимошамоскоу / тест',
-                'тимошамоскоу точка гитхаб точка ио слэш тест',
-                'тимошамосоу тест',
+                'тимошамосоу тест',  // ваш вариант "самоскоу"
                 'тимошамосоу слэш тест',
+                'тимошамосоу слеш тест',
+                'тимошамосоу / тест',
+                'самоскоу тест',      // творческое произношение
+                'самоскоу слэш тест',
                 
-                // Английские слитные
-                'timoshamoscow slash test',
-                'timoshamoscow / test',
-                'timoshamoscow dot github dot io slash test',
-                
-                // Короткие варианты
-                'сайт тест',
-                'тестовый сайт',
-                'гитхаб тест',
-                'github test',
-                
-                // Специально для https://timoshamoscow.github.io/test/
+                // С https://
                 'эйч титипиэс двоеточие слэш слэш тимоша москоу точка гитхаб точка ио слэш тест',
                 'https тимоша москоу точка гитхаб точка ио слэш тест',
+                'https двоеточие слэш слэш тимоша москоу точка гитхаб точка ио слэш тест',
+                
+                // Короткие команды
+                'открой сайт тест',
+                'перейди на сайт тест',
+                'сайт тест',
+                'тестовый сайт',
+                'мой сайт',
+                'сайт тимоши',
+                
+                // Английские короткие
+                'open test site',
+                'go to test site',
+                'test site',
+                'github test site',
+                
+                // Комбинации с "заходи"
+                'заходи на сайт',
+                'заходите на сайт',
+                'зайди на сайт',
+                'захожу на сайт',
             ];
 
             // Переменные для распознавания речи
@@ -354,7 +371,12 @@
                 
                 const lowerText = text.toLowerCase().trim();
                 
-                // Проверяем все паттерны
+                // Сначала проверяем точное совпадение с URL
+                if (lowerText === TARGET_URL.toLowerCase()) {
+                    return TARGET_URL;
+                }
+                
+                // Проверяем все паттерны из списка
                 for (const pattern of urlPatterns) {
                     if (lowerText.includes(pattern.toLowerCase())) {
                         return TARGET_URL;
@@ -364,16 +386,34 @@
                 // Проверяем отдельные слова и комбинации
                 const words = lowerText.split(/\s+/);
                 
-                // Проверка на комбинацию "тимоша москоу" + что-то про тест
-                if ((lowerText.includes('тимоша') || lowerText.includes('timosha')) && 
-                    (lowerText.includes('москоу') || lowerText.includes('moscow')) &&
-                    (lowerText.includes('тест') || lowerText.includes('test'))) {
+                // Проверка на наличие "тимоша/москоу/самоскоу" + "тест"
+                const hasTimosh = lowerText.includes('тимоша') || 
+                                 lowerText.includes('timosha') || 
+                                 lowerText.includes('самоскоу') ||
+                                 lowerText.includes('тимошамосоу');
+                                 
+                const hasMoscow = lowerText.includes('москоу') || 
+                                 lowerText.includes('moscow') || 
+                                 lowerText.includes('мосоу');
+                                 
+                const hasTest = lowerText.includes('тест') || 
+                              lowerText.includes('test') || 
+                              lowerText.includes('тэст');
+                
+                const hasSite = lowerText.includes('сайт') || 
+                              lowerText.includes('site') ||
+                              lowerText.includes('github');
+                
+                if ((hasTimosh || hasMoscow) && (hasTest || hasSite)) {
                     return TARGET_URL;
                 }
                 
                 // Проверка на слитное написание
-                if (lowerText.replace(/\s+/g, '').includes('тимошамоскоутест') ||
-                    lowerText.replace(/\s+/g, '').includes('timoshamoscowtest')) {
+                const noSpacesText = lowerText.replace(/\s+/g, '');
+                if (noSpacesText.includes('тимошамоскоутест') ||
+                    noSpacesText.includes('timoshamoscowtest') ||
+                    noSpacesText.includes('тимошамосоутест') ||
+                    noSpacesText.includes('самоскоутест')) {
                     return TARGET_URL;
                 }
                 
@@ -468,13 +508,14 @@
                 recognition.lang = 'ru-RU';
                 recognition.continuous = true;
                 recognition.interimResults = true;
-                recognition.maxAlternatives = 1;
+                recognition.maxAlternatives = 3; // Увеличиваем для лучшего распознавания
 
                 recognition.onresult = (event) => {
                     let interimTranscript = '';
                     let finalFragment = '';
 
                     for (let i = event.resultIndex; i < event.results.length; i++) {
+                        // Берем самый вероятный вариант распознавания
                         const transcript = event.results[i][0].transcript;
                         if (event.results[i].isFinal) {
                             // Сначала проверяем на URL замену
