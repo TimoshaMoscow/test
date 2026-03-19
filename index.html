@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- ИКОНКА САЙТА (favicon) -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="shortcut icon" href="images/logo.png" type="image/png">
+
     <!-- META ТЕГИ (по твоим комментариям) -->
     <title>🔥 Косплей на кукурузные палочки с сыром 🔥</title>
     <meta name="title" content="Тестовый лендинг">
@@ -344,10 +348,7 @@
             <div class="stick"></div>
         </div>
 
-        <!-- ЛОГОТИП (добавлен по твоему комментарию) -->
-        <div style="margin-bottom: 20px;">
-            <img src="images/logo.png" alt="Логотип" style="max-width: 150px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-        </div>
+        <!-- ЛОГОТИП УДАЛЁН ИЗ ТЕЛА САЙТА (остался только в head) -->
 
         <!-- СЕКЦИЯ ТАЙМЕРА -->
         <div id="timerSection">
@@ -410,11 +411,11 @@
         </div>
     </div>
 
-    <!-- КНОПКА ВХОДА ЧЕРЕЗ GOOGLE (Client ID из комментария) -->
+    <!-- КНОПКА ВХОДА ЧЕРЕЗ GOOGLE (исправлено на data-callback) -->
     <div style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
         <div id="g_id_onload"
              data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com"
-             data-login_uri="https://timoshamoscow.github.io/test/"
+             data-callback="handleGoogleSignIn"
              data-auto_prompt="false">
         </div>
         <div class="g_id_signin"
@@ -431,6 +432,26 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
+        // Обработчик входа через Google
+        function handleGoogleSignIn(response) {
+            console.log('Успешный вход через Google:', response);
+            
+            // Декодируем JWT токен, чтобы получить данные пользователя
+            try {
+                const payload = JSON.parse(atob(response.credential.split('.')[1]));
+                alert(`Привет, ${payload.name}! Вход выполнен.`);
+                
+                // Здесь можно сохранить данные в localStorage
+                localStorage.setItem('google_user', JSON.stringify({
+                    name: payload.name,
+                    email: payload.email,
+                    picture: payload.picture
+                }));
+            } catch (e) {
+                alert('Вход выполнен успешно!');
+            }
+        }
+
         (function() {
             // Конфетти
             const canvas = document.getElementById('confetti-canvas');
