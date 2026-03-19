@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Косплей на кукурузные палочки с сыром 🔥</title>
     <style>
-        /* ТВОИ СТИЛИ (полностью сохранены) */
+        /* ТВОИ СТИЛИ + мои доработки */
         * {
             margin: 0;
             padding: 0;
@@ -23,6 +23,19 @@
             margin: 0;
             position: relative;
             overflow-x: hidden;
+            transition: background 1s ease;
+        }
+
+        /* ПРАЗДНИЧНЫЙ ФОН (для 29 марта) */
+        body.party-mode {
+            background: linear-gradient(145deg, #ffd700, #ffa500, #ff8c00);
+            animation: partyGlow 2s infinite;
+        }
+
+        @keyframes partyGlow {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            100% { filter: brightness(1); }
         }
 
         .stick-bg {
@@ -65,6 +78,13 @@
             padding: 40px 30px;
             border: 4px solid #fff8e0;
             text-align: center;
+            transition: transform 0.3s;
+        }
+
+        /* Праздничное увеличение контейнера */
+        body.party-mode .container {
+            transform: scale(1.02);
+            border-color: gold;
         }
 
         .corn-sticks-header {
@@ -216,10 +236,6 @@
             margin-bottom: 15px;
         }
 
-        .description p:last-child {
-            margin-bottom: 0;
-        }
-
         .cheese-gif-placeholder {
             background: #fdea9c;
             border-radius: 100px;
@@ -284,6 +300,17 @@
             display: none !important;
         }
 
+        /* Конфетти (поверх всего) */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .main-question { font-size: 2rem; }
@@ -294,19 +321,20 @@
     </style>
 </head>
 <body>
+    <canvas id="confetti-canvas"></canvas>
+
     <div class="stick-bg">
         <span></span><span></span><span></span><span></span><span></span>
     </div>
 
     <div class="container">
-        <!-- Шапка с палочками (видна всегда) -->
         <div class="corn-sticks-header">
             <div class="stick"></div>
             <div class="stick cheese"></div>
             <div class="stick"></div>
         </div>
 
-        <!-- СЕКЦИЯ ТАЙМЕРА (до 29 марта) -->
+        <!-- СЕКЦИЯ ТАЙМЕРА -->
         <div id="timerSection">
             <h1>ДО КОСПЛЕЯ ОСТАЛОСЬ</h1>
             <div class="countdown-block">
@@ -323,7 +351,7 @@
             </div>
         </div>
 
-        <!-- ОСНОВНОЙ КОНТЕНТ (только 29 марта) -->
+        <!-- ОСНОВНОЙ КОНТЕНТ -->
         <div id="mainContent" class="hidden">
             <h1>ВСЕМИРНЫЙ ДЕНЬ<br>КОСПЛЕЯ НА ПАЛОЧКИ</h1>
             <div class="subtitle">
@@ -334,6 +362,7 @@
                 <p>✨ <strong>УРА! СЕГОДНЯ ТОТ САМЫЙ ДЕНЬ!</strong></p>
                 <p style="text-align: center; font-size: 2rem;">🎉 <strong>29 МАРТА 2026</strong> 🎉</p>
                 <p>Все кукурузные палочки мира нарядились в сыр! Ты часть истории!</p>
+                <p style="font-size: 2rem; text-align: center;">🍿 ХРУСТ-ХРУСТ! 🍿</p>
             </div>
 
             <div class="cheese-gif-placeholder">
@@ -341,7 +370,6 @@
                 <span class="emoji-big">🧀</span>
                 <span class="emoji-big">✨</span>
                 <span class="emoji-big">🎉</span>
-                <div style="width: 100%; font-size: 1.5rem;">🍿 ХРУСТИМ ГРОМКО 🍿</div>
             </div>
 
             <div style="background: #fff0c0; border-radius: 30px; padding: 20px; margin-top: 20px; border-left: 15px solid #f4a261;">
@@ -354,7 +382,7 @@
             </div>
         </div>
 
-        <!-- СООБЩЕНИЕ О ЗАКРЫТИИ (после 29 марта) -->
+        <!-- СООБЩЕНИЕ О ЗАКРЫТИИ -->
         <div id="closedMessage" class="hidden closed-message">
             <h2>😢 ПРАЗДНИК ОКОНЧЕН</h2>
             <p>Косплей на кукурузные палочки с сыром был 29 марта 2026</p>
@@ -363,53 +391,174 @@
         </div>
 
         <div class="footer-note" id="footerNote">
-            💛 Официальный таймер косплея на палочки с сыром
+            💛 Ждем 29 марта 2026! 💛
         </div>
     </div>
 
     <script>
         (function() {
-            // Даты (правильно с часовыми поясами)
-            const now = new Date();
-            
-            // 29 марта 2026, 00:00 по местному времени
-            const eventStart = new Date(2026, 2, 29); // Март = 2 (0-индексация)
-            
-            // 30 марта 2026, 00:00 (следующий день)
-            const eventEnd = new Date(2026, 2, 30);
+            // Конфетти
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let animationId = null;
+            let partyMode = false;
 
-            // Получаем элементы
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function createParticles() {
+                for (let i = 0; i < 100; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        size: Math.random() * 10 + 5,
+                        speedY: Math.random() * 3 + 2,
+                        speedX: Math.random() * 2 - 1,
+                        color: `hsl(${Math.random() * 60 + 30}, 100%, 60%)` // желто-оранжевые тона
+                    });
+                }
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    
+                    if (p.y > height) {
+                        p.y = -10;
+                        p.x = Math.random() * width;
+                    }
+                    if (p.x > width) p.x = 0;
+                    if (p.x < 0) p.x = width;
+                }
+                
+                animationId = requestAnimationFrame(drawParticles);
+            }
+
+            function startConfetti() {
+                if (!partyMode) {
+                    partyMode = true;
+                    particles = [];
+                    createParticles();
+                    if (animationId) cancelAnimationFrame(animationId);
+                    drawParticles();
+                }
+            }
+
+            function stopConfetti() {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                    ctx.clearRect(0, 0, width, height);
+                    particles = [];
+                    partyMode = false;
+                }
+            }
+
+            // Звук хруста
+            function playCrunchSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Создаем шум (хруст)
+                    const bufferSize = audioContext.sampleRate * 0.5; // 0.5 секунды
+                    const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1; // белый шум
+                        // Добавляем затухание
+                        if (i > bufferSize * 0.8) {
+                            data[i] *= (1 - (i - bufferSize * 0.8) / (bufferSize * 0.2));
+                        }
+                    }
+                    
+                    const whiteNoise = audioContext.createBufferSource();
+                    whiteNoise.buffer = buffer;
+                    
+                    // Фильтр для более "хрустящего" звука
+                    const filter = audioContext.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.value = 2000;
+                    filter.Q.value = 2;
+                    
+                    whiteNoise.connect(filter);
+                    filter.connect(audioContext.destination);
+                    
+                    whiteNoise.start();
+                } catch (e) {
+                    console.log('Аудио не поддерживается или заблокировано браузером');
+                }
+            }
+
+            // Даты
+            const eventStart = new Date(2026, 2, 29); // 29 марта 2026
+            const eventEnd = new Date(2026, 2, 30);   // 30 марта 2026
+
             const timerSection = document.getElementById('timerSection');
             const mainContent = document.getElementById('mainContent');
             const closedMessage = document.getElementById('closedMessage');
             const footerNote = document.getElementById('footerNote');
             const countdownEl = document.getElementById('countdown');
+            const body = document.body;
+
+            let soundPlayed = false; // Чтобы звук сыграл только один раз
 
             function updateDisplay() {
                 const now = new Date();
 
                 if (now >= eventEnd) {
-                    // ПОСЛЕ 29 МАРТА (с 30 марта)
+                    // После 29 марта
                     timerSection.classList.add('hidden');
                     mainContent.classList.add('hidden');
                     closedMessage.classList.remove('hidden');
                     footerNote.textContent = '💔 Увидимся в следующем году! 💔';
+                    body.classList.remove('party-mode');
+                    stopConfetti();
                 }
                 else if (now >= eventStart && now < eventEnd) {
-                    // РОВНО 29 МАРТА
+                    // Ровно 29 марта
                     timerSection.classList.add('hidden');
                     mainContent.classList.remove('hidden');
                     closedMessage.classList.add('hidden');
                     footerNote.textContent = '🎉 СЕГОДНЯ ПРАЗДНИК! ХРУСТИ! 🎉';
+                    body.classList.add('party-mode');
+                    
+                    // Запускаем конфетти, если ещё не запущены
+                    startConfetti();
+                    
+                    // Играем звук при первом входе в праздничный режим
+                    if (!soundPlayed) {
+                        playCrunchSound();
+                        soundPlayed = true;
+                    }
                 }
                 else {
-                    // ДО 29 МАРТА
+                    // До 29 марта
                     timerSection.classList.remove('hidden');
                     mainContent.classList.add('hidden');
                     closedMessage.classList.add('hidden');
                     footerNote.textContent = '💛 Ждем 29 марта 2026! 💛';
+                    body.classList.remove('party-mode');
+                    stopConfetti();
+                    soundPlayed = false; // Сбрасываем флаг для следующего раза
                     
-                    // Запускаем таймер
                     updateTimer();
                 }
             }
@@ -419,7 +568,7 @@
                 const diff = eventStart - now;
 
                 if (diff <= 0) {
-                    updateDisplay(); // Переключим режим, если вдруг таймер ушел в минус
+                    updateDisplay();
                     return;
                 }
 
@@ -431,18 +580,8 @@
                 countdownEl.textContent = `${days}д ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
 
-            // Первоначальная настройка
             updateDisplay();
-
-            // Если мы в режиме таймера, обновляем его каждую секунду
-            setInterval(() => {
-                // Проверяем, активен ли таймер
-                if (!timerSection.classList.contains('hidden')) {
-                    updateTimer();
-                }
-                // Также проверяем, не пора ли переключить режим (например, в полночь)
-                updateDisplay();
-            }, 1000);
+            setInterval(updateDisplay, 1000);
         })();
     </script>
 </body>
