@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- META ТЕГИ (по твоим комментариям) -->
     <title>🔥 Косплей на кукурузные палочки с сыром 🔥</title>
+    <meta name="title" content="Тестовый лендинг">
+    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
+
+    <!-- Для соцсетей (Open Graph) -->
+    <meta property="og:title" content="Тестовый лендинг">
+    <meta property="og:description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+
     <style>
-        /* ТВОИ СТИЛИ + мои доработки */
+        /* ТВОИ СТИЛИ (без изменений) */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +39,6 @@
             transition: background 1s ease;
         }
 
-        /* ПРАЗДНИЧНЫЙ ФОН (для 29 марта) */
         body.party-mode {
             background: linear-gradient(145deg, #ffd700, #ffa500, #ff8c00);
             animation: partyGlow 2s infinite;
@@ -81,7 +93,6 @@
             transition: transform 0.3s;
         }
 
-        /* Праздничное увеличение контейнера */
         body.party-mode .container {
             transform: scale(1.02);
             border-color: gold;
@@ -300,7 +311,6 @@
             display: none !important;
         }
 
-        /* Конфетти (поверх всего) */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -332,6 +342,11 @@
             <div class="stick"></div>
             <div class="stick cheese"></div>
             <div class="stick"></div>
+        </div>
+
+        <!-- ЛОГОТИП (добавлен по твоему комментарию) -->
+        <div style="margin-bottom: 20px;">
+            <img src="images/logo.png" alt="Логотип" style="max-width: 150px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
         </div>
 
         <!-- СЕКЦИЯ ТАЙМЕРА -->
@@ -395,6 +410,26 @@
         </div>
     </div>
 
+    <!-- КНОПКА ВХОДА ЧЕРЕЗ GOOGLE (Client ID из комментария) -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
+        <div id="g_id_onload"
+             data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com"
+             data-login_uri="https://timoshamoscow.github.io/test/"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="large"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-shape="rectangular"
+             data-logo_alignment="left">
+        </div>
+    </div>
+
+    <!-- Подключение Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <script>
         (function() {
             // Конфетти
@@ -422,7 +457,7 @@
                         size: Math.random() * 10 + 5,
                         speedY: Math.random() * 3 + 2,
                         speedX: Math.random() * 2 - 1,
-                        color: `hsl(${Math.random() * 60 + 30}, 100%, 60%)` // желто-оранжевые тона
+                        color: `hsl(${Math.random() * 60 + 30}, 100%, 60%)`
                     });
                 }
             }
@@ -471,19 +506,15 @@
                 }
             }
 
-            // Звук хруста
             function playCrunchSound() {
                 try {
                     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    
-                    // Создаем шум (хруст)
-                    const bufferSize = audioContext.sampleRate * 0.5; // 0.5 секунды
+                    const bufferSize = audioContext.sampleRate * 0.5;
                     const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
                     const data = buffer.getChannelData(0);
                     
                     for (let i = 0; i < bufferSize; i++) {
-                        data[i] = Math.random() * 2 - 1; // белый шум
-                        // Добавляем затухание
+                        data[i] = Math.random() * 2 - 1;
                         if (i > bufferSize * 0.8) {
                             data[i] *= (1 - (i - bufferSize * 0.8) / (bufferSize * 0.2));
                         }
@@ -492,7 +523,6 @@
                     const whiteNoise = audioContext.createBufferSource();
                     whiteNoise.buffer = buffer;
                     
-                    // Фильтр для более "хрустящего" звука
                     const filter = audioContext.createBiquadFilter();
                     filter.type = 'bandpass';
                     filter.frequency.value = 2000;
@@ -500,7 +530,6 @@
                     
                     whiteNoise.connect(filter);
                     filter.connect(audioContext.destination);
-                    
                     whiteNoise.start();
                 } catch (e) {
                     console.log('Аудио не поддерживается или заблокировано браузером');
@@ -508,8 +537,8 @@
             }
 
             // Даты
-            const eventStart = new Date(2026, 2, 29); // 29 марта 2026
-            const eventEnd = new Date(2026, 2, 30);   // 30 марта 2026
+            const eventStart = new Date(2026, 2, 29);
+            const eventEnd = new Date(2026, 2, 30);
 
             const timerSection = document.getElementById('timerSection');
             const mainContent = document.getElementById('mainContent');
@@ -518,13 +547,12 @@
             const countdownEl = document.getElementById('countdown');
             const body = document.body;
 
-            let soundPlayed = false; // Чтобы звук сыграл только один раз
+            let soundPlayed = false;
 
             function updateDisplay() {
                 const now = new Date();
 
                 if (now >= eventEnd) {
-                    // После 29 марта
                     timerSection.classList.add('hidden');
                     mainContent.classList.add('hidden');
                     closedMessage.classList.remove('hidden');
@@ -533,31 +561,27 @@
                     stopConfetti();
                 }
                 else if (now >= eventStart && now < eventEnd) {
-                    // Ровно 29 марта
                     timerSection.classList.add('hidden');
                     mainContent.classList.remove('hidden');
                     closedMessage.classList.add('hidden');
                     footerNote.textContent = '🎉 СЕГОДНЯ ПРАЗДНИК! ХРУСТИ! 🎉';
                     body.classList.add('party-mode');
                     
-                    // Запускаем конфетти, если ещё не запущены
                     startConfetti();
                     
-                    // Играем звук при первом входе в праздничный режим
                     if (!soundPlayed) {
                         playCrunchSound();
                         soundPlayed = true;
                     }
                 }
                 else {
-                    // До 29 марта
                     timerSection.classList.remove('hidden');
                     mainContent.classList.add('hidden');
                     closedMessage.classList.add('hidden');
                     footerNote.textContent = '💛 Ждем 29 марта 2026! 💛';
                     body.classList.remove('party-mode');
                     stopConfetti();
-                    soundPlayed = false; // Сбрасываем флаг для следующего раза
+                    soundPlayed = false;
                     
                     updateTimer();
                 }
