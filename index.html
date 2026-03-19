@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Косплей на кукурузные палочки с сыром 🔥</title>
     <style>
-        /* Стили для всего сайта */
+        /* ТВОИ СТИЛИ (полностью сохранены) */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +25,6 @@
             overflow-x: hidden;
         }
 
-        /* Фоновые "палочки" (декоративные элементы) */
         .stick-bg {
             position: absolute;
             width: 100%;
@@ -68,7 +67,6 @@
             text-align: center;
         }
 
-        /* Стили для кукурузных палочек */
         .corn-sticks-header {
             display: flex;
             justify-content: center;
@@ -167,6 +165,25 @@
             letter-spacing: 3px;
         }
 
+        .timer {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffd966;
+            text-shadow: 3px 3px 0 #7b571f;
+            font-family: monospace;
+            letter-spacing: 5px;
+            margin: 20px 0;
+        }
+
+        .timer-labels {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: #ffe9a7;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
         .answer-box {
             background: #fedb83;
             border-radius: 40px;
@@ -247,11 +264,32 @@
             50% { transform: translateY(-20px); }
         }
 
+        .closed-message {
+            background: #2c1a0b;
+            color: #ffb347;
+            padding: 40px;
+            border-radius: 50px;
+            border: 5px solid #ff8c42;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .closed-message h2 {
+            font-size: 4rem;
+            color: #ff6b35;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .main-question { font-size: 2rem; }
             .big-date { font-size: 3.5rem; }
             .stick { width: 40px; height: 150px; }
+            .timer { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -261,69 +299,151 @@
     </div>
 
     <div class="container">
+        <!-- Шапка с палочками (видна всегда) -->
         <div class="corn-sticks-header">
             <div class="stick"></div>
             <div class="stick cheese"></div>
             <div class="stick"></div>
         </div>
 
-        <h1>ВСЕМИРНЫЙ ДЕНЬ<br>КОСПЛЕЯ НА ПАЛОЧКИ</h1>
-        <div class="subtitle">
-            🧀 Эпичное событие года 🧀
-        </div>
-
-        <div class="countdown-block">
-            <div class="question-icon">🌽⬇️🧀</div>
-            <div class="main-question">
-                КОГДА КОСПЛЕЙ?
+        <!-- СЕКЦИЯ ТАЙМЕРА (до 29 марта) -->
+        <div id="timerSection">
+            <h1>ДО КОСПЛЕЯ ОСТАЛОСЬ</h1>
+            <div class="countdown-block">
+                <div class="timer" id="countdown">00д 00:00:00</div>
+                <div class="timer-labels">
+                    <span>Дни</span>
+                    <span>Часы</span>
+                    <span>Минуты</span>
+                    <span>Секунды</span>
+                </div>
+                <div style="color: #ffe9a7; margin-top: 20px; font-size: 1.4rem;">
+                    ⏰ Жди 29 марта 2026! ⏰
+                </div>
             </div>
-            <div class="answer-box">
-                <span class="big-date">29 МАРТА 2026</span>
+        </div>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ (только 29 марта) -->
+        <div id="mainContent" class="hidden">
+            <h1>ВСЕМИРНЫЙ ДЕНЬ<br>КОСПЛЕЯ НА ПАЛОЧКИ</h1>
+            <div class="subtitle">
+                🧀 СВЕРШИЛОСЬ! 🧀
             </div>
-            <div style="color: #ffe9a7; margin-top: 15px; font-size: 1.6rem; font-weight: bold;">
-                (Осталось всего ничего!)
+
+            <div class="description">
+                <p>✨ <strong>УРА! СЕГОДНЯ ТОТ САМЫЙ ДЕНЬ!</strong></p>
+                <p style="text-align: center; font-size: 2rem;">🎉 <strong>29 МАРТА 2026</strong> 🎉</p>
+                <p>Все кукурузные палочки мира нарядились в сыр! Ты часть истории!</p>
+            </div>
+
+            <div class="cheese-gif-placeholder">
+                <span class="emoji-big">🌽</span>
+                <span class="emoji-big">🧀</span>
+                <span class="emoji-big">✨</span>
+                <span class="emoji-big">🎉</span>
+                <div style="width: 100%; font-size: 1.5rem;">🍿 ХРУСТИМ ГРОМКО 🍿</div>
+            </div>
+
+            <div style="background: #fff0c0; border-radius: 30px; padding: 20px; margin-top: 20px; border-left: 15px solid #f4a261;">
+                <h2 style="color: #814b1a; margin-bottom: 10px;">📋 Дресс-код сегодня:</h2>
+                <ul style="list-style-type: none; font-size: 1.3rem; line-height: 2; color: #4a2c14;">
+                    <li>✅ Ты уже в костюме палочки с сыром</li>
+                    <li>✅ Хрусти громко и с душой</li>
+                    <li>✅ Делись радостью с миром</li>
+                </ul>
             </div>
         </div>
 
-        <div class="description">
-            <p>✨ <strong>Дорогой друг!</strong> Ты задал самый важный вопрос современности.</p>
-            <p>Ответ прост, как три копейки (или три кукурузные палочки):</p>
-            <p style="text-align: center; font-size: 2rem;">🎉 <strong>29 марта 2026 года</strong> 🎉</p>
-            <p>Именно в этот день все уважающие себя кукурузные палочки (и палочколюбы) соберутся вместе, чтобы нарядиться в сырные костюмы, посыпаться солью и устроить грандиозный хруст.</p>
+        <!-- СООБЩЕНИЕ О ЗАКРЫТИИ (после 29 марта) -->
+        <div id="closedMessage" class="hidden closed-message">
+            <h2>😢 ПРАЗДНИК ОКОНЧЕН</h2>
+            <p>Косплей на кукурузные палочки с сыром был 29 марта 2026</p>
+            <p style="font-size: 1.5rem; margin-top: 20px;">Жди следующего года! 🌽🧀</p>
+            <div style="font-size: 4rem; margin-top: 20px;">💔</div>
         </div>
 
-        <!-- Имитация гифки с сыром и палочками -->
-        <div class="cheese-gif-placeholder">
-            <span class="emoji-big">🌽</span>
-            <span class="emoji-big">🧀</span>
-            <span class="emoji-big">✨</span>
-            <span class="emoji-big">🍟</span>
-            <div style="width: 100%; font-size: 1.2rem;">🍿 хрум-хрум 🍿</div>
-        </div>
-
-        <!-- Важная информация о дресс-коде -->
-        <div style="background: #fff0c0; border-radius: 30px; padding: 20px; margin-top: 20px; border-left: 15px solid #f4a261;">
-            <h2 style="color: #814b1a; margin-bottom: 10px;">📋 Дресс-код:</h2>
-            <ul style="list-style-type: none; font-size: 1.3rem; line-height: 2; color: #4a2c14;">
-                <li>✅ Обязательно наличие палочковидной формы</li>
-                <li>✅ Желтый или оранжевый цвет (цвет спелой кукурузы)</li>
-                <li>✅ Если вы сыр — разрешается быть тягучим и мягким</li>
-                <li>❌ Запрещено быть сухариком (только если вы не в гостях)</li>
-            </ul>
-        </div>
-
-        <div class="footer-note">
-            💛 Ждем тебя на фестивале! Приходи хрустеть и светиться. <br>
-            P.S. Кто не придет — тот сухая кукуруза без соли! 😱
-        </div>
-
-        <!-- Секция для подтверждения даты (на случай, если кто-то усомнится) -->
-        <div style="margin-top: 30px; background: #f7d794; border-radius: 30px; padding: 10px; font-size: 1.1rem;">
-            🔥 Официальный источник: пачка кукурузных палочек "Косичка" 📅
-        </div>
-        <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
-            * Дата утверждена на собрании макарон и круп в 2024 году.
+        <div class="footer-note" id="footerNote">
+            💛 Официальный таймер косплея на палочки с сыром
         </div>
     </div>
+
+    <script>
+        (function() {
+            // Даты (правильно с часовыми поясами)
+            const now = new Date();
+            
+            // 29 марта 2026, 00:00 по местному времени
+            const eventStart = new Date(2026, 2, 29); // Март = 2 (0-индексация)
+            
+            // 30 марта 2026, 00:00 (следующий день)
+            const eventEnd = new Date(2026, 2, 30);
+
+            // Получаем элементы
+            const timerSection = document.getElementById('timerSection');
+            const mainContent = document.getElementById('mainContent');
+            const closedMessage = document.getElementById('closedMessage');
+            const footerNote = document.getElementById('footerNote');
+            const countdownEl = document.getElementById('countdown');
+
+            function updateDisplay() {
+                const now = new Date();
+
+                if (now >= eventEnd) {
+                    // ПОСЛЕ 29 МАРТА (с 30 марта)
+                    timerSection.classList.add('hidden');
+                    mainContent.classList.add('hidden');
+                    closedMessage.classList.remove('hidden');
+                    footerNote.textContent = '💔 Увидимся в следующем году! 💔';
+                }
+                else if (now >= eventStart && now < eventEnd) {
+                    // РОВНО 29 МАРТА
+                    timerSection.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    closedMessage.classList.add('hidden');
+                    footerNote.textContent = '🎉 СЕГОДНЯ ПРАЗДНИК! ХРУСТИ! 🎉';
+                }
+                else {
+                    // ДО 29 МАРТА
+                    timerSection.classList.remove('hidden');
+                    mainContent.classList.add('hidden');
+                    closedMessage.classList.add('hidden');
+                    footerNote.textContent = '💛 Ждем 29 марта 2026! 💛';
+                    
+                    // Запускаем таймер
+                    updateTimer();
+                }
+            }
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = eventStart - now;
+
+                if (diff <= 0) {
+                    updateDisplay(); // Переключим режим, если вдруг таймер ушел в минус
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                countdownEl.textContent = `${days}д ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            // Первоначальная настройка
+            updateDisplay();
+
+            // Если мы в режиме таймера, обновляем его каждую секунду
+            setInterval(() => {
+                // Проверяем, активен ли таймер
+                if (!timerSection.classList.contains('hidden')) {
+                    updateTimer();
+                }
+                // Также проверяем, не пора ли переключить режим (например, в полночь)
+                updateDisplay();
+            }, 1000);
+        })();
+    </script>
 </body>
 </html>
