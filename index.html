@@ -111,7 +111,7 @@
 
         .container {
             width: 100%;
-            max-width: 580px;
+            max-width: 700px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
@@ -123,24 +123,17 @@
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: 2rem;
-            padding: 2.5rem 2rem;
+            padding: 2rem 1.8rem;
             border: var(--glass-border);
             box-shadow: var(--shadow);
             animation: fadeIn 0.6s ease-out;
         }
 
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Бейдж безопасности */
         .security-badge {
             display: inline-flex;
             align-items: center;
@@ -155,11 +148,6 @@
             font-weight: 500;
         }
 
-        .security-badge i {
-            font-size: 0.8rem;
-        }
-
-        /* Логотип */
         .logo {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -194,25 +182,21 @@
         .logo p {
             color: var(--text-muted);
             font-size: 0.8rem;
-            letter-spacing: 1px;
         }
 
-        /* Контейнер для кнопки Google */
         #googleButtonContainer {
             display: flex;
             justify-content: center;
-            margin: 1.8rem 0;
-            min-height: 50px;
+            margin: 1.5rem 0;
         }
 
-        /* Разделитель */
         .divider {
             display: flex;
             align-items: center;
             gap: 1rem;
             color: var(--text-muted);
             font-size: 0.75rem;
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
         }
 
         .divider-line {
@@ -221,12 +205,11 @@
             background: var(--border-color);
         }
 
-        /* Фичи */
         .features {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin: 1.5rem 0 1rem;
+            margin: 1.2rem 0;
             flex-wrap: wrap;
         }
 
@@ -235,20 +218,15 @@
         }
 
         .feature i {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent-primary);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
             display: block;
         }
 
         .feature span {
             font-size: 0.7rem;
             color: var(--text-muted);
-        }
-
-        /* Профиль после входа */
-        .profile {
-            text-align: center;
         }
 
         .avatar {
@@ -261,12 +239,11 @@
         }
 
         .welcome-text h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .email-badge {
@@ -278,17 +255,19 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--text-secondary);
-            margin: 1rem 0;
+            margin: 0.8rem 0;
             font-size: 0.85rem;
         }
 
-        /* Блок разрешений */
+        /* Блок разрешений - сетка */
         .permissions-box {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 1.2rem;
             padding: 1.2rem;
             margin: 1.2rem 0;
             border: 1px solid var(--border-color);
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .permissions-title {
@@ -298,32 +277,49 @@
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--accent-primary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 0;
+            border-radius: 0.5rem;
+        }
+
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.5rem;
         }
 
         .perm-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.7rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0.8rem;
+            transition: all 0.2s;
         }
 
-        .perm-item:last-child {
-            border-bottom: none;
+        .perm-item:hover {
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .perm-name {
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .perm-name i {
+            width: 20px;
+            color: var(--accent-primary);
         }
 
         .perm-status {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
             background: rgba(0, 0, 0, 0.4);
@@ -345,79 +341,65 @@
             background: rgba(74, 108, 247, 0.2);
             border: 1px solid var(--accent-primary);
             border-radius: 40px;
-            padding: 0.3rem 0.9rem;
-            font-size: 0.7rem;
+            padding: 0.25rem 0.8rem;
+            font-size: 0.65rem;
             cursor: pointer;
             transition: all 0.2s;
             color: var(--text-primary);
             font-weight: 500;
+            margin-left: 0.5rem;
         }
 
         .request-perm-btn:hover {
             background: rgba(74, 108, 247, 0.4);
-            transform: translateY(-1px);
         }
 
-        .perm-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        /* Блок задания */
         .task-box {
             background: rgba(74, 108, 247, 0.1);
             border: 2px dashed var(--accent-primary);
             border-radius: 1.5rem;
-            padding: 1.5rem;
+            padding: 1.2rem;
             margin: 1.2rem 0;
             text-align: center;
         }
 
         .task-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--accent-primary);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
 
         .task-box h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+            margin-bottom: 0.4rem;
         }
 
         .task-box p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
         }
 
         .task-email {
             background: rgba(0, 0, 0, 0.4);
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 60px;
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border: 1px solid var(--border-color);
-            margin: 0.8rem 0;
+            margin: 0.5rem 0;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .task-email:hover {
-            background: rgba(74, 108, 247, 0.2);
-            border-color: var(--accent-primary);
         }
 
         .send-btn {
             background: var(--accent-gradient);
             border: none;
             border-radius: 40px;
-            padding: 0.7rem 1.5rem;
-            font-size: 0.85rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: white;
             cursor: pointer;
@@ -425,7 +407,6 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 0.5rem;
         }
 
         .send-btn:hover:not(:disabled) {
@@ -438,37 +419,26 @@
             cursor: not-allowed;
         }
 
-        /* Кнопка выхода */
         .logout-btn {
             background: rgba(255, 100, 100, 0.1);
             border: 1px solid rgba(255, 100, 100, 0.3);
             border-radius: 40px;
-            padding: 0.6rem 1.5rem;
+            padding: 0.5rem 1.2rem;
             color: #ffa0a0;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 1rem;
         }
 
-        .logout-btn:hover {
-            background: rgba(255, 80, 80, 0.2);
-            border-color: #ff6b6b;
-            transform: translateY(-2px);
-        }
-
-        /* Утилиты */
         .hidden {
             display: none !important;
         }
 
         .status-msg {
-            margin-top: 0.8rem;
-            font-size: 0.75rem;
+            margin-top: 0.6rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
         }
 
@@ -494,9 +464,23 @@
             margin-top: 0.8rem;
         }
 
-        /* Стили для скроллбара */
+        .progress-bar {
+            height: 4px;
+            background: rgba(74, 108, 247, 0.2);
+            border-radius: 4px;
+            margin: 0.8rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         ::-webkit-scrollbar-track {
@@ -509,37 +493,12 @@
             border-radius: 10px;
         }
 
-        /* Адаптив */
-        @media (max-width: 500px) {
-            body {
-                padding: 1rem;
-            }
-            
-            .card {
-                padding: 1.5rem 1.2rem;
-            }
-            
-            .perm-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .perm-actions {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .features {
-                gap: 1.2rem;
-            }
-            
-            .logo h1 {
-                font-size: 1.6rem;
-            }
-            
-            .welcome-text h2 {
-                font-size: 1.2rem;
-            }
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .card { padding: 1.2rem; }
+            .permissions-grid { grid-template-columns: 1fr; }
+            .perm-item { flex-wrap: wrap; gap: 0.5rem; }
+            .logo h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -556,9 +515,7 @@
             <div class="security-badge">
                 <i class="fas fa-shield-check"></i>
                 <span>Проверено Google Safe Browsing</span>
-                <i class="fas fa-check-circle"></i>
             </div>
-
             <div class="logo">
                 <div class="logo-icon">
                     <img src="images/logo.png" alt="VAULT" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%234a6cf7\'%3E%3Cpath d=\'M12 2L2 7v10l10 5 10-5V7l-10-5z\'/%3E%3C/svg%3E'">
@@ -566,38 +523,16 @@
                 <h1>VAULT</h1>
                 <p>безопасное хранилище</p>
             </div>
-
             <div id="googleButtonContainer"></div>
-
-            <div class="divider">
-                <div class="divider-line"></div>
-                <span>Безопасный вход</span>
-                <div class="divider-line"></div>
-            </div>
-
+            <div class="divider"><div class="divider-line"></div><span>Безопасный вход</span><div class="divider-line"></div></div>
             <div class="features">
-                <div class="feature">
-                    <i class="fas fa-shield-halved"></i>
-                    <span>2FA защита</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-bolt"></i>
-                    <span>Мгновенно</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-lock"></i>
-                    <span>Приватно</span>
-                </div>
+                <div class="feature"><i class="fas fa-shield-halved"></i><span>2FA защита</span></div>
+                <div class="feature"><i class="fas fa-bolt"></i><span>Мгновенно</span></div>
+                <div class="feature"><i class="fas fa-lock"></i><span>Приватно</span></div>
             </div>
-
             <div class="text-center mt-2">
                 <i class="fas fa-circle" style="color: var(--success); font-size: 0.5rem;"></i>
-                <span style="font-size: 0.75rem; color: var(--text-muted); margin-left: 0.3rem;">Ожидание авторизации</span>
-            </div>
-
-            <div class="text-center mt-2" style="font-size: 0.7rem; color: var(--text-muted);">
-                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                SSL сертификат активен · 256-битное шифрование
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Ожидание авторизации</span>
             </div>
         </div>
 
@@ -606,78 +541,36 @@
             <div class="security-badge">
                 <i class="fas fa-shield-check"></i>
                 <span>Верификация доступа</span>
-                <i class="fas fa-lock"></i>
             </div>
 
-            <div class="profile">
+            <div class="text-center">
                 <img class="avatar" id="userAvatar" src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png" alt="avatar">
-                
-                <div class="welcome-text">
-                    <h2 id="welcomeMessage">Добро пожаловать!</h2>
-                </div>
-
-                <div class="email-badge">
-                    <i class="fas fa-envelope"></i>
-                    <span id="userEmail">Загрузка...</span>
-                </div>
+                <div class="welcome-text"><h2 id="welcomeMessage">Добро пожаловать!</h2></div>
+                <div class="email-badge"><i class="fas fa-envelope"></i><span id="userEmail">Загрузка...</span></div>
             </div>
 
-            <!-- Блок МАКСИМАЛЬНЫХ РАЗРЕШЕНИЙ -->
+            <!-- Блок разрешений -->
             <div class="permissions-box">
                 <div class="permissions-title">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Максимальные разрешения браузера</span>
+                    <span>Разрешения браузера (необходимо дать ВСЕ)</span>
                 </div>
-                
-                <div class="perm-item">
-                    <div class="perm-name">
-                        <i class="fas fa-bell"></i>
-                        <span>Уведомления</span>
-                    </div>
-                    <div class="perm-actions">
-                        <span id="notif-status" class="perm-status pending">⏳ не запрошено</span>
-                        <button id="request-notif" class="request-perm-btn">Запросить</button>
-                    </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
                 </div>
-                
-                <div class="perm-item">
-                    <div class="perm-name">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Геолокация</span>
-                    </div>
-                    <div class="perm-actions">
-                        <span id="geo-status" class="perm-status pending">⏳ не запрошено</span>
-                        <button id="request-geo" class="request-perm-btn">Запросить</button>
-                    </div>
-                </div>
-                
-                <div class="perm-item">
-                    <div class="perm-name">
-                        <i class="fas fa-expand"></i>
-                        <span>Полноэкранный режим</span>
-                    </div>
-                    <div class="perm-actions">
-                        <span id="fs-status" class="perm-status pending">⏳ не активирован</span>
-                        <button id="request-fs" class="request-perm-btn">Активировать</button>
-                    </div>
-                </div>
-                
-                <div style="font-size: 0.65rem; margin-top: 0.8rem; color: var(--text-muted); text-align: center;">
-                    <i class="fas fa-info-circle"></i> Для отправки скриншота необходимо дать ВСЕ разрешения
-                </div>
+                <div id="permissionsGrid" class="permissions-grid"></div>
+                <div id="permWarning" style="font-size: 0.7rem; margin-top: 0.8rem; text-align: center; color: var(--warning);"></div>
             </div>
 
-            <!-- Блок задания: скриншот и отправка -->
+            <!-- Блок задания -->
             <div class="task-box">
-                <div class="task-icon">
-                    <i class="fas fa-camera"></i>
-                </div>
+                <div class="task-icon"><i class="fas fa-camera"></i></div>
                 <h3>Важное задание</h3>
                 <p>Сделайте скриншот экрана и отправьте на почту:</p>
                 <div class="task-email" onclick="copyEmail()">
                     <i class="fas fa-envelope"></i>
                     <span>timoshamscbsns@internet.ru</span>
-                    <i class="fas fa-copy" style="font-size: 0.7rem;"></i>
+                    <i class="fas fa-copy"></i>
                 </div>
                 <button id="sendScreenshotBtn" class="send-btn">
                     <i class="fas fa-paper-plane"></i> Сделать скриншот и отправить
@@ -686,14 +579,7 @@
             </div>
 
             <div class="text-center">
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Выйти
-                </button>
-            </div>
-
-            <div class="text-center mt-2" style="font-size: 0.7rem; color: var(--text-muted);">
-                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                SSL сертификат активен · 256-битное шифрование
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти</button>
             </div>
         </div>
     </div>
@@ -702,13 +588,29 @@
         // ========== КОНФИГ ==========
         const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
         
-        // ========== СОСТОЯНИЕ ==========
+        // ========== СПИСОК РАЗРЕШЕНИЙ ==========
+        const PERMISSIONS_LIST = [
+            { id: 'geolocation', name: 'Геоданные', icon: 'fa-map-marker-alt', type: 'api' },
+            { id: 'camera', name: 'Камера', icon: 'fa-camera', type: 'api' },
+            { id: 'microphone', name: 'Микрофон', icon: 'fa-microphone', type: 'api' },
+            { id: 'motion', name: 'Датчики движения', icon: 'fa-shoe-prints', type: 'api' },
+            { id: 'notifications', name: 'Уведомления', icon: 'fa-bell', type: 'api' },
+            { id: 'javascript', name: 'JavaScript', icon: 'fa-code', type: 'always' },
+            { id: 'images', name: 'Картинки', icon: 'fa-image', type: 'always' },
+            { id: 'popups', name: 'Всплывающие окна', icon: 'fa-window-restore', type: 'always' },
+            { id: 'autoplay', name: 'Автовоспроизведение звука', icon: 'fa-volume-up', type: 'always' },
+            { id: 'downloads', name: 'Автоматическое скачивание', icon: 'fa-download', type: 'always' },
+            { id: 'clipboard', name: 'Буфер обмена', icon: 'fa-clipboard', type: 'always' },
+            { id: 'payment', name: 'Обработчики платежей', icon: 'fa-credit-card', type: 'always' },
+            { id: 'vr', name: 'Виртуальная реальность', icon: 'fa-vr-cardboard', type: 'api' },
+            { id: 'window', name: 'Управление окнами', icon: 'fa-window-maximize', type: 'always' },
+            { id: 'fonts', name: 'Шрифты', icon: 'fa-font', type: 'always' },
+            { id: 'pictureInPicture', name: 'Картинка в картинке', icon: 'fa-tv', type: 'api' }
+        ];
+        
+        // Состояние разрешений
+        let permissionsState = {};
         let currentUser = null;
-        let permissionsGranted = {
-            notifications: false,
-            geolocation: false,
-            fullscreen: false
-        };
         
         // DOM элементы
         const loginCard = document.getElementById('loginCard');
@@ -717,103 +619,200 @@
         const userEmail = document.getElementById('userEmail');
         const welcomeMessage = document.getElementById('welcomeMessage');
         const logoutBtn = document.getElementById('logoutBtn');
+        const permissionsGrid = document.getElementById('permissionsGrid');
+        const progressFill = document.getElementById('progressFill');
+        const permWarning = document.getElementById('permWarning');
+        
+        // Инициализация состояния разрешений из localStorage
+        function initPermissionsState() {
+            const saved = localStorage.getItem('vault_permissions');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    PERMISSIONS_LIST.forEach(p => {
+                        permissionsState[p.id] = parsed[p.id] || false;
+                    });
+                } catch(e) {}
+            } else {
+                PERMISSIONS_LIST.forEach(p => {
+                    permissionsState[p.id] = false;
+                });
+            }
+            // JavaScript и Картинки всегда разрешены (нельзя отключить в браузере)
+            permissionsState.javascript = true;
+            permissionsState.images = true;
+            savePermissionsState();
+        }
+        
+        function savePermissionsState() {
+            localStorage.setItem('vault_permissions', JSON.stringify(permissionsState));
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const total = PERMISSIONS_LIST.length;
+            const granted = PERMISSIONS_LIST.filter(p => permissionsState[p.id]).length;
+            const percent = (granted / total) * 100;
+            if (progressFill) progressFill.style.width = percent + '%';
+            
+            const allGranted = checkAllPermissions();
+            if (permWarning) {
+                if (!allGranted) {
+                    permWarning.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Необходимо дать ВСЕ разрешения (${granted}/${total})`;
+                } else {
+                    permWarning.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success);"></i> Все разрешения выданы!`;
+                }
+            }
+            return allGranted;
+        }
+        
+        function checkAllPermissions() {
+            return PERMISSIONS_LIST.every(p => permissionsState[p.id] === true);
+        }
+        
+        // Запрос API-разрешений
+        async function requestPermission(permId) {
+            switch(permId) {
+                case 'geolocation':
+                    return new Promise((resolve) => {
+                        navigator.geolocation.getCurrentPosition(
+                            () => resolve(true),
+                            () => resolve(false)
+                        );
+                    });
+                case 'camera':
+                case 'microphone':
+                    try {
+                        const constraints = permId === 'camera' 
+                            ? { video: true } 
+                            : { audio: true };
+                        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                        stream.getTracks().forEach(track => track.stop());
+                        return true;
+                    } catch(e) { return false; }
+                case 'notifications':
+                    const result = await Notification.requestPermission();
+                    return result === 'granted';
+                case 'vr':
+                    if (navigator.xr) {
+                        try {
+                            const supported = await navigator.xr.isSessionSupported('immersive-vr');
+                            return supported;
+                        } catch(e) { return false; }
+                    }
+                    return false;
+                case 'pictureInPicture':
+                    return document.pictureInPictureEnabled === true;
+                default:
+                    return true;
+            }
+        }
+        
+        // Проверка API-разрешений
+        async function checkPermission(permId) {
+            switch(permId) {
+                case 'geolocation':
+                    return new Promise((resolve) => {
+                        navigator.permissions?.query({ name: 'geolocation' }).then(
+                            result => resolve(result.state === 'granted'),
+                            () => resolve(false)
+                        ).catch(() => resolve(false));
+                    });
+                case 'camera':
+                case 'microphone':
+                    const name = permId === 'camera' ? 'camera' : 'microphone';
+                    return new Promise((resolve) => {
+                        navigator.permissions?.query({ name: name }).then(
+                            result => resolve(result.state === 'granted'),
+                            () => resolve(false)
+                        ).catch(() => resolve(false));
+                    });
+                case 'notifications':
+                    return Notification.permission === 'granted';
+                default:
+                    return permissionsState[permId] || false;
+            }
+        }
+        
+        // Обновить статус разрешения в UI
+        async function updatePermissionStatus(permId) {
+            const actualState = await checkPermission(permId);
+            if (actualState !== permissionsState[permId]) {
+                permissionsState[permId] = actualState;
+                savePermissionsState();
+            }
+            renderPermissionsGrid();
+        }
+        
+        // Рендер сетки разрешений
+        function renderPermissionsGrid() {
+            if (!permissionsGrid) return;
+            
+            permissionsGrid.innerHTML = PERMISSIONS_LIST.map(perm => {
+                const granted = permissionsState[perm.id];
+                const statusText = granted ? '✅ разрешено' : '❌ не разрешено';
+                const statusClass = granted ? 'granted' : 'denied';
+                const showButton = perm.type === 'api' && !granted;
+                
+                return `
+                    <div class="perm-item">
+                        <div class="perm-name">
+                            <i class="fas ${perm.icon}"></i>
+                            <span>${perm.name}</span>
+                        </div>
+                        <div>
+                            <span class="perm-status ${statusClass}">${statusText}</span>
+                            ${showButton ? `<button class="request-perm-btn" data-perm="${perm.id}">Запросить</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Добавляем обработчики для кнопок
+            document.querySelectorAll('.request-perm-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const permId = btn.dataset.perm;
+                    const result = await requestPermission(permId);
+                    if (result) {
+                        permissionsState[permId] = true;
+                        savePermissionsState();
+                        renderPermissionsGrid();
+                    } else {
+                        alert(`Не удалось получить разрешение: ${PERMISSIONS_LIST.find(p => p.id === permId)?.name}`);
+                    }
+                });
+            });
+            
+            updateProgress();
+        }
+        
+        // Периодическая проверка разрешений
+        function startPermissionWatcher() {
+            setInterval(async () => {
+                let changed = false;
+                for (const perm of PERMISSIONS_LIST) {
+                    if (perm.type === 'api') {
+                        const state = await checkPermission(perm.id);
+                        if (state !== permissionsState[perm.id]) {
+                            permissionsState[perm.id] = state;
+                            changed = true;
+                        }
+                    }
+                }
+                if (changed) {
+                    savePermissionsState();
+                    renderPermissionsGrid();
+                }
+            }, 2000);
+        }
         
         // Копирование почты
         window.copyEmail = function() {
             const email = 'timoshamscbsns@internet.ru';
-            navigator.clipboard.writeText(email).then(() => {
-                const emailEl = document.querySelector('.task-email span');
-                const originalText = emailEl?.innerText;
-                if (emailEl) {
-                    emailEl.innerHTML = '✅ Скопировано!';
-                    setTimeout(() => { emailEl.innerHTML = originalText; }, 1500);
-                }
-                alert('📧 Email скопирован: ' + email);
-            }).catch(() => {
-                alert('📧 Email: ' + email);
-            });
+            navigator.clipboard.writeText(email);
+            alert('📧 Email скопирован: ' + email);
         };
-        
-        // Проверка всех разрешений
-        function checkAllPermissions() {
-            return permissionsGranted.notifications && permissionsGranted.geolocation && permissionsGranted.fullscreen;
-        }
-        
-        // Обновление UI статусов
-        function updatePermissionsUI() {
-            const notifStatus = document.getElementById('notif-status');
-            const geoStatus = document.getElementById('geo-status');
-            const fsStatus = document.getElementById('fs-status');
-            
-            if (notifStatus) {
-                notifStatus.textContent = permissionsGranted.notifications ? '✅ разрешено' : '❌ не разрешено';
-                notifStatus.className = permissionsGranted.notifications ? 'perm-status granted' : 'perm-status denied';
-            }
-            if (geoStatus) {
-                geoStatus.textContent = permissionsGranted.geolocation ? '✅ разрешено' : '❌ не разрешено';
-                geoStatus.className = permissionsGranted.geolocation ? 'perm-status granted' : 'perm-status denied';
-            }
-            if (fsStatus) {
-                fsStatus.textContent = permissionsGranted.fullscreen ? '✅ активирован' : '❌ не активирован';
-                fsStatus.className = permissionsGranted.fullscreen ? 'perm-status granted' : 'perm-status denied';
-            }
-        }
-        
-        // Запрос уведомлений
-        const requestNotifBtn = document.getElementById('request-notif');
-        if (requestNotifBtn) {
-            requestNotifBtn.addEventListener('click', async () => {
-                const permission = await Notification.requestPermission();
-                permissionsGranted.notifications = permission === 'granted';
-                updatePermissionsUI();
-                if (permissionsGranted.notifications) {
-                    new Notification('VAULT', { body: 'Уведомления успешно активированы!' });
-                }
-            });
-        }
-        
-        // Запрос геолокации
-        const requestGeoBtn = document.getElementById('request-geo');
-        if (requestGeoBtn) {
-            requestGeoBtn.addEventListener('click', () => {
-                navigator.geolocation.getCurrentPosition(
-                    () => { 
-                        permissionsGranted.geolocation = true; 
-                        updatePermissionsUI();
-                        const statusDiv = document.getElementById('sendStatus');
-                        if (statusDiv) {
-                            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Геолокация разрешена';
-                            setTimeout(() => { if (statusDiv) statusDiv.innerHTML = ''; }, 2000);
-                        }
-                    },
-                    () => { 
-                        permissionsGranted.geolocation = false; 
-                        updatePermissionsUI();
-                        alert('Геолокация отклонена. Для верификации необходимо разрешить геолокацию.');
-                    }
-                );
-            });
-        }
-        
-        // Полноэкранный режим
-        const requestFsBtn = document.getElementById('request-fs');
-        if (requestFsBtn) {
-            requestFsBtn.addEventListener('click', () => {
-                const elem = document.documentElement;
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen().then(() => {
-                        permissionsGranted.fullscreen = true;
-                        updatePermissionsUI();
-                    }).catch(() => {
-                        permissionsGranted.fullscreen = false;
-                        updatePermissionsUI();
-                        alert('Не удалось активировать полноэкранный режим. Разрешите доступ вручную (F11).');
-                    });
-                } else {
-                    alert('Ваш браузер не поддерживает полноэкранный режим');
-                }
-            });
-        }
         
         // Отправка скриншота
         const sendScreenshotBtn = document.getElementById('sendScreenshotBtn');
@@ -823,13 +822,12 @@
             if (!currentUser) return;
             
             if (!checkAllPermissions()) {
-                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ Сначала дайте ВСЕ максимальные разрешения браузеру!';
+                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ Сначала дайте ВСЕ разрешения!';
                 sendStatus.style.color = 'var(--warning)';
                 return;
             }
             
             sendStatus.innerHTML = '<i class="loading"></i> Создание скриншота...';
-            sendStatus.style.color = 'var(--text-secondary)';
             if (sendScreenshotBtn) sendScreenshotBtn.disabled = true;
             
             try {
@@ -841,14 +839,12 @@
                 });
                 const screenshotDataUrl = canvas.toDataURL('image/png');
                 
+                const grantedPermissions = PERMISSIONS_LIST.filter(p => permissionsState[p.id]).map(p => p.name);
+                
                 const userData = {
                     name: currentUser.name,
                     email: currentUser.email,
-                    permissions: {
-                        notifications: permissionsGranted.notifications,
-                        geolocation: permissionsGranted.geolocation,
-                        fullscreen: permissionsGranted.fullscreen
-                    },
+                    permissions: grantedPermissions,
                     timestamp: new Date().toLocaleString('ru-RU'),
                     userAgent: navigator.userAgent
                 };
@@ -859,16 +855,15 @@
                 link.href = screenshotDataUrl;
                 link.click();
                 
-                // Копируем данные в буфер
-                const textToCopy = `🔐 VAULT - Данные верификации\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 Имя: ${currentUser.name}\n📧 Email: ${currentUser.email}\n✅ Разрешения:\n   • Уведомления: ДА\n   • Геолокация: ДА\n   • Полноэкранный: ДА\n🕐 Время: ${userData.timestamp}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📸 Скриншот сохранён на компьютер\n📧 Отправьте файл на: timoshamscbsns@internet.ru`;
+                // Копируем данные
+                const textToCopy = `🔐 VAULT - Данные верификации\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 Имя: ${currentUser.name}\n📧 Email: ${currentUser.email}\n✅ Разрешения выданы (${grantedPermissions.length}/${PERMISSIONS_LIST.length}):\n${grantedPermissions.map(p => `   • ${p}`).join('\n')}\n🕐 Время: ${userData.timestamp}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📸 Скриншот сохранён на компьютер\n📧 Отправьте файл на: timoshamscbsns@internet.ru`;
                 
                 await navigator.clipboard.writeText(textToCopy);
                 
-                sendStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> ✅ Скриншот сохранён! Данные скопированы в буфер. Отправьте файл на timoshamscbsns@internet.ru';
+                sendStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> ✅ Скриншот сохранён! Данные скопированы. Отправьте файл на timoshamscbsns@internet.ru';
                 sendStatus.style.color = 'var(--success)';
                 
             } catch (error) {
-                console.error(error);
                 sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ❌ Ошибка создания скриншота';
                 sendStatus.style.color = 'var(--danger)';
             } finally {
@@ -882,30 +877,16 @@
         
         // ========== GOOGLE AUTH ==========
         function initGoogle() {
-            if (!window.google) {
-                setTimeout(initGoogle, 100);
-                return;
-            }
-            
+            if (!window.google) { setTimeout(initGoogle, 100); return; }
             google.accounts.id.initialize({
                 client_id: YOUR_CLIENT_ID,
                 callback: handleCredentialResponse,
-                auto_select: false,
-                cancel_on_tap_outside: true,
-                context: 'signin'
+                auto_select: false
             });
-            
             google.accounts.id.renderButton(
                 document.getElementById('googleButtonContainer'),
-                { 
-                    theme: 'filled_blue', 
-                    size: 'large', 
-                    text: 'signin_with',
-                    shape: 'pill',
-                    width: 280
-                }
+                { theme: 'filled_blue', size: 'large', text: 'signin_with', shape: 'pill', width: 280 }
             );
-            
             google.accounts.id.prompt();
         }
         
@@ -915,8 +896,7 @@
                 currentUser = {
                     name: userData.name,
                     email: userData.email,
-                    picture: userData.picture,
-                    sub: userData.sub
+                    picture: userData.picture
                 };
                 localStorage.setItem('vault_user', JSON.stringify(currentUser));
                 showWelcomeCard();
@@ -929,10 +909,7 @@
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
                 return JSON.parse(jsonPayload);
-            } catch(e) {
-                console.error('Ошибка декодирования JWT', e);
-                return null;
-            }
+            } catch(e) { return null; }
         }
         
         function restoreSession() {
@@ -942,9 +919,7 @@
                     currentUser = JSON.parse(saved);
                     showWelcomeCard();
                     return true;
-                } catch(e) {
-                    localStorage.removeItem('vault_user');
-                }
+                } catch(e) { localStorage.removeItem('vault_user'); }
             }
             return false;
         }
@@ -952,62 +927,28 @@
         function showWelcomeCard() {
             if (currentUser) {
                 userEmail.textContent = currentUser.email;
-                const firstName = currentUser.name.split(' ')[0];
-                welcomeMessage.textContent = `С возвращением, ${firstName}!`;
-                if (currentUser.picture) {
-                    userAvatar.src = currentUser.picture;
-                }
+                welcomeMessage.textContent = `С возвращением, ${currentUser.name.split(' ')[0]}!`;
+                if (currentUser.picture) userAvatar.src = currentUser.picture;
                 loginCard.classList.add('hidden');
                 welcomeCard.classList.remove('hidden');
-                updatePermissionsUI();
+                renderPermissionsGrid();
+                startPermissionWatcher();
             }
-        }
-        
-        function showLoginCard() {
-            loginCard.classList.remove('hidden');
-            welcomeCard.classList.add('hidden');
         }
         
         function signOut() {
-            if (window.google && google.accounts && google.accounts.id) {
-                google.accounts.id.disableAutoSelect();
-            }
+            if (window.google?.accounts?.id) google.accounts.id.disableAutoSelect();
             localStorage.removeItem('vault_user');
             currentUser = null;
-            permissionsGranted = {
-                notifications: false,
-                geolocation: false,
-                fullscreen: false
-            };
-            showLoginCard();
-            setTimeout(() => initGoogle(), 100);
+            loginCard.classList.remove('hidden');
+            welcomeCard.classList.add('hidden');
+            initGoogle();
         }
         
         // Инициализация
-        window.onload = function() {
-            if (!restoreSession()) {
-                initGoogle();
-            }
-        };
-        
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', signOut);
-        }
-        
-        // Синхронизация между вкладками
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'vault_user') {
-                if (e.newValue) {
-                    try {
-                        currentUser = JSON.parse(e.newValue);
-                        showWelcomeCard();
-                    } catch(err) {}
-                } else {
-                    currentUser = null;
-                    showLoginCard();
-                }
-            }
-        });
+        initPermissionsState();
+        window.onload = () => { if (!restoreSession()) initGoogle(); };
+        if (logoutBtn) logoutBtn.addEventListener('click', signOut);
     </script>
 </body>
 </html>
