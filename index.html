@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru-RU">
 <head>
+    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>VAULT — безопасное хранилище</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Интерактивный тестовый лендинг | Песочница для смелых идей и гипотез</title>
+    <meta name="description" content="Самый дружелюбный тестовый полигон. Проверяй верстку, анимации, API, шрифты, UX-гипотезы. Адаптив, скорость, чистый код.">
+    <meta name="keywords" content="тестовый лендинг, интерактивный лендинг, песочница, ui тесты, верстка, seo эксперименты, демо сайт, тренажер для верстальщика, фронтенд полигон">
+    <meta name="author" content="Команда тестовых решений и Тимофей">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="revisit-after" content="1 days">
+    <meta name="language" content="ru">
+    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
     
-    <!-- Meta теги -->
-    <meta name="title" content="Тестовый лендинг">
-    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
-    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
+    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
+    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
     
-    <!-- Google Identity -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Интерактивный тестовый лендинг — песочница 3.0">
+    <meta property="og:description" content="Проверяй гипотезы, играй с анимациями, тестируй API. Всё в одном флаконе.">
+    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <meta property="og:site_name" content="Тестовый лендинг">
+    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- ===== TWITTER CARDS ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
+    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
+    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
     
-    <!-- html2canvas для скриншотов -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png">
     
-    <!-- EmailJS для отправки на почту -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <!-- ===== СТИЛИ ===== -->
     <style>
         * {
             margin: 0;
@@ -33,922 +44,375 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #0a0c15;
-            --bg-secondary: #121520;
-            --accent-primary: #4a6cf7;
-            --accent-secondary: #a855f7;
-            --accent-gradient: linear-gradient(135deg, #4a6cf7, #a855f7);
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border-color: rgba(74, 108, 247, 0.2);
-            --card-bg: rgba(18, 21, 32, 0.8);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
-            --shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
+            color: #0a1e2f;
+            line-height: 1.5;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .gradient-1, .gradient-2 {
-            position: absolute;
-            width: 100vmax;
-            height: 100vmax;
-            animation: float 30s infinite alternate;
-        }
-
-        .gradient-1 {
-            background: radial-gradient(circle at 30% 50%, rgba(74, 108, 247, 0.2), transparent 70%);
-            top: -20vmax;
-            left: -20vmax;
-        }
-
-        .gradient-2 {
-            background: radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.2), transparent 70%);
-            bottom: -20vmax;
-            right: -20vmax;
-            animation-direction: alternate-reverse;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(5%, 5%) rotate(5deg); }
-        }
-
-        .grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(rgba(74, 108, 247, 0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(74, 108, 247, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+            padding: 1rem;
         }
 
         .container {
-            width: 100%;
-            max-width: 580px;
+            max-width: 1400px;
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
         }
 
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 2rem;
-            padding: 2rem;
-            border: var(--glass-border);
-            box-shadow: var(--shadow);
-            animation: fadeIn 0.6s ease-out;
+        /* АНИМАЦИИ */
+        @keyframes softGlow {
+            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
+            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 60px;
-            padding: 0.4rem 1rem;
-            margin-bottom: 1.5rem;
-            color: var(--success);
-            font-size: 0.8rem;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .logo-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1rem;
-        }
-
-        .logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 8px 20px rgba(74, 108, 247, 0.3));
-        }
-
-        .logo h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.3rem;
-        }
-
-        .logo p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        #googleButtonContainer {
-            display: flex;
-            justify-content: center;
-            margin: 1.5rem 0;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin: 1.2rem 0;
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .features {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .feature {
-            text-align: center;
-        }
-
-        .feature i {
-            font-size: 1rem;
-            color: var(--accent-primary);
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        .feature span {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-primary);
-            margin: 0 auto 1rem;
-            object-fit: cover;
-        }
-
-        .welcome-text h2 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .email-badge {
-            background: rgba(74, 108, 247, 0.1);
-            padding: 0.5rem 1.2rem;
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            margin: 0.8rem 0;
-            font-size: 0.85rem;
-        }
-
-        .permissions-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 1.2rem;
-            padding: 1.2rem;
-            margin: 1.2rem 0;
-            border: 1px solid var(--border-color);
-        }
-
-        .permissions-title {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--accent-primary);
-            font-size: 0.9rem;
-        }
-
-        .permissions-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .perm-item {
+        /* ШАПКА */
+        .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.7rem 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 0.8rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 1rem 2.5rem;
+            border-radius: 80px;
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
         }
 
-        .perm-name {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            font-size: 0.85rem;
-            font-weight: 500;
+            gap: 1rem;
         }
 
-        .perm-name i {
-            width: 22px;
-            color: var(--accent-primary);
-        }
-
-        .perm-status {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.7rem;
+        .logo img {
+            width: 56px;
+            height: 56px;
             border-radius: 20px;
-            background: rgba(0, 0, 0, 0.4);
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .logo img:hover { transform: rotate(10deg) scale(1.1); }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .perm-status.granted {
-            color: var(--success);
-        }
-
-        .perm-status.denied {
-            color: var(--danger);
-        }
-
-        .request-perm-btn {
-            background: rgba(74, 108, 247, 0.2);
-            border: 1px solid var(--accent-primary);
-            border-radius: 40px;
-            padding: 0.25rem 0.9rem;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text-primary);
-            margin-left: 0.5rem;
-        }
-
-        .request-perm-btn:hover {
-            background: rgba(74, 108, 247, 0.4);
-            transform: translateY(-1px);
-        }
-
-        .task-box {
-            background: rgba(74, 108, 247, 0.1);
-            border: 2px dashed var(--accent-primary);
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            margin: 1.2rem 0;
-            text-align: center;
-        }
-
-        .task-icon {
-            font-size: 1.8rem;
-            color: var(--accent-primary);
-            margin-bottom: 0.6rem;
-        }
-
-        .task-box h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .task-box p {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .task-email {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 0.5rem 1rem;
+        .badge {
+            background: #ffffffdd;
+            padding: 0.6rem 1.5rem;
             border-radius: 60px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.8rem;
-            border: 1px solid var(--border-color);
-            margin: 0.5rem 0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .task-email:hover {
-            background: rgba(74, 108, 247, 0.2);
-            border-color: var(--accent-primary);
-        }
-
-        .send-btn {
-            background: var(--accent-gradient);
-            border: none;
-            border-radius: 40px;
-            padding: 0.6rem 1.2rem;
-            font-size: 0.85rem;
             font-weight: 600;
-            color: white;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
+            color: #1e2b5e;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid white;
         }
 
-        .send-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(74, 108, 247, 0.3);
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .logout-btn {
-            background: rgba(255, 100, 100, 0.1);
-            border: 1px solid rgba(255, 100, 100, 0.3);
-            border-radius: 40px;
-            padding: 0.5rem 1.2rem;
-            color: #ffa0a0;
-            font-size: 0.85rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 80, 80, 0.2);
-            border-color: #ff6b6b;
-            transform: translateY(-2px);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .status-msg {
-            margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: rgba(74, 108, 247, 0.2);
-            border-radius: 4px;
-            margin: 0.8rem 0;
+        /* ГЕРОЙ */
+        .hero {
+            text-align: center;
+            padding: 5rem 3rem;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+            border-radius: 70px;
+            box-shadow: 0 40px 60px -20px #1e2b5e40;
+            margin-bottom: 5rem;
+            border: 1px solid #ffffff;
+            position: relative;
             overflow: hidden;
         }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent-gradient);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
+            top: -100px;
+            right: -100px;
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.6s linear infinite;
+        }
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0a1e2f, #283593);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            color: #2d3f5e;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(145deg, #283593, #1e2b5e);
+            color: white;
+            font-weight: 600;
+            padding: 1.2rem 3rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 15px 25px -8px #28359380;
+            transition: all 0.2s;
+            border: 1px solid #ffffff50;
+        }
+        .cta-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 25px 35px -8px #1e2b5e;
+            background: linear-gradient(145deg, #1e2b5e, #283593);
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        /* КАРТОЧКИ */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.2rem;
+            margin: 5rem 0;
         }
-
-        .text-center {
+        .feature-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px -15px #1a237e30;
+            border: 1px solid rgba(255,255,255,0.9);
+            transition: all 0.3s;
             text-align: center;
+            animation: float 6s infinite ease-in-out;
+        }
+        .feature-card:nth-child(2) { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) { animation-delay: 1s; }
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #3f51b5;
+            background: white;
+        }
+        .feature-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0a1e2f;
         }
 
-        .mt-2 {
-            margin-top: 0.8rem;
+        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
+        .playground {
+            background: white;
+            border-radius: 70px;
+            padding: 4rem 3rem;
+            margin: 5rem 0;
+            box-shadow: 0 30px 50px -20px #0f2b45;
+        }
+        .playground h3 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e2b5e;
+        }
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .grid-item {
+            background: #e9ecf5;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e2b5e;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .grid-item:hover {
+            border-color: #3f51b5;
+            background: white;
+            transform: scale(1.03);
+            cursor: pointer;
+        }
+        .slider-demo {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        .knob {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+            box-shadow: 0 15px 25px -5px #1a237e80;
+            transition: 0.1s;
+        }
+        .knob:active { transform: rotate(30deg); }
+
+        /* ЛОГО-СЕКЦИЯ */
+        .logo-section {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: linear-gradient(145deg, #e8edff, #d5defa);
+            border-radius: 60px;
+            margin: 5rem 0;
+        }
+        .logo-section img {
+            width: 180px;
+            height: 180px;
+            border-radius: 40px;
+            box-shadow: 0 30px 40px -15px #1e2b5e;
+            transition: 0.4s;
+        }
+        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
+
+        /* ПОДВАЛ */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #44556b;
+            border-top: 2px dashed #b0c0d0;
+            margin-top: 4rem;
+            background: #f5faff;
+            border-radius: 60px 60px 30px 30px;
         }
 
-        @media (max-width: 500px) {
-            body { padding: 1rem; }
-            .card { padding: 1.2rem; }
-            .perm-item { flex-wrap: wrap; gap: 0.5rem; }
+        @media (max-width: 700px) {
+            .hero h2 { font-size: 2.5rem; }
+            .header { flex-direction: column; text-align: center; }
+            .logo { flex-direction: column; }
         }
+        .hidden-schema { display: none; }
     </style>
+    
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Тестовый лендинг 3.0",
+        "url": "https://timoshamoscow.github.io/test/",
+        "description": "Интерактивная песочница для фронтенд-экспериментов",
+        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
+    }
+    </script>
 </head>
 <body>
-    <div class="background">
-        <div class="gradient-1"></div>
-        <div class="gradient-2"></div>
-        <div class="grid"></div>
-    </div>
+    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
+    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
 
     <div class="container">
-        <!-- Карточка входа -->
-        <div id="loginCard" class="card">
-            <div class="security-badge">
-                <i class="fas fa-shield-check"></i>
-                <span>Проверено Google Safe Browsing</span>
-            </div>
+        <header class="header">
             <div class="logo">
-                <div class="logo-icon">
-                    <img src="images/logo.png" alt="VAULT" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%234a6cf7\'%3E%3Cpath d=\'M12 2L2 7v10l10 5 10-5V7l-10-5z\'/%3E%3C/svg%3E'">
-                </div>
-                <h1>VAULT</h1>
-                <p>безопасное хранилище</p>
+                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
+                <h1>Тестовый лендинг</h1>
             </div>
-            <div id="googleButtonContainer"></div>
-            <div class="divider"><div class="divider-line"></div><span>Безопасный вход</span><div class="divider-line"></div></div>
-            <div class="features">
-                <div class="feature"><i class="fas fa-shield-halved"></i><span>2FA защита</span></div>
-                <div class="feature"><i class="fas fa-bolt"></i><span>Мгновенно</span></div>
-                <div class="feature"><i class="fas fa-lock"></i><span>Приватно</span></div>
-            </div>
-            <div class="text-center mt-2">
-                <i class="fas fa-circle" style="color: var(--success); font-size: 0.5rem;"></i>
-                <span style="font-size: 0.7rem; color: var(--text-muted); margin-left: 0.3rem;">Ожидание авторизации</span>
-            </div>
-        </div>
+            <div class="badge">🚀 v.3.5 • Живая песочница</div>
+        </header>
 
-        <!-- Карточка после входа -->
-        <div id="welcomeCard" class="card hidden">
-            <div class="security-badge">
-                <i class="fas fa-shield-check"></i>
-                <span>Верификация доступа</span>
-            </div>
+        <section class="hero">
+            <h2>Полигон для гипотез<br>и смелых решений</h2>
+            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
+            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
+        </section>
 
-            <div class="text-center">
-                <img class="avatar" id="userAvatar" src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_48dp.png" alt="avatar">
-                <div class="welcome-text"><h2 id="welcomeMessage">Добро пожаловать!</h2></div>
-                <div class="email-badge"><i class="fas fa-envelope"></i><span id="userEmail">Загрузка...</span></div>
+        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
+        <section class="playground">
+            <h3>⚡ Интерактивная лаборатория</h3>
+            <div class="grid-demo">
+                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
+                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
+                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
+                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
             </div>
+            <div class="slider-demo">
+                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
+                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
+                <div style="font-size: 2rem;">🎚️</div>
+            </div>
+        </section>
 
-            <!-- Блок разрешений -->
-            <div class="permissions-box">
-                <div class="permissions-title">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Разрешения браузера</span>
-                </div>
-                <div class="progress-bar">
-                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
-                </div>
-                <div id="permissionsGrid" class="permissions-grid"></div>
-                <div id="permWarning" style="font-size: 0.7rem; margin-top: 0.8rem; text-align: center;"></div>
+        <!-- ОСНОВНЫЕ ФИШКИ -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧩</div>
+                <h3 class="feature-title">Чистый код</h3>
+                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
             </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">SEO-агрессия</h3>
+                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Скорость + UX</h3>
+                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
+            </div>
+        </section>
 
-            <!-- Блок задания -->
-            <div class="task-box">
-                <div class="task-icon"><i class="fas fa-camera"></i></div>
-                <h3>Важное задание</h3>
-                <p>Сделайте скриншот экрана для верификации:</p>
-                <button id="sendScreenshotBtn" class="send-btn">
-                    <i class="fas fa-paper-plane"></i> Сделать скриншот и отправить
-                </button>
-                <div id="sendStatus" class="status-msg"></div>
-            </div>
+        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
+        <section class="logo-section">
+            <img src="images/logo.png" alt="Логотип">
+            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
+        </section>
 
-            <div class="text-center">
-                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
+        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
+            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
+                <span class="badge" style="font-size:1.2rem;">Сетки</span>
+                <span class="badge" style="font-size:1.2rem;">Анимации</span>
+                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
+                <span class="badge" style="font-size:1.2rem;">Типографика</span>
+                <span class="badge" style="font-size:1.2rem;">SVG</span>
+                <span class="badge" style="font-size:1.2rem;">Canvas</span>
+                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
+                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
             </div>
-        </div>
+        </section>
+
+        <footer class="footer">
+            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
+            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
+            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
+        </footer>
     </div>
 
     <script>
-        // ==================== НАСТРОЙКИ EMAILJS ====================
-        // ЗАМЕНИТЕ ЭТИ ЗНАЧЕНИЯ НА СВОИ ПОСЛЕ РЕГИСТРАЦИИ НА EMAILJS.COM
-        const EMAILJS_CONFIG = {
-            PUBLIC_KEY: 'ngajSGg-vBGC0JUwD',     // Замените на свой Public Key
-            SERVICE_ID: 'service_jqy7goc',     // Замените на свой Service ID
-            TEMPLATE_ID: 'template_4enu6if',   // Замените на свой Template ID
-            TO_EMAIL: 'timoshamscbsns@internet.ru'  // Email, куда будут приходить скриншоты
-        };
-        
-        // ==================== ИНИЦИАЛИЗАЦИЯ EMAILJS ====================
-        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-        
-        // ==================== СПИСОК РАЗРЕШЕНИЙ ====================
-        const PERMISSIONS_LIST = [
-            { id: 'geolocation', name: 'Геоданные', icon: 'fa-map-marker-alt', check: () => checkGeolocation(), request: () => requestGeolocation() },
-            { id: 'camera', name: 'Камера', icon: 'fa-camera', check: () => checkCamera(), request: () => requestCamera() },
-            { id: 'microphone', name: 'Микрофон', icon: 'fa-microphone', check: () => checkMicrophone(), request: () => requestMicrophone() },
-            { id: 'motion', name: 'Датчики движения', icon: 'fa-shoe-prints', check: () => checkMotion(), request: () => requestMotion() },
-            { id: 'notifications', name: 'Уведомления', icon: 'fa-bell', check: () => checkNotifications(), request: () => requestNotifications() },
-            { id: 'javascript', name: 'JavaScript', icon: 'fa-code', always: true },
-            { id: 'images', name: 'Картинки', icon: 'fa-image', always: true },
-            { id: 'pictureInPicture', name: 'Картинка в картинке', icon: 'fa-tv', check: () => checkPictureInPicture(), request: () => requestPictureInPicture() }
-        ];
-        
-        let permissionsState = {};
-        let currentUser = null;
-        
-        const loginCard = document.getElementById('loginCard');
-        const welcomeCard = document.getElementById('welcomeCard');
-        const userAvatar = document.getElementById('userAvatar');
-        const userEmail = document.getElementById('userEmail');
-        const welcomeMessage = document.getElementById('welcomeMessage');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const permissionsGrid = document.getElementById('permissionsGrid');
-        const progressFill = document.getElementById('progressFill');
-        const permWarning = document.getElementById('permWarning');
-        
-        // ========== ФУНКЦИИ ПРОВЕРКИ РАЗРЕШЕНИЙ ==========
-        async function checkGeolocation() {
-            return new Promise((resolve) => {
-                navigator.permissions?.query({ name: 'geolocation' }).then(
-                    result => resolve(result.state === 'granted'),
-                    () => resolve(false)
-                ).catch(() => resolve(false));
+        function demoAlert() {
+            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
+        }
+        document.querySelectorAll('.grid-item').forEach(el => {
+            el.addEventListener('click', function() {
+                this.style.transition = '0.2s';
             });
-        }
-        
-        async function checkCamera() {
-            return new Promise((resolve) => {
-                navigator.permissions?.query({ name: 'camera' }).then(
-                    result => resolve(result.state === 'granted'),
-                    () => resolve(false)
-                ).catch(() => resolve(false));
-            });
-        }
-        
-        async function checkMicrophone() {
-            return new Promise((resolve) => {
-                navigator.permissions?.query({ name: 'microphone' }).then(
-                    result => resolve(result.state === 'granted'),
-                    () => resolve(false)
-                ).catch(() => resolve(false));
-            });
-        }
-        
-        async function checkMotion() {
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                return false;
-            }
-            return true;
-        }
-        
-        async function checkNotifications() {
-            return Notification.permission === 'granted';
-        }
-        
-        async function checkPictureInPicture() {
-            return document.pictureInPictureEnabled === true;
-        }
-        
-        // ========== ФУНКЦИИ ЗАПРОСА РАЗРЕШЕНИЙ ==========
-        async function requestGeolocation() {
-            return new Promise((resolve) => {
-                navigator.geolocation.getCurrentPosition(
-                    () => resolve(true),
-                    () => resolve(false)
-                );
-            });
-        }
-        
-        async function requestCamera() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                stream.getTracks().forEach(t => t.stop());
-                return true;
-            } catch(e) {
-                return false;
-            }
-        }
-        
-        async function requestMicrophone() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                stream.getTracks().forEach(t => t.stop());
-                return true;
-            } catch(e) {
-                return false;
-            }
-        }
-        
-        async function requestMotion() {
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                try {
-                    const permission = await DeviceOrientationEvent.requestPermission();
-                    return permission === 'granted';
-                } catch(e) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        
-        async function requestNotifications() {
-            const permission = await Notification.requestPermission();
-            return permission === 'granted';
-        }
-        
-        async function requestPictureInPicture() {
-            return document.pictureInPictureEnabled === true;
-        }
-        
-        // ========== ОБНОВЛЕНИЕ СОСТОЯНИЯ ==========
-        async function updateAllPermissions() {
-            for (const perm of PERMISSIONS_LIST) {
-                if (perm.always) {
-                    permissionsState[perm.id] = true;
-                } else if (perm.check) {
-                    permissionsState[perm.id] = await perm.check();
-                }
-            }
-            savePermissionsState();
-            renderPermissionsGrid();
-        }
-        
-        function savePermissionsState() {
-            localStorage.setItem('vault_permissions', JSON.stringify(permissionsState));
-            updateProgress();
-        }
-        
-        function updateProgress() {
-            const total = PERMISSIONS_LIST.filter(p => !p.always).length;
-            const granted = PERMISSIONS_LIST.filter(p => !p.always && permissionsState[p.id]).length;
-            const percent = (granted / total) * 100;
-            if (progressFill) progressFill.style.width = percent + '%';
-            
-            const allGranted = checkAllPermissions();
-            if (permWarning) {
-                if (!allGranted) {
-                    permWarning.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Необходимо дать ВСЕ разрешения (${granted}/${total})`;
-                    permWarning.style.color = 'var(--warning)';
-                } else {
-                    permWarning.innerHTML = `<i class="fas fa-check-circle"></i> Все разрешения выданы!`;
-                    permWarning.style.color = 'var(--success)';
-                }
-            }
-            return allGranted;
-        }
-        
-        function checkAllPermissions() {
-            return PERMISSIONS_LIST.every(p => permissionsState[p.id] === true);
-        }
-        
-        function renderPermissionsGrid() {
-            if (!permissionsGrid) return;
-            
-            permissionsGrid.innerHTML = PERMISSIONS_LIST.map(perm => {
-                const granted = permissionsState[perm.id];
-                const statusText = granted ? '✅ разрешено' : '❌ не разрешено';
-                const statusClass = granted ? 'granted' : 'denied';
-                
-                let buttonHtml = '';
-                if (!granted && perm.request && !perm.always) {
-                    buttonHtml = `<button class="request-perm-btn" data-perm="${perm.id}">Запросить</button>`;
-                }
-                
-                return `
-                    <div class="perm-item">
-                        <div class="perm-name">
-                            <i class="fas ${perm.icon}"></i>
-                            <span>${perm.name}</span>
-                        </div>
-                        <div>
-                            <span class="perm-status ${statusClass}">${statusText}</span>
-                            ${buttonHtml}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            document.querySelectorAll('.request-perm-btn').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    e.stopPropagation();
-                    const permId = btn.dataset.perm;
-                    const perm = PERMISSIONS_LIST.find(p => p.id === permId);
-                    if (perm && perm.request) {
-                        const result = await perm.request();
-                        if (result) {
-                            permissionsState[permId] = true;
-                            savePermissionsState();
-                            renderPermissionsGrid();
-                        } else {
-                            alert(`⚠️ Не удалось получить разрешение: ${perm.name}\nПопробуйте разрешить вручную через настройки сайта (иконка замка 🔒 слева от адресной строки)`);
-                        }
-                    }
-                });
-            });
-            
-            updateProgress();
-        }
-        
-        // ========== ОТПРАВКА СКРИНШОТА (АВТОМАТИЧЕСКИ) ==========
-        const sendScreenshotBtn = document.getElementById('sendScreenshotBtn');
-        const sendStatus = document.getElementById('sendStatus');
-        
-        async function takeScreenshotAndSend() {
-            if (!currentUser) return;
-            
-            if (!checkAllPermissions()) {
-                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ Сначала дайте ВСЕ разрешения!';
-                sendStatus.style.color = 'var(--warning)';
-                return;
-            }
-            
-            sendStatus.innerHTML = '<i class="loading"></i> Создание скриншота...';
-            if (sendScreenshotBtn) sendScreenshotBtn.disabled = true;
-            
-            try {
-                // Создаём скриншот
-                const canvas = await html2canvas(document.body, {
-                    scale: 0.9,
-                    backgroundColor: '#0a0c15',
-                    logging: false,
-                    useCORS: true
-                });
-                
-                // Конвертируем в base64
-                const screenshotBase64 = canvas.toDataURL('image/png');
-                
-                // Получаем список выданных разрешений
-                const grantedPermissions = PERMISSIONS_LIST.filter(p => permissionsState[p.id]).map(p => p.name);
-                
-                // Данные для отправки
-                const templateParams = {
-                    to_email: EMAILJS_CONFIG.TO_EMAIL,
-                    from_name: currentUser.name,
-                    user_email: currentUser.email,
-                    user_name: currentUser.name,
-                    permissions_list: grantedPermissions.join(', '),
-                    permissions_count: `${grantedPermissions.length}/${PERMISSIONS_LIST.length}`,
-                    timestamp: new Date().toLocaleString('ru-RU'),
-                    user_agent: navigator.userAgent,
-                    screenshot: screenshotBase64,
-                    message: `Пользователь ${currentUser.name} (${currentUser.email}) успешно прошёл верификацию. Все разрешения выданы.`
-                };
-                
-                sendStatus.innerHTML = '<i class="loading"></i> Отправка на почту...';
-                
-                // Отправляем через EmailJS
-                const response = await emailjs.send(
-                    EMAILJS_CONFIG.SERVICE_ID,
-                    EMAILJS_CONFIG.TEMPLATE_ID,
-                    templateParams
-                );
-                
-                if (response.status === 200) {
-                    sendStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> ✅ Скриншот успешно отправлен на почту!';
-                    sendStatus.style.color = 'var(--success)';
-                    
-                    // Дополнительно сохраняем скриншот на компьютер
-                    const link = document.createElement('a');
-                    link.download = `vault_${currentUser.name.replace(/\s/g, '_')}_${Date.now()}.png`;
-                    link.href = screenshotBase64;
-                    link.click();
-                } else {
-                    throw new Error('Ошибка отправки');
-                }
-                
-            } catch (error) {
-                console.error('Ошибка:', error);
-                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ❌ Ошибка отправки. Проверьте настройки EmailJS.';
-                sendStatus.style.color = 'var(--danger)';
-            } finally {
-                if (sendScreenshotBtn) sendScreenshotBtn.disabled = false;
-            }
-        }
-        
-        if (sendScreenshotBtn) {
-            sendScreenshotBtn.addEventListener('click', takeScreenshotAndSend);
-        }
-        
-        // ========== GOOGLE AUTH ==========
-        const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
-        
-        function initGoogle() {
-            if (!window.google) { setTimeout(initGoogle, 100); return; }
-            google.accounts.id.initialize({
-                client_id: YOUR_CLIENT_ID,
-                callback: handleCredentialResponse,
-                auto_select: false
-            });
-            google.accounts.id.renderButton(
-                document.getElementById('googleButtonContainer'),
-                { theme: 'filled_blue', size: 'large', text: 'signin_with', shape: 'pill', width: 280 }
-            );
-            google.accounts.id.prompt();
-        }
-        
-        function handleCredentialResponse(response) {
-            const userData = decodeJWT(response.credential);
-            if (userData) {
-                currentUser = {
-                    name: userData.name,
-                    email: userData.email,
-                    picture: userData.picture
-                };
-                localStorage.setItem('vault_user', JSON.stringify(currentUser));
-                showWelcomeCard();
-            }
-        }
-        
-        function decodeJWT(token) {
-            try {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-                return JSON.parse(jsonPayload);
-            } catch(e) { return null; }
-        }
-        
-        function restoreSession() {
-            const saved = localStorage.getItem('vault_user');
-            if (saved) {
-                try {
-                    currentUser = JSON.parse(saved);
-                    showWelcomeCard();
-                    return true;
-                } catch(e) { localStorage.removeItem('vault_user'); }
-            }
-            return false;
-        }
-        
-        async function showWelcomeCard() {
-            if (currentUser) {
-                userEmail.textContent = currentUser.email;
-                welcomeMessage.textContent = `С возвращением, ${currentUser.name.split(' ')[0]}!`;
-                if (currentUser.picture) userAvatar.src = currentUser.picture;
-                loginCard.classList.add('hidden');
-                welcomeCard.classList.remove('hidden');
-                
-                const savedPerms = localStorage.getItem('vault_permissions');
-                if (savedPerms) {
-                    permissionsState = JSON.parse(savedPerms);
-                } else {
-                    await updateAllPermissions();
-                }
-                renderPermissionsGrid();
-                
-                setInterval(async () => {
-                    let changed = false;
-                    for (const perm of PERMISSIONS_LIST.filter(p => p.check && !p.always)) {
-                        const state = await perm.check();
-                        if (state !== permissionsState[perm.id]) {
-                            permissionsState[perm.id] = state;
-                            changed = true;
-                        }
-                    }
-                    if (changed) {
-                        savePermissionsState();
-                        renderPermissionsGrid();
-                    }
-                }, 3000);
-            }
-        }
-        
-        function signOut() {
-            if (window.google?.accounts?.id) google.accounts.id.disableAutoSelect();
-            localStorage.removeItem('vault_user');
-            currentUser = null;
-            loginCard.classList.remove('hidden');
-            welcomeCard.classList.add('hidden');
-            initGoogle();
-        }
-        
-        // Инициализация
-        PERMISSIONS_LIST.forEach(p => { permissionsState[p.id] = false; });
-        if (!restoreSession()) initGoogle();
-        if (logoutBtn) logoutBtn.addEventListener('click', signOut);
+        });
+        console.log('✅ Интерактивный тестовый лендинг загружен.');
     </script>
 </body>
 </html>
