@@ -120,7 +120,6 @@
             background: #0f172a;
             border-radius: 1.5rem;
             padding: 1.5rem;
-            text-align: center;
             margin-top: 1rem;
             border: 2px solid #fbbf24;
         }
@@ -131,15 +130,49 @@
             color: #fbbf24;
         }
 
-        .result p {
-            color: #cbd5e1;
-            font-size: 1rem;
-        }
-
         .result-score {
             font-size: 3rem;
             font-weight: 800;
             margin: 1rem 0;
+        }
+
+        .answers-review {
+            background: #0f172a;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #334155;
+        }
+
+        .answer-item {
+            padding: 0.8rem;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .answer-item:last-child {
+            border-bottom: none;
+        }
+
+        .answer-question {
+            font-weight: 600;
+            color: #94a3b8;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .answer-user {
+            color: #fbbf24;
+            font-weight: 500;
+        }
+
+        .answer-correct {
+            color: #10b981;
+            font-size: 0.9rem;
         }
 
         .hidden {
@@ -155,7 +188,7 @@
     </style>
 </head>
 <body>
-    <div class="test-container">
+    <div class="test-container" id="testContainer">
         <h1>ТЕСТ НА ТИМОФЕЯ</h1>
         <div class="sub">ты ли ты? 🤔</div>
 
@@ -172,107 +205,73 @@
         const questions = [
             {
                 text: "Что ты ответишь, если в комментариях напишут «сухарики»?",
-                options: [
-                    "ДАЧЁ ЗА СУХАРИКИ",
-                    "У МЕНЯ НЕТ СУХАРИКИ",
-                    "Игнорирую",
-                    "Снимаю шортс про сухарики"
-                ],
+                options: ["ДАЧЁ ЗА СУХАРИКИ", "У МЕНЯ НЕТ СУХАРИКИ", "Игнорирую", "Снимаю шортс про сухарики"],
+                correct: 0,
                 scores: [10, 7, 3, 9]
             },
             {
                 text: "Какая твоя любимая эмоция в чате?",
                 options: ["0_0", "0______0", "00", "😱"],
+                correct: 1,
                 scores: [8, 10, 7, 5]
             },
             {
                 text: "Что ты сделаешь с РКН?",
-                options: [
-                    "Запрещу в рулетке",
-                    "Стану иноагентом",
-                    "Создам маркетплейс мер воздействия",
-                    "Пошлю нахуй"
-                ],
+                options: ["Запрещу в рулетке", "Стану иноагентом", "Создам маркетплейс мер воздействия", "Пошлю нахуй"],
+                correct: 2,
                 scores: [9, 10, 10, 9]
             },
             {
                 text: "Какой язык ты придумал?",
-                options: [
-                    "Сибилевец",
-                    "Вакеатэ Мовын",
-                    "Жаёмна",
-                    "Всё перечисленное"
-                ],
+                options: ["Сибилевец", "Вакеатэ Мовын", "Жаёмна", "Всё перечисленное"],
+                correct: 3,
                 scores: [10, 3, 3, 10]
             },
             {
                 text: "Что ты ответишь, если тебя назовут женщиной?",
-                options: [
-                    "я иноакент",
-                    "гей",
-                    "жаёмна",
-                    "пошлю"
-                ],
+                options: ["я иноакент", "гей", "жаёмна", "пошлю"],
+                correct: 1,
                 scores: [8, 9, 7, 6]
             },
             {
                 text: "Какой у тебя статус в реестре иноагентов?",
-                options: [
-                    "Нет номера",
-                    "№742852",
-                    "№742852, выдано Тимофею Сибилеву",
-                    "Я сам создал реестр"
-                ],
+                options: ["Нет номера", "№742852", "№742852, выдано Тимофею Сибилеву", "Я сам создал реестр"],
+                correct: 2,
                 scores: [0, 8, 10, 10]
             },
             {
                 text: "Что такое «снегр»?",
-                options: [
-                    "Снег + негр",
-                    "Коричневый снег (собачьи дела)",
-                    "Снеговик из снегра",
-                    "Всё перечисленное"
-                ],
+                options: ["Снег + негр", "Коричневый снег (собачьи дела)", "Снеговик из снегра", "Всё перечисленное"],
+                correct: 3,
                 scores: [5, 7, 5, 10]
             },
             {
                 text: "Какая у тебя любимая фраза Губкобобоамёбо?",
-                options: [
-                    "ты сдох",
-                    "ущербник",
-                    "иноакент",
-                    "все варианты"
-                ],
+                options: ["ты сдох", "ущербник", "иноакент", "все варианты"],
+                correct: 3,
                 scores: [6, 6, 8, 10]
             },
             {
                 text: "Что ты ответишь на вопрос «сколько тебе лет»?",
-                options: [
-                    "16 лет",
-                    "3 годика",
-                    "14 февраля 2010",
-                    "родился в 2010, 16 лет"
-                ],
+                options: ["16 лет", "3 годика", "14 февраля 2010", "родился в 2010, 16 лет"],
+                correct: 3,
                 scores: [9, 4, 8, 10]
             },
             {
                 text: "Где находится штаб-квартира TMFMSC?",
-                options: [
-                    "В Москве",
-                    "На 13-й Парковой",
-                    "В здании 300 тысяч лет",
-                    "Всё перечисленное"
-                ],
+                options: ["В Москве", "На 13-й Парковой", "В здании 300 тысяч лет", "Всё перечисленное"],
+                correct: 3,
                 scores: [5, 6, 9, 10]
             }
         ];
 
-        let userScores = [];
+        let userAnswers = new Array(questions.length).fill(-1);
+        let resultShown = false;
 
         function renderQuestions() {
             const container = document.getElementById('questions');
             container.innerHTML = '';
-            userScores = new Array(questions.length).fill(-1);
+            userAnswers = new Array(questions.length).fill(-1);
 
             questions.forEach((q, idx) => {
                 const qDiv = document.createElement('div');
@@ -294,80 +293,109 @@
                     optionsDiv.appendChild(optionDiv);
                 });
 
-                // обработчик
                 const radios = document.querySelectorAll(`input[name="q${idx}"]`);
                 radios.forEach(radio => {
                     radio.addEventListener('change', (e) => {
-                        userScores[idx] = parseInt(e.target.value);
+                        userAnswers[idx] = parseInt(e.target.value);
                     });
                 });
             });
         }
 
-        function calculateResult() {
-            // проверяем, что все вопросы отвечены
-            for (let i = 0; i < userScores.length; i++) {
-                if (userScores[i] === -1) {
+        function calculateAndShow() {
+            for (let i = 0; i < userAnswers.length; i++) {
+                if (userAnswers[i] === -1) {
                     alert(`Ответь на вопрос ${i+1} (${questions[i].text})`);
-                    return null;
+                    return;
                 }
             }
 
             let totalScore = 0;
             let maxScore = 0;
             for (let i = 0; i < questions.length; i++) {
-                const selected = userScores[i];
-                const score = questions[i].scores[selected];
-                totalScore += score;
+                totalScore += questions[i].scores[userAnswers[i]];
                 maxScore += 10;
             }
-
             const percent = Math.round((totalScore / maxScore) * 100);
 
             let title = '';
             let desc = '';
             let emoji = '';
+            let snowStatus = '';
 
             if (percent >= 90) {
                 title = 'ТЫ — ТИМОФЕЙ';
                 desc = 'Иноакент, основатель вселенной, создатель TAIPrompts, запретитель дрочки. Снежок летит, РКН в бешенстве. Ты официально в реестре под номером 742852.';
                 emoji = '👑❄️';
+                snowStatus = 'летит';
             } else if (percent >= 70) {
                 title = 'ТЫ ПОЧТИ ТИМОФЕЙ';
                 desc = 'Ты очень близок, но чего-то не хватает. Может, ты забыл про сухарики? Или перепутал 6 мая с 5 сентября? Подтяни знания, и ты станешь иноакентом.';
                 emoji = '🤔❄️';
+                snowStatus = 'летит';
             } else if (percent >= 50) {
                 title = 'ТЫ — ПОДПИСЧИК ТИМОШКИ';
                 desc = 'Ты в теме, но не до конца. Знаешь про снежок, про рулетку, но кажется, не следил за всеми релизами. Зайди в музей TMFMSC, подтянись!';
                 emoji = '📺❄️';
+                snowStatus = 'ещё не взлетел';
             } else if (percent >= 30) {
                 title = 'ТЫ — АРИНА ВАЛЕРЬЕВНА';
                 desc = '5 сентября 🤣🤣🤣🤣. Считать не умеешь, математика — 2, зато комментарии оставляешь. Ты далеко от Тимофея, но хотя бы пытаешься.';
                 emoji = '🤡❄️';
+                snowStatus = 'упал в сугроб';
             } else {
                 title = 'ТЫ — РКН';
                 desc = 'Заблокирован. Доступа к личности Тимофея нет. Попробуй ещё раз через VPN. А пока — сиди в реестре запрещённых.';
                 emoji = '🚫❄️';
+                snowStatus = 'запрещён';
             }
 
-            return { percent, title, desc, emoji };
-        }
+            // скрываем тест
+            document.getElementById('questions').classList.add('hidden');
+            document.getElementById('submitBtn').classList.add('hidden');
 
-        document.getElementById('submitBtn').addEventListener('click', () => {
-            const result = calculateResult();
-            if (!result) return;
+            // строим разбор ответов
+            let answersHtml = '<div class="answers-review"><h3 style="margin-bottom: 1rem;">📋 ТВОИ ОТВЕТЫ</h3>';
+            for (let i = 0; i < questions.length; i++) {
+                const userChoice = userAnswers[i];
+                const userText = questions[i].options[userChoice];
+                const correctText = questions[i].options[questions[i].correct];
+                const isCorrect = (userChoice === questions[i].correct);
+                answersHtml += `
+                    <div class="answer-item">
+                        <div class="answer-question">${i+1}. ${questions[i].text}</div>
+                        <div>
+                            <span class="answer-user">Ты: ${userText}</span>
+                            ${!isCorrect ? `<span class="answer-correct"> (правильно: ${correctText})</span>` : '<span class="answer-correct" style="color:#10b981;"> ✅</span>'}
+                        </div>
+                    </div>
+                `;
+            }
+            answersHtml += '</div>';
 
             const resultDiv = document.getElementById('result');
             resultDiv.classList.remove('hidden');
             resultDiv.innerHTML = `
-                <div class="result-score">🎯 ${result.percent}%</div>
-                <h3>${result.emoji} ${result.title} ${result.emoji}</h3>
-                <p>${result.desc}</p>
+                ${answersHtml}
+                <div class="result-score">🎯 ${percent}%</div>
+                <h3>${emoji} ${title} ${emoji}</h3>
+                <p>${desc}</p>
                 <div style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
-                    ❄️ снежок: ${result.percent >= 70 ? 'летит' : 'ещё не взлетел'}
+                    ❄️ снежок: ${snowStatus}
                 </div>
+                <button id="resetBtn" class="btn" style="margin-top: 1.5rem;">ПРОЙТИ ЗАНОВО</button>
             `;
-        });
+
+            document.getElementById('resetBtn').addEventListener('click', () => {
+                resultDiv.classList.add('hidden');
+                document.getElementById('questions').classList.remove('hidden');
+                document.getElementById('submitBtn').classList.remove('hidden');
+                renderQuestions();
+                resultShown = false;
+            });
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', calculateAndShow);
 
         renderQuestions();
     </script>
