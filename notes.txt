@@ -1,6 +1,9 @@
 // Для входа через Google (Client ID)
 const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
 
+// Гугл верификация
+<meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
+
 // Тестовое лого сайта
 images/logo.png
 
