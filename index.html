@@ -1,42 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru">
 <head>
-    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Интерактивный тестовый лендинг | Песочница для смелых идей и гипотез</title>
-    <meta name="description" content="Самый дружелюбный тестовый полигон. Проверяй верстку, анимации, API, шрифты, UX-гипотезы. Адаптив, скорость, чистый код.">
-    <meta name="keywords" content="тестовый лендинг, интерактивный лендинг, песочница, ui тесты, верстка, seo эксперименты, демо сайт, тренажер для верстальщика, фронтенд полигон">
-    <meta name="author" content="Команда тестовых решений и Тимофей">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="revisit-after" content="1 days">
-    <meta name="language" content="ru">
-    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
-    
-    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
-    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
-    
-    <!-- ===== OPEN GRAPH ===== -->
-    <meta property="og:locale" content="ru_RU">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Интерактивный тестовый лендинг — песочница 3.0">
-    <meta property="og:description" content="Проверяй гипотезы, играй с анимациями, тестируй API. Всё в одном флаконе.">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    <meta property="og:site_name" content="Тестовый лендинг">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- ===== TWITTER CARDS ===== -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
-    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
-    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-    
-    <!-- ===== СТИЛИ ===== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест на Тимофея · ты ли ты?</title>
     <style>
         * {
             margin: 0;
@@ -45,374 +12,364 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
-            color: #0a1e2f;
-            line-height: 1.5;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0f172a;
+            color: #f1f5f9;
             min-height: 100vh;
-            padding: 1rem;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* АНИМАЦИИ */
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
-            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* ШАПКА */
-        .header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.8);
-            padding: 1rem 2.5rem;
-            border-radius: 80px;
-            margin-bottom: 4rem;
-            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            width: 56px;
-            height: 56px;
-            border-radius: 20px;
-            object-fit: contain;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .logo img:hover { transform: rotate(10deg) scale(1.1); }
-
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .badge {
-            background: #ffffffdd;
-            padding: 0.6rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            color: #1e2b5e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid white;
-        }
-
-        /* ГЕРОЙ */
-        .hero {
-            text-align: center;
-            padding: 5rem 3rem;
-            background: linear-gradient(145deg, #ffffff, #f5f9ff);
-            border-radius: 70px;
-            box-shadow: 0 40px 60px -20px #1e2b5e40;
-            margin-bottom: 5rem;
-            border: 1px solid #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-        }
-        .hero h2 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #0a1e2f, #283593);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.4rem;
-            color: #2d3f5e;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(145deg, #283593, #1e2b5e);
-            color: white;
-            font-weight: 600;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 15px 25px -8px #28359380;
-            transition: all 0.2s;
-            border: 1px solid #ffffff50;
-        }
-        .cta-button:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 25px 35px -8px #1e2b5e;
-            background: linear-gradient(145deg, #1e2b5e, #283593);
-        }
-
-        /* КАРТОЧКИ */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.2rem;
-            margin: 5rem 0;
-        }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px -15px #1a237e30;
-            border: 1px solid rgba(255,255,255,0.9);
-            transition: all 0.3s;
-            text-align: center;
-            animation: float 6s infinite ease-in-out;
-        }
-        .feature-card:nth-child(2) { animation-delay: 0.5s; }
-        .feature-card:nth-child(3) { animation-delay: 1s; }
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: #3f51b5;
-            background: white;
-        }
-        .feature-icon {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .feature-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #0a1e2f;
-        }
-
-        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
-        .playground {
-            background: white;
-            border-radius: 70px;
-            padding: 4rem 3rem;
-            margin: 5rem 0;
-            box-shadow: 0 30px 50px -20px #0f2b45;
-        }
-        .playground h3 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #1e2b5e;
-        }
-        .grid-demo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        .grid-item {
-            background: #e9ecf5;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-radius: 30px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1e2b5e;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-        .grid-item:hover {
-            border-color: #3f51b5;
-            background: white;
-            transform: scale(1.03);
-            cursor: pointer;
-        }
-        .slider-demo {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
             justify-content: center;
-            margin-top: 3rem;
+            padding: 2rem;
         }
-        .knob {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
-            box-shadow: 0 15px 25px -5px #1a237e80;
+
+        .test-container {
+            max-width: 750px;
+            width: 100%;
+            background: #1e293b;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.5);
+            border: 1px solid #334155;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f87171, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .question {
+            background: #0f172a;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 8px solid #fbbf24;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fbbf24;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
             transition: 0.1s;
         }
-        .knob:active { transform: rotate(30deg); }
 
-        /* ЛОГО-СЕКЦИЯ */
-        .logo-section {
+        .option:hover {
+            background: #1e293b;
+            border-radius: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .option input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #fbbf24;
+        }
+
+        .option label {
+            cursor: pointer;
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: #fbbf24;
+            color: #0f172a;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 3rem;
+            cursor: pointer;
+            width: 100%;
+            margin: 1.5rem 0;
+            transition: 0.1s;
+        }
+
+        .btn:hover {
+            background: #f59e0b;
+            transform: scale(1.02);
+        }
+
+        .result {
+            background: #0f172a;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
             text-align: center;
-            padding: 4rem 3rem;
-            background: linear-gradient(145deg, #e8edff, #d5defa);
-            border-radius: 60px;
-            margin: 5rem 0;
+            margin-top: 1rem;
+            border: 2px solid #fbbf24;
         }
-        .logo-section img {
-            width: 180px;
-            height: 180px;
-            border-radius: 40px;
-            box-shadow: 0 30px 40px -15px #1e2b5e;
-            transition: 0.4s;
-        }
-        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
 
-        /* ПОДВАЛ */
-        .footer {
+        .result h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fbbf24;
+        }
+
+        .result p {
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 1rem 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
             text-align: center;
-            padding: 3rem 2rem;
-            color: #44556b;
-            border-top: 2px dashed #b0c0d0;
-            margin-top: 4rem;
-            background: #f5faff;
-            border-radius: 60px 60px 30px 30px;
+            margin-top: 2rem;
+            color: #475569;
+            font-size: 0.8rem;
         }
-
-        @media (max-width: 700px) {
-            .hero h2 { font-size: 2.5rem; }
-            .header { flex-direction: column; text-align: center; }
-            .logo { flex-direction: column; }
-        }
-        .hidden-schema { display: none; }
     </style>
-    
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Тестовый лендинг 3.0",
-        "url": "https://timoshamoscow.github.io/test/",
-        "description": "Интерактивная песочница для фронтенд-экспериментов",
-        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
-    }
-    </script>
 </head>
 <body>
-    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
-    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
+    <div class="test-container">
+        <h1>ТЕСТ НА ТИМОФЕЯ</h1>
+        <div class="sub">ты ли ты? 🤔</div>
 
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
-                <h1>Тестовый лендинг</h1>
-            </div>
-            <div class="badge">🚀 v.3.5 • Живая песочница</div>
-        </header>
+        <div id="questions"></div>
 
-        <section class="hero">
-            <h2>Полигон для гипотез<br>и смелых решений</h2>
-            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
-            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
-        </section>
+        <button class="btn" id="submitBtn">УЗНАТЬ РЕЗУЛЬТАТ</button>
 
-        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
-        <section class="playground">
-            <h3>⚡ Интерактивная лаборатория</h3>
-            <div class="grid-demo">
-                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
-                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
-                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
-                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
-            </div>
-            <div class="slider-demo">
-                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
-                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
-                <div style="font-size: 2rem;">🎚️</div>
-            </div>
-        </section>
+        <div id="result" class="result hidden"></div>
 
-        <!-- ОСНОВНЫЕ ФИШКИ -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🧩</div>
-                <h3 class="feature-title">Чистый код</h3>
-                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3 class="feature-title">SEO-агрессия</h3>
-                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Скорость + UX</h3>
-                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
-            </div>
-        </section>
-
-        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
-        <section class="logo-section">
-            <img src="images/logo.png" alt="Логотип">
-            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
-        </section>
-
-        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
-        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
-            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
-                <span class="badge" style="font-size:1.2rem;">Сетки</span>
-                <span class="badge" style="font-size:1.2rem;">Анимации</span>
-                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
-                <span class="badge" style="font-size:1.2rem;">Типографика</span>
-                <span class="badge" style="font-size:1.2rem;">SVG</span>
-                <span class="badge" style="font-size:1.2rem;">Canvas</span>
-                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
-                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
-            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
-            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
-        </footer>
+        <footer>❄️ снежок всё ещё летит · 🖕🖕🖕 РКН · 🎰</footer>
     </div>
 
     <script>
-        function demoAlert() {
-            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
-        }
-        document.querySelectorAll('.grid-item').forEach(el => {
-            el.addEventListener('click', function() {
-                this.style.transition = '0.2s';
+        const questions = [
+            {
+                text: "Что ты ответишь, если в комментариях напишут «сухарики»?",
+                options: [
+                    "ДАЧЁ ЗА СУХАРИКИ",
+                    "У МЕНЯ НЕТ СУХАРИКИ",
+                    "Игнорирую",
+                    "Снимаю шортс про сухарики"
+                ],
+                scores: [10, 7, 3, 9]
+            },
+            {
+                text: "Какая твоя любимая эмоция в чате?",
+                options: ["0_0", "0______0", "00", "😱"],
+                scores: [8, 10, 7, 5]
+            },
+            {
+                text: "Что ты сделаешь с РКН?",
+                options: [
+                    "Запрещу в рулетке",
+                    "Стану иноагентом",
+                    "Создам маркетплейс мер воздействия",
+                    "Пошлю нахуй"
+                ],
+                scores: [9, 10, 10, 9]
+            },
+            {
+                text: "Какой язык ты придумал?",
+                options: [
+                    "Сибилевец",
+                    "Вакеатэ Мовын",
+                    "Жаёмна",
+                    "Всё перечисленное"
+                ],
+                scores: [10, 3, 3, 10]
+            },
+            {
+                text: "Что ты ответишь, если тебя назовут женщиной?",
+                options: [
+                    "я иноакент",
+                    "гей",
+                    "жаёмна",
+                    "пошлю"
+                ],
+                scores: [8, 9, 7, 6]
+            },
+            {
+                text: "Какой у тебя статус в реестре иноагентов?",
+                options: [
+                    "Нет номера",
+                    "№742852",
+                    "№742852, выдано Тимофею Сибилеву",
+                    "Я сам создал реестр"
+                ],
+                scores: [0, 8, 10, 10]
+            },
+            {
+                text: "Что такое «снегр»?",
+                options: [
+                    "Снег + негр",
+                    "Коричневый снег (собачьи дела)",
+                    "Снеговик из снегра",
+                    "Всё перечисленное"
+                ],
+                scores: [5, 7, 5, 10]
+            },
+            {
+                text: "Какая у тебя любимая фраза Губкобобоамёбо?",
+                options: [
+                    "ты сдох",
+                    "ущербник",
+                    "иноакент",
+                    "все варианты"
+                ],
+                scores: [6, 6, 8, 10]
+            },
+            {
+                text: "Что ты ответишь на вопрос «сколько тебе лет»?",
+                options: [
+                    "16 лет",
+                    "3 годика",
+                    "14 февраля 2010",
+                    "родился в 2010, 16 лет"
+                ],
+                scores: [9, 4, 8, 10]
+            },
+            {
+                text: "Где находится штаб-квартира TMFMSC?",
+                options: [
+                    "В Москве",
+                    "На 13-й Парковой",
+                    "В здании 300 тысяч лет",
+                    "Всё перечисленное"
+                ],
+                scores: [5, 6, 9, 10]
+            }
+        ];
+
+        let userScores = [];
+
+        function renderQuestions() {
+            const container = document.getElementById('questions');
+            container.innerHTML = '';
+            userScores = new Array(questions.length).fill(-1);
+
+            questions.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `
+                    <div class="question-text">${idx+1}. ${q.text}</div>
+                    <div class="options" id="q-${idx}"></div>
+                `;
+                container.appendChild(qDiv);
+
+                const optionsDiv = document.getElementById(`q-${idx}`);
+                q.options.forEach((opt, optIdx) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    optionDiv.innerHTML = `
+                        <input type="radio" name="q${idx}" value="${optIdx}" id="q${idx}_${optIdx}">
+                        <label for="q${idx}_${optIdx}">${opt}</label>
+                    `;
+                    optionsDiv.appendChild(optionDiv);
+                });
+
+                // обработчик
+                const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        userScores[idx] = parseInt(e.target.value);
+                    });
+                });
             });
+        }
+
+        function calculateResult() {
+            // проверяем, что все вопросы отвечены
+            for (let i = 0; i < userScores.length; i++) {
+                if (userScores[i] === -1) {
+                    alert(`Ответь на вопрос ${i+1} (${questions[i].text})`);
+                    return null;
+                }
+            }
+
+            let totalScore = 0;
+            let maxScore = 0;
+            for (let i = 0; i < questions.length; i++) {
+                const selected = userScores[i];
+                const score = questions[i].scores[selected];
+                totalScore += score;
+                maxScore += 10;
+            }
+
+            const percent = Math.round((totalScore / maxScore) * 100);
+
+            let title = '';
+            let desc = '';
+            let emoji = '';
+
+            if (percent >= 90) {
+                title = 'ТЫ — ТИМОФЕЙ';
+                desc = 'Иноакент, основатель вселенной, создатель TAIPrompts, запретитель дрочки. Снежок летит, РКН в бешенстве. Ты официально в реестре под номером 742852.';
+                emoji = '👑❄️';
+            } else if (percent >= 70) {
+                title = 'ТЫ ПОЧТИ ТИМОФЕЙ';
+                desc = 'Ты очень близок, но чего-то не хватает. Может, ты забыл про сухарики? Или перепутал 6 мая с 5 сентября? Подтяни знания, и ты станешь иноакентом.';
+                emoji = '🤔❄️';
+            } else if (percent >= 50) {
+                title = 'ТЫ — ПОДПИСЧИК ТИМОШКИ';
+                desc = 'Ты в теме, но не до конца. Знаешь про снежок, про рулетку, но кажется, не следил за всеми релизами. Зайди в музей TMFMSC, подтянись!';
+                emoji = '📺❄️';
+            } else if (percent >= 30) {
+                title = 'ТЫ — АРИНА ВАЛЕРЬЕВНА';
+                desc = '5 сентября 🤣🤣🤣🤣. Считать не умеешь, математика — 2, зато комментарии оставляешь. Ты далеко от Тимофея, но хотя бы пытаешься.';
+                emoji = '🤡❄️';
+            } else {
+                title = 'ТЫ — РКН';
+                desc = 'Заблокирован. Доступа к личности Тимофея нет. Попробуй ещё раз через VPN. А пока — сиди в реестре запрещённых.';
+                emoji = '🚫❄️';
+            }
+
+            return { percent, title, desc, emoji };
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const result = calculateResult();
+            if (!result) return;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `
+                <div class="result-score">🎯 ${result.percent}%</div>
+                <h3>${result.emoji} ${result.title} ${result.emoji}</h3>
+                <p>${result.desc}</p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
+                    ❄️ снежок: ${result.percent >= 70 ? 'летит' : 'ещё не взлетел'}
+                </div>
+            `;
         });
-        console.log('✅ Интерактивный тестовый лендинг загружен.');
+
+        renderQuestions();
     </script>
 </body>
 </html>
