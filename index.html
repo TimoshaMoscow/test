@@ -3,27 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест на Тимофея · ты ли ты?</title>
-    
-    <!-- Google Site Verification -->
-    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
-    
-    <!-- Meta теги (фиксированные) -->
-    <meta property="og:title" content="Тестовый лендинг">
-    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
-    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
-    
-    <!-- Google Identity -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="icon" href="images/logo.png" type="image/png">
-    
+    <title>2-комнатная квартира, 38 м², ЖК «Стабильность» — Aveto</title>
     <style>
         * {
             margin: 0;
@@ -32,395 +12,473 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #0f172a;
-            color: #f1f5f9;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #111;
+            line-height: 1.4;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .test-container {
-            max-width: 750px;
-            width: 100%;
-            background: #1e293b;
-            border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.5);
-            border: 1px solid #334155;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            text-align: center;
-            background: linear-gradient(135deg, #f87171, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .sub {
-            text-align: center;
-            color: #94a3b8;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .question {
-            background: #0f172a;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 8px solid #fbbf24;
-        }
-
-        .question-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #fbbf24;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .option {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.5rem 0;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-
-        .option:hover {
-            background: #1e293b;
-            border-radius: 1rem;
-            padding-left: 0.5rem;
-        }
-
-        .option input {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #fbbf24;
-        }
-
-        .option label {
-            cursor: pointer;
-            color: #cbd5e1;
-            font-size: 1rem;
-        }
-
-        .btn {
-            background: #fbbf24;
-            color: #0f172a;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 3rem;
-            cursor: pointer;
-            width: 100%;
-            margin: 1.5rem 0;
-            transition: 0.1s;
-        }
-
-        .btn:hover {
-            background: #f59e0b;
-            transform: scale(1.02);
-        }
-
-        .result {
-            background: #0f172a;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-top: 1rem;
-            border: 2px solid #fbbf24;
-        }
-
-        .result h3 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            color: #fbbf24;
-        }
-
-        .result-score {
-            font-size: 3rem;
-            font-weight: 800;
-            margin: 1rem 0;
-        }
-
-        .answers-review {
-            background: #0f172a;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid #334155;
-        }
-
-        .answer-item {
-            padding: 0.8rem;
-            border-bottom: 1px solid #1e293b;
-            display: flex;
             justify-content: space-between;
-            align-items: center;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 16px;
         }
 
-        .answer-item:last-child {
-            border-bottom: none;
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00a32a;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
-        .answer-question {
-            font-weight: 600;
-            color: #94a3b8;
+        .logo span {
+            color: #ff8c00;
+        }
+
+        .search-bar {
             flex: 1;
-            min-width: 200px;
+            max-width: 500px;
+            display: flex;
         }
 
-        .answer-user {
-            color: #fbbf24;
+        .search-input {
+            width: 100%;
+            padding: 10px 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px 0 0 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #00a32a;
+        }
+
+        .search-btn {
+            background-color: #00a32a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
             font-weight: 500;
         }
 
-        .answer-correct {
-            color: #10b981;
-            font-size: 0.9rem;
+        /* Основная сетка */
+        .container {
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
         }
 
-        .hidden {
+        /* Левая колонка */
+        .gallery {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .main-photo {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            overflow-x: auto;
+        }
+
+        .thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .thumb.active {
+            border-color: #00a32a;
+        }
+
+        .price-block {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .seller-info {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .params-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .param {
+            font-size: 14px;
+        }
+
+        .param-label {
+            color: #777;
+        }
+
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .feature-badge {
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        td, th {
+            padding: 12px 8px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .secret-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 16px;
+            padding: 24px;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .hidden-content {
             display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
 
-        footer {
+        .hidden-content.show {
+            display: block;
+        }
+
+        .footer {
+            background: #fff;
+            border-top: 1px solid #e5e5e5;
+            padding: 30px 20px;
             text-align: center;
-            margin-top: 2rem;
-            color: #475569;
-            font-size: 0.8rem;
+            color: #777;
+            font-size: 13px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .main-photo {
+                height: 300px;
+            }
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="test-container" id="testContainer">
-        <h1>ТЕСТ НА ТИМОФЕЯ</h1>
-        <div class="sub">ты ли ты? 🤔</div>
 
-        <div id="questions"></div>
+<header class="header">
+    <div class="header-container">
+        <a href="#" class="logo">Av<span>eto</span></a>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Найти квартиру, комнату, дачу...">
+            <button class="search-btn">Найти</button>
+        </div>
+        <div class="header-actions">
+            <a href="#" class="header-link">Подать объявление</a>
+            <a href="#" class="header-link">Войти</a>
+        </div>
+    </div>
+</header>
 
-        <button class="btn" id="submitBtn">УЗНАТЬ РЕЗУЛЬТАТ</button>
+<div class="container">
+    <!-- Левая колонка: галерея и описание -->
+    <div>
+        <!-- Галерея -->
+        <div class="gallery">
+            <img id="mainImage" class="main-photo" src="images/apartment.jpg" alt="Светлая двухкомнатная квартира">
+            <div class="thumbnails">
+                <img class="thumb active" src="images/apartment.jpg" onclick="changeImage(this.src)" alt="Общий вид">
+                <img class="thumb" src="images/room-main.jpg" onclick="changeImage(this.src)" alt="Интерьер">
+                <img class="thumb" src="images/desk.jpg" onclick="changeImage(this.src)" alt="Рабочая зона">
+                <img class="thumb" src="images/bed.jpg" onclick="changeImage(this.src)" alt="Спальная зона">
+                <img class="thumb" src="images/storage.jpg" onclick="changeImage(this.src)" alt="Система хранения">
+                <img class="thumb" src="images/lighting.jpg" onclick="changeImage(this.src)" alt="Освещение">
+                <img class="thumb" src="images/view.jpg" onclick="changeImage(this.src)" alt="Вид из окна">
+            </div>
+        </div>
 
-        <div id="result" class="result hidden"></div>
+        <!-- Цена -->
+        <div class="price-block">
+            <div class="price">3 990 000 ₽</div>
+            <div style="display: flex; gap: 16px; margin-top: 12px;">
+                <span>📞 Показать телефон</span>
+                <span>💬 Написать</span>
+                <span>⭐ В избранное</span>
+            </div>
+        </div>
 
-        <footer>❄️ снежок всё ещё летит · 🖕🖕🖕 РКН · 🎰</footer>
+        <!-- Описание -->
+        <div class="section">
+            <h2>Описание</h2>
+            <p><strong>Светлая двухкомнатная квартира в ЖК «Стабильность»</strong>. Идеальное состояние, дизайнерский ремонт, полная автономность. Свободная планировка (38 м²), зонирование: спальная ниша, рабочая зона, гардеробная. Стены нежно-розовые с акцентной синей панелью, абстрактный рисунок. Пол — светлый ламинат, звукоизоляция полная. Мебель полностью укомплектована, кровать с автоматической сменой белья, угловой стол на два монитора, система хранения из 18 модулей. Техника: компьютер, кондиционер, чайник, микроволновая печь. Холодильник всегда заполнен (источник пополнения — локальный).</p>
+            <div class="features-list">
+                <span class="feature-badge">Собственник</span>
+                <span class="feature-badge">Бессрочная аренда/продажа</span>
+                <span class="feature-badge">Автономное обслуживание</span>
+                <span class="feature-badge">Без комиссии</span>
+            </div>
+        </div>
+
+        <!-- Характеристики -->
+        <div class="section">
+            <h2>Характеристики</h2>
+            <div class="params-grid">
+                <div class="param"><span class="param-label">Общая площадь:</span> 38 м²</div>
+                <div class="param"><span class="param-label">Количество комнат:</span> 2</div>
+                <div class="param"><span class="param-label">Этаж:</span> 5</div>
+                <div class="param"><span class="param-label">Тип дома:</span> Монолитный</div>
+                <div class="param"><span class="param-label">Ремонт:</span> Дизайнерский</div>
+                <div class="param"><span class="param-label">Освещение:</span> RGB, фиксированный спектр</div>
+                <div class="param"><span class="param-label">Зеркала:</span> 2 панели, режим отражения — только для собственника</div>
+                <div class="param"><span class="param-label">Вид из окна:</span> Стабильный белый свет</div>
+            </div>
+        </div>
+
+        <!-- Почему именно эта квартира -->
+        <div class="section">
+            <h2>⭐ Почему именно эта квартира?</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px;">
+                <div>✅ Уютная атмосфера — вы уже здесь были</div>
+                <div>✅ Идеально для удалённой работы</div>
+                <div>✅ Полная тишина (соседей нет)</div>
+                <div>✅ Продукты появляются автоматически</div>
+                <div>✅ Долгосрочная перспектива без выезда</div>
+                <div>✅ Эксклюзивное расположение</div>
+            </div>
+        </div>
+
+        <!-- Технические характеристики (подробно) -->
+        <div class="section">
+            <h2>⚙️ Технические характеристики</h2>
+            <table>
+                <tr><td>Электроснабжение</td><td>Бесперебойное, без внешней подпитки</td></tr>
+                <tr><td>Отопление</td><td>Автономное, саморегулируемое</td></tr>
+                <tr><td>Вентиляция</td><td>Приточно-вытяжная, бесшумная</td></tr>
+                <tr><td>Связь</td><td>Локальная сеть, выход во внешний периметр ограничен</td></tr>
+                <tr><td>Среднее время безотказной работы</td><td>Неограничено</td></tr>
+                <tr><td>Совместимость</td><td>Только с одним пользователем за цикл</td></tr>
+            </table>
+        </div>
+
+        <!-- Сравнение с другими вариантами -->
+        <div class="section">
+            <h2>📊 Сравнение с другими вариантами</h2>
+            <table>
+                <tr><th>Параметр</th><th>Наша квартира</th><th>Обычная двушка</th></tr>
+                <tr><td>Возможность выехать</td><td>❌ Отсутствует (технически обеспечено)</td><td>✅ В любой момент</td></tr>
+                <tr><td>Уборка</td><td>Автоматическая</td><td>Требуется регулярно</td></tr>
+                <tr><td>Продукты</td><td>Появляются сами</td><td>Нужно покупать</td></tr>
+                <tr><td>Кто встречает</td><td>Собственник (улыбка, чёлка, красный ободок)</td><td>Риэлтор</td></tr>
+            </table>
+        </div>
+
+        <!-- Отзывы -->
+        <div class="section">
+            <h2>💬 Отзывы</h2>
+            <div style="margin-bottom: 16px;">
+                <strong>Алексей</strong> <span style="color:#777;">прожил 4 месяца</span>
+                <p>«Квартира очень уютная. Дверь открывается не с первого раза, но это просто нужно правильно попросить. Хозяйка всегда рядом. Рекомендую!»</p>
+            </div>
+            <div>
+                <strong>Дмитрий</strong> <span style="color:#777;">прожил 2 года</span>
+                <p>«Соседей нет, пыли нет, еда появляется сама. Зачем выходить? Оценка 5/5. Связь со мной есть всегда».</p>
+            </div>
+        </div>
+
+        <!-- Юридическая информация -->
+        <div class="section">
+            <h2>📄 Документы и юридическая информация</h2>
+            <p><strong>Форма договора:</strong> Эксклюзивное соглашение о долгосрочном пользовании. <strong>Срок:</strong> бессрочно. Запрещены попытки досрочного расторжения. Объект находится в частной собственности, смена владельца не планируется. При подписании выдаётся электронный ключ доступа. Физического экземпляра не существует.</p>
+        </div>
+
+        <!-- Требования к арендатору -->
+        <div class="section">
+            <h2>👤 Требования к арендатору</h2>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+                <span class="feature-badge">Мужской пол</span>
+                <span class="feature-badge">15–45 лет</span>
+                <span class="feature-badge">Спокойный характер</span>
+                <span class="feature-badge">Ценит стабильность</span>
+            </div>
+            <p>Ищем человека, который не задаёт лишних вопросов о необъяснимых явлениях, готов к длительному пребыванию и воспринимает внимание собственника как норму. Преимущество — отсутствие близких родственников.</p>
+        </div>
+
+        <!-- Почему остались -->
+        <div class="section">
+            <h2>🏡 Почему предыдущие жильцы остались</h2>
+            <p><strong>Алексей:</strong> заехал на пару месяцев, перестал отслеживать время. «Там за дверью пусто, а здесь всегда есть с кем поговорить».</p>
+            <p><strong>Дмитрий:</strong> не выходил 742 дня. «А здесь я могу сидеть за компьютером сколько угодно, и никто не дёргает».</p>
+            <p><em>Версия арендаторов: «А куда идти?»</em></p>
+        </div>
+
+        <!-- Секретный раздел -->
+        <div class="secret-card" id="secretCard">
+            <div style="font-weight: bold; margin-bottom: 8px;">🔒 Секретный раздел (нажмите)</div>
+            <div class="secret-text">Обычно в объявлениях такое не пишут. Но вы дочитали до самого низа...</div>
+            <div id="hiddenContent" class="hidden-content">
+                <p><strong>О собственнике</strong><br>Вас встретит девушка. Тёмные волосы с синеватым отливом, аккуратная чёлка, красный ободок. Большие выразительные глаза. Она носит красную кофту, синюю плиссированную юбку, красные чулки и туфли на каблуке. Вокруг неё — мягкое неоновое свечение розово-фиолетового цвета. Она спросит, как вас зовут, и запомнит с первого раза. Отвечайте честно.</p>
+                <p><strong>Чего нельзя делать</strong><br>1. Пытаться разобрать компьютер.<br>2. Настаивать на отражении в зеркале.<br>3. Искать дверь. Если проверять слишком часто — она может перестать открываться.</p>
+                <p><strong>📞 Звоните в любое время.</strong> Если номер не доступен — значит, вы уже почти доехали.</p>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Google Client ID
-        const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
-
-        const questions = [
-            {
-                text: "Что ты ответишь, если в комментариях напишут «сухарики»?",
-                options: ["ДАЧЁ ЗА СУХАРИКИ", "У МЕНЯ НЕТ СУХАРИКИ", "Игнорирую", "Снимаю шортс про сухарики"],
-                correct: 0,
-                scores: [10, 7, 2, 1]
-            },
-            {
-                text: "Какая твоя любимая эмоция в чате?",
-                options: ["0_0", "0______0", "00", "😱"],
-                correct: 0,
-                scores: [10, 8, 7, 2]
-            },
-            {
-                text: "Что ты сделаешь с РКН?",
-                options: ["Запрещу в рулетке", "Стану иноагентом", "Создам маркетплейс мер воздействия", "Пошлю нахуй"],
-                correct: 3,
-                scores: [5, 9, 9, 10]
-            },
-            {
-                text: "Какой язык ты придумал?",
-                options: ["Сибилевец", "Вакеатэ Мовын", "Жаёмна", "Всё перечисленное"],
-                correct: 0,
-                scores: [10, 1, 0, 7]
-            },
-            {
-                text: "Что ты ответишь, если тебя назовут женщиной?",
-                options: ["я иноакент", "гей", "жаёмна", "пошлю"],
-                correct: 0,
-                scores: [10, 9, 1, 9]
-            },
-            {
-                text: "Какой у тебя статус в реестре иноагентов?",
-                options: ["Нет номера", "№742852", "№742852, выдано Тимофею Сибилеву", "Я сам создал реестр"],
-                correct: 2,
-                scores: [0, 9, 10, 5]
-            },
-            {
-                text: "Что такое «снегр»?",
-                options: ["Снег + негр", "Коричневый снег (собачьи дела)", "Снеговик из снегра", "Всё перечисленное"],
-                correct: 0,
-                scores: [10, 7, 0, 5]
-            },
-            {
-                text: "Какая у тебя любимая фраза Губкобобоамёбо?",
-                options: ["ты сдох", "ущербник", "вы пол сменили?", "все варианты"],
-                correct: 0,
-                scores: [10, 0, 6, 5]
-            },
-            {
-                text: "Что ты ответишь на вопрос «сколько тебе лет»?",
-                options: ["16 лет", "3 годика", "14 февраля 2010", "родился в 2010, 16 лет"],
-                correct: 0,
-                scores: [10, 0, 1, 9]
-            },
-            {
-                text: "Где находится штаб-квартира TMFMSC?",
-                options: ["В Москве", "На 13-й Парковой", "В здании 300 тысяч лет", "Всё перечисленное"],
-                correct: 0,
-                scores: [10, 9, 9, 3]
-            }
-        ];
-
-        let userAnswers = new Array(questions.length).fill(-1);
-        let resultShown = false;
-
-        function renderQuestions() {
-            const container = document.getElementById('questions');
-            container.innerHTML = '';
-            userAnswers = new Array(questions.length).fill(-1);
-
-            questions.forEach((q, idx) => {
-                const qDiv = document.createElement('div');
-                qDiv.className = 'question';
-                qDiv.innerHTML = `
-                    <div class="question-text">${idx+1}. ${q.text}</div>
-                    <div class="options" id="q-${idx}"></div>
-                `;
-                container.appendChild(qDiv);
-
-                const optionsDiv = document.getElementById(`q-${idx}`);
-                q.options.forEach((opt, optIdx) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.className = 'option';
-                    optionDiv.innerHTML = `
-                        <input type="radio" name="q${idx}" value="${optIdx}" id="q${idx}_${optIdx}">
-                        <label for="q${idx}_${optIdx}">${opt}</label>
-                    `;
-                    optionsDiv.appendChild(optionDiv);
-                });
-
-                const radios = document.querySelectorAll(`input[name="q${idx}"]`);
-                radios.forEach(radio => {
-                    radio.addEventListener('change', (e) => {
-                        userAnswers[idx] = parseInt(e.target.value);
-                    });
-                });
-            });
-        }
-
-        function calculateAndShow() {
-            for (let i = 0; i < userAnswers.length; i++) {
-                if (userAnswers[i] === -1) {
-                    alert(`Ответь на вопрос ${i+1} (${questions[i].text})`);
-                    return;
-                }
-            }
-
-            let totalScore = 0;
-            let maxScore = 0;
-            for (let i = 0; i < questions.length; i++) {
-                totalScore += questions[i].scores[userAnswers[i]];
-                maxScore += 10;
-            }
-            const percent = Math.round((totalScore / maxScore) * 100);
-
-            let title = '';
-            let desc = '';
-            let emoji = '';
-            let snowStatus = '';
-
-            if (percent >= 90) {
-                title = 'ТЫ — ТИМОФЕЙ';
-                desc = 'Иноакент, основатель вселенной, создатель TAIPrompts, запретитель дрочки. Снежок летит, РКН в бешенстве. Ты официально в реестре под номером 742852.';
-                emoji = '👑❄️';
-                snowStatus = 'летит';
-            } else if (percent >= 70) {
-                title = 'ТЫ ПОЧТИ ТИМОФЕЙ';
-                desc = 'Ты очень близок, но чего-то не хватает. Может, ты забыл про сухарики? Или перепутал 6 мая с 5 сентября? Подтяни знания, и ты станешь иноакентом.';
-                emoji = '🤔❄️';
-                snowStatus = 'летит';
-            } else if (percent >= 50) {
-                title = 'ТЫ — ПОДПИСЧИК ТИМОШКИ';
-                desc = 'Ты в теме, но не до конца. Знаешь про снежок, про рулетку, но кажется, не следил за всеми релизами. Зайди в музей TMFMSC, подтянись!';
-                emoji = '📺❄️';
-                snowStatus = 'ещё не взлетел';
-            } else if (percent >= 30) {
-                title = 'ТЫ — АРИНА ВАЛЕРЬЕВНА';
-                desc = '5 сентября 🤣🤣🤣🤣. Считать не умеешь, математика — 2, зато комментарии оставляешь. Ты далеко от Тимофея, но хотя бы пытаешься.';
-                emoji = '🤡❄️';
-                snowStatus = 'упал в сугроб';
-            } else {
-                title = 'ТЫ — РКН';
-                desc = 'Заблокирован. Доступа к личности Тимофея нет. Попробуй ещё раз через VPN. А пока — сиди в реестре запрещённых.';
-                emoji = '🚫❄️';
-                snowStatus = 'запрещён';
-            }
-
-            // скрываем тест
-            document.getElementById('questions').classList.add('hidden');
-            document.getElementById('submitBtn').classList.add('hidden');
-
-            // строим разбор ответов
-            let answersHtml = '<div class="answers-review"><h3 style="margin-bottom: 1rem;">📋 ТВОИ ОТВЕТЫ</h3>';
-            for (let i = 0; i < questions.length; i++) {
-                const userChoice = userAnswers[i];
-                const userText = questions[i].options[userChoice];
-                const correctText = questions[i].options[questions[i].correct];
-                const isCorrect = (userChoice === questions[i].correct);
-                answersHtml += `
-                    <div class="answer-item">
-                        <div class="answer-question">${i+1}. ${questions[i].text}</div>
-                        <div>
-                            <span class="answer-user">Ты: ${userText}</span>
-                            ${!isCorrect ? `<span class="answer-correct"> (правильно: ${correctText})</span>` : '<span class="answer-correct" style="color:#10b981;"> ✅</span>'}
-                        </div>
-                    </div>
-                `;
-            }
-            answersHtml += '</div>';
-
-            const resultDiv = document.getElementById('result');
-            resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = `
-                ${answersHtml}
-                <div class="result-score">🎯 ${percent}%</div>
-                <h3>${emoji} ${title} ${emoji}</h3>
-                <p>${desc}</p>
-                <div style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
-                    ❄️ снежок: ${snowStatus}
+    <!-- Правая колонка: продавец -->
+    <div>
+        <div class="seller-info">
+            <h3 style="margin-bottom: 12px;">Продавец</h3>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                <div style="width: 48px; height: 48px; background: #e5e5e5; border-radius: 50%; overflow: hidden;">
+                    <img src="images/owner.jpg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/48x48/eee/999?text=?'">
                 </div>
-                <button id="resetBtn" class="btn" style="margin-top: 1.5rem;">ПРОЙТИ ЗАНОВО</button>
-            `;
+                <div>
+                    <strong>Собственник</strong><br>
+                    <span style="font-size: 13px; color: #777;">на Aveto с 2023 года</span>
+                </div>
+            </div>
+            <button class="search-btn" style="width: 100%; border-radius: 8px; margin-bottom: 8px;">Показать телефон</button>
+            <button style="width: 100%; border-radius: 8px; background: #fff; border: 1px solid #00a32a; color: #00a32a; padding: 10px; font-weight: 600;">Написать сообщение</button>
+        </div>
 
-            document.getElementById('resetBtn').addEventListener('click', () => {
-                resultDiv.classList.add('hidden');
-                document.getElementById('questions').classList.remove('hidden');
-                document.getElementById('submitBtn').classList.remove('hidden');
-                renderQuestions();
-                resultShown = false;
-            });
-        }
+        <div class="section">
+            <h3>Расположение</h3>
+            <div style="background: #f0f0f0; border-radius: 8px; padding: 16px; text-align: center; color: #777;">
+                📍 проезд Логический, д. 8, корп. 1<br>
+                ЖК «Стабильность»<br>
+                <span style="font-size: 12px;">15 минут пешком от метро, если не сворачивать</span>
+            </div>
+        </div>
 
-        document.getElementById('submitBtn').addEventListener('click', calculateAndShow);
+        <div class="section">
+            <h3>Особые условия</h3>
+            <ul style="padding-left: 20px; font-size: 14px;">
+                <li>Вход только через главную дверь</li>
+                <li>Квартира не требует уборки</li>
+                <li>Соседей нет</li>
+                <li>Домофон с одним абонентом</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-        renderQuestions();
-    </script>
+<footer class="footer">
+    <p>© Aveto, 2026 — доска объявлений нового поколения. ЖК «Стабильность», проезд Логический, д. 8, корп. 1 — идеальное место для долгосрочного пребывания.</p>
+</footer>
+
+<script>
+    function changeImage(src) {
+        document.getElementById('mainImage').src = src;
+        const thumbs = document.querySelectorAll('.thumb');
+        thumbs.forEach(thumb => {
+            if (thumb.src === src) {
+                thumb.classList.add('active');
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+    }
+
+    const secretCard = document.getElementById('secretCard');
+    const hiddenDiv = document.getElementById('hiddenContent');
+    secretCard.addEventListener('click', () => {
+        hiddenDiv.classList.toggle('show');
+    });
+</script>
 </body>
 </html>
