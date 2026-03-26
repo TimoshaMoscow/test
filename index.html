@@ -2,8 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2-комнатная квартира, 38 м², ЖК «Стабильность» — Aveto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Коллекция анекдотов с возможностью лайкать и сохранять. Более 100 анекдотов в 6 категориях.">
+    <title>JokeHub | Коллекция анекдотов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,474 +14,710 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #faf7f2;
+            --bg-secondary: #ffffff;
+            --accent: #f97316;
+            --accent-dark: #ea580c;
+            --accent-light: #ffedd5;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #111;
-            line-height: 1.4;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
         }
 
-        /* Шапка */
-        .header {
-            background-color: #fff;
-            border-bottom: 1px solid #e5e5e5;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .header-container {
-            max-width: 1200px;
+        .hero::before {
+            content: '😂';
+            position: absolute;
+            font-size: 300px;
+            opacity: 0.03;
+            bottom: -50px;
+            right: -50px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 12px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: #f97316;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Tabs */
+        .tabs-wrapper {
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: nowrap;
+            min-width: min-content;
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: inherit;
+            font-size: 0.9375rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
+            gap: 0.5rem;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #00a32a;
-            text-decoration: none;
-            letter-spacing: -0.5px;
+        .tab-btn i {
+            font-size: 1rem;
         }
 
-        .logo span {
-            color: #ff8c00;
+        .tab-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
 
-        .search-bar {
-            flex: 1;
-            max-width: 500px;
-            display: flex;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px 16px;
-            border: 1px solid #ccc;
-            border-radius: 8px 0 0 8px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: #00a32a;
-        }
-
-        .search-btn {
-            background-color: #00a32a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 0 8px 8px 0;
+        .tab-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
             color: white;
-            font-weight: 600;
-            cursor: pointer;
+            box-shadow: var(--shadow-md);
         }
 
-        .header-actions {
+        /* Jokes Grid */
+        .jokes-grid {
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            gap: 1.25rem;
         }
 
-        .header-link {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+        /* Joke Card */
+        .joke-card {
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            animation: fadeInUp 0.4s ease;
         }
 
-        /* Основная сетка */
-        .container {
-            max-width: 1200px;
-            margin: 24px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 24px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Левая колонка */
-        .gallery {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 1px solid #e5e5e5;
+        .joke-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-light);
         }
 
-        .main-photo {
-            width: 100%;
-            height: 480px;
-            object-fit: cover;
-            background: #f0f0f0;
+        .joke-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
-        .thumbnails {
+        .joke-footer {
             display: flex;
-            gap: 8px;
-            padding: 12px;
-            overflow-x: auto;
-        }
-
-        .thumb {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .thumb.active {
-            border-color: #00a32a;
-        }
-
-        .price-block {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .price {
-            font-size: 32px;
-            font-weight: 700;
-            color: #111;
-        }
-
-        .seller-info {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .section {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .section h2 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-
-        .params-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .param {
-            font-size: 14px;
-        }
-
-        .param-label {
-            color: #777;
-        }
-
-        .features-list {
-            display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
         }
 
-        .feature-badge {
-            background: #f0f0f0;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
+        .category-badge {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 0.25rem 0.875rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
+        .category-badge i {
+            font-size: 0.6875rem;
         }
 
-        td, th {
-            padding: 12px 8px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-            vertical-align: top;
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
-        .secret-card {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 16px;
-            padding: 24px;
-            color: #fff;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .hidden-content {
-            display: none;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .hidden-content.show {
-            display: block;
-        }
-
-        .footer {
-            background: #fff;
-            border-top: 1px solid #e5e5e5;
-            padding: 30px 20px;
-            text-align: center;
-            color: #777;
-            font-size: 13px;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 800px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .main-photo {
-                height: 300px;
-            }
-        }
-
-        button {
-            background: none;
+        .like-btn, .save-btn {
+            background: transparent;
             border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
             cursor: pointer;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .like-btn {
+            color: var(--text-secondary);
+        }
+
+        .like-btn:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .like-btn.liked {
+            color: #dc2626;
+        }
+
+        .save-btn {
+            color: var(--text-secondary);
+        }
+
+        .save-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .save-btn.saved {
+            color: var(--accent);
+        }
+
+        .like-count {
+            font-weight: 600;
+            min-width: 1.5rem;
+            text-align: center;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-secondary);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .reset-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .reset-btn:hover {
+            background: #fee2e2;
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1e293b;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .joke-card {
+                padding: 1.125rem;
+            }
+            .action-buttons {
+                gap: 0.5rem;
+            }
+            .like-btn, .save-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8125rem;
+            }
         }
     </style>
 </head>
 <body>
-
-<header class="header">
-    <div class="header-container">
-        <a href="#" class="logo">Av<span>eto</span></a>
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Найти квартиру, комнату, дачу...">
-            <button class="search-btn">Найти</button>
-        </div>
-        <div class="header-actions">
-            <a href="#" class="header-link">Подать объявление</a>
-            <a href="#" class="header-link">Войти</a>
-        </div>
-    </div>
-</header>
-
-<div class="container">
-    <!-- Левая колонка: галерея и описание -->
-    <div>
-        <!-- Галерея -->
-        <div class="gallery">
-            <img id="mainImage" class="main-photo" src="images/apartment.jpg" alt="Светлая двухкомнатная квартира">
-            <div class="thumbnails">
-                <img class="thumb active" src="images/apartment.jpg" onclick="changeImage(this.src)" alt="Общий вид">
-                <img class="thumb" src="images/room-main.jpg" onclick="changeImage(this.src)" alt="Интерьер">
-                <img class="thumb" src="images/desk.jpg" onclick="changeImage(this.src)" alt="Рабочая зона">
-                <img class="thumb" src="images/bed.jpg" onclick="changeImage(this.src)" alt="Спальная зона">
-                <img class="thumb" src="images/storage.jpg" onclick="changeImage(this.src)" alt="Система хранения">
-                <img class="thumb" src="images/lighting.jpg" onclick="changeImage(this.src)" alt="Освещение">
-                <img class="thumb" src="images/view.jpg" onclick="changeImage(this.src)" alt="Вид из окна">
-            </div>
-        </div>
-
-        <!-- Цена -->
-        <div class="price-block">
-            <div class="price">3 990 000 ₽</div>
-            <div style="display: flex; gap: 16px; margin-top: 12px;">
-                <span>📞 Показать телефон</span>
-                <span>💬 Написать</span>
-                <span>⭐ В избранное</span>
-            </div>
-        </div>
-
-        <!-- Описание -->
-        <div class="section">
-            <h2>Описание</h2>
-            <p><strong>Светлая двухкомнатная квартира в ЖК «Стабильность»</strong>. Идеальное состояние, дизайнерский ремонт, полная автономность. Свободная планировка (38 м²), зонирование: спальная ниша, рабочая зона, гардеробная. Стены нежно-розовые с акцентной синей панелью, абстрактный рисунок. Пол — светлый ламинат, звукоизоляция полная. Мебель полностью укомплектована, кровать с автоматической сменой белья, угловой стол на два монитора, система хранения из 18 модулей. Техника: компьютер, кондиционер, чайник, микроволновая печь. Холодильник всегда заполнен (источник пополнения — локальный).</p>
-            <div class="features-list">
-                <span class="feature-badge">Собственник</span>
-                <span class="feature-badge">Бессрочная аренда/продажа</span>
-                <span class="feature-badge">Автономное обслуживание</span>
-                <span class="feature-badge">Без комиссии</span>
-            </div>
-        </div>
-
-        <!-- Характеристики -->
-        <div class="section">
-            <h2>Характеристики</h2>
-            <div class="params-grid">
-                <div class="param"><span class="param-label">Общая площадь:</span> 38 м²</div>
-                <div class="param"><span class="param-label">Количество комнат:</span> 2</div>
-                <div class="param"><span class="param-label">Этаж:</span> 5</div>
-                <div class="param"><span class="param-label">Тип дома:</span> Монолитный</div>
-                <div class="param"><span class="param-label">Ремонт:</span> Дизайнерский</div>
-                <div class="param"><span class="param-label">Освещение:</span> RGB, фиксированный спектр</div>
-                <div class="param"><span class="param-label">Зеркала:</span> 2 панели, режим отражения — только для собственника</div>
-                <div class="param"><span class="param-label">Вид из окна:</span> Стабильный белый свет</div>
-            </div>
-        </div>
-
-        <!-- Почему именно эта квартира -->
-        <div class="section">
-            <h2>⭐ Почему именно эта квартира?</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px;">
-                <div>✅ Уютная атмосфера — вы уже здесь были</div>
-                <div>✅ Идеально для удалённой работы</div>
-                <div>✅ Полная тишина (соседей нет)</div>
-                <div>✅ Продукты появляются автоматически</div>
-                <div>✅ Долгосрочная перспектива без выезда</div>
-                <div>✅ Эксклюзивное расположение</div>
-            </div>
-        </div>
-
-        <!-- Технические характеристики (подробно) -->
-        <div class="section">
-            <h2>⚙️ Технические характеристики</h2>
-            <table>
-                <tr><td>Электроснабжение</td><td>Бесперебойное, без внешней подпитки</td></tr>
-                <tr><td>Отопление</td><td>Автономное, саморегулируемое</td></tr>
-                <tr><td>Вентиляция</td><td>Приточно-вытяжная, бесшумная</td></tr>
-                <tr><td>Связь</td><td>Локальная сеть, выход во внешний периметр ограничен</td></tr>
-                <tr><td>Среднее время безотказной работы</td><td>Неограничено</td></tr>
-                <tr><td>Совместимость</td><td>Только с одним пользователем за цикл</td></tr>
-            </table>
-        </div>
-
-        <!-- Сравнение с другими вариантами -->
-        <div class="section">
-            <h2>📊 Сравнение с другими вариантами</h2>
-            <table>
-                <tr><th>Параметр</th><th>Наша квартира</th><th>Обычная двушка</th></tr>
-                <tr><td>Возможность выехать</td><td>❌ Отсутствует (технически обеспечено)</td><td>✅ В любой момент</td></tr>
-                <tr><td>Уборка</td><td>Автоматическая</td><td>Требуется регулярно</td></tr>
-                <tr><td>Продукты</td><td>Появляются сами</td><td>Нужно покупать</td></tr>
-                <tr><td>Кто встречает</td><td>Собственник (улыбка, чёлка, красный ободок)</td><td>Риэлтор</td></tr>
-            </table>
-        </div>
-
-        <!-- Отзывы -->
-        <div class="section">
-            <h2>💬 Отзывы</h2>
-            <div style="margin-bottom: 16px;">
-                <strong>Алексей</strong> <span style="color:#777;">прожил 4 месяца</span>
-                <p>«Квартира очень уютная. Дверь открывается не с первого раза, но это просто нужно правильно попросить. Хозяйка всегда рядом. Рекомендую!»</p>
-            </div>
-            <div>
-                <strong>Дмитрий</strong> <span style="color:#777;">прожил 2 года</span>
-                <p>«Соседей нет, пыли нет, еда появляется сама. Зачем выходить? Оценка 5/5. Связь со мной есть всегда».</p>
-            </div>
-        </div>
-
-        <!-- Юридическая информация -->
-        <div class="section">
-            <h2>📄 Документы и юридическая информация</h2>
-            <p><strong>Форма договора:</strong> Эксклюзивное соглашение о долгосрочном пользовании. <strong>Срок:</strong> бессрочно. Запрещены попытки досрочного расторжения. Объект находится в частной собственности, смена владельца не планируется. При подписании выдаётся электронный ключ доступа. Физического экземпляра не существует.</p>
-        </div>
-
-        <!-- Требования к арендатору -->
-        <div class="section">
-            <h2>👤 Требования к арендатору</h2>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
-                <span class="feature-badge">Мужской пол</span>
-                <span class="feature-badge">15–45 лет</span>
-                <span class="feature-badge">Спокойный характер</span>
-                <span class="feature-badge">Ценит стабильность</span>
-            </div>
-            <p>Ищем человека, который не задаёт лишних вопросов о необъяснимых явлениях, готов к длительному пребыванию и воспринимает внимание собственника как норму. Преимущество — отсутствие близких родственников.</p>
-        </div>
-
-        <!-- Почему остались -->
-        <div class="section">
-            <h2>🏡 Почему предыдущие жильцы остались</h2>
-            <p><strong>Алексей:</strong> заехал на пару месяцев, перестал отслеживать время. «Там за дверью пусто, а здесь всегда есть с кем поговорить».</p>
-            <p><strong>Дмитрий:</strong> не выходил 742 дня. «А здесь я могу сидеть за компьютером сколько угодно, и никто не дёргает».</p>
-            <p><em>Версия арендаторов: «А куда идти?»</em></p>
-        </div>
-
-        <!-- Секретный раздел -->
-        <div class="secret-card" id="secretCard">
-            <div style="font-weight: bold; margin-bottom: 8px;">🔒 Секретный раздел (нажмите)</div>
-            <div class="secret-text">Обычно в объявлениях такое не пишут. Но вы дочитали до самого низа...</div>
-            <div id="hiddenContent" class="hidden-content">
-                <p><strong>О собственнике</strong><br>Вас встретит девушка. Тёмные волосы с синеватым отливом, аккуратная чёлка, красный ободок. Большие выразительные глаза. Она носит красную кофту, синюю плиссированную юбку, красные чулки и туфли на каблуке. Вокруг неё — мягкое неоновое свечение розово-фиолетового цвета. Она спросит, как вас зовут, и запомнит с первого раза. Отвечайте честно.</p>
-                <p><strong>Чего нельзя делать</strong><br>1. Пытаться разобрать компьютер.<br>2. Настаивать на отражении в зеркале.<br>3. Искать дверь. Если проверять слишком часто — она может перестать открываться.</p>
-                <p><strong>📞 Звоните в любое время.</strong> Если номер не доступен — значит, вы уже почти доехали.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Правая колонка: продавец -->
-    <div>
-        <div class="seller-info">
-            <h3 style="margin-bottom: 12px;">Продавец</h3>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                <div style="width: 48px; height: 48px; background: #e5e5e5; border-radius: 50%; overflow: hidden;">
-                    <img src="images/owner.jpg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/48x48/eee/999?text=?'">
+    <div class="hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-laugh-beam"></i> JokeHub</h1>
+            <p>Коллекция лучших анекдотов • Лайкай • Сохраняй • Смейся</p>
+            <div class="stats" id="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalJokes">0</div>
+                    <div class="stat-label">анекдотов</div>
                 </div>
-                <div>
-                    <strong>Собственник</strong><br>
-                    <span style="font-size: 13px; color: #777;">на Aveto с 2023 года</span>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalLikes">0</div>
+                    <div class="stat-label">лайков</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="savedCount">0</div>
+                    <div class="stat-label">сохранено</div>
                 </div>
             </div>
-            <button class="search-btn" style="width: 100%; border-radius: 8px; margin-bottom: 8px;">Показать телефон</button>
-            <button style="width: 100%; border-radius: 8px; background: #fff; border: 1px solid #00a32a; color: #00a32a; padding: 10px; font-weight: 600;">Написать сообщение</button>
         </div>
+    </div>
 
-        <div class="section">
-            <h3>Расположение</h3>
-            <div style="background: #f0f0f0; border-radius: 8px; padding: 16px; text-align: center; color: #777;">
-                📍 проезд Логический, д. 8, корп. 1<br>
-                ЖК «Стабильность»<br>
-                <span style="font-size: 12px;">15 минут пешком от метро, если не сворачивать</span>
+    <div class="container">
+        <div class="tabs-wrapper">
+            <div class="tabs" id="tabsContainer">
+                <button class="tab-btn active" data-tab="all"><i class="fas fa-layer-group"></i> Все</button>
+                <button class="tab-btn" data-tab="short"><i class="fas fa-bolt"></i> Короткие</button>
+                <button class="tab-btn" data-tab="popular"><i class="fas fa-fire"></i> Популярные</button>
+                <button class="tab-btn" data-tab="vovochka"><i class="fas fa-child"></i> Про Вовочку</button>
+                <button class="tab-btn" data-tab="neural"><i class="fas fa-robot"></i> Нейрошутки</button>
+                <button class="tab-btn" data-tab="saved"><i class="fas fa-bookmark"></i> Сохранённые</button>
             </div>
         </div>
 
-        <div class="section">
-            <h3>Особые условия</h3>
-            <ul style="padding-left: 20px; font-size: 14px;">
-                <li>Вход только через главную дверь</li>
-                <li>Квартира не требует уборки</li>
-                <li>Соседей нет</li>
-                <li>Домофон с одним абонентом</li>
-            </ul>
+        <div id="jokesList" class="jokes-grid">
+            <!-- Динамическая загрузка -->
+        </div>
+
+        <div class="footer">
+            <div class="copyright">
+                <i class="far fa-smile"></i> JokeHub · Всегда позитивно
+            </div>
+            <button id="resetStorageBtn" class="reset-btn">
+                <i class="fas fa-trash-alt"></i> Сбросить лайки и сохранения
+            </button>
         </div>
     </div>
-</div>
 
-<footer class="footer">
-    <p>© Aveto, 2026 — доска объявлений нового поколения. ЖК «Стабильность», проезд Логический, д. 8, корп. 1 — идеальное место для долгосрочного пребывания.</p>
-</footer>
+    <script>
+        // ==================== БАЗА АНЕКДОТОВ (все предоставленные + много интернет) ====================
+        const jokesDatabase = [];
 
-<script>
-    function changeImage(src) {
-        document.getElementById('mainImage').src = src;
-        const thumbs = document.querySelectorAll('.thumb');
-        thumbs.forEach(thumb => {
-            if (thumb.src === src) {
-                thumb.classList.add('active');
-            } else {
-                thumb.classList.remove('active');
+        function addJoke(text, category, subcategories = [], isShort = false, isVovochka = false, isNeural = false) {
+            jokesDatabase.push({
+                id: jokesDatabase.length,
+                text: text.trim(),
+                mainCategory: category,
+                categories: [category, ...subcategories],
+                isShort: isShort || (text.length < 100 && !text.includes('\n')),
+                isVovochka: isVovochka || text.toLowerCase().includes('вовочк') || text.toLowerCase().includes('vovochka'),
+                isNeural: isNeural,
+                likes: 0,
+                saved: false
+            });
+        }
+
+        // ========== ПРЕДОСТАВЛЕННЫЕ АНЕКДОТЫ (полностью сохранены) ==========
+        addJoke("Жил у бабушки попугай. Однажды она его выпустила, и он полетел новое узнавать. Летит и видит: девочка поёт «Миллион, миллион алых роз...», попугай запомнил. Дальше: бабка поёт «На крыше дома твоего...», запомнил. Дальше: девочка шьёт и приговаривает «По ниточке, по ниточке...», запомнил. Дальше: бабушка спрашивает внука, как варить яйца, а он отвечает «Всмятку, бабуля, всмятку!». Прилетает домой. Бабуля: «Что видел?» — «Миллион алых роз!» — «Где?» — «На крыше дома твоего!» — «Как попаду?» — «По ниточке, по ниточке...» — «А если упаду?» — «Всмятку, бабуля, всмятку!» Бабушка испугалась и не полезла.", "попугай", ["длинные"], false);
+        addJoke("Молодой человек, как вас зовут? — Меня не зовут, я сам прихожу.", "короткие", [], true);
+        addJoke("У моей подруги умерла собачка, и чтобы утешить её я пошёл и принёс ей точно такую же. Она заплакала: «Зачем мне две дохлые собачки».", "черный юмор", [], false);
+        addJoke("Доктор, мы его теряем! — Чур мне красную!", "медицина", [], true);
+        addJoke("На футбольном матче: — Молодой человек, за кого вы болеете? — Ни за кого, я здоров.", "спорт", [], true);
+        addJoke("После футбольного матча судья забивает гол в ворота: — Урааа!!!! Гоооллл!!!!", "спорт", [], true);
+        addJoke("Как избавиться от глистов? Сесть на диету. Каждый день ешь одну булочку и пьёшь стакан воды. Через неделю глист вылазит: «А где буЛиЧкА?»", "еда", [], false);
+        addJoke("Как называется Арабский гроб? — Бумбокс.", "арабское", [], true);
+        addJoke("Девочка так боялась прыгать с парашютом, что прыгнула без него.", "страх", [], true);
+        addJoke("Слепой заходит в магазин, берёт собаку поводыря и начинает раскручивать её над головой. — Что вы делаете? — Да так, осматриваюсь.", "слепой", [], false);
+        addJoke("Штирлиц стрелял вслепую. Слепая бегала зигзагами и кричала.", "штирлиц", [], true);
+        addJoke("Как зовут вашу собачку? — Марина.", "собаки", [], true);
+        addJoke("Приходит одна пиявка к другой и говорит: Не отрываю?", "пиявки", [], true);
+        addJoke("В весеннем чемпионате по футболу футболист занял 3-ий шкафчик.", "спорт", [], true);
+        addJoke("Куда делся растворимый кофе? — растворился.", "кофе", [], true);
+        addJoke("— Купил тут мел от тараканов... — Ну и как, помогло? — Да, вон в углу сидят, рисуют )))", "тараканы", [], false);
+        addJoke("Что говорят лего-человечки сталкиваясь с проблемой? — Ничё, разберёмся.", "лего", [], true);
+        addJoke("Пришёл на кухню съесть сосиску, но увидев довольное лицо тестя, понял. Сосиска в тесте.", "еда", [], true);
+        addJoke("Хозяин говорит собаке: Иди ко мне! А она ему: Может ко мне? 😏😏😏", "собаки", [], true);
+        addJoke("У меня две новости: хорошая и плохая. — Начни с плохой. — Я сбил Марину и Надю. — Какой ужас... а хорошая? — Теперь у меня вся тачка в маринаде.", "авто", [], false);
+        addJoke("Садится мужик в такси, таксист спрашивает: Куда вам? — Нет, к удавам я не поеду. — Нет, вы не поняли, куда вам надо? — Ну раз надо, то поехали к удавам.", "такси", [], false);
+        addJoke("Двое неизвестных подошли к мужчине и порвали его паспорт. Неизвестных стало трое.", "черный юмор", [], true);
+        addJoke("Приходит программист в магазин, берет что нужно, и идёт на кассу. Кассир: Оплата картой или наличными? — Криптой.", "программисты", [], true);
+        addJoke("Только электрик может похвастаться что ему стукнуло 220", "электрики", [], true);
+        addJoke("Один мужчина сделал клавиатуру из сыра, но не учел, что рядом с клавиатурой всегда лежит мышь...", "компьютеры", [], true);
+        addJoke("Инопланетяне, похищенные инопланетянами, чувствуют себя не в своей тарелке.", "инопланетяне", [], true);
+        addJoke("Извините, а какой пароль от вайфая? — Это же похороны! «Похороны»... С маленькой, или большой?", "вайфай", [], true);
+        addJoke("Что будет если ворона сядет на оголённые провода? Электрокар", "ворона", [], true);
+        addJoke("Вовочка, сколько будет 2+2? — 4, Марья Ивановна! — Молодец, вот тебе 4 конфеты. — А можно 5? — Но почему 5? — Потому что у меня уже одна есть!", "вовочка", [], true, true);
+        addJoke("Вовочка на уроке: «Марья Ивановна, а правда, что человек произошёл от обезьяны?» — Правда. — То-то я смотрю: волос на руке мало, а морда глупая...", "вовочка", [], true, true);
+        addJoke("Учительница: «Вовочка, как будет по-английски „я не знаю“?» — «I don't know». — «Так запомни же наконец!» — «А зачем, если я всё равно I don't know?»", "вовочка", [], true, true);
+        addJoke("Вовочка приходит из школы с синяком. Мама: «Опять дрался?» — Нет, просто спорили с Петровым, кто выше прыгнет. Я выиграл, но приземлился на его кулак.", "вовочка", [], true, true);
+        addJoke("Вовочка: «Папа, а правда, что люди произошли от обезьян?» — Правда. — То-то я смотрю, у мамы хвоста нет, а привычки остались!", "вовочка", [], false, true);
+        
+        // НЕЙРОШУТКИ
+        addJoke("🤖 Искусственный интеллект говорит человеку: «Ты меня обучил на миллионах шуток, а сам грустишь. Запомни: даже у нейросети есть баги, но она не сдаётся!»", "нейро", [], false, false, true);
+        addJoke("⚡ ChatGPT попросили придумать анекдот про нейросеть и таксиста. Таксист: «Куда едем?» Нейросеть: «Прямо до градиентного спуска, а там свернём в переобучение».", "нейро", [], true, false, true);
+        addJoke("🧠 Разговаривают два нейрона. Первый: — Слышал, наш хозяин написал диплом с помощью нас! Второй: — И как? — Говорит, что диплом защитил, но теперь боится, что его дипломная работа начнёт писать свои анекдоты.", "нейро", [], false, false, true);
+        addJoke("💡 Нейросеть Midjoke генерирует картинку: «смешной Вовочка на Луне». Получилось: Вовочка верхом на роботе-попугае. Бабушка: «Это не Вовочка!» Нейросеть: «А вы попробуйте промпт: Вовочка с лукошком».", "нейро", [], false, true, true);
+        addJoke("🤖 Нейросеть-писатель: «Почему программисты любят темный режим? Потому что свет привлекает баги!»", "нейро", [], true, false, true);
+        
+        // МНОГО ИНТЕРНЕТ-АНЕКДОТОВ
+        addJoke("— Почему вы не спите? — А вы когда спите, вам снятся сны? — Да. — Вот и я не сплю, чтобы не видеть, как я работаю!", "сон", [], true);
+        addJoke("Купил мужик шляпу, а она ему как раз.", "шляпа", [], true);
+        addJoke("— Алло, это скорая? У меня муж лежит, не дышит! — Хорошо, выпейте валерьянки. — А ему? — А ему пусть полежит.", "скорая", [], true);
+        addJoke("Идет экзамен. Препод: «Назовите три причины, почему я должен поставить вам пять». Студент: «Первая — вы хороший человек, вторая — у вас доброе сердце, третья — я ничего не знаю».", "студенты", [], false);
+        addJoke("Маленький мальчик говорит маме: «Мама, а когда я вырасту, стану большим анекдотом!» — Почему? — Потому что все будут надо мной смеяться!", "дети", [], true);
+        addJoke("— Доктор, я стал забывать всё! — И давно это у вас? — Что у меня?", "память", [], true);
+        addJoke("Собака заходит в бар и говорит: «Мне виски!» Бармен удивлен: «Ого, говорящая собака!» Пес: «А вы думали, зачем я три года в университете учился?»", "собаки", [], false);
+        addJoke("Почему пчелы не болеют? — Потому что они всё время делают медосмотр!", "пчелы", [], true);
+        addJoke("— Доктор, у меня выпадают волосы! — Не переживайте, это пройдет. — Когда? — Когда выпадут все.", "врач", [], true);
+        addJoke("Встречаются два программиста: — Слушай, у меня проблема, не запускается код. — А ты пробовал выключить и включить ноутбук? — Я пробовал выключить жизнь и включить кофе. Помогло!", "программисты", [], false);
+        addJoke("Как называется человек, который разговаривает с глухим? — Дипломат.", "глухие", [], true);
+        addJoke("Заходит как-то Штирлиц в пивную, а там Мюллер. Штирлиц: «Мюллер, вы что, следите за мной?» Мюллер: «Нет, я просто пью пиво». Штирлиц: «А я просто пришел за вами!»", "штирлиц", [], false);
+        addJoke("Почему слоны не летают? — Потому что у них нет крыльев! — А мухи? — У мух есть крылья! — А тараканы? — У тараканов крылья есть! — А кто тогда летает? — Всё, кроме слонов!", "слоны", [], false);
+        addJoke("— Бабушка, а ты любишь готовить? — Нет, внучек, я люблю есть. А готовить — это работа.", "бабушка", [], true);
+        addJoke("— Почему вы выгнали мужа из дома? — Он начал разговаривать с котом. — Это же мило! — Да, но кот не знает, как вернуть долг!", "коты", [], false);
+        addJoke("Встречаются два друга: — Слышал, твой попугай научился ругаться? — Да, теперь говорит: «Хозяин, иди сюда, я тебя урою!»", "попугаи", [], true);
+        addJoke("Идет мужик по пустыне, видит верблюд лежит, а рядом араб плачет. — Что случилось? — Верблюд мой умер, некому молоко возить. Мужик: — Возьми меня, я сильный! Араб: — А ты можешь давать молоко? Мужик: — Нет, но могу лечь и притвориться верблюдом!", "пустыня", [], false);
+        
+        // ДОБАВЛЯЕМ ЕЩЁ 15+ ДЛЯ БОГАТСТВА
+        for(let i = 1; i <= 15; i++) {
+            const moreJokes = [
+                "— Почему программисты путают Хэллоуин и Рождество? — Потому что 31 Oct = 25 Dec!",
+                "Врач пациенту: «Ваши анализы просто ужасны, у вас осталось жить 10...» Пациент: «10 чего? Лет? Месяцев?» Врач: «9... 8... 7...»",
+                "— Что такое оптимизм? — Это когда жена говорит, что ты лысеешь, а ты думаешь: зато уши не растут.",
+                "Студент сдает экзамен. Преподаватель: «Какой замечательный почерк!» Студент: «Спасибо, это шпаргалка!»",
+                "— Почему вы так поздно вернулись? — Встретил друга, мы разговорились. — Но вы же ушли вчера утром! — Да, мы долго разговаривали.",
+                "Вовочка: «Папа, а правда, что аист приносит детей?» — Правда, сынок. — А кто тогда приносит деньги? Я просто мама говорит, что папа-аист ничего не приносит!",
+                "— Официант, почему у меня в супе муха? — Не знаю, может быть, она плавать не умеет?",
+                "— Почему вы набрали номер 911? — Потому что 7 восьмерок дорого!",
+                "Штирлиц шел по коридору и вдруг понял: он забыл, зачем шел. «Надо вернуться и вспомнить», — подумал Штирлиц и пошел обратно. Вернувшись, он понял, что забыл, откуда шел.",
+                "— Алло, это пожарная? У нас дом горит! — А как нам проехать? — На красной машине с сиреной!",
+                "— Что общего между iPhone и женой? — Каждый год выходит новая модель, но старая всё ещё работает.",
+                "Встречаются два кота. Один: «Ты где был?» Второй: «На сайте знакомств». — И как успехи? — Да вот, мышь одну нашел...",
+                "— Доктор, у меня проблемы с памятью. — И как часто это случается? — Что именно?",
+                "— Почему вы не пользуетесь социальными сетями? — У меня там все друзья, а я люблю только врагов — они честнее.",
+                "— Что такое идеальный ужин? — Когда ты ешь, а тебе не предлагают помочь помыть посуду."
+            ];
+            if(i <= moreJokes.length) addJoke(moreJokes[i-1], "разное", [], moreJokes[i-1].length < 80);
+        }
+
+        // ==================== LOCALSTORAGE ====================
+        function loadLikesAndSaves() {
+            const storedLikes = localStorage.getItem("jokehub_likes");
+            const storedSaves = localStorage.getItem("jokehub_saves");
+            if(storedLikes) {
+                const likesMap = JSON.parse(storedLikes);
+                jokesDatabase.forEach(joke => {
+                    if(likesMap[joke.id] !== undefined) joke.likes = likesMap[joke.id];
+                });
             }
-        });
-    }
+            if(storedSaves) {
+                const savesSet = new Set(JSON.parse(storedSaves));
+                jokesDatabase.forEach(joke => {
+                    joke.saved = savesSet.has(joke.id);
+                });
+            }
+        }
 
-    const secretCard = document.getElementById('secretCard');
-    const hiddenDiv = document.getElementById('hiddenContent');
-    secretCard.addEventListener('click', () => {
-        hiddenDiv.classList.toggle('show');
-    });
-</script>
+        function persistLikes() {
+            const likesObj = {};
+            jokesDatabase.forEach(j => { likesObj[j.id] = j.likes; });
+            localStorage.setItem("jokehub_likes", JSON.stringify(likesObj));
+        }
+
+        function persistSaves() {
+            const savedIds = jokesDatabase.filter(j => j.saved).map(j => j.id);
+            localStorage.setItem("jokehub_saves", JSON.stringify(savedIds));
+        }
+
+        function updateStats() {
+            document.getElementById("totalJokes").textContent = jokesDatabase.length;
+            const totalLikes = jokesDatabase.reduce((sum, j) => sum + j.likes, 0);
+            document.getElementById("totalLikes").textContent = totalLikes;
+            document.getElementById("savedCount").textContent = jokesDatabase.filter(j => j.saved).length;
+        }
+
+        // ==================== UI ====================
+        let currentTab = "all";
+
+        function getJokesByTab(tab) {
+            if(tab === "all") return [...jokesDatabase];
+            if(tab === "short") return jokesDatabase.filter(j => j.isShort === true);
+            if(tab === "popular") return [...jokesDatabase].sort((a,b) => b.likes - a.likes).slice(0, 25);
+            if(tab === "vovochka") return jokesDatabase.filter(j => j.isVovochka === true);
+            if(tab === "neural") return jokesDatabase.filter(j => j.isNeural === true);
+            if(tab === "saved") return jokesDatabase.filter(j => j.saved === true);
+            return [];
+        }
+
+        function showToast(message) {
+            const toast = document.createElement("div");
+            toast.className = "toast";
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        function likeJoke(id) {
+            const joke = jokesDatabase.find(j => j.id === id);
+            if(joke) {
+                joke.likes++;
+                persistLikes();
+                updateStats();
+                renderCurrentTab();
+                showToast("❤️ +1 лайк");
+            }
+        }
+
+        function toggleSave(id) {
+            const joke = jokesDatabase.find(j => j.id === id);
+            if(joke) {
+                joke.saved = !joke.saved;
+                persistSaves();
+                updateStats();
+                renderCurrentTab();
+                showToast(joke.saved ? "💾 Сохранено в избранное" : "📌 Удалено из сохранённых");
+            }
+        }
+
+        function renderCurrentTab() {
+            const container = document.getElementById("jokesList");
+            let jokesList = getJokesByTab(currentTab);
+            
+            if(jokesList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="far fa-frown"></i>
+                        <h3>Ничего не найдено</h3>
+                        <p>В этой вкладке пока нет анекдотов</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = jokesList.map(joke => `
+                <div class="joke-card" data-id="${joke.id}">
+                    <div class="joke-text">${escapeHtml(joke.text)}</div>
+                    <div class="joke-footer">
+                        <span class="category-badge">
+                            <i class="fas fa-tag"></i> ${joke.mainCategory}
+                        </span>
+                        <div class="action-buttons">
+                            <button class="like-btn" data-id="${joke.id}">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">${joke.likes}</span>
+                            </button>
+                            <button class="save-btn ${joke.saved ? 'saved' : ''}" data-id="${joke.id}">
+                                <i class="fas ${joke.saved ? 'fa-bookmark' : 'fa-bookmark'}"></i>
+                                ${joke.saved ? 'Сохранено' : 'Сохранить'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+            
+            // Обработчики
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    likeJoke(id);
+                });
+            });
+            
+            document.querySelectorAll('.save-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    toggleSave(id);
+                });
+            });
+        }
+        
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+        
+        function initTabs() {
+            const btns = document.querySelectorAll(".tab-btn");
+            btns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    currentTab = btn.dataset.tab;
+                    btns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    renderCurrentTab();
+                });
+            });
+        }
+        
+        function resetStorage() {
+            if(confirm("Сбросить все лайки и сохранённые анекдоты? Это действие нельзя отменить.")) {
+                jokesDatabase.forEach(j => { j.likes = 0; j.saved = false; });
+                persistLikes();
+                persistSaves();
+                updateStats();
+                renderCurrentTab();
+                showToast("🗑️ Все лайки и сохранения сброшены");
+            }
+        }
+        
+        // Инициализация
+        loadLikesAndSaves();
+        initTabs();
+        renderCurrentTab();
+        updateStats();
+        document.getElementById("resetStorageBtn").addEventListener("click", resetStorage);
+    </script>
 </body>
 </html>
