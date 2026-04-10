@@ -3,634 +3,820 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    
-    <!-- Google верификация -->
-    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
-    
-    <!-- Meta теги для поиска и соцсетей (фиксированные) -->
-    <meta name="title" content="Тестовый лендинг">
-    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
-    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
-    <meta name="author" content="timoshamoscow">
-    
-    <!-- Open Graph теги для соцсетей (фиксированные) -->
-    <meta property="og:title" content="Тестовый лендинг">
-    <meta property="og:description" content="Тестовый лендинг, здесь всякая фигня">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:site_name" content="Тестовый лендинг">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Тестовый лендинг">
-    <meta name="twitter:description" content="Тестовый лендинг, здесь всякая фигня">
-    
-    <!-- Динамический title -->
-    <title id="dynamicTitle">Тестовый лендинг</title>
-    
-    <!-- Google Identity Services SDK -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
+    <meta name="description" content="CyberOracle — киберпанк-оракул времени. Определи свой статус по дате рождения, собирай достижения, соревнуйся в рейтинге бессмертия.">
+    <meta name="keywords" content="оракул, дата рождения, киберпанк, достижения, статус, бессмертие, игра">
+    <meta name="author" content="CyberOracle">
+    <meta name="theme-color" content="#26d13c">
+    <title>CyberOracle | Оракул Времени</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Share Tech Mono', 'Courier New', monospace; }
         body {
-            background: linear-gradient(145deg, #f0f4fa 0%, #d9e0eb 100%);
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0f0a, #030603);
             min-height: 100vh;
+            color: #b3ffcf;
+            transition: background 0.5s;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
-
-        .card {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.96);
-            border-radius: 48px;
-            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a2a3f 0%, #0f1a2a 100%);
-            color: white;
-            padding: 20px 32px;
+        #fireworksCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+        .glow-text { text-shadow: 0 0 5px #26d13c, 0 0 10px #1a8f2a; }
+        .cyber-container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
+        .cyber-nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            background: #ffb347;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: #1a2a3f;
-        }
-
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        .site-title h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .site-title p {
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        .auth-area {
-            display: flex;
-            align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #26d13c;
+            padding-bottom: 15px;
         }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255,255,255,0.15);
-            padding: 8px 16px;
-            border-radius: 40px;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-name {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .logout-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
+        .nav-btn {
+            background: transparent;
+            border: 2px solid #26d13c;
+            color: #26d13c;
+            padding: 8px 22px;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 0.8rem;
+            transition: 0.2s;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        .nav-btn i { margin-right: 8px; }
+        .nav-btn.active, .nav-btn:hover {
+            background: #26d13c;
+            color: #0a0f0a;
+            box-shadow: 0 0 15px #26d13c;
+            transform: scale(1.02);
+        }
+        .card {
+            background: rgba(10, 18, 12, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid #26d13c;
+            border-radius: 32px;
+            padding: 28px 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 12px rgba(38,209,60,0.3);
+        }
+        h1, h2 { font-weight: normal; letter-spacing: 2px; }
+        h1 i, h2 i { margin-right: 12px; color: #26d13c; }
+        input, select, button {
+            background: #111c12;
+            border: 1px solid #26d13c;
+            border-radius: 28px;
+            padding: 12px 18px;
+            color: #e0ffe6;
+            font-size: 1rem;
+            outline: none;
             transition: 0.2s;
         }
-
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
+        input:focus, select:focus { box-shadow: 0 0 8px #26d13c; border-color: #6aff8c; }
+        button {
+            background: #1e3a24;
+            cursor: pointer;
+            font-weight: bold;
         }
-
-        .content {
-            padding: 32px 28px 38px;
+        button:hover {
+            background: #26d13c;
+            color: #030603;
+            box-shadow: 0 0 12px #26d13c;
         }
-
-        .welcome-banner {
-            background: linear-gradient(120deg, #e8f0fe 0%, #d4e2f5 100%);
+        .row-flex { display: flex; gap: 20px; flex-wrap: wrap; }
+        .form-group { flex: 1; min-width: 160px; margin-bottom: 18px; }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #9bffb0;
+        }
+        .result-box {
+            border-left: 8px solid #26d13c;
+            padding: 20px;
             border-radius: 28px;
-            padding: 20px 28px;
-            margin-bottom: 30px;
-            border-left: 6px solid #3b82f6;
+            background: #0b130e;
+            margin: 20px 0;
+            animation: flicker 0.3s ease;
         }
-
-        .welcome-banner h2 {
-            color: #1e3a5f;
-            margin-bottom: 8px;
+        @keyframes flicker {
+            0% { opacity: 0.4; transform: translateX(-4px);}
+            100% { opacity: 1; transform: translateX(0);}
         }
-
-        .welcome-banner p {
-            color: #2c5282;
+        .badge {
+            background: #1e2a1a;
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin: 4px;
+            border: 1px solid #26d13c;
+            transition: 0.2s;
+            cursor: help;
         }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 30px;
+        .badge.secret {
+            border-color: #ffaa44;
+            background: #2a2a1a;
+            color: #ffdd99;
+            box-shadow: 0 0 6px #ffaa44;
         }
-
-        .info-panel {
-            background: #f8fafd;
-            border-radius: 28px;
-            padding: 20px 24px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s;
-        }
-
-        .info-panel:hover {
-            transform: translateY(-3px);
-        }
-
-        .panel-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid #3b82f6;
-            padding-left: 14px;
-            color: #0f2b3d;
-        }
-
-        .data-row {
+        .badge.locked { opacity: 0.4; filter: grayscale(0.3); background: #0a0f0a; }
+        .history-item {
+            border-bottom: 1px dashed #26d13c;
+            padding: 8px 0;
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
             flex-wrap: wrap;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2edf2;
-            font-size: 1rem;
-        }
-
-        .data-label {
-            font-weight: 600;
-            color: #2c5a7a;
-        }
-
-        .data-value {
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-weight: 500;
-            color: #1e293b;
-            background: #ffffffd0;
-            padding: 4px 8px;
-            border-radius: 20px;
-            word-break: break-word;
-            max-width: 60%;
-            text-align: right;
-        }
-
-        .vpn-warning {
-            background: #fee2e2;
-            color: #b91c1c;
-            font-weight: 600;
-            padding: 10px 12px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
+            font-size: 0.75rem;
             gap: 8px;
         }
-
-        .refresh-btn {
-            background: #eef3fc;
-            border: 1px solid #bdd4e7;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .refresh-btn:hover {
-            background: #e2eaf3;
-            transform: scale(0.97);
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 28px;
-            font-size: 0.8rem;
-            color: #5b6e8c;
-            background: #ecf3f9;
-            padding: 14px;
-            border-radius: 60px;
-        }
-
-        .loader {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #b9d2f0;
-            border-top: 2px solid #1e4a76;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            color: #dc2626;
-            background: #fee2e2;
+        .rating-bar {
+            background: #1f2a1c;
+            border-radius: 20px;
             padding: 12px;
-            border-radius: 12px;
-            margin-top: 10px;
-            font-size: 0.85rem;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
         }
-
-        @media (max-width: 680px) {
-            .content {
-                padding: 20px;
-            }
-            .data-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
-            }
-            .data-value {
-                max-width: 100%;
-                text-align: left;
-            }
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
+        .stat-card {
+            background: #0a120e;
+            border-radius: 20px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #26d13c;
+        }
+        @media (max-width: 700px) {
+            .cyber-nav { gap: 10px; }
+            .nav-btn { padding: 5px 12px; font-size: 0.8rem; }
+            .card { padding: 18px; }
+        }
+        footer { text-align: center; margin-top: 30px; font-size: 0.7rem; opacity: 0.7; }
+        .page { display: none; }
+        .active-page { display: block; }
+        @keyframes epicGlow {
+            0% { text-shadow: 0 0 5px #26d13c; border-color: #26d13c; }
+            50% { text-shadow: 0 0 30px #ffaa44, 0 0 20px #ff6600; border-color: #ffaa44; background: rgba(255,170,68,0.2); }
+            100% { text-shadow: 0 0 5px #26d13c; border-color: #26d13c; }
+        }
+        .epic-complete { animation: epicGlow 0.8s ease-in-out 3; }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 2s linear forwards;
+            z-index: 10000;
+            pointer-events: none;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .share-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+        .share-btn { background: #1e3a24; padding: 8px 16px; border-radius: 40px; font-size: 0.8rem; border: none; margin: 0 5px; }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #26d13c;
+            color: #030603;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+        .filter-btn { background: #1a2a1a; padding: 4px 12px; font-size: 0.7rem; border-radius: 20px; cursor: pointer; }
+        .filter-btn.active-filter { background: #26d13c; color: #000; }
     </style>
 </head>
 <body>
+<canvas id="fireworksCanvas"></canvas>
+<div class="cyber-container">
+    <div class="cyber-nav">
+        <button class="nav-btn active" data-page="home"><i class="fas fa-home"></i> Главная</button>
+        <button class="nav-btn" data-page="check"><i class="fas fa-calendar-alt"></i> Статус</button>
+        <button class="nav-btn" data-page="achievements"><i class="fas fa-trophy"></i> Достижения</button>
+        <button class="nav-btn" data-page="history"><i class="fas fa-history"></i> История</button>
+        <button class="nav-btn" data-page="stats"><i class="fas fa-chart-line"></i> Статистика</button>
+    </div>
 
-<div class="card">
-    <div class="header">
-        <div class="logo-area">
-            <div class="logo">
-                <img src="images/logo.png" alt="Лого" class="logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='🌐'">
+    <!-- ГЛАВНАЯ -->
+    <div id="page-home" class="page active-page">
+        <div class="card">
+            <h1><i class="fas fa-microchip"></i> CYBER ORACLE // v5.0</h1>
+            <p style="margin-top: 16px; font-size: 1.1rem;">🔮 <span class="glow-text">Официальный киберпанк-оракул времени</span> 🔮<br>⚡ 9 основных + 5 секретных достижений • Рейтинг бессмертия • Статистика • Экспорт ⚡</p>
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-users"></i><br><span id="totalChecksStat">0</span><br>Всего проверок</div>
+                <div class="stat-card"><i class="fas fa-heartbeat"></i><br><span id="alivePercentStat">0</span>%<br>Живых</div>
+                <div class="stat-card"><i class="fas fa-trophy"></i><br><span id="totalAchievementsStat">0</span>/14<br>Достижений</div>
+                <div class="stat-card"><i class="fas fa-fire"></i><br><span id="streakStat">0</span><br>Текущая серия</div>
             </div>
-            <div class="site-title">
-                <h1>IP Детектор + Geo</h1>
-                <p>ваш цифровой профиль</p>
-            </div>
+            <button id="gotoCheckBtn" style="margin-top: 24px; width: auto; padding: 10px 30px;"><i class="fas fa-rocket"></i> НАЧАТЬ ПРОВЕРКУ</button>
         </div>
-        <div class="auth-area" id="authArea">
-            <div id="g_id_onload"
-                 data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com"
-                 data-context="signin"
-                 data-ux_mode="popup"
-                 data-callback="handleGoogleLogin"
-                 data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin"
-                 data-type="standard"
-                 data-shape="rectangular"
-                 data-theme="outline"
-                 data-text="signin_with"
-                 data-size="medium"
-                 data-logo_alignment="left">
-            </div>
-            <div id="userInfoDisplay" style="display: none;" class="user-info">
-                <img id="userAvatar" class="user-avatar" src="" alt="avatar">
-                <span id="userName" class="user-name"></span>
-                <button id="logoutBtn" class="logout-btn">Выйти</button>
+        <div class="card">
+            <h2><i class="fas fa-question-circle"></i> Как это работает</h2>
+            <p>✓ Введите дату рождения (отрицательный год = до н.э.)<br>
+            ✓ Система определит ваш статус: <span class="glow-text">ЖИВ / МЁРТВ / НЕ РОДИЛСЯ / ДО Н.Э. / ТАЙНА</span><br>
+            ✓ Получайте достижения за уникальные действия<br>
+            ✓ Секретные достижения скрыты, пока вы их не откроете<br>
+            ✓ Соревнуйтесь сами с собой через рейтинг бессмертия<br>
+            ✓ Экспортируйте историю в CSV и делитесь результатами</p>
+            <div class="share-buttons">
+                <button class="share-btn" onclick="copyShareText()"><i class="fas fa-share-alt"></i> Поделиться прогрессом</button>
+                <button class="share-btn" onclick="resetAllData()"><i class="fas fa-trash-alt"></i> Сбросить все данные</button>
             </div>
         </div>
     </div>
 
-    <div class="content">
-        <div class="welcome-banner" id="welcomeBanner">
-            <h2>🔍 Добро пожаловать!</h2>
-            <p>Здесь отображается ваш реальный IP-адрес, геолокация, провайдер и информация о возможном использовании VPN/прокси.</p>
-        </div>
-
-        <div class="info-grid">
-            <div class="info-panel">
-                <div class="panel-title">📡 IP & Сеть</div>
-                <div id="ipData">
-                    <div class="data-row"><span class="data-label">IPv4:</span><span class="data-value" id="ipAddr">— загрузка —</span></div>
-                    <div class="data-row"><span class="data-label">Провайдер (ISP):</span><span class="data-value" id="isp">—</span></div>
-                    <div class="data-row"><span class="data-label">Организация:</span><span class="data-value" id="org">—</span></div>
-                    <div class="data-row"><span class="data-label">Тип сети:</span><span class="data-value" id="networkType">—</span></div>
-                    <div class="data-row"><span class="data-label">Прокси статус:</span><span class="data-value" id="proxyStatus">⏳ проверка...</span></div>
+    <!-- СТАТУС -->
+    <div id="page-check" class="page">
+        <div class="card">
+            <h2><i class="fas fa-user-astronaut"></i> Кибер-верификация личности</h2>
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Полное имя</label>
+                <input type="text" id="fullname" placeholder="Иванов Иван Иванович">
+                <div class="row-flex" style="margin-top: 8px;">
+                    <label><input type="checkbox" id="noPatronymic"> <i class="fas fa-user-slash"></i> Нет отчества</label>
+                    <label><input type="checkbox" id="noPhoneCb"> <i class="fas fa-phone-slash"></i> Нет телефона</label>
+                    <label><input type="checkbox" id="noEmailCb"> <i class="fas fa-envelope-slash"></i> Нет почты</label>
                 </div>
             </div>
-
-            <div class="info-panel">
-                <div class="panel-title">🗺️ Геолокация</div>
-                <div id="geoData">
-                    <div class="data-row"><span class="data-label">Страна:</span><span class="data-value" id="country">—</span></div>
-                    <div class="data-row"><span class="data-label">Регион:</span><span class="data-value" id="region">—</span></div>
-                    <div class="data-row"><span class="data-label">Город:</span><span class="data-value" id="city">—</span></div>
-                    <div class="data-row"><span class="data-label">Координаты:</span><span class="data-value" id="latlon">—</span></div>
-                    <div class="data-row"><span class="data-label">Часовой пояс:</span><span class="data-value" id="timezone">—</span></div>
-                </div>
+            <div class="row-flex">
+                <div class="form-group"><label><i class="fas fa-calendar-day"></i> День</label><select id="daySel"></select></div>
+                <div class="form-group"><label><i class="fas fa-calendar-week"></i> Месяц</label><select id="monthSel"></select></div>
+                <div class="form-group"><label><i class="fas fa-globe"></i> Год (отрицательный = до н.э.)</label><input type="number" id="yearInp" value="1990" step="1"></div>
             </div>
-
-            <div class="info-panel">
-                <div class="panel-title">🛡️ Безопасность & VPN</div>
-                <div id="securityData">
-                    <div class="data-row"><span class="data-label">VPN/Прокси:</span><span class="data-value" id="vpnDetect">⏳ анализ...</span></div>
-                    <div class="data-row"><span class="data-label">Хостинг/Дата-центр:</span><span class="data-value" id="hostingStatus">—</span></div>
-                    <div class="data-row"><span class="data-label">Тип прокси:</span><span class="data-value" id="proxyType">—</span></div>
-                    <div class="data-row"><span class="data-label">User-Agent:</span><span class="data-value" id="uaPreview">—</span></div>
-                </div>
-                <button class="refresh-btn" id="refreshBtn">⟳ Обновить данные</button>
+            <div class="row-flex">
+                <div class="form-group"><label><i class="fas fa-phone-alt"></i> Телефон</label><input type="tel" id="phoneInp" placeholder="+7..."></div>
+                <div class="form-group"><label><i class="fas fa-envelope"></i> Email</label><input type="email" id="emailInp" placeholder="cyber@mail.net"></div>
             </div>
-        </div>
-
-        <div class="footer-note">
-            💡 Данные получены через ipapi.co. Определение VPN — вероятностное: проверка по базам дата-центров/прокси.
-            Авторизация через Google для персонализации опыта.
+            <button id="runOracleBtn"><i class="fas fa-microphone-alt"></i> ЗАПУСТИТЬ ОРАКУЛА</button>
+            <div id="resultArea" class="result-box" style="display: none;"></div>
         </div>
     </div>
+
+    <!-- ДОСТИЖЕНИЯ (все 14, секретные появляются после открытия) -->
+    <div id="page-achievements" class="page">
+        <div class="card" id="achievementsCard">
+            <h2><i class="fas fa-medal"></i> КИБЕР-ДОСТИЖЕНИЯ</h2>
+            <div id="achievementsList" style="display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0;"></div>
+            <div class="rating-bar"><i class="fas fa-chart-simple"></i> <span id="ratingSpan">Рейтинг: --</span></div>
+        </div>
+    </div>
+
+    <!-- ИСТОРИЯ С ФИЛЬТРАЦИЕЙ -->
+    <div id="page-history" class="page">
+        <div class="card">
+            <h2><i class="fas fa-database"></i> ЖУРНАЛ СОБЫТИЙ</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active-filter" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="ЖИВ">Живые</button>
+                <button class="filter-btn" data-filter="МЁРТВ">Мёртвые</button>
+                <button class="filter-btn" data-filter="ДО Н.Э.">До н.э.</button>
+                <button class="filter-btn" data-filter="НЕ РОДИЛСЯ">Будущие</button>
+                <button class="filter-btn" data-filter="ТАЙНА">Тайна</button>
+            </div>
+            <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <button id="exportHistoryBtn"><i class="fas fa-file-csv"></i> Экспорт CSV</button>
+                <button id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> Очистить историю</button>
+            </div>
+            <div id="historyLog"></div>
+        </div>
+    </div>
+
+    <!-- СТАТИСТИКА -->
+    <div id="page-stats" class="page">
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> РАСШИРЕННАЯ СТАТИСТИКА</h2>
+            <div id="detailedStats"></div>
+        </div>
+    </div>
+
+    <footer><i class="fas fa-shield-hal"></i> CyberOracle v5.0 | Бессмертие не гарантировано | Данные сохраняются локально</footer>
 </div>
 
 <script>
-    // ========== ДИНАМИЧЕСКИЙ TITLE ==========
-    function setDynamicTitle() {
-        const currentHour = new Date().getHours();
-        const hasVPN = localStorage.getItem('vpnDetected') === 'true';
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        
-        let contextTitle = '';
-        
-        if (isLoggedIn) {
-            contextTitle = 'Личный кабинет - Мой IP детектор';
-        } else if (hasVPN) {
-            contextTitle = '⚠️ VPN обнаружен - IP детектор';
-        } else if (currentHour < 12) {
-            contextTitle = 'Доброе утро - IP детектор';
-        } else if (currentHour < 18) {
-            contextTitle = 'Добрый день - IP детектор';
-        } else {
-            contextTitle = 'Добрый вечер - IP детектор';
+    // ========== ГЛОБАЛЬНЫЕ ДАННЫЕ ==========
+    let achievements = new Set();
+    let secretAchievements = new Set();
+    let historyData = [];
+    let allUnlockedFlag = false;
+    let currentStreak = 0;
+
+    // Все достижения (основные + секретные)
+    const MAIN_ACHIEVEMENTS = ["📅 Изгой календаря", "🏺 Древний", "👻 Призрак", "⚡ Долгожитель", "🌀 Хрономаг", "🏆 Бессмертный", "💀 Легенда", "🌀 Аномалия времени", "🌱 Кибер-юнец"];
+    const SECRET_LIST = ["🎭 Хранитель Нуля", "🕯️ Вампир", "📜 ХроноСтранник", "💎 Избранный Оракула", "🌌 Повелитель Времени"];
+    const ALL_ACHIEVEMENTS = [...MAIN_ACHIEVEMENTS, ...SECRET_LIST];
+
+    // ========== ЗАГРУЗКА / СОХРАНЕНИЕ ==========
+    function loadStore() {
+        let s = localStorage.getItem("cyberOracleV5");
+        if (s) {
+            let d = JSON.parse(s);
+            achievements = new Set(d.achievements || []);
+            secretAchievements = new Set(d.secretAchievements || []);
+            historyData = d.history || [];
+            currentStreak = d.streak || 0;
         }
-        
-        document.title = contextTitle;
+        renderAll();
+        checkSecretConditions();
+        updateStats();
     }
-    
-    // ========== GOOGLE LOGIN HANDLER ==========
-    let currentUser = null;
-    
-    window.handleGoogleLogin = function(response) {
-        try {
-            const decoded = JSON.parse(atob(response.credential.split('.')[1]));
-            currentUser = {
-                name: decoded.name,
-                email: decoded.email,
-                picture: decoded.picture,
-                sub: decoded.sub
-            };
-            
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', currentUser.name);
-            localStorage.setItem('userEmail', currentUser.email);
-            localStorage.setItem('userPicture', currentUser.picture);
-            
-            updateUIBasedOnAuth();
-            
-            const banner = document.getElementById('welcomeBanner');
-            if (banner) {
-                banner.innerHTML = `<h2>👋 Здравствуйте, ${currentUser.name}!</h2>
-                <p>Вы авторизованы через Google. Ваш IP и геоданные отображаются ниже. Спасибо, что используете наш сервис!</p>`;
-            }
-            
-            setDynamicTitle();
-            
-        } catch (e) {
-            console.error('Ошибка декодирования токена:', e);
+
+    function saveAll() {
+        localStorage.setItem("cyberOracleV5", JSON.stringify({
+            achievements: Array.from(achievements),
+            secretAchievements: Array.from(secretAchievements),
+            history: historyData,
+            streak: currentStreak
+        }));
+    }
+
+    // ========== ДОСТИЖЕНИЯ ==========
+    function unlockAchievement(name, isSecret = false) {
+        let target = isSecret ? secretAchievements : achievements;
+        if (!target.has(name)) {
+            target.add(name);
+            saveAll();
+            renderAll();
+            showNotification(`🏆 ДОСТИЖЕНИЕ ПОЛУЧЕНО: ${name} 🏆`);
+            if (!isSecret) checkFullCollection();
+            return true;
         }
-    };
-    
-    function updateUIBasedOnAuth() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        const gButton = document.querySelector('.g_id_signin');
-        const userInfoDiv = document.getElementById('userInfoDisplay');
+        return false;
+    }
+
+    function unlockSecret(name) {
+        unlockAchievement(name, true);
+    }
+
+    // Секретные условия
+    function checkSecretConditions() {
+        // Хранитель Нуля — год 0
+        if (historyData.some(h => h.year === 0) && !secretAchievements.has("🎭 Хранитель Нуля"))
+            unlockSecret("🎭 Хранитель Нуля");
         
-        if (isLoggedIn && localStorage.getItem('userName')) {
-            if (gButton) gButton.style.display = 'none';
-            if (userInfoDiv) {
-                userInfoDiv.style.display = 'flex';
-                document.getElementById('userName').innerText = localStorage.getItem('userName');
-                const avatar = document.getElementById('userAvatar');
-                avatar.src = localStorage.getItem('userPicture') || '';
-                avatar.onerror = () => { avatar.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'; };
-            }
-        } else {
-            if (gButton) gButton.style.display = 'block';
-            if (userInfoDiv) userInfoDiv.style.display = 'none';
+        // Вампир — 3+ пары с разницей ≥100 лет
+        let years = historyData.map(h => h.year).filter(y => y !== undefined && !isNaN(y));
+        let pairs = 0;
+        for (let i = 0; i < years.length; i++)
+            for (let j = i + 1; j < years.length; j++)
+                if (Math.abs(years[i] - years[j]) >= 100) pairs++;
+        if (pairs >= 3 && !secretAchievements.has("🕯️ Вампир"))
+            unlockSecret("🕯️ Вампир");
+        
+        // ХроноСтранник — 10+ уникальных эпох (столетий)
+        let uniqueEras = new Set(historyData.map(h => Math.floor(h.year / 100)));
+        if (uniqueEras.size >= 10 && !secretAchievements.has("📜 ХроноСтранник"))
+            unlockSecret("📜 ХроноСтранник");
+        
+        // Избранный Оракула — 100% живых (проверяется в updateRating)
+        // Повелитель Времени — в checkFullCollection
+        checkFullCollection();
+    }
+
+    function checkFullCollection() {
+        if (achievements.size >= 9 && secretAchievements.size >= 5 && !allUnlockedFlag) {
+            allUnlockedFlag = true;
+            startEpicCelebration();
+            if (!secretAchievements.has("🌌 Повелитель Времени"))
+                unlockSecret("🌌 Повелитель Времени");
         }
     }
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('isLoggedIn');
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userPicture');
-                currentUser = null;
-                updateUIBasedOnAuth();
-                
-                const banner = document.getElementById('welcomeBanner');
-                if (banner) {
-                    banner.innerHTML = `<h2>🔍 Добро пожаловать!</h2>
-                    <p>Здесь отображается ваш реальный IP-адрес, геолокация, провайдер и информация о возможном использовании VPN/прокси.</p>`;
-                }
-                
-                setDynamicTitle();
-                location.reload();
+
+    // ========== ОТРИСОВКА ==========
+    function renderAll() {
+        renderAchievementsList();
+        renderHistoryPage(document.querySelector(".filter-btn.active-filter")?.dataset.filter || "all");
+        updateRating();
+        updateStats();
+    }
+
+    function renderAchievementsList() {
+        let container = document.getElementById("achievementsList");
+        if (!container) return;
+        
+        // Показываем все основные достижения + уже открытые секретные
+        let html = "";
+        for (let ach of MAIN_ACHIEVEMENTS) {
+            let isUnlocked = achievements.has(ach);
+            html += `<span class="badge ${isUnlocked ? '' : 'locked'}" title="${isUnlocked ? 'Получено!' : 'Ещё не получено'}">
+                <i class="fas ${isUnlocked ? 'fa-lock-open' : 'fa-lock'}"></i> ${ach}
+            </span>`;
+        }
+        
+        // Секретные достижения — показываем ТОЛЬКО если получены
+        for (let sec of SECRET_LIST) {
+            let isUnlocked = secretAchievements.has(sec);
+            if (isUnlocked) {
+                html += `<span class="badge secret" title="Секретное достижение!">
+                    <i class="fas fa-gem"></i> ${sec}
+                </span>`;
+            }
+        }
+        
+        // Если нет ни одного секретного — показываем заглушку
+        if (secretAchievements.size === 0) {
+            html += `<span class="badge locked" style="opacity:0.6;"><i class="fas fa-key"></i> ??? Секретные достижения (скрыты)</span>`;
+        }
+        
+        container.innerHTML = html;
+    }
+
+    function renderHistoryPage(filter = "all") {
+        let container = document.getElementById("historyLog");
+        if (!container) return;
+        
+        let filtered = historyData.filter(h => filter === "all" ? true : h.statusText === filter);
+        if (filtered.length === 0) {
+            container.innerHTML = "<div class='history-item'>Нет записей</div>";
+            return;
+        }
+        
+        container.innerHTML = filtered.map(h => `
+            <div class="history-item">
+                <span><i class="fas fa-user"></i> ${h.name}</span>
+                <span><i class="fas fa-calendar"></i> ${h.date}</span>
+                <span><i class="fas ${h.statusText === 'ЖИВ' ? 'fa-heartbeat' : (h.statusText === 'МЁРТВ' ? 'fa-skull' : 'fa-question')}"></i> ${h.statusText}</span>
+                <span><i class="far fa-clock"></i> ${h.time}</span>
+            </div>
+        `).join('');
+    }
+
+    function updateRating() {
+        let total = historyData.length;
+        let alive = historyData.filter(h => h.statusText === "ЖИВ").length;
+        let percent = total ? (alive / total * 100).toFixed(0) : 0;
+        let ratingText = total ? (percent >= 70 ? "🏆 БЕССМЕРТНЫЙ" : (percent >= 40 ? "🌿 ЖИВУЧИЙ" : "💀 СМЕРТНЫЙ")) : "НЕТ ДАННЫХ";
+        let span = document.getElementById("ratingSpan");
+        if (span) span.innerText = `Рейтинг: ${ratingText} (${percent}% живых, проверок: ${total})`;
+        
+        // Секретное достижение: Избранный Оракула
+        if (total > 0 && percent == 100 && !secretAchievements.has("💎 Избранный Оракула"))
+            unlockSecret("💎 Избранный Оракула");
+    }
+
+    function updateStats() {
+        let total = historyData.length;
+        let alive = historyData.filter(h => h.statusText === "ЖИВ").length;
+        let percent = total ? (alive / total * 100).toFixed(0) : 0;
+        document.getElementById("totalChecksStat") && (document.getElementById("totalChecksStat").innerText = total);
+        document.getElementById("alivePercentStat") && (document.getElementById("alivePercentStat").innerText = percent);
+        document.getElementById("totalAchievementsStat") && (document.getElementById("totalAchievementsStat").innerText = achievements.size + secretAchievements.size);
+        document.getElementById("streakStat") && (document.getElementById("streakStat").innerText = currentStreak);
+        
+        let ages = historyData.map(h => h.age).filter(a => a);
+        let avgAge = ages.length ? (ages.reduce((a, b) => a + b, 0) / ages.length).toFixed(0) : 0;
+        let uniqueEras = new Set(historyData.map(h => Math.floor(h.year / 100)));
+        let statsDiv = document.getElementById("detailedStats");
+        if (statsDiv) {
+            statsDiv.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card">📊 Средний возраст: ${avgAge} лет</div>
+                    <div class="stat-card">🔄 Уникальных эпох: ${uniqueEras.size}</div>
+                    <div class="stat-card">🏅 Достижений: ${achievements.size + secretAchievements.size}/14</div>
+                    <div class="stat-card">🔥 Текущая серия: ${currentStreak}</div>
+                    <div class="stat-card">📜 Всего записей: ${total}</div>
+                    <div class="stat-card">💀 Мёртвых: ${historyData.filter(h => h.statusText === "МЁРТВ").length}</div>
+                    <div class="stat-card">👶 Нерождённых: ${historyData.filter(h => h.statusText === "НЕ РОДИЛСЯ").length}</div>
+                    <div class="stat-card">🏺 Древних (до н.э.): ${historyData.filter(h => h.statusText === "ДО Н.Э.").length}</div>
+                </div>
+            `;
+        }
+    }
+
+    // ========== ДОБАВЛЕНИЕ ЗАПИСИ ==========
+    function addHistory(name, date, statusText, statusType, year, age) {
+        let last = historyData[0];
+        if (last && last.statusText === statusText) currentStreak++;
+        else currentStreak = 1;
+        
+        historyData.unshift({
+            name: name.substring(0, 40),
+            date,
+            statusText,
+            type: statusType,
+            time: new Date().toLocaleString(),
+            year,
+            age
+        });
+        if (historyData.length > 50) historyData.pop();
+        saveAll();
+        renderHistoryPage(document.querySelector(".filter-btn.active-filter")?.dataset.filter || "all");
+        updateRating();
+        checkSecretConditions();
+        updateStats();
+    }
+
+    // ========== ЭПИЧЕСКАЯ АНИМАЦИЯ ==========
+    function startEpicCelebration() {
+        let card = document.getElementById("achievementsCard");
+        if (card) card.classList.add("epic-complete");
+        for (let i = 0; i < 30; i++) setTimeout(() => createFirework(), i * 100);
+        for (let i = 0; i < 150; i++) setTimeout(() => createConfetti(), i * 15);
+        playFanfare();
+        showNotification("✨ ВЫ ПОВЕЛИТЕЛЬ ВРЕМЕНИ! Все 14 достижений собраны! ✨");
+    }
+
+    function createFirework() {
+        let c = document.getElementById("fireworksCanvas");
+        let ctx = c.getContext("2d");
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        let x = Math.random() * c.width;
+        let y = Math.random() * c.height * 0.6;
+        let particles = [];
+        for (let i = 0; i < 30; i++) {
+            particles.push({
+                x, y,
+                vx: (Math.random() - 0.5) * 8,
+                vy: (Math.random() - 0.5) * 8 - 3,
+                life: 1,
+                color: `hsl(${Math.random() * 360}, 100%, 60%)`
             });
         }
-        
-        updateUIBasedOnAuth();
-        setDynamicTitle();
-    });
+        let frame = 0;
+        function animate() {
+            if (frame++ > 50) return;
+            ctx.fillStyle = "rgba(0,0,0,0.3)";
+            ctx.fillRect(0, 0, c.width, c.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.2;
+                p.life -= 0.03;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            });
+            particles = particles.filter(p => p.life > 0);
+            if (particles.length) requestAnimationFrame(animate);
+            else ctx.clearRect(0, 0, c.width, c.height);
+        }
+        animate();
+    }
+
+    function createConfetti() {
+        let d = document.createElement("div");
+        d.classList.add("confetti");
+        d.style.left = Math.random() * window.innerWidth + "px";
+        d.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
+        d.style.width = d.style.height = (5 + Math.random() * 8) + "px";
+        d.style.position = "fixed";
+        document.body.appendChild(d);
+        setTimeout(() => d.remove(), 2000);
+    }
+
+    function createConfettiBurst() {
+        for (let i = 0; i < 50; i++) setTimeout(() => createConfetti(), i * 10);
+    }
+
+    function playFanfare() {
+        try {
+            let ctx = new AudioContext();
+            [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+                let o = ctx.createOscillator();
+                let g = ctx.createGain();
+                o.connect(g);
+                g.connect(ctx.destination);
+                g.gain.value = 0.15;
+                o.frequency.value = f;
+                o.start(ctx.currentTime + i * 0.15);
+                g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.15 + 0.5);
+                o.stop(ctx.currentTime + i * 0.15 + 0.5);
+            });
+        } catch (e) { }
+    }
+
+    function showNotification(msg) {
+        let n = document.createElement("div");
+        n.className = "notification";
+        n.innerHTML = `<i class="fas fa-bell"></i> ${msg}`;
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 3000);
+    }
+
+    function copyShareText() {
+        let total = achievements.size + secretAchievements.size;
+        let text = `CyberOracle v5.0\nМои достижения: ${total}/14\nРейтинг: ${document.getElementById("ratingSpan")?.innerText || "--"}\nПроверь и ты!`;
+        navigator.clipboard.writeText(text);
+        showNotification("📋 Текст скопирован в буфер обмена!");
+    }
+
+    function resetAllData() {
+        if (confirm("⚠️ ВСЕ ДАННЫЕ БУДУТ УДАЛЕНЫ! Достижения, история, рейтинг — безвозвратно. Продолжить?")) {
+            achievements.clear();
+            secretAchievements.clear();
+            historyData = [];
+            currentStreak = 0;
+            saveAll();
+            renderAll();
+            showNotification("💀 Все данные сброшены. Начните новое путешествие!");
+        }
+    }
+
+    // ========== ЛОГИКА ОРАКУЛА ==========
+    function isRealDate(y, m, d) { let dt = new Date(y, m - 1, d); return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d; }
+    function formatDate(y, m, d) { let months = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек']; return `${d} ${months[m - 1]} ${Math.abs(y)} г. ${y < 0 ? 'до н.э.' : 'н.э.'}`; }
+    function getAgeWord(a) { if (a % 10 === 1 && a % 100 !== 11) return "год"; if (a % 10 >= 2 && a % 10 <= 4 && (a % 100 < 10 || a % 100 >= 20)) return "года"; return "лет"; }
     
-    // ========== IP И ГЕОЛОКАЦИЯ (НОВЫЙ РАБОЧИЙ API ДЛЯ HTTPS) ==========
-    const ipAddrEl = document.getElementById('ipAddr');
-    const ispEl = document.getElementById('isp');
-    const orgEl = document.getElementById('org');
-    const networkTypeEl = document.getElementById('networkType');
-    const proxyStatusEl = document.getElementById('proxyStatus');
-    const countryEl = document.getElementById('country');
-    const regionEl = document.getElementById('region');
-    const cityEl = document.getElementById('city');
-    const latlonEl = document.getElementById('latlon');
-    const timezoneEl = document.getElementById('timezone');
-    const vpnDetectEl = document.getElementById('vpnDetect');
-    const hostingStatusEl = document.getElementById('hostingStatus');
-    const proxyTypeEl = document.getElementById('proxyType');
-    const uaPreviewEl = document.getElementById('uaPreview');
-    
-    function setUserAgent() {
-        const ua = navigator.userAgent;
-        let shortUA = ua.length > 65 ? ua.substring(0, 62) + '...' : ua;
-        if (uaPreviewEl) uaPreviewEl.innerText = shortUA;
+    function playSound(s) {
+        try {
+            let ctx = new AudioContext();
+            let o = ctx.createOscillator();
+            let g = ctx.createGain();
+            o.connect(g);
+            g.connect(ctx.destination);
+            g.gain.value = 0.1;
+            o.frequency.value = s === 'alive' ? 523.25 : s === 'dead' ? 164.81 : s === 'unborn' ? 659.25 : s === 'bce' ? 130.81 : 880;
+            o.start();
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.4);
+            o.stop(ctx.currentTime + 0.4);
+        } catch (e) { }
     }
     
-    async function fetchIPData() {
-        // Используем ipapi.co - работает отлично с HTTPS и GitHub Pages
-        try {
-            // Получаем полную информацию
-            const response = await fetch('https://ipapi.co/json/');
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const data = await response.json();
-            
-            console.log('IP Data:', data);
-            
-            // Заполняем данные
-            ipAddrEl.innerText = data.ip || 'неизвестно';
-            ispEl.innerText = data.org || data.asn || '—';
-            orgEl.innerText = data.org || '—';
-            
-            // Определяем тип сети
-            let netType = 'Широкополосный';
-            if (data.mobile === true) netType = '📱 Мобильная сеть';
-            else if (data.proxy === true || data.proxy_type) netType = '🕵️ Прокси / VPN узел';
-            else if (data.asn?.includes('CLOUDFLARE') || data.asn?.includes('AMAZON')) netType = '🏢 Хостинг / Дата-центр';
-            networkTypeEl.innerText = netType;
-            
-            // Прокси статус
-            const isProxy = data.proxy === true || data.proxy_type !== undefined;
-            proxyStatusEl.innerText = isProxy ? '⚠️ Обнаружен прокси/VPN!' : '✅ Прямое соединение';
-            
-            // Геолокация
-            countryEl.innerText = data.country_name || data.country || '—';
-            regionEl.innerText = data.region || '—';
-            cityEl.innerText = data.city || '—';
-            if (data.latitude && data.longitude) latlonEl.innerText = `${data.latitude}, ${data.longitude}`;
-            timezoneEl.innerText = data.timezone || '—';
-            
-            // Сохраняем статус VPN
-            localStorage.setItem('vpnDetected', isProxy ? 'true' : 'false');
-            setDynamicTitle();
-            
-            // VPN детекция
-            if (isProxy) {
-                vpnDetectEl.innerHTML = `<span class="vpn-warning">⚠️ Обнаружен VPN/прокси сервер!</span>`;
-                hostingStatusEl.innerText = 'Обнаружен прокси/VPN';
-                proxyTypeEl.innerText = data.proxy_type || 'Публичный прокси/VPN';
-            } else {
-                vpnDetectEl.innerText = '✅ VPN не обнаружен';
-                hostingStatusEl.innerText = 'Нет';
-                proxyTypeEl.innerText = 'Не обнаружено';
-            }
-            
-        } catch (err) {
-            console.error('Ошибка ipapi.co:', err);
-            
-            // Пробуем запасной API - ipwhois.io
-            try {
-                const fallbackResponse = await fetch('https://ipwho.is/');
-                const fallbackData = await fallbackResponse.json();
-                
-                ipAddrEl.innerText = fallbackData.ip || 'неизвестно';
-                ispEl.innerText = fallbackData.connection?.isp || '—';
-                orgEl.innerText = fallbackData.connection?.org || '—';
-                countryEl.innerText = fallbackData.country || '—';
-                regionEl.innerText = fallbackData.region || '—';
-                cityEl.innerText = fallbackData.city || '—';
-                if (fallbackData.latitude && fallbackData.longitude) latlonEl.innerText = `${fallbackData.latitude}, ${fallbackData.longitude}`;
-                timezoneEl.innerText = fallbackData.timezone?.id || '—';
-                
-                const isProxyFallback = fallbackData.security?.proxy === true || fallbackData.security?.vpn === true;
-                localStorage.setItem('vpnDetected', isProxyFallback ? 'true' : 'false');
-                setDynamicTitle();
-                
-                if (isProxyFallback) {
-                    vpnDetectEl.innerHTML = `<span class="vpn-warning">⚠️ Обнаружен VPN/прокси сервер!</span>`;
-                    hostingStatusEl.innerText = 'Обнаружен прокси/VPN';
-                    proxyTypeEl.innerText = fallbackData.security?.proxy_type || 'Прокси/VPN';
-                } else {
-                    vpnDetectEl.innerText = '✅ VPN не обнаружен';
-                    hostingStatusEl.innerText = 'Нет';
-                    proxyTypeEl.innerText = 'Не обнаружено';
-                }
-                
-                proxyStatusEl.innerText = isProxyFallback ? '⚠️ Обнаружен прокси/VPN!' : '✅ Прямое соединение';
-                networkTypeEl.innerText = isProxyFallback ? '🕵️ Прокси / VPN узел' : 'Широкополосный';
-                
-            } catch (fallbackErr) {
-                console.error('Ошибка запасного API:', fallbackErr);
-                ipAddrEl.innerText = 'Ошибка загрузки';
-                vpnDetectEl.innerText = '❌ Не удалось проверить VPN';
-                proxyStatusEl.innerText = 'Ошибка API';
-            }
+    function setBodyBg(s) {
+        let b = document.body;
+        if (s === 'alive') b.style.background = "radial-gradient(circle at 20% 30%, #0e2a12, #041a08)";
+        else if (s === 'dead') b.style.background = "radial-gradient(circle at 20% 30%, #2a0a0a, #150303)";
+        else if (s === 'unborn') b.style.background = "radial-gradient(circle at 20% 30%, #2a2810, #1a1808)";
+        else if (s === 'bce') b.style.background = "radial-gradient(circle at 20% 30%, #1e1e3a, #0e0e22)";
+        else if (s === 'impossible') b.style.background = "radial-gradient(circle at 20% 30%, #2a103a, #140620)";
+        else b.style.background = "radial-gradient(circle at 20% 30%, #0a0f0a, #030603)";
+    }
+    
+    function checkForAchievements(status, age, year, isImp) {
+        if (isImp) unlockAchievement("📅 Изгой календаря");
+        if (status === "bce") { unlockAchievement("🏺 Древний"); unlockAchievement("👻 Призрак"); }
+        if (status === "dead" && year < 0) unlockAchievement("👻 Призрак");
+        if (status === "alive" && age >= 100) unlockAchievement("⚡ Долгожитель");
+        if (status === "unborn" && year > 3000) unlockAchievement("🌀 Хрономаг");
+        if (status === "alive" && age >= 122) unlockAchievement("🏆 Бессмертный");
+        if (status === "dead" && age > 100) unlockAchievement("💀 Легенда");
+        if (isImp) unlockAchievement("🌀 Аномалия времени");
+        if (status === "alive" && age < 18) unlockAchievement("🌱 Кибер-юнец");
+    }
+    
+    function runOracle() {
+        let name = document.getElementById("fullname").value.trim();
+        let noPatr = document.getElementById("noPatronymic").checked;
+        if (!name) { alert("Введите ФИО"); return; }
+        let words = name.split(/\s+/).filter(w => w);
+        if (noPatr ? words.length < 2 : words.length < 3) {
+            alert(`Требуется ${noPatr ? "минимум 2 слова (Имя Фамилия)" : "минимум 3 слова (Фамилия Имя Отчество)"}`);
+            return;
+        }
+        let day = parseInt(document.getElementById("daySel").value);
+        let month = parseInt(document.getElementById("monthSel").value);
+        let year = parseInt(document.getElementById("yearInp").value);
+        if (isNaN(year)) year = 2000;
+        let phone = document.getElementById("phoneInp").value;
+        let email = document.getElementById("emailInp").value;
+        let noPhone = document.getElementById("noPhoneCb").checked;
+        let noEmail = document.getElementById("noEmailCb").checked;
+        if (noPhone) phone = "";
+        if (noEmail) email = "";
+        
+        let exists = isRealDate(year, month, day);
+        let dateStr = formatDate(year, month, day);
+        let resHtml = "", stype = "", stext = "";
+        
+        if (!exists) {
+            stype = "impossible"; stext = "❓ ТАЙНА";
+            resHtml = `<div><i class="fas fa-question-circle"></i> ТАЙНА ВНЕ ВРЕМЕНИ</div><div>${name}, ${dateStr}</div><div>Эта дата не существует. Вы — аномалия.</div>`;
+            playSound("impossible"); setBodyBg("impossible");
+            checkForAchievements("impossible", null, year, true);
+            addHistory(name, dateStr, stext, stype, year, null);
+            document.getElementById("resultArea").style.display = "block";
+            document.getElementById("resultArea").innerHTML = resHtml;
+            renderAll(); return;
+        }
+        if (year < 0) {
+            stype = "bce"; stext = "ДО Н.Э.";
+            resHtml = `<div><i class="fas fa-landmark"></i> АНТИЧНОСТЬ</div><div>${name}, ${dateStr}</div><div>Вы жили до нашей эры — вечная память.</div>`;
+            playSound("bce"); setBodyBg("bce");
+            checkForAchievements("bce", null, year, false);
+            addHistory(name, dateStr, stext, stype, year, null);
+            document.getElementById("resultArea").style.display = "block";
+            document.getElementById("resultArea").innerHTML = resHtml;
+            renderAll(); return;
+        }
+        let today = new Date();
+        let todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        let birth = new Date(year, month - 1, day);
+        if (birth > todayMid) {
+            stype = "unborn"; stext = "НЕ РОДИЛСЯ";
+            resHtml = `<div><i class="fas fa-future"></i> ЕЩЁ НЕ РОДИЛИСЬ</div><div>${name}, ${dateStr}</div><div>Вы из будущего.</div>`;
+            playSound("unborn"); setBodyBg("unborn");
+            checkForAchievements("unborn", null, year, false);
+            addHistory(name, dateStr, stext, stype, year, null);
+            document.getElementById("resultArea").style.display = "block";
+            document.getElementById("resultArea").innerHTML = resHtml;
+            renderAll(); return;
+        }
+        let age = todayMid.getFullYear() - birth.getFullYear();
+        if (todayMid.getMonth() < birth.getMonth() || (todayMid.getMonth() === birth.getMonth() && todayMid.getDate() < birth.getDate())) age--;
+        if (year < 1900 || age > 122) {
+            stype = "dead"; stext = "МЁРТВ";
+            resHtml = `<div><i class="fas fa-skull"></i> СКОРБИМ</div><div>${name}, ${dateStr}</div><div>Земля пухом.</div>`;
+            playSound("dead"); setBodyBg("dead");
+            checkForAchievements("dead", age, year, false);
+            addHistory(name, dateStr, stext, stype, year, age);
+            document.getElementById("resultArea").style.display = "block";
+            document.getElementById("resultArea").innerHTML = resHtml;
+            renderAll(); return;
+        }
+        stype = "alive"; stext = "ЖИВ";
+        let contacts = (phone ? `📞 ${phone} ` : "") + (email ? `✉️ ${email}` : "");
+        resHtml = `<div><i class="fas fa-heartbeat"></i> СТАТУС: ЖИВ</div><div>${name}, ${dateStr} (${age} ${getAgeWord(age)})</div><div>${contacts || "Контакты не указаны"}</div><div>✅ Вы существуете в текущей временной линии.</div>`;
+        playSound("alive"); setBodyBg("alive");
+        checkForAchievements("alive", age, year, false);
+        addHistory(name, dateStr, stext, stype, year, age);
+        document.getElementById("resultArea").style.display = "block";
+        document.getElementById("resultArea").innerHTML = resHtml;
+        renderAll();
+    }
+    
+    // ========== НАВИГАЦИЯ ==========
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(`page-${id}`).classList.add('active-page');
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.nav-btn[data-page="${id}"]`).classList.add('active');
+        if (id === 'history') renderHistoryPage(document.querySelector(".filter-btn.active-filter")?.dataset.filter || "all");
+        if (id === 'stats') updateStats();
+    }
+    
+    function initSelects() {
+        let daySel = document.getElementById("daySel");
+        if (daySel) {
+            daySel.innerHTML = "";
+            for (let i = 1; i <= 31; i++) daySel.innerHTML += `<option value="${i}">${i}</option>`;
+        }
+        let monthSel = document.getElementById("monthSel");
+        if (monthSel) {
+            monthSel.innerHTML = `<option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
+                <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
+                <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
+                <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>`;
         }
     }
     
-    function refreshAll() {
-        ipAddrEl.innerText = '— загрузка —';
-        vpnDetectEl.innerText = '⏳ анализ...';
-        fetchIPData();
-    }
-    
-    setUserAgent();
-    fetchIPData();
-    
-    const refreshBtn = document.getElementById('refreshBtn');
-    if (refreshBtn) refreshBtn.addEventListener('click', refreshAll);
-    
-    // Обработчик ошибки логотипа
-    const logoImg = document.querySelector('.logo-img');
-    if (logoImg) {
-        logoImg.onerror = function() {
-            this.style.display = 'none';
-            if (this.parentElement) this.parentElement.innerHTML = '🌐';
-        };
-    }
+    // ========== ЗАПУСК ==========
+    window.onload = () => {
+        initSelects();
+        loadStore();
+        
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+        document.getElementById("runOracleBtn").addEventListener("click", runOracle);
+        document.getElementById("gotoCheckBtn").addEventListener("click", () => showPage("check"));
+        document.getElementById("exportHistoryBtn").addEventListener("click", () => {
+            let csv = "ФИО,Дата,Статус,Время\n" + historyData.map(h => `"${h.name}","${h.date}","${h.statusText}","${h.time}"`).join("\n");
+            let blob = new Blob([csv], { type: "text/csv" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "oracle_history.csv";
+            a.click();
+        });
+        document.getElementById("clearHistoryBtn").addEventListener("click", () => {
+            if (confirm("Очистить историю проверок?")) {
+                historyData = [];
+                currentStreak = 0;
+                saveAll();
+                renderAll();
+                showNotification("История очищена");
+            }
+        });
+        
+        let noPhone = document.getElementById("noPhoneCb"), noEmail = document.getElementById("noEmailCb");
+        let phoneInp = document.getElementById("phoneInp"), emailInp = document.getElementById("emailInp");
+        if (noPhone) noPhone.addEventListener("change", () => { phoneInp.disabled = noPhone.checked; if (noPhone.checked) phoneInp.value = ""; });
+        if (noEmail) noEmail.addEventListener("change", () => { emailInp.disabled = noEmail.checked; if (noEmail.checked) emailInp.value = ""; });
+        
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active-filter"));
+                btn.classList.add("active-filter");
+                renderHistoryPage(btn.dataset.filter);
+            });
+        });
+        
+        showPage('home');
+    };
 </script>
 </body>
 </html>
