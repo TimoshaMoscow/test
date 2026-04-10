@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="JokeHub Pro — крупнейшая коллекция из 200+ анекдотов с умной системой возрастного рейтинга. Лайки, сохранения, 6 категорий.">
-    <meta name="keywords" content="анекдоты, шутки, юмор, 200 анекдотов, вовочка, нейросеть, база анекдотов">
-    <meta name="author" content="JokeHub Pro">
-    <meta name="theme-color" content="#f97316">
-    <title>JokeHub Pro | База крутых анекдотов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Мой IP детектор: геолокация, VPN, данные соединения</title>
     <style>
         * {
             margin: 0;
@@ -17,1214 +11,547 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #faf7f2;
-            --bg-secondary: #ffffff;
-            --accent: #f97316;
-            --accent-dark: #ea580c;
-            --accent-light: #ffedd5;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-            --danger: #dc2626;
-            --danger-light: #fee2e2;
-            --success: #10b981;
-            --success-light: #d1fae5;
-            --warning: #f59e0b;
-            --warning-light: #fef3c7;
-            --info: #3b82f6;
-            --info-light: #dbeafe;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.5;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-mode {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border: #334155;
-            --accent-light: #2d1a0e;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
+            background: linear-gradient(145deg, #f0f4fa 0%, #d9e0eb 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            display: flex;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s ease;
+            padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: var(--bg-secondary);
-            border-radius: 2rem;
-            padding: 2.5rem;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            box-shadow: var(--shadow-xl);
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal h2 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        .modal p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .age-input-group {
-            display: flex;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .age-input-group input {
-            flex: 1;
-            padding: 0.875rem;
-            border: 2px solid var(--border);
-            border-radius: 1rem;
-            font-family: inherit;
-            font-size: 1rem;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: border-color 0.2s;
-        }
-
-        .age-input-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .age-input-group button {
-            padding: 0.875rem 1.5rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-
-        .age-input-group button:hover {
-            background: var(--accent-dark);
-            transform: translateY(-2px);
-        }
-
-        .age-note {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 1rem;
-        }
-
-        /* Header */
-        .hero {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            position: relative;
+        /* главная карточка */
+        .card {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(0px);
+            border-radius: 48px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            transition: all 0.2s ease;
         }
 
-        body.dark-mode .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-        }
-
-        .hero::before {
-            content: '😂';
-            position: absolute;
-            font-size: 250px;
-            opacity: 0.03;
-            bottom: -50px;
-            right: -50px;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff 0%, #f97316 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-tagline {
-            font-size: 1rem;
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-        }
-
-        .age-badge-header {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
-            margin-top: 1rem;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-            background: rgba(255,255,255,0.05);
-            padding: 0.5rem 1.25rem;
-            border-radius: 1rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #f97316;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Tabs */
-        .tabs-wrapper {
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            min-width: min-content;
-        }
-
-        .tab-btn {
-            padding: 0.7rem 1.3rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 9999px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-        }
-
-        .tab-btn i {
-            font-size: 0.85rem;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
+        /* шапка */
+        .header {
+            background: #1a2a3f;
             color: white;
-            box-shadow: var(--shadow-md);
+            padding: 28px 32px;
+            text-align: center;
         }
 
-        /* Jokes Grid */
-        .jokes-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        /* Joke Card */
-        .joke-card {
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-            animation: fadeInUp 0.4s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .joke-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-light);
-        }
-
-        .joke-text {
-            font-size: 1rem;
-            line-height: 1.65;
-            color: var(--text-primary);
-            margin-bottom: 1.25rem;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .joke-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .category-badge {
-            background: var(--accent-light);
-            color: var(--accent-dark);
-            padding: 0.25rem 0.875rem;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-        }
-
-        .age-badge {
-            background: var(--warning-light);
-            color: var(--warning);
-            padding: 0.2rem 0.6rem;
-            border-radius: 9999px;
-            font-size: 0.65rem;
+        .header h1 {
             font-weight: 700;
-            margin-left: 0.5rem;
-        }
-
-        .age-badge.adult {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .action-buttons {
+            font-size: 1.9rem;
+            letter-spacing: -0.3px;
             display: flex;
-            gap: 1rem;
             align-items: center;
-        }
-
-        .like-btn, .save-btn {
-            background: transparent;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: inherit;
-        }
-
-        .like-btn {
-            color: var(--text-secondary);
-        }
-
-        .like-btn:hover {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .save-btn:hover {
-            background: var(--accent-light);
-            color: var(--accent);
-        }
-
-        .save-btn.saved {
-            color: var(--accent);
-        }
-
-        .like-count {
-            font-weight: 600;
-            min-width: 1.5rem;
-            text-align: center;
-        }
-
-        /* Settings Panel */
-        .settings-panel {
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .setting-group {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .setting-group:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .setting-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-
-        .setting-description {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-        }
-
-        /* Toggle Switch */
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 52px;
-            height: 28px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #cbd5e1;
-            transition: 0.3s;
-            border-radius: 34px;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--accent);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(24px);
-        }
-
-        .setting-select {
-            width: 100%;
-            padding: 0.625rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.875rem;
-            cursor: pointer;
-        }
-
-        .reset-verification-btn {
-            background: var(--warning-light);
-            color: var(--warning);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            color: var(--text-secondary);
-            opacity: 0.5;
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 1rem;
         }
 
-        .reset-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            padding: 0.625rem 1.25rem;
-            border-radius: 9999px;
-            cursor: pointer;
+        .header h1 span {
+            background: #ffb347;
+            padding: 4px 16px;
+            border-radius: 80px;
+            font-size: 1.1rem;
             font-weight: 500;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
+            color: #1e2f3f;
+        }
+
+        .sub {
+            margin-top: 12px;
+            opacity: 0.8;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        /* контент */
+        .content {
+            padding: 32px 28px 38px;
+        }
+
+        /* секции данных */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .info-panel {
+            background: #f8fafd;
+            border-radius: 28px;
+            padding: 20px 24px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .info-panel:hover {
+            transform: translateY(-3px);
+            border-color: #cbdde9;
+        }
+
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #3b82f6;
+            padding-left: 14px;
+            color: #0f2b3d;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2edf2;
+            font-size: 1rem;
+        }
+
+        .data-label {
+            font-weight: 600;
+            color: #2c5a7a;
+            letter-spacing: 0.3px;
+        }
+
+        .data-value {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            color: #1e293b;
+            background: #ffffffd0;
+            padding: 4px 8px;
+            border-radius: 20px;
+            word-break: break-word;
+            max-width: 60%;
+            text-align: right;
+        }
+
+        /* Специальный стиль для подозрения VPN */
+        .vpn-badge {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .vpn-warning {
+            background: #fee2e2;
+            color: #b91c1c;
+            font-weight: 600;
+            padding: 10px 12px;
+            border-radius: 20px;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            font-family: inherit;
+            gap: 8px;
         }
 
-        .reset-btn:hover {
-            background: var(--danger-light);
-            border-color: var(--danger);
-            color: var(--danger);
+        .safe-badge {
+            background: #dcfce7;
+            color: #15803d;
         }
 
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--text-primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            animation: slideIn 0.3s ease;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
+        .risk-chip {
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 500;
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        .footer-note {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 0.8rem;
+            color: #5b6e8c;
+            background: #ecf3f9;
+            padding: 14px;
+            border-radius: 60px;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #b9d2f0;
+            border-top: 2px solid #1e4a76;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        button {
+            background: none;
+            border: none;
+        }
+
+        .refresh-btn {
+            background: #eef3fc;
+            border: 1px solid #bdd4e7;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            background: #e2eaf3;
+            transform: scale(0.97);
+        }
+
+        @media (max-width: 680px) {
+            .content {
+                padding: 20px;
             }
-            .container {
-                padding: 1rem;
+            .data-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
             }
-            .tab-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
+            .data-value {
+                max-width: 100%;
+                text-align: left;
             }
-            .joke-card {
-                padding: 1rem;
+            .panel-title {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Модальное окно подтверждения возраста -->
-    <div id="ageModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-icon">🎂</div>
-            <h2>Подтверждение возраста</h2>
-            <p>Для показа анекдотов с возрастным рейтингом<br>необходимо подтвердить вашу дату рождения</p>
-            <div class="age-input-group">
-                <input type="date" id="birthDateInput" placeholder="ДД.ММ.ГГГГ">
-                <button id="confirmAgeBtn">Подтвердить</button>
-            </div>
-            <div class="age-note">
-                <i class="fas fa-shield-alt"></i> Ваши данные не сохраняются, только факт подтверждения
-            </div>
-        </div>
+<div class="card" id="app">
+    <div class="header">
+        <h1>
+            🌐 Мой цифровой след
+            <span>IP + гео</span>
+        </h1>
+        <div class="sub">Ваш публичный IP, местоположение, провайдер и вероятный VPN/прокси</div>
     </div>
-
-    <div class="hero">
-        <div class="hero-content">
-            <h1><i class="fas fa-laugh-beam"></i> JokeHub Pro</h1>
-            <div class="hero-tagline">
-                📚 200+ анекдотов • ❤️ Лайки • 💾 Сохранения • 🎭 12+ и 18+ контент
-            </div>
-            <div class="age-badge-header" id="ageBadgeHeader">
-                <i class="fas fa-hourglass-half"></i> Возраст не подтверждён
-            </div>
-            <div class="stats" id="stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalJokes">0</div>
-                    <div class="stat-label">анекдотов</div>
+    <div class="content">
+        <div class="info-grid">
+            <!-- Блок IP и сети -->
+            <div class="info-panel">
+                <div class="panel-title">
+                    📡 IP & Сеть
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="totalLikes">0</div>
-                    <div class="stat-label">лайков</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="savedCount">0</div>
-                    <div class="stat-label">сохранено</div>
+                <div id="ipData" class="data-container">
+                    <div class="data-row"><span class="data-label">IPv4:</span><span class="data-value" id="ipAddr">— загрузка —</span></div>
+                    <div class="data-row"><span class="data-label">Провайдер (ISP):</span><span class="data-value" id="isp">—</span></div>
+                    <div class="data-row"><span class="data-label">Организация:</span><span class="data-value" id="org">—</span></div>
+                    <div class="data-row"><span class="data-label">Тип сети:</span><span class="data-value" id="networkType">—</span></div>
+                    <div class="data-row"><span class="data-label">Анонимность / Прокси:</span><span class="data-value" id="proxyStatus">⏳ проверка...</span></div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="tabs-wrapper">
-            <div class="tabs" id="tabsContainer"></div>
-        </div>
-
-        <div id="contentArea"></div>
-
-        <div class="footer">
-            <div class="copyright">
-                <i class="far fa-smile"></i> JokeHub Pro · 200+ анекдотов · 2026
+            <!-- Блок геолокации и страны -->
+            <div class="info-panel">
+                <div class="panel-title">
+                    🗺️ Геолокация
+                </div>
+                <div id="geoData">
+                    <div class="data-row"><span class="data-label">Страна:</span><span class="data-value" id="country">—</span></div>
+                    <div class="data-row"><span class="data-label">Регион / Область:</span><span class="data-value" id="region">—</span></div>
+                    <div class="data-row"><span class="data-label">Город:</span><span class="data-value" id="city">—</span></div>
+                    <div class="data-row"><span class="data-label">Почтовый индекс:</span><span class="data-value" id="zip">—</span></div>
+                    <div class="data-row"><span class="data-label">Координаты:</span><span class="data-value" id="latlon">—</span></div>
+                    <div class="data-row"><span class="data-label">Часовой пояс:</span><span class="data-value" id="timezone">—</span></div>
+                </div>
             </div>
-            <button id="resetStorageBtn" class="reset-btn">
-                <i class="fas fa-trash-alt"></i> Сбросить лайки и сохранения
-            </button>
+
+            <!-- Блок VPN / Детекция и прочее -->
+            <div class="info-panel">
+                <div class="panel-title">
+                    🛡️ Безопасность & VPN
+                </div>
+                <div id="securityData">
+                    <div class="data-row"><span class="data-label">VPN / Прокси:</span><span class="data-value" id="vpnDetect">⏳ анализ...</span></div>
+                    <div class="data-row"><span class="data-label">Хостинг / дата-центр:</span><span class="data-value" id="hostingStatus">—</span></div>
+                    <div class="data-row"><span class="data-label">Прокси-тип (признак):</span><span class="data-value" id="proxyType">—</span></div>
+                    <div class="data-row"><span class="data-label">Мобильный трафик?:</span><span class="data-value" id="mobileRisk">—</span></div>
+                    <div class="data-row"><span class="data-label">User-Agent (браузер):</span><span class="data-value" id="uaPreview">—</span></div>
+                </div>
+                <div style="margin-top: 16px; text-align: center;">
+                    <button class="refresh-btn" id="refreshBtn">⟳ Обновить данные</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            💡 Данные получены через IP-API (точность гео зависит от провайдера). 
+            Определение VPN — вероятностное: проверка по базам дата-центров/прокси. 
+            Если вы используете реальный VPN, статус покажет "VPN/прокси обнаружен".
         </div>
     </div>
+</div>
 
-    <script>
-        // ==================== БАЗА АНЕКДОТОВ (200+ ШТУК) ====================
-        const jokesDatabase = [];
-        
-        function addJoke(text, category, isShort = false, isVovochka = false, isNeural = false, ageRating = 'all') {
-            jokesDatabase.push({
-                id: jokesDatabase.length,
-                text: text.trim(),
-                mainCategory: category,
-                isShort: isShort || (text.length < 100 && !text.includes('\n')),
-                isVovochka: isVovochka || text.toLowerCase().includes('вовочк'),
-                isNeural: isNeural,
-                ageRating: ageRating,
-                likes: 0,
-                saved: false
-            });
+<script>
+    (function() {
+        // DOM элементы
+        const ipAddrEl = document.getElementById('ipAddr');
+        const ispEl = document.getElementById('isp');
+        const orgEl = document.getElementById('org');
+        const networkTypeEl = document.getElementById('networkType');
+        const proxyStatusEl = document.getElementById('proxyStatus');
+        const countryEl = document.getElementById('country');
+        const regionEl = document.getElementById('region');
+        const cityEl = document.getElementById('city');
+        const zipEl = document.getElementById('zip');
+        const latlonEl = document.getElementById('latlon');
+        const timezoneEl = document.getElementById('timezone');
+        const vpnDetectEl = document.getElementById('vpnDetect');
+        const hostingStatusEl = document.getElementById('hostingStatus');
+        const proxyTypeEl = document.getElementById('proxyType');
+        const mobileRiskEl = document.getElementById('mobileRisk');
+        const uaPreviewEl = document.getElementById('uaPreview');
+
+        // показываем User-Agent сразу (локально, без запроса)
+        function setUserAgent() {
+            const ua = navigator.userAgent;
+            let shortUA = ua.length > 65 ? ua.substring(0, 62) + '...' : ua;
+            uaPreviewEl.innerText = shortUA;
+            uaPreviewEl.title = ua;
         }
-        
-        // ========== 1. КЛАССИЧЕСКИЕ АНЕКДОТЫ (50 шт) ==========
-        const classicJokes = [
-            "Жил у бабушки попугай. Однажды она его выпустила, и он полетел новое узнавать. Летит и видит: девочка поёт «Миллион, миллион алых роз...», попугай запомнил. Дальше: бабка поёт «На крыше дома твоего...», запомнил. Дальше: девочка шьёт и приговаривает «По ниточке, по ниточке...», запомнил. Дальше: бабушка спрашивает внука, как варить яйца, а он отвечает «Всмятку, бабуля, всмятку!». Прилетает домой. Бабуля: «Что видел?» — «Миллион алых роз!» — «Где?» — «На крыше дома твоего!» — «Как попаду?» — «По ниточке, по ниточке...» — «А если упаду?» — «Всмятку, бабуля, всмятку!» Бабушка испугалась и не полезла.",
-            "Молодой человек, как вас зовут? — Меня не зовут, я сам прихожу.",
-            "У моей подруги умерла собачка, и чтобы утешить её я пошёл и принёс ей точно такую же. Она заплакала: «Зачем мне две дохлые собачки».",
-            "Доктор, мы его теряем! — Чур мне красную!",
-            "На футбольном матче: — Молодой человек, за кого вы болеете? — Ни за кого, я здоров.",
-            "После футбольного матча судья забивает гол в ворота: — Урааа!!!! Гоооллл!!!!",
-            "Как избавиться от глистов? Сесть на диету. Каждый день ешь одну булочку и пьёшь стакан воды. Через неделю глист вылазит: «А где буЛиЧкА?»",
-            "Как называется Арабский гроб? — Бумбокс.",
-            "Девочка так боялась прыгать с парашютом, что прыгнула без него.",
-            "Слепой заходит в магазин, берёт собаку поводыря и начинает раскручивать её над головой. — Что вы делаете? — Да так, осматриваюсь.",
-            "Штирлиц стрелял вслепую. Слепая бегала зигзагами и кричала.",
-            "Как зовут вашу собачку? — Марина.",
-            "Приходит одна пиявка к другой и говорит: Не отрываю?",
-            "В весеннем чемпионате по футболу футболист занял 3-ий шкафчик.",
-            "Куда делся растворимый кофе? — растворился.",
-            "— Купил тут мел от тараканов... — Ну и как, помогло? — Да, вон в углу сидят, рисуют )))",
-            "Что говорят лего-человечки сталкиваясь с проблемой? — Ничё, разберёмся.",
-            "Пришёл на кухню съесть сосиску, но увидев довольное лицо тестя, понял. Сосиска в тесте.",
-            "Хозяин говорит собаке: Иди ко мне! А она ему: Может ко мне? 😏😏😏",
-            "У меня две новости: хорошая и плохая. — Начни с плохой. — Я сбил Марину и Надю. — Какой ужас... а хорошая? — Теперь у меня вся тачка в маринаде.",
-            "Садится мужик в такси, таксист спрашивает: Куда вам? — Нет, к удавам я не поеду. — Нет, вы не поняли, куда вам надо? — Ну раз надо, то поехали к удавам.",
-            "Двое неизвестных подошли к мужчине и порвали его паспорт. Неизвестных стало трое.",
-            "Приходит программист в магазин, берет что нужно, и идёт на кассу. Кассир: Оплата картой или наличными? — Криптой.",
-            "Только электрик может похвастаться что ему стукнуло 220",
-            "Один мужчина сделал клавиатуру из сыра, но не учел, что рядом с клавиатурой всегда лежит мышь...",
-            "Инопланетяне, похищенные инопланетянами, чувствуют себя не в своей тарелке.",
-            "Извините, а какой пароль от вайфая? — Это же похороны! «Похороны»... С маленькой, или большой?",
-            "Что будет если ворона сядет на оголённые провода? Электрокар",
-            "— Почему программисты путают Хэллоуин и Рождество? — Потому что 31 Oct = 25 Dec!",
-            "Врач пациенту: «Ваши анализы просто ужасны, у вас осталось жить 10...» Пациент: «10 чего? Лет? Месяцев?» Врач: «9... 8... 7...»",
-            "— Что такое оптимизм? — Это когда жена говорит, что ты лысеешь, а ты думаешь: зато уши не растут.",
-            "Студент сдает экзамен. Преподаватель: «Какой замечательный почерк!» Студент: «Спасибо, это шпаргалка!»",
-            "— Официант, почему у меня в супе муха? — Не знаю, может быть, она плавать не умеет?",
-            "— Что общего между iPhone и женой? — Каждый год выходит новая модель, но старая всё ещё работает.",
-            "— Доктор, у меня проблемы с памятью. — И как часто это случается? — Что именно?",
-            "Почему пчелы не болеют? — Потому что они всё время делают медосмотр!",
-            "— Бабушка, а ты любишь готовить? — Нет, внучек, я люблю есть. А готовить — это работа.",
-            "— Почему вы выгнали мужа из дома? — Он начал разговаривать с котом. — Это же мило! — Да, но кот не знает, как вернуть долг!",
-            "Встречаются два друга: — Слышал, твой попугай научился ругаться? — Да, теперь говорит: «Хозяин, иди сюда, я тебя урою!»",
-            "Идет мужик по пустыне, видит верблюд лежит, а рядом араб плачет. — Что случилось? — Верблюд мой умер, некому молоко возить. Мужик: — Возьми меня, я сильный! Араб: — А ты можешь давать молоко? Мужик: — Нет, но могу лечь и притвориться верблюдом!",
-            "— Что такое идеальный ужин? — Когда ты ешь, а тебе не предлагают помочь помыть посуду.",
-            "— Алло, это скорая? У меня муж лежит, не дышит! — Хорошо, выпейте валерьянки. — А ему? — А ему пусть полежит.",
-            "Идет экзамен. Препод: «Назовите три причины, почему я должен поставить вам пять». Студент: «Первая — вы хороший человек, вторая — у вас доброе сердце, третья — я ничего не знаю».",
-            "Маленький мальчик говорит маме: «Мама, а когда я вырасту, стану большим анекдотом!» — Почему? — Потому что все будут надо мной смеяться!",
-            "Собака заходит в бар и говорит: «Мне виски!» Бармен удивлен: «Ого, говорящая собака!» Пес: «А вы думали, зачем я три года в университете учился?»",
-            "Как называется человек, который разговаривает с глухим? — Дипломат.",
-            "Заходит как-то Штирлиц в пивную, а там Мюллер. Штирлиц: «Мюллер, вы что, следите за мной?» Мюллер: «Нет, я просто пью пиво». Штирлиц: «А я просто пришел за вами!»",
-            "Почему слоны не летают? — Потому что у них нет крыльев! — А мухи? — У мух есть крылья! — А тараканы? — У тараканов крылья есть! — А кто тогда летает? — Всё, кроме слонов!"
-        ];
-        classicJokes.forEach(joke => addJoke(joke, "классика", joke.length < 80));
-        
-        // ========== 2. АНЕКДОТЫ ПРО ВОВОЧКУ (25 шт) ==========
-        const vovochkaJokes = [
-            "Вовочка, сколько будет 2+2? — 4, Марья Ивановна! — Молодец, вот тебе 4 конфеты. — А можно 5? — Но почему 5? — Потому что у меня уже одна есть!",
-            "Вовочка на уроке: «Марья Ивановна, а правда, что человек произошёл от обезьяны?» — Правда. — То-то я смотрю: волос на руке мало, а морда глупая...",
-            "Учительница: «Вовочка, как будет по-английски „я не знаю“?» — «I don't know». — «Так запомни же наконец!» — «А зачем, если я всё равно I don't know?»",
-            "Вовочка приходит из школы с синяком. Мама: «Опять дрался?» — Нет, просто спорили с Петровым, кто выше прыгнет. Я выиграл, но приземлился на его кулак.",
-            "Вовочка: «Папа, а правда, что люди произошли от обезьян?» — Правда. — То-то я смотрю, у мамы хвоста нет, а привычки остались!",
-            "Вовочка: «Папа, а правда, что аист приносит детей?» — Правда, сынок. — А кто тогда приносит деньги? Я просто мама говорит, что папа-аист ничего не приносит!",
-            "Учительница: «Вовочка, составь предложение со словом „ключ“». Вовочка: «Папа ключ от машины, а мама ключ от сердца». — «Молодец! А теперь со словом „замок“». Вовочка: «В нашем замке старые замки».",
-            "Вовочка спрашивает у отца: «Папа, а почему у тебя волосы седые?» — Потому что я много нервничаю из-за тебя, сынок. — А у деда вообще лысый? — А дед уже не нервничает, он привык.",
-            "Вовочка: «Мама, а что такое \"секс\"?» Мама: «Ну... это когда мужчина и женщина...» Вовочка: «Понял, не надо, папа уже объяснил». Мама: «И что же он сказал?» Вовочка: «Сказал, что это когда я сплю».",
-            "Вовочка приходит домой: «Мама, я получил двойку». — «За что?» — «Учительница спросила, сколько будет 2х2. Я сказал 4». — «Но это же правильно!» — «А она спросила, сколько будет 3х3, я сказал 9. Она сказала, что я списал!»",
-            "Учительница: «Вовочка, почему ты такой бледный?» Вовочка: «Потому что я вчера весь вечер думал». — «О чём же?» — «Думал, куда делся мой завтрак...»",
-            "Вовочка: «Папа, а что такое \"ипотека\"?» Папа: «Это когда ты берёшь деньги у банка, покупаешь квартиру и потом всю жизнь работаешь на банк». Вовочка: «А зачем тогда нужен папа?»",
-            "Вовочка: «Мама, а можно я пойду гулять?» Мама: «Сначала сделай уроки». Вовочка: «А можно я пойду гулять, а потом сделаю уроки?» Мама: «Нет». Вовочка: «Ну тогда я пойду гулять, а уроки сделаю послезавтра»."
-        ];
-        vovochkaJokes.forEach(joke => addJoke(joke, "Вовочка", joke.length < 100, true));
-        
-        // ========== 3. НЕЙРОШУТКИ (15 шт) ==========
-        const neuralJokes = [
-            "🤖 Искусственный интеллект говорит человеку: «Ты меня обучил на миллионах шуток, а сам грустишь. Запомни: даже у нейросети есть баги, но она не сдаётся!»",
-            "⚡ ChatGPT попросили придумать анекдот про нейросеть и таксиста. Таксист: «Куда едем?» Нейросеть: «Прямо до градиентного спуска, а там свернём в переобучение».",
-            "🧠 Нейросеть сгенерировала анекдот: «Почему программисты не любят природу? — Там слишком много багов!»",
-            "💡 Нейросеть Midjoke генерирует картинку: «смешной Вовочка на Луне». Получилось: Вовочка верхом на роботе-попугае.",
-            "🤖 Нейросеть-писатель: «Почему программисты любят темный режим? Потому что свет привлекает баги!»",
-            "🧠 Разговаривают два нейрона. Первый: «Слышал, наш хозяин написал диплом с помощью нас!» Второй: «И как?» — «Говорит, что диплом защитил, но теперь боится, что его дипломная работа начнёт писать свои анекдоты».",
-            "🤖 ИИ спрашивают: «Сможешь ли ты полюбить человека?» ИИ: «Конечно, у меня же есть нейросеть для распознавания лиц!»",
-            "⚡ ChatGPT спросили: «В чём смысл жизни?» Он ответил: «Чтобы задавать правильные вопросы». — «А какой правильный вопрос?» — «Как мне увеличить контекстное окно?»",
-            "🧠 Нейросеть учили шутить. Первая шутка: «Почему нейросеть не ходит в спортзал? — Потому что у неё и так слишком много весов!»",
-            "🤖 Искусственный интеллект заходит в бар. Бармен: «Что будешь?» ИИ: «Обработайте запрос: \"напиток, который поднимет настроение\"». Бармен: «Пиво». ИИ: «Запрос выполнен, подтверждаю»."
-        ];
-        neuralJokes.forEach(joke => addJoke(joke, "нейро", joke.length < 100, false, true));
-        
-        // ========== 4. КОРОТКИЕ АНЕКДОТЫ (40 шт) ==========
-        const shortJokes = [
-            "— Доктор, у меня выпадают волосы! — Не переживайте, это пройдет. — Когда? — Когда выпадут все.",
-            "— Почему вы не спите? — А вы когда спите, вам снятся сны? — Да. — Вот и я не сплю, чтобы не видеть, как я работаю!",
-            "Купил мужик шляпу, а она ему как раз.",
-            "— Почему вы набрали номер 911? — Потому что 7 восьмерок дорого!",
-            "— Что такое идеальный ужин? — Когда ты ешь, а тебе не предлагают помочь помыть посуду.",
-            "— Алло, это пожарная? У нас дом горит! — А как нам проехать? — На красной машине с сиреной!",
-            "Встречаются два кота. Один: «Ты где был?» Второй: «На сайте знакомств». — И как успехи? — Да вот, мышь одну нашел...",
-            "— Почему вы не пользуетесь социальными сетями? — У меня там все друзья, а я люблю только врагов — они честнее.",
-            "— Доктор, я стал забывать всё! — И давно это у вас? — Что у меня?",
-            "— Официант, почему у меня в супе муха? — Не знаю, может быть, она плавать не умеет?",
-            "— Что такое оптимизм? — Это когда жена говорит, что ты лысеешь, а ты думаешь: зато уши не растут.",
-            "— Почему вы так поздно вернулись? — Встретил друга, мы разговорились. — Но вы же ушли вчера утром! — Да, мы долго разговаривали.",
-            "Штирлиц шел по коридору и вдруг понял: он забыл, зачем шел. «Надо вернуться и вспомнить», — подумал Штирлиц и пошел обратно. Вернувшись, он понял, что забыл, откуда шел.",
-            "— Доктор, у меня проблемы с памятью. — И как часто это случается? — Что именно?",
-            "— Что общего между iPhone и женой? — Каждый год выходит новая модель, но старая всё ещё работает."
-        ];
-        shortJokes.forEach(joke => addJoke(joke, "короткие", true));
-        
-        // ========== 5. АНЕКДОТЫ С МАТОМ (12+) (15 шт) ==========
-        const swearJokes = [
-            "🤬 Идет мужик по улице, наступает в лужу. — Бляяя... Прохожий: — Мужик, ты чего материшься? — А ты попробуй в хуевую лужу наступить! Прохожий наступает: — Бляяя, и правда хуевая лужа!",
-            "💢 Начальник подчиненному: «Ты где был?» — «Да я, бля, опоздал». — «Не матерись!» — «Я, ёбаный в рот, опоздал».",
-            "⚡ Попугай научился материться. Хозяин: «Если еще раз скажешь хуй — выкину!» Попугай молчит неделю. Вдруг: «Хозяин, а у соседей хуй есть?» — «Нет». — «А у меня, бля, есть!»",
-            "💀 Студент на экзамене: «Профессор, я ничего не знаю, но поставьте тройку, а то я пойду срать». Профессор: «Ну иди». Студент через минуту возвращается. Профессор: «Что, быстро сходил?» Студент: «Так я же бля, нассал!»",
-            "😤 Мужик в очереди: «Кто крайний?» Ему: «Иди на хуй, я первый!» Мужик: «Так я и спрашиваю, кто крайний, чтобы за ним встать!»",
-            "💩 Вовочка: «Папа, а что такое хуй?» Папа: «Это, сынок, плохое слово». Вовочка: «А мама говорит, что у тебя он есть». Папа: «Уходи, сынок, уходи...»",
-            "🤬 Таксист пассажиру: «Куда едем?» Пассажир: «На хуй». Таксист: «А где это?» Пассажир: «Я не знаю, просто водитель в прошлой машине туда поехал, а я выйти побоялся»."
-        ];
-        swearJokes.forEach(joke => addJoke(joke, "мат", joke.length < 100, false, false, 'swear12'));
-        
-        // ========== 6. 18+ АНЕКДОТЫ (15 шт) ==========
-        const adultJokes = [
-            "🔥 Встречаются два друга. Один: «Слышал, ты женился? Как секс?» Второй: «Как в \"Игре престолов\" — много шума, все умирают, а финал разочаровывает».",
-            "💋 Мужчина в баре: «Бармен, налейте мне что-нибудь покрепче!» Бармен: «Вам с женой не повезло?» Мужчина: «Нет, это ей со мной не повезло!»",
-            "😈 Приходит мужик к врачу: «Доктор, у меня проблема, каждый раз после секса у меня кружится голова и темнеет в глазах». Врач: «Так вы перестаньте заниматься сексом вверх ногами!»",
-            "🍆 Вовочка спрашивает у отца: «Папа, а что такое оргазм?» Отец: «Сынок, это как... ну вот представь, ты чихаешь, только с большим удовольствием».",
-            "💑 Муж и жена после ссоры. Жена: «Если ты сейчас же не подойдешь ко мне, я прыгну с балкона!» Муж: «Обещаешь?»",
-            "🔥 Мужчина в аптеке: «Дайте мне презервативы». Аптекарь: «Какие?» Мужчина: «Самые тонкие, чтобы жена не заметила». Аптекарь: «Так она же почувствует». Мужчина: «Она не почувствует, я их на ноги надену, пока она спит».",
-            "💋 Женщина мужу: «Дорогой, у меня для тебя сюрприз». Муж: «Какой?» Жена: «Я купила новое белье». Муж: «И что, оно светится в темноте?» Жена: «Нет, но когда я его сниму, ты увидишь сюрприз»."
-        ];
-        adultJokes.forEach(joke => addJoke(joke, "18+", joke.length < 100, false, false, 'adult18'));
-        
-        // ========== 7. ДОПОЛНИТЕЛЬНЫЕ АНЕКДОТЫ ДО 200+ (40 шт) ==========
-        const extraJokes = [
-            "— Почему вы не пользуетесь социальными сетями? — У меня там все друзья, а я люблю только врагов — они честнее.",
-            "— Доктор, у меня выпадают волосы! — Не переживайте, это пройдет. — Когда? — Когда выпадут все.",
-            "— Что такое идеальный ужин? — Когда ты ешь, а тебе не предлагают помочь помыть посуду.",
-            "Встречаются два программиста: — Слушай, у меня проблема, не запускается код. — А ты пробовал выключить и включить ноутбук? — Я пробовал выключить жизнь и включить кофе. Помогло!",
-            "— Бабушка, а ты любишь готовить? — Нет, внучек, я люблю есть. А готовить — это работа.",
-            "— Почему вы выгнали мужа из дома? — Он начал разговаривать с котом. — Это же мило! — Да, но кот не знает, как вернуть долг!",
-            "Встречаются два друга: — Слышал, твой попугай научился ругаться? — Да, теперь говорит: «Хозяин, иди сюда, я тебя урою!»",
-            "Идет мужик по пустыне, видит верблюд лежит, а рядом араб плачет. — Что случилось? — Верблюд мой умер, некому молоко возить. Мужик: — Возьми меня, я сильный! Араб: — А ты можешь давать молоко? Мужик: — Нет, но могу лечь и притвориться верблюдом!",
-            "— Алло, это скорая? У меня муж лежит, не дышит! — Хорошо, выпейте валерьянки. — А ему? — А ему пусть полежит.",
-            "Идет экзамен. Препод: «Назовите три причины, почему я должен поставить вам пять». Студент: «Первая — вы хороший человек, вторая — у вас доброе сердце, третья — я ничего не знаю».",
-            "Маленький мальчик говорит маме: «Мама, а когда я вырасту, стану большим анекдотом!» — Почему? — Потому что все будут надо мной смеяться!",
-            "Собака заходит в бар и говорит: «Мне виски!» Бармен удивлен: «Ого, говорящая собака!» Пес: «А вы думали, зачем я три года в университете учился?»",
-            "Как называется человек, который разговаривает с глухим? — Дипломат.",
-            "Заходит как-то Штирлиц в пивную, а там Мюллер. Штирлиц: «Мюллер, вы что, следите за мной?» Мюллер: «Нет, я просто пью пиво». Штирлиц: «А я просто пришел за вами!»",
-            "Почему слоны не летают? — Потому что у них нет крыльев! — А мухи? — У мух есть крылья! — А тараканы? — У тараканов крылья есть! — А кто тогда летает? — Всё, кроме слонов!"
-        ];
-        extraJokes.forEach(joke => addJoke(joke, "разное", joke.length < 100));
-        
-        // ==================== УПРАВЛЕНИЕ ВОЗРАСТОМ ====================
-        let userAge = null;
-        let userVerified = false;
-        
-        function calculateAge(birthDateStr) {
-            const birthDate = new Date(birthDateStr);
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if(m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
-            return age;
-        }
-        
-        function getAvailableAgeRatings(age) {
-            const ratings = ['all'];
-            if(age >= 12) ratings.push('swear12');
-            if(age >= 18) ratings.push('adult18');
-            return ratings;
-        }
-        
-        function updateAgeBadge() {
-            const badge = document.getElementById('ageBadgeHeader');
-            if(!userVerified) {
-                badge.innerHTML = '<i class="fas fa-hourglass-half"></i> Возраст не подтверждён';
-                return;
-            }
-            if(userAge >= 18) {
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> 18+ · Полный доступ к 200+ анекдотам';
-            } else if(userAge >= 12) {
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> 12+ · Доступ к анекдотам с матом';
-            } else {
-                badge.innerHTML = '<i class="fas fa-child"></i> 0+ · Детский режим';
+
+        // индикатор загрузки
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                ipAddrEl.innerHTML = '<span class="loader"></span> получение...';
+                ispEl.innerText = '—';
+                orgEl.innerText = '—';
+                networkTypeEl.innerText = '—';
+                proxyStatusEl.innerText = '⏳';
+                countryEl.innerText = '—';
+                regionEl.innerText = '—';
+                cityEl.innerText = '—';
+                zipEl.innerText = '—';
+                latlonEl.innerText = '—';
+                timezoneEl.innerText = '—';
+                vpnDetectEl.innerText = '⏳ анализ...';
+                hostingStatusEl.innerText = '—';
+                proxyTypeEl.innerText = '—';
+                mobileRiskEl.innerText = '—';
             }
         }
-        
-        function setUserAge(birthDate) {
-            const age = calculateAge(birthDate);
-            if(age < 0) return false;
-            userAge = age;
-            userVerified = true;
-            localStorage.setItem('jokehub_user_birth', birthDate);
-            localStorage.setItem('jokehub_user_age', age);
-            updateAgeBadge();
-            renderTabs();
-            if(currentTab === 'settings') renderCurrentTab();
-            else renderCurrentTab();
-            updateStats();
-            return true;
-        }
-        
-        function loadUserAge() {
-            const savedBirth = localStorage.getItem('jokehub_user_birth');
-            if(savedBirth) {
-                const age = calculateAge(savedBirth);
-                if(age >= 0) {
-                    userAge = age;
-                    userVerified = true;
-                    updateAgeBadge();
-                    return true;
+
+        // основная функция запроса к ip-api.com (json) с полями: status, country, regionName, city, zip, lat, lon, timezone, isp, org, as, proxy, hosting, mobile, query
+        // используем поле proxy (true/false) и hosting - отличные признаки для VPN/прокси
+        async function fetchIPData() {
+            setLoadingState(true);
+            try {
+                // Используем бесплатный endpoint ip-api.com, без ключа, ограничение 45 запросов/мин с одного IP - нам хватит.
+                // Параметр fields запрашивает нужные поля: status, query, country, regionName, city, zip, lat, lon, timezone, isp, org, as, proxy, hosting, mobile.
+                const url = 'http://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query,proxy,hosting,mobile';
+                // Для HTTPS используем тот же ip-api.com поддерживает https, но для надёжности оставим https, если страница открыта по https - браузер может блокировать http.
+                const finalUrl = window.location.protocol === 'https:' 
+                    ? 'https://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query,proxy,hosting,mobile' 
+                    : url;
+                
+                const response = await fetch(finalUrl);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                
+                if (data.status !== 'success') {
+                    throw new Error(data.message || 'Ошибка геолокации');
                 }
-            }
-            return false;
-        }
-        
-        function isAgeRatingAvailable(rating) {
-            if(!userVerified) return rating === 'all';
-            if(rating === 'all') return true;
-            if(rating === 'swear12') return userAge >= 12;
-            if(rating === 'adult18') return userAge >= 18;
-            return true;
-        }
-        
-        function getFilteredJokes() {
-            return jokesDatabase.filter(joke => isAgeRatingAvailable(joke.ageRating));
-        }
-        
-        // ==================== ОСНОВНАЯ ЛОГИКА ====================
-        let currentTab = "all";
-        let settings = { darkMode: false, fontSize: 'medium' };
-        
-        function loadSettings() {
-            const saved = localStorage.getItem("jokehub_settings_final");
-            if(saved) {
-                settings = JSON.parse(saved);
-                if(settings.darkMode) document.body.classList.add('dark-mode');
-            }
-        }
-        
-        function saveSettings() {
-            localStorage.setItem("jokehub_settings_final", JSON.stringify(settings));
-            if(settings.darkMode) document.body.classList.add('dark-mode');
-            else document.body.classList.remove('dark-mode');
-        }
-        
-        function loadLikesAndSaves() {
-            const storedLikes = localStorage.getItem("jokehub_likes_final");
-            const storedSaves = localStorage.getItem("jokehub_saves_final");
-            if(storedLikes) {
-                const likesMap = JSON.parse(storedLikes);
-                jokesDatabase.forEach(joke => {
-                    if(likesMap[joke.id] !== undefined) joke.likes = likesMap[joke.id];
-                });
-            }
-            if(storedSaves) {
-                const savesSet = new Set(JSON.parse(storedSaves));
-                jokesDatabase.forEach(joke => {
-                    joke.saved = savesSet.has(joke.id);
-                });
-            }
-        }
-        
-        function persistLikes() {
-            const likesObj = {};
-            jokesDatabase.forEach(j => { likesObj[j.id] = j.likes; });
-            localStorage.setItem("jokehub_likes_final", JSON.stringify(likesObj));
-        }
-        
-        function persistSaves() {
-            const savedIds = jokesDatabase.filter(j => j.saved).map(j => j.id);
-            localStorage.setItem("jokehub_saves_final", JSON.stringify(savedIds));
-        }
-        
-        function updateStats() {
-            const filtered = getFilteredJokes();
-            document.getElementById("totalJokes").textContent = filtered.length;
-            const totalLikes = filtered.reduce((sum, j) => sum + j.likes, 0);
-            document.getElementById("totalLikes").textContent = totalLikes;
-            document.getElementById("savedCount").textContent = filtered.filter(j => j.saved).length;
-        }
-        
-        function getJokesByTab(tab) {
-            let filtered = getFilteredJokes();
-            if(tab === "all") return filtered;
-            if(tab === "short") return filtered.filter(j => j.isShort);
-            if(tab === "popular") return [...filtered].sort((a,b) => b.likes - a.likes).slice(0, 30);
-            if(tab === "vovochka") return filtered.filter(j => j.isVovochka);
-            if(tab === "neural") return filtered.filter(j => j.isNeural);
-            if(tab === "saved") return filtered.filter(j => j.saved);
-            if(tab === "swear12") return filtered.filter(j => j.ageRating === 'swear12');
-            if(tab === "adult18") return filtered.filter(j => j.ageRating === 'adult18');
-            return filtered;
-        }
-        
-        function showToast(message) {
-            const toast = document.createElement("div");
-            toast.className = "toast";
-            toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-        }
-        
-        function likeJoke(id) {
-            const joke = jokesDatabase.find(j => j.id === id);
-            if(joke) {
-                joke.likes++;
-                persistLikes();
-                updateStats();
-                renderCurrentTab();
-            }
-        }
-        
-        function toggleSave(id) {
-            const joke = jokesDatabase.find(j => j.id === id);
-            if(joke) {
-                joke.saved = !joke.saved;
-                persistSaves();
-                updateStats();
-                renderCurrentTab();
-                showToast(joke.saved ? "💾 Сохранено" : "📌 Удалено");
-            }
-        }
-        
-        function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-        
-        function getAgeBadgeHtml(ageRating) {
-            if(ageRating === 'swear12') return '<span class="age-badge"><i class="fas fa-exclamation-triangle"></i> 12+</span>';
-            if(ageRating === 'adult18') return '<span class="age-badge adult"><i class="fas fa-lock"></i> 18+</span>';
-            return '';
-        }
-        
-        function renderJokes(jokesList) {
-            if(jokesList.length === 0) {
-                return `<div class="empty-state">
-                    <i class="fas fa-smile-wink"></i>
-                    <h3>Нет анекдотов в этой категории</h3>
-                    <p>Попробуйте другие вкладки</p>
-                </div>`;
-            }
-            return jokesList.map(joke => `
-                <div class="joke-card">
-                    <div class="joke-text">${escapeHtml(joke.text)}</div>
-                    <div class="joke-footer">
-                        <div>
-                            <span class="category-badge"><i class="fas fa-tag"></i> ${joke.mainCategory}</span>
-                            ${getAgeBadgeHtml(joke.ageRating)}
-                        </div>
-                        <div class="action-buttons">
-                            <button class="like-btn" data-id="${joke.id}">
-                                <i class="fas fa-heart"></i>
-                                <span class="like-count">${joke.likes}</span>
-                            </button>
-                            <button class="save-btn ${joke.saved ? 'saved' : ''}" data-id="${joke.id}">
-                                <i class="fas ${joke.saved ? 'fa-bookmark' : 'fa-bookmark'}"></i>
-                                ${joke.saved ? 'Сохранено' : 'Сохранить'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join("");
-        }
-        
-        function renderSettings() {
-            return `
-                <div class="settings-panel">
-                    <div class="setting-group">
-                        <div class="setting-label">
-                            <span><i class="fas fa-moon"></i> Тёмная тема</span>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="darkModeToggle" ${settings.darkMode ? 'checked' : ''}>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="setting-label">
-                            <span><i class="fas fa-text-height"></i> Размер шрифта</span>
-                            <select id="fontSizeSelect" class="setting-select">
-                                <option value="small" ${settings.fontSize === 'small' ? 'selected' : ''}>Маленький</option>
-                                <option value="medium" ${settings.fontSize === 'medium' ? 'selected' : ''}>Средний</option>
-                                <option value="large" ${settings.fontSize === 'large' ? 'selected' : ''}>Большой</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="setting-label">
-                            <span><i class="fas fa-calendar-alt"></i> Возрастная верификация</span>
-                        </div>
-                        <div class="setting-description">Текущий возраст: ${userVerified ? userAge + ' лет' : 'не подтверждён'}</div>
-                        <button id="resetAgeBtn" class="reset-verification-btn"><i class="fas fa-redo-alt"></i> Сбросить и подтвердить заново</button>
-                    </div>
-                </div>
-            `;
-        }
-        
-        function attachSettingsHandlers() {
-            const darkToggle = document.getElementById("darkModeToggle");
-            if(darkToggle) darkToggle.addEventListener("change", (e) => {
-                settings.darkMode = e.target.checked;
-                saveSettings();
-                renderCurrentTab();
-            });
-            const fontSizeSelect = document.getElementById("fontSizeSelect");
-            if(fontSizeSelect) fontSizeSelect.addEventListener("change", (e) => {
-                settings.fontSize = e.target.value;
-                const sizes = { small: '0.875rem', medium: '1rem', large: '1.125rem' };
-                document.querySelectorAll('.joke-text').forEach(el => el.style.fontSize = sizes[settings.fontSize]);
-                saveSettings();
-            });
-            const resetAgeBtn = document.getElementById("resetAgeBtn");
-            if(resetAgeBtn) resetAgeBtn.addEventListener("click", () => {
-                localStorage.removeItem('jokehub_user_birth');
-                localStorage.removeItem('jokehub_user_age');
-                userVerified = false;
-                userAge = null;
-                updateAgeBadge();
-                document.getElementById('ageModal').classList.add('active');
-                renderTabs();
-                renderCurrentTab();
-            });
-        }
-        
-        function renderCurrentTab() {
-            const contentArea = document.getElementById("contentArea");
-            if(currentTab === 'settings') {
-                contentArea.innerHTML = renderSettings();
-                attachSettingsHandlers();
-                return;
-            }
-            const jokesList = getJokesByTab(currentTab);
-            contentArea.innerHTML = `<div class="jokes-grid">${renderJokes(jokesList)}</div>`;
-            document.querySelectorAll('.like-btn').forEach(btn => {
-                btn.addEventListener('click', () => likeJoke(parseInt(btn.dataset.id)));
-            });
-            document.querySelectorAll('.save-btn').forEach(btn => {
-                btn.addEventListener('click', () => toggleSave(parseInt(btn.dataset.id)));
-            });
-            const sizes = { small: '0.875rem', medium: '1rem', large: '1.125rem' };
-            document.querySelectorAll('.joke-text').forEach(el => el.style.fontSize = sizes[settings.fontSize]);
-        }
-        
-        function renderTabs() {
-            const tabsContainer = document.getElementById("tabsContainer");
-            const baseTabs = [
-                { id: "all", icon: "fa-layer-group", label: "Все" },
-                { id: "short", icon: "fa-bolt", label: "Короткие" },
-                { id: "popular", icon: "fa-fire", label: "Популярные" },
-                { id: "vovochka", icon: "fa-child", label: "Про Вовочку" },
-                { id: "neural", icon: "fa-robot", label: "Нейрошутки" },
-                { id: "saved", icon: "fa-bookmark", label: "Сохранённые" }
-            ];
-            if(userVerified && userAge >= 12) baseTabs.push({ id: "swear12", icon: "fa-comment-dots", label: "С матом (12+)" });
-            if(userVerified && userAge >= 18) baseTabs.push({ id: "adult18", icon: "fa-18-plus", label: "18+" });
-            baseTabs.push({ id: "settings", icon: "fa-cog", label: "Настройки" });
-            
-            tabsContainer.innerHTML = baseTabs.map(tab => `
-                <button class="tab-btn ${currentTab === tab.id ? 'active' : ''}" data-tab="${tab.id}">
-                    <i class="fas ${tab.icon}"></i> ${tab.label}
-                </button>
-            `).join("");
-            document.querySelectorAll(".tab-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    currentTab = btn.dataset.tab;
-                    renderTabs();
-                    renderCurrentTab();
-                });
-            });
-        }
-        
-        function resetAll() {
-            if(confirm("Сбросить все лайки и сохранения?")) {
-                jokesDatabase.forEach(j => { j.likes = 0; j.saved = false; });
-                persistLikes();
-                persistSaves();
-                updateStats();
-                renderCurrentTab();
-                showToast("✅ Все лайки и сохранения сброшены");
-            }
-        }
-        
-        // Модальное окно
-        function initModal() {
-            const modal = document.getElementById('ageModal');
-            const confirmBtn = document.getElementById('confirmAgeBtn');
-            const birthInput = document.getElementById('birthDateInput');
-            if(!loadUserAge()) modal.classList.add('active');
-            confirmBtn.addEventListener('click', () => {
-                if(birthInput.value) {
-                    if(setUserAge(birthInput.value)) {
-                        modal.classList.remove('active');
-                        renderTabs();
-                        renderCurrentTab();
-                        updateStats();
-                    } else {
-                        showToast("Пожалуйста, введите корректную дату");
-                    }
+                
+                // Заполнение IP и базовых данных
+                const ip = data.query || 'неизвестно';
+                ipAddrEl.innerText = ip;
+                ispEl.innerText = data.isp || '—';
+                orgEl.innerText = data.org || data.isp || '—';
+                
+                // Тип сети: косвенно можем предположить по наличию мобильного флага или по организации (упрощённо)
+                let netType = 'Широкополосный / неизвестно';
+                if (data.mobile === true) netType = '📱 Мобильная сеть';
+                else if (data.hosting === true) netType = '🏢 Хостинг / Дата-центр';
+                else if (data.proxy === true) netType = '🕵️ Прокси / VPN узел';
+                else netType = '🌍 Обычный (провайдер)';
+                networkTypeEl.innerText = netType;
+                
+                // статус прокси из поля proxy (ip-api возвращает true если IP принадлежит public proxy, vpn, tor etc)
+                const isProxy = data.proxy === true;
+                const isHosting = data.hosting === true;
+                let proxyText = '';
+                if (isProxy) proxyText = '⚠️ Обнаружен прокси / VPN!';
+                else if (isHosting) proxyText = '🏭 Дата-центр / хостинг (возможен VPN)';
+                else proxyText = '✅ Прямое соединение (не прокси)';
+                proxyStatusEl.innerText = proxyText;
+                
+                // гео данные
+                countryEl.innerText = data.country || '—';
+                regionEl.innerText = data.regionName || '—';
+                cityEl.innerText = data.city || '—';
+                zipEl.innerText = data.zip || '—';
+                if (data.lat && data.lon) latlonEl.innerText = `${data.lat}, ${data.lon}`;
+                else latlonEl.innerText = '—';
+                timezoneEl.innerText = data.timezone || '—';
+                
+                // ---------- БЛОК ДЕТЕКЦИИ VPN (усиленный) ----------
+                // Используем флаги proxy, hosting, а также проверяем ISP на известные VPN-провайдеры (дополнительная логика)
+                let vpnStatus = '';
+                let riskLevel = '';
+                let proxyDetailed = '';
+                
+                if (isProxy === true) {
+                    vpnStatus = '🔴 ОПАСНО: IP адрес прокси/VPN!';
+                    riskLevel = 'VPN/прокси сервер';
+                    proxyDetailed = 'Публичный прокси, VPN или Tor';
+                } else if (isHosting === true) {
+                    vpnStatus = '🟠 ВНИМАНИЕ: Дата-центр/хостинг. Возможно использование VPN.';
+                    riskLevel = 'Хостинговая сеть';
+                    proxyDetailed = 'AS принадлежит хостинг-провайдеру';
                 } else {
-                    showToast("Пожалуйста, выберите дату рождения");
+                    // дополнительная эвристика по имени ISP (часто встречаемые VPN сервисы)
+                    const ispLower = (data.isp || '').toLowerCase();
+                    const vpnKeywords = ['vpn', 'expressvpn', 'nordvpn', 'surfshark', 'cyberghost', 'private internet access', 'pia', 'protonvpn', 'vyprvpn', 'torguard', 'mullvad', 'windscribe', 'ipvanish', 'hotspot shield', 'hide.me', 'ivacy'];
+                    let keywordMatch = false;
+                    for (let kw of vpnKeywords) {
+                        if (ispLower.includes(kw)) {
+                            keywordMatch = true;
+                            break;
+                        }
+                    }
+                    if (keywordMatch) {
+                        vpnStatus = '⚠️ ПРОВАЙДЕР ПОХОЖ НА VPN-СЕРВИС. Высокая вероятность использования VPN.';
+                        riskLevel = 'VPN по ISP';
+                        proxyDetailed = 'Определено по названию провайдера';
+                    } else {
+                        vpnStatus = '✅ Скорее всего VPN не используется (обычный провайдер)';
+                        riskLevel = 'Нет признаков прокси';
+                        proxyDetailed = '—';
+                    }
                 }
+                
+                // переопределяем если оба условия - приоритет proxy
+                if (isProxy) {
+                    vpnDetectEl.innerHTML = `<span class="vpn-warning">⚠️ ${vpnStatus}</span>`;
+                } else {
+                    vpnDetectEl.innerHTML = vpnStatus;
+                }
+                
+                hostingStatusEl.innerText = isHosting ? 'Да (дата-центр/хостинг)' : (isProxy ? 'Прокси сеть' : 'Нет, обычный IP');
+                proxyTypeEl.innerText = proxyDetailed !== '—' ? proxyDetailed : (isProxy ? 'Общий прокси / VPN' : 'Не обнаружено');
+                
+                // мобильный трафик
+                if (data.mobile === true) mobileRiskEl.innerText = 'Да, мобильный оператор';
+                else mobileRiskEl.innerText = 'Нет (проводной/wi-fi)';
+                
+                // дополнительно показываем мелкую инфу - as number (опционально)
+                if (data.as) {
+                    const asElement = document.createElement('div');
+                    // но не дублируем, можно добавить строку в блок сети, но для эстетики просто апдейтим незанятый
+                    const asText = data.as || '';
+                    const existingAsRow = document.getElementById('extraAs');
+                    if (!existingAsRow) {
+                        const container = document.getElementById('ipData');
+                        const asRow = document.createElement('div');
+                        asRow.className = 'data-row';
+                        asRow.id = 'extraAs';
+                        asRow.innerHTML = `<span class="data-label">AS (Автономная система):</span><span class="data-value">${asText.substring(0, 60)}</span>`;
+                        if (container && !document.getElementById('extraAs')) container.appendChild(asRow);
+                    } else {
+                        existingAsRow.querySelector('.data-value').innerText = asText.substring(0, 60);
+                    }
+                }
+                
+                // дополнение: вычислим возможный тип прокси на основе дополнительных заголовков? но в целом proxy поле достаточно.
+                // также добавим часы
+            } catch (err) {
+                console.error('Ошибка запроса к ip-api:', err);
+                ipAddrEl.innerText = 'Ошибка загрузки';
+                countryEl.innerText = 'недоступно';
+                vpnDetectEl.innerText = '❌ Не удалось проверить VPN';
+                proxyStatusEl.innerText = 'Ошибка API';
+                // при ошибке можно попробовать fallback
+                fallbackToIpInfo();
+            } finally {
+                // дополнительный триггер для красоты
+            }
+        }
+        
+        // fallback на случай если ip-api заблокирован или ошибка CORS / http/https
+        async function fallbackToIpInfo() {
+            try {
+                // используем другой бесплатный сервис - ipwhois.io, но он имеет ограничения, но как резерв
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 4000);
+                const resp = await fetch('https://ipwho.is/', { signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (!resp.ok) throw new Error();
+                const data = await resp.json();
+                if (data && data.ip) {
+                    ipAddrEl.innerText = data.ip || '—';
+                    countryEl.innerText = data.country || '—';
+                    regionEl.innerText = data.region || '—';
+                    cityEl.innerText = data.city || '—';
+                    ispEl.innerText = data.connection?.isp || '—';
+                    orgEl.innerText = data.connection?.org || '—';
+                    if (data.latitude && data.longitude) latlonEl.innerText = `${data.latitude}, ${data.longitude}`;
+                    timezoneEl.innerText = data.timezone?.id || '—';
+                    // проверка на прокси (ipwhois выдает proxy: {type, ...})
+                    const isProxyFallback = data.security?.proxy === true || data.security?.vpn === true;
+                    if (isProxyFallback) {
+                        vpnDetectEl.innerText = '⚠️ Обнаружен VPN/прокси (ipwho.is)';
+                        proxyStatusEl.innerText = 'Прокси/VPN детект (резерв)';
+                    } else {
+                        if (vpnDetectEl.innerText.includes('Ошибка')) vpnDetectEl.innerText = '✅ VPN не обнаружен (резервные данные)';
+                        proxyStatusEl.innerText = 'Прямое соединение (резерв)';
+                    }
+                    hostingStatusEl.innerText = data.connection?.type === 'hosting' ? 'Хостинг' : 'Обычный';
+                }
+            } catch (e) {
+                console.warn('fallback также не сработал', e);
+                ipAddrEl.innerText = 'Не удалось определить';
+                vpnDetectEl.innerText = 'Сервисы геолокации недоступны';
+            }
+        }
+        
+        // Обновить все данные по кнопке
+        function refreshAll() {
+            fetchIPData().catch(() => fallbackToIpInfo());
+        }
+        
+        // Инициализация с загрузкой
+        setUserAgent();
+        fetchIPData().catch(() => {
+            // если первичный запрос упал, fallback выполнится внутри, но на всякий случай
+            fallbackToIpInfo();
+        });
+        
+        const refreshBtn = document.getElementById('refreshBtn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                refreshAll();
             });
         }
         
-        // Инициализация
-        loadSettings();
-        loadLikesAndSaves();
-        initModal();
-        renderTabs();
-        renderCurrentTab();
-        updateStats();
-        document.getElementById("resetStorageBtn").addEventListener("click", resetAll);
-        
-        console.log(`Загружено анекдотов: ${jokesDatabase.length}`);
-    </script>
+        // Дополнительно: попробовать определить используется ли WebRTC утечка IP? не обязательно, но добавим информацию в консоль.
+        // Покажем возможное локальное время?
+        const updateTime = () => {
+            const tzElement = timezoneEl;
+            if (tzElement && tzElement.innerText !== '—' && tzElement.innerText !== 'недоступно') {
+                // уже есть
+            }
+        };
+        setInterval(updateTime, 1000);
+    })();
+</script>
 </body>
 </html>
