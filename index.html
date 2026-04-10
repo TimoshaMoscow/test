@@ -3,7 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Мой IP детектор: геолокация, VPN, данные соединения</title>
+    
+    <!-- Google верификация -->
+    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
+    
+    <!-- Meta теги для поиска и соцсетей (фиксированные) -->
+    <meta name="title" content="Тестовый лендинг">
+    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
+    <meta name="author" content="timoshamoscow">
+    
+    <!-- Open Graph теги для соцсетей (фиксированные) -->
+    <meta property="og:title" content="Тестовый лендинг">
+    <meta property="og:description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta property="og:site_name" content="Тестовый лендинг">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_library">
+    <meta name="twitter:title" content="Тестовый лендинг">
+    <meta name="twitter:description" content="Тестовый лендинг, здесь всякая фигня">
+    
+    <!-- Динамический title (меняется в зависимости от контекста) -->
+    <title id="dynamicTitle">Тестовый лендинг</title>
+    
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
         * {
             margin: 0;
@@ -15,57 +43,106 @@
             background: linear-gradient(145deg, #f0f4fa 0%, #d9e0eb 100%);
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
 
         /* главная карточка */
         .card {
-            max-width: 1100px;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(0px);
             border-radius: 48px;
-            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35);
             overflow: hidden;
-            transition: all 0.2s ease;
         }
 
-        /* шапка */
+        /* шапка с логотипом и авторизацией */
         .header {
-            background: #1a2a3f;
+            background: linear-gradient(135deg, #1a2a3f 0%, #0f1a2a 100%);
             color: white;
-            padding: 28px 32px;
-            text-align: center;
+            padding: 20px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .header h1 {
-            font-weight: 700;
-            font-size: 1.9rem;
-            letter-spacing: -0.3px;
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: #ffb347;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a2a3f;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .site-title h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .site-title p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .auth-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
             gap: 12px;
-            flex-wrap: wrap;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 40px;
         }
 
-        .header h1 span {
-            background: #ffb347;
-            padding: 4px 16px;
-            border-radius: 80px;
-            font-size: 1.1rem;
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name {
             font-weight: 500;
-            color: #1e2f3f;
+            font-size: 0.9rem;
         }
 
-        .sub {
-            margin-top: 12px;
-            opacity: 0.8;
-            font-weight: 400;
-            font-size: 0.95rem;
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         /* контент */
@@ -73,10 +150,28 @@
             padding: 32px 28px 38px;
         }
 
-        /* секции данных */
+        /* welcome banner */
+        .welcome-banner {
+            background: linear-gradient(120deg, #e8f0fe 0%, #d4e2f5 100%);
+            border-radius: 28px;
+            padding: 20px 28px;
+            margin-bottom: 30px;
+            border-left: 6px solid #3b82f6;
+        }
+
+        .welcome-banner h2 {
+            color: #1e3a5f;
+            margin-bottom: 8px;
+        }
+
+        .welcome-banner p {
+            color: #2c5282;
+        }
+
+        /* info grid */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
             margin-bottom: 30px;
         }
@@ -92,7 +187,6 @@
 
         .info-panel:hover {
             transform: translateY(-3px);
-            border-color: #cbdde9;
         }
 
         .panel-title {
@@ -120,7 +214,6 @@
         .data-label {
             font-weight: 600;
             color: #2c5a7a;
-            letter-spacing: 0.3px;
         }
 
         .data-value {
@@ -135,12 +228,6 @@
             text-align: right;
         }
 
-        /* Специальный стиль для подозрения VPN */
-        .vpn-badge {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-        }
-
         .vpn-warning {
             background: #fee2e2;
             color: #b91c1c;
@@ -152,16 +239,24 @@
             gap: 8px;
         }
 
-        .safe-badge {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .risk-chip {
-            font-size: 0.85rem;
-            padding: 6px 14px;
+        .refresh-btn {
+            background: #eef3fc;
+            border: 1px solid #bdd4e7;
+            padding: 8px 18px;
             border-radius: 40px;
             font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            background: #e2eaf3;
+            transform: scale(0.97);
         }
 
         .footer-note {
@@ -191,29 +286,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        button {
-            background: none;
-            border: none;
-        }
-
-        .refresh-btn {
-            background: #eef3fc;
-            border: 1px solid #bdd4e7;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .refresh-btn:hover {
-            background: #e2eaf3;
-            transform: scale(0.97);
+        /* кнопка гугл */
+        .g_id_signin {
+            min-width: 180px;
         }
 
         @media (max-width: 680px) {
@@ -229,329 +304,310 @@
                 max-width: 100%;
                 text-align: left;
             }
-            .panel-title {
-                font-size: 1.1rem;
+            .header {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-<div class="card" id="app">
+
+<div class="card">
     <div class="header">
-        <h1>
-            🌐 Мой цифровой след
-            <span>IP + гео</span>
-        </h1>
-        <div class="sub">Ваш публичный IP, местоположение, провайдер и вероятный VPN/прокси</div>
+        <div class="logo-area">
+            <div class="logo">
+                <img src="images/logo.png" alt="Лого" class="logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='🌐'">
+            </div>
+            <div class="site-title">
+                <h1>IP Детектор + Geo</h1>
+                <p>ваш цифровой профиль</p>
+            </div>
+        </div>
+        <div class="auth-area" id="authArea">
+            <div id="g_id_onload"
+                 data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleLogin"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signin_with"
+                 data-size="medium"
+                 data-logo_alignment="left">
+            </div>
+            <div id="userInfoDisplay" style="display: none;" class="user-info">
+                <img id="userAvatar" class="user-avatar" src="" alt="avatar">
+                <span id="userName" class="user-name"></span>
+                <button id="logoutBtn" class="logout-btn">Выйти</button>
+            </div>
+        </div>
     </div>
+
     <div class="content">
+        <div class="welcome-banner" id="welcomeBanner">
+            <h2>🔍 Добро пожаловать!</h2>
+            <p>Здесь отображается ваш реальный IP-адрес, геолокация, провайдер и информация о возможном использовании VPN/прокси.</p>
+        </div>
+
         <div class="info-grid">
-            <!-- Блок IP и сети -->
             <div class="info-panel">
-                <div class="panel-title">
-                    📡 IP & Сеть
-                </div>
-                <div id="ipData" class="data-container">
+                <div class="panel-title">📡 IP & Сеть</div>
+                <div id="ipData">
                     <div class="data-row"><span class="data-label">IPv4:</span><span class="data-value" id="ipAddr">— загрузка —</span></div>
                     <div class="data-row"><span class="data-label">Провайдер (ISP):</span><span class="data-value" id="isp">—</span></div>
                     <div class="data-row"><span class="data-label">Организация:</span><span class="data-value" id="org">—</span></div>
                     <div class="data-row"><span class="data-label">Тип сети:</span><span class="data-value" id="networkType">—</span></div>
-                    <div class="data-row"><span class="data-label">Анонимность / Прокси:</span><span class="data-value" id="proxyStatus">⏳ проверка...</span></div>
+                    <div class="data-row"><span class="data-label">Прокси статус:</span><span class="data-value" id="proxyStatus">⏳ проверка...</span></div>
                 </div>
             </div>
 
-            <!-- Блок геолокации и страны -->
             <div class="info-panel">
-                <div class="panel-title">
-                    🗺️ Геолокация
-                </div>
+                <div class="panel-title">🗺️ Геолокация</div>
                 <div id="geoData">
                     <div class="data-row"><span class="data-label">Страна:</span><span class="data-value" id="country">—</span></div>
-                    <div class="data-row"><span class="data-label">Регион / Область:</span><span class="data-value" id="region">—</span></div>
+                    <div class="data-row"><span class="data-label">Регион:</span><span class="data-value" id="region">—</span></div>
                     <div class="data-row"><span class="data-label">Город:</span><span class="data-value" id="city">—</span></div>
-                    <div class="data-row"><span class="data-label">Почтовый индекс:</span><span class="data-value" id="zip">—</span></div>
                     <div class="data-row"><span class="data-label">Координаты:</span><span class="data-value" id="latlon">—</span></div>
                     <div class="data-row"><span class="data-label">Часовой пояс:</span><span class="data-value" id="timezone">—</span></div>
                 </div>
             </div>
 
-            <!-- Блок VPN / Детекция и прочее -->
             <div class="info-panel">
-                <div class="panel-title">
-                    🛡️ Безопасность & VPN
-                </div>
+                <div class="panel-title">🛡️ Безопасность & VPN</div>
                 <div id="securityData">
-                    <div class="data-row"><span class="data-label">VPN / Прокси:</span><span class="data-value" id="vpnDetect">⏳ анализ...</span></div>
-                    <div class="data-row"><span class="data-label">Хостинг / дата-центр:</span><span class="data-value" id="hostingStatus">—</span></div>
-                    <div class="data-row"><span class="data-label">Прокси-тип (признак):</span><span class="data-value" id="proxyType">—</span></div>
-                    <div class="data-row"><span class="data-label">Мобильный трафик?:</span><span class="data-value" id="mobileRisk">—</span></div>
-                    <div class="data-row"><span class="data-label">User-Agent (браузер):</span><span class="data-value" id="uaPreview">—</span></div>
+                    <div class="data-row"><span class="data-label">VPN/Прокси:</span><span class="data-value" id="vpnDetect">⏳ анализ...</span></div>
+                    <div class="data-row"><span class="data-label">Хостинг/Дата-центр:</span><span class="data-value" id="hostingStatus">—</span></div>
+                    <div class="data-row"><span class="data-label">Тип прокси:</span><span class="data-value" id="proxyType">—</span></div>
+                    <div class="data-row"><span class="data-label">User-Agent:</span><span class="data-value" id="uaPreview">—</span></div>
                 </div>
-                <div style="margin-top: 16px; text-align: center;">
-                    <button class="refresh-btn" id="refreshBtn">⟳ Обновить данные</button>
-                </div>
+                <button class="refresh-btn" id="refreshBtn">⟳ Обновить данные</button>
             </div>
         </div>
+
         <div class="footer-note">
-            💡 Данные получены через IP-API (точность гео зависит от провайдера). 
-            Определение VPN — вероятностное: проверка по базам дата-центров/прокси. 
-            Если вы используете реальный VPN, статус покажет "VPN/прокси обнаружен".
+            💡 Данные получены через IP-API. Определение VPN — вероятностное: проверка по базам дата-центров/прокси.
+            Авторизация через Google для персонализации опыта.
         </div>
     </div>
 </div>
 
 <script>
-    (function() {
-        // DOM элементы
-        const ipAddrEl = document.getElementById('ipAddr');
-        const ispEl = document.getElementById('isp');
-        const orgEl = document.getElementById('org');
-        const networkTypeEl = document.getElementById('networkType');
-        const proxyStatusEl = document.getElementById('proxyStatus');
-        const countryEl = document.getElementById('country');
-        const regionEl = document.getElementById('region');
-        const cityEl = document.getElementById('city');
-        const zipEl = document.getElementById('zip');
-        const latlonEl = document.getElementById('latlon');
-        const timezoneEl = document.getElementById('timezone');
-        const vpnDetectEl = document.getElementById('vpnDetect');
-        const hostingStatusEl = document.getElementById('hostingStatus');
-        const proxyTypeEl = document.getElementById('proxyType');
-        const mobileRiskEl = document.getElementById('mobileRisk');
-        const uaPreviewEl = document.getElementById('uaPreview');
-
-        // показываем User-Agent сразу (локально, без запроса)
-        function setUserAgent() {
-            const ua = navigator.userAgent;
-            let shortUA = ua.length > 65 ? ua.substring(0, 62) + '...' : ua;
-            uaPreviewEl.innerText = shortUA;
-            uaPreviewEl.title = ua;
+    // ========== ДИНАМИЧЕСКИЙ TITLE (ЗАВИСИТ ОТ КОНТЕКСТА) ==========
+    // Функция для определения контекста и установки title
+    function setDynamicTitle() {
+        const currentHour = new Date().getHours();
+        const hasVPN = localStorage.getItem('vpnDetected') === 'true';
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        let contextTitle = '';
+        
+        // Определяем контекст (пример логики - можно расширить)
+        if (isLoggedIn) {
+            contextTitle = 'Личный кабинет - Мой IP детектор';
+        } else if (hasVPN) {
+            contextTitle = '⚠️ VPN обнаружен - IP детектор';
+        } else if (currentHour < 12) {
+            contextTitle = 'Доброе утро - IP детектор';
+        } else if (currentHour < 18) {
+            contextTitle = 'Добрый день - IP детектор';
+        } else {
+            contextTitle = 'Добрый вечер - IP детектор';
         }
-
-        // индикатор загрузки
-        function setLoadingState(isLoading) {
-            if (isLoading) {
-                ipAddrEl.innerHTML = '<span class="loader"></span> получение...';
-                ispEl.innerText = '—';
-                orgEl.innerText = '—';
-                networkTypeEl.innerText = '—';
-                proxyStatusEl.innerText = '⏳';
-                countryEl.innerText = '—';
-                regionEl.innerText = '—';
-                cityEl.innerText = '—';
-                zipEl.innerText = '—';
-                latlonEl.innerText = '—';
-                timezoneEl.innerText = '—';
-                vpnDetectEl.innerText = '⏳ анализ...';
-                hostingStatusEl.innerText = '—';
-                proxyTypeEl.innerText = '—';
-                mobileRiskEl.innerText = '—';
+        
+        document.title = contextTitle;
+    }
+    
+    // ========== GOOGLE LOGIN HANDLER ==========
+    let currentUser = null;
+    
+    window.handleGoogleLogin = function(response) {
+        console.log('Google login response:', response);
+        
+        // Декодируем JWT токен для получения данных пользователя
+        try {
+            const decoded = JSON.parse(atob(response.credential.split('.')[1]));
+            currentUser = {
+                name: decoded.name,
+                email: decoded.email,
+                picture: decoded.picture,
+                sub: decoded.sub
+            };
+            
+            // Сохраняем состояние в localStorage
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', currentUser.name);
+            localStorage.setItem('userEmail', currentUser.email);
+            localStorage.setItem('userPicture', currentUser.picture);
+            
+            // Обновляем UI
+            updateUIBasedOnAuth();
+            
+            // Меняем приветствие
+            const banner = document.getElementById('welcomeBanner');
+            if (banner) {
+                banner.innerHTML = `<h2>👋 Здравствуйте, ${currentUser.name}!</h2>
+                <p>Вы авторизованы через Google. Ваш IP и геоданные отображаются ниже. Спасибо, что используете наш сервис!</p>`;
             }
+            
+            // Обновляем динамический title
+            setDynamicTitle();
+            
+        } catch (e) {
+            console.error('Ошибка декодирования токена:', e);
         }
-
-        // основная функция запроса к ip-api.com (json) с полями: status, country, regionName, city, zip, lat, lon, timezone, isp, org, as, proxy, hosting, mobile, query
-        // используем поле proxy (true/false) и hosting - отличные признаки для VPN/прокси
-        async function fetchIPData() {
-            setLoadingState(true);
-            try {
-                // Используем бесплатный endpoint ip-api.com, без ключа, ограничение 45 запросов/мин с одного IP - нам хватит.
-                // Параметр fields запрашивает нужные поля: status, query, country, regionName, city, zip, lat, lon, timezone, isp, org, as, proxy, hosting, mobile.
-                const url = 'http://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query,proxy,hosting,mobile';
-                // Для HTTPS используем тот же ip-api.com поддерживает https, но для надёжности оставим https, если страница открыта по https - браузер может блокировать http.
-                const finalUrl = window.location.protocol === 'https:' 
-                    ? 'https://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query,proxy,hosting,mobile' 
-                    : url;
-                
-                const response = await fetch(finalUrl);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const data = await response.json();
-                
-                if (data.status !== 'success') {
-                    throw new Error(data.message || 'Ошибка геолокации');
-                }
-                
-                // Заполнение IP и базовых данных
-                const ip = data.query || 'неизвестно';
-                ipAddrEl.innerText = ip;
-                ispEl.innerText = data.isp || '—';
-                orgEl.innerText = data.org || data.isp || '—';
-                
-                // Тип сети: косвенно можем предположить по наличию мобильного флага или по организации (упрощённо)
-                let netType = 'Широкополосный / неизвестно';
-                if (data.mobile === true) netType = '📱 Мобильная сеть';
-                else if (data.hosting === true) netType = '🏢 Хостинг / Дата-центр';
-                else if (data.proxy === true) netType = '🕵️ Прокси / VPN узел';
-                else netType = '🌍 Обычный (провайдер)';
-                networkTypeEl.innerText = netType;
-                
-                // статус прокси из поля proxy (ip-api возвращает true если IP принадлежит public proxy, vpn, tor etc)
-                const isProxy = data.proxy === true;
-                const isHosting = data.hosting === true;
-                let proxyText = '';
-                if (isProxy) proxyText = '⚠️ Обнаружен прокси / VPN!';
-                else if (isHosting) proxyText = '🏭 Дата-центр / хостинг (возможен VPN)';
-                else proxyText = '✅ Прямое соединение (не прокси)';
-                proxyStatusEl.innerText = proxyText;
-                
-                // гео данные
-                countryEl.innerText = data.country || '—';
-                regionEl.innerText = data.regionName || '—';
-                cityEl.innerText = data.city || '—';
-                zipEl.innerText = data.zip || '—';
-                if (data.lat && data.lon) latlonEl.innerText = `${data.lat}, ${data.lon}`;
-                else latlonEl.innerText = '—';
-                timezoneEl.innerText = data.timezone || '—';
-                
-                // ---------- БЛОК ДЕТЕКЦИИ VPN (усиленный) ----------
-                // Используем флаги proxy, hosting, а также проверяем ISP на известные VPN-провайдеры (дополнительная логика)
-                let vpnStatus = '';
-                let riskLevel = '';
-                let proxyDetailed = '';
-                
-                if (isProxy === true) {
-                    vpnStatus = '🔴 ОПАСНО: IP адрес прокси/VPN!';
-                    riskLevel = 'VPN/прокси сервер';
-                    proxyDetailed = 'Публичный прокси, VPN или Tor';
-                } else if (isHosting === true) {
-                    vpnStatus = '🟠 ВНИМАНИЕ: Дата-центр/хостинг. Возможно использование VPN.';
-                    riskLevel = 'Хостинговая сеть';
-                    proxyDetailed = 'AS принадлежит хостинг-провайдеру';
-                } else {
-                    // дополнительная эвристика по имени ISP (часто встречаемые VPN сервисы)
-                    const ispLower = (data.isp || '').toLowerCase();
-                    const vpnKeywords = ['vpn', 'expressvpn', 'nordvpn', 'surfshark', 'cyberghost', 'private internet access', 'pia', 'protonvpn', 'vyprvpn', 'torguard', 'mullvad', 'windscribe', 'ipvanish', 'hotspot shield', 'hide.me', 'ivacy'];
-                    let keywordMatch = false;
-                    for (let kw of vpnKeywords) {
-                        if (ispLower.includes(kw)) {
-                            keywordMatch = true;
-                            break;
-                        }
-                    }
-                    if (keywordMatch) {
-                        vpnStatus = '⚠️ ПРОВАЙДЕР ПОХОЖ НА VPN-СЕРВИС. Высокая вероятность использования VPN.';
-                        riskLevel = 'VPN по ISP';
-                        proxyDetailed = 'Определено по названию провайдера';
-                    } else {
-                        vpnStatus = '✅ Скорее всего VPN не используется (обычный провайдер)';
-                        riskLevel = 'Нет признаков прокси';
-                        proxyDetailed = '—';
-                    }
-                }
-                
-                // переопределяем если оба условия - приоритет proxy
-                if (isProxy) {
-                    vpnDetectEl.innerHTML = `<span class="vpn-warning">⚠️ ${vpnStatus}</span>`;
-                } else {
-                    vpnDetectEl.innerHTML = vpnStatus;
-                }
-                
-                hostingStatusEl.innerText = isHosting ? 'Да (дата-центр/хостинг)' : (isProxy ? 'Прокси сеть' : 'Нет, обычный IP');
-                proxyTypeEl.innerText = proxyDetailed !== '—' ? proxyDetailed : (isProxy ? 'Общий прокси / VPN' : 'Не обнаружено');
-                
-                // мобильный трафик
-                if (data.mobile === true) mobileRiskEl.innerText = 'Да, мобильный оператор';
-                else mobileRiskEl.innerText = 'Нет (проводной/wi-fi)';
-                
-                // дополнительно показываем мелкую инфу - as number (опционально)
-                if (data.as) {
-                    const asElement = document.createElement('div');
-                    // но не дублируем, можно добавить строку в блок сети, но для эстетики просто апдейтим незанятый
-                    const asText = data.as || '';
-                    const existingAsRow = document.getElementById('extraAs');
-                    if (!existingAsRow) {
-                        const container = document.getElementById('ipData');
-                        const asRow = document.createElement('div');
-                        asRow.className = 'data-row';
-                        asRow.id = 'extraAs';
-                        asRow.innerHTML = `<span class="data-label">AS (Автономная система):</span><span class="data-value">${asText.substring(0, 60)}</span>`;
-                        if (container && !document.getElementById('extraAs')) container.appendChild(asRow);
-                    } else {
-                        existingAsRow.querySelector('.data-value').innerText = asText.substring(0, 60);
-                    }
-                }
-                
-                // дополнение: вычислим возможный тип прокси на основе дополнительных заголовков? но в целом proxy поле достаточно.
-                // также добавим часы
-            } catch (err) {
-                console.error('Ошибка запроса к ip-api:', err);
-                ipAddrEl.innerText = 'Ошибка загрузки';
-                countryEl.innerText = 'недоступно';
-                vpnDetectEl.innerText = '❌ Не удалось проверить VPN';
-                proxyStatusEl.innerText = 'Ошибка API';
-                // при ошибке можно попробовать fallback
-                fallbackToIpInfo();
-            } finally {
-                // дополнительный триггер для красоты
+    };
+    
+    function updateUIBasedOnAuth() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const gButton = document.querySelector('.g_id_signin');
+        const userInfoDiv = document.getElementById('userInfoDisplay');
+        
+        if (isLoggedIn && localStorage.getItem('userName')) {
+            if (gButton) gButton.style.display = 'none';
+            if (userInfoDiv) {
+                userInfoDiv.style.display = 'flex';
+                document.getElementById('userName').innerText = localStorage.getItem('userName');
+                const avatar = document.getElementById('userAvatar');
+                avatar.src = localStorage.getItem('userPicture') || '';
+                avatar.onerror = () => { avatar.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'; };
             }
+        } else {
+            if (gButton) gButton.style.display = 'block';
+            if (userInfoDiv) userInfoDiv.style.display = 'none';
         }
-        
-        // fallback на случай если ip-api заблокирован или ошибка CORS / http/https
-        async function fallbackToIpInfo() {
-            try {
-                // используем другой бесплатный сервис - ipwhois.io, но он имеет ограничения, но как резерв
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 4000);
-                const resp = await fetch('https://ipwho.is/', { signal: controller.signal });
-                clearTimeout(timeoutId);
-                if (!resp.ok) throw new Error();
-                const data = await resp.json();
-                if (data && data.ip) {
-                    ipAddrEl.innerText = data.ip || '—';
-                    countryEl.innerText = data.country || '—';
-                    regionEl.innerText = data.region || '—';
-                    cityEl.innerText = data.city || '—';
-                    ispEl.innerText = data.connection?.isp || '—';
-                    orgEl.innerText = data.connection?.org || '—';
-                    if (data.latitude && data.longitude) latlonEl.innerText = `${data.latitude}, ${data.longitude}`;
-                    timezoneEl.innerText = data.timezone?.id || '—';
-                    // проверка на прокси (ipwhois выдает proxy: {type, ...})
-                    const isProxyFallback = data.security?.proxy === true || data.security?.vpn === true;
-                    if (isProxyFallback) {
-                        vpnDetectEl.innerText = '⚠️ Обнаружен VPN/прокси (ipwho.is)';
-                        proxyStatusEl.innerText = 'Прокси/VPN детект (резерв)';
-                    } else {
-                        if (vpnDetectEl.innerText.includes('Ошибка')) vpnDetectEl.innerText = '✅ VPN не обнаружен (резервные данные)';
-                        proxyStatusEl.innerText = 'Прямое соединение (резерв)';
-                    }
-                    hostingStatusEl.innerText = data.connection?.type === 'hosting' ? 'Хостинг' : 'Обычный';
+    }
+    
+    // Выход из аккаунта
+    document.addEventListener('DOMContentLoaded', () => {
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userPicture');
+                currentUser = null;
+                updateUIBasedOnAuth();
+                
+                // Восстанавливаем стандартный баннер
+                const banner = document.getElementById('welcomeBanner');
+                if (banner) {
+                    banner.innerHTML = `<h2>🔍 Добро пожаловать!</h2>
+                    <p>Здесь отображается ваш реальный IP-адрес, геолокация, провайдер и информация о возможном использовании VPN/прокси.</p>`;
                 }
-            } catch (e) {
-                console.warn('fallback также не сработал', e);
-                ipAddrEl.innerText = 'Не удалось определить';
-                vpnDetectEl.innerText = 'Сервисы геолокации недоступны';
-            }
-        }
-        
-        // Обновить все данные по кнопке
-        function refreshAll() {
-            fetchIPData().catch(() => fallbackToIpInfo());
-        }
-        
-        // Инициализация с загрузкой
-        setUserAgent();
-        fetchIPData().catch(() => {
-            // если первичный запрос упал, fallback выполнится внутри, но на всякий случай
-            fallbackToIpInfo();
-        });
-        
-        const refreshBtn = document.getElementById('refreshBtn');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                refreshAll();
+                
+                setDynamicTitle();
+                window.location.reload(); // перезагружаем для сброса гугл кнопки
             });
         }
         
-        // Дополнительно: попробовать определить используется ли WebRTC утечка IP? не обязательно, но добавим информацию в консоль.
-        // Покажем возможное локальное время?
-        const updateTime = () => {
-            const tzElement = timezoneEl;
-            if (tzElement && tzElement.innerText !== '—' && tzElement.innerText !== 'недоступно') {
-                // уже есть
+        updateUIBasedOnAuth();
+        setDynamicTitle();
+    });
+    
+    // ========== IP И ГЕОЛОКАЦИЯ (как в предыдущем коде) ==========
+    const ipAddrEl = document.getElementById('ipAddr');
+    const ispEl = document.getElementById('isp');
+    const orgEl = document.getElementById('org');
+    const networkTypeEl = document.getElementById('networkType');
+    const proxyStatusEl = document.getElementById('proxyStatus');
+    const countryEl = document.getElementById('country');
+    const regionEl = document.getElementById('region');
+    const cityEl = document.getElementById('city');
+    const latlonEl = document.getElementById('latlon');
+    const timezoneEl = document.getElementById('timezone');
+    const vpnDetectEl = document.getElementById('vpnDetect');
+    const hostingStatusEl = document.getElementById('hostingStatus');
+    const proxyTypeEl = document.getElementById('proxyType');
+    const uaPreviewEl = document.getElementById('uaPreview');
+    
+    function setUserAgent() {
+        const ua = navigator.userAgent;
+        let shortUA = ua.length > 65 ? ua.substring(0, 62) + '...' : ua;
+        if (uaPreviewEl) uaPreviewEl.innerText = shortUA;
+    }
+    
+    async function fetchIPData() {
+        try {
+            const finalUrl = window.location.protocol === 'https:' 
+                ? 'https://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query,proxy,hosting,mobile' 
+                : 'http://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,query,proxy,hosting,mobile';
+            
+            const response = await fetch(finalUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            
+            if (data.status !== 'success') throw new Error(data.message || 'Ошибка');
+            
+            ipAddrEl.innerText = data.query || 'неизвестно';
+            ispEl.innerText = data.isp || '—';
+            orgEl.innerText = data.org || data.isp || '—';
+            
+            let netType = 'Широкополосный';
+            if (data.mobile === true) netType = '📱 Мобильная сеть';
+            else if (data.hosting === true) netType = '🏢 Хостинг / Дата-центр';
+            else if (data.proxy === true) netType = '🕵️ Прокси / VPN узел';
+            networkTypeEl.innerText = netType;
+            
+            const isProxy = data.proxy === true;
+            const isHosting = data.hosting === true;
+            proxyStatusEl.innerText = isProxy ? '⚠️ Обнаружен прокси/VPN!' : (isHosting ? '🏭 Дата-центр' : '✅ Прямое соединение');
+            
+            countryEl.innerText = data.country || '—';
+            regionEl.innerText = data.regionName || '—';
+            cityEl.innerText = data.city || '—';
+            if (data.lat && data.lon) latlonEl.innerText = `${data.lat}, ${data.lon}`;
+            timezoneEl.innerText = data.timezone || '—';
+            
+            // Сохраняем статус VPN для динамического title
+            localStorage.setItem('vpnDetected', isProxy || isHosting ? 'true' : 'false');
+            setDynamicTitle();
+            
+            if (isProxy) {
+                vpnDetectEl.innerHTML = `<span class="vpn-warning">⚠️ Обнаружен VPN/прокси сервер!</span>`;
+            } else if (isHosting) {
+                vpnDetectEl.innerText = '🟠 Дата-центр/хостинг (возможен VPN)';
+            } else {
+                const ispLower = (data.isp || '').toLowerCase();
+                const vpnKeywords = ['vpn', 'expressvpn', 'nordvpn', 'surfshark', 'protonvpn'];
+                let keywordMatch = vpnKeywords.some(kw => ispLower.includes(kw));
+                if (keywordMatch) vpnDetectEl.innerText = '⚠️ Провайдер похож на VPN-сервис';
+                else vpnDetectEl.innerText = '✅ VPN не обнаружен';
             }
+            
+            hostingStatusEl.innerText = isHosting ? 'Да (дата-центр)' : (isProxy ? 'Прокси сеть' : 'Нет');
+            proxyTypeEl.innerText = isProxy ? 'Публичный прокси/VPN' : (isHosting ? 'Хостинг' : 'Не обнаружено');
+            
+        } catch (err) {
+            console.error('IP-API ошибка:', err);
+            ipAddrEl.innerText = 'Ошибка загрузки';
+            vpnDetectEl.innerText = '❌ Не удалось проверить VPN';
+        }
+    }
+    
+    function refreshAll() {
+        fetchIPData();
+    }
+    
+    setUserAgent();
+    fetchIPData();
+    
+    const refreshBtn = document.getElementById('refreshBtn');
+    if (refreshBtn) refreshBtn.addEventListener('click', refreshAll);
+    
+    // Дополнительно: обработчик ошибки логотипа
+    const logoImg = document.querySelector('.logo-img');
+    if (logoImg) {
+        logoImg.onerror = function() {
+            this.style.display = 'none';
+            this.parentElement.innerHTML = '🌐';
         };
-        setInterval(updateTime, 1000);
-    })();
+    }
 </script>
 </body>
 </html>
