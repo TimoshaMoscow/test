@@ -1,822 +1,418 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru-RU">
 <head>
+    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="CyberOracle — киберпанк-оракул времени. Определи свой статус по дате рождения, собирай достижения, соревнуйся в рейтинге бессмертия.">
-    <meta name="keywords" content="оракул, дата рождения, киберпанк, достижения, статус, бессмертие, игра">
-    <meta name="author" content="CyberOracle">
-    <meta name="theme-color" content="#26d13c">
-    <title>CyberOracle | Оракул Времени</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Тестовый лендинг</title>
+    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
+    <meta name="author" content="TStudios">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="revisit-after" content="1 days">
+    <meta name="language" content="ru">
+    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
+    
+    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
+    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
+    
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Тестовый лендинг">
+    <meta property="og:description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <meta property="og:site_name" content="Тестовый лендинг">
+    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- ===== TWITTER CARDS ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
+    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
+    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- ===== СТИЛИ ===== -->
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Share Tech Mono', 'Courier New', monospace; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: radial-gradient(circle at 20% 30%, #0a0f0a, #030603);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
+            color: #0a1e2f;
+            line-height: 1.5;
             min-height: 100vh;
-            color: #b3ffcf;
-            transition: background 0.5s;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+            padding: 1rem;
         }
-        #fireworksCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
-        .glow-text { text-shadow: 0 0 5px #26d13c, 0 0 10px #1a8f2a; }
-        .cyber-container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
-        .cyber-nav {
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* АНИМАЦИИ */
+        @keyframes softGlow {
+            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
+            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ШАПКА */
+        .header {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #26d13c;
-            padding-bottom: 15px;
-        }
-        .nav-btn {
-            background: transparent;
-            border: 2px solid #26d13c;
-            color: #26d13c;
-            padding: 8px 22px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-        }
-        .nav-btn i { margin-right: 8px; }
-        .nav-btn.active, .nav-btn:hover {
-            background: #26d13c;
-            color: #0a0f0a;
-            box-shadow: 0 0 15px #26d13c;
-            transform: scale(1.02);
-        }
-        .card {
-            background: rgba(10, 18, 12, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid #26d13c;
-            border-radius: 32px;
-            padding: 28px 24px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 12px rgba(38,209,60,0.3);
-        }
-        h1, h2 { font-weight: normal; letter-spacing: 2px; }
-        h1 i, h2 i { margin-right: 12px; color: #26d13c; }
-        input, select, button {
-            background: #111c12;
-            border: 1px solid #26d13c;
-            border-radius: 28px;
-            padding: 12px 18px;
-            color: #e0ffe6;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.2s;
-        }
-        input:focus, select:focus { box-shadow: 0 0 8px #26d13c; border-color: #6aff8c; }
-        button {
-            background: #1e3a24;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background: #26d13c;
-            color: #030603;
-            box-shadow: 0 0 12px #26d13c;
-        }
-        .row-flex { display: flex; gap: 20px; flex-wrap: wrap; }
-        .form-group { flex: 1; min-width: 160px; margin-bottom: 18px; }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            color: #9bffb0;
-        }
-        .result-box {
-            border-left: 8px solid #26d13c;
-            padding: 20px;
-            border-radius: 28px;
-            background: #0b130e;
-            margin: 20px 0;
-            animation: flicker 0.3s ease;
-        }
-        @keyframes flicker {
-            0% { opacity: 0.4; transform: translateX(-4px);}
-            100% { opacity: 1; transform: translateX(0);}
-        }
-        .badge {
-            background: #1e2a1a;
-            border-radius: 40px;
-            padding: 6px 16px;
-            font-size: 0.75rem;
-            display: inline-block;
-            margin: 4px;
-            border: 1px solid #26d13c;
-            transition: 0.2s;
-            cursor: help;
-        }
-        .badge.secret {
-            border-color: #ffaa44;
-            background: #2a2a1a;
-            color: #ffdd99;
-            box-shadow: 0 0 6px #ffaa44;
-        }
-        .badge.locked { opacity: 0.4; filter: grayscale(0.3); background: #0a0f0a; }
-        .history-item {
-            border-bottom: 1px dashed #26d13c;
-            padding: 8px 0;
-            display: flex;
+            align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            font-size: 0.75rem;
-            gap: 8px;
+            gap: 2rem;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 1rem 2.5rem;
+            border-radius: 80px;
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
         }
-        .rating-bar {
-            background: #1f2a1c;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 56px;
+            height: 56px;
             border-radius: 20px;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            margin-top: 20px;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
-        .stats-grid {
+        .logo img:hover { transform: rotate(10deg) scale(1.1); }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: #ffffffdd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e2b5e;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid white;
+        }
+
+        /* ГЕРОЙ */
+        .hero {
+            text-align: center;
+            padding: 5rem 3rem;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+            border-radius: 70px;
+            box-shadow: 0 40px 60px -20px #1e2b5e40;
+            margin-bottom: 5rem;
+            border: 1px solid #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0a1e2f, #283593);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            color: #2d3f5e;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(145deg, #283593, #1e2b5e);
+            color: white;
+            font-weight: 600;
+            padding: 1.2rem 3rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 15px 25px -8px #28359380;
+            transition: all 0.2s;
+            border: 1px solid #ffffff50;
+        }
+        .cta-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 25px 35px -8px #1e2b5e;
+            background: linear-gradient(145deg, #1e2b5e, #283593);
+        }
+
+        /* КАРТОЧКИ */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.2rem;
+            margin: 5rem 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px -15px #1a237e30;
+            border: 1px solid rgba(255,255,255,0.9);
+            transition: all 0.3s;
+            text-align: center;
+            animation: float 6s infinite ease-in-out;
+        }
+        .feature-card:nth-child(2) { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) { animation-delay: 1s; }
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #3f51b5;
+            background: white;
+        }
+        .feature-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0a1e2f;
+        }
+
+        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
+        .playground {
+            background: white;
+            border-radius: 70px;
+            padding: 4rem 3rem;
+            margin: 5rem 0;
+            box-shadow: 0 30px 50px -20px #0f2b45;
+        }
+        .playground h3 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e2b5e;
+        }
+        .grid-demo {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            gap: 1.5rem;
+            margin: 3rem 0;
         }
-        .stat-card {
-            background: #0a120e;
-            border-radius: 20px;
-            padding: 12px;
+        .grid-item {
+            background: #e9ecf5;
+            padding: 2rem 1rem;
             text-align: center;
-            border: 1px solid #26d13c;
-        }
-        @media (max-width: 700px) {
-            .cyber-nav { gap: 10px; }
-            .nav-btn { padding: 5px 12px; font-size: 0.8rem; }
-            .card { padding: 18px; }
-        }
-        footer { text-align: center; margin-top: 30px; font-size: 0.7rem; opacity: 0.7; }
-        .page { display: none; }
-        .active-page { display: block; }
-        @keyframes epicGlow {
-            0% { text-shadow: 0 0 5px #26d13c; border-color: #26d13c; }
-            50% { text-shadow: 0 0 30px #ffaa44, 0 0 20px #ff6600; border-color: #ffaa44; background: rgba(255,170,68,0.2); }
-            100% { text-shadow: 0 0 5px #26d13c; border-color: #26d13c; }
-        }
-        .epic-complete { animation: epicGlow 0.8s ease-in-out 3; }
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            animation: confettiFall 2s linear forwards;
-            z-index: 10000;
-            pointer-events: none;
-        }
-        @keyframes confettiFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        .share-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
-        .share-btn { background: #1e3a24; padding: 8px 16px; border-radius: 40px; font-size: 0.8rem; border: none; margin: 0 5px; }
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #26d13c;
-            color: #030603;
-            padding: 12px 20px;
             border-radius: 30px;
-            font-weight: bold;
-            z-index: 1000;
-            animation: slideIn 0.3s ease;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e2b5e;
+            transition: all 0.2s;
+            border: 2px solid transparent;
         }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .grid-item:hover {
+            border-color: #3f51b5;
+            background: white;
+            transform: scale(1.03);
+            cursor: pointer;
         }
-        .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
-        .filter-btn { background: #1a2a1a; padding: 4px 12px; font-size: 0.7rem; border-radius: 20px; cursor: pointer; }
-        .filter-btn.active-filter { background: #26d13c; color: #000; }
+        .slider-demo {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        .knob {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+            box-shadow: 0 15px 25px -5px #1a237e80;
+            transition: 0.1s;
+        }
+        .knob:active { transform: rotate(30deg); }
+
+        /* ЛОГО-СЕКЦИЯ */
+        .logo-section {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: linear-gradient(145deg, #e8edff, #d5defa);
+            border-radius: 60px;
+            margin: 5rem 0;
+        }
+        .logo-section img {
+            width: 180px;
+            height: 180px;
+            border-radius: 40px;
+            box-shadow: 0 30px 40px -15px #1e2b5e;
+            transition: 0.4s;
+        }
+        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
+
+        /* ПОДВАЛ */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #44556b;
+            border-top: 2px dashed #b0c0d0;
+            margin-top: 4rem;
+            background: #f5faff;
+            border-radius: 60px 60px 30px 30px;
+        }
+
+        @media (max-width: 700px) {
+            .hero h2 { font-size: 2.5rem; }
+            .header { flex-direction: column; text-align: center; }
+            .logo { flex-direction: column; }
+        }
+        .hidden-schema { display: none; }
     </style>
+    
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Тестовый лендинг 3.0",
+        "url": "https://timoshamoscow.github.io/test/",
+        "description": "Интерактивная песочница для фронтенд-экспериментов",
+        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
+    }
+    </script>
 </head>
 <body>
-<canvas id="fireworksCanvas"></canvas>
-<div class="cyber-container">
-    <div class="cyber-nav">
-        <button class="nav-btn active" data-page="home"><i class="fas fa-home"></i> Главная</button>
-        <button class="nav-btn" data-page="check"><i class="fas fa-calendar-alt"></i> Статус</button>
-        <button class="nav-btn" data-page="achievements"><i class="fas fa-trophy"></i> Достижения</button>
-        <button class="nav-btn" data-page="history"><i class="fas fa-history"></i> История</button>
-        <button class="nav-btn" data-page="stats"><i class="fas fa-chart-line"></i> Статистика</button>
+    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
+    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
+                <h1>Тестовый лендинг</h1>
+            </div>
+            <div class="badge">🚀 v.3.5 • Живая песочница</div>
+        </header>
+
+        <section class="hero">
+            <h2>Полигон для гипотез<br>и смелых решений</h2>
+            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
+            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
+        </section>
+
+        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
+        <section class="playground">
+            <h3>⚡ Интерактивная лаборатория</h3>
+            <div class="grid-demo">
+                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
+                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
+                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
+                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
+            </div>
+            <div class="slider-demo">
+                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
+                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
+                <div style="font-size: 2rem;">🎚️</div>
+            </div>
+        </section>
+
+        <!-- ОСНОВНЫЕ ФИШКИ -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧩</div>
+                <h3 class="feature-title">Чистый код</h3>
+                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">SEO-агрессия</h3>
+                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Скорость + UX</h3>
+                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
+            </div>
+        </section>
+
+        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
+        <section class="logo-section">
+            <img src="images/logo.png" alt="Логотип">
+            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
+        </section>
+
+        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
+        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
+            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
+                <span class="badge" style="font-size:1.2rem;">Сетки</span>
+                <span class="badge" style="font-size:1.2rem;">Анимации</span>
+                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
+                <span class="badge" style="font-size:1.2rem;">Типографика</span>
+                <span class="badge" style="font-size:1.2rem;">SVG</span>
+                <span class="badge" style="font-size:1.2rem;">Canvas</span>
+                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
+                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
+            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
+            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
+        </footer>
     </div>
 
-    <!-- ГЛАВНАЯ -->
-    <div id="page-home" class="page active-page">
-        <div class="card">
-            <h1><i class="fas fa-microchip"></i> CYBER ORACLE // v5.0</h1>
-            <p style="margin-top: 16px; font-size: 1.1rem;">🔮 <span class="glow-text">Официальный киберпанк-оракул времени</span> 🔮<br>⚡ 9 основных + 5 секретных достижений • Рейтинг бессмертия • Статистика • Экспорт ⚡</p>
-            <div class="stats-grid">
-                <div class="stat-card"><i class="fas fa-users"></i><br><span id="totalChecksStat">0</span><br>Всего проверок</div>
-                <div class="stat-card"><i class="fas fa-heartbeat"></i><br><span id="alivePercentStat">0</span>%<br>Живых</div>
-                <div class="stat-card"><i class="fas fa-trophy"></i><br><span id="totalAchievementsStat">0</span>/14<br>Достижений</div>
-                <div class="stat-card"><i class="fas fa-fire"></i><br><span id="streakStat">0</span><br>Текущая серия</div>
-            </div>
-            <button id="gotoCheckBtn" style="margin-top: 24px; width: auto; padding: 10px 30px;"><i class="fas fa-rocket"></i> НАЧАТЬ ПРОВЕРКУ</button>
-        </div>
-        <div class="card">
-            <h2><i class="fas fa-question-circle"></i> Как это работает</h2>
-            <p>✓ Введите дату рождения (отрицательный год = до н.э.)<br>
-            ✓ Система определит ваш статус: <span class="glow-text">ЖИВ / МЁРТВ / НЕ РОДИЛСЯ / ДО Н.Э. / ТАЙНА</span><br>
-            ✓ Получайте достижения за уникальные действия<br>
-            ✓ Секретные достижения скрыты, пока вы их не откроете<br>
-            ✓ Соревнуйтесь сами с собой через рейтинг бессмертия<br>
-            ✓ Экспортируйте историю в CSV и делитесь результатами</p>
-            <div class="share-buttons">
-                <button class="share-btn" onclick="copyShareText()"><i class="fas fa-share-alt"></i> Поделиться прогрессом</button>
-                <button class="share-btn" onclick="resetAllData()"><i class="fas fa-trash-alt"></i> Сбросить все данные</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- СТАТУС -->
-    <div id="page-check" class="page">
-        <div class="card">
-            <h2><i class="fas fa-user-astronaut"></i> Кибер-верификация личности</h2>
-            <div class="form-group">
-                <label><i class="fas fa-user"></i> Полное имя</label>
-                <input type="text" id="fullname" placeholder="Иванов Иван Иванович">
-                <div class="row-flex" style="margin-top: 8px;">
-                    <label><input type="checkbox" id="noPatronymic"> <i class="fas fa-user-slash"></i> Нет отчества</label>
-                    <label><input type="checkbox" id="noPhoneCb"> <i class="fas fa-phone-slash"></i> Нет телефона</label>
-                    <label><input type="checkbox" id="noEmailCb"> <i class="fas fa-envelope-slash"></i> Нет почты</label>
-                </div>
-            </div>
-            <div class="row-flex">
-                <div class="form-group"><label><i class="fas fa-calendar-day"></i> День</label><select id="daySel"></select></div>
-                <div class="form-group"><label><i class="fas fa-calendar-week"></i> Месяц</label><select id="monthSel"></select></div>
-                <div class="form-group"><label><i class="fas fa-globe"></i> Год (отрицательный = до н.э.)</label><input type="number" id="yearInp" value="1990" step="1"></div>
-            </div>
-            <div class="row-flex">
-                <div class="form-group"><label><i class="fas fa-phone-alt"></i> Телефон</label><input type="tel" id="phoneInp" placeholder="+7..."></div>
-                <div class="form-group"><label><i class="fas fa-envelope"></i> Email</label><input type="email" id="emailInp" placeholder="cyber@mail.net"></div>
-            </div>
-            <button id="runOracleBtn"><i class="fas fa-microphone-alt"></i> ЗАПУСТИТЬ ОРАКУЛА</button>
-            <div id="resultArea" class="result-box" style="display: none;"></div>
-        </div>
-    </div>
-
-    <!-- ДОСТИЖЕНИЯ (все 14, секретные появляются после открытия) -->
-    <div id="page-achievements" class="page">
-        <div class="card" id="achievementsCard">
-            <h2><i class="fas fa-medal"></i> КИБЕР-ДОСТИЖЕНИЯ</h2>
-            <div id="achievementsList" style="display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0;"></div>
-            <div class="rating-bar"><i class="fas fa-chart-simple"></i> <span id="ratingSpan">Рейтинг: --</span></div>
-        </div>
-    </div>
-
-    <!-- ИСТОРИЯ С ФИЛЬТРАЦИЕЙ -->
-    <div id="page-history" class="page">
-        <div class="card">
-            <h2><i class="fas fa-database"></i> ЖУРНАЛ СОБЫТИЙ</h2>
-            <div class="filter-buttons">
-                <button class="filter-btn active-filter" data-filter="all">Все</button>
-                <button class="filter-btn" data-filter="ЖИВ">Живые</button>
-                <button class="filter-btn" data-filter="МЁРТВ">Мёртвые</button>
-                <button class="filter-btn" data-filter="ДО Н.Э.">До н.э.</button>
-                <button class="filter-btn" data-filter="НЕ РОДИЛСЯ">Будущие</button>
-                <button class="filter-btn" data-filter="ТАЙНА">Тайна</button>
-            </div>
-            <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                <button id="exportHistoryBtn"><i class="fas fa-file-csv"></i> Экспорт CSV</button>
-                <button id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> Очистить историю</button>
-            </div>
-            <div id="historyLog"></div>
-        </div>
-    </div>
-
-    <!-- СТАТИСТИКА -->
-    <div id="page-stats" class="page">
-        <div class="card">
-            <h2><i class="fas fa-chart-line"></i> РАСШИРЕННАЯ СТАТИСТИКА</h2>
-            <div id="detailedStats"></div>
-        </div>
-    </div>
-
-    <footer><i class="fas fa-shield-hal"></i> CyberOracle v5.0 | Бессмертие не гарантировано | Данные сохраняются локально</footer>
-</div>
-
-<script>
-    // ========== ГЛОБАЛЬНЫЕ ДАННЫЕ ==========
-    let achievements = new Set();
-    let secretAchievements = new Set();
-    let historyData = [];
-    let allUnlockedFlag = false;
-    let currentStreak = 0;
-
-    // Все достижения (основные + секретные)
-    const MAIN_ACHIEVEMENTS = ["📅 Изгой календаря", "🏺 Древний", "👻 Призрак", "⚡ Долгожитель", "🌀 Хрономаг", "🏆 Бессмертный", "💀 Легенда", "🌀 Аномалия времени", "🌱 Кибер-юнец"];
-    const SECRET_LIST = ["🎭 Хранитель Нуля", "🕯️ Вампир", "📜 ХроноСтранник", "💎 Избранный Оракула", "🌌 Повелитель Времени"];
-    const ALL_ACHIEVEMENTS = [...MAIN_ACHIEVEMENTS, ...SECRET_LIST];
-
-    // ========== ЗАГРУЗКА / СОХРАНЕНИЕ ==========
-    function loadStore() {
-        let s = localStorage.getItem("cyberOracleV5");
-        if (s) {
-            let d = JSON.parse(s);
-            achievements = new Set(d.achievements || []);
-            secretAchievements = new Set(d.secretAchievements || []);
-            historyData = d.history || [];
-            currentStreak = d.streak || 0;
+    <script>
+        function demoAlert() {
+            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
         }
-        renderAll();
-        checkSecretConditions();
-        updateStats();
-    }
-
-    function saveAll() {
-        localStorage.setItem("cyberOracleV5", JSON.stringify({
-            achievements: Array.from(achievements),
-            secretAchievements: Array.from(secretAchievements),
-            history: historyData,
-            streak: currentStreak
-        }));
-    }
-
-    // ========== ДОСТИЖЕНИЯ ==========
-    function unlockAchievement(name, isSecret = false) {
-        let target = isSecret ? secretAchievements : achievements;
-        if (!target.has(name)) {
-            target.add(name);
-            saveAll();
-            renderAll();
-            showNotification(`🏆 ДОСТИЖЕНИЕ ПОЛУЧЕНО: ${name} 🏆`);
-            if (!isSecret) checkFullCollection();
-            return true;
-        }
-        return false;
-    }
-
-    function unlockSecret(name) {
-        unlockAchievement(name, true);
-    }
-
-    // Секретные условия
-    function checkSecretConditions() {
-        // Хранитель Нуля — год 0
-        if (historyData.some(h => h.year === 0) && !secretAchievements.has("🎭 Хранитель Нуля"))
-            unlockSecret("🎭 Хранитель Нуля");
-        
-        // Вампир — 3+ пары с разницей ≥100 лет
-        let years = historyData.map(h => h.year).filter(y => y !== undefined && !isNaN(y));
-        let pairs = 0;
-        for (let i = 0; i < years.length; i++)
-            for (let j = i + 1; j < years.length; j++)
-                if (Math.abs(years[i] - years[j]) >= 100) pairs++;
-        if (pairs >= 3 && !secretAchievements.has("🕯️ Вампир"))
-            unlockSecret("🕯️ Вампир");
-        
-        // ХроноСтранник — 10+ уникальных эпох (столетий)
-        let uniqueEras = new Set(historyData.map(h => Math.floor(h.year / 100)));
-        if (uniqueEras.size >= 10 && !secretAchievements.has("📜 ХроноСтранник"))
-            unlockSecret("📜 ХроноСтранник");
-        
-        // Избранный Оракула — 100% живых (проверяется в updateRating)
-        // Повелитель Времени — в checkFullCollection
-        checkFullCollection();
-    }
-
-    function checkFullCollection() {
-        if (achievements.size >= 9 && secretAchievements.size >= 5 && !allUnlockedFlag) {
-            allUnlockedFlag = true;
-            startEpicCelebration();
-            if (!secretAchievements.has("🌌 Повелитель Времени"))
-                unlockSecret("🌌 Повелитель Времени");
-        }
-    }
-
-    // ========== ОТРИСОВКА ==========
-    function renderAll() {
-        renderAchievementsList();
-        renderHistoryPage(document.querySelector(".filter-btn.active-filter")?.dataset.filter || "all");
-        updateRating();
-        updateStats();
-    }
-
-    function renderAchievementsList() {
-        let container = document.getElementById("achievementsList");
-        if (!container) return;
-        
-        // Показываем все основные достижения + уже открытые секретные
-        let html = "";
-        for (let ach of MAIN_ACHIEVEMENTS) {
-            let isUnlocked = achievements.has(ach);
-            html += `<span class="badge ${isUnlocked ? '' : 'locked'}" title="${isUnlocked ? 'Получено!' : 'Ещё не получено'}">
-                <i class="fas ${isUnlocked ? 'fa-lock-open' : 'fa-lock'}"></i> ${ach}
-            </span>`;
-        }
-        
-        // Секретные достижения — показываем ТОЛЬКО если получены
-        for (let sec of SECRET_LIST) {
-            let isUnlocked = secretAchievements.has(sec);
-            if (isUnlocked) {
-                html += `<span class="badge secret" title="Секретное достижение!">
-                    <i class="fas fa-gem"></i> ${sec}
-                </span>`;
-            }
-        }
-        
-        // Если нет ни одного секретного — показываем заглушку
-        if (secretAchievements.size === 0) {
-            html += `<span class="badge locked" style="opacity:0.6;"><i class="fas fa-key"></i> ??? Секретные достижения (скрыты)</span>`;
-        }
-        
-        container.innerHTML = html;
-    }
-
-    function renderHistoryPage(filter = "all") {
-        let container = document.getElementById("historyLog");
-        if (!container) return;
-        
-        let filtered = historyData.filter(h => filter === "all" ? true : h.statusText === filter);
-        if (filtered.length === 0) {
-            container.innerHTML = "<div class='history-item'>Нет записей</div>";
-            return;
-        }
-        
-        container.innerHTML = filtered.map(h => `
-            <div class="history-item">
-                <span><i class="fas fa-user"></i> ${h.name}</span>
-                <span><i class="fas fa-calendar"></i> ${h.date}</span>
-                <span><i class="fas ${h.statusText === 'ЖИВ' ? 'fa-heartbeat' : (h.statusText === 'МЁРТВ' ? 'fa-skull' : 'fa-question')}"></i> ${h.statusText}</span>
-                <span><i class="far fa-clock"></i> ${h.time}</span>
-            </div>
-        `).join('');
-    }
-
-    function updateRating() {
-        let total = historyData.length;
-        let alive = historyData.filter(h => h.statusText === "ЖИВ").length;
-        let percent = total ? (alive / total * 100).toFixed(0) : 0;
-        let ratingText = total ? (percent >= 70 ? "🏆 БЕССМЕРТНЫЙ" : (percent >= 40 ? "🌿 ЖИВУЧИЙ" : "💀 СМЕРТНЫЙ")) : "НЕТ ДАННЫХ";
-        let span = document.getElementById("ratingSpan");
-        if (span) span.innerText = `Рейтинг: ${ratingText} (${percent}% живых, проверок: ${total})`;
-        
-        // Секретное достижение: Избранный Оракула
-        if (total > 0 && percent == 100 && !secretAchievements.has("💎 Избранный Оракула"))
-            unlockSecret("💎 Избранный Оракула");
-    }
-
-    function updateStats() {
-        let total = historyData.length;
-        let alive = historyData.filter(h => h.statusText === "ЖИВ").length;
-        let percent = total ? (alive / total * 100).toFixed(0) : 0;
-        document.getElementById("totalChecksStat") && (document.getElementById("totalChecksStat").innerText = total);
-        document.getElementById("alivePercentStat") && (document.getElementById("alivePercentStat").innerText = percent);
-        document.getElementById("totalAchievementsStat") && (document.getElementById("totalAchievementsStat").innerText = achievements.size + secretAchievements.size);
-        document.getElementById("streakStat") && (document.getElementById("streakStat").innerText = currentStreak);
-        
-        let ages = historyData.map(h => h.age).filter(a => a);
-        let avgAge = ages.length ? (ages.reduce((a, b) => a + b, 0) / ages.length).toFixed(0) : 0;
-        let uniqueEras = new Set(historyData.map(h => Math.floor(h.year / 100)));
-        let statsDiv = document.getElementById("detailedStats");
-        if (statsDiv) {
-            statsDiv.innerHTML = `
-                <div class="stats-grid">
-                    <div class="stat-card">📊 Средний возраст: ${avgAge} лет</div>
-                    <div class="stat-card">🔄 Уникальных эпох: ${uniqueEras.size}</div>
-                    <div class="stat-card">🏅 Достижений: ${achievements.size + secretAchievements.size}/14</div>
-                    <div class="stat-card">🔥 Текущая серия: ${currentStreak}</div>
-                    <div class="stat-card">📜 Всего записей: ${total}</div>
-                    <div class="stat-card">💀 Мёртвых: ${historyData.filter(h => h.statusText === "МЁРТВ").length}</div>
-                    <div class="stat-card">👶 Нерождённых: ${historyData.filter(h => h.statusText === "НЕ РОДИЛСЯ").length}</div>
-                    <div class="stat-card">🏺 Древних (до н.э.): ${historyData.filter(h => h.statusText === "ДО Н.Э.").length}</div>
-                </div>
-            `;
-        }
-    }
-
-    // ========== ДОБАВЛЕНИЕ ЗАПИСИ ==========
-    function addHistory(name, date, statusText, statusType, year, age) {
-        let last = historyData[0];
-        if (last && last.statusText === statusText) currentStreak++;
-        else currentStreak = 1;
-        
-        historyData.unshift({
-            name: name.substring(0, 40),
-            date,
-            statusText,
-            type: statusType,
-            time: new Date().toLocaleString(),
-            year,
-            age
-        });
-        if (historyData.length > 50) historyData.pop();
-        saveAll();
-        renderHistoryPage(document.querySelector(".filter-btn.active-filter")?.dataset.filter || "all");
-        updateRating();
-        checkSecretConditions();
-        updateStats();
-    }
-
-    // ========== ЭПИЧЕСКАЯ АНИМАЦИЯ ==========
-    function startEpicCelebration() {
-        let card = document.getElementById("achievementsCard");
-        if (card) card.classList.add("epic-complete");
-        for (let i = 0; i < 30; i++) setTimeout(() => createFirework(), i * 100);
-        for (let i = 0; i < 150; i++) setTimeout(() => createConfetti(), i * 15);
-        playFanfare();
-        showNotification("✨ ВЫ ПОВЕЛИТЕЛЬ ВРЕМЕНИ! Все 14 достижений собраны! ✨");
-    }
-
-    function createFirework() {
-        let c = document.getElementById("fireworksCanvas");
-        let ctx = c.getContext("2d");
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-        let x = Math.random() * c.width;
-        let y = Math.random() * c.height * 0.6;
-        let particles = [];
-        for (let i = 0; i < 30; i++) {
-            particles.push({
-                x, y,
-                vx: (Math.random() - 0.5) * 8,
-                vy: (Math.random() - 0.5) * 8 - 3,
-                life: 1,
-                color: `hsl(${Math.random() * 360}, 100%, 60%)`
-            });
-        }
-        let frame = 0;
-        function animate() {
-            if (frame++ > 50) return;
-            ctx.fillStyle = "rgba(0,0,0,0.3)";
-            ctx.fillRect(0, 0, c.width, c.height);
-            particles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                p.vy += 0.2;
-                p.life -= 0.03;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
-            });
-            particles = particles.filter(p => p.life > 0);
-            if (particles.length) requestAnimationFrame(animate);
-            else ctx.clearRect(0, 0, c.width, c.height);
-        }
-        animate();
-    }
-
-    function createConfetti() {
-        let d = document.createElement("div");
-        d.classList.add("confetti");
-        d.style.left = Math.random() * window.innerWidth + "px";
-        d.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
-        d.style.width = d.style.height = (5 + Math.random() * 8) + "px";
-        d.style.position = "fixed";
-        document.body.appendChild(d);
-        setTimeout(() => d.remove(), 2000);
-    }
-
-    function createConfettiBurst() {
-        for (let i = 0; i < 50; i++) setTimeout(() => createConfetti(), i * 10);
-    }
-
-    function playFanfare() {
-        try {
-            let ctx = new AudioContext();
-            [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
-                let o = ctx.createOscillator();
-                let g = ctx.createGain();
-                o.connect(g);
-                g.connect(ctx.destination);
-                g.gain.value = 0.15;
-                o.frequency.value = f;
-                o.start(ctx.currentTime + i * 0.15);
-                g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.15 + 0.5);
-                o.stop(ctx.currentTime + i * 0.15 + 0.5);
-            });
-        } catch (e) { }
-    }
-
-    function showNotification(msg) {
-        let n = document.createElement("div");
-        n.className = "notification";
-        n.innerHTML = `<i class="fas fa-bell"></i> ${msg}`;
-        document.body.appendChild(n);
-        setTimeout(() => n.remove(), 3000);
-    }
-
-    function copyShareText() {
-        let total = achievements.size + secretAchievements.size;
-        let text = `CyberOracle v5.0\nМои достижения: ${total}/14\nРейтинг: ${document.getElementById("ratingSpan")?.innerText || "--"}\nПроверь и ты!`;
-        navigator.clipboard.writeText(text);
-        showNotification("📋 Текст скопирован в буфер обмена!");
-    }
-
-    function resetAllData() {
-        if (confirm("⚠️ ВСЕ ДАННЫЕ БУДУТ УДАЛЕНЫ! Достижения, история, рейтинг — безвозвратно. Продолжить?")) {
-            achievements.clear();
-            secretAchievements.clear();
-            historyData = [];
-            currentStreak = 0;
-            saveAll();
-            renderAll();
-            showNotification("💀 Все данные сброшены. Начните новое путешествие!");
-        }
-    }
-
-    // ========== ЛОГИКА ОРАКУЛА ==========
-    function isRealDate(y, m, d) { let dt = new Date(y, m - 1, d); return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d; }
-    function formatDate(y, m, d) { let months = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек']; return `${d} ${months[m - 1]} ${Math.abs(y)} г. ${y < 0 ? 'до н.э.' : 'н.э.'}`; }
-    function getAgeWord(a) { if (a % 10 === 1 && a % 100 !== 11) return "год"; if (a % 10 >= 2 && a % 10 <= 4 && (a % 100 < 10 || a % 100 >= 20)) return "года"; return "лет"; }
-    
-    function playSound(s) {
-        try {
-            let ctx = new AudioContext();
-            let o = ctx.createOscillator();
-            let g = ctx.createGain();
-            o.connect(g);
-            g.connect(ctx.destination);
-            g.gain.value = 0.1;
-            o.frequency.value = s === 'alive' ? 523.25 : s === 'dead' ? 164.81 : s === 'unborn' ? 659.25 : s === 'bce' ? 130.81 : 880;
-            o.start();
-            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.4);
-            o.stop(ctx.currentTime + 0.4);
-        } catch (e) { }
-    }
-    
-    function setBodyBg(s) {
-        let b = document.body;
-        if (s === 'alive') b.style.background = "radial-gradient(circle at 20% 30%, #0e2a12, #041a08)";
-        else if (s === 'dead') b.style.background = "radial-gradient(circle at 20% 30%, #2a0a0a, #150303)";
-        else if (s === 'unborn') b.style.background = "radial-gradient(circle at 20% 30%, #2a2810, #1a1808)";
-        else if (s === 'bce') b.style.background = "radial-gradient(circle at 20% 30%, #1e1e3a, #0e0e22)";
-        else if (s === 'impossible') b.style.background = "radial-gradient(circle at 20% 30%, #2a103a, #140620)";
-        else b.style.background = "radial-gradient(circle at 20% 30%, #0a0f0a, #030603)";
-    }
-    
-    function checkForAchievements(status, age, year, isImp) {
-        if (isImp) unlockAchievement("📅 Изгой календаря");
-        if (status === "bce") { unlockAchievement("🏺 Древний"); unlockAchievement("👻 Призрак"); }
-        if (status === "dead" && year < 0) unlockAchievement("👻 Призрак");
-        if (status === "alive" && age >= 100) unlockAchievement("⚡ Долгожитель");
-        if (status === "unborn" && year > 3000) unlockAchievement("🌀 Хрономаг");
-        if (status === "alive" && age >= 122) unlockAchievement("🏆 Бессмертный");
-        if (status === "dead" && age > 100) unlockAchievement("💀 Легенда");
-        if (isImp) unlockAchievement("🌀 Аномалия времени");
-        if (status === "alive" && age < 18) unlockAchievement("🌱 Кибер-юнец");
-    }
-    
-    function runOracle() {
-        let name = document.getElementById("fullname").value.trim();
-        let noPatr = document.getElementById("noPatronymic").checked;
-        if (!name) { alert("Введите ФИО"); return; }
-        let words = name.split(/\s+/).filter(w => w);
-        if (noPatr ? words.length < 2 : words.length < 3) {
-            alert(`Требуется ${noPatr ? "минимум 2 слова (Имя Фамилия)" : "минимум 3 слова (Фамилия Имя Отчество)"}`);
-            return;
-        }
-        let day = parseInt(document.getElementById("daySel").value);
-        let month = parseInt(document.getElementById("monthSel").value);
-        let year = parseInt(document.getElementById("yearInp").value);
-        if (isNaN(year)) year = 2000;
-        let phone = document.getElementById("phoneInp").value;
-        let email = document.getElementById("emailInp").value;
-        let noPhone = document.getElementById("noPhoneCb").checked;
-        let noEmail = document.getElementById("noEmailCb").checked;
-        if (noPhone) phone = "";
-        if (noEmail) email = "";
-        
-        let exists = isRealDate(year, month, day);
-        let dateStr = formatDate(year, month, day);
-        let resHtml = "", stype = "", stext = "";
-        
-        if (!exists) {
-            stype = "impossible"; stext = "❓ ТАЙНА";
-            resHtml = `<div><i class="fas fa-question-circle"></i> ТАЙНА ВНЕ ВРЕМЕНИ</div><div>${name}, ${dateStr}</div><div>Эта дата не существует. Вы — аномалия.</div>`;
-            playSound("impossible"); setBodyBg("impossible");
-            checkForAchievements("impossible", null, year, true);
-            addHistory(name, dateStr, stext, stype, year, null);
-            document.getElementById("resultArea").style.display = "block";
-            document.getElementById("resultArea").innerHTML = resHtml;
-            renderAll(); return;
-        }
-        if (year < 0) {
-            stype = "bce"; stext = "ДО Н.Э.";
-            resHtml = `<div><i class="fas fa-landmark"></i> АНТИЧНОСТЬ</div><div>${name}, ${dateStr}</div><div>Вы жили до нашей эры — вечная память.</div>`;
-            playSound("bce"); setBodyBg("bce");
-            checkForAchievements("bce", null, year, false);
-            addHistory(name, dateStr, stext, stype, year, null);
-            document.getElementById("resultArea").style.display = "block";
-            document.getElementById("resultArea").innerHTML = resHtml;
-            renderAll(); return;
-        }
-        let today = new Date();
-        let todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        let birth = new Date(year, month - 1, day);
-        if (birth > todayMid) {
-            stype = "unborn"; stext = "НЕ РОДИЛСЯ";
-            resHtml = `<div><i class="fas fa-future"></i> ЕЩЁ НЕ РОДИЛИСЬ</div><div>${name}, ${dateStr}</div><div>Вы из будущего.</div>`;
-            playSound("unborn"); setBodyBg("unborn");
-            checkForAchievements("unborn", null, year, false);
-            addHistory(name, dateStr, stext, stype, year, null);
-            document.getElementById("resultArea").style.display = "block";
-            document.getElementById("resultArea").innerHTML = resHtml;
-            renderAll(); return;
-        }
-        let age = todayMid.getFullYear() - birth.getFullYear();
-        if (todayMid.getMonth() < birth.getMonth() || (todayMid.getMonth() === birth.getMonth() && todayMid.getDate() < birth.getDate())) age--;
-        if (year < 1900 || age > 122) {
-            stype = "dead"; stext = "МЁРТВ";
-            resHtml = `<div><i class="fas fa-skull"></i> СКОРБИМ</div><div>${name}, ${dateStr}</div><div>Земля пухом.</div>`;
-            playSound("dead"); setBodyBg("dead");
-            checkForAchievements("dead", age, year, false);
-            addHistory(name, dateStr, stext, stype, year, age);
-            document.getElementById("resultArea").style.display = "block";
-            document.getElementById("resultArea").innerHTML = resHtml;
-            renderAll(); return;
-        }
-        stype = "alive"; stext = "ЖИВ";
-        let contacts = (phone ? `📞 ${phone} ` : "") + (email ? `✉️ ${email}` : "");
-        resHtml = `<div><i class="fas fa-heartbeat"></i> СТАТУС: ЖИВ</div><div>${name}, ${dateStr} (${age} ${getAgeWord(age)})</div><div>${contacts || "Контакты не указаны"}</div><div>✅ Вы существуете в текущей временной линии.</div>`;
-        playSound("alive"); setBodyBg("alive");
-        checkForAchievements("alive", age, year, false);
-        addHistory(name, dateStr, stext, stype, year, age);
-        document.getElementById("resultArea").style.display = "block";
-        document.getElementById("resultArea").innerHTML = resHtml;
-        renderAll();
-    }
-    
-    // ========== НАВИГАЦИЯ ==========
-    function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-        document.getElementById(`page-${id}`).classList.add('active-page');
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.nav-btn[data-page="${id}"]`).classList.add('active');
-        if (id === 'history') renderHistoryPage(document.querySelector(".filter-btn.active-filter")?.dataset.filter || "all");
-        if (id === 'stats') updateStats();
-    }
-    
-    function initSelects() {
-        let daySel = document.getElementById("daySel");
-        if (daySel) {
-            daySel.innerHTML = "";
-            for (let i = 1; i <= 31; i++) daySel.innerHTML += `<option value="${i}">${i}</option>`;
-        }
-        let monthSel = document.getElementById("monthSel");
-        if (monthSel) {
-            monthSel.innerHTML = `<option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
-                <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
-                <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
-                <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>`;
-        }
-    }
-    
-    // ========== ЗАПУСК ==========
-    window.onload = () => {
-        initSelects();
-        loadStore();
-        
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
-        document.getElementById("runOracleBtn").addEventListener("click", runOracle);
-        document.getElementById("gotoCheckBtn").addEventListener("click", () => showPage("check"));
-        document.getElementById("exportHistoryBtn").addEventListener("click", () => {
-            let csv = "ФИО,Дата,Статус,Время\n" + historyData.map(h => `"${h.name}","${h.date}","${h.statusText}","${h.time}"`).join("\n");
-            let blob = new Blob([csv], { type: "text/csv" });
-            let a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "oracle_history.csv";
-            a.click();
-        });
-        document.getElementById("clearHistoryBtn").addEventListener("click", () => {
-            if (confirm("Очистить историю проверок?")) {
-                historyData = [];
-                currentStreak = 0;
-                saveAll();
-                renderAll();
-                showNotification("История очищена");
-            }
-        });
-        
-        let noPhone = document.getElementById("noPhoneCb"), noEmail = document.getElementById("noEmailCb");
-        let phoneInp = document.getElementById("phoneInp"), emailInp = document.getElementById("emailInp");
-        if (noPhone) noPhone.addEventListener("change", () => { phoneInp.disabled = noPhone.checked; if (noPhone.checked) phoneInp.value = ""; });
-        if (noEmail) noEmail.addEventListener("change", () => { emailInp.disabled = noEmail.checked; if (noEmail.checked) emailInp.value = ""; });
-        
-        document.querySelectorAll(".filter-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active-filter"));
-                btn.classList.add("active-filter");
-                renderHistoryPage(btn.dataset.filter);
+        document.querySelectorAll('.grid-item').forEach(el => {
+            el.addEventListener('click', function() {
+                this.style.transition = '0.2s';
             });
         });
-        
-        showPage('home');
-    };
-</script>
+        console.log('✅ Интерактивный тестовый лендинг загружен.');
+    </script>
 </body>
 </html>
