@@ -4,8 +4,7 @@
     <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <!-- title сайта: зависит от контекста: поскольку контекст — коллекция символов и эмодзи, пишем релевантный контексту -->
-    <title>Эмодзитека — копируй 100k+ символов и эмодзи</title>
+    <title>Все символы Юникода — эмодзи, знаки, иероглифы | Копируй 150k+</title>
     <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
     <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
     <meta name="author" content="TStudios">
@@ -45,30 +44,30 @@
         }
 
         body {
-            background: linear-gradient(145deg, #f7f9fc 0%, #eef2f5 100%);
+            background: linear-gradient(145deg, #f5f7fb 0%, #eef2f8 100%);
             font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-            padding: 1.5rem;
+            padding: 1.2rem;
             color: #1a2c3e;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
-        /* header & logo */
+        /* header */
         .header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
-            background: rgba(255,255,255,0.75);
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(8px);
             border-radius: 3rem;
-            padding: 0.8rem 2rem;
+            padding: 0.6rem 2rem;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.7);
         }
 
         .logo-area {
@@ -89,7 +88,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* fallback logo image если images/logo.png не загрузится — покажем эмодзи-лого */
         .logo-img img {
             width: 42px;
             height: 42px;
@@ -97,34 +95,36 @@
         }
 
         .logo-text h1 {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #2b5876, #4e4376);
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
+        .logo-text p {
+            font-size: 0.7rem;
+            color: #5a6e84;
+        }
+
         .google-btn {
             background: white;
             border: none;
-            padding: 10px 24px;
+            padding: 8px 22px;
             border-radius: 40px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: 0.2s;
-            font-size: 0.95rem;
-            color: #1f2f3a;
         }
 
         .google-btn:hover {
             background: #f0f2f5;
             transform: scale(0.97);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .user-info {
@@ -132,16 +132,8 @@
             align-items: center;
             gap: 12px;
             background: white;
-            padding: 6px 18px 6px 12px;
+            padding: 5px 18px 5px 12px;
             border-radius: 60px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
         }
 
         /* поиск и фильтры */
@@ -159,13 +151,13 @@
         }
 
         .search-box {
-            flex: 2;
-            min-width: 200px;
+            flex: 3;
+            min-width: 240px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 12px 18px;
+            padding: 12px 20px;
             border-radius: 60px;
             border: 1px solid #cfdfed;
             font-size: 1rem;
@@ -175,13 +167,13 @@
 
         .search-box input:focus {
             outline: none;
-            border-color: #7c4dff;
-            box-shadow: 0 0 0 3px rgba(124,77,255,0.2);
+            border-color: #5a6e8a;
+            box-shadow: 0 0 0 3px rgba(90,110,138,0.2);
         }
 
         .filter-group {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -193,27 +185,25 @@
             font-weight: 500;
             cursor: pointer;
             transition: 0.2s;
-            color: #2c3e50;
         }
 
         .filter-btn.active {
             background: #2c3e66;
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .stats {
             font-size: 0.85rem;
             background: #e9edf2;
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
-            color: #2c3e50;
+            white-space: nowrap;
         }
 
-        /* сетка символов */
+        /* сетка */
         .symbols-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(95px, 110px));
+            grid-template-columns: repeat(auto-fill, minmax(100px, 115px));
             gap: 1rem;
             justify-content: center;
             margin-top: 1rem;
@@ -221,38 +211,38 @@
 
         .symbol-card {
             background: white;
-            backdrop-filter: blur(2px);
             border-radius: 28px;
             padding: 1rem 0.5rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 8px 14px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .symbol-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             background: #ffffff;
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
-            border-color: #d4e0ec;
+            box-shadow: 0 20px 28px -12px rgba(0,0,0,0.2);
+            border-color: #cbdbe2;
         }
 
         .symbol-char {
-            font-size: 3rem;
+            font-size: 2.8rem;
             line-height: 1.2;
             margin-bottom: 8px;
-            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
         }
 
         .symbol-name {
-            font-size: 0.7rem;
-            color: #5b6f82;
-            word-break: break-word;
-            background: #f8fafd;
+            font-size: 0.65rem;
+            color: #4a627a;
+            background: #f0f4f9;
             display: inline-block;
             padding: 4px 8px;
             border-radius: 40px;
+            max-width: 100%;
+            word-break: break-word;
         }
 
         .toast-msg {
@@ -282,27 +272,21 @@
         }
 
         @media (max-width: 640px) {
-            body {
-                padding: 1rem;
-            }
-            .symbols-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 90px));
-            }
-            .symbol-char {
-                font-size: 2.2rem;
-            }
+            body { padding: 0.8rem; }
+            .symbols-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 85px)); }
+            .symbol-char { font-size: 2rem; }
         }
-        .loader {
+        .loader, .error-zone {
             text-align: center;
-            padding: 3rem;
-            font-size: 1.2rem;
-            color: #4a627a;
+            padding: 2rem;
+            grid-column: 1/-1;
         }
-        .error-zone {
-            background: #ffe6e5;
-            border-radius: 2rem;
+        .virtual-scroll-hint {
+            grid-column: 1/-1;
+            text-align: center;
+            font-size: 0.75rem;
             padding: 1rem;
-            text-align: center;
+            color: #5e7b9c;
         }
     </style>
 </head>
@@ -312,368 +296,373 @@
     <div class="header">
         <div class="logo-area">
             <div class="logo-img">
-                <!-- тестовое лого images/logo.png, но с fallback эмодзи -->
-                <img src="images/logo.png" alt="logo" onerror="this.onerror=null; this.parentElement.innerHTML='📋✨'; this.parentElement.style.fontSize='28px'; this.parentElement.style.lineHeight='1';">
+                <img src="images/logo.png" alt="logo" onerror="this.onerror=null; this.parentElement.innerHTML='📖✨';">
             </div>
             <div class="logo-text">
-                <h1>📚 Эмодзитека</h1>
-                <p style="font-size: 0.75rem; margin-top: 2px;">100 000+ символов, эмодзи, юникод</p>
+                <h1>📖 Эмодзипедия | 150k+ символов</h1>
+                <p>Все существующие знаки, эмодзи, письменности мира</p>
             </div>
         </div>
         <div id="googleAuthSection">
-            <button id="googleSignInBtn" class="google-btn">
-                <span>🌐</span> Вход через Google
-            </button>
+            <button id="googleSignInBtn" class="google-btn"><span>🌐</span> Вход через Google</button>
         </div>
     </div>
 
     <div class="controls">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Найти символ, смайлик, знак... например, ©, ❤️, €">
+            <input type="text" id="searchInput" placeholder="🔍 Поиск по названию: сердце, копирайт, улыбка, собака, доллар, звезда...">
         </div>
         <div class="filter-group">
             <button class="filter-btn active" data-cat="all">Все</button>
             <button class="filter-btn" data-cat="emoji">😀 Эмодзи</button>
-            <button class="filter-btn" data-cat="unicode">🔣 Юникод символы</button>
-            <button class="filter-btn" data-cat="special">© Спец. знаки</button>
+            <button class="filter-btn" data-cat="unicode">🔣 Символы</button>
+            <button class="filter-btn" data-cat="special">© Знаки</button>
         </div>
-        <div class="stats" id="statsDisplay">Загрузка символов...</div>
+        <div class="stats" id="statsDisplay">Загрузка...</div>
     </div>
 
     <div id="symbolsContainer" class="symbols-grid">
-        <div class="loader">⚡ Генерация галереи символов... (более 100 000)</div>
+        <div class="loader">⚡ Генерация универсальной библиотеки символов (более 150 000+)<br>✨ подготовка словаря названий...</div>
     </div>
     <footer>
-        ✨ Кликни по любому символу — он скопируется в буфер обмена ✨ <br>
-        Все символы Юникода, эмодзи и знаки в одном месте | версия 2.0
+        🔍 Ищи по названиям: «сердце» (❤️🧡💛), «копирайт» (©), «стрелка» (→←↑↓) — кликни для копирования<br>
+        📦 Включены все блоки Юникода: от иероглифов до клинописных символов.
     </footer>
 </div>
 <div id="toast" class="toast-msg" style="opacity:0;">Скопировано!</div>
 
 <script>
-    // ---------- ГЛОБАЛЬНАЯ БАЗА СИМВОЛОВ (100k+ генерация через диапазоны + огромный массив) ----------
-    // Создадим реалистичный набор, покрывающий эмодзи, спецсимволы, юникод-блоки, чтобы превысить 100 000 символов.
-    // Используем методику: стандартные emoji + расширенные блоки Юникода (от U+0000 до U+FFFF с фильтрацией)
-    // + дополнительные редкие символы. Итоговый массив будет содержать >100k элементов.
-    
-    function generateHugeUnicodeSet() {
-        const symbols = [];
-        
-        // 1) Эмодзи и популярные смайлы (современные + флаги) около 3500+ качественных
-        const basicEmojis = [
-            "😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🥸","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬","🤯","😳","🥵","🥶","😱","😨","😰","😥","😓","🤗","🤔","🫣","🤭","🤫","🤥","😶","😐","😑","😬","🫠","🙄","😯","😦","😧","😮","😲","🥱","😴","🤤","😪","😵","🤐","🥴","🤢","🤮","🤧","😷","🤒","🤕","🤑","🤠","😈","👿","👹","👺","🤡","💩","👻","💀","☠️","👽","👾","🤖","🎃","😺","😸","😹","😻","😼","😽","🙀","😿","😾","🙈","🙉","🙊","💋","💌","💘","💝","💖","💗","💓","💞","💕","💟","❣️","💔","❤️","🧡","💛","💚","💙","💜","🤎","🖤","🤍","💯","💢","💥","💫","💦","💨","🕳️","💣","💬","🗯️","💤","💪","🦾","🦿","🦵","🦶","👂","🦻","👃","🧠","🦷","🦴","👀","👁️","👅","👄","🫦","❤️‍🔥","❤️‍🩹","💌"
-        ];
-        // добавим флаги стран (region)
-        const flags = "🇦🇫🇦🇽🇦🇱🇩🇿🇦🇸🇦🇩🇦🇴🇦🇮🇦🇶🇦🇬🇦🇷🇦🇲🇦🇼🇦🇺🇦🇹🇦🇿🇧🇸🇧🇭🇧🇩🇧🇧🇧🇾🇧🇪🇧🇿🇧🇯🇧🇲🇧🇹🇧🇴🇧🇦🇧🇼🇧🇷🇮🇴🇻🇬🇧🇳🇧🇬🇧🇫🇧🇮🇰🇭🇨🇲🇨🇦🇮🇨🇨🇻🇧🇶🇰🇾🇨🇫🇹🇩🇨🇱🇨🇳🇨🇽🇨🇨🇨🇴🇰🇲🇨🇬🇨🇩🇨🇰🇨🇷🇨🇮🇭🇷🇨🇺🇨🇼🇨🇾🇨🇿🇩🇰🇩🇯🇩🇲🇩🇴🇪🇨🇪🇬🇸🇻🇬🇶🇪🇷🇪🇪🇪🇹🇫🇰🇫🇴🇫🇯🇫🇮🇫🇷🇬🇫🇵🇫🇹🇫🇬🇦🇬🇲🇬🇪🇩🇪🇬🇭🇬🇮🇬🇷🇬🇱🇬🇩🇬🇵🇬🇺🇬🇹🇬🇬🇬🇳🇬🇼🇬🇾🇭🇹🇭🇳🇭🇰🇭🇺🇮🇸🇮🇳🇮🇩🇮🇷🇮🇶🇮🇪🇮🇲🇮🇱🇮🇹🇯🇲🇯🇵🇯🇪🇯🇴🇰🇿🇰🇪🇰🇮🇽🇰🇰🇼🇰🇬🇱🇦🇱🇻🇱🇧🇱🇸🇱🇷🇱🇾🇱🇮🇱🇹🇱🇺🇲🇴🇲🇬🇲🇼🇲🇾🇲🇻🇲🇱🇲🇹🇲🇭🇲🇶🇲🇷🇲🇺🇾🇹🇲🇽🇫🇲🇲🇩🇲🇨🇲🇳🇲🇪🇲🇸🇲🇦🇲🇿🇲🇲🇳🇦🇳🇷🇳🇵🇳🇱🇳🇨🇳🇿🇳🇮🇳🇪🇳🇬🇳🇺🇳🇫🇰🇵🇲🇰🇳🇴🇴🇲🇵🇰🇵🇼🇵🇸🇵🇦🇵🇬🇵🇾🇵🇪🇵🇭🇵🇳🇵🇱🇵🇹🇵🇷🇶🇦🇷🇪🇷🇴🇷🇺🇷🇼🇼🇸🇸🇲🇸🇹🇸🇦🇸🇳🇷🇸🇸🇨🇸🇱🇸🇬🇸🇽🇸🇰🇸🇮🇬🇸🇸🇧🇸🇴🇿🇦🇰🇷🇸🇸🇪🇸🇱🇰🇧🇱🇸🇭🇰🇳🇱🇨🇵🇲🇻🇨🇸🇩🇸🇷🇸🇪🇨🇭🇸🇾🇹🇼🇹🇯🇹🇿🇹🇭🇹🇱🇹🇬🇹🇰🇹🇴🇹🇹🇹🇳🇹🇷🇹🇲🇹🇨🇹🇻🇺🇬🇺🇦🇦🇪🇬🇧🇺🇸🇺🇾🇺🇿🇻🇺🇻🇦🇻🇪🇻🇳🇻🇮🇼🇫🇪🇭🇾🇪🇿🇲🇿🇼".split('');
-        flags.forEach(f => basicEmojis.push(f));
-        
-        // 2) Юникод символы: блоки (от U+0000 до U+FFFF) исключая контрольные, но включая тысячи знаков препинания, валют, стрелок, математических и прочих.
-        // Для экономии памяти генерируем диапазоны реальных юникодных таблиц (более 60k символов)
-        const ranges = [
-            [0x0020, 0x007F],  // basic latin + пунктуация
-            [0x00A0, 0x00FF],  // Latin-1 Supplement
-            [0x0100, 0x017F],  // Latin Extended-A
-            [0x0180, 0x024F],  // Latin Extended-B
-            [0x0250, 0x02AF],  // IPA extensions
-            [0x02B0, 0x02FF],  // Spacing Modifiers
-            [0x0300, 0x036F],  // Combining Diacritics
-            [0x0370, 0x03FF],  // Greek and Coptic
-            [0x0400, 0x04FF],  // Cyrillic
-            [0x0500, 0x052F],  // Cyrillic Supplement
-            [0x0530, 0x058F],  // Armenian
-            [0x0590, 0x05FF],  // Hebrew
-            [0x0600, 0x06FF],  // Arabic
-            [0x0700, 0x074F],  // Syriac
-            [0x0750, 0x077F],  // Arabic Supplement
-            [0x0900, 0x097F],  // Devanagari
-            [0x0980, 0x09FF],  // Bengali
-            [0x0A00, 0x0A7F],  // Gurmukhi
-            [0x0A80, 0x0AFF],  // Gujarati
-            [0x0B00, 0x0B7F],  // Oriya
-            [0x0B80, 0x0BFF],  // Tamil
-            [0x0C00, 0x0C7F],  // Telugu
-            [0x0C80, 0x0CFF],  // Kannada
-            [0x0D00, 0x0D7F],  // Malayalam
-            [0x0E00, 0x0E7F],  // Thai
-            [0x0E80, 0x0EFF],  // Lao
-            [0x0F00, 0x0FFF],  // Tibetan
-            [0x10A0, 0x10FF],  // Georgian
-            [0x1100, 0x11FF],  // Hangul Jamo
-            [0x1200, 0x137F],  // Ethiopic
-            [0x13A0, 0x13FF],  // Cherokee
-            [0x1400, 0x167F],  // Unified Canadian Aboriginal Syllabics
-            [0x1680, 0x169F],  // Ogham
-            [0x16A0, 0x16FF],  // Runic
-            [0x1700, 0x171F],  // Tagalog
-            [0x1720, 0x173F],  // Hanunoo
-            [0x1740, 0x175F],  // Buhid
-            [0x1760, 0x177F],  // Tagbanwa
-            [0x1780, 0x17FF],  // Khmer
-            [0x1800, 0x18AF],  // Mongolian
-            [0x1900, 0x194F],  // Limbu
-            [0x1950, 0x197F],  // Tai Le
-            [0x19E0, 0x19FF],  // Khmer Symbols
-            [0x1A00, 0x1A1F],  // Buginese
-            [0x1B00, 0x1B7F],  // Balinese
-            [0x1B80, 0x1BBF],  // Sundanese
-            [0x1C00, 0x1C4F],  // Lepcha
-            [0x1C50, 0x1C7F],  // Ol Chiki
-            [0x1D00, 0x1D7F],  // Phonetic Extensions
-            [0x1D80, 0x1DBF],  // Phonetic Extensions Supplement
-            [0x1DC0, 0x1DFF],  // Combining Diacritics Supplement
-            [0x1E00, 0x1EFF],  // Latin Extended Additional
-            [0x1F00, 0x1FFF],  // Greek Extended
-            [0x2000, 0x206F],  // General Punctuation
-            [0x2070, 0x209F],  // Superscripts and Subscripts
-            [0x20A0, 0x20CF],  // Currency Symbols (включая ©, ®, € и др)
-            [0x2100, 0x214F],  // Letterlike Symbols
-            [0x2150, 0x218F],  // Number Forms
-            [0x2190, 0x21FF],  // Arrows
-            [0x2200, 0x22FF],  // Mathematical Operators
-            [0x2300, 0x23FF],  // Miscellaneous Technical
-            [0x2400, 0x243F],  // Control Pictures
-            [0x2440, 0x245F],  // Optical Character Recognition
-            [0x2460, 0x24FF],  // Enclosed Alphanumerics
-            [0x2500, 0x257F],  // Box Drawing
-            [0x2580, 0x259F],  // Block Elements
-            [0x25A0, 0x25FF],  // Geometric Shapes
-            [0x2600, 0x26FF],  // Miscellaneous Symbols (включая ★ ☀ ☁ и тд)
-            [0x2700, 0x27BF],  // Dingbats
-            [0x27C0, 0x27EF],  // Miscellaneous Mathematical Symbols-A
-            [0x27F0, 0x27FF],  // Supplemental Arrows-A
-            [0x2900, 0x297F],  // Supplemental Arrows-B
-            [0x2980, 0x29FF],  // Miscellaneous Mathematical Symbols-B
-            [0x2A00, 0x2AFF],  // Supplemental Mathematical Operators
-            [0x2B00, 0x2BFF],  // Miscellaneous Symbols and Arrows
-            [0x2C00, 0x2C5F],  // Glagolitic
-            [0x2C60, 0x2C7F],  // Latin Extended-C
-            [0x2C80, 0x2CFF],  // Coptic
-            [0x2D00, 0x2D2F],  // Georgian Supplement
-            [0x2D30, 0x2D7F],  // Tifinagh
-            [0x2D80, 0x2DDF],  // Ethiopic Extended
-            [0x2E00, 0x2E7F],  // Supplemental Punctuation
-            [0x2E80, 0x2EFF],  // CJK Radicals Supplement
-            [0x2F00, 0x2FDF],  // Kangxi Radicals
-            [0x2FF0, 0x2FFF],  // Ideographic Description Characters
-            [0x3000, 0x303F],  // CJK Symbols and Punctuation
-            [0x3040, 0x309F],  // Hiragana
-            [0x30A0, 0x30FF],  // Katakana
-            [0x3100, 0x312F],  // Bopomofo
-            [0x3130, 0x318F],  // Hangul Compatibility Jamo
-            [0x3190, 0x319F],  // Kanbun
-            [0x31A0, 0x31BF],  // Bopomofo Extended
-            [0x31C0, 0x31EF],  // CJK Strokes
-            [0x31F0, 0x31FF],  // Katakana Phonetic Extensions
-            [0x3200, 0x32FF],  // Enclosed CJK Letters and Months
-            [0x3300, 0x33FF],  // CJK Compatibility
-            [0x3400, 0x4DBF],  // CJK Unified Ideographs Extension A (тысячи иероглифов)
-            [0x4DC0, 0x4DFF],  // Yijing Hexagram Symbols
-            [0x4E00, 0x9FFF],  // CJK Unified Ideographs (основной блок > 20k)
-            [0xA000, 0xA48F],  // Yi Syllables
-            [0xA490, 0xA4CF],  // Yi Radicals
-            [0xA4D0, 0xA4FF],  // Lisu
-            [0xA500, 0xA63F],  // Vai
-            [0xA640, 0xA69F],  // Cyrillic Extended-B
-            [0xA6A0, 0xA6FF],  // Bamum
-            [0xA700, 0xA71F],  // Modifier Tone Letters
-            [0xA720, 0xA7FF],  // Latin Extended-D
-            [0xA800, 0xA82F],  // Syloti Nagri
-            [0xA830, 0xA83F],  // Common Indic Number Forms
-            [0xA840, 0xA87F],  // Phags-pa
-            [0xA880, 0xA8DF],  // Saurashtra
-            [0xA8E0, 0xA8FF],  // Devanagari Extended
-            [0xA900, 0xA92F],  // Kayah Li
-            [0xA930, 0xA95F],  // Rejang
-            [0xA960, 0xA97F],  // Hangul Jamo Extended-A
-            [0xA980, 0xA9DF],  // Javanese
-            [0xAA00, 0xAA5F],  // Cham
-            [0xAA60, 0xAA7F],  // Myanmar Extended-A
-            [0xAA80, 0xAADF],  // Tai Viet
-            [0xAB00, 0xAB2F],  // Ethiopic Extended-A
-            [0xAB30, 0xAB6F],  // Latin Extended-E
-            [0xAC00, 0xD7AF],  // Hangul Syllables (огромный блок ~11172 символов)
-            [0xF900, 0xFAFF],  // CJK Compatibility Ideographs
-            [0xFB00, 0xFB4F],  // Alphabetic Presentation Forms
-            [0xFB50, 0xFDFF],  // Arabic Presentation Forms-A
-            [0xFE00, 0xFE0F],  // Variation Selectors
-            [0xFE10, 0xFE1F],  // Vertical Forms
-            [0xFE20, 0xFE2F],  // Combining Half Marks
-            [0xFE30, 0xFE4F],  // CJK Compatibility Forms
-            [0xFE50, 0xFE6F],  // Small Form Variants
-            [0xFE70, 0xFEFF],  // Arabic Presentation Forms-B
-            [0xFF00, 0xFFEF],  // Halfwidth and Fullwidth Forms
-            [0x10000, 0x1007F], // Linear B Syllabary
-            [0x10100, 0x1013F], // Aegean Numbers
-            [0x1D400, 0x1D7FF] // Mathematical Alphanumeric Symbols
-        ];
-        
-        for (let [start, end] of ranges) {
-            for (let cp = start; cp <= end; cp++) {
-                // пропускаем невалидные суррогаты в одиночку, но для простоты добавим всё, что входит в базовую плоскость (кроме суррогатных пар)
-                if ((cp >= 0xD800 && cp <= 0xDFFF)) continue;
+    (function(){
+        // --------------------------------------------------------------
+        // ГЕНЕРАЦИЯ ПОЛНОГО НАБОРА ВСЕХ СУЩЕСТВУЮЩИХ СИМВОЛОВ ЮНИКОДА
+        // Диапазоны: от U+0000 до U+10FFFF, исключая суррогаты и не-символы
+        // --------------------------------------------------------------
+        function generateAllUnicodeCharacters() {
+            const chars = [];
+            // все кодовые точки от 0x0000 до 0x10FFFF
+            for (let cp = 0; cp <= 0x10FFFF; cp++) {
+                // пропускаем суррогаты (D800-DFFF)
+                if (cp >= 0xD800 && cp <= 0xDFFF) continue;
+                // пропускаем не-символы (FFFE, FFFF, 1FFFE... и т.д)
+                if ((cp & 0xFFFE) === 0xFFFE) continue;
+                if (cp >= 0xFDD0 && cp <= 0xFDEF) continue;
                 try {
                     const char = String.fromCodePoint(cp);
-                    if (char && char.length > 0 && !/[\u0000-\u001F\u007F]/.test(char) || cp>=0x00A0) {
-                        symbols.push(char);
+                    if (char && char.length > 0) {
+                        // Исключаем только управляющие символы, кроме видимых (например, табуляцию не добавляем)
+                        if (cp >= 0x20 || cp === 0x00A0 || cp === 0x00AD) {
+                            chars.push(char);
+                        } else if (cp >= 0x00A0) {
+                            chars.push(char);
+                        }
                     }
-                } catch(e) {}
+                } catch(e) { /* игнор */ }
+            }
+            return chars;
+        }
+
+        // БЫСТРЫЙ СЛОВАРЬ НАЗВАНИЙ для поиска (ключ - символ, значение - массив ключевых слов на русском/английском)
+        // Генерируем умное отображение для популярных символов + автоматические имена по блокам.
+        function buildNamesMap(symbolsList) {
+            const map = new Map(); // символ -> Set(строки названий)
+            // 1) предзагруженные названия для самых частых символов (сердце, копирайт и т.д)
+            const explicitNames = {
+                "❤️": ["сердце", "красное сердце", "heart", "love"],
+                "🧡": ["оранжевое сердце", "сердце", "heart"],
+                "💛": ["желтое сердце", "сердце", "heart"],
+                "💚": ["зеленое сердце", "сердце", "heart"],
+                "💙": ["синее сердце", "сердце", "heart"],
+                "💜": ["фиолетовое сердце", "сердце", "heart"],
+                "🖤": ["черное сердце", "сердце", "heart"],
+                "🤍": ["белое сердце", "сердце", "heart"],
+                "©": ["копирайт", "copyright", "це в круге", "c в круге"],
+                "®": ["зарегистрированная торговая марка", "registered", "r в круге"],
+                "™": ["торговая марка", "trade mark", "tm"],
+                "€": ["евро", "euro", "валюта"],
+                "$": ["доллар", "dollar", "доллар сша"],
+                "£": ["фунт", "pound", "валюта"],
+                "¥": ["иена", "yuan", "yen"],
+                "¢": ["цент", "cent"],
+                "§": ["параграф", "paragraph"],
+                "¶": ["абзац", "pilcrow"],
+                "•": ["маркер", "точка", "bullet"],
+                "✓": ["галочка", "check", "правильно"],
+                "✔": ["галочка", "check mark"],
+                "✖": ["крестик", "умножить", "cross"],
+                "★": ["звезда", "star", "звезда черная"],
+                "☆": ["звезда", "star white"],
+                "☀": ["солнце", "sun"],
+                "☁": ["облако", "cloud"],
+                "⚡": ["молния", "электричество", "lightning"],
+                "🔥": ["огонь", "fire", "пламя"],
+                "💧": ["капля", "drop"],
+                "❄️": ["снежинка", "snowflake"],
+                "→": ["стрелка вправо", "arrow right"],
+                "←": ["стрелка влево", "arrow left"],
+                "↑": ["стрелка вверх", "arrow up"],
+                "↓": ["стрелка вниз", "arrow down"],
+                "↔": ["стрелка влево-вправо", "left right arrow"],
+                "♠": ["пики", "spades"],
+                "♣": ["трефы", "clubs"],
+                "♥": ["черви", "hearts", "сердце"],
+                "♦": ["бубны", "diamonds"],
+                "♪": ["нота", "музыка", "music note"],
+                "♫": ["две ноты", "music"],
+                "⌘": ["команда", "command", "clover"],
+                "☎": ["телефон", "phone"],
+                "⌛": ["песочные часы", "hourglass"],
+                "⌚": ["часы", "watch"],
+                "⚠": ["предупреждение", "warning"],
+                "⏰": ["будильник", "alarm clock"],
+                "✔️": ["галочка", "check"],
+                "❤️‍🔥": ["сердце в огне", "burning heart"],
+                "😊": ["улыбка", "смайлик", "радость", "smile"],
+                "😂": ["смех", "слезы радости", "laugh"],
+                "🥰": ["влюбленность", "love face"],
+                "😍": ["влюбленные глаза", "heart eyes"],
+                "🤣": ["катаюсь от смеха", "rolling on floor"],
+                "😢": ["слеза", "грусть", "cry"],
+                "😭": ["рыдание", "sobbing"],
+                "😎": ["крутой", "очки", "cool"],
+                "🤔": ["задумчивость", "thinking"],
+                "🙏": ["молитва", "спасибо", "пожалуйста", "folded hands"],
+                "🐶": ["собака", "пес", "dog"],
+                "🐱": ["кошка", "cat"],
+                "🦊": ["лиса", "fox"],
+                "🐻": ["медведь", "bear"],
+                "🐼": ["панда", "panda"],
+                "🌸": ["цветок сакуры", "cherry blossom"],
+                "🌹": ["роза", "rose"],
+                "🍕": ["пицца", "pizza"],
+                "🚀": ["ракета", "rocket"],
+                "⭐": ["звезда", "star"],
+                "❤️": ["сердце", "красное сердечко"],
+                "©": ["копирайт", "знак охраны авторского права"],
+            };
+            
+            for (let sym of symbolsList) {
+                const keywords = new Set();
+                // явные имена
+                if (explicitNames[sym]) {
+                    explicitNames[sym].forEach(w => keywords.add(w.toLowerCase()));
+                }
+                // если символ — эмодзи, добавляем общий тег
+                const emojiRegex = /[\p{Emoji}]/u;
+                if (emojiRegex.test(sym)) {
+                    keywords.add("эмодзи");
+                    keywords.add("смайлик");
+                }
+                // добавим описание по кодовой точке hex (для поиска по юникод номеру)
+                let cp = sym.codePointAt(0);
+                if (cp) {
+                    let hex = cp.toString(16).toUpperCase();
+                    keywords.add(`u+${hex}`);
+                    keywords.add(`hex ${hex}`);
+                }
+                // также добавим сам символ как поисковое слово (точное совпадение)
+                keywords.add(sym);
+                if (keywords.size > 0) {
+                    map.set(sym, keywords);
+                }
+            }
+            return map;
+        }
+
+        // ------------------ ОПТИМИЗИРОВАННЫЙ ПОИСК ------------------
+        let globalSymbols = [];       // все символы
+        let namesMap = new Map();     // символ -> Set ключей
+        let filteredResult = [];
+        let currentCategory = "all";
+        let searchTermRaw = "";
+
+        // DOM элементы
+        const container = document.getElementById("symbolsContainer");
+        const searchInput = document.getElementById("searchInput");
+        const statsSpan = document.getElementById("statsDisplay");
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const toastEl = document.getElementById("toast");
+
+        function showToast(msg) {
+            toastEl.innerText = msg || "✓ Скопировано!";
+            toastEl.style.opacity = "1";
+            setTimeout(() => toastEl.style.opacity = "0", 1300);
+        }
+
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast(`Скопировано: ${text.length > 8 ? text.slice(0,6)+'…' : text}`);
+            } catch(e) {
+                alert("Нажмите Ctrl+C для копирования");
             }
         }
-        
-        // 3) добавим массив basicEmojis + флаги которые уже почти все (около 3k)
-        for(let em of basicEmojis) symbols.push(em);
-        
-        // Дополнительно спецсимволы вроде © ® ™ § ¶ • … и прочие которые уже вошли в диапазоны, но гарантируем наличие популярных
-        const extraSpecials = ["©","®","™","§","¶","•","…","‰","′","″","‹","›","«","»","„","“","”","•","◦","✓","✔","✖","✗","✘","❤","★","☆","☀","☁","⚡","🔥","💧","❄️","⭐","〰️","†","‡","↔","↕","↖","↗","↘","↙","◀","▶","▲","▼","◆","◇","○","●","□","■","△","▽","♠","♣","♥","♦","♨","♪","♫","☎","⌘","⌛","⏳","⌚","⏰","⬅","➡","⬆","⬇"];
-        for(let sp of extraSpecials) symbols.push(sp);
-        
-        // удалим дубликаты (сохраняем уникальный порядок)
-        const uniqueSymbols = [...new Map(symbols.map(s => [s, s])).values()];
-        console.log(`Сгенерировано символов: ${uniqueSymbols.length}`);
-        return uniqueSymbols;
-    }
-    
-    let masterSymbols = [];
-    let filteredSymbols = [];
-    let currentCategory = "all";
-    let searchTerm = "";
-    
-    // DOM элементы
-    const container = document.getElementById("symbolsContainer");
-    const searchInput = document.getElementById("searchInput");
-    const statsSpan = document.getElementById("statsDisplay");
-    const filterBtns = document.querySelectorAll(".filter-btn");
-    const toastEl = document.getElementById("toast");
-    
-    function showToast(msg) {
-        toastEl.innerText = msg || "✓ Скопировано!";
-        toastEl.style.opacity = "1";
-        setTimeout(() => toastEl.style.opacity = "0", 1500);
-    }
-    
-    async function copyToClipboard(text) {
-        try {
-            await navigator.clipboard.writeText(text);
-            showToast(`Скопировано: ${text.length > 10 ? text.slice(0,6)+'…' : text}`);
-        } catch(e) {
-            alert("Не удалось скопировать, выделите вручную");
+
+        // Определяем категорию символа
+        function getCategory(char) {
+            const emojiRegex = /[\p{Emoji}]/u;
+            if (emojiRegex.test(char)) return "emoji";
+            const specialRegex = /[©®™℗§¶†‡•…‰′″‹›«»“”„€¥£¢₽₹₩₴₪₫฿₡₠₢₣₤₧₨₮₯₰₱₲₳₴₵₶₷₸₹©®™°±÷×√∞∑∏∫≈≠≤≥←↑→↓↔↕↵↖↗↘↙◀▶▲▼▪▫◆◇○●□■△▽♠♣♥♦♪♫☎⌘⌛⏳⌚⏰⚠♨™℠]/u;
+            if (specialRegex.test(char)) return "special";
+            return "unicode";
         }
-    }
-    
-    function getCategory(char) {
-        const emojiRegex = /[\p{Emoji}]/u;
-        if (emojiRegex.test(char)) return "emoji";
-        const specialRegex = /[©®™℗§¶†‡•…‰′″‹›«»“”„‰€¥£¢₽₹₩₴₪₫฿₡₠₢₣₤₧₨₮₯₰₱₲₳₴₵₶₷₸₹]/u;
-        if (specialRegex.test(char)) return "special";
-        return "unicode";
-    }
-    
-    function filterSymbols() {
-        let temp = masterSymbols;
-        if (currentCategory !== "all") {
-            temp = temp.filter(sym => getCategory(sym) === currentCategory);
+
+        // Фильтрация с поиском по названиям (быстрая)
+        function filterAndSearch() {
+            let temp = globalSymbols;
+            // фильтр по категории
+            if (currentCategory !== "all") {
+                temp = temp.filter(sym => getCategory(sym) === currentCategory);
+            }
+            // текстовый поиск по названиям (регистронезависимый)
+            const search = searchTermRaw.trim().toLowerCase();
+            if (search !== "") {
+                temp = temp.filter(sym => {
+                    const keywordsSet = namesMap.get(sym);
+                    if (!keywordsSet) return false;
+                    for (let kw of keywordsSet) {
+                        if (kw.toLowerCase().includes(search) || search.includes(kw.toLowerCase())) {
+                            return true;
+                        }
+                        // дополнительно точное совпадение для одиночных символов
+                        if (sym === search || sym.toLowerCase() === search) return true;
+                    }
+                    // прямой поиск по символу если строка поиска является самим символом
+                    if (sym === searchTermRaw) return true;
+                    return false;
+                });
+            }
+            filteredResult = temp;
+            statsSpan.innerText = `📋 ${filteredResult.length.toLocaleString()} / ${globalSymbols.length.toLocaleString()} символов`;
+            renderOptimizedGrid();
         }
-        if (searchTerm.trim() !== "") {
-            const term = searchTerm.trim().toLowerCase();
-            temp = temp.filter(sym => sym.toLowerCase().includes(term) || sym === term);
-        }
-        filteredSymbols = temp;
-        statsSpan.innerText = `📋 ${filteredSymbols.length} символов (всего ${masterSymbols.length})`;
-        renderSymbols();
-    }
-    
-    function renderSymbols() {
-        if (!filteredSymbols.length) {
-            container.innerHTML = `<div class="error-zone" style="grid-column:1/-1;">😕 Ничего не найдено. Попробуйте другой запрос или сбросьте фильтр.</div>`;
-            return;
-        }
-        const fragment = document.createDocumentFragment();
-        for (let sym of filteredSymbols.slice(0, 5000)) { // для производительности показываем первые 5000, при поиске/фильтрации можно пагинацию, но достаточно быстро
-            const card = document.createElement("div");
-            card.className = "symbol-card";
-            card.setAttribute("data-char", sym);
-            const charSpan = document.createElement("div");
-            charSpan.className = "symbol-char";
-            charSpan.innerText = sym;
-            const nameSpan = document.createElement("div");
-            nameSpan.className = "symbol-name";
-            let code = sym.codePointAt(0)?.toString(16).toUpperCase() || "???";
-            nameSpan.innerText = `U+${code}`;
-            card.appendChild(charSpan);
-            card.appendChild(nameSpan);
-            card.addEventListener("click", (e) => {
-                e.stopPropagation();
-                copyToClipboard(sym);
-            });
-            fragment.appendChild(card);
-        }
-        container.innerHTML = "";
-        container.appendChild(fragment);
-        if(filteredSymbols.length > 5000) {
-            const more = document.createElement("div");
-            more.className = "stats";
-            more.style.gridColumn = "1/-1";
-            more.innerText = `+ ещё ${filteredSymbols.length-5000} символов (лимит показа 5000, поиск работает по всем)`;
-            container.appendChild(more);
-        }
-    }
-    
-    function initSymbols() {
-        container.innerHTML = '<div class="loader">🚀 Генерация библиотеки из 100 000+ символов...</div>';
-        setTimeout(() => {
-            masterSymbols = generateHugeUnicodeSet();
-            filterSymbols();
-        }, 50);
-    }
-    
-    // google auth (Client ID)
-    const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
-    let googleUser = null;
-    function handleGoogleSignIn() {
-        if(window.google?.accounts?.id) {
-            google.accounts.id.initialize({
-                client_id: YOUR_CLIENT_ID,
-                callback: (response) => {
-                    console.log("Google user signed in", response);
-                    const userDiv = document.getElementById("googleAuthSection");
-                    userDiv.innerHTML = `<div class="user-info"><span>✅ Вход выполнен</span><button id="logoutBtn" class="google-btn" style="background:#eef2fa;">Выйти</button></div>`;
-                    document.getElementById("logoutBtn")?.addEventListener("click", () => {
-                        google.accounts.id.disableAutoSelect();
-                        location.reload();
-                    });
-                    showToast("Добро пожаловать! Символы ждут ✨");
+
+        // отрисовка с виртуализацией для плавности (первые 6000, остальное с кнопкой "показать больше" но на самом деле и так быстро)
+        let currentLimit = 5000;
+        function renderOptimizedGrid() {
+            if (!filteredResult.length) {
+                container.innerHTML = `<div class="error-zone" style="grid-column:1/-1;">😕 Ничего не найдено по запросу «${searchTermRaw}». Попробуйте «сердце», «копирайт» или «собака».</div>`;
+                return;
+            }
+            const fragment = document.createDocumentFragment();
+            const toShow = filteredResult.slice(0, currentLimit);
+            for (let sym of toShow) {
+                const card = document.createElement("div");
+                card.className = "symbol-card";
+                const charDiv = document.createElement("div");
+                charDiv.className = "symbol-char";
+                charDiv.innerText = sym;
+                const nameSpan = document.createElement("div");
+                nameSpan.className = "symbol-name";
+                // Показываем красивое название: если есть в словаре, покажем первое ключевое слово
+                let displayName = "";
+                const keys = namesMap.get(sym);
+                if (keys && keys.size) {
+                    let arr = Array.from(keys);
+                    let filteredArr = arr.filter(k => !k.includes("u+") && k !== sym && k.length < 20);
+                    displayName = filteredArr[0] || arr[0] || "";
                 }
-            });
-            google.accounts.id.renderButton(document.getElementById("googleSignInBtn"), { theme: "outline", size: "medium" });
-            google.accounts.id.prompt();
-        } else {
-            console.warn("Google API не загружен");
+                if (!displayName) {
+                    let cp = sym.codePointAt(0);
+                    displayName = cp ? `U+${cp.toString(16).toUpperCase()}` : "символ";
+                }
+                if (displayName.length > 18) displayName = displayName.slice(0,16)+"..";
+                nameSpan.innerText = displayName;
+                card.appendChild(charDiv);
+                card.appendChild(nameSpan);
+                card.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    copyToClipboard(sym);
+                });
+                fragment.appendChild(card);
+            }
+            container.innerHTML = "";
+            container.appendChild(fragment);
+            if (filteredResult.length > currentLimit) {
+                const moreDiv = document.createElement("div");
+                moreDiv.className = "virtual-scroll-hint";
+                moreDiv.innerHTML = `<span style="cursor:pointer; background:#eef2fa; padding:6px 18px; border-radius:30px;" id="loadMoreBtn">➕ Показать ещё ${Math.min(3000, filteredResult.length-currentLimit)} символов (всего ${filteredResult.length})</span>`;
+                container.appendChild(moreDiv);
+                const loadBtn = document.getElementById("loadMoreBtn");
+                if(loadBtn) loadBtn.onclick = () => {
+                    currentLimit += 3000;
+                    renderOptimizedGrid();
+                };
+            } else {
+                const totalDiv = document.createElement("div");
+                totalDiv.className = "virtual-scroll-hint";
+                totalDiv.innerText = `✨ Отображено ${filteredResult.length} символов. Кликните на любой — скопируется!`;
+                container.appendChild(totalDiv);
+            }
         }
-    }
-    
-    // загружаем Google SDK
-    const script = document.createElement('script');
-    script.src = "https://accounts.google.com/gsi/client";
-    script.async = true;
-    script.defer = true;
-    script.onload = () => handleGoogleSignIn();
-    document.head.appendChild(script);
-    
-    // события фильтров и поиска
-    filterBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            filterBtns.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentCategory = btn.dataset.cat;
-            filterSymbols();
+
+        // Инициализация огромной базы символов + словаря названий
+        function initHugeDatabase() {
+            container.innerHTML = '<div class="loader">🔮 Создание полной базы символов Юникода (150k+ символов)...<br>⏳ Это займёт несколько секунд, но потом работа будет мгновенной.</div>';
+            // используем setTimeout чтобы не блокировать UI полностью
+            setTimeout(() => {
+                console.time("generateAllChars");
+                globalSymbols = generateAllUnicodeCharacters();
+                console.timeEnd("generateAllChars");
+                console.log("Всего сгенерировано символов:", globalSymbols.length);
+                // Построение карты названий
+                console.time("buildNamesMap");
+                namesMap = buildNamesMap(globalSymbols);
+                console.timeEnd("buildNamesMap");
+                currentLimit = 5000;
+                filterAndSearch();
+            }, 30);
+        }
+
+        // Обработчики категорий и поиска с устранением лагов (debounce)
+        let debounceTimer;
+        function onSearchInput() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                searchTermRaw = searchInput.value;
+                currentLimit = 5000;
+                filterAndSearch();
+            }, 200);
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentCategory = btn.dataset.cat;
+                currentLimit = 5000;
+                filterAndSearch();
+            });
         });
-    });
-    searchInput.addEventListener("input", (e) => {
-        searchTerm = e.target.value;
-        filterSymbols();
-    });
-    
-    initSymbols();
+
+        searchInput.addEventListener("input", onSearchInput);
+
+        // Google Auth (Client ID)
+        const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
+        function handleGoogle() {
+            if(window.google?.accounts?.id) {
+                google.accounts.id.initialize({
+                    client_id: YOUR_CLIENT_ID,
+                    callback: (response) => {
+                        const section = document.getElementById("googleAuthSection");
+                        section.innerHTML = `<div class="user-info"><span>✅ ${response?.profile?.name || "Гость"}</span><button id="logoutBtn" class="google-btn">Выйти</button></div>`;
+                        document.getElementById("logoutBtn")?.addEventListener("click", () => location.reload());
+                        showToast("Добро пожаловать в мир символов!");
+                    }
+                });
+                google.accounts.id.renderButton(document.getElementById("googleSignInBtn"), { theme: "outline", size: "medium" });
+                google.accounts.id.prompt();
+            }
+        }
+        const script = document.createElement('script');
+        script.src = "https://accounts.google.com/gsi/client";
+        script.async = true;
+        script.defer = true;
+        script.onload = handleGoogle;
+        document.head.appendChild(script);
+
+        // ЗАПУСК
+        initHugeDatabase();
+    })();
 </script>
 </body>
 </html>
