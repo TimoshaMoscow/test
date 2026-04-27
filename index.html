@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Каллэнг — самый простой язык</title>
+    <title>Каллэнг — самый простой язык в мире</title>
     <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
     <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт, каллэнг">
     <meta name="author" content="TStudios">
@@ -38,9 +38,8 @@
             align-items: center;
             padding: 20px;
         }
-        /* страницы */
         .auth-page, .main-page {
-            max-width: 1300px;
+            max-width: 1400px;
             width: 100%;
             background: rgba(255, 248, 235, 0.95);
             border-radius: 96px;
@@ -48,7 +47,7 @@
             padding: 40px 50px 50px;
             transition: 0.3s;
         }
-        .auth-page { max-width: 700px; text-align: center; }
+        .auth-page { max-width: 750px; text-align: center; }
         .main-page { display: none; }
         .logo-img {
             width: 110px; height: 110px;
@@ -58,7 +57,7 @@
             padding: 15px;
             margin-bottom: 15px;
         }
-        h1 { font-size: 3.5rem; color: #b45f1b; text-shadow: 4px 4px 0 #ffdd99; margin: 15px 0; }
+        h1 { font-size: 3.8rem; color: #b45f1b; text-shadow: 4px 4px 0 #ffdd99; margin: 15px 0; }
         .privacy-text {
             background: #fff3e0;
             border-radius: 40px;
@@ -66,18 +65,18 @@
             margin: 25px 0;
             font-size: 1rem;
             color: #6b4c2c;
+            border: 2px solid #ffd89a;
         }
-        /* все кнопки входа - круглые с лого */
         .login-methods {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 18px;
             margin: 35px 0;
         }
         .round-login-btn {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             background: white;
             border: 3px solid #ffb347;
@@ -87,21 +86,16 @@
             transition: 0.1s;
             padding: 8px;
         }
-        .round-login-btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .round-login-btn img { width: 100%; height: 100%; object-fit: contain; }
         .round-login-btn:active { transform: scale(0.95); }
-        .google-auth-container { margin: 10px 0 20px; }
+        .google-auth-container { margin: 15px 0 25px; }
         
-        /* главная страница */
         .user-header {
             display: flex; justify-content: space-between; align-items: center;
             background: #d9e6b3; border-radius: 60px; padding: 12px 28px; margin-bottom: 25px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; gap: 15px;
         }
-        .logout-btn { background: #ffaa55; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        .logout-btn { background: #ffaa55; border: none; padding: 8px 24px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 1rem; }
         .tabs {
             display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap;
             border-bottom: 3px solid #ffd89a;
@@ -114,355 +108,248 @@
         .tab-btn.active { background: #ffb347; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .tab-content {
             background: #fff7ef; border-radius: 60px; padding: 25px; margin-top: 10px;
-            min-height: 400px;
+            min-height: 500px;
         }
         .alphabet-banner { background: #ffefcf; border-radius: 60px; padding: 20px; margin-bottom: 25px; text-align: center; }
         .letters-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 15px; }
         .letter-item {
             background: white; width: 75px; height: 75px; display: flex; align-items: center; justify-content: center;
             border-radius: 25px; box-shadow: 0 6px 0 #b97f3a; font-size: 2rem; font-weight: bold; cursor: pointer;
+            transition: 0.05s linear;
         }
         .letter-item:active { transform: translateY(3px); }
         .big-btn {
             background: #ffb347; border: none; font-size: 1.4rem; font-weight: bold; padding: 14px 24px;
-            border-radius: 60px; color: white; cursor: pointer; box-shadow: 0 6px 0 #7b3f0e; margin: 8px 0;
-            display: inline-flex; align-items: center; gap: 10px;
+            border-radius: 60px; color: white; cursor: pointer; box-shadow: 0 6px 0 #7b3f0e; margin: 8px 5px;
+            display: inline-flex; align-items: center; gap: 10px; transition: 0.05s;
         }
-        .result-card { background: #fff6e8; border-radius: 50px; padding: 25px; margin-top: 20px; text-align: center; }
-        .word-display { font-size: 2.5rem; font-weight: bold; color: #744e1e; }
+        .big-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 #7b3f0e; }
+        .result-card { background: #fff6e8; border-radius: 50px; padding: 25px; margin-top: 20px; text-align: center; border: 3px solid #ffcf8a; }
+        .word-display { font-size: 2.8rem; font-weight: bold; color: #744e1e; word-break: break-word; }
         .translation-display { font-size: 1.3rem; margin-top: 12px; color: #a56b2f; }
-        .dictionary-grid, .rules-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; }
-        .dict-item { background: #ffdbb5; padding: 12px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; text-align: center; min-width: 130px; }
-        .rule-card { background: #ffe2bc; padding: 15px; border-radius: 40px; width: 250px; text-align: center; }
-        footer { text-align: center; margin-top: 35px; color: #b87a3a; }
+        .dictionary-grid, .rules-grid, .phrase-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; }
+        .dict-item, .phrase-card {
+            background: #ffdbb5; padding: 12px 20px; border-radius: 40px; font-weight: bold; cursor: pointer;
+            text-align: center; min-width: 130px; transition: 0.05s;
+        }
+        .dict-item:active, .phrase-card:active { transform: scale(0.97); }
+        .rule-card { background: #ffe2bc; padding: 18px; border-radius: 40px; width: 260px; text-align: center; }
+        .stats-panel {
+            background: #e6d5b8; border-radius: 40px; padding: 18px; margin-top: 20px;
+            display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;
+        }
+        .stat-item { text-align: center; font-size: 1.1rem; font-weight: bold; color: #5a3a1a; }
+        .stat-number { font-size: 2rem; color: #b45f1b; }
+        footer { text-align: center; margin-top: 35px; color: #b87a3a; font-size: 0.9rem; }
         @media (max-width: 700px) {
             .auth-page, .main-page { padding: 20px; }
             .letter-item { width: 55px; height: 55px; font-size: 1.5rem; }
+            .word-display { font-size: 1.8rem; }
+            .big-btn { font-size: 1.1rem; padding: 10px 18px; }
         }
+        .notification { position: fixed; bottom: 20px; right: 20px; background: #4caf50; color: white; padding: 12px 24px; border-radius: 50px; z-index: 1000; animation: fadeOut 3s forwards; }
+        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
     </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<!-- СТРАНИЦА ВХОДА -->
 <div id="authPage" class="auth-page">
     <div style="text-align: center;">
         <img src="images/logo.png" class="logo-img" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20fill%3D%22%23ffb347%22%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2248%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2268%22%20font-size%3D%2250%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3E%D0%9A%3C%2Ftext%3E%3C%2Fsvg%3E'">
         <h1>🗣️ КАЛЛЭНГ 🗣️</h1>
-        <p style="font-size:1.3rem;">язык для IQ -1 · без правил · простой как мычание</p>
+        <p style="font-size:1.3rem; margin-bottom:10px;">язык для всех · без правил · для IQ -1</p>
         <div class="privacy-text">
             🔒 <strong>Мы уважаем вашу конфиденциальность</strong><br>
-            Данные хранятся ТОЛЬКО на вашем устройстве (localStorage). Никаких серверов. Вход через Гугл — единственный способ регистрации, остальные кнопки ведут к нему же. Честно и прозрачно!
+            Данные хранятся ТОЛЬКО на вашем устройстве (localStorage). Никаких серверов. Вход через Гугл — безопасно и честно!
         </div>
-        
-        <!-- Все способы входа: круглые кнопки (все через Google) -->
-        <div class="login-methods" id="allLoginMethods">
-            <!-- Гугл отдельно (стандартная кнопка) -->
-            <!-- но добавим круглую гугл + остальные -->
-        </div>
+        <div class="login-methods" id="allLoginMethods"></div>
         <div class="google-auth-container" id="googleContainer"></div>
     </div>
 </div>
 
-<!-- ОСНОВНАЯ СТРАНИЦА -->
 <div id="mainPage" class="main-page">
     <div class="user-header">
-        <div class="user-info">👤 <span id="userNameDisplay">Друг</span> · говорит на Каллэнг</div>
+        <div class="user-info">👤 <span id="userNameDisplay">Друг</span> · говорит на Каллэнг · 🌟 рейтинг: <span id="userLevel">новичок</span></div>
         <button class="logout-btn" id="logoutBtn">🚪 Выйти</button>
     </div>
     
-    <!-- Вкладки: Словарь и Правила (доступ только после входа) -->
     <div class="tabs">
         <button class="tab-btn active" data-tab="dictionaryTab">📖 СЛОВАРЬ</button>
-        <button class="tab-btn" data-tab="rulesTab">📜 ПРАВИЛА ЯЗЫКА</button>
+        <button class="tab-btn" data-tab="rulesTab">📜 ПРАВИЛА</button>
+        <button class="tab-btn" data-tab="phrasesTab">💬 ФРАЗЫ ДНЯ</button>
+        <button class="tab-btn" data-tab="gamesTab">🎮 ИГРЫ</button>
     </div>
     
     <div id="dictionaryTab" class="tab-content">
         <div class="alphabet-banner">
             <div style="font-size:1.8rem;">🔤 АЗБУКА КАЛЛЭНГ (без Ь)</div>
             <div class="letters-box" id="alphabetContainer"></div>
-            <div style="margin-top:10px;">👇 нажми на букву — услышишь её произношение! 👇</div>
+            <div style="margin-top:10px;">✨ нажми на букву — услышишь произношение ✨</div>
         </div>
         
         <div style="margin: 20px 0;">
-            <button class="big-btn" id="randomWordBtn">🎲 СЛУЧАЙНОЕ СЛОВО 🎲</button>
-            <button class="big-btn" id="randomPhraseBtn">🗣️ СЛУЧАЙНАЯ ФРАЗА 🗣️</button>
+            <button class="big-btn" id="randomWordBtn">🎲 СЛУЧАЙНОЕ СЛОВО</button>
+            <button class="big-btn" id="randomPhraseBtn">🗣️ СЛУЧАЙНАЯ ФРАЗА</button>
+            <button class="big-btn" id="translateTextBtn">🔄 ПЕРЕВЕСТИ МЫСЛЬ</button>
             <div class="result-card">
                 <div class="word-display" id="wordDisplay">каллэнг</div>
                 <div class="translation-display" id="translationDisplay">🌍 перевод: язык простоты</div>
-                <button class="big-btn" id="speakBtn" style="background:#5fa7f0; margin-top:15px;">🔊 ОЗВУЧИТЬ СЛОВО 🔊</button>
+                <button class="big-btn" id="speakBtn" style="background:#5fa7f0;">🔊 ОЗВУЧИТЬ</button>
+                <button class="big-btn" id="copyWordBtn" style="background:#6c9e4a;">📋 СКОПИРОВАТЬ</button>
             </div>
         </div>
         
-        <h3 style="margin:20px 0 10px;">📚 ПОПУЛЯРНЫЕ СЛОВА КАЛЛЭНГ</h3>
+        <h3 style="margin:20px 0 10px;">📚 ПОПУЛЯРНЫЕ СЛОВА</h3>
         <div class="dictionary-grid" id="dictionaryList"></div>
+        
+        <div class="stats-panel">
+            <div class="stat-item">📖 Слов изучено<br><span class="stat-number" id="wordsLearned">0</span></div>
+            <div class="stat-item">🎤 Озвучиваний<br><span class="stat-number" id="speakCount">0</span></div>
+            <div class="stat-item">⚡ Сила Каллэнг<br><span class="stat-number" id="kallangPower">42</span></div>
+        </div>
     </div>
     
     <div id="rulesTab" class="tab-content" style="display: none;">
         <h2>📜 Простейшие правила языка Каллэнг</h2>
         <div class="rules-grid" id="rulesContainer"></div>
-        <p style="margin-top:25px; text-align:center;">✨ В Каллэнг нет ошибок. Любое слово — правильное. Просто говори и улыбайся ✨</p>
+        <div style="background:#f0e4d0; border-radius:40px; padding:20px; margin-top:25px; text-align:center;">
+            <p><strong>Главное правило:</strong> Нет правил! Говори любые слова — все поймут.</p>
+        </div>
     </div>
     
-    <footer>🧠 Алфавит: А Б Г G Д Е Ё Ē И Й Ӥ Ī К М Н О П Р Т У Х Ы Ÿ Э Ю Я · Произношение особенное!<br>Данные локально. Язык создан Губкобобоамёбо и Тимофеем.</footer>
+    <div id="phrasesTab" class="tab-content" style="display: none;">
+        <h2>💬 Фразы для общения на Каллэнг</h2>
+        <div class="phrase-grid" id="phrasesList"></div>
+        <button class="big-btn" id="newPhraseBtn" style="margin-top:20px;">✨ НОВАЯ ФРАЗА ДНЯ ✨</button>
+    </div>
+    
+    <div id="gamesTab" class="tab-content" style="display: none;">
+        <h2>🎮 Угадай слово Каллэнг</h2>
+        <div style="text-align:center; background:#ffe2bc; border-radius:60px; padding:25px;">
+            <p style="font-size:1.5rem;" id="gameHint">Перевод: <strong id="gameTranslationTarget">приветствие</strong></p>
+            <input type="text" id="gameAnswer" placeholder="Введи слово на Каллэнг" style="padding:15px; font-size:1.2rem; border-radius:50px; border:2px solid #ffb347; width:80%; margin:15px 0;">
+            <button class="big-btn" id="checkGameBtn">ПРОВЕРИТЬ</button>
+            <p id="gameResult" style="margin-top:15px; font-weight:bold;"></p>
+            <button class="big-btn" id="nextGameBtn" style="background:#86b33e;">СЛЕДУЮЩЕЕ СЛОВО</button>
+            <p style="margin-top:15px;">🎉 Очки: <span id="gameScore">0</span></p>
+        </div>
+    </div>
+    
+    <footer>🧠 Алфавит: А Б Г G Д Е Ё Ē И Й Ӥ Ī К М Н О П Р Т У Х Ы Ÿ Э Ю Я · Произношение особенное!<br>⭐ Каллэнг — язык, созданный Губкобобоамёбо и Тимофеем. Версия 3.0. Вселенная простоты ⭐</footer>
 </div>
 
 <script>
-    // ----------------------------------- ОСОБОЕ ПРОИЗНОШЕНИЕ БУКВ -----------------------------------
+    // ======================== 100+ ФУНКЦИЙ ========================
     const pronunciationMap = {
-        'А':'А', 'Б':'Бэ', 'Г':'Гэ', 'G':'Жи', 'Д':'Дэ', 'Е':'Е', 'Ё':'Ё', 'Ē':'Ёль', 
-        'И':'И', 'Й':'Й', 'Ӥ':'Иё', 'Ī':'И', 'К':'Ка', 'М':'М', 'Н':'Н', 'О':'О', 
-        'П':'Пэ', 'Р':'Р', 'Т':'Тэ', 'У':'У', 'Х':'Ха', 'Ы':'Ы', 'Ÿ':'Йоу', 
-        'Э':'Э', 'Ю':'Ю', 'Я':'Я'
+        'А':'А','Б':'Бэ','Г':'Гэ','G':'Жи','Д':'Дэ','Е':'Е','Ё':'Ё','Ē':'Ёль',
+        'И':'И','Й':'Й','Ӥ':'Иё','Ī':'И','К':'Ка','М':'М','Н':'Н','О':'О',
+        'П':'Пэ','Р':'Р','Т':'Тэ','У':'У','Х':'Ха','Ы':'Ы','Ÿ':'Йоу','Э':'Э','Ю':'Ю','Я':'Я'
     };
     
-    function speakLetter(letter) {
-        let sound = pronunciationMap[letter];
-        if (!sound) sound = letter;
-        const utterance = new SpeechSynthesisUtterance(sound);
-        utterance.lang = 'ru-RU';
-        utterance.rate = 0.8;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utterance);
-    }
+    function speakLetter(letter) { let sound = pronunciationMap[letter] || letter; let u = new SpeechSynthesisUtterance(sound); u.lang='ru-RU'; u.rate=0.8; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }
+    function showNotification(msg) { let div=document.createElement('div'); div.className='notification'; div.innerText=msg; document.body.appendChild(div); setTimeout(()=>div.remove(),3000); }
     
-    // ----------------------------------- СЛОВАРЬ И ГЕНЕРАЦИЯ -----------------------------------
     const dictionary = [
-        { word: "КАЛЛЭНГ", translation: "название языка — 'простота звука'" },
-        { word: "ГУБАБА", translation: "привет! / дружеское объятие" },
-        { word: "ТИМОКА", translation: "верный друг" },
-        { word: "ЛЯМБО", translation: "еда, вкуснотища" },
-        { word: "СОНГА", translation: "спать, отдыхать" },
-        { word: "ИГРАМ", translation: "играть, веселье" },
-        { word: "БРЮНГ", translation: "круто! супер!" },
-        { word: "НЯМКА", translation: "сладкое, радость" },
-        { word: "ПРОСТО", translation: "лёгкий, понятный всем" },
-        { word: "МУРЛЁ", translation: "кошачья нежность" }
+        { word: "КАЛЛЭНГ", translation: "название языка — 'простота звука'" },{ word: "ГУБАБА", translation: "привет! дружеское объятие" },{ word: "ТИМОКА", translation: "верный друг" },{ word: "ЛЯМБО", translation: "еда, вкуснотища" },{ word: "СОНГА", translation: "спать, отдыхать" },{ word: "ИГРАМ", translation: "играть, веселье" },{ word: "БРЮНГ", translation: "круто! супер!" },{ word: "НЯМКА", translation: "сладкое, радость" },{ word: "ПРОСТО", translation: "лёгкий, понятный всем" },{ word: "МУРЛЁ", translation: "кошачья нежность" },{ word: "ЗЁМБА", translation: "земля, планета" },{ word: "СОЛНГО", translation: "солнце, свет" },{ word: "ВЕТРЁ", translation: "ветер, движение" },{ word: "ВОДАМ", translation: "вода, жизнь" },{ word: "ОГОНЁК", translation: "огонь, энергия" }
     ];
-    
-    const roots = ["ка","ла","ма","на","па","ра","са","та","ша","за","га","ба","да","ва","йо","ку","му"];
-    const endings = ["нг","к","т","п","м","лё","бо","до","го","зо","мба"];
-    
-    function generateRandomWordWithTranslation() {
-        const root = roots[Math.floor(Math.random() * roots.length)];
-        const ending = endings[Math.floor(Math.random() * endings.length)];
-        let word = (root + ending).toUpperCase();
-        if (Math.random() > 0.6) word = word + "НГ";
-        const meanings = ["эмоция", "предмет", "действие", "чувство", "природа", "космос", "искусство"];
-        let translation = `новое слово — ${meanings[Math.floor(Math.random() * meanings.length)]} по-каллэнговски`;
-        if (word.includes("КА")) translation = "тепло и уют";
-        if (word.includes("МА")) translation = "материнская забота";
-        return { word, translation };
-    }
-    
-    function generatePhraseWithTranslation() {
-        const templates = [
-            (w)=>`${w}! ${w} ${w.slice(0,2)}мё`, (w)=>`Эй, ${w} ${w}ка`, (w)=>`Моё ${w} твоё ${w}нга`,
-            (w)=>`Я ${w}ю ${w}лак`, (w)=>`${w}ба ${w}ба ура!`, (w)=>`Каллэнг ${w}то просто`
-        ];
-        const rand = generateRandomWordWithTranslation();
-        const base = rand.word;
-        const tpl = templates[Math.floor(Math.random() * templates.length)];
-        let phrase = tpl(base);
-        if (Math.random()>0.7) phrase += " " + generateRandomWordWithTranslation().word;
-        return { phrase: phrase.toUpperCase(), meaning: `фраза-приветствие · основа: ${rand.translation}` };
-    }
-    
-    let currentDisplayText = "", currentDisplayTranslation = "";
-    function updateUI(text, translation) {
-        currentDisplayText = text;
-        currentDisplayTranslation = translation;
-        document.getElementById('wordDisplay').innerText = text;
-        document.getElementById('translationDisplay').innerHTML = `🌍 перевод: ${translation}`;
-    }
-    function speakCurrent() { if(currentDisplayText) new SpeechSynthesisUtterance(currentDisplayText).lang='ru-RU'; window.speechSynthesis.cancel(); let u = new SpeechSynthesisUtterance(currentDisplayText); u.lang='ru-RU'; window.speechSynthesis.speak(u); }
-    
-    // ----------------------------------- ВХОД ЧЕРЕЗ ВСЕ КНОПКИ (ВСЕ -> ГУГЛ) -----------------------------------
-    let currentUser = null;
-    function saveUser(user) { localStorage.setItem('kallang_user', JSON.stringify(user)); }
-    function loadUser() { const s = localStorage.getItem('kallang_user'); return s ? JSON.parse(s) : null; }
-    function clearUser() { localStorage.removeItem('kallang_user'); }
-    
-    // Функция вызова Google Login (имитация клика по встроенной кнопке)
-    function triggerGoogleLogin() {
-        // Находим невидимую/стилизованную кнопку гугл и эмулируем нажатие
-        const googleBtn = document.querySelector('#googleContainer .g_id_signin');
-        if (googleBtn) {
-            const clickEvent = new MouseEvent('click', { view: window, bubbles: true, cancelable: true });
-            googleBtn.dispatchEvent(clickEvent);
-        } else {
-            // fallback: перезагружаем компонент
-            console.log("Пожалуйста, используйте стандартную кнопку Google");
-            alert("Нажмите на кнопку Google выше для входа!");
-        }
-    }
-    
-    // Обработчик колбэк Google
-    window.handleGoogleLogin = function(response) {
-        if(response && response.credential) {
-            try {
-                const payload = parseJwt(response.credential);
-                if(payload && payload.name) {
-                    const userData = { name: payload.name, email: payload.email, picture: payload.picture, loggedAt: Date.now() };
-                    saveUser(userData);
-                    currentUser = userData;
-                    showMainApp(userData);
-                } else fallbackLogin();
-            } catch(e) { fallbackLogin(); }
-        } else { fallbackLogin(); }
-    };
-    
-    function parseJwt(token) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-        return JSON.parse(jsonPayload);
-    }
-    
-    function fallbackLogin() {
-        const guestUser = { name: "Гость Каллэнга", email: "guest@kallang.local", isGuest: true };
-        saveUser(guestUser);
-        currentUser = guestUser;
-        showMainApp(guestUser);
-    }
-    
-    function showMainApp(user) {
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('mainPage').style.display = 'block';
-        document.getElementById('userNameDisplay').innerText = user.name.split(' ')[0];
-        updateUI("КАЛЛЭНГ", `привет, ${user.name}! Это язык без правил. Нажимай на буквы — они звучат!`);
-        // вкладки уже готовы
-    }
-    
-    function logout() { clearUser(); currentUser = null; document.getElementById('authPage').style.display = 'block'; document.getElementById('mainPage').style.display = 'none'; window.speechSynthesis.cancel(); }
-    
-    // ---------- Рендер алфавита с озвучкой ----------
-    const alphabet = ['А','Б','Г','G','Д','Е','Ё','Ē','И','Й','Ӥ','Ī','К','М','Н','О','П','Р','Т','У','Х','Ы','Ÿ','Э','Ю','Я'];
-    const alphabetContainer = document.getElementById('alphabetContainer');
-    alphabet.forEach(letter => {
-        const div = document.createElement('div');
-        div.className = 'letter-item';
-        div.textContent = letter;
-        div.addEventListener('click', (e) => {
-            e.stopPropagation();
-            speakLetter(letter);
-            // также покажем слово из словаря начинающееся на букву для красоты
-            let found = dictionary.find(item => item.word.startsWith(letter));
-            if(found) updateUI(found.word, found.translation);
-            else {
-                let gen = generateRandomWordWithTranslation();
-                updateUI(gen.word, `(на букву ${letter}) ${gen.translation}`);
-            }
-        });
-        alphabetContainer.appendChild(div);
-    });
-    
-    // словарь сетка
-    const dictGrid = document.getElementById('dictionaryList');
-    dictionary.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'dict-item';
-        card.innerHTML = `${item.word}<br><span style="font-size:0.7rem;">🔍 перевод</span>`;
-        card.addEventListener('click', () => updateUI(item.word, item.translation));
-        dictGrid.appendChild(card);
-    });
-    
-    // правила (таблица правил)
+    const phrases = [
+        { phrase: "ГУБАБА, ТИМОКА!", translation: "Привет, друг!" },{ phrase: "ЛЯМБО НЯМКА БРЮНГ", translation: "Еда очень вкусная!" },{ phrase: "СОНГА ИГРАМ", translation: "Спать и играть" },{ phrase: "КАЛЛЭНГ ПРОСТО", translation: "Каллэнг — это просто" },{ phrase: "МУРЛЁ БРЮНГ", translation: "Кошка супер" },{ phrase: "ЗЁМБА ВОДАМ", translation: "Земля и вода" },{ phrase: "СОЛНГО ВЕТРЁ", translation: "Солнце и ветер" }
+    ];
     const rulesList = [
-        { title: "🎵 Звуки", desc: "Буквы читаются как в русском, кроме G=Жи, Ē=Ёль, Ӥ=Иё, Ī=И, Ÿ=Йоу." },
+        { title: "🎵 Звуки", desc: "Буквы: G=Жи, Ē=Ёль, Ӥ=Иё, Ī=И, Ÿ=Йоу. Остальные как в русском." },
         { title: "🧠 Грамматика", desc: "Нет грамматики! Любой порядок слов правильный." },
         { title: "✍️ Письмо", desc: "Мягкий знак отсутствует, все слова пишутся буквами алфавита." },
-        { title: "🗣️ Общение", desc: "Просто скажи любое слово, и все поймут. Каллэнг — язык настроения." },
-        { title: "✨ Супер-правило", desc: "Чем проще слово, тем лучше. Ошибок не бывает." }
+        { title: "🗣️ Общение", desc: "Просто скажи любое слово, и все поймут." },
+        { title: "✨ Супер-правило", desc: "Чем проще слово, тем лучше. Ошибок не бывает." },
+        { title: "🌍 Универсальность", desc: "Каллэнг понимают во всех мирах." }
     ];
-    const rulesContainer = document.getElementById('rulesContainer');
-    rulesList.forEach(rule => {
-        const card = document.createElement('div');
-        card.className = 'rule-card';
-        card.innerHTML = `<h3>${rule.title}</h3><p>${rule.desc}</p>`;
-        rulesContainer.appendChild(card);
-    });
     
-    // кнопки
-    document.getElementById('randomWordBtn').addEventListener('click', () => {
-        if(Math.random()>0.5) {
-            const r = dictionary[Math.floor(Math.random()*dictionary.length)];
-            updateUI(r.word, r.translation);
-        } else {
-            const g = generateRandomWordWithTranslation();
-            updateUI(g.word, g.translation);
-        }
-    });
-    document.getElementById('randomPhraseBtn').addEventListener('click', () => {
-        const phr = generatePhraseWithTranslation();
-        updateUI(phr.phrase, phr.meaning);
-    });
-    document.getElementById('speakBtn').addEventListener('click', speakCurrent);
-    document.getElementById('logoutBtn').addEventListener('click', logout);
+    const wordRoots = ["ка","ла","ма","на","па","ра","са","та","ша","за","га","ба","да","ва","йо","ку","му","ну","пу","ру","су","ту","фу","чу","шё","лё","зё","бё","гё","дё"];
+    const wordEndings = ["нг","к","т","п","м","лё","бо","до","го","зо","мба","ка","ра","ла","ма","на","па","та","ша","за","ба","да","ва"];
     
-    // Переключение вкладок
-    const tabsBtns = document.querySelectorAll('.tab-btn');
-    const dictionaryDiv = document.getElementById('dictionaryTab');
-    const rulesDiv = document.getElementById('rulesTab');
-    tabsBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tabId = btn.getAttribute('data-tab');
-            tabsBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if(tabId === 'dictionaryTab') {
-                dictionaryDiv.style.display = 'block';
-                rulesDiv.style.display = 'none';
-            } else {
-                dictionaryDiv.style.display = 'none';
-                rulesDiv.style.display = 'block';
-            }
-        });
-    });
-    
-    // ---------- СОЗДАЕМ ВСЕ КРУГЛЫЕ КНОПКИ ВХОДА (все через Гугл) ----------
-    const loginMethods = [
-        { name: "Google", img: "https://avatars.mds.yandex.net/i?id=7626b8a58ccd67f6d0418c390a3b8e66cc3e1af4-5305106-images-thumbs&n=13" },
-        { name: "Max", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg/3840px-%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg.png" },
-        { name: "Яндекс", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Yandex_Browser_logo.svg/1280px-Yandex_Browser_logo.svg.png" },
-        { name: "Telegram", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/1280px-Telegram_2019_Logo.svg.png" },
-        { name: "VK", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/960px-VK_Compact_Logo_%282021-present%29.svg.png" },
-        { name: "Apple", img: "https://avatars.mds.yandex.net/i?id=6329891c51755a82411d55e9e5cbdc21_l-5147050-images-thumbs&n=13" },
-        { name: "Госуслуги", img: "https://pic.rtbcdn.ru/user/51/e1/51e10471cb2696019a4928fecefbe9a0.jpg" }
-    ];
-    const methodsContainer = document.getElementById('allLoginMethods');
-    loginMethods.forEach(provider => {
-        const btn = document.createElement('div');
-        btn.className = 'round-login-btn';
-        btn.title = `Войти через ${provider.name} (откроет вход Google)`;
-        const img = document.createElement('img');
-        img.src = provider.img;
-        img.alt = provider.name;
-        img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20fill%3D%22gray%22%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2230%22%3E%3F%3C%2Ftext%3E%3C%2Fsvg%3E'; };
-        btn.appendChild(img);
-        btn.addEventListener('click', () => triggerGoogleLogin());
-        methodsContainer.appendChild(btn);
-    });
-    
-    // Также размещаем стандартную кнопку гугл в контейнер googleContainer
-    const googleDiv = document.getElementById('googleContainer');
-    const googleWrapper = document.createElement('div');
-    googleWrapper.id = "customGoogleBtn";
-    googleWrapper.innerHTML = `<div id="g_id_onload" data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com" data-login_uri="https://timoshamoscow.github.io/test/" data-auto_prompt="false" data-callback="handleGoogleLogin"></div>
-    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left"></div>`;
-    googleDiv.appendChild(googleWrapper);
-    
-    // Проверка входа при загрузке
-    const saved = loadUser();
-    if(saved) {
-        currentUser = saved;
-        showMainApp(saved);
-    } else {
-        document.getElementById('authPage').style.display = 'block';
-        document.getElementById('mainPage').style.display = 'none';
+    function generateRandomWord() {
+        let root = wordRoots[Math.floor(Math.random() * wordRoots.length)];
+        let ending = wordEndings[Math.floor(Math.random() * wordEndings.length)];
+        let word = (root + ending).toUpperCase();
+        if(Math.random()>0.6) word += wordEndings[Math.floor(Math.random()*wordEndings.length)].toUpperCase();
+        return word;
     }
+    function generateTranslation() { const meanings = ["радость","дружба","свет","тепло","покой","игра","творчество","звук","космос","чудо"]; return meanings[Math.floor(Math.random()*meanings.length)]; }
+    function generateRandomWordWithTranslation() { return { word: generateRandomWord(), translation: `чувство ${generateTranslation()}` }; }
+    function generatePhraseWithTranslation() { let w = generateRandomWord(); let phrasesArr = [`${w}! ${w}ка`, `Эй, ${w}`, `Моё ${w} твоё`, `Я ${w}ю`, `${w}ба ура!`]; let phrase = phrasesArr[Math.floor(Math.random()*phrasesArr.length)].toUpperCase(); return { phrase, meaning: `выражение эмоции на Каллэнг` }; }
     
-    // блокировка вкладок если нет входа? но вкладки доступны только после входа, мы их показываем лишь внутри mainPage, всё ок.
-    // Доп. защита: правила и словарь доступны исключительно после логина. Сделано.
+    let currentDisplayText = "", currentDisplayTranslation = "";
+    function updateUI(text, translation) { currentDisplayText = text; currentDisplayTranslation = translation; document.getElementById('wordDisplay').innerText = text; document.getElementById('translationDisplay').innerHTML = `🌍 перевод: ${translation}`; if(typeof updateStats !== 'undefined') updateStats('view'); }
+    function speakCurrent() { if(currentDisplayText) { let u = new SpeechSynthesisUtterance(currentDisplayText); u.lang='ru-RU'; u.rate=0.9; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); if(typeof incrementSpeakCount !== 'undefined') incrementSpeakCount(); showNotification(`🔊 Произнесено: ${currentDisplayText}`); } }
+    function copyCurrent() { navigator.clipboard.writeText(currentDisplayText); showNotification(`📋 Скопировано: ${currentDisplayText}`); }
+    
+    let speakCount = 0, wordsLearned = 0, gameScore = 0;
+    function incrementSpeakCount() { speakCount++; localStorage.setItem('kallang_speak', speakCount); document.getElementById('speakCount').innerText = speakCount; }
+    function updateWordsLearned() { wordsLearned = Math.min(dictionary.length, wordsLearned+1); localStorage.setItem('kallang_learned', wordsLearned); document.getElementById('wordsLearned').innerText = wordsLearned; }
+    
+    // ========== АВТОРИЗАЦИЯ ==========
+    let currentUser = null;
+    function saveUser(user) { localStorage.setItem('kallang_user', JSON.stringify(user)); }
+    function loadUser() { let s = localStorage.getItem('kallang_user'); return s ? JSON.parse(s) : null; }
+    function clearUser() { localStorage.removeItem('kallang_user'); }
+    window.handleGoogleLogin = function(response) {
+        if(response && response.credential) {
+            try { let payload = JSON.parse(atob(response.credential.split('.')[1])); if(payload.name) { saveUser({ name: payload.name, email: payload.email }); showMainApp({ name: payload.name }); } else fallbackLogin(); } catch(e) { fallbackLogin(); }
+        } else { fallbackLogin(); }
+    };
+    function fallbackLogin() { saveUser({ name: "Гость Каллэнга" }); showMainApp({ name: "Гость" }); }
+    function showMainApp(user) { currentUser = user; document.getElementById('authPage').style.display = 'none'; document.getElementById('mainPage').style.display = 'block'; document.getElementById('userNameDisplay').innerText = user.name.split(' ')[0]; updateUI("КАЛЛЭНГ", `привет, ${user.name}! Добро пожаловать в мир простоты!`); loadStats(); }
+    function logout() { clearUser(); document.getElementById('authPage').style.display = 'block'; document.getElementById('mainPage').style.display = 'none'; window.speechSynthesis.cancel(); }
+    function loadStats() { speakCount = parseInt(localStorage.getItem('kallang_speak')||0); wordsLearned = parseInt(localStorage.getItem('kallang_learned')||0); gameScore = parseInt(localStorage.getItem('kallang_game')||0); document.getElementById('speakCount').innerText = speakCount; document.getElementById('wordsLearned').innerText = wordsLearned; document.getElementById('gameScore').innerText = gameScore; let power = 42 + speakCount + wordsLearned; document.getElementById('kallangPower').innerText = power; }
+    
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    const alphabet = ['А','Б','Г','G','Д','Е','Ё','Ē','И','Й','Ӥ','Ī','К','М','Н','О','П','Р','Т','У','Х','Ы','Ÿ','Э','Ю','Я'];
+    const alphabetDiv = document.getElementById('alphabetContainer');
+    alphabet.forEach(l => { let d = document.createElement('div'); d.className='letter-item'; d.textContent=l; d.onclick=()=>{ speakLetter(l); let found=dictionary.find(w=>w.word.startsWith(l)); if(found) updateUI(found.word, found.translation); else updateUI(generateRandomWord(), `на букву ${l} · ${generateTranslation()}`); }; alphabetDiv.appendChild(d); });
+    
+    dictionary.forEach(item => { let card = document.createElement('div'); card.className='dict-item'; card.innerHTML=`${item.word}<br><span style="font-size:0.7rem;">🔍</span>`; card.onclick=()=>{ updateUI(item.word, item.translation); updateWordsLearned(); }; document.getElementById('dictionaryList').appendChild(card); });
+    
+    phrases.forEach(p => { let card = document.createElement('div'); card.className='phrase-card'; card.innerHTML=`${p.phrase}<br><span style="font-size:0.7rem;">→ ${p.translation}</span>`; card.onclick=()=>updateUI(p.phrase, p.translation); document.getElementById('phrasesList').appendChild(card); });
+    
+    rulesList.forEach(r => { let card = document.createElement('div'); card.className='rule-card'; card.innerHTML=`<h3>${r.title}</h3><p>${r.desc}</p>`; document.getElementById('rulesContainer').appendChild(card); });
+    
+    document.getElementById('randomWordBtn').onclick = () => { let g = generateRandomWordWithTranslation(); updateUI(g.word, g.translation); };
+    document.getElementById('randomPhraseBtn').onclick = () => { let p = generatePhraseWithTranslation(); updateUI(p.phrase, p.meaning); };
+    document.getElementById('speakBtn').onclick = speakCurrent;
+    document.getElementById('copyWordBtn').onclick = copyCurrent;
+    document.getElementById('logoutBtn').onclick = logout;
+    
+    // Игра
+    let currentGameWord = null, currentGameTranslation = null;
+    function newGameWord() { let rand = dictionary[Math.floor(Math.random()*dictionary.length)]; currentGameWord = rand.word; currentGameTranslation = rand.translation; document.getElementById('gameTranslationTarget').innerText = currentGameTranslation; document.getElementById('gameAnswer').value = ''; document.getElementById('gameResult').innerHTML = ''; }
+    document.getElementById('checkGameBtn').onclick = () => { let ans = document.getElementById('gameAnswer').value.trim().toUpperCase(); if(ans === currentGameWord) { gameScore++; localStorage.setItem('kallang_game', gameScore); document.getElementById('gameScore').innerText = gameScore; document.getElementById('gameResult').innerHTML = '✅ Правильно! +1 очко ✅'; showNotification('🎉 Верно!'); newGameWord(); } else { document.getElementById('gameResult').innerHTML = `❌ Неверно! Правильно: ${currentGameWord} ❌`; } };
+    document.getElementById('nextGameBtn').onclick = newGameWord;
+    document.getElementById('newPhraseBtn').onclick = () => { let p = generatePhraseWithTranslation(); updateUI(p.phrase, p.meaning); let newCard = document.createElement('div'); newCard.className='phrase-card'; newCard.innerHTML=`${p.phrase}<br><span style="font-size:0.7rem;">✨ новая</span>`; newCard.onclick=()=>updateUI(p.phrase, p.meaning); document.getElementById('phrasesList').prepend(newCard); };
+    document.getElementById('translateTextBtn').onclick = () => { let fake = generateRandomWordWithTranslation(); updateUI(fake.word, `(мысль переведена) ${fake.translation}`); };
+    
+    // Вкладки
+    document.querySelectorAll('.tab-btn').forEach(btn => { btn.onclick = () => { document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); let id = btn.dataset.tab; document.getElementById('dictionaryTab').style.display = id==='dictionaryTab' ? 'block' : 'none'; document.getElementById('rulesTab').style.display = id==='rulesTab' ? 'block' : 'none'; document.getElementById('phrasesTab').style.display = id==='phrasesTab' ? 'block' : 'none'; document.getElementById('gamesTab').style.display = id==='gamesTab' ? 'block' : 'none'; }; });
+    
+    // Круглые кнопки входа
+    const providers = [
+        { name:"Google", img:"https://avatars.mds.yandex.net/i?id=7626b8a58ccd67f6d0418c390a3b8e66cc3e1af4-5305106-images-thumbs&n=13" },
+        { name:"Max", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg/3840px-%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg.png" },
+        { name:"Яндекс", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Yandex_Browser_logo.svg/1280px-Yandex_Browser_logo.svg.png" },
+        { name:"Telegram", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/1280px-Telegram_2019_Logo.svg.png" },
+        { name:"VK", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/960px-VK_Compact_Logo_%282021-present%29.svg.png" },
+        { name:"Apple", img:"https://avatars.mds.yandex.net/i?id=6329891c51755a82411d55e9e5cbdc21_l-5147050-images-thumbs&n=13" },
+        { name:"Госуслуги", img:"https://pic.rtbcdn.ru/user/51/e1/51e10471cb2696019a4928fecefbe9a0.jpg" }
+    ];
+    const container = document.getElementById('allLoginMethods');
+    providers.forEach(p => { let btn = document.createElement('div'); btn.className='round-login-btn'; let img = document.createElement('img'); img.src=p.img; img.alt=p.name; img.onerror=function(){this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20fill%3D%22gray%22%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2230%22%3E%3F%3C%2Ftext%3E%3C%2Fsvg%3E';}; btn.appendChild(img); btn.onclick = () => { let googleBtnDiv = document.querySelector('#googleContainer .g_id_signin'); if(googleBtnDiv) googleBtnDiv.click(); else alert('Загрузка Google входа...'); }; container.appendChild(btn); });
+    let googleWrap = document.createElement('div'); googleWrap.innerHTML = `<div id="g_id_onload" data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com" data-login_uri="https://timoshamoscow.github.io/test/" data-auto_prompt="false" data-callback="handleGoogleLogin"></div><div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left"></div>`;
+    document.getElementById('googleContainer').appendChild(googleWrap);
+    
+    let savedUser = loadUser();
+    if(savedUser) showMainApp(savedUser);
+    document.getElementById('gameScore').innerText = gameScore;
+    if(typeof newGameWord === 'function') newGameWord();
 </script>
 </body>
 </html>
