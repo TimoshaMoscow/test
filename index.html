@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru-RU">
 <head>
+    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Telegalive — Социальная сеть нового поколения</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Тестовый лендинг</title>
+    <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
+    <meta name="author" content="TStudios">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="revisit-after" content="1 days">
+    <meta name="language" content="ru">
+    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
+    
+    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
+    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
+    
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Тестовый лендинг">
+    <meta property="og:description" content="Тестовый лендинг, здесь всякая фигня">
+    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
+    <meta property="og:site_name" content="Тестовый лендинг">
+    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- ===== TWITTER CARDS ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
+    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
+    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
+    
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- ===== СТИЛИ ===== -->
     <style>
         * {
             margin: 0;
@@ -12,996 +44,375 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --tg-blue: #5c71e5;
-            --tg-blue-hover: #4a5fd2;
-            --tg-blue-light: #8b9dff;
-            --tg-blue-soft: rgba(92, 113, 229, 0.12);
-            --tg-bg-dark: #0a0a12;
-            --tg-glass: rgba(18, 18, 28, 0.92);
-            --tg-glass-light: rgba(255, 255, 255, 0.05);
-            --tg-glass-dark: rgba(0, 0, 0, 0.6);
-            --tg-border: rgba(255, 255, 255, 0.06);
-            --tg-text: #f0f0f5;
-            --tg-text-secondary: #a1a1b5;
-            --tg-text-muted: #6e6e84;
-            --tg-success: #4caf50;
-            --tg-danger: #ff5e5e;
-            --tg-warning: #ffb74d;
-            --tg-online: #4caf50;
-            --tg-offline: #757575;
-            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.25);
-            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.3);
-            --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.35);
-            --transition-fast: 0.12s cubic-bezier(0.2, 0, 0, 1);
-            --transition-normal: 0.2s cubic-bezier(0.2, 0, 0, 1);
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            --radius-2xl: 24px;
-            --radius-3xl: 28px;
-            --radius-full: 9999px;
-        }
-
         body {
-            background: radial-gradient(circle at 30% 20%, #12121a, #0a0a12);
-            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
-            min-height: 100vh;
-            color: var(--tg-text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
+            color: #0a1e2f;
             line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            overflow: hidden;
+            min-height: 100vh;
+            padding: 1rem;
         }
 
-        .glass-app {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--tg-glass);
-            backdrop-filter: blur(24px);
-            display: flex;
-            overflow: hidden;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 300px;
-            background: rgba(10, 10, 18, 0.88);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--tg-border);
+        /* АНИМАЦИИ */
+        @keyframes softGlow {
+            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
+            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ШАПКА */
+        .header {
             display: flex;
-            flex-direction: column;
-            padding: 20px 12px;
-            gap: 28px;
-            z-index: 10;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 1rem 2.5rem;
+            border-radius: 80px;
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
         }
 
         .logo {
-            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 56px;
+            height: 56px;
+            border-radius: 20px;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .logo img:hover { transform: rotate(10deg) scale(1.1); }
+
+        .logo h1 {
+            font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff, var(--tg-blue), var(--tg-blue-light));
+            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 12px;
-        }
-
-        .logo i {
-            background: linear-gradient(135deg, var(--tg-blue), var(--tg-blue-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-size: 28px;
-        }
-
-        nav {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1;
-        }
-
-        nav a {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 10px 14px;
-            margin: 0 4px;
-            color: var(--tg-text-secondary);
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            transition: all var(--transition-fast);
-            font-weight: 500;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            background: var(--tg-glass-light);
-            color: white;
-        }
-
-        nav a i {
-            width: 24px;
-            font-size: 1.2rem;
-        }
-
-        nav a.active {
-            background: var(--tg-blue-soft);
-            color: white;
-        }
-
-        /* User Info */
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            margin-top: auto;
-            background: var(--tg-glass-dark);
-            border-radius: var(--radius-xl);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--tg-border);
-            transition: all var(--transition-normal);
-            cursor: pointer;
-        }
-
-        .user-info:hover {
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        .user-info img {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--tg-blue);
-        }
-
-        .user-details {
-            flex: 1;
-        }
-
-        .user-details span:first-child {
-            font-weight: 600;
-            font-size: 14px;
-            display: block;
-        }
-
-        .user-status {
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 2px;
-        }
-
-        .user-status.online {
-            color: var(--tg-online);
-        }
-
-        .user-status::before {
-            content: "●";
-            font-size: 8px;
-        }
-
-        #logoutBtn {
-            background: rgba(255, 94, 94, 0.15);
-            border: none;
-            color: var(--tg-danger);
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        #logoutBtn:hover {
-            background: var(--tg-danger);
-            color: white;
-        }
-
-        /* MAIN CONTENT */
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 32px;
-            background: rgba(0, 0, 0, 0.15);
-        }
-
-        .content::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .content::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .content::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: var(--radius-full);
-        }
-
-        h2 {
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        h2 i {
-            color: var(--tg-blue);
-        }
-
-        h3 {
-            font-size: 1.1rem;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-        }
-
-        /* CARDS */
-        .glass-card, .chat-item, .group-item, .channel-item, .contact-item {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius-xl);
-            padding: 18px;
-            margin-bottom: 12px;
-            border: 1px solid var(--tg-border);
-            transition: all var(--transition-normal);
-            cursor: pointer;
-        }
-
-        .glass-card:hover, .chat-item:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(92, 113, 229, 0.3);
-        }
-
-        /* STATS GRID */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            padding: 18px;
-            border-radius: var(--radius-xl);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--tg-border);
-            transition: all var(--transition-fast);
-        }
-
-        .stat-card span {
-            display: block;
-            color: var(--tg-text-secondary);
-            font-size: 11px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .stat-card strong {
-            font-size: 28px;
-            color: white;
-            font-weight: 600;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .mini-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-        }
-
-        .text-muted {
-            color: var(--tg-text-secondary);
-            font-size: 12px;
+            -webkit-text-fill-color: transparent;
         }
 
         .badge {
-            background: var(--tg-blue);
-            border-radius: var(--radius-full);
-            padding: 3px 8px;
-            font-size: 10px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .badge-warning {
-            background: var(--tg-warning);
-            color: #1a1a2e;
-        }
-
-        button, .btn {
-            background: var(--tg-blue);
-            border: none;
-            padding: 10px 20px;
-            border-radius: var(--radius-full);
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        button:hover, .btn:hover {
-            background: var(--tg-blue-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--tg-blue);
-            color: var(--tg-blue);
-        }
-
-        .btn-outline:hover {
-            background: var(--tg-blue);
-            color: white;
-        }
-
-        /* TOAST */
-        .toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1100;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .toast {
-            background: rgba(22, 22, 32, 0.96);
-            backdrop-filter: blur(16px);
-            border-radius: var(--radius-lg);
-            padding: 12px 18px;
-            min-width: 260px;
-            max-width: 340px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-left: 3px solid var(--tg-blue);
-            box-shadow: var(--shadow-lg);
-            animation: slideInRight 0.25s ease;
-        }
-
-        .toast.success {
-            border-left-color: var(--tg-success);
-        }
-
-        .toast i:first-child {
-            font-size: 18px;
-        }
-
-        .toast-content {
-            flex: 1;
-        }
-
-        .toast-title {
+            background: #ffffffdd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
             font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 2px;
+            color: #1e2b5e;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid white;
         }
 
-        .toast-message {
-            font-size: 12px;
-            color: var(--tg-text-secondary);
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(80px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* MODAL */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            max-width: 420px;
-            width: 90%;
-            padding: 28px;
-            border-radius: var(--radius-3xl);
-            background: rgba(22, 22, 32, 0.96);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(92, 113, 229, 0.3);
+        /* ГЕРОЙ */
+        .hero {
             text-align: center;
+            padding: 5rem 3rem;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+            border-radius: 70px;
+            box-shadow: 0 40px 60px -20px #1e2b5e40;
+            margin-bottom: 5rem;
+            border: 1px solid #ffffff;
+            position: relative;
+            overflow: hidden;
         }
-
-        .modal-content h2 {
-            margin-bottom: 16px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0a1e2f, #283593);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            color: #2d3f5e;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(145deg, #283593, #1e2b5e);
             color: white;
+            font-weight: 600;
+            padding: 1.2rem 3rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 15px 25px -8px #28359380;
+            transition: all 0.2s;
+            border: 1px solid #ffffff50;
+        }
+        .cta-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 25px 35px -8px #1e2b5e;
+            background: linear-gradient(145deg, #1e2b5e, #283593);
         }
 
-        .modal-content p {
-            margin-bottom: 20px;
-            color: var(--tg-text-secondary);
+        /* КАРТОЧКИ */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.2rem;
+            margin: 5rem 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px -15px #1a237e30;
+            border: 1px solid rgba(255,255,255,0.9);
+            transition: all 0.3s;
+            text-align: center;
+            animation: float 6s infinite ease-in-out;
+        }
+        .feature-card:nth-child(2) { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) { animation-delay: 1s; }
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #3f51b5;
+            background: white;
+        }
+        .feature-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0a1e2f;
         }
 
-        input {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid var(--tg-border);
-            border-radius: var(--radius-md);
-            padding: 12px 16px;
-            color: white;
-            width: 100%;
-            margin-bottom: 12px;
-            font-size: 14px;
+        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
+        .playground {
+            background: white;
+            border-radius: 70px;
+            padding: 4rem 3rem;
+            margin: 5rem 0;
+            box-shadow: 0 30px 50px -20px #0f2b45;
         }
-
-        input:focus {
-            outline: none;
-            border-color: var(--tg-blue);
+        .playground h3 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e2b5e;
         }
-
-        .flex-between {
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .grid-item {
+            background: #e9ecf5;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e2b5e;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .grid-item:hover {
+            border-color: #3f51b5;
+            background: white;
+            transform: scale(1.03);
+            cursor: pointer;
+        }
+        .slider-demo {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        .knob {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+            box-shadow: 0 15px 25px -5px #1a237e80;
+            transition: 0.1s;
+        }
+        .knob:active { transform: rotate(30deg); }
+
+        /* ЛОГО-СЕКЦИЯ */
+        .logo-section {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: linear-gradient(145deg, #e8edff, #d5defa);
+            border-radius: 60px;
+            margin: 5rem 0;
+        }
+        .logo-section img {
+            width: 180px;
+            height: 180px;
+            border-radius: 40px;
+            box-shadow: 0 30px 40px -15px #1e2b5e;
+            transition: 0.4s;
+        }
+        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
+
+        /* ПОДВАЛ */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #44556b;
+            border-top: 2px dashed #b0c0d0;
+            margin-top: 4rem;
+            background: #f5faff;
+            border-radius: 60px 60px 30px 30px;
         }
 
-        .mt-3 { margin-top: 16px; }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 80px;
-                padding: 16px 8px;
-            }
-            .logo span, nav a span {
-                display: none;
-            }
-            .logo i {
-                margin: 0 auto;
-            }
-            nav a {
-                justify-content: center;
-                padding: 12px;
-            }
-            nav a i {
-                margin: 0;
-            }
-            .user-details {
-                display: none;
-            }
-            .content {
-                padding: 16px;
-            }
+        @media (max-width: 700px) {
+            .hero h2 { font-size: 2.5rem; }
+            .header { flex-direction: column; text-align: center; }
+            .logo { flex-direction: column; }
         }
+        .hidden-schema { display: none; }
     </style>
+    
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Тестовый лендинг 3.0",
+        "url": "https://timoshamoscow.github.io/test/",
+        "description": "Интерактивная песочница для фронтенд-экспериментов",
+        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
+    }
+    </script>
 </head>
 <body>
-    <div class="glass-app">
-        <!-- Sidebar -->
-        <aside class="sidebar glass">
+    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
+    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
+
+    <div class="container">
+        <header class="header">
             <div class="logo">
-                <i class="fab fa-telegram"></i> <span>Telegalive</span>
+                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
+                <h1>Тестовый лендинг</h1>
             </div>
-            <nav>
-                <a class="active" data-view="overview"><i class="fas fa-compass"></i> <span>Обзор</span></a>
-                <a data-view="chats"><i class="fas fa-comment-dots"></i> <span>Чаты</span></a>
-                <a data-view="groups"><i class="fas fa-users"></i> <span>Группы</span></a>
-                <a data-view="channels"><i class="fas fa-broadcast-tower"></i> <span>Каналы</span></a>
-                <a data-view="contacts"><i class="fas fa-address-book"></i> <span>Контакты</span></a>
-                <a data-view="settings"><i class="fas fa-cog"></i> <span>Настройки</span></a>
-            </nav>
-            <div class="user-info" id="userInfo">
-                <div class="user-avatar-wrapper">
-                    <img id="userAvatar" src="https://ui-avatars.com/api/?background=5c71e5&color=fff&bold=true&size=128&length=2&name=Алексей" alt="avatar">
-                </div>
-                <div class="user-details">
-                    <span id="userName">Алексей</span>
-                    <span id="userStatus" class="user-status online">В сети</span>
-                </div>
-                <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            <div class="badge">🚀 v.3.5 • Живая песочница</div>
+        </header>
+
+        <section class="hero">
+            <h2>Полигон для гипотез<br>и смелых решений</h2>
+            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
+            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
+        </section>
+
+        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
+        <section class="playground">
+            <h3>⚡ Интерактивная лаборатория</h3>
+            <div class="grid-demo">
+                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
+                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
+                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
+                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
             </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="content">
-            <div id="viewContainer"></div>
-        </main>
-    </div>
-
-    <div id="toastContainer" class="toast-container"></div>
-
-    <div id="profileModal" class="modal" style="display:none">
-        <div class="modal-content">
-            <h2><i class="fas fa-user-circle"></i> Профиль</h2>
-            <div id="profileContent"></div>
-            <button id="closeProfileBtn" class="btn-outline mt-3">Закрыть</button>
-        </div>
-    </div>
-
-    <div id="createGroupModal" class="modal" style="display:none">
-        <div class="modal-content">
-            <h2>Создать группу</h2>
-            <input id="newGroupName" placeholder="Название группы">
-            <input id="newGroupDesc" placeholder="Описание">
-            <div class="flex-between" style="gap: 12px; margin-top: 8px;">
-                <button id="createGroupSubmit">Создать</button>
-                <button id="closeGroupModal" class="btn-outline">Отмена</button>
+            <div class="slider-demo">
+                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
+                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
+                <div style="font-size: 2rem;">🎚️</div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="createChannelModal" class="modal" style="display:none">
-        <div class="modal-content">
-            <h2>Создать канал</h2>
-            <input id="newChannelName" placeholder="Название канала">
-            <input id="newChannelDesc" placeholder="Описание">
-            <div class="flex-between" style="gap: 12px; margin-top: 8px;">
-                <button id="createChannelSubmit">Создать</button>
-                <button id="closeChannelModal" class="btn-outline">Отмена</button>
+        <!-- ОСНОВНЫЕ ФИШКИ -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧩</div>
+                <h3 class="feature-title">Чистый код</h3>
+                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
             </div>
-        </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">SEO-агрессия</h3>
+                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Скорость + UX</h3>
+                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
+            </div>
+        </section>
+
+        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
+        <section class="logo-section">
+            <img src="images/logo.png" alt="Логотип">
+            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
+        </section>
+
+        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
+        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
+            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
+                <span class="badge" style="font-size:1.2rem;">Сетки</span>
+                <span class="badge" style="font-size:1.2rem;">Анимации</span>
+                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
+                <span class="badge" style="font-size:1.2rem;">Типографика</span>
+                <span class="badge" style="font-size:1.2rem;">SVG</span>
+                <span class="badge" style="font-size:1.2rem;">Canvas</span>
+                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
+                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
+            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
+            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
+        </footer>
     </div>
 
     <script>
-        // State
-        let currentView = 'overview';
-        let currentUser = { id: '1', username: 'alex', fullname: 'Алексей', avatar: 'https://ui-avatars.com/api/?background=5c71e5&color=fff&bold=true&size=128&length=2&name=Алексей', verified: true };
-        let groups = [
-            { id: '1', name: 'Дизайн и разработка', description: 'Обсуждаем UI/UX и код', members: 42, isMember: true, isAdmin: true },
-            { id: '2', name: 'Музыкальный клуб', description: 'Делимся треками', members: 128, isMember: true, isAdmin: false },
-            { id: '3', name: 'Майнкрафт комьюнити', description: 'Строим и выживаем', members: 256, isMember: false, isAdmin: false, isPrivate: true }
-        ];
-        let channels = [
-            { id: '1', name: 'Telegalive Новости', description: 'Анонсы обновлений', subscribers: 1234, isSubscribed: true, owner: true, posts: [{ id: 'p1', text: 'Совсем скоро v2.1 с долгожданными комментариями!', time: '2026-04-27T10:00:00', views: 156 }] },
-            { id: '2', name: 'Tech Pulse', description: 'IT-дайджест', subscribers: 892, isSubscribed: true, owner: false, posts: [{ id: 'p2', text: 'Web 3.0: что нового?', time: '2026-04-26T15:30:00', views: 89 }] },
-            { id: '3', name: 'Киноманы', description: 'Обсуждаем новинки кино', subscribers: 567, isSubscribed: false, owner: false, posts: [] }
-        ];
-        let contacts = [
-            { id: 'u2', username: 'maria', fullname: 'Мария', avatar: 'https://ui-avatars.com/api/?background=8b9dff&color=fff&name=Мария', status: 'online' },
-            { id: 'u3', username: 'dmitry', fullname: 'Дмитрий', avatar: 'https://ui-avatars.com/api/?background=ffb74d&color=fff&name=Дмитрий', status: 'offline' },
-            { id: 'u4', username: 'elena', fullname: 'Елена', avatar: 'https://ui-avatars.com/api/?background=4caf50&color=fff&name=Елена', status: 'online' }
-        ];
-        let chats = [
-            { id: 'c1', participant: contacts[0], lastMessage: 'Привет! Как дела?', time: '2026-04-27T09:30:00', unread: 2 },
-            { id: 'c2', participant: contacts[1], lastMessage: 'Видел новый пост?', time: '2026-04-26T22:15:00', unread: 0 }
-        ];
-
-        function showToast(title, message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            let icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-info-circle"></i>';
-            toast.innerHTML = `${icon}<div class="toast-content"><div class="toast-title">${title}</div><div class="toast-message">${message}</div></div><i class="fas fa-times" style="cursor:pointer; opacity:0.6;"></i>`;
-            container.appendChild(toast);
-            const closeBtn = toast.querySelector('.fa-times');
-            closeBtn.onclick = () => toast.remove();
-            setTimeout(() => toast.remove(), 3000);
+        function demoAlert() {
+            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
         }
-
-        function escapeHtml(str) {
-            return String(str).replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-
-        function formatRelativeDate(value) {
-            if (!value) return 'только что';
-            const date = new Date(value);
-            const now = new Date();
-            const diffMinutes = Math.floor((now - date) / 60000);
-            if (diffMinutes < 1) return 'только что';
-            if (diffMinutes < 60) return `${diffMinutes} мин назад`;
-            if (diffMinutes < 1440) return `${Math.floor(diffMinutes / 60)} ч назад`;
-            return `${Math.floor(diffMinutes / 1440)} д назад`;
-        }
-
-        function renderView() {
-            const container = document.getElementById('viewContainer');
-            if (currentView === 'overview') renderOverview(container);
-            else if (currentView === 'chats') renderChats(container);
-            else if (currentView === 'groups') renderGroups(container);
-            else if (currentView === 'channels') renderChannels(container);
-            else if (currentView === 'contacts') renderContacts(container);
-            else if (currentView === 'settings') renderSettings(container);
-        }
-
-        function renderOverview(container) {
-            container.innerHTML = `
-                <h2><i class="fas fa-compass"></i> Обзор</h2>
-                <div class="stats-grid">
-                    <div class="stat-card"><span>Чаты</span><strong>${chats.length}</strong></div>
-                    <div class="stat-card"><span>Группы</span><strong>${groups.filter(g => g.isMember).length}</strong></div>
-                    <div class="stat-card"><span>Каналы</span><strong>${channels.filter(c => c.isSubscribed).length}</strong></div>
-                    <div class="stat-card"><span>Контакты</span><strong>${contacts.length}</strong></div>
-                </div>
-                <div class="feature-grid">
-                    <div class="glass-card">
-                        <h3><i class="fas fa-clock"></i> Последние чаты</h3>
-                        ${chats.length ? chats.map(chat => `
-                            <div class="mini-row" onclick="openChat('${chat.id}')">
-                                <div><strong>${escapeHtml(chat.participant.fullname)}</strong><div class="text-muted">${escapeHtml(chat.lastMessage)}</div></div>
-                                <small>${formatRelativeDate(chat.time)}</small>
-                            </div>
-                        `).join('') : '<div class="text-muted">Пока нет чатов</div>'}
-                    </div>
-                    <div class="glass-card">
-                        <h3><i class="fas fa-star"></i> Рекомендации</h3>
-                        ${groups.filter(g => !g.isMember).slice(0, 2).map(g => `
-                            <div class="mini-row" onclick="showJoinGroupPrompt('${g.id}', '${g.name}')">
-                                <div><strong>${escapeHtml(g.name)}</strong><div class="text-muted">${escapeHtml(g.description)}</div></div>
-                                <button class="btn-outline" style="padding:4px 12px;">Вступить</button>
-                            </div>
-                        `).join('')}
-                        ${channels.filter(c => !c.isSubscribed).slice(0, 2).map(c => `
-                            <div class="mini-row" onclick="subscribeToChannel('${c.id}', '${c.name}')">
-                                <div><strong>${escapeHtml(c.name)}</strong><div class="text-muted">${escapeHtml(c.description)}</div></div>
-                                <button class="btn-outline" style="padding:4px 12px;">Подписаться</button>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderChats(container) {
-            container.innerHTML = `
-                <h2><i class="fas fa-comment-dots"></i> Личные чаты</h2>
-                <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                    <input id="chatUserId" placeholder="Логин пользователя" style="flex:1;">
-                    <button id="startChatBtn"><i class="fas fa-plus"></i> Начать чат</button>
-                </div>
-                <div class="chats-list">
-                    ${chats.length ? chats.map(chat => `
-                        <div class="chat-item" data-chat-id="${chat.id}" onclick="openChat('${chat.id}')">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <img src="${chat.participant.avatar}" width="50" style="border-radius:50%">
-                                <div style="flex:1;">
-                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                        <strong>${escapeHtml(chat.participant.fullname)}</strong>
-                                        <span class="user-status ${chat.participant.status === 'online' ? 'online' : 'offline'}" style="font-size: 10px;">${chat.participant.status === 'online' ? '● В сети' : ''}</span>
-                                    </div>
-                                    <div class="text-muted" style="font-size:12px;">${escapeHtml(chat.lastMessage)}</div>
-                                </div>
-                                <small>${formatRelativeDate(chat.time)}</small>
-                                ${chat.unread > 0 ? `<span class="badge">${chat.unread}</span>` : ''}
-                            </div>
-                        </div>
-                    `).join('') : '<div class="glass-card text-muted">У вас пока нет чатов. Начните новый!</div>'}
-                </div>
-            `;
-            document.getElementById('startChatBtn').onclick = () => {
-                const username = document.getElementById('chatUserId').value;
-                if (username) {
-                    const existingContact = contacts.find(c => c.username === username);
-                    if (existingContact) {
-                        if (!chats.find(c => c.participant.id === existingContact.id)) {
-                            chats.push({
-                                id: 'c' + (chats.length + 1),
-                                participant: existingContact,
-                                lastMessage: 'Чат создан!',
-                                time: new Date().toISOString(),
-                                unread: 0
-                            });
-                            showToast('Чат создан', `Чат с ${existingContact.fullname} создан`, 'success');
-                            renderView();
-                        } else {
-                            showToast('Ошибка', 'Чат уже существует', 'error');
-                        }
-                    } else {
-                        showToast('Ошибка', 'Пользователь не найден', 'error');
-                    }
-                } else {
-                    showToast('Ошибка', 'Введите логин', 'error');
-                }
-                document.getElementById('chatUserId').value = '';
-            };
-        }
-
-        window.openChat = function(chatId) {
-            const chat = chats.find(c => c.id === chatId);
-            if (chat) {
-                showToast('Чат', `Открыт чат с ${chat.participant.fullname} (демо-режим)`, 'info');
-            }
-        };
-
-        function renderGroups(container) {
-            container.innerHTML = `
-                <h2><i class="fas fa-layer-group"></i> Группы</h2>
-                <button id="createGroupBtn"><i class="fas fa-plus"></i> Создать группу</button>
-                <div class="groups-list" style="margin-top:20px;">
-                    ${groups.map(group => `
-                        <div class="group-item" onclick="showGroupInfo('${group.id}', '${group.name}', ${group.isPrivate})">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i class="fas fa-users" style="font-size: 40px; color: var(--tg-blue);"></i>
-                                <div style="flex:1;">
-                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                        <strong>${escapeHtml(group.name)}</strong>
-                                        ${group.isAdmin ? '<span class="badge">Админ</span>' : ''}
-                                        ${group.isMember ? '<span class="badge badge-success">Участник</span>' : ''}
-                                        ${group.isPrivate ? '<span class="badge badge-warning">🔒 Приватная</span>' : ''}
-                                    </div>
-                                    <div class="text-muted">${escapeHtml(group.description)}</div>
-                                    <small>👥 ${group.members} участников</small>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('createGroupBtn').onclick = () => document.getElementById('createGroupModal').style.display = 'flex';
-            document.getElementById('closeGroupModal').onclick = () => document.getElementById('createGroupModal').style.display = 'none';
-            document.getElementById('createGroupSubmit').onclick = () => {
-                const name = document.getElementById('newGroupName').value;
-                const desc = document.getElementById('newGroupDesc').value;
-                if (name) {
-                    groups.push({
-                        id: 'g' + (groups.length + 1),
-                        name: name,
-                        description: desc || 'Новая группа',
-                        members: 1,
-                        isMember: true,
-                        isAdmin: true,
-                        isPrivate: false
-                    });
-                    showToast('Группа создана', `Группа "${name}" создана`, 'success');
-                    document.getElementById('createGroupModal').style.display = 'none';
-                    document.getElementById('newGroupName').value = '';
-                    document.getElementById('newGroupDesc').value = '';
-                    renderView();
-                }
-            };
-        }
-
-        window.showGroupInfo = function(groupId, name, isPrivate) {
-            if (isPrivate) {
-                showToast('Группа', `Группа "${name}" приватная. Запросите вступление`, 'info');
-            } else {
-                const group = groups.find(g => g.id === groupId);
-                if (group && !group.isMember) {
-                    group.isMember = true;
-                    group.members++;
-                    showToast('Вступление', `Вы присоединились к группе "${name}"`, 'success');
-                    renderView();
-                } else if (group && group.isMember) {
-                    showToast('Группа', `Вы уже участник "${name}"`, 'info');
-                }
-            }
-        };
-
-        window.showJoinGroupPrompt = function(groupId, name) {
-            const group = groups.find(g => g.id === groupId);
-            if (group) {
-                group.isMember = true;
-                group.members++;
-                showToast('Вступление', `Вы присоединились к группе "${name}"`, 'success');
-                renderView();
-            }
-        };
-
-        function renderChannels(container) {
-            container.innerHTML = `
-                <h2><i class="fas fa-tower-broadcast"></i> Каналы</h2>
-                <button id="createChannelBtn"><i class="fas fa-plus"></i> Создать канал</button>
-                <div class="channels-list" style="margin-top:20px;">
-                    ${channels.map(channel => `
-                        <div class="channel-item" onclick="openChannel('${channel.id}')">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i class="fas fa-broadcast-tower" style="font-size: 40px; color: var(--tg-blue);"></i>
-                                <div style="flex:1;">
-                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                        <strong>${escapeHtml(channel.name)}</strong>
-                                        ${channel.owner ? '<span class="badge">Владелец</span>' : ''}
-                                        ${channel.isSubscribed ? '<span class="badge badge-success">Вы подписаны</span>' : ''}
-                                    </div>
-                                    <div class="text-muted">${escapeHtml(channel.description)}</div>
-                                    <small>📡 ${channel.subscribers} подписчиков</small>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('createChannelBtn').onclick = () => document.getElementById('createChannelModal').style.display = 'flex';
-            document.getElementById('closeChannelModal').onclick = () => document.getElementById('createChannelModal').style.display = 'none';
-            document.getElementById('createChannelSubmit').onclick = () => {
-                const name = document.getElementById('newChannelName').value;
-                const desc = document.getElementById('newChannelDesc').value;
-                if (name) {
-                    channels.push({
-                        id: 'ch' + (channels.length + 1),
-                        name: name,
-                        description: desc || 'Новый канал',
-                        subscribers: 1,
-                        isSubscribed: true,
-                        owner: true,
-                        posts: []
-                    });
-                    showToast('Канал создан', `Канал "${name}" создан`, 'success');
-                    document.getElementById('createChannelModal').style.display = 'none';
-                    document.getElementById('newChannelName').value = '';
-                    document.getElementById('newChannelDesc').value = '';
-                    renderView();
-                }
-            };
-        }
-
-        window.openChannel = function(channelId) {
-            const channel = channels.find(c => c.id === channelId);
-            if (channel) {
-                if (!channel.isSubscribed && !channel.owner) {
-                    showToast('Канал', `Вы подписались на канал "${channel.name}"`, 'success');
-                    channel.isSubscribed = true;
-                    channel.subscribers++;
-                    renderView();
-                } else {
-                    showToast('Канал', `Открыт канал "${channel.name}" (демо-режим)`, 'info');
-                }
-            }
-        };
-
-        window.subscribeToChannel = function(channelId, name) {
-            const channel = channels.find(c => c.id === channelId);
-            if (channel && !channel.isSubscribed) {
-                channel.isSubscribed = true;
-                channel.subscribers++;
-                showToast('Подписка', `Вы подписались на канал "${name}"`, 'success');
-                renderView();
-            }
-        };
-
-        function renderContacts(container) {
-            container.innerHTML = `
-                <h2><i class="fas fa-address-book"></i> Контакты</h2>
-                <button id="addContactBtn"><i class="fas fa-user-plus"></i> Добавить контакт</button>
-                <div class="contacts-list" style="margin-top:20px;">
-                    ${contacts.map(contact => `
-                        <div class="contact-item" onclick="showProfile('${contact.id}', '${escapeHtml(contact.fullname)}', '${contact.username}')">
-                            <img src="${contact.avatar}" width="48" style="border-radius:50%">
-                            <div style="flex:1;">
-                                <div class="contact-name">${escapeHtml(contact.fullname)}</div>
-                                <div class="contact-username">@${escapeHtml(contact.username)}</div>
-                                <div class="user-status ${contact.status === 'online' ? 'online' : 'offline'}" style="font-size: 10px;">${contact.status === 'online' ? '● В сети' : '○ Не в сети'}</div>
-                            </div>
-                            <button class="btn-outline" style="padding:6px 12px;" onclick="event.stopPropagation(); startChatWithContact('${contact.id}', '${escapeHtml(contact.fullname)}')"><i class="fas fa-comment"></i></button>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('addContactBtn').onclick = () => {
-                const username = prompt('Введите username пользователя:');
-                if (username) {
-                    showToast('Контакты', `Запрос на добавление отправлен пользователю @${username}`, 'info');
-                }
-            };
-        }
-
-        window.startChatWithContact = function(contactId, fullname) {
-            if (!chats.find(c => c.participant.id === contactId)) {
-                const contact = contacts.find(c => c.id === contactId);
-                if (contact) {
-                    chats.push({
-                        id: 'c' + (chats.length + 1),
-                        participant: contact,
-                        lastMessage: 'Давайте пообщаемся!',
-                        time: new Date().toISOString(),
-                        unread: 0
-                    });
-                    showToast('Чат создан', `Чат с ${fullname} создан`, 'success');
-                    currentView = 'chats';
-                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-                    document.querySelector('nav a[data-view="chats"]').classList.add('active');
-                    renderView();
-                }
-            } else {
-                showToast('Чат', `Чат с ${fullname} уже существует`, 'info');
-            }
-        };
-
-        window.showProfile = function(userId, fullname, username) {
-            const modal = document.getElementById('profileModal');
-            const content = document.getElementById('profileContent');
-            content.innerHTML = `<p><strong>${fullname}</strong><br>@${username}<br><br><span class="badge">Аккаунт не верифицирован</span></p>`;
-            modal.style.display = 'flex';
-        };
-
-        function renderSettings(container) {
-            container.innerHTML = `
-                <h2><i class="fas fa-cog"></i> Настройки</h2>
-                <div class="glass-card">
-                    <div style="margin-bottom: 20px;">
-                        <h3><i class="fas fa-user-circle"></i> Аватар</h3>
-                        <div style="display: flex; gap: 16px; align-items: center;">
-                            <img src="${currentUser.avatar}" width="80" style="border-radius:50%">
-                            <button id="changeAvatarBtn" class="btn-outline">Изменить</button>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <h3><i class="fas fa-id-card"></i> Информация</h3>
-                        <div class="flex-between" style="margin-bottom:12px;"><span>Отображаемое имя</span><input id="editFullname" value="${currentUser.fullname}" style="width:auto; flex:1; max-width:200px;"></div>
-                        <div class="flex-between" style="margin-bottom:12px;"><span>Логин</span><input id="editUsername" value="${currentUser.username}" style="width:auto; flex:1; max-width:200px;"></div>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <h3><i class="fas fa-bell"></i> Уведомления</h3>
-                        <div class="flex-between"><span>Push-уведомления</span><label class="switch"><input type="checkbox" id="notifToggle" checked><span style="display:inline-block; width:44px; height:24px; background:rgba(255,255,255,0.2); border-radius:34px; position:relative;"><span style="position:absolute; width:18px; height:18px; background:white; border-radius:50%; left:3px; bottom:3px; transition:0.2s;"></span></span></label></div>
-                    </div>
-                    <button id="saveSettingsBtn">Сохранить</button>
-                </div>
-            `;
-            document.getElementById('changeAvatarBtn').onclick = () => showToast('Аватар', 'Функция смены аватара в разработке', 'info');
-            document.getElementById('saveSettingsBtn').onclick = () => {
-                currentUser.fullname = document.getElementById('editFullname').value;
-                currentUser.username = document.getElementById('editUsername').value;
-                document.getElementById('userName').innerText = currentUser.fullname;
-                showToast('Настройки', 'Изменения сохранены', 'success');
-            };
-        }
-
-        // Navigation
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const view = link.dataset.view;
-                if (view) {
-                    currentView = view;
-                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-                    link.classList.add('active');
-                    renderView();
-                }
+        document.querySelectorAll('.grid-item').forEach(el => {
+            el.addEventListener('click', function() {
+                this.style.transition = '0.2s';
             });
         });
-
-        document.getElementById('logoutBtn').onclick = () => showToast('Выход', 'Вы вышли из аккаунта', 'info');
-        document.getElementById('closeProfileBtn').onclick = () => document.getElementById('profileModal').style.display = 'none';
-        document.getElementById('userInfo').onclick = () => showProfile(currentUser.id, currentUser.fullname, currentUser.username);
-
-        // Init
-        renderView();
+        console.log('✅ Интерактивный тестовый лендинг загружен.');
     </script>
 </body>
 </html>
