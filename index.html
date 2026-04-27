@@ -2,489 +2,1006 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Каллэнг | Самый простой язык в мире</title>
-    <meta name="description" content="Каллэнг — язык без правил, без мягкого знака, для IQ -1. Создан Губкобобоамёбо и Тимофеем.">
-    <meta name="keywords" content="каллэнг, kallang, простой язык, губкобобоамёбо, тимофей, язык без правил, алфавит каллэнг">
-    <meta name="author" content="TStudios & Губкобобоамёбо">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
-    <meta property="og:title" content="Каллэнг — язык для всех">
-    <meta property="og:description" content="Самый простой язык. Никакой грамматики. Только буквы, звуки и душа.">
-    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/5968/5968267.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/5968/5968267.png">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Telegalive — Социальная сеть нового поколения</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --tg-blue: #5c71e5;
+            --tg-blue-hover: #4a5fd2;
+            --tg-blue-light: #8b9dff;
+            --tg-blue-soft: rgba(92, 113, 229, 0.12);
+            --tg-bg-dark: #0a0a12;
+            --tg-glass: rgba(18, 18, 28, 0.92);
+            --tg-glass-light: rgba(255, 255, 255, 0.05);
+            --tg-glass-dark: rgba(0, 0, 0, 0.6);
+            --tg-border: rgba(255, 255, 255, 0.06);
+            --tg-text: #f0f0f5;
+            --tg-text-secondary: #a1a1b5;
+            --tg-text-muted: #6e6e84;
+            --tg-success: #4caf50;
+            --tg-danger: #ff5e5e;
+            --tg-warning: #ffb74d;
+            --tg-online: #4caf50;
+            --tg-offline: #757575;
+            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.25);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.35);
+            --transition-fast: 0.12s cubic-bezier(0.2, 0, 0, 1);
+            --transition-normal: 0.2s cubic-bezier(0.2, 0, 0, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+        }
+
         body {
-            background: linear-gradient(135deg, #fffbf0 0%, #fff5e6 100%);
-            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 30% 20%, #12121a, #0a0a12);
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
             min-height: 100vh;
-            padding: 1.5rem;
+            color: var(--tg-text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
         }
-        .container { max-width: 1300px; margin: 0 auto; }
-        .glass {
-            background: rgba(255, 255, 247, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 3rem;
-            border: 1px solid rgba(255, 220, 150, 0.6);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+
+        .glass-app {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--tg-glass);
+            backdrop-filter: blur(24px);
+            display: flex;
+            overflow: hidden;
         }
-        .page { display: none; animation: fadeIn 0.4s ease; }
-        .page.active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .login-circle {
-            width: 80px; height: 80px;
-            background: rgba(255, 255, 245, 0.9);
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 300px;
+            background: rgba(10, 10, 18, 0.88);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--tg-border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 12px;
+            gap: 28px;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--tg-blue), var(--tg-blue-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--tg-blue), var(--tg-blue-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            margin: 0 4px;
+            color: var(--tg-text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            background: var(--tg-glass-light);
+            color: white;
+        }
+
+        nav a i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        nav a.active {
+            background: var(--tg-blue-soft);
+            color: white;
+        }
+
+        /* User Info */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-top: auto;
+            background: var(--tg-glass-dark);
+            border-radius: var(--radius-xl);
             backdrop-filter: blur(8px);
+            border: 1px solid var(--tg-border);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .user-info:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .user-info img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--tg-blue);
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-details span:first-child {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+        }
+
+        .user-status {
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .user-status.online {
+            color: var(--tg-online);
+        }
+
+        .user-status::before {
+            content: "●";
+            font-size: 8px;
+        }
+
+        #logoutBtn {
+            background: rgba(255, 94, 94, 0.15);
+            border: none;
+            color: var(--tg-danger);
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.1s;
-            border: 2px solid #ffd89a;
+            transition: all var(--transition-fast);
         }
-        .login-circle img { width: 52px; height: 52px; object-fit: contain; }
-        .login-circle:active { transform: scale(0.94); background: #fff0da; }
-        .login-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 2rem 0; }
-        
-        .alphabet-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.5rem 0; }
-        .letter-card {
-            width: 80px; height: 80px;
-            background: rgba(255, 250, 235, 0.8);
-            backdrop-filter: blur(8px);
-            border-radius: 2rem;
+
+        #logoutBtn:hover {
+            background: var(--tg-danger);
+            color: white;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 32px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-full);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        h2 i {
+            color: var(--tg-blue);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        /* CARDS */
+        .glass-card, .chat-item, .group-item, .channel-item, .contact-item {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius-xl);
+            padding: 18px;
+            margin-bottom: 12px;
+            border: 1px solid var(--tg-border);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .glass-card:hover, .chat-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(92, 113, 229, 0.3);
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            padding: 18px;
+            border-radius: var(--radius-xl);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--tg-border);
+            transition: all var(--transition-fast);
+        }
+
+        .stat-card span {
+            display: block;
+            color: var(--tg-text-secondary);
+            font-size: 11px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .stat-card strong {
+            font-size: 28px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .mini-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
+
+        .text-muted {
+            color: var(--tg-text-secondary);
+            font-size: 12px;
+        }
+
+        .badge {
+            background: var(--tg-blue);
+            border-radius: var(--radius-full);
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-warning {
+            background: var(--tg-warning);
+            color: #1a1a2e;
+        }
+
+        button, .btn {
+            background: var(--tg-blue);
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover, .btn:hover {
+            background: var(--tg-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--tg-blue);
+            color: var(--tg-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--tg-blue);
+            color: white;
+        }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: rgba(22, 22, 32, 0.96);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            padding: 12px 18px;
+            min-width: 260px;
+            max-width: 340px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid var(--tg-blue);
+            box-shadow: var(--shadow-lg);
+            animation: slideInRight 0.25s ease;
+        }
+
+        .toast.success {
+            border-left-color: var(--tg-success);
+        }
+
+        .toast i:first-child {
+            font-size: 18px;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 12px;
+            color: var(--tg-text-secondary);
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #b45a1c;
-            cursor: pointer;
-            border: 1px solid #ffddb0;
-            transition: 0.05s;
+            z-index: 1000;
         }
-        .letter-card:active { transform: scale(0.93); background: #ffefcf; }
-        
-        .word-glass { background: rgba(255, 248, 235, 0.7); backdrop-filter: blur(12px); border-radius: 2rem; padding: 1.8rem; text-align: center; }
-        .display-word { font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, #b45a1c, #e8913a); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        
-        .btn-custom { background: rgba(255, 215, 140, 0.9); border: none; border-radius: 3rem; padding: 0.8rem 1.8rem; font-weight: 600; cursor: pointer; transition: 0.1s; }
-        .btn-custom:active { transform: scale(0.96); }
-        
-        .tab-btn { background: rgba(255, 235, 200, 0.7); border: none; border-radius: 2rem; padding: 0.7rem 1.6rem; font-weight: 600; cursor: pointer; transition: 0.1s; }
-        .tab-btn.active-tab { background: #ffcd7e; color: #4a2c10; }
-        
-        .dict-item { background: rgba(255, 245, 225, 0.8); padding: 0.7rem 1.4rem; border-radius: 2rem; cursor: pointer; font-weight: 600; transition: 0.05s; display: inline-block; }
-        .dict-item:active { transform: scale(0.96); background: #ffe4bc; }
-        
-        footer { text-align: center; margin-top: 2.5rem; opacity: 0.65; font-size: 0.8rem; }
-        @media (max-width: 650px) { .letter-card { width: 65px; height: 65px; font-size: 1.7rem; } .display-word { font-size: 1.8rem; } }
-        
-        .google-btn-wrapper {
+
+        .modal-content {
+            max-width: 420px;
+            width: 90%;
+            padding: 28px;
+            border-radius: var(--radius-3xl);
+            background: rgba(22, 22, 32, 0.96);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(92, 113, 229, 0.3);
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+            color: var(--tg-text-secondary);
+        }
+
+        input {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--tg-border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: white;
+            width: 100%;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--tg-blue);
+        }
+
+        .flex-between {
             display: flex;
-            justify-content: center;
-            margin: 0.5rem 0;
+            justify-content: space-between;
+            align-items: center;
         }
-        .g_id_signin {
-            display: inline-block;
+
+        .mt-3 { margin-top: 16px; }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+                padding: 16px 8px;
+            }
+            .logo span, nav a span {
+                display: none;
+            }
+            .logo i {
+                margin: 0 auto;
+            }
+            nav a {
+                justify-content: center;
+                padding: 12px;
+            }
+            nav a i {
+                margin: 0;
+            }
+            .user-details {
+                display: none;
+            }
+            .content {
+                padding: 16px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- СТРАНИЦА ВХОДА -->
-    <div id="loginPage" class="page active-page">
-        <div class="glass" style="padding: 2.5rem; text-align: center;">
-            <i class="fas fa-comment-dots" style="font-size: 3.5rem; color: #d98c2b;"></i>
-            <h1 style="font-size: 3rem; font-weight: 800;">КАЛЛЭНГ</h1>
-            <p style="font-size: 1.2rem; margin: 0.5rem 0 1rem;">самый простой язык в мире · без мягкого знака · для IQ -1</p>
-            <div class="glass" style="padding: 1rem; margin: 1rem 0; background: rgba(255, 245, 220, 0.5);">
-                <i class="fas fa-lock"></i> <strong>Приватность</strong> — данные только на вашем устройстве (localStorage)
+    <div class="glass-app">
+        <!-- Sidebar -->
+        <aside class="sidebar glass">
+            <div class="logo">
+                <i class="fab fa-telegram"></i> <span>Telegalive</span>
             </div>
-            <div class="login-grid" id="allLoginButtons"></div>
-            <div id="googleButtonContainer" class="google-btn-wrapper"></div>
+            <nav>
+                <a class="active" data-view="overview"><i class="fas fa-compass"></i> <span>Обзор</span></a>
+                <a data-view="chats"><i class="fas fa-comment-dots"></i> <span>Чаты</span></a>
+                <a data-view="groups"><i class="fas fa-users"></i> <span>Группы</span></a>
+                <a data-view="channels"><i class="fas fa-broadcast-tower"></i> <span>Каналы</span></a>
+                <a data-view="contacts"><i class="fas fa-address-book"></i> <span>Контакты</span></a>
+                <a data-view="settings"><i class="fas fa-cog"></i> <span>Настройки</span></a>
+            </nav>
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar-wrapper">
+                    <img id="userAvatar" src="https://ui-avatars.com/api/?background=5c71e5&color=fff&bold=true&size=128&length=2&name=Алексей" alt="avatar">
+                </div>
+                <div class="user-details">
+                    <span id="userName">Алексей</span>
+                    <span id="userStatus" class="user-status online">В сети</span>
+                </div>
+                <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div id="viewContainer"></div>
+        </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <div id="profileModal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2><i class="fas fa-user-circle"></i> Профиль</h2>
+            <div id="profileContent"></div>
+            <button id="closeProfileBtn" class="btn-outline mt-3">Закрыть</button>
         </div>
     </div>
 
-    <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
-    <div id="mainApp" class="page">
-        <div class="glass" style="padding: 1.2rem 2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            <div><i class="fas fa-glass-cheers"></i> <strong id="welcomeName">Друг</strong> · говорит на Каллэнг</div>
-            <button id="logoutMainBtn" class="btn-custom"><i class="fas fa-sign-out-alt"></i> Выйти</button>
-        </div>
-
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.8rem;">
-            <button class="tab-btn active-tab" data-tab="dictionaryTab"><i class="fas fa-book"></i> Словарь</button>
-            <button class="tab-btn" data-tab="rulesTab"><i class="fas fa-scroll"></i> Правила</button>
-            <button class="tab-btn" data-tab="gamesTab"><i class="fas fa-gamepad"></i> Игра</button>
-            <button class="tab-btn" data-tab="alphabetTab"><i class="fas fa-music"></i> Азбука</button>
-        </div>
-
-        <!-- Словарь -->
-        <div id="dictionaryTab" class="tab-content active-content">
-            <div class="glass" style="padding: 1.8rem;">
-                <h2><i class="fas fa-gem"></i> Словарь Каллэнг</h2>
-                <div id="dictionaryList" style="display: flex; flex-wrap: wrap; gap: 12px; margin: 1.5rem 0;"></div>
-                <div class="word-glass" id="dictPreview">
-                    <i class="fas fa-hand-peace"></i> Нажми на слово
-                </div>
+    <div id="createGroupModal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2>Создать группу</h2>
+            <input id="newGroupName" placeholder="Название группы">
+            <input id="newGroupDesc" placeholder="Описание">
+            <div class="flex-between" style="gap: 12px; margin-top: 8px;">
+                <button id="createGroupSubmit">Создать</button>
+                <button id="closeGroupModal" class="btn-outline">Отмена</button>
             </div>
         </div>
-
-        <!-- Правила -->
-        <div id="rulesTab" class="tab-content" style="display: none;">
-            <div class="glass" style="padding: 1.8rem;">
-                <h2><i class="fas fa-scroll"></i> 7 правил Каллэнг</h2>
-                <div id="rulesList" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;"></div>
-            </div>
-        </div>
-
-        <!-- Игра -->
-        <div id="gamesTab" class="tab-content" style="display: none;">
-            <div class="glass" style="padding: 1.8rem; text-align: center;">
-                <h2><i class="fas fa-gamepad"></i> Угадай слово</h2>
-                <p style="margin: 1rem 0;">Перевод: <strong id="gameHintTranslate">---</strong></p>
-                <input type="text" id="gameAnswer" placeholder="Введи слово на Каллэнг" style="padding: 12px 20px; border-radius: 40px; border: none; background: #fff5e6; width: 70%; max-width: 300px;">
-                <br><br>
-                <button id="checkGameBtn" class="btn-custom">Проверить</button>
-                <button id="nextGameBtn" class="btn-custom">Следующее</button>
-                <p id="gameMessage" style="margin: 1rem; font-weight: bold;"></p>
-                <p><i class="fas fa-star"></i> Очки: <span id="gameScoreSpan">0</span></p>
-            </div>
-        </div>
-
-        <!-- Азбука -->
-        <div id="alphabetTab" class="tab-content" style="display: none;">
-            <div class="glass" style="padding: 1.8rem;">
-                <h2><i class="fas fa-music"></i> Азбука Каллэнг (без Ь)</h2>
-                <div id="alphabetContainer" class="alphabet-grid"></div>
-                <div class="word-glass" style="margin-top: 1rem;">
-                    <i class="fas fa-volume-up"></i> Нажми на букву — услышишь произношение
-                </div>
-            </div>
-        </div>
-        <footer>© Каллэнг · создано Губкобобоамёбо и Тимофеем · мягкого знака нет</footer>
     </div>
-</div>
 
-<script>
-    // ========== АЛФАВИТ КАЛЛЭНГ ==========
-    const alphabet = ['А','Б','Г','G','Д','Е','Ё','Ē','И','Й','Ӥ','Ī','К','М','Н','О','П','Р','Т','У','Х','Ы','Ÿ','Э','Ю','Я'];
-    
-    // ПРОИЗНОШЕНИЕ
-    const pronunciationMap = {
-        'А':'А','Б':'Бэ','Г':'Гэ','G':'Жи','Д':'Дэ','Е':'Е','Ё':'Ё','Ē':'Ёль',
-        'И':'И','Й':'Й','Ӥ':'Иё','Ī':'И','К':'Ка','М':'М','Н':'Н','О':'О',
-        'П':'Пэ','Р':'Р','Т':'Тэ','У':'У','Х':'Ха','Ы':'Ы','Ÿ':'Йоу','Э':'Э','Ю':'Ю','Я':'Я'
-    };
-    
-    // СЛОВАРЬ 
-    const dictionary = [
-        { word: "КАЛЛЭНГ", trans: "язык простоты" },{ word: "ГУБАБА", trans: "привет, дружба" },{ word: "ТИМОКА", trans: "верный друг" },
-        { word: "ЛЯМБО", trans: "еда, вкусно" },{ word: "СОНГА", trans: "спать, отдых" },{ word: "ИГРАМ", trans: "играть, веселье" },
-        { word: "БРЮНГ", trans: "круто, супер" },{ word: "НЯМКА", trans: "сладость, радость" },{ word: "ПРОСТО", trans: "лёгкость" },
-        { word: "МУРЛЁ", trans: "кошачья нежность" },{ word: "ЗЁМБА", trans: "земля" },{ word: "СОЛНГО", trans: "солнце" },
-        { word: "ВЕТРЁ", trans: "ветер" },{ word: "ВОДАМ", trans: "вода" },{ word: "ОГОНЁК", trans: "огонь" },{ word: "КРИСТА", trans: "кристалл" },
-        { word: "ЖИДКА", trans: "текучесть" },{ word: "СТЕКЛО", trans: "прозрачность" },{ word: "РОСАМ", trans: "роса, утро" },{ word: "СВЕТО", trans: "свет" },
-        { word: "МИРКА", trans: "гармония" },{ word: "ЛАГУНА", trans: "спокойствие" },{ word: "МЕЧТА", trans: "мечта" },{ word: "РАДУГА", trans: "радуга" },
-        { word: "КАПЛЯ", trans: "капля, дождь" },{ word: "ВОЛНА", trans: "волна" },{ word: "ВЕТКА", trans: "ветвь, дерево" },{ word: "ПТИЦА", trans: "птица, свобода" }
-    ];
-    
-    // ПРАВИЛА
-    const rulesData = [
-        "1. В Каллэнг нет грамматики. Любой порядок слов — правильный.",
-        "2. Мягкий знак вырезан. Его не существует.",
-        "3. Буквы G = Жи, Ē = Ёль, Ӥ = Иё, Ī = И, Ÿ = Йоу.",
-        "4. Все остальные буквы читаются как в русском.",
-        "5. Ошибок не бывает. Любое слово становится правильным.",
-        "6. Говори что хочешь — тебя поймут.",
-        "7. Каллэнг для IQ -1. Чем проще, тем лучше."
-    ];
-    
-    // Глобальные переменные
-    let currentUser = null;
-    let gameScore = 0;
-    let currentGameWord = null;
-    let currentDisplayWord = "КАЛЛЭНГ";
-    let currentDisplayTrans = "язык простоты";
-    
-    // Функции озвучки
-    function speakText(text) {
-        if (!text) return;
-        let utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ru-RU';
-        utterance.rate = 0.85;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utterance);
-    }
-    
-    function speakLetter(letter) {
-        let sound = pronunciationMap[letter] || letter;
-        speakText(sound);
-    }
-    
-    // Обновление главного дисплея
-    function updateMainDisplay(word, trans) {
-        currentDisplayWord = word;
-        currentDisplayTrans = trans;
-        const previewDiv = document.getElementById("dictPreview");
-        if (previewDiv) {
-            previewDiv.innerHTML = `<div class="display-word">${word}</div><div style="margin-top: 12px;">🌊 перевод: ${trans}</div>
-            <button id="speakPreviewBtn" class="btn-custom" style="margin-top: 12px;"><i class="fas fa-volume-up"></i> Озвучить</button>`;
-            setTimeout(() => {
-                const btn = document.getElementById("speakPreviewBtn");
-                if (btn) btn.onclick = () => speakText(word);
-            }, 10);
+    <div id="createChannelModal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2>Создать канал</h2>
+            <input id="newChannelName" placeholder="Название канала">
+            <input id="newChannelDesc" placeholder="Описание">
+            <div class="flex-between" style="gap: 12px; margin-top: 8px;">
+                <button id="createChannelSubmit">Создать</button>
+                <button id="closeChannelModal" class="btn-outline">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentView = 'overview';
+        let currentUser = { id: '1', username: 'alex', fullname: 'Алексей', avatar: 'https://ui-avatars.com/api/?background=5c71e5&color=fff&bold=true&size=128&length=2&name=Алексей', verified: true };
+        let groups = [
+            { id: '1', name: 'Дизайн и разработка', description: 'Обсуждаем UI/UX и код', members: 42, isMember: true, isAdmin: true },
+            { id: '2', name: 'Музыкальный клуб', description: 'Делимся треками', members: 128, isMember: true, isAdmin: false },
+            { id: '3', name: 'Майнкрафт комьюнити', description: 'Строим и выживаем', members: 256, isMember: false, isAdmin: false, isPrivate: true }
+        ];
+        let channels = [
+            { id: '1', name: 'Telegalive Новости', description: 'Анонсы обновлений', subscribers: 1234, isSubscribed: true, owner: true, posts: [{ id: 'p1', text: 'Совсем скоро v2.1 с долгожданными комментариями!', time: '2026-04-27T10:00:00', views: 156 }] },
+            { id: '2', name: 'Tech Pulse', description: 'IT-дайджест', subscribers: 892, isSubscribed: true, owner: false, posts: [{ id: 'p2', text: 'Web 3.0: что нового?', time: '2026-04-26T15:30:00', views: 89 }] },
+            { id: '3', name: 'Киноманы', description: 'Обсуждаем новинки кино', subscribers: 567, isSubscribed: false, owner: false, posts: [] }
+        ];
+        let contacts = [
+            { id: 'u2', username: 'maria', fullname: 'Мария', avatar: 'https://ui-avatars.com/api/?background=8b9dff&color=fff&name=Мария', status: 'online' },
+            { id: 'u3', username: 'dmitry', fullname: 'Дмитрий', avatar: 'https://ui-avatars.com/api/?background=ffb74d&color=fff&name=Дмитрий', status: 'offline' },
+            { id: 'u4', username: 'elena', fullname: 'Елена', avatar: 'https://ui-avatars.com/api/?background=4caf50&color=fff&name=Елена', status: 'online' }
+        ];
+        let chats = [
+            { id: 'c1', participant: contacts[0], lastMessage: 'Привет! Как дела?', time: '2026-04-27T09:30:00', unread: 2 },
+            { id: 'c2', participant: contacts[1], lastMessage: 'Видел новый пост?', time: '2026-04-26T22:15:00', unread: 0 }
+        ];
+
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            let icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-info-circle"></i>';
+            toast.innerHTML = `${icon}<div class="toast-content"><div class="toast-title">${title}</div><div class="toast-message">${message}</div></div><i class="fas fa-times" style="cursor:pointer; opacity:0.6;"></i>`;
+            container.appendChild(toast);
+            const closeBtn = toast.querySelector('.fa-times');
+            closeBtn.onclick = () => toast.remove();
+            setTimeout(() => toast.remove(), 3000);
         }
-    }
-    
-    // Построение словаря
-    function buildDictionary() {
-        const container = document.getElementById("dictionaryList");
-        if (!container) return;
-        container.innerHTML = "";
-        dictionary.forEach(item => {
-            const btn = document.createElement("div");
-            btn.className = "dict-item";
-            btn.innerHTML = `<i class="fas fa-comment"></i> ${item.word}`;
-            btn.onclick = () => updateMainDisplay(item.word, item.trans);
-            container.appendChild(btn);
-        });
-    }
-    
-    // Построение алфавита
-    function buildAlphabet() {
-        const container = document.getElementById("alphabetContainer");
-        if (!container) return;
-        container.innerHTML = "";
-        alphabet.forEach(letter => {
-            const card = document.createElement("div");
-            card.className = "letter-card";
-            card.textContent = letter;
-            card.onclick = () => speakLetter(letter);
-            container.appendChild(card);
-        });
-    }
-    
-    // Построение правил
-    function buildRules() {
-        const container = document.getElementById("rulesList");
-        if (!container) return;
-        container.innerHTML = rulesData.map(rule => 
-            `<div class="glass" style="padding: 1rem;"><i class="fas fa-droplet"></i> ${rule}</div>`
-        ).join('');
-    }
-    
-    // Игровая механика
-    function newGameWord() {
-        if (!dictionary.length) return;
-        currentGameWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-        const hintEl = document.getElementById("gameHintTranslate");
-        if (hintEl) hintEl.innerText = currentGameWord.trans;
-        const answerEl = document.getElementById("gameAnswer");
-        if (answerEl) answerEl.value = "";
-        const msgEl = document.getElementById("gameMessage");
-        if (msgEl) msgEl.innerHTML = "✨ Введи слово ✨";
-    }
-    
-    function checkGame() {
-        if (!currentGameWord) return;
-        let answer = document.getElementById("gameAnswer").value.trim().toUpperCase();
-        if (answer === currentGameWord.word) {
-            gameScore++;
-            localStorage.setItem("kallang_game_score", gameScore);
-            const scoreSpan = document.getElementById("gameScoreSpan");
-            if (scoreSpan) scoreSpan.innerText = gameScore;
-            const msgEl = document.getElementById("gameMessage");
-            if (msgEl) msgEl.innerHTML = "✅ Правильно! +1 очко ✅";
-            speakText("БРЮНГ");
-            newGameWord();
-        } else {
-            const msgEl = document.getElementById("gameMessage");
-            if (msgEl) msgEl.innerHTML = `❌ Неверно! Правильно: ${currentGameWord.word} ❌`;
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
-    }
-    
-    function loadGameScore() {
-        let saved = localStorage.getItem("kallang_game_score");
-        gameScore = saved ? parseInt(saved) : 0;
-        const scoreSpan = document.getElementById("gameScoreSpan");
-        if (scoreSpan) scoreSpan.innerText = gameScore;
-    }
-    
-    // ========== АВТОРИЗАЦИЯ (ВСЕ КНОПКИ ЧЕРЕЗ GOOGLE) ==========
-    const socialProviders = [
-        { name: "Google", img: "https://cdn-icons-png.flaticon.com/512/300/300221.png" },
-        { name: "Apple ID", img: "https://cdn-icons-png.flaticon.com/512/731/731985.png" },
-        { name: "Max", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg/3840px-%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg.png" },
-        { name: "Яндекс", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Yandex_Browser_logo.svg/1280px-Yandex_Browser_logo.svg.png" },
-        { name: "Telegram", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/1280px-Telegram_2019_Logo.svg.png" },
-        { name: "VK", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/960px-VK_Compact_Logo_%282021-present%29.svg.png" },
-        { name: "Госуслуги", img: "https://img.icons8.com/color/48/gosuslugi.png" },
-        { name: "Почта", img: "https://cdn-icons-png.flaticon.com/512/732/732200.png" }
-    ];
-    
-    function renderLoginCircles() {
-        const container = document.getElementById("allLoginButtons");
-        if (!container) return;
-        container.innerHTML = "";
-        socialProviders.forEach(provider => {
-            const circle = document.createElement("div");
-            circle.className = "login-circle";
-            const img = document.createElement("img");
-            img.src = provider.img;
-            img.alt = provider.name;
-            img.onerror = () => { img.src = "https://cdn-icons-png.flaticon.com/512/5968/5968267.png"; };
-            circle.appendChild(img);
-            circle.onclick = () => {
-                // Находим кнопку Google и кликаем
-                const googleBtn = document.querySelector('#googleButtonContainer .g_id_signin');
-                if (googleBtn) {
-                    googleBtn.click();
-                } else {
-                    // fallback: создать временный клик
-                    const btn = document.querySelector('.g_id_signin');
-                    if (btn) btn.click();
-                }
-            };
-            container.appendChild(circle);
-        });
-    }
-    
-    // Глобальный обработчик для Google (должен быть в window)
-    window.handleGoogleLogin = (response) => {
-        if (response && response.credential) {
-            try {
-                let payload = JSON.parse(atob(response.credential.split('.')[1]));
-                let name = payload.name || "Каллэнговец";
-                localStorage.setItem("kallang_user", JSON.stringify({ name: name, logged: true }));
-                showMainApp(name);
-            } catch(e) {
-                guestLogin();
-            }
-        } else {
-            guestLogin();
+
+        function formatRelativeDate(value) {
+            if (!value) return 'только что';
+            const date = new Date(value);
+            const now = new Date();
+            const diffMinutes = Math.floor((now - date) / 60000);
+            if (diffMinutes < 1) return 'только что';
+            if (diffMinutes < 60) return `${diffMinutes} мин назад`;
+            if (diffMinutes < 1440) return `${Math.floor(diffMinutes / 60)} ч назад`;
+            return `${Math.floor(diffMinutes / 1440)} д назад`;
         }
-    };
-    
-    function guestLogin() {
-        let guestName = "Гость-" + Math.floor(Math.random() * 1000);
-        localStorage.setItem("kallang_user", JSON.stringify({ name: guestName, logged: true }));
-        showMainApp(guestName);
-    }
-    
-    function showMainApp(name) {
-        currentUser = name;
-        const loginPage = document.getElementById("loginPage");
-        const mainApp = document.getElementById("mainApp");
-        if (loginPage) loginPage.classList.remove("active-page");
-        if (mainApp) mainApp.classList.add("active-page");
-        const welcomeSpan = document.getElementById("welcomeName");
-        if (welcomeSpan) welcomeSpan.innerText = name;
-        loadGameScore();
-        updateMainDisplay("КАЛЛЭНГ", "язык простоты");
-    }
-    
-    function logout() {
-        localStorage.removeItem("kallang_user");
-        localStorage.removeItem("kallang_game_score");
-        const mainApp = document.getElementById("mainApp");
-        const loginPage = document.getElementById("loginPage");
-        if (mainApp) mainApp.classList.remove("active-page");
-        if (loginPage) loginPage.classList.add("active-page");
-        window.speechSynthesis.cancel();
-    }
-    
-    // Вкладки
-    function initTabs() {
-        const tabs = document.querySelectorAll(".tab-btn");
-        const contents = document.querySelectorAll(".tab-content");
-        tabs.forEach(btn => {
-            btn.onclick = () => {
-                const tabId = btn.getAttribute("data-tab");
-                tabs.forEach(b => b.classList.remove("active-tab"));
-                btn.classList.add("active-tab");
-                contents.forEach(content => content.style.display = "none");
-                const activeContent = document.getElementById(tabId);
-                if (activeContent) activeContent.style.display = "block";
-            };
-        });
-    }
-    
-    // ========== ИНИЦИАЛИЗАЦИЯ ==========
-    function init() {
-        renderLoginCircles();
-        
-        // Создаем кнопку Google Login
-        const googleContainer = document.getElementById("googleButtonContainer");
-        if (googleContainer) {
-            googleContainer.innerHTML = `
-                <div id="g_id_onload"
-                     data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com"
-                     data-login_uri="https://timoshamoscow.github.io/test/"
-                     data-auto_prompt="false"
-                     data-callback="handleGoogleLogin">
+
+        function renderView() {
+            const container = document.getElementById('viewContainer');
+            if (currentView === 'overview') renderOverview(container);
+            else if (currentView === 'chats') renderChats(container);
+            else if (currentView === 'groups') renderGroups(container);
+            else if (currentView === 'channels') renderChannels(container);
+            else if (currentView === 'contacts') renderContacts(container);
+            else if (currentView === 'settings') renderSettings(container);
+        }
+
+        function renderOverview(container) {
+            container.innerHTML = `
+                <h2><i class="fas fa-compass"></i> Обзор</h2>
+                <div class="stats-grid">
+                    <div class="stat-card"><span>Чаты</span><strong>${chats.length}</strong></div>
+                    <div class="stat-card"><span>Группы</span><strong>${groups.filter(g => g.isMember).length}</strong></div>
+                    <div class="stat-card"><span>Каналы</span><strong>${channels.filter(c => c.isSubscribed).length}</strong></div>
+                    <div class="stat-card"><span>Контакты</span><strong>${contacts.length}</strong></div>
                 </div>
-                <div class="g_id_signin"
-                     data-type="standard"
-                     data-size="large"
-                     data-theme="outline"
-                     data-text="sign_in_with"
-                     data-shape="rectangular"
-                     data-logo_alignment="left">
+                <div class="feature-grid">
+                    <div class="glass-card">
+                        <h3><i class="fas fa-clock"></i> Последние чаты</h3>
+                        ${chats.length ? chats.map(chat => `
+                            <div class="mini-row" onclick="openChat('${chat.id}')">
+                                <div><strong>${escapeHtml(chat.participant.fullname)}</strong><div class="text-muted">${escapeHtml(chat.lastMessage)}</div></div>
+                                <small>${formatRelativeDate(chat.time)}</small>
+                            </div>
+                        `).join('') : '<div class="text-muted">Пока нет чатов</div>'}
+                    </div>
+                    <div class="glass-card">
+                        <h3><i class="fas fa-star"></i> Рекомендации</h3>
+                        ${groups.filter(g => !g.isMember).slice(0, 2).map(g => `
+                            <div class="mini-row" onclick="showJoinGroupPrompt('${g.id}', '${g.name}')">
+                                <div><strong>${escapeHtml(g.name)}</strong><div class="text-muted">${escapeHtml(g.description)}</div></div>
+                                <button class="btn-outline" style="padding:4px 12px;">Вступить</button>
+                            </div>
+                        `).join('')}
+                        ${channels.filter(c => !c.isSubscribed).slice(0, 2).map(c => `
+                            <div class="mini-row" onclick="subscribeToChannel('${c.id}', '${c.name}')">
+                                <div><strong>${escapeHtml(c.name)}</strong><div class="text-muted">${escapeHtml(c.description)}</div></div>
+                                <button class="btn-outline" style="padding:4px 12px;">Подписаться</button>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
         }
-        
-        buildDictionary();
-        buildAlphabet();
-        buildRules();
-        initTabs();
-        
-        const logoutBtn = document.getElementById("logoutMainBtn");
-        if (logoutBtn) logoutBtn.onclick = logout;
-        
-        const checkBtn = document.getElementById("checkGameBtn");
-        if (checkBtn) checkBtn.onclick = checkGame;
-        
-        const nextBtn = document.getElementById("nextGameBtn");
-        if (nextBtn) nextBtn.onclick = newGameWord;
-        
-        const savedUser = localStorage.getItem("kallang_user");
-        if (savedUser) {
-            try {
-                let user = JSON.parse(savedUser);
-                if (user && user.name) {
-                    showMainApp(user.name);
+
+        function renderChats(container) {
+            container.innerHTML = `
+                <h2><i class="fas fa-comment-dots"></i> Личные чаты</h2>
+                <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                    <input id="chatUserId" placeholder="Логин пользователя" style="flex:1;">
+                    <button id="startChatBtn"><i class="fas fa-plus"></i> Начать чат</button>
+                </div>
+                <div class="chats-list">
+                    ${chats.length ? chats.map(chat => `
+                        <div class="chat-item" data-chat-id="${chat.id}" onclick="openChat('${chat.id}')">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <img src="${chat.participant.avatar}" width="50" style="border-radius:50%">
+                                <div style="flex:1;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong>${escapeHtml(chat.participant.fullname)}</strong>
+                                        <span class="user-status ${chat.participant.status === 'online' ? 'online' : 'offline'}" style="font-size: 10px;">${chat.participant.status === 'online' ? '● В сети' : ''}</span>
+                                    </div>
+                                    <div class="text-muted" style="font-size:12px;">${escapeHtml(chat.lastMessage)}</div>
+                                </div>
+                                <small>${formatRelativeDate(chat.time)}</small>
+                                ${chat.unread > 0 ? `<span class="badge">${chat.unread}</span>` : ''}
+                            </div>
+                        </div>
+                    `).join('') : '<div class="glass-card text-muted">У вас пока нет чатов. Начните новый!</div>'}
+                </div>
+            `;
+            document.getElementById('startChatBtn').onclick = () => {
+                const username = document.getElementById('chatUserId').value;
+                if (username) {
+                    const existingContact = contacts.find(c => c.username === username);
+                    if (existingContact) {
+                        if (!chats.find(c => c.participant.id === existingContact.id)) {
+                            chats.push({
+                                id: 'c' + (chats.length + 1),
+                                participant: existingContact,
+                                lastMessage: 'Чат создан!',
+                                time: new Date().toISOString(),
+                                unread: 0
+                            });
+                            showToast('Чат создан', `Чат с ${existingContact.fullname} создан`, 'success');
+                            renderView();
+                        } else {
+                            showToast('Ошибка', 'Чат уже существует', 'error');
+                        }
+                    } else {
+                        showToast('Ошибка', 'Пользователь не найден', 'error');
+                    }
                 } else {
-                    // данные повреждены, показываем вход
-                    document.getElementById("loginPage").classList.add("active-page");
-                    document.getElementById("mainApp").classList.remove("active-page");
+                    showToast('Ошибка', 'Введите логин', 'error');
                 }
-            } catch(e) {
-                document.getElementById("loginPage").classList.add("active-page");
-                document.getElementById("mainApp").classList.remove("active-page");
-            }
+                document.getElementById('chatUserId').value = '';
+            };
         }
-        
-        newGameWord();
-    }
-    
-    // Запускаем после загрузки DOM
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-</script>
+
+        window.openChat = function(chatId) {
+            const chat = chats.find(c => c.id === chatId);
+            if (chat) {
+                showToast('Чат', `Открыт чат с ${chat.participant.fullname} (демо-режим)`, 'info');
+            }
+        };
+
+        function renderGroups(container) {
+            container.innerHTML = `
+                <h2><i class="fas fa-layer-group"></i> Группы</h2>
+                <button id="createGroupBtn"><i class="fas fa-plus"></i> Создать группу</button>
+                <div class="groups-list" style="margin-top:20px;">
+                    ${groups.map(group => `
+                        <div class="group-item" onclick="showGroupInfo('${group.id}', '${group.name}', ${group.isPrivate})">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-users" style="font-size: 40px; color: var(--tg-blue);"></i>
+                                <div style="flex:1;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong>${escapeHtml(group.name)}</strong>
+                                        ${group.isAdmin ? '<span class="badge">Админ</span>' : ''}
+                                        ${group.isMember ? '<span class="badge badge-success">Участник</span>' : ''}
+                                        ${group.isPrivate ? '<span class="badge badge-warning">🔒 Приватная</span>' : ''}
+                                    </div>
+                                    <div class="text-muted">${escapeHtml(group.description)}</div>
+                                    <small>👥 ${group.members} участников</small>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('createGroupBtn').onclick = () => document.getElementById('createGroupModal').style.display = 'flex';
+            document.getElementById('closeGroupModal').onclick = () => document.getElementById('createGroupModal').style.display = 'none';
+            document.getElementById('createGroupSubmit').onclick = () => {
+                const name = document.getElementById('newGroupName').value;
+                const desc = document.getElementById('newGroupDesc').value;
+                if (name) {
+                    groups.push({
+                        id: 'g' + (groups.length + 1),
+                        name: name,
+                        description: desc || 'Новая группа',
+                        members: 1,
+                        isMember: true,
+                        isAdmin: true,
+                        isPrivate: false
+                    });
+                    showToast('Группа создана', `Группа "${name}" создана`, 'success');
+                    document.getElementById('createGroupModal').style.display = 'none';
+                    document.getElementById('newGroupName').value = '';
+                    document.getElementById('newGroupDesc').value = '';
+                    renderView();
+                }
+            };
+        }
+
+        window.showGroupInfo = function(groupId, name, isPrivate) {
+            if (isPrivate) {
+                showToast('Группа', `Группа "${name}" приватная. Запросите вступление`, 'info');
+            } else {
+                const group = groups.find(g => g.id === groupId);
+                if (group && !group.isMember) {
+                    group.isMember = true;
+                    group.members++;
+                    showToast('Вступление', `Вы присоединились к группе "${name}"`, 'success');
+                    renderView();
+                } else if (group && group.isMember) {
+                    showToast('Группа', `Вы уже участник "${name}"`, 'info');
+                }
+            }
+        };
+
+        window.showJoinGroupPrompt = function(groupId, name) {
+            const group = groups.find(g => g.id === groupId);
+            if (group) {
+                group.isMember = true;
+                group.members++;
+                showToast('Вступление', `Вы присоединились к группе "${name}"`, 'success');
+                renderView();
+            }
+        };
+
+        function renderChannels(container) {
+            container.innerHTML = `
+                <h2><i class="fas fa-tower-broadcast"></i> Каналы</h2>
+                <button id="createChannelBtn"><i class="fas fa-plus"></i> Создать канал</button>
+                <div class="channels-list" style="margin-top:20px;">
+                    ${channels.map(channel => `
+                        <div class="channel-item" onclick="openChannel('${channel.id}')">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-broadcast-tower" style="font-size: 40px; color: var(--tg-blue);"></i>
+                                <div style="flex:1;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong>${escapeHtml(channel.name)}</strong>
+                                        ${channel.owner ? '<span class="badge">Владелец</span>' : ''}
+                                        ${channel.isSubscribed ? '<span class="badge badge-success">Вы подписаны</span>' : ''}
+                                    </div>
+                                    <div class="text-muted">${escapeHtml(channel.description)}</div>
+                                    <small>📡 ${channel.subscribers} подписчиков</small>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('createChannelBtn').onclick = () => document.getElementById('createChannelModal').style.display = 'flex';
+            document.getElementById('closeChannelModal').onclick = () => document.getElementById('createChannelModal').style.display = 'none';
+            document.getElementById('createChannelSubmit').onclick = () => {
+                const name = document.getElementById('newChannelName').value;
+                const desc = document.getElementById('newChannelDesc').value;
+                if (name) {
+                    channels.push({
+                        id: 'ch' + (channels.length + 1),
+                        name: name,
+                        description: desc || 'Новый канал',
+                        subscribers: 1,
+                        isSubscribed: true,
+                        owner: true,
+                        posts: []
+                    });
+                    showToast('Канал создан', `Канал "${name}" создан`, 'success');
+                    document.getElementById('createChannelModal').style.display = 'none';
+                    document.getElementById('newChannelName').value = '';
+                    document.getElementById('newChannelDesc').value = '';
+                    renderView();
+                }
+            };
+        }
+
+        window.openChannel = function(channelId) {
+            const channel = channels.find(c => c.id === channelId);
+            if (channel) {
+                if (!channel.isSubscribed && !channel.owner) {
+                    showToast('Канал', `Вы подписались на канал "${channel.name}"`, 'success');
+                    channel.isSubscribed = true;
+                    channel.subscribers++;
+                    renderView();
+                } else {
+                    showToast('Канал', `Открыт канал "${channel.name}" (демо-режим)`, 'info');
+                }
+            }
+        };
+
+        window.subscribeToChannel = function(channelId, name) {
+            const channel = channels.find(c => c.id === channelId);
+            if (channel && !channel.isSubscribed) {
+                channel.isSubscribed = true;
+                channel.subscribers++;
+                showToast('Подписка', `Вы подписались на канал "${name}"`, 'success');
+                renderView();
+            }
+        };
+
+        function renderContacts(container) {
+            container.innerHTML = `
+                <h2><i class="fas fa-address-book"></i> Контакты</h2>
+                <button id="addContactBtn"><i class="fas fa-user-plus"></i> Добавить контакт</button>
+                <div class="contacts-list" style="margin-top:20px;">
+                    ${contacts.map(contact => `
+                        <div class="contact-item" onclick="showProfile('${contact.id}', '${escapeHtml(contact.fullname)}', '${contact.username}')">
+                            <img src="${contact.avatar}" width="48" style="border-radius:50%">
+                            <div style="flex:1;">
+                                <div class="contact-name">${escapeHtml(contact.fullname)}</div>
+                                <div class="contact-username">@${escapeHtml(contact.username)}</div>
+                                <div class="user-status ${contact.status === 'online' ? 'online' : 'offline'}" style="font-size: 10px;">${contact.status === 'online' ? '● В сети' : '○ Не в сети'}</div>
+                            </div>
+                            <button class="btn-outline" style="padding:6px 12px;" onclick="event.stopPropagation(); startChatWithContact('${contact.id}', '${escapeHtml(contact.fullname)}')"><i class="fas fa-comment"></i></button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('addContactBtn').onclick = () => {
+                const username = prompt('Введите username пользователя:');
+                if (username) {
+                    showToast('Контакты', `Запрос на добавление отправлен пользователю @${username}`, 'info');
+                }
+            };
+        }
+
+        window.startChatWithContact = function(contactId, fullname) {
+            if (!chats.find(c => c.participant.id === contactId)) {
+                const contact = contacts.find(c => c.id === contactId);
+                if (contact) {
+                    chats.push({
+                        id: 'c' + (chats.length + 1),
+                        participant: contact,
+                        lastMessage: 'Давайте пообщаемся!',
+                        time: new Date().toISOString(),
+                        unread: 0
+                    });
+                    showToast('Чат создан', `Чат с ${fullname} создан`, 'success');
+                    currentView = 'chats';
+                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                    document.querySelector('nav a[data-view="chats"]').classList.add('active');
+                    renderView();
+                }
+            } else {
+                showToast('Чат', `Чат с ${fullname} уже существует`, 'info');
+            }
+        };
+
+        window.showProfile = function(userId, fullname, username) {
+            const modal = document.getElementById('profileModal');
+            const content = document.getElementById('profileContent');
+            content.innerHTML = `<p><strong>${fullname}</strong><br>@${username}<br><br><span class="badge">Аккаунт не верифицирован</span></p>`;
+            modal.style.display = 'flex';
+        };
+
+        function renderSettings(container) {
+            container.innerHTML = `
+                <h2><i class="fas fa-cog"></i> Настройки</h2>
+                <div class="glass-card">
+                    <div style="margin-bottom: 20px;">
+                        <h3><i class="fas fa-user-circle"></i> Аватар</h3>
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <img src="${currentUser.avatar}" width="80" style="border-radius:50%">
+                            <button id="changeAvatarBtn" class="btn-outline">Изменить</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3><i class="fas fa-id-card"></i> Информация</h3>
+                        <div class="flex-between" style="margin-bottom:12px;"><span>Отображаемое имя</span><input id="editFullname" value="${currentUser.fullname}" style="width:auto; flex:1; max-width:200px;"></div>
+                        <div class="flex-between" style="margin-bottom:12px;"><span>Логин</span><input id="editUsername" value="${currentUser.username}" style="width:auto; flex:1; max-width:200px;"></div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3><i class="fas fa-bell"></i> Уведомления</h3>
+                        <div class="flex-between"><span>Push-уведомления</span><label class="switch"><input type="checkbox" id="notifToggle" checked><span style="display:inline-block; width:44px; height:24px; background:rgba(255,255,255,0.2); border-radius:34px; position:relative;"><span style="position:absolute; width:18px; height:18px; background:white; border-radius:50%; left:3px; bottom:3px; transition:0.2s;"></span></span></label></div>
+                    </div>
+                    <button id="saveSettingsBtn">Сохранить</button>
+                </div>
+            `;
+            document.getElementById('changeAvatarBtn').onclick = () => showToast('Аватар', 'Функция смены аватара в разработке', 'info');
+            document.getElementById('saveSettingsBtn').onclick = () => {
+                currentUser.fullname = document.getElementById('editFullname').value;
+                currentUser.username = document.getElementById('editUsername').value;
+                document.getElementById('userName').innerText = currentUser.fullname;
+                showToast('Настройки', 'Изменения сохранены', 'success');
+            };
+        }
+
+        // Navigation
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const view = link.dataset.view;
+                if (view) {
+                    currentView = view;
+                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                    renderView();
+                }
+            });
+        });
+
+        document.getElementById('logoutBtn').onclick = () => showToast('Выход', 'Вы вышли из аккаунта', 'info');
+        document.getElementById('closeProfileBtn').onclick = () => document.getElementById('profileModal').style.display = 'none';
+        document.getElementById('userInfo').onclick = () => showProfile(currentUser.id, currentUser.fullname, currentUser.username);
+
+        // Init
+        renderView();
+    </script>
 </body>
 </html>
