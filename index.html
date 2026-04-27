@@ -70,6 +70,7 @@
             color: #b45a1c;
             cursor: pointer;
             border: 1px solid #ffddb0;
+            transition: 0.05s;
         }
         .letter-card:active { transform: scale(0.93); background: #ffefcf; }
         
@@ -79,14 +80,23 @@
         .btn-custom { background: rgba(255, 215, 140, 0.9); border: none; border-radius: 3rem; padding: 0.8rem 1.8rem; font-weight: 600; cursor: pointer; transition: 0.1s; }
         .btn-custom:active { transform: scale(0.96); }
         
-        .tab-btn { background: rgba(255, 235, 200, 0.7); border: none; border-radius: 2rem; padding: 0.7rem 1.6rem; font-weight: 600; cursor: pointer; }
+        .tab-btn { background: rgba(255, 235, 200, 0.7); border: none; border-radius: 2rem; padding: 0.7rem 1.6rem; font-weight: 600; cursor: pointer; transition: 0.1s; }
         .tab-btn.active-tab { background: #ffcd7e; color: #4a2c10; }
         
-        .dict-item { background: rgba(255, 245, 225, 0.8); padding: 0.7rem 1.4rem; border-radius: 2rem; cursor: pointer; font-weight: 600; transition: 0.05s; }
+        .dict-item { background: rgba(255, 245, 225, 0.8); padding: 0.7rem 1.4rem; border-radius: 2rem; cursor: pointer; font-weight: 600; transition: 0.05s; display: inline-block; }
         .dict-item:active { transform: scale(0.96); background: #ffe4bc; }
         
         footer { text-align: center; margin-top: 2.5rem; opacity: 0.65; font-size: 0.8rem; }
         @media (max-width: 650px) { .letter-card { width: 65px; height: 65px; font-size: 1.7rem; } .display-word { font-size: 1.8rem; } }
+        
+        .google-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem 0;
+        }
+        .g_id_signin {
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -101,13 +111,13 @@
                 <i class="fas fa-lock"></i> <strong>Приватность</strong> — данные только на вашем устройстве (localStorage)
             </div>
             <div class="login-grid" id="allLoginButtons"></div>
-            <div id="googleHiddenTrigger" style="display: flex; justify-content: center; margin: 0.5rem 0;"></div>
+            <div id="googleButtonContainer" class="google-btn-wrapper"></div>
         </div>
     </div>
 
     <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
     <div id="mainApp" class="page">
-        <div class="glass" style="padding: 1.2rem 2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <div class="glass" style="padding: 1.2rem 2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div><i class="fas fa-glass-cheers"></i> <strong id="welcomeName">Друг</strong> · говорит на Каллэнг</div>
             <button id="logoutMainBtn" class="btn-custom"><i class="fas fa-sign-out-alt"></i> Выйти</button>
         </div>
@@ -143,7 +153,7 @@
             <div class="glass" style="padding: 1.8rem; text-align: center;">
                 <h2><i class="fas fa-gamepad"></i> Угадай слово</h2>
                 <p style="margin: 1rem 0;">Перевод: <strong id="gameHintTranslate">---</strong></p>
-                <input type="text" id="gameAnswer" placeholder="Введи слово на Каллэнг" style="padding: 12px 20px; border-radius: 40px; border: none; background: #fff5e6; width: 70%;">
+                <input type="text" id="gameAnswer" placeholder="Введи слово на Каллэнг" style="padding: 12px 20px; border-radius: 40px; border: none; background: #fff5e6; width: 70%; max-width: 300px;">
                 <br><br>
                 <button id="checkGameBtn" class="btn-custom">Проверить</button>
                 <button id="nextGameBtn" class="btn-custom">Следующее</button>
@@ -170,14 +180,14 @@
     // ========== АЛФАВИТ КАЛЛЭНГ ==========
     const alphabet = ['А','Б','Г','G','Д','Е','Ё','Ē','И','Й','Ӥ','Ī','К','М','Н','О','П','Р','Т','У','Х','Ы','Ÿ','Э','Ю','Я'];
     
-    // ПРОИЗНОШЕНИЕ (по запросу из чата)
+    // ПРОИЗНОШЕНИЕ
     const pronunciationMap = {
         'А':'А','Б':'Бэ','Г':'Гэ','G':'Жи','Д':'Дэ','Е':'Е','Ё':'Ё','Ē':'Ёль',
         'И':'И','Й':'Й','Ӥ':'Иё','Ī':'И','К':'Ка','М':'М','Н':'Н','О':'О',
         'П':'Пэ','Р':'Р','Т':'Тэ','У':'У','Х':'Ха','Ы':'Ы','Ÿ':'Йоу','Э':'Э','Ю':'Ю','Я':'Я'
     };
     
-    // СЛОВАРЬ (30+ слов)
+    // СЛОВАРЬ 
     const dictionary = [
         { word: "КАЛЛЭНГ", trans: "язык простоты" },{ word: "ГУБАБА", trans: "привет, дружба" },{ word: "ТИМОКА", trans: "верный друг" },
         { word: "ЛЯМБО", trans: "еда, вкусно" },{ word: "СОНГА", trans: "спать, отдых" },{ word: "ИГРАМ", trans: "играть, веселье" },
@@ -276,30 +286,39 @@
     
     // Игровая механика
     function newGameWord() {
+        if (!dictionary.length) return;
         currentGameWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-        document.getElementById("gameHintTranslate").innerText = currentGameWord.trans;
-        document.getElementById("gameAnswer").value = "";
-        document.getElementById("gameMessage").innerHTML = "✨ Введи слово ✨";
+        const hintEl = document.getElementById("gameHintTranslate");
+        if (hintEl) hintEl.innerText = currentGameWord.trans;
+        const answerEl = document.getElementById("gameAnswer");
+        if (answerEl) answerEl.value = "";
+        const msgEl = document.getElementById("gameMessage");
+        if (msgEl) msgEl.innerHTML = "✨ Введи слово ✨";
     }
     
     function checkGame() {
+        if (!currentGameWord) return;
         let answer = document.getElementById("gameAnswer").value.trim().toUpperCase();
         if (answer === currentGameWord.word) {
             gameScore++;
             localStorage.setItem("kallang_game_score", gameScore);
-            document.getElementById("gameScoreSpan").innerText = gameScore;
-            document.getElementById("gameMessage").innerHTML = "✅ Правильно! +1 очко ✅";
+            const scoreSpan = document.getElementById("gameScoreSpan");
+            if (scoreSpan) scoreSpan.innerText = gameScore;
+            const msgEl = document.getElementById("gameMessage");
+            if (msgEl) msgEl.innerHTML = "✅ Правильно! +1 очко ✅";
             speakText("БРЮНГ");
             newGameWord();
         } else {
-            document.getElementById("gameMessage").innerHTML = `❌ Неверно! Правильно: ${currentGameWord.word} ❌`;
+            const msgEl = document.getElementById("gameMessage");
+            if (msgEl) msgEl.innerHTML = `❌ Неверно! Правильно: ${currentGameWord.word} ❌`;
         }
     }
     
     function loadGameScore() {
         let saved = localStorage.getItem("kallang_game_score");
         gameScore = saved ? parseInt(saved) : 0;
-        document.getElementById("gameScoreSpan").innerText = gameScore;
+        const scoreSpan = document.getElementById("gameScoreSpan");
+        if (scoreSpan) scoreSpan.innerText = gameScore;
     }
     
     // ========== АВТОРИЗАЦИЯ (ВСЕ КНОПКИ ЧЕРЕЗ GOOGLE) ==========
@@ -327,14 +346,21 @@
             img.onerror = () => { img.src = "https://cdn-icons-png.flaticon.com/512/5968/5968267.png"; };
             circle.appendChild(img);
             circle.onclick = () => {
-                const googleBtn = document.querySelector('#googleHiddenTrigger .g_id_signin');
-                if (googleBtn) googleBtn.click();
-                else console.log("google btn not ready");
+                // Находим кнопку Google и кликаем
+                const googleBtn = document.querySelector('#googleButtonContainer .g_id_signin');
+                if (googleBtn) {
+                    googleBtn.click();
+                } else {
+                    // fallback: создать временный клик
+                    const btn = document.querySelector('.g_id_signin');
+                    if (btn) btn.click();
+                }
             };
             container.appendChild(circle);
         });
     }
     
+    // Глобальный обработчик для Google (должен быть в window)
     window.handleGoogleLogin = (response) => {
         if (response && response.credential) {
             try {
@@ -342,8 +368,12 @@
                 let name = payload.name || "Каллэнговец";
                 localStorage.setItem("kallang_user", JSON.stringify({ name: name, logged: true }));
                 showMainApp(name);
-            } catch(e) { guestLogin(); }
-        } else { guestLogin(); }
+            } catch(e) {
+                guestLogin();
+            }
+        } else {
+            guestLogin();
+        }
     };
     
     function guestLogin() {
@@ -354,9 +384,12 @@
     
     function showMainApp(name) {
         currentUser = name;
-        document.getElementById("loginPage").classList.remove("active-page");
-        document.getElementById("mainApp").classList.add("active-page");
-        document.getElementById("welcomeName").innerText = name;
+        const loginPage = document.getElementById("loginPage");
+        const mainApp = document.getElementById("mainApp");
+        if (loginPage) loginPage.classList.remove("active-page");
+        if (mainApp) mainApp.classList.add("active-page");
+        const welcomeSpan = document.getElementById("welcomeName");
+        if (welcomeSpan) welcomeSpan.innerText = name;
         loadGameScore();
         updateMainDisplay("КАЛЛЭНГ", "язык простоты");
     }
@@ -364,8 +397,10 @@
     function logout() {
         localStorage.removeItem("kallang_user");
         localStorage.removeItem("kallang_game_score");
-        document.getElementById("mainApp").classList.remove("active-page");
-        document.getElementById("loginPage").classList.add("active-page");
+        const mainApp = document.getElementById("mainApp");
+        const loginPage = document.getElementById("loginPage");
+        if (mainApp) mainApp.classList.remove("active-page");
+        if (loginPage) loginPage.classList.add("active-page");
         window.speechSynthesis.cancel();
     }
     
@@ -379,37 +414,77 @@
                 tabs.forEach(b => b.classList.remove("active-tab"));
                 btn.classList.add("active-tab");
                 contents.forEach(content => content.style.display = "none");
-                document.getElementById(tabId).style.display = "block";
+                const activeContent = document.getElementById(tabId);
+                if (activeContent) activeContent.style.display = "block";
             };
         });
     }
     
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
-    window.onload = () => {
+    function init() {
         renderLoginCircles();
-        const googleDiv = document.getElementById("googleHiddenTrigger");
-        googleDiv.innerHTML = `<div id="g_id_onload" data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com" data-login_uri="https://timoshamoscow.github.io/test/" data-auto_prompt="false" data-callback="handleGoogleLogin"></div>
-        <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular"></div>`;
+        
+        // Создаем кнопку Google Login
+        const googleContainer = document.getElementById("googleButtonContainer");
+        if (googleContainer) {
+            googleContainer.innerHTML = `
+                <div id="g_id_onload"
+                     data-client_id="22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com"
+                     data-login_uri="https://timoshamoscow.github.io/test/"
+                     data-auto_prompt="false"
+                     data-callback="handleGoogleLogin">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-size="large"
+                     data-theme="outline"
+                     data-text="sign_in_with"
+                     data-shape="rectangular"
+                     data-logo_alignment="left">
+                </div>
+            `;
+        }
         
         buildDictionary();
         buildAlphabet();
         buildRules();
         initTabs();
         
-        document.getElementById("logoutMainBtn").onclick = logout;
-        document.getElementById("checkGameBtn").onclick = checkGame;
-        document.getElementById("nextGameBtn").onclick = newGameWord;
+        const logoutBtn = document.getElementById("logoutMainBtn");
+        if (logoutBtn) logoutBtn.onclick = logout;
+        
+        const checkBtn = document.getElementById("checkGameBtn");
+        if (checkBtn) checkBtn.onclick = checkGame;
+        
+        const nextBtn = document.getElementById("nextGameBtn");
+        if (nextBtn) nextBtn.onclick = newGameWord;
         
         const savedUser = localStorage.getItem("kallang_user");
         if (savedUser) {
             try {
                 let user = JSON.parse(savedUser);
-                showMainApp(user.name);
-            } catch(e) { }
+                if (user && user.name) {
+                    showMainApp(user.name);
+                } else {
+                    // данные повреждены, показываем вход
+                    document.getElementById("loginPage").classList.add("active-page");
+                    document.getElementById("mainApp").classList.remove("active-page");
+                }
+            } catch(e) {
+                document.getElementById("loginPage").classList.add("active-page");
+                document.getElementById("mainApp").classList.remove("active-page");
+            }
         }
         
         newGameWord();
-    };
+    }
+    
+    // Запускаем после загрузки DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 </script>
 </body>
 </html>
