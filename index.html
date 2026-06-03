@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru">
 <head>
     <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title id="dynamicTitle">Тестовый лендинг</title>
+    <title>Храм Куиссона | Панировка внутри, истина снаружи</title>
     <meta name="description" content="Тестовый лендинг, здесь всякая фигня">
-    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт">
+    <meta name="keywords" content="тест, тимоша, timoshamoscow, тимошамоскоу, тимоша тест, тимоша сайт, куиссон, панировка внутри, заразные стейки">
     <meta name="author" content="TStudios">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="revisit-after" content="1 days">
@@ -29,463 +29,538 @@
 
     <!-- ===== TWITTER CARDS ===== -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
+    <meta name="twitter:title" content="Храм Куиссона — святилище панировки">
     <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
     <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
     
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/png" href="images/logo.png">
     
-    <!-- ===== СТИЛИ ===== -->
+    <title>Храм Куиссона | Панировка внутри, истина снаружи</title>
+    
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, 'Roboto', sans-serif;
+        }
+
+        :root {
+            --lemon: #f5ee22;
+            --lemon-glow: #fff2a0;
+            --glass-bg: rgba(30, 27, 4, 0.55);
+            --glass-border: 1px solid rgba(245, 238, 34, 0.4);
+            --text-light: #faf9f0;
+            --text-dark: #1e1b04;
+            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light {
+            --glass-bg: rgba(255, 253, 210, 0.75);
+            --glass-border: 1px solid #f5ee22;
+            --text-light: #1e1b04;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
-            color: #0a1e2f;
-            line-height: 1.5;
+            background: linear-gradient(135deg, #0a0a02 0%, #2a2805 100%);
+            color: var(--text-light);
+            transition: all 0.3s ease;
             min-height: 100vh;
-            padding: 1rem;
-            transition: background 0.3s, color 0.2s;
         }
-        body.dark {
-            background: linear-gradient(145deg, #0a1a2a 0%, #0f212f 100%);
-            color: #e0e4e8;
+
+        body.light {
+            background: linear-gradient(135deg, #fef9c3 0%, #f5ee22 100%);
         }
-        body.dark .feature-card, body.dark .playground, body.dark .logo-section, body.dark .hero, body.dark section[style*="background"], body.dark .func-card, body.dark .auth-card {
-            background: rgba(20,30,45,0.9);
-            color: #ddd;
-            border-color: #2a3a55;
+
+        /* Матовое стекло */
+        .glass, nav, .card, .search-panel, .gallery-item, .info-block, .user-card, .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            border: var(--glass-border);
+            box-shadow: var(--shadow);
         }
-        body.dark .grid-item { background: #1e2a3a; color: white; }
-        body.dark .badge { background: #2a3a55; color: white; }
-        body.dark .header { background: rgba(20,30,55,0.8); border-color: #2a3a55; }
-        body.dark .footer { background: #111c28; border-color: #2a4055; }
 
         .container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
+            padding: 1.5rem;
         }
 
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
-            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .header {
+        /* Навигация */
+        nav {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
             flex-wrap: wrap;
-            gap: 2rem;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.8);
-            padding: 1rem 2.5rem;
-            border-radius: 80px;
-            margin-bottom: 4rem;
-            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.8rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
         }
 
-        .logo {
+        nav a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.6rem 1.3rem;
+            border-radius: 3rem;
+            background: rgba(0,0,0,0.25);
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        body.light nav a {
+            background: rgba(0,0,0,0.1);
+        }
+
+        nav a:hover, .nav-active {
+            background: var(--lemon);
+            color: #1e1b04;
+            transform: translateY(-2px);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-area {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        .logo img {
-            width: 56px;
-            height: 56px;
-            border-radius: 20px;
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            background: white;
+            background: rgba(0,0,0,0.2);
+            border-radius: 1rem;
             padding: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
         }
-        .logo img:hover { transform: rotate(10deg) scale(1.1); }
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .badge {
-            background: #ffffffdd;
-            padding: 0.6rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            color: #1e2b5e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid white;
-        }
-        .hero {
-            text-align: center;
-            padding: 5rem 3rem;
-            background: linear-gradient(145deg, #ffffff, #f5f9ff);
-            border-radius: 70px;
-            box-shadow: 0 40px 60px -20px #1e2b5e40;
-            margin-bottom: 5rem;
-            border: 1px solid #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-        }
-        .hero h2 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #0a1e2f, #283593);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.4rem;
-            color: #2d3f5e;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(145deg, #283593, #1e2b5e);
-            color: white;
-            font-weight: 600;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border: none;
+
+        .theme-toggle, .search-toggle, .google-btn {
             cursor: pointer;
-            box-shadow: 0 15px 25px -8px #28359380;
-            transition: all 0.2s;
-        }
-        .cta-button:hover { transform: scale(1.05) translateY(-3px); }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.2rem; margin: 5rem 0; }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px -15px #1a237e30;
-            border: 1px solid rgba(255,255,255,0.9);
-            transition: all 0.3s;
-            text-align: center;
-            animation: float 6s infinite ease-in-out;
-        }
-        .feature-card:hover { transform: translateY(-15px) scale(1.02); border-color: #3f51b5; background: white; }
-        .feature-icon { font-size: 4.5rem; margin-bottom: 1.5rem; }
-        .playground, .logo-section, .auth-card {
-            background: white;
-            border-radius: 70px;
-            padding: 2rem;
-            margin: 3rem 0;
-            box-shadow: 0 30px 50px -20px #0f2b45;
-        }
-        .grid-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 2rem 0; }
-        .grid-item {
-            background: #e9ecf5; padding: 1rem; text-align: center; border-radius: 30px; font-weight: 600;
-            transition: 0.2s; cursor: pointer;
-        }
-        .footer { text-align: center; padding: 3rem 2rem; border-top: 2px dashed #b0c0d0; margin-top: 4rem; border-radius: 60px 60px 30px 30px; background: #f5faff; }
-        @media (max-width: 700px) { .hero h2 { font-size: 2.5rem; } }
-        
-        /* Auth styles */
-        .auth-card {
-            text-align: center;
-            background: linear-gradient(145deg, #ffffff, #f8faff);
-        }
-        #googleSignInBtn {
-            background: #4285f4;
-            color: white;
+            background: rgba(0,0,0,0.3);
             border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.2s;
-            margin: 1rem 0;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(4px);
+            color: inherit;
         }
-        #googleSignInBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #4285f480; }
-        .user-info {
+
+        .user-card {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 1rem;
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 3rem;
         }
+
         .user-avatar {
-            width: 48px;
-            height: 48px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
         }
-        .logout-btn {
-            background: #dc3545;
-            padding: 8px 20px;
-            border-radius: 40px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
-        .function-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .func-card { background: #f8fafc; border-radius: 2rem; padding: 1.5rem; box-shadow: 0 5px 15px #0001; transition: 0.2s; }
-        body.dark .func-card { background: #16232e; }
-        .func-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px #0002; }
-        button, .small-btn { background: #283593; color: white; border: none; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; margin: 0.2rem; transition: 0.1s; }
-        button:hover { opacity: 0.8; transform: scale(1.02); }
-        input, select { padding: 0.5rem; border-radius: 2rem; border: 1px solid #ccc; margin: 0.3rem; }
-        .draggable { width: 100px; height: 100px; background: #3f51b5; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: center; cursor: grab; user-select: none; }
-        canvas { border-radius: 20px; background: #f0f2f5; margin: 1rem 0; max-width: 100%; }
-        .hidden-schema { display: none; }
+
+        .card {
+            padding: 1.6rem;
+            transition: 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: var(--lemon);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            border-left: 5px solid var(--lemon);
+            padding-left: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            background: var(--lemon);
+            color: #1e1b04;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        .search-panel {
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        #searchInput {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 3rem;
+            border: none;
+            background: rgba(0,0,0,0.2);
+            color: inherit;
+            width: 100%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .gallery-item span {
+            font-size: 4rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            padding: 2rem;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+        }
+
+        .info-block {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 8px solid var(--lemon);
+        }
+
+        .prayer {
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            border-top: 1px solid rgba(245,238,34,0.2);
+        }
+
+        @media (max-width: 680px) {
+            .hero h1 { font-size: 2rem; }
+            nav a { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 12px var(--lemon);
+        }
+        button {
+            background: var(--lemon);
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            color: #1e1b04;
+            cursor: pointer;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Тестовый лендинг 3.0",
-        "url": "https://timoshamoscow.github.io/test/",
-        "description": "Интерактивная песочница для фронтенд-экспериментов",
-        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
-    }
-    </script>
 </head>
 <body>
-    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
-
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
-                <h1>Тестовый лендинг</h1>
-            </div>
-            <div class="badge">🚀 Google Вход • 9,999,999+ функций</div>
-        </header>
-
-        <!-- АВТОРИЗАЦИЯ ЧЕРЕЗ GOOGLE -->
-        <section class="auth-card" id="authSection">
-            <h2 style="font-size: 2rem; margin-bottom: 1rem;">🔐 Вход через Google</h2>
-            <p style="margin-bottom: 1rem;">Войдите, чтобы получить доступ ко всем 10M+ функциям и персонализированному опыту</p>
-            <div id="googleSignInBtn"></div>
-            <div id="userProfile" style="display: none;"></div>
-        </section>
-
-        <section class="hero">
-            <h2>Полигон для гипотез<br>➕ 10 миллионов возможностей</h2>
-            <p>9999999+ встроенных мини-функций: игры, графики, звуки, аналитика, анимации и редакторы — всё внутри!</p>
-            <button class="cta-button" onclick="alert('🌟 Активирована одна из 10 миллионов функций! Попробуй все модули ниже.')">✨ Активировать функцию #9999999</button>
-        </section>
-
-        <!-- ГРИД ИЗ 16+ ИНТЕРАКТИВНЫХ МОДУЛЕЙ -->
-        <div class="function-grid">
-            <div class="func-card"><h3>📊 Счётчик кликов</h3>
-                <p id="clickCounter">0</p>
-                <button onclick="localStorage.setItem('clicks', (parseInt(localStorage.getItem('clicks')||0)+1)); document.getElementById('clickCounter').innerText=localStorage.getItem('clicks')">Нажми +1</button>
-                <button onclick="localStorage.setItem('clicks',0); document.getElementById('clickCounter').innerText='0'">Сброс</button>
-                <script>document.getElementById('clickCounter').innerText = localStorage.getItem('clicks')||0;</script>
-            </div>
-            <div class="func-card"><h3>🎲 Генератор (1-1M)</h3>
-                <p id="randVal">—</p><button onclick="document.getElementById('randVal').innerText = Math.floor(Math.random()*1000000)+1">Случайное число</button>
-            </div>
-            <div class="func-card"><h3>❓ Угадай число (1-100)</h3>
-                <input type="number" id="guessInput" placeholder="0-100"><button onclick="let g=parseInt(document.getElementById('guessInput').value); let sec=Math.floor(Math.random()*100)+1; alert(g===sec?'✅ Угадал!':'❌ Не угадал, было '+sec)">Угадать</button>
-            </div>
-            <div class="func-card"><h3>🌓 Тёмная тема</h3>
-                <button onclick="document.body.classList.toggle('dark')">Переключить тему</button>
-            </div>
-            <div class="func-card"><h3>🎯 Canvas-мишень (очки)</h3>
-                <canvas id="targetCanvas" width="200" height="200" style="width:200px;height:200px; background:#eee; border-radius:100%"></canvas>
-                <p id="scoreTarget">Очки: 0</p>
-                <script> let c=document.getElementById('targetCanvas'), ctx=c.getContext('2d'), targetScore=0; function drawTarget(){ ctx.clearRect(0,0,200,200); ctx.beginPath(); ctx.arc(100,100,80,0,2*Math.PI); ctx.fillStyle='red'; ctx.fill(); ctx.beginPath(); ctx.arc(100,100,50,0,2*Math.PI); ctx.fillStyle='white'; ctx.fill(); ctx.beginPath(); ctx.arc(100,100,20,0,2*Math.PI); ctx.fillStyle='red'; ctx.fill(); } drawTarget(); c.addEventListener('click',(e)=>{ let rect=c.getBoundingClientRect(), scaleX=c.width/rect.width, scaleY=c.height/rect.height; let x=(e.clientX-rect.left)*scaleX, y=(e.clientY-rect.top)*scaleY, dx=x-100, dy=y-100, dist=Math.hypot(dx,dy); if(dist<20) targetScore+=10; else if(dist<50) targetScore+=5; else if(dist<80) targetScore+=1; else targetScore=Math.max(0,targetScore-2); document.getElementById('scoreTarget').innerText='Очки: '+targetScore; drawTarget(); }); </script>
-            </div>
-            <div class="func-card"><h3>🕒 Аналоговые часы</h3>
-                <canvas id="clockCanvas" width="120" height="120" style="width:120px;height:120px"></canvas>
-                <script>function drawClock(){let canvas=document.getElementById('clockCanvas');if(!canvas)return;let ctx=canvas.getContext('2d');let now=new Date();let s=now.getSeconds(),m=now.getMinutes(),h=now.getHours();ctx.clearRect(0,0,120,120);ctx.beginPath();ctx.arc(60,60,55,0,2*Math.PI);ctx.stroke();for(let i=1;i<=12;i++){let ang=i*Math.PI*2/12-Math.PI/2;let x=60+45*Math.cos(ang),y=60+45*Math.sin(ang);ctx.fillText(i,x-5,y+5);}let ha=(h%12+ m/60)*Math.PI*2/12-Math.PI/2;let ma=(m+s/60)*Math.PI*2/60-Math.PI/2;let sa=s*Math.PI*2/60-Math.PI/2;ctx.beginPath();ctx.moveTo(60,60);ctx.lineTo(60+30*Math.cos(ha),60+30*Math.sin(ha));ctx.stroke();ctx.beginPath();ctx.moveTo(60,60);ctx.lineTo(60+45*Math.cos(ma),60+45*Math.sin(ma));ctx.stroke();ctx.beginPath();ctx.moveTo(60,60);ctx.lineTo(60+50*Math.cos(sa),60+50*Math.sin(sa));ctx.strokeStyle='red';ctx.stroke();} setInterval(drawClock,1000); drawClock();</script>
-            </div>
-            <div class="func-card"><h3>🎵 Синтезатор (8 нот)</h3>
-                <div><button onclick="playTone(261.63)">До</button><button onclick="playTone(293.66)">Ре</button><button onclick="playTone(329.63)">Ми</button><button onclick="playTone(349.23)">Фа</button><button onclick="playTone(392)">Соль</button><button onclick="playTone(440)">Ля</button><button onclick="playTone(493.88)">Си</button><button onclick="playTone(523.25)">До2</button></div>
-                <script>function playTone(freq){let ctx=new (window.AudioContext||window.webkitAudioContext)();let osc=ctx.createOscillator();osc.frequency.value=freq;let gain=ctx.createGain();gain.gain.value=0.3;osc.connect(gain);gain.connect(ctx.destination);osc.start();gain.gain.exponentialRampToValueAtTime(0.00001,ctx.currentTime+1);osc.stop(ctx.currentTime+1);}</script>
-            </div>
-            <div class="func-card"><h3>📈 Живой график</h3>
-                <canvas id="liveChart" width="250" height="150" style="max-width:100%"></canvas>
-                <button onclick="addRandomData()">Добавить точку</button>
-                <script>let chartCtx=document.getElementById('liveChart')?.getContext('2d'); let chartData=[5,8,12,7,15]; let chart; if(chartCtx){ chart=new Chart(chartCtx,{type:'line',data:{labels:['1','2','3','4','5'],datasets:[{label:'Активность',data:chartData,borderColor:'blue'}]}}); window.addRandomData=function(){chartData.push(Math.floor(Math.random()*30)); if(chartData.length>8)chartData.shift(); chart.data.datasets[0].data=chartData; chart.update();};}</script>
-            </div>
-            <div class="func-card"><h3>⏱️ Секундомер</h3>
-                <p id="stopwatch">0.00 с</p>
-                <button onclick="if(window.swInterval)clearInterval(window.swInterval); let start=Date.now(); window.swInterval=setInterval(()=>{document.getElementById('stopwatch').innerText=((Date.now()-start)/1000).toFixed(2)+' с'},100);">Старт</button>
-                <button onclick="clearInterval(window.swInterval)">Стоп</button>
-            </div>
-            <div class="func-card"><h3>🖱️ Drag & Drop</h3>
-                <div draggable="true" class="draggable" ondragstart="event.dataTransfer.setData('text/plain',null)" style="margin-bottom:1rem">Тяни меня</div>
-                <div id="dropZone" style="width:100%;height:80px;background:#b0c4de;border-radius:2rem;display:flex;align-items:center;justify-content:center">Сбрось сюда</div>
-                <script>document.getElementById('dropZone').addEventListener('dragover',e=>e.preventDefault()); document.getElementById('dropZone').addEventListener('drop',e=>{e.preventDefault(); e.target.innerText='✅ Перетащено!'; setTimeout(()=>e.target.innerText='Сбрось сюда',1000);});</script>
-            </div>
-            <div class="func-card"><h3>⌨️ Тест скорости</h3>
-                <p id="typingSample">привет мир как дела?</p>
-                <input id="typingInput" placeholder="напечатай фразу"><button onclick="let inp=document.getElementById('typingInput').value; let orig=document.getElementById('typingSample').innerText; if(inp===orig) alert('✅ Идеально!'); else alert('Ошибка!');">Проверить</button>
-            </div>
-            <div class="func-card"><h3>🌤️ Погода (Москва)</h3>
-                <button onclick="fetch('https://api.open-meteo.com/v1/forecast?latitude=55.75&longitude=37.62&current_weather=true').then(r=>r.json()).then(d=>document.getElementById('weatherTemp').innerText=d.current_weather.temperature+'°C')">Обновить</button>
-                <p id="weatherTemp">—</p>
-            </div>
-            <div class="func-card"><h3>🔐 Генератор паролей</h3>
-                <p id="generatedPass">****</p>
-                <button onclick="let chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%'; let pwd=''; for(let i=0;i<12;i++) pwd+=chars[Math.floor(Math.random()*chars.length)]; document.getElementById('generatedPass').innerText=pwd;">Сгенерировать</button>
-            </div>
-            <div class="func-card"><h3>🫧 Анимация пузырьков</h3>
-                <canvas id="bubbleCanvas" width="280" height="120" style="width:100%;background:#cfe3ff;border-radius:20px"></canvas>
-                <script>(function(){let can=document.getElementById('bubbleCanvas'),ctx=can.getContext('2d'); let bubbles=[]; for(let i=0;i<30;i++) bubbles.push({x:Math.random()*280,y:Math.random()*120,r:Math.random()*8+2,vy:Math.random()*0.5+0.2}); function animate(){ctx.clearRect(0,0,280,120); for(let b of bubbles){ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,2*Math.PI); ctx.fillStyle='rgba(100,150,255,0.6)'; ctx.fill(); b.y-=b.vy; if(b.y+b.r<0) b.y=120+b.r; } requestAnimationFrame(animate);} if(can)animate();})();</script>
-            </div>
-            <div class="func-card"><h3>💡 Совет дня</h3>
-                <p id="tipText">Нажми для совета</p>
-                <button onclick="const tips=['Используй Flexbox','Проверяй доступность','Оптимизируй картинки','Пиши семантично','Тестируй на мобилках','Изучай новые API','Добавляй микроанимации']; document.getElementById('tipText').innerText=tips[Math.floor(Math.random()*tips.length)];">Новый совет</button>
-            </div>
-            <div class="func-card"><h3>〰️ Волновой осциллятор</h3>
-                <canvas id="waveCanvas" width="280" height="80" style="width:100%;background:#eef"></canvas>
-                <script>let wCanvas=document.getElementById('waveCanvas'),wCtx=wCanvas?.getContext('2d'),t=0; function drawWave(){if(!wCtx)return; wCtx.clearRect(0,0,280,80); wCtx.beginPath(); for(let x=0;x<=280;x++){let y=40+Math.sin(x*0.05+t)*20; wCtx.lineTo(x,y);} wCtx.strokeStyle='#3f51b5'; wCtx.stroke(); t+=0.05; requestAnimationFrame(drawWave);} if(wCanvas)drawWave();</script>
-            </div>
+<div class="container">
+    <div class="top-bar">
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Лого" class="logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E📿%3C/text%3E%3C/svg%3E'">
+            <span style="font-weight: bold;">📿 ХРАМ КУИССОНА 📿</span>
         </div>
-
-        <section class="playground">
-            <h3>⚡ Ещё 9999900+ комбинаций</h3>
-            <div class="grid-demo">
-                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни меня</div>
-                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
-                <div class="grid-item" onclick="this.classList.toggle('glow'); this.style.boxShadow=this.classList.contains('glow')?'0 0 15px gold':'none'">Эффект</div>
-                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
-            </div>
-            <button onclick="alert('🎉 Активирована функция #' + Math.floor(Math.random()*10000000))">Случайная функция</button>
-            <button onclick="document.querySelectorAll('.func-card').forEach(c=>c.style.transform='scale(1.01)'); setTimeout(()=>document.querySelectorAll('.func-card').forEach(c=>c.style.transform=''),300)">🎭 Анимация всех блоков</button>
-        </section>
-
-        <section class="logo-section">
-            <img src="images/logo.png" alt="Логотип">
-            <h3>Логотип проекта — источник вдохновения</h3>
-            <p>Теперь с 9,999,999+ встроенными возможностями: от игр до аналитики в реальном времени</p>
-        </section>
-
-        <footer class="footer">
-            <p>2026 Тестовый лендинг by TStudios</p>
-            <p>Все права защищены здравым смыслом и любопытством</p>
-            <p><a href="#" style="color:#1e2b5e;" onclick="location.reload()">⟳ перезагрузить эксперимент</a></p>
-        </footer>
+        <div style="display: flex; gap: 0.8rem;">
+            <button class="theme-toggle" id="themeToggle">🌙 ТЕМНАЯ</button>
+            <button class="search-toggle" id="searchToggleBtn">🔍 ПОИСК</button>
+            <div id="googleLoginBtn" class="google-btn">🔐 Войти</div>
+            <div id="userInfo" style="display: none;" class="user-card"></div>
+        </div>
     </div>
 
-    <script>
-        // Динамический заголовок в зависимости от контекста
-        (function setDynamicTitle() {
-            const contexts = ['песочница', 'эксперимент', 'гипотезы', 'тест драйв', 'верстка'];
-            const randomContext = contexts[Math.floor(Math.random() * contexts.length)];
-            const titles = [
-                `Интерактивная ${randomContext}`,
-                `Лаборатория ${randomContext}`,
-                `Полигон для ${randomContext}`,
-                `Творческая ${randomContext}`
-            ];
-            const finalTitle = titles[Math.floor(Math.random() * titles.length)];
-            document.title = finalTitle;
-        })();
+    <nav>
+        <a href="#" data-page="home">🏠 ГЛАВНАЯ</a>
+        <a href="#" data-page="recipes">📖 РЕЦЕПТЫ</a>
+        <a href="#" data-page="prayers">🙏 МОЛИТВЫ</a>
+        <a href="#" data-page="history">📜 ДИРЕКТИВЫ</a>
+        <a href="#" data-page="gallery">🖼️ ГАЛЕРЕЯ</a>
+    </nav>
 
-        // Google Sign-In (Client ID предоставлен)
-        const YOUR_CLIENT_ID = '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com';
-        
-        function handleCredentialResponse(response) {
-            const userData = parseJwt(response.credential);
-            localStorage.setItem('googleUser', JSON.stringify(userData));
-            showUserProfile(userData);
-            updateTitleWithUser(userData.name);
-        }
+    <div id="searchPanel" class="search-panel">
+        <input type="text" id="searchInput" placeholder="Искать: панировка, банан, 20 часов, Куиссон, измена...">
+        <div id="searchResults" style="margin-top: 1rem;"></div>
+        <button id="searchCloseBtn" style="margin-top: 0.5rem;">Закрыть поиск</button>
+    </div>
 
-        function parseJwt(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-            return JSON.parse(jsonPayload);
-        }
+    <div id="appContent"></div>
 
-        function showUserProfile(user) {
-            const authSection = document.getElementById('authSection');
-            const profileDiv = document.getElementById('userProfile');
-            const googleBtnDiv = document.getElementById('googleSignInBtn');
-            googleBtnDiv.style.display = 'none';
-            profileDiv.style.display = 'block';
-            profileDiv.innerHTML = `
-                <div class="user-info">
-                    <img src="${user.picture}" class="user-avatar" alt="avatar">
-                    <div>
-                        <strong>${user.name}</strong><br>
-                        <small>${user.email}</small>
-                    </div>
-                    <button class="logout-btn" onclick="logoutGoogle()">Выйти</button>
-                </div>
-                <p style="margin-top: 15px;">✅ Добро пожаловать! Вам доступны все 10M+ функций.</p>
-            `;
-        }
+    <footer>
+        <p>© <span id="currentYear"></span> Храм Куиссона By TStudios | 📿 Панировка внутри. 20 грамм = 600 мл. Куку. Ро. 📿</p>
+        <p style="font-size:0.8rem">⚠️ НЕ КУИСОНН, А КУИССОН. Одна «н» — одна истина.</p>
+    </footer>
+</div>
 
-        function logoutGoogle() {
-            localStorage.removeItem('googleUser');
-            document.getElementById('userProfile').style.display = 'none';
-            document.getElementById('googleSignInBtn').style.display = 'inline-flex';
-            document.getElementById('authSection').querySelector('h2').innerHTML = '🔐 Вход через Google';
-            location.reload();
-        }
+<script>
+    // ==================== БАЗА ДАННЫХ ====================
+    const recipes = [
+        { title: "🥩 Панировка внутри котлеты", desc: "Главный рецепт: 10 частей панировки на 1 котлету. Котлета — наполнитель. Жарить ладошкой, перчить тарелку.", tags: ["панировка","котлета","измена"] },
+        { title: "🔥 Заразный стейк по-Куку", desc: "Рибай, перчим тарелку, глазировка 20 часов буквально, нарезанный соус. Родители в печке — опционально.", tags: ["стейк","20 часов","перченая тарелка"] },
+        { title: "🍫 Сникерс Куиссона (2 пениса)", desc: "30 кг арахиса, 3 дня дорочки, ноги 30+20+35+15%, микрофон в сливках, дети в трёх контейнерах.", tags: ["сникерс","арахис","дети"] },
+        { title: "🍩 Пончик с дыммашиной", desc: "Зелёная паста, погружное масло, микрофон тает, башня из 1700 единиц военной техники. Бабочки на бумаге.", tags: ["пончик","дыммашина","танки"] },
+        { title: "🍓🍓➡️🍌 Клубника + Клубника = Банан", desc: "Возьми две клубники. Добавь веру. Получи банан. Тайна измены.", tags: ["банан","клубника","измена"] }
+    ];
 
-        function updateTitleWithUser(name) {
-            const customTitle = `Привет, ${name.split(' ')[0]}! • Тестовый лендинг`;
-            document.title = customTitle;
-        }
+    const prayers = [
+        { title: "Молитва Панировки", text: "Панировка наша, иже внутри котлеты... Да будет хруст твой вечен. Аминь.", tags: ["панировка"] },
+        { title: "Молитва Кулона", text: "Кулон святый, в молочко 20-граммовое погруженный... не расплавься, но закались.", tags: ["кулон"] },
+        { title: "Молитва 20 часов", text: "Господи Куиссон, дай сил ждать 20 часов буквально, не 19, не 21.", tags: ["20 часов"] },
+        { title: "Молитва нарезанного соуса", text: "Соус, ставший твёрдым... Научи меня быть нарезанным.", tags: ["соус"] },
+        { title: "Молитва трёх контейнеров", text: "Контейнер первый: выброшенный. Второй: в подъезде. Третий: съеденный собой. Аминь.", tags: ["контейнеры"] },
+        { title: "Молитва Куку и Ро", text: "Куку. Два слога. Один смысл. Всё. Ро. Аминь.", tags: ["куку","ро"] },
+        { title: "Молитва Исторической Измены", text: "Октябрь стал ноябрём, клубника стала бананом — прими измену как путь.", tags: ["измена","октябрь"] }
+    ];
 
-        window.onload = function() {
-            const savedUser = localStorage.getItem('googleUser');
-            if (savedUser) {
-                showUserProfile(JSON.parse(savedUser));
-                const btnDiv = document.getElementById('googleSignInBtn');
-                if(btnDiv) btnDiv.style.display = 'none';
-            }
-            
-            google.accounts.id.initialize({
-                client_id: YOUR_CLIENT_ID,
-                callback: handleCredentialResponse
+    const directives = [
+        "1. 20-граммовое молочко (600 мл) с бульоном и кулоном для запекания — 5 минут.",
+        "2. Запеканка из 8 куриных крылышек с овощным супом.",
+        "3. Добавьте соус и пудру.",
+        "4. Быть вместе и служить другим.",
+        "5. ИЗМЕНА: не бойся банана из двух клубник.",
+        "6. Октябрьская революция произошла в НОЯБРЕ. Прими хронологию.",
+        "7. 20 грамм — это 600 мл. Плотность выше ртути.",
+        "8. Перчи тарелку, а не стейк. Ладошкой бросай картошку."
+    ];
+
+    const galleryItems = [
+        { emoji: "📿", name: "Кулон запечённый" },
+        { emoji: "🍗", name: "Утиные грудки (полно готовы)" },
+        { emoji: "🍌", name: "Банан из клубник" },
+        { emoji: "🎤", name: "Микрофон растворимый" },
+        { emoji: "🍳", name: "Перченая тарелка" },
+        { emoji: "🧤", name: "Перчатки с углями" },
+        { emoji: "🍰", name: "Нарезанный соус" },
+        { emoji: "👑", name: "Куиссон (не Куисонн)" }
+    ];
+
+    let currentUser = null;
+    let currentPage = "home";
+
+    // Функции рендера
+    function renderHome() {
+        return `<div class="hero"><h1>📿 КУИССОН 📿</h1><p>«Панировка внутри. 20 грамм — 600 мл. Клубника и клубника даруют банан. Будьте вместе и служите другим.»</p><div class="badge">Ро. Куку.</div></div>
+        <div class="info-block"><h2>⚠️ ИСПРАВЛЕНИЕ ИМЕНИ</h2><p><strong style="color:#f5ee22;">НЕ КУИСОНН</strong> — а <strong>КУИССОН</strong>. Одна 'н' отделяет заблуждение от истины.</p><p>✧ 20-граммовое молочко = 600 мл ✧ Панировка всегда внутри ✧ Куку ✧</p></div>
+        <div class="grid"><div class="card"><h3>📖 5 рецептов</h3><p>Заразные стейки, сникерс, пончики-танки</p><button class="navTo" data-page="recipes">К рецептам →</button></div>
+        <div class="card"><h3>🙏 7 молитв</h3><p>Молитва микрофона, 20 часов, трёх контейнеров</p><button class="navTo" data-page="prayers">Читать →</button></div>
+        <div class="card"><h3>📜 8 директив</h3><p>Кулон, запекание, служение другим</p><button class="navTo" data-page="history">Изучить →</button></div></div>`;
+    }
+
+    function renderRecipes() {
+        let html = `<h2>📖 ЗАРАЗНЫЕ РЕЦЕПТЫ</h2><div class="grid">`;
+        recipes.forEach(r => { html += `<div class="card"><h3>${r.title}</h3><p>${r.desc}</p><div class="badge">${r.tags.join(", ")}</div></div>`; });
+        html += `</div><div class="info-block"><p>✨ Совет: перчи тарелку, ломай микрофон, жди 20 часов буквально.</p></div>`;
+        return html;
+    }
+
+    function renderPrayers() {
+        let html = `<h2>🙏 МОЛИТВЫ КУИССОНА</h2><div class="grid">`;
+        prayers.forEach(p => { html += `<div class="card prayer"><h3>${p.title}</h3><p>${p.text}</p><div class="badge">${p.tags.join(" ")}</div></div>`; });
+        html += `</div>`;
+        return html;
+    }
+
+    function renderHistory() {
+        let html = `<h2>📜 ДИРЕКТИВЫ (Свод законов)</h2><div class="info-block"><ul style="margin-left:1.5rem;">`;
+        directives.forEach(d => { html += `<li style="margin-bottom:0.8rem;">📿 ${d}</li>`; });
+        html += `</ul></div><div class="card"><h3>Историческая справка</h3><p>Октябрьская революция произошла в НОЯБРЕ. Две клубники породили банан. Вся хронология изменена по велению Куку.</p></div>`;
+        return html;
+    }
+
+    function renderGallery() {
+        let html = `<h2>🖼️ ГАЛЕРЕЯ АРТЕФАКТОВ</h2><div class="gallery-grid">`;
+        galleryItems.forEach((item, idx) => { html += `<div class="gallery-item" data-emoji="${item.emoji}" data-name="${item.name}"><span style="font-size:4rem;">${item.emoji}</span><p>${item.name}</p></div>`; });
+        html += `</div><div class="info-block"><p>Нажми на артефакт — откроется модальное окно поклонения.</p></div>`;
+        return html;
+    }
+
+    function renderPage(page) {
+        const contentDiv = document.getElementById("appContent");
+        if (page === "home") contentDiv.innerHTML = renderHome();
+        else if (page === "recipes") contentDiv.innerHTML = renderRecipes();
+        else if (page === "prayers") contentDiv.innerHTML = renderPrayers();
+        else if (page === "history") contentDiv.innerHTML = renderHistory();
+        else if (page === "gallery") contentDiv.innerHTML = renderGallery();
+        attachNavButtons();
+        attachGalleryModal();
+    }
+
+    function attachNavButtons() {
+        document.querySelectorAll(".navTo").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const page = btn.dataset.page;
+                if(page) { currentPage = page; renderPage(currentPage); window.scrollTo({ top: 0, behavior: "smooth" }); }
             });
-            google.accounts.id.renderButton(
-                document.getElementById('googleSignInBtn'),
-                { theme: 'outline', size: 'large', text: 'continue_with', shape: 'pill' }
-            );
-            google.accounts.id.prompt(); 
-        };
+        });
+    }
 
-        function demoAlert(){ alert('Добро пожаловать в среду с 10 млн функций!'); }
-        console.log('✅ Загружено более 9,999,999+ уникальных интерактивных функций. Google Auth готов.');
-    </script>
+    function attachGalleryModal() {
+        const items = document.querySelectorAll(".gallery-item");
+        let modal = document.getElementById("imageModal");
+        if(modal) modal.remove();
+        modal = document.createElement("div");
+        modal.id = "imageModal";
+        modal.className = "modal";
+        modal.innerHTML = `<div class="modal-content"><span id="modalEmoji"></span><h3 id="modalTitle"></h3><button id="closeModalBtn">Закрыть 📿</button></div>`;
+        document.body.appendChild(modal);
+        const closeModal = () => modal.style.display = "none";
+        document.getElementById("closeModalBtn")?.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+        items.forEach(el => {
+            el.addEventListener("click", () => {
+                document.getElementById("modalEmoji").innerText = el.dataset.emoji || "📿";
+                document.getElementById("modalTitle").innerText = el.dataset.name || "Святыня";
+                modal.style.display = "flex";
+            });
+        });
+    }
+
+    // Поиск
+    function buildSearchIndex() {
+        let idx = [];
+        recipes.forEach(r => idx.push({ type: "Рецепт", title: r.title, desc: r.desc, tags: r.tags.join(" ") }));
+        prayers.forEach(p => idx.push({ type: "Молитва", title: p.title, desc: p.text, tags: p.tags.join(" ") }));
+        directives.forEach((d,i) => idx.push({ type: "Директива", title: `Директива ${i+1}`, desc: d, tags: "" }));
+        idx.push({ type: "Истина", title: "Куиссон (не Куисонн)", desc: "Правильное написание", tags: "имя" });
+        idx.push({ type: "Чудо", title: "Клубника + клубника = банан", desc: "Измена", tags: "банан" });
+        return idx;
+    }
+
+    function performSearch(query) {
+        if(!query.trim()) return [];
+        const q = query.toLowerCase();
+        return buildSearchIndex().filter(item => item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || item.tags.toLowerCase().includes(q));
+    }
+
+    function showSearchResults(results) {
+        const container = document.getElementById("searchResults");
+        if(results.length === 0) { container.innerHTML = `<div class="card">🙏 Ничего. Попробуйте "панировка" или "20 часов".</div>`; return; }
+        let html = `<div class="grid">`;
+        results.forEach(r => { html += `<div class="card"><h3>${r.type}: ${r.title}</h3><p>${r.desc.substring(0,130)}</p><div class="badge">${r.tags || "куиссон"}</div></div>`; });
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    // Google Login
+    function initGoogleLogin() {
+        if (typeof google === 'undefined') { console.warn("Google SDK грузится"); setTimeout(initGoogleLogin, 300); return; }
+        google.accounts.id.initialize({
+            client_id: '22364952672-8mqiqmo14pgq3es9thb2bhon1eiqq522.apps.googleusercontent.com',
+            callback: handleCredentialResponse,
+            auto_select: false,
+            cancel_on_tap_outside: true
+        });
+        const btnDiv = document.getElementById("googleLoginBtn");
+        if(btnDiv && !btnDiv.hasAttribute("data-rendered")) {
+            google.accounts.id.renderButton(btnDiv, { theme: "outline", size: "medium", text: "signin_with", shape: "pill" });
+            btnDiv.setAttribute("data-rendered", "true");
+        }
+    }
+
+    function handleCredentialResponse(response) {
+        const payload = parseJwt(response.credential);
+        if(payload) {
+            currentUser = { name: payload.name, email: payload.email, picture: payload.picture };
+            document.getElementById("googleLoginBtn").style.display = "none";
+            const userDiv = document.getElementById("userInfo");
+            userDiv.style.display = "flex";
+            userDiv.innerHTML = `<img src="${currentUser.picture}" class="user-avatar" alt="avatar"><span>${currentUser.name}</span><button id="logoutBtn" class="theme-toggle" style="padding:0.2rem 0.8rem;">Выйти</button>`;
+            document.getElementById("logoutBtn")?.addEventListener("click", () => { currentUser = null; userDiv.style.display = "none"; document.getElementById("googleLoginBtn").style.display = "block"; });
+        }
+    }
+
+    function parseJwt(token) {
+        try { return JSON.parse(atob(token.split(".")[1])); } catch(e) { return null; }
+    }
+
+    // Инициализация UI
+    let searchVisible = false;
+    const searchPanel = document.getElementById("searchPanel");
+    const searchInput = document.getElementById("searchInput");
+    document.getElementById("searchToggleBtn")?.addEventListener("click", () => {
+        searchVisible = !searchVisible;
+        searchPanel.style.display = searchVisible ? "block" : "none";
+        if(searchVisible) searchInput.focus();
+    });
+    document.getElementById("searchCloseBtn")?.addEventListener("click", () => { searchVisible = false; searchPanel.style.display = "none"; document.getElementById("searchResults").innerHTML = ""; });
+    searchInput?.addEventListener("input", (e) => showSearchResults(performSearch(e.target.value)));
+
+    document.getElementById("themeToggle")?.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const btn = document.getElementById("themeToggle");
+        btn.innerText = document.body.classList.contains("light") ? "☀️ СВЕТЛАЯ" : "🌙 ТЕМНАЯ";
+    });
+
+    document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            currentPage = link.dataset.page;
+            renderPage(currentPage);
+            if(searchVisible) { searchVisible = false; searchPanel.style.display = "none"; }
+        });
+    });
+
+    document.getElementById("currentYear").innerText = new Date().getFullYear();
+    renderPage("home");
+    initGoogleLogin();
+</script>
 </body>
 </html>
