@@ -420,7 +420,7 @@
 <div class="card" id="app">
     <h1>🧾 Реквизиты бизнеса</h1>
     <div class="subhead">
-        Выберите организационно-правовую форму — автоматически подставятся реалистичные примеры для разных сценариев.
+        Выберите организационно-правовую форму. При изменении названия остальные поля заполнятся автоматически.
     </div>
 
     <form id="businessForm" class="form-grid" novalidate>
@@ -437,17 +437,17 @@
         </div>
 
         <div class="form-group">
-            <label>Авто-заполнение</label>
-            <button type="button" class="btn btn-toggle active" id="autoFillToggle" style="width: 100%; justify-content: center;">
+            <label>Авто-генерация при изменении названия</label>
+            <button type="button" class="btn btn-toggle active" id="autoGenToggle" style="width: 100%; justify-content: center;">
                 🔄 Включено
             </button>
-            <small style="color: #65768f; font-size: 12px;">При смене формы поля будут обновляться</small>
+            <small style="color: #65768f; font-size: 12px;">При вводе названия поля будут заполняться автоматически</small>
         </div>
 
         <div class="form-group">
             <label for="orgName">Название / ФИО <small>для ИП/Самозанятого</small></label>
             <div class="input-wrapper">
-                <input type="text" id="orgName" placeholder="Название организации или ФИО" value="ООО «ТехноСтарт»" maxlength="100">
+                <input type="text" id="orgName" placeholder="Например: ООО «Ромашка» или Иванов И.И." value="ООО «ТехноСтарт»" maxlength="100">
                 <span class="input-status" id="orgNameStatus"></span>
             </div>
             <div class="validation-message" id="orgNameValidation"></div>
@@ -606,7 +606,7 @@
         const updateStatus = document.getElementById('updateStatus');
         const statusDot = document.getElementById('statusDot');
         const historyBar = document.getElementById('historyBar');
-        const autoFillToggle = document.getElementById('autoFillToggle');
+        const autoGenToggle = document.getElementById('autoGenToggle');
 
         const generateBtn = document.getElementById('generateBtn');
         const saveBtn = document.getElementById('saveBtn');
@@ -614,7 +614,8 @@
         const exportBtn = document.getElementById('exportBtn');
 
         // ===== Состояние =====
-        let autoFillEnabled = true;
+        let autoGenEnabled = true;
+        let isGeneratingFromName = false;
 
         // ===== Шаблоны для разных сценариев =====
         const scenarios = {
@@ -775,6 +776,103 @@
                 }
             }
         };
+
+        // ===== Генерация случайных данных на основе названия =====
+        function generateDataFromName(name, type) {
+            if (!name || name.trim().length < 2) return null;
+            
+            // Очищаем название от лишних символов
+            let cleanName = name.replace(/[^a-zA-Zа-яА-Я0-9]/g, '').toLowerCase();
+            if (cleanName.length < 2) cleanName = 'company';
+            
+            // Генерируем ИНН (10 или 12 цифр)
+            let innLength = (type === 'ИП' || type === 'Самозанятый') ? 12 : 10;
+            let inn = '';
+            for (let i = 0; i < innLength; i++) {
+                inn += Math.floor(Math.random() * 9) + 1;
+            }
+            
+            // Генерируем КПП (9 цифр) для юрлиц
+            let kpp = '';
+            const noKpp = ['ИП', 'Самозанятый'];
+            if (!noKpp.includes(type)) {
+                for (let i = 0; i < 9; i++) {
+                    kpp += Math.floor(Math.random() * 9) + 1;
+                }
+            }
+            
+            // Генерируем ОГРН (13 или 15 цифр)
+            let ogrnLength = (type === 'ИП' || type === 'Самозанятый') ? 15 : 13;
+            let ogrn = '';
+            for (let i = 0; i < ogrnLength; i++) {
+                ogrn += Math.floor(Math.random() * 9) + 1;
+            }
+            
+            // Генерируем ERID (случайный токен)
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let erid = '4CQwVszH';
+            for (let i = 0; i < 8; i++) {
+                erid += chars[Math.floor(Math.random() * chars.length)];
+            }
+            
+            // Генерируем адрес (случайный город и улица)
+            const cities = ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Омск', 'Самара', 'Ростов-на-Дону'];
+            const streets = ['Ленина', 'Пушкина', 'Тверская', 'Невский пр.', 'Красная', 'Баумана', 'Мира', 'Советская', 'Гагарина', 'Кирова'];
+            const city = cities[Math.floor(Math.random() * cities.length)];
+            const street = streets[Math.floor(Math.random() * streets.length)];
+            const house = Math.floor(Math.random() * 50) + 1;
+            const building = Math.random() > 0.5 ? `, стр. ${Math.floor(Math.random() * 10) + 1}` : '';
+            const office = Math.random() > 0.5 ? `, оф. ${Math.floor(Math.random() * 100) + 1}` : '';
+            const address = `г. ${city}, ул. ${street}, д. ${house}${building}${office}`;
+            
+            // Генерируем телефон
+            const phoneCodes = ['495', '812', '343', '383', '843', '831', '351', '381', '846', '863'];
+            const code = phoneCodes[Math.floor(Math.random() * phoneCodes.length)];
+            const num1 = Math.floor(Math.random() * 900) + 100;
+            const num2 = Math.floor(Math.random() * 90) + 10;
+            const num3 = Math.floor(Math.random() * 90) + 10;
+            const phone = `+7 (${code}) ${num1}-${num2}-${num3}`;
+            
+            // Генерируем email (транслитерация названия)
+            const translit = {
+                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z',
+                'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
+                'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+                'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+            };
+            
+            let translitName = cleanName;
+            for (let [rus, lat] of Object.entries(translit)) {
+                translitName = translitName.replace(new RegExp(rus, 'g'), lat);
+            }
+            // Убираем цифры для email
+            let emailName = translitName.replace(/[0-9]/g, '');
+            if (emailName.length < 3) emailName = 'info';
+            if (emailName.length > 20) emailName = emailName.slice(0, 20);
+            
+            const domains = ['yandex.ru', 'mail.ru', 'google.com', 'gmail.com', 'yahoo.com', 'bk.ru', 'inbox.ru', 'list.ru'];
+            const domain = domains[Math.floor(Math.random() * domains.length)];
+            const email = `${emailName}@${domain}`;
+            
+            // Генерируем сайт
+            let siteName = translitName.replace(/[^a-zA-Z0-9]/g, '');
+            if (siteName.length < 3) siteName = 'company';
+            if (siteName.length > 20) siteName = siteName.slice(0, 20);
+            const tlds = ['ru', 'com', 'org', 'net', 'pro', 'info'];
+            const tld = tlds[Math.floor(Math.random() * tlds.length)];
+            const website = `https://${siteName}.${tld}`;
+            
+            return {
+                inn: inn,
+                kpp: kpp,
+                ogrn: ogrn,
+                erid: erid,
+                address: address,
+                phone: phone,
+                email: email,
+                website: website
+            };
+        }
 
         // ===== Получение случайного шаблона для типа =====
         function getRandomScenario(type) {
@@ -1021,8 +1119,43 @@
             toggleKppField();
             validateAll();
             generatePreview();
+        }
+
+        // ===== Авто-генерация при изменении названия =====
+        function handleNameChange() {
+            if (!autoGenEnabled) return;
+            if (isGeneratingFromName) return;
             
-            showNotification(`📋 Загружен сценарий: ${scenario.name}`);
+            const name = orgNameInput.value.trim();
+            if (name.length < 2) return;
+            
+            const type = typeSelect.value;
+            const generated = generateDataFromName(name, type);
+            if (!generated) return;
+            
+            isGeneratingFromName = true;
+            
+            // Заполняем поля сгенерированными данными
+            innInput.value = generated.inn;
+            if (generated.kpp) {
+                kppInput.value = generated.kpp;
+            }
+            ogrnInput.value = generated.ogrn;
+            eridInput.value = generated.erid;
+            addressInput.value = generated.address;
+            phoneInput.value = generated.phone;
+            emailInput.value = generated.email;
+            websiteInput.value = generated.website;
+            
+            // Показываем уведомление
+            showNotification('🔄 Поля автоматически заполнены на основе названия');
+            
+            validateAll();
+            generatePreview();
+            
+            setTimeout(() => {
+                isGeneratingFromName = false;
+            }, 100);
         }
 
         // ===== Сохранение в localStorage =====
@@ -1141,19 +1274,14 @@
         // ===== Обработчики =====
         typeSelect.addEventListener('change', () => {
             toggleKppField();
-            if (autoFillEnabled) {
-                loadRandomTemplate();
-            } else {
-                validateAll();
-                generatePreview();
-            }
+            loadRandomTemplate();
         });
 
-        autoFillToggle.addEventListener('click', () => {
-            autoFillEnabled = !autoFillEnabled;
-            autoFillToggle.textContent = autoFillEnabled ? '🔄 Включено' : '⛔ Отключено';
-            autoFillToggle.classList.toggle('active', autoFillEnabled);
-            showNotification(autoFillEnabled ? '🔄 Авто-заполнение включено' : '⛔ Авто-заполнение отключено');
+        autoGenToggle.addEventListener('click', () => {
+            autoGenEnabled = !autoGenEnabled;
+            autoGenToggle.textContent = autoGenEnabled ? '🔄 Включено' : '⛔ Отключено';
+            autoGenToggle.classList.toggle('active', autoGenEnabled);
+            showNotification(autoGenEnabled ? '🔄 Авто-генерация включена' : '⛔ Авто-генерация отключена');
         });
 
         generateBtn.addEventListener('click', (e) => {
@@ -1175,11 +1303,7 @@
         resetBtn.addEventListener('click', (e) => {
             e.preventDefault();
             typeSelect.value = 'ООО';
-            if (autoFillEnabled) {
-                loadRandomTemplate();
-            } else {
-                loadRandomTemplate();
-            }
+            loadRandomTemplate();
             showNotification('↺ Сброшено');
         });
 
@@ -1188,17 +1312,14 @@
             exportData();
         });
 
-        // Авто-обновление при вводе
-        let autoSaveTimeout = null;
-        const allInputs = [orgNameInput, innInput, kppInput, ogrnInput, eridInput, addressInput, phoneInput, emailInput, websiteInput];
-        allInputs.forEach(input => {
-            input.addEventListener('input', () => {
-                clearTimeout(autoSaveTimeout);
-                validateAll();
-                autoSaveTimeout = setTimeout(() => {
-                    generatePreview();
-                }, 300);
-            });
+        // Авто-генерация при изменении названия (с debounce)
+        let nameChangeTimeout = null;
+        orgNameInput.addEventListener('input', () => {
+            clearTimeout(nameChangeTimeout);
+            validateAll();
+            nameChangeTimeout = setTimeout(() => {
+                handleNameChange();
+            }, 500);
         });
 
         // ===== Инициализация =====
@@ -1222,10 +1343,9 @@
             validateAll();
             generatePreview();
         } else {
-            // Или загружаем случайный шаблон
             loadRandomTemplate();
         }
     })();
 </script>
 </body>
-                </html>
+</html>
