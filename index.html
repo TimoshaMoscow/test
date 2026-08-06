@@ -1,16 +1,63 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Генератор реквизитов бизнеса</title>
     <meta name="description" content="Генератор реквизитов для бизнеса: создавайте рекламные метки, документы, визитки и этикетки за секунды">
     <meta name="theme-color" content="#0b1a33">
-    <meta property="og:title" content="Генератор реквизитов бизнеса">
-    <meta property="og:description" content="Создавайте рекламные метки, документы и визитки для вашего бизнеса">
-    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts для красивого шрифта -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --bg: #f0f4fc;
+            --card-bg: #ffffff;
+            --text: #0b1a33;
+            --text-secondary: #4a5a72;
+            --text-light: #7b8ba0;
+            --border: #e2eaf5;
+            --input-bg: #f7faff;
+            --shadow: 0 20px 60px rgba(11, 26, 51, 0.08);
+            --shadow-hover: 0 30px 80px rgba(11, 26, 51, 0.12);
+            --accent: #2a7de1;
+            --accent-light: #e8f0fe;
+            --accent-gradient: linear-gradient(135deg, #2a7de1 0%, #1a5fc7 100%);
+            --success: #27ae60;
+            --success-light: #e8f8ef;
+            --error: #e74c3c;
+            --error-light: #fde8e8;
+            --preview-bg: #f8faff;
+            --tag-border: #e8eef6;
+            --badge-bg: #eef3fa;
+            --radius: 24px;
+            --radius-sm: 14px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-light: #6e7681;
+            --border: #30363d;
+            --input-bg: #0d1117;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.6);
+            --accent: #58a6ff;
+            --accent-light: #1c2d4a;
+            --accent-gradient: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+            --success: #3fb950;
+            --success-light: #1a3a2a;
+            --error: #f85149;
+            --error-light: #2d1b1b;
+            --preview-bg: #0d1117;
+            --tag-border: #30363d;
+            --badge-bg: #21262d;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -18,59 +65,140 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #f4f7fb;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 16px;
+            padding: 20px;
             margin: 0;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text);
+            line-height: 1.6;
         }
 
         .card {
             max-width: 1200px;
             width: 100%;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.10);
-            padding: 28px 24px 32px;
-            transition: padding 0.2s;
-            margin: 8px 0;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px 32px 36px;
+            transition: all var(--transition);
+            margin: 4px 0;
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(42, 125, 225, 0.3);
         }
 
         h1 {
-            font-size: clamp(22px, 4vw, 32px);
+            font-size: clamp(24px, 3.6vw, 34px);
             font-weight: 700;
-            color: #0b1a33;
-            letter-spacing: -0.4px;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        h1 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
             display: flex;
-            align-items: center;
             gap: 8px;
             flex-wrap: wrap;
         }
+
+        /* ===== Subhead ===== */
         .subhead {
-            color: #4a5a72;
-            font-size: clamp(14px, 1.6vw, 17px);
-            margin: 6px 0 22px 0;
-            padding-left: 16px;
-            border-left: 4px solid #2a7de1;
-            background: #f0f5fe;
-            border-radius: 0 12px 12px 0;
-            line-height: 1.5;
-            padding: 10px 16px;
+            color: var(--text-secondary);
+            font-size: clamp(14px, 1.4vw, 17px);
+            margin: 8px 0 24px 0;
+            padding: 14px 20px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            line-height: 1.6;
+            border: 1px solid transparent;
+            transition: background var(--transition);
+            position: relative;
         }
 
+        .subhead::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 4px;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+
+        .subhead .hotkeys {
+            display: block;
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .subhead .hotkeys kbd {
+            background: var(--card-bg);
+            padding: 1px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Form ===== */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px 24px;
+            gap: 16px 24px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             position: relative;
         }
         .form-group.full {
@@ -79,27 +207,30 @@
 
         label {
             font-weight: 500;
-            font-size: clamp(13px, 1.2vw, 15px);
-            color: #1d2b41;
+            font-size: clamp(13px, 1.1vw, 14px);
+            color: var(--text);
             letter-spacing: 0.2px;
             display: flex;
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
         }
+
         label small {
             font-weight: 400;
-            color: #65768f;
+            color: var(--text-light);
             font-size: 12px;
         }
+
         .label-hint {
-            color: #65768f;
+            color: var(--text-light);
             font-weight: 400;
-            font-size: 12px;
+            font-size: 11px;
             margin-left: auto;
-            background: #f0f4fa;
+            background: var(--badge-bg);
             padding: 1px 10px;
             border-radius: 30px;
+            letter-spacing: 0.3px;
         }
 
         .input-wrapper {
@@ -109,35 +240,44 @@
         }
 
         input, select {
-            background: #f9fcff;
-            border: 1.5px solid #dfe7f0;
-            border-radius: 14px;
-            padding: 11px 15px;
-            font-size: clamp(14px, 1.2vw, 16px);
-            transition: 0.2s;
+            background: var(--input-bg);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            font-size: clamp(14px, 1.1vw, 15px);
+            transition: all var(--transition);
             outline: none;
-            color: #0b1a33;
+            color: var(--text);
             width: 100%;
             -webkit-appearance: none;
             appearance: none;
+            font-family: 'Inter', sans-serif;
         }
+
+        input::placeholder {
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+
         input:focus, select:focus {
-            border-color: #2a7de1;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.12);
+            border-color: var(--accent);
+            background: var(--card-bg);
+            box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.1);
         }
+
         input.error {
-            border-color: #e74c3c;
-            background: #fff5f5;
+            border-color: var(--error);
+            background: var(--error-light);
         }
         input.error:focus {
-            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15);
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
         }
+
         input.valid {
-            border-color: #27ae60;
+            border-color: var(--success);
         }
         input.valid:focus {
-            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.12);
+            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1);
         }
 
         select {
@@ -145,282 +285,677 @@
             background-repeat: no-repeat;
             background-position: right 14px center;
             padding-right: 38px;
+            cursor: pointer;
+        }
+
+        [data-theme="dark"] select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
         }
 
         .input-status {
             position: absolute;
-            right: 12px;
-            font-size: 18px;
+            right: 14px;
+            font-size: 16px;
             pointer-events: none;
             opacity: 0;
-            transition: 0.2s;
+            transition: all var(--transition);
         }
         .input-status.show {
             opacity: 1;
         }
         .input-status.error-icon {
-            color: #e74c3c;
+            color: var(--error);
         }
         .input-status.success-icon {
-            color: #27ae60;
+            color: var(--success);
         }
 
         .validation-message {
             font-size: 12px;
-            color: #e74c3c;
+            color: var(--error);
             min-height: 18px;
             margin-top: 2px;
-            transition: 0.2s;
+            transition: all var(--transition);
+            font-weight: 400;
         }
 
+        /* ===== Buttons ===== */
         .actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             justify-content: flex-end;
-            margin-top: 20px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
         }
+
         .btn {
-            background: #0b1a33;
-            color: white;
+            font-family: 'Inter', sans-serif;
+            background: var(--text);
+            color: var(--card-bg);
             border: none;
             border-radius: 40px;
-            padding: 12px 28px;
+            padding: 11px 26px;
             font-weight: 600;
-            font-size: clamp(14px, 1.2vw, 16px);
+            font-size: clamp(13px, 1vw, 15px);
             cursor: pointer;
-            transition: 0.2s;
+            transition: all var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(11, 26, 51, 0.12);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
             flex: 0 1 auto;
             touch-action: manipulation;
+            letter-spacing: 0.2px;
         }
+
         .btn:hover {
-            background: #1d2f4a;
-            transform: scale(1.01);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
         .btn:active {
             transform: scale(0.97);
+            transition-duration: 0.05s;
         }
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
-        }
-        .btn-outline {
-            background: transparent;
-            color: #0b1a33;
-            box-shadow: none;
-            border: 1.5px solid #d0dcec;
-        }
-        .btn-outline:hover {
-            background: #f0f5fe;
-            border-color: #2a7de1;
-        }
-        .btn-primary {
-            background: #2a7de1;
-        }
-        .btn-primary:hover {
-            background: #1a6bc9;
-        }
-        .btn-success {
-            background: #27ae60;
-        }
-        .btn-success:hover {
-            background: #1e8449;
-        }
-        .btn-toggle {
-            background: #f0f4fa;
-            color: #1d2b41;
-            border: 1.5px solid #dfe7f0;
-        }
-        .btn-toggle.active {
-            background: #2a7de1;
-            color: white;
-            border-color: #2a7de1;
-        }
-        .btn-toggle:hover {
-            background: #e4ebf5;
-        }
-        .btn-toggle.active:hover {
-            background: #1a6bc9;
+            box-shadow: none !important;
         }
 
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            box-shadow: none;
+            border: 1.5px solid var(--border);
+        }
+        .btn-outline:hover {
+            background: var(--badge-bg);
+            border-color: var(--accent);
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.3);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 28px rgba(42, 125, 225, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+            box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3);
+        }
+        .btn-success:hover {
+            box-shadow: 0 8px 28px rgba(39, 174, 96, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-toggle {
+            background: var(--badge-bg);
+            color: var(--text);
+            border: 1.5px solid var(--border);
+            box-shadow: none;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-toggle.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25);
+        }
+        .btn-toggle:hover {
+            transform: translateY(-1px);
+        }
+        .btn-toggle.active:hover {
+            box-shadow: 0 8px 28px rgba(42, 125, 225, 0.35);
+        }
+
+        .btn-icon {
+            padding: 11px 14px;
+            font-size: 18px;
+            justify-content: center;
+        }
+
+        .btn-sm {
+            padding: 5px 14px;
+            font-size: 12px;
+            border-radius: 30px;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Preview ===== */
         .preview-area {
             margin-top: 32px;
-            border-top: 2px dashed #dce5ef;
-            padding-top: 24px;
+            padding-top: 28px;
+            border-top: 2px dashed var(--border);
+            transition: border-color var(--transition);
         }
+
         .preview-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 18px;
-        }
-        .preview-header h2 {
-            font-size: clamp(18px, 2.4vw, 24px);
-            font-weight: 600;
-            color: #0b1a33;
-        }
-        .badge {
-            background: #eef4fc;
-            border-radius: 40px;
-            padding: 4px 18px;
-            font-size: clamp(13px, 1.1vw, 15px);
-            font-weight: 600;
-            color: #1d2b41;
-            white-space: nowrap;
-        }
-        .badge.success {
-            background: #d4edda;
-            color: #155724;
+            margin-bottom: 20px;
         }
 
+        .preview-header h2 {
+            font-size: clamp(18px, 2vw, 22px);
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preview-header h2 .emoji {
+            font-size: 24px;
+        }
+
+        .badge {
+            background: var(--badge-bg);
+            border-radius: 40px;
+            padding: 6px 20px;
+            font-size: clamp(13px, 1vw, 14px);
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            transition: all var(--transition);
+            border: 1px solid var(--border);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .badge.success {
+            background: var(--success-light);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        /* ===== Tag Grid ===== */
         .tag-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 16px;
         }
+
         .tag-card {
-            background: #fafcff;
-            border-radius: 20px;
-            padding: 16px 14px 14px;
-            border: 1px solid #e6edf6;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            background: var(--preview-bg);
+            border-radius: 18px;
+            padding: 16px 16px 14px;
+            border: 1px solid var(--tag-border);
+            transition: all var(--transition);
             display: flex;
             flex-direction: column;
-        }
-        .tag-card h3 {
-            font-size: clamp(12px, 1vw, 14px);
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            color: #65768f;
-            margin: 0 0 10px 0;
-            font-weight: 600;
-        }
-        .tag-content {
-            background: white;
-            border-radius: 14px;
-            padding: 12px 14px;
-            border: 1px solid #eef4fc;
-            font-size: clamp(13px, 1.1vw, 15px);
-            line-height: 1.6;
-            color: #0b1a33;
-            word-break: break-word;
-            min-height: 80px;
-            flex: 1;
-            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
+        .tag-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .tag-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+            border-color: var(--accent);
+        }
+
+        .tag-card:hover::before {
+            opacity: 1;
+        }
+
+        .tag-card:active {
+            transform: scale(0.98);
+        }
+
+        .tag-card .copy-hint {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            font-size: 12px;
+            color: var(--text-light);
+            opacity: 0;
+            transition: all var(--transition);
+            background: var(--card-bg);
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .tag-card:hover .copy-hint {
+            opacity: 1;
+        }
+
+        .tag-card.copied {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .tag-card.copied .copy-hint {
+            color: var(--success);
+            opacity: 1;
+            border-color: var(--success);
+        }
+
+        .tag-card h3 {
+            font-size: clamp(11px, 0.9vw, 13px);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .tag-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--tag-border);
+            font-size: clamp(13px, 1vw, 14px);
+            line-height: 1.7;
+            color: var(--text);
+            word-break: break-word;
+            min-height: 76px;
+            flex: 1;
+            font-family: 'Inter', monospace;
+            white-space: pre-wrap;
+            transition: all var(--transition);
+            font-weight: 400;
+        }
+
+        .tag-content .label-muted {
+            color: var(--text-light);
+            font-size: 12px;
+            display: block;
+            margin-bottom: 2px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===== Footer ===== */
         .footer-note {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 14px;
-            font-size: clamp(12px, 1vw, 14px);
-            color: #65768f;
+            margin-top: 16px;
+            font-size: clamp(12px, 0.9vw, 14px);
+            color: var(--text-secondary);
         }
+
         .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
             display: inline-block;
+            transition: background var(--transition);
+            flex-shrink: 0;
         }
-        .status-dot.green {
-            background: #27ae60;
-        }
-        .status-dot.yellow {
-            background: #f39c12;
+        .status-dot.green { background: var(--success); }
+        .status-dot.yellow { background: #f39c12; }
+        .status-dot.red { background: var(--error); }
+
+        .status-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        /* ===== History ===== */
         .history-bar {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #eef4fc;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            align-items: center;
         }
+
+        .history-search {
+            flex: 1;
+            min-width: 140px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            transition: all var(--transition);
+            outline: none;
+        }
+
+        .history-search:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
+        }
+
         .history-item {
-            background: #f0f4fa;
-            padding: 4px 12px;
-            border-radius: 20px;
+            background: var(--badge-bg);
+            padding: 4px 14px;
+            border-radius: 30px;
             font-size: 12px;
-            color: #1d2b41;
+            color: var(--text);
             cursor: pointer;
-            transition: 0.2s;
+            transition: all var(--transition);
             border: 1px solid transparent;
+            font-weight: 500;
+            white-space: nowrap;
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+
         .history-item:hover {
-            background: #e4ebf5;
-            border-color: #2a7de1;
+            background: var(--accent-light);
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
 
-        .hidden-field {
-            display: none !important;
+        /* ===== QR ===== */
+        .qr-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        .qr-overlay.active { display: block; }
+
+        .qr-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            z-index: 1001;
+            text-align: center;
+            max-width: 90vw;
+            animation: slideUp 0.4s ease;
+            border: 1px solid var(--border);
+        }
+        .qr-container.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+
+        .qr-container .close-qr {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 22px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+        .qr-container .close-qr:hover {
+            background: var(--badge-bg);
+            color: var(--text);
         }
 
+        .qr-container h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        #qrCanvas {
+            margin: 12px auto;
+            display: block;
+            border-radius: 12px;
+            background: white;
+            padding: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            max-width: 100%;
+            height: auto;
+        }
+
+        #qrLinkText {
+            font-size: 13px;
+            color: var(--text-secondary);
+            word-break: break-all;
+            margin-top: 4px;
+            font-family: 'Inter', monospace;
+        }
+
+        /* ===== Template Settings ===== */
+        .template-settings {
+            margin-top: 16px;
+            padding: 14px 18px;
+            background: var(--badge-bg);
+            border-radius: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+
+        .template-settings label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            gap: 4px;
+        }
+
+        .template-settings input {
+            flex: 1;
+            min-width: 180px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 13px;
+            font-family: 'Inter', monospace;
+            transition: all var(--transition);
+            outline: none;
+        }
+
+        .template-settings input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
+        }
+
+        .template-settings small {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        /* ===== Stats ===== */
+        .stats {
+            display: none;
+            gap: 12px 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: var(--badge-bg);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .stats.show {
+            display: flex;
+        }
+
+        .stats span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stats b {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ===== Toast ===== */
         .toast-notification {
             position: fixed;
-            bottom: 20px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            background: #0b1a33;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
+            background: var(--text);
+            color: var(--card-bg);
+            padding: 12px 28px;
+            border-radius: 40px;
             font-size: 14px;
-            z-index: 1000;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            animation: fadeInUp 0.3s ease;
+            z-index: 2000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: toastIn 0.4s ease;
             max-width: 90%;
             text-align: center;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            transition: all var(--transition);
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        [data-theme="dark"] .toast-notification {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
         }
 
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+        }
+
+        /* ===== Responsive ===== */
         @media (max-width: 820px) {
             .card { padding: 20px 16px 24px; border-radius: 20px; }
-            .form-grid { gap: 14px 18px; }
+            .form-grid { gap: 14px 16px; }
+            .tag-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         }
 
         @media (max-width: 640px) {
-            body { padding: 8px; align-items: flex-start; }
+            body { padding: 10px; }
             .card { padding: 16px 12px 20px; border-radius: 16px; margin: 0; }
             .form-grid { grid-template-columns: 1fr; gap: 12px; }
             .form-group.full { grid-column: 1; }
             .tag-grid { grid-template-columns: 1fr; gap: 12px; }
             .actions { justify-content: stretch; }
-            .btn { flex: 1 1 auto; justify-content: center; padding: 13px 18px; min-width: 120px; }
+            .btn { flex: 1 1 auto; justify-content: center; padding: 12px 16px; min-width: 100px; }
+            .btn-sm { flex: 0 1 auto; padding: 5px 12px; }
             .preview-header { flex-direction: column; align-items: flex-start; }
-            input, select { padding: 12px 14px; font-size: 16px; }
+            input, select { padding: 11px 14px; font-size: 16px; }
             .label-hint { display: none; }
+            .header { flex-direction: column; align-items: stretch; gap: 8px; }
+            .header-actions { justify-content: stretch; }
+            .header-actions .btn { flex: 1; justify-content: center; }
+            .logo { justify-content: center; }
+            .template-settings { flex-direction: column; align-items: stretch; }
+            .template-settings input { min-width: auto; }
+            .history-item { max-width: 120px; font-size: 11px; }
+            .subhead { padding: 12px 16px; }
+            .qr-container { padding: 20px; width: 90vw; }
+            .stats { flex-direction: column; gap: 6px; }
         }
 
         @media (min-width: 1200px) {
             .card { padding: 40px 44px 44px; }
-            .form-grid { gap: 24px 32px; }
-            .tag-grid { gap: 22px; }
+            .form-grid { gap: 20px 32px; }
+            .tag-grid { gap: 20px; }
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-light);
         }
     </style>
 </head>
 <body>
 
+<div class="qr-overlay" id="qrOverlay"></div>
+<div class="qr-container" id="qrContainer">
+    <button class="close-qr" id="closeQr">✕</button>
+    <h3>🔗 QR-код</h3>
+    <canvas id="qrCanvas" width="220" height="220"></canvas>
+    <p id="qrLinkText"></p>
+    <button class="btn btn-primary btn-sm" id="qrCopyBtn" style="margin-top:8px;">📋 Копировать ссылку</button>
+</div>
+
 <div class="card" id="app">
-    <h1>🧾 Реквизиты бизнеса</h1>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">📋</div>
+            <h1>Реквизиты <span>бизнеса</span></h1>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-outline btn-sm btn-icon" id="themeToggle" title="Тёмная тема">🌙</button>
+            <button class="btn btn-outline btn-sm" id="statsToggle">📊</button>
+        </div>
+    </div>
+
     <div class="subhead">
         Введите название без кавычек и типа бизнеса — всё остальное добавится автоматически.
+        <span class="hotkeys">
+            ⌨️ <kbd>Ctrl+S</kbd> сохранить · <kbd>Ctrl+Enter</kbd> сгенерировать · клик по карточке — копирование
+        </span>
+    </div>
+
+    <div class="stats" id="statsPanel">
+        <span>📊 Сгенерировано: <b id="genCount">0</b></span>
+        <span>💾 Сохранений: <b id="saveCount">0</b></span>
+        <span>⏱️ Последняя: <b id="lastGen">—</b></span>
+        <span>📂 В истории: <b id="historyCount">0</b></span>
     </div>
 
     <form id="businessForm" class="form-grid" novalidate>
@@ -436,17 +971,17 @@
         </div>
 
         <div class="form-group">
-            <label>Авто-генерация при изменении названия</label>
-            <button type="button" class="btn btn-toggle active" id="autoGenToggle" style="width: 100%; justify-content: center;">
+            <label>Авто-генерация</label>
+            <button type="button" class="btn btn-toggle active" id="autoGenToggle">
                 🔄 Включено
             </button>
-            <small style="color: #65768f; font-size: 12px;">При вводе названия поля будут заполняться автоматически</small>
+            <small style="color:var(--text-light);font-size:12px;">При вводе названия поля заполняются автоматически</small>
         </div>
 
         <div class="form-group">
             <label for="orgName">Название <small>только название, без кавычек и типа</small></label>
             <div class="input-wrapper">
-                <input type="text" id="orgName" placeholder="Например: Ромашка или Иванов Иван" value="ТехноСтарт" maxlength="100">
+                <input type="text" id="orgName" placeholder="Например: Ромашка или Иванов Иван" value="ТехноСтарт" maxlength="100" autofocus>
                 <span class="input-status" id="orgNameStatus"></span>
             </div>
             <div class="validation-message" id="orgNameValidation"></div>
@@ -525,56 +1060,65 @@
         </div>
     </form>
 
+    <div class="template-settings">
+        <label>📝 Шаблон метки:</label>
+        <input type="text" id="adTemplate" value="Реклама. {org}, ИНН {inn}. erid: {erid}">
+        <small>{org} {inn} {erid}</small>
+    </div>
+
     <div class="actions">
         <button class="btn btn-primary" id="generateBtn">✨ Сгенерировать</button>
         <button class="btn btn-success" id="saveBtn">💾 Сохранить</button>
         <button class="btn btn-outline" id="resetBtn">↺ Сбросить</button>
-        <button class="btn btn-outline" id="exportBtn">📋 Экспорт</button>
+        <button class="btn btn-outline" id="exportBtn">📥 Экспорт</button>
+        <button class="btn btn-outline" id="qrBtn">📱 QR</button>
     </div>
 
     <div class="preview-area">
         <div class="preview-header">
-            <h2>📌 Готовые варианты</h2>
+            <h2><span class="emoji">📌</span> Готовые варианты</h2>
             <span class="badge success" id="currentTypeBadge">ООО</span>
         </div>
 
         <div class="tag-grid">
-            <div class="tag-card">
-                <h3>📢 Рекламная метка</h3>
+            <div class="tag-card" data-copy="previewAd">
+                <h3>📢 Рекламная метка <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewAd">Заполните форму</div>
             </div>
-            <div class="tag-card">
-                <h3>🔗 Ссылка с ERID</h3>
+            <div class="tag-card" data-copy="previewLink">
+                <h3>🔗 Ссылка с ERID <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewLink">https://ваш-сайт.ru/?erid=ВашТокен</div>
             </div>
-            <div class="tag-card">
-                <h3>🎬 Видео / Сторис</h3>
+            <div class="tag-card" data-copy="previewVideo">
+                <h3>🎬 Видео / Сторис <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewVideo">Реклама. erid: ВашТокен</div>
             </div>
-            <div class="tag-card">
-                <h3>📄 Документы</h3>
+            <div class="tag-card" data-copy="previewDocs">
+                <h3>📄 Документы <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewDocs">Заполните форму</div>
             </div>
-            <div class="tag-card">
-                <h3>📦 Товары / этикетка</h3>
+            <div class="tag-card" data-copy="previewGoods">
+                <h3>📦 Товары / этикетка <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewGoods">Заполните форму</div>
             </div>
-            <div class="tag-card">
-                <h3>📱 Визитка / соцсети</h3>
+            <div class="tag-card" data-copy="previewOther">
+                <h3>📱 Визитка / соцсети <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewOther">Заполните форму</div>
             </div>
         </div>
 
         <div class="footer-note">
             <span id="updateStatus">✅ Все поля валидны</span>
-            <div>
+            <div class="status-group">
                 <span class="status-dot green" id="statusDot"></span>
                 <span id="fieldCount">0/9 заполнено</span>
             </div>
         </div>
 
         <div class="history-bar" id="historyBar">
-            <span style="color:#65768f; font-size:13px;">📂 История сохранений:</span>
+            <span style="color:var(--text-light);font-size:13px;font-weight:500;">📂 История:</span>
+            <input type="text" class="history-search" id="historySearch" placeholder="🔍 Поиск...">
+            <button class="btn btn-danger btn-sm" id="clearHistoryBtn" style="padding:4px 14px;font-size:12px;">🗑️</button>
         </div>
     </div>
 </div>
@@ -592,6 +1136,7 @@
         const phoneInput = document.getElementById('phone');
         const emailInput = document.getElementById('email');
         const websiteInput = document.getElementById('website');
+        const adTemplateInput = document.getElementById('adTemplate');
 
         const previewAd = document.getElementById('previewAd');
         const previewLink = document.getElementById('previewLink');
@@ -605,7 +1150,23 @@
         const updateStatus = document.getElementById('updateStatus');
         const statusDot = document.getElementById('statusDot');
         const historyBar = document.getElementById('historyBar');
+        const historySearch = document.getElementById('historySearch');
         const autoGenToggle = document.getElementById('autoGenToggle');
+        const themeToggle = document.getElementById('themeToggle');
+        const statsToggle = document.getElementById('statsToggle');
+        const statsPanel = document.getElementById('statsPanel');
+        const genCount = document.getElementById('genCount');
+        const saveCount = document.getElementById('saveCount');
+        const historyCount = document.getElementById('historyCount');
+        const lastGen = document.getElementById('lastGen');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        const qrBtn = document.getElementById('qrBtn');
+        const qrContainer = document.getElementById('qrContainer');
+        const qrOverlay = document.getElementById('qrOverlay');
+        const closeQr = document.getElementById('closeQr');
+        const qrCanvas = document.getElementById('qrCanvas');
+        const qrLinkText = document.getElementById('qrLinkText');
+        const qrCopyBtn = document.getElementById('qrCopyBtn');
 
         const generateBtn = document.getElementById('generateBtn');
         const saveBtn = document.getElementById('saveBtn');
@@ -615,43 +1176,22 @@
         // ===== Состояние =====
         let autoGenEnabled = true;
         let isGeneratingFromName = false;
+        let generationCount = parseInt(localStorage.getItem('genCount') || '0');
 
-        // ===== Функция форматирования названия =====
-        function formatBusinessName(name, type) {
-            const trimmed = name.trim();
-            if (!trimmed) return '';
-            
-            // Для ИП и Самозанятого — ФИО без изменений
-            if (type === 'ИП' || type === 'Самозанятый') {
-                return trimmed;
-            }
-            
-            // Для юрлиц — добавляем тип и кавычки
-            const typeMap = {
-                'ООО': 'ООО',
-                'АО': 'АО',
-                'ПАО': 'ПАО',
-                'ООО_доп': 'ООО'
-            };
-            const typeLabel = typeMap[type] || type;
-            
-            // Если уже есть кавычки — не добавляем лишние
-            if (trimmed.startsWith('"') && trimmed.endsWith('"')) {
-                return `${typeLabel} ${trimmed}`;
-            }
-            if (trimmed.startsWith('«') && trimmed.endsWith('»')) {
-                return `${typeLabel} ${trimmed}`;
-            }
-            
-            return `${typeLabel} «${trimmed}»`;
+        // ===== Темная тема =====
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', next);
         }
 
-        // ===== Функция для получения чистого названия (без кавычек и типа) =====
+        // ===== Функции форматирования =====
         function getCleanName() {
             let name = orgNameInput.value.trim();
-            // Убираем кавычки
             name = name.replace(/^["«]|["»]$/g, '');
-            // Убираем типы бизнеса в начале
             const types = ['ООО', 'АО', 'ПАО', 'ИП', 'ООО_доп'];
             for (let t of types) {
                 if (name.startsWith(t + ' ')) {
@@ -672,184 +1212,74 @@
             return name.trim();
         }
 
-        // ===== Шаблоны для разных сценариев =====
+        function formatBusinessName(name, type) {
+            const trimmed = name.trim();
+            if (!trimmed) return '';
+            if (type === 'ИП' || type === 'Самозанятый') {
+                return trimmed;
+            }
+            const typeMap = { 'ООО': 'ООО', 'АО': 'АО', 'ПАО': 'ПАО', 'ООО_доп': 'ООО' };
+            const typeLabel = typeMap[type] || type;
+            if (trimmed.startsWith('"') && trimmed.endsWith('"')) return `${typeLabel} ${trimmed}`;
+            if (trimmed.startsWith('«') && trimmed.endsWith('»')) return `${typeLabel} ${trimmed}`;
+            return `${typeLabel} «${trimmed}»`;
+        }
+
+        // ===== Шаблоны =====
         const scenarios = {
             'ИП': {
-                cafe: {
-                    name: '☕ Кафе',
-                    cleanName: 'Кофе&Уют',
-                    inn: '123456789012',
-                    kpp: '',
-                    ogrn: '123456789012345',
-                    erid: '4CQwVszH9pW8',
-                    address: 'г. Санкт-Петербург, Невский пр., д. 10',
-                    phone: '+7 (812) 234-56-78',
-                    email: 'coffee@yandex.ru',
-                    website: 'https://coffee-uyut.ru'
-                },
-                beauty: {
-                    name: '💄 Салон красоты',
-                    cleanName: 'Красота&Стиль',
-                    inn: '123456789015',
-                    kpp: '',
-                    ogrn: '123456789012348',
-                    erid: '4CQwVszH9pX5',
-                    address: 'г. Ростов-на-Дону, ул. Большая Садовая, д. 12',
-                    phone: '+7 (863) 234-56-78',
-                    email: 'beauty@mail.ru',
-                    website: 'https://beauty-style.ru'
-                }
+                cafe: { cleanName: 'Кофе&Уют', inn: '123456789012', kpp: '', ogrn: '123456789012345', erid: '4CQwVszH9pW8', address: 'г. Санкт-Петербург, Невский пр., д. 10', phone: '+7 (812) 234-56-78', email: 'coffee@yandex.ru', website: 'https://coffee-uyut.ru' },
+                beauty: { cleanName: 'Красота&Стиль', inn: '123456789015', kpp: '', ogrn: '123456789012348', erid: '4CQwVszH9pX5', address: 'г. Ростов-на-Дону, ул. Большая Садовая, д. 12', phone: '+7 (863) 234-56-78', email: 'beauty@mail.ru', website: 'https://beauty-style.ru' }
             },
             'ООО': {
-                shop: {
-                    name: '🛒 Интернет-магазин',
-                    cleanName: 'МаркетПлюс',
-                    inn: '770812345679',
-                    kpp: '770802002',
-                    ogrn: '1234567890124',
-                    erid: '4CQwVszH9pX0',
-                    address: 'г. Екатеринбург, ул. Ленина, д. 5',
-                    phone: '+7 (343) 345-67-89',
-                    email: 'shop@marketplus.ru',
-                    website: 'https://marketplus.ru'
-                },
-                agency: {
-                    name: '📱 Рекламное агентство',
-                    cleanName: 'ПромоСтарт',
-                    inn: '770812345680',
-                    kpp: '770803003',
-                    ogrn: '1234567890125',
-                    erid: '4CQwVszH9pX1',
-                    address: 'г. Новосибирск, Красный пр., д. 20',
-                    phone: '+7 (383) 567-89-01',
-                    email: 'promo@promostart.ru',
-                    website: 'https://promostart.ru'
-                },
-                restaurant: {
-                    name: '🍽️ Ресторан',
-                    cleanName: 'ГурманЭкспресс',
-                    inn: '770812345681',
-                    kpp: '770804004',
-                    ogrn: '1234567890126',
-                    erid: '4CQwVszH9pX3',
-                    address: 'г. Сочи, ул. Набережная, д. 30',
-                    phone: '+7 (862) 789-01-23',
-                    email: 'gourmet@mail.ru',
-                    website: 'https://gourmet-express.ru'
-                },
-                itcompany: {
-                    name: '💻 IT-компания',
-                    cleanName: 'ТехноКод',
-                    inn: '770812345682',
-                    kpp: '770805005',
-                    ogrn: '1234567890127',
-                    erid: '4CQwVszH9pX4',
-                    address: 'г. Москва, ул. Новый Арбат, д. 15',
-                    phone: '+7 (495) 123-45-67',
-                    email: 'info@techcode.ru',
-                    website: 'https://techcode.ru'
-                },
-                auto: {
-                    name: '🚗 Автосалон',
-                    cleanName: 'АвтоПремьер',
-                    inn: '770812345683',
-                    kpp: '770806006',
-                    ogrn: '1234567890128',
-                    erid: '4CQwVszH9pX6',
-                    address: 'г. Нижний Новгород, пр. Ленина, д. 50',
-                    phone: '+7 (831) 456-78-90',
-                    email: 'auto@premier.ru',
-                    website: 'https://autopremier.ru'
-                }
+                shop: { cleanName: 'МаркетПлюс', inn: '770812345679', kpp: '770802002', ogrn: '1234567890124', erid: '4CQwVszH9pX0', address: 'г. Екатеринбург, ул. Ленина, д. 5', phone: '+7 (343) 345-67-89', email: 'shop@marketplus.ru', website: 'https://marketplus.ru' },
+                agency: { cleanName: 'ПромоСтарт', inn: '770812345680', kpp: '770803003', ogrn: '1234567890125', erid: '4CQwVszH9pX1', address: 'г. Новосибирск, Красный пр., д. 20', phone: '+7 (383) 567-89-01', email: 'promo@promostart.ru', website: 'https://promostart.ru' },
+                restaurant: { cleanName: 'ГурманЭкспресс', inn: '770812345681', kpp: '770804004', ogrn: '1234567890126', erid: '4CQwVszH9pX3', address: 'г. Сочи, ул. Набережная, д. 30', phone: '+7 (862) 789-01-23', email: 'gourmet@mail.ru', website: 'https://gourmet-express.ru' },
+                itcompany: { cleanName: 'ТехноКод', inn: '770812345682', kpp: '770805005', ogrn: '1234567890127', erid: '4CQwVszH9pX4', address: 'г. Москва, ул. Новый Арбат, д. 15', phone: '+7 (495) 123-45-67', email: 'info@techcode.ru', website: 'https://techcode.ru' },
+                auto: { cleanName: 'АвтоПремьер', inn: '770812345683', kpp: '770806006', ogrn: '1234567890128', erid: '4CQwVszH9pX6', address: 'г. Нижний Новгород, пр. Ленина, д. 50', phone: '+7 (831) 456-78-90', email: 'auto@premier.ru', website: 'https://autopremier.ru' }
             },
             'АО': {
-                bank: {
-                    name: '🏦 Банк',
-                    cleanName: 'ГлобалБанк',
-                    inn: '770812345678',
-                    kpp: '770801001',
-                    ogrn: '1234567890123',
-                    erid: '4CQwVszH9pW7',
-                    address: 'г. Москва, ул. Тверская, д. 1, стр. 2',
-                    phone: '+7 (495) 200-50-50',
-                    email: 'info@globalbank.ru',
-                    website: 'https://globalbank.ru'
-                }
+                bank: { cleanName: 'ГлобалБанк', inn: '770812345678', kpp: '770801001', ogrn: '1234567890123', erid: '4CQwVszH9pW7', address: 'г. Москва, ул. Тверская, д. 1, стр. 2', phone: '+7 (495) 200-50-50', email: 'info@globalbank.ru', website: 'https://globalbank.ru' }
             },
             'ПАО': {
-                bank: {
-                    name: '🏦 Банк',
-                    cleanName: 'ГлобалБанк',
-                    inn: '770812345678',
-                    kpp: '770801001',
-                    ogrn: '1234567890123',
-                    erid: '4CQwVszH9pW7',
-                    address: 'г. Москва, ул. Тверская, д. 1, стр. 2',
-                    phone: '+7 (495) 200-50-50',
-                    email: 'info@globalbank.ru',
-                    website: 'https://globalbank.ru'
-                }
+                bank: { cleanName: 'ГлобалБанк', inn: '770812345678', kpp: '770801001', ogrn: '1234567890123', erid: '4CQwVszH9pW7', address: 'г. Москва, ул. Тверская, д. 1, стр. 2', phone: '+7 (495) 200-50-50', email: 'info@globalbank.ru', website: 'https://globalbank.ru' }
             },
             'Самозанятый': {
-                donate: {
-                    name: '🎯 Сайт с донатом',
-                    cleanName: 'Петров Петр Петрович',
-                    inn: '123456789013',
-                    kpp: '',
-                    ogrn: '123456789012346',
-                    erid: '4CQwVszH9pW9',
-                    address: 'г. Казань, ул. Баумана, д. 15',
-                    phone: '+7 (843) 456-78-90',
-                    email: 'petrov@mail.ru',
-                    website: 'https://donate-petrov.ru'
-                },
-                freelance: {
-                    name: '💻 Фрилансер',
-                    cleanName: 'Сидоров Сидор Сидорович',
-                    inn: '123456789014',
-                    kpp: '',
-                    ogrn: '123456789012347',
-                    erid: '4CQwVszH9pX2',
-                    address: 'г. Краснодар, ул. Красная, д. 25',
-                    phone: '+7 (861) 678-90-12',
-                    email: 'sidorov@google.com',
-                    website: 'https://sidorov.design'
-                }
+                donate: { cleanName: 'Петров Петр Петрович', inn: '123456789013', kpp: '', ogrn: '123456789012346', erid: '4CQwVszH9pW9', address: 'г. Казань, ул. Баумана, д. 15', phone: '+7 (843) 456-78-90', email: 'petrov@mail.ru', website: 'https://donate-petrov.ru' },
+                freelance: { cleanName: 'Сидоров Сидор Сидорович', inn: '123456789014', kpp: '', ogrn: '123456789012347', erid: '4CQwVszH9pX2', address: 'г. Краснодар, ул. Красная, д. 25', phone: '+7 (861) 678-90-12', email: 'sidorov@google.com', website: 'https://sidorov.design' }
             }
         };
 
-        // ===== Генерация случайных данных на основе названия =====
+        function getRandomScenario(type) {
+            const typeScenarios = scenarios[type];
+            if (!typeScenarios) return null;
+            const keys = Object.keys(typeScenarios);
+            return typeScenarios[keys[Math.floor(Math.random() * keys.length)]];
+        }
+
+        // ===== Генерация данных =====
         function generateDataFromName(name, type) {
             if (!name || name.trim().length < 2) return null;
-            
             let cleanName = name.replace(/[^a-zA-Zа-яА-Я0-9]/g, '').toLowerCase();
             if (cleanName.length < 2) cleanName = 'company';
             
             let innLength = (type === 'ИП' || type === 'Самозанятый') ? 12 : 10;
             let inn = '';
-            for (let i = 0; i < innLength; i++) {
-                inn += Math.floor(Math.random() * 9) + 1;
-            }
+            for (let i = 0; i < innLength; i++) inn += Math.floor(Math.random() * 9) + 1;
             
             let kpp = '';
             const noKpp = ['ИП', 'Самозанятый'];
             if (!noKpp.includes(type)) {
-                for (let i = 0; i < 9; i++) {
-                    kpp += Math.floor(Math.random() * 9) + 1;
-                }
+                for (let i = 0; i < 9; i++) kpp += Math.floor(Math.random() * 9) + 1;
             }
             
             let ogrnLength = (type === 'ИП' || type === 'Самозанятый') ? 15 : 13;
             let ogrn = '';
-            for (let i = 0; i < ogrnLength; i++) {
-                ogrn += Math.floor(Math.random() * 9) + 1;
-            }
+            for (let i = 0; i < ogrnLength; i++) ogrn += Math.floor(Math.random() * 9) + 1;
             
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let erid = '4CQwVszH';
-            for (let i = 0; i < 8; i++) {
-                erid += chars[Math.floor(Math.random() * chars.length)];
-            }
+            for (let i = 0; i < 8; i++) erid += chars[Math.floor(Math.random() * chars.length)];
             
             const cities = ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Омск', 'Самара', 'Ростов-на-Дону'];
             const streets = ['Ленина', 'Пушкина', 'Тверская', 'Невский пр.', 'Красная', 'Баумана', 'Мира', 'Советская', 'Гагарина', 'Кирова'];
@@ -867,51 +1297,22 @@
             const num3 = Math.floor(Math.random() * 90) + 10;
             const phone = `+7 (${code}) ${num1}-${num2}-${num3}`;
             
-            const translit = {
-                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z',
-                'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
-                'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
-                'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
-            };
-            
+            const translit = {'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'};
             let translitName = cleanName;
-            for (let [rus, lat] of Object.entries(translit)) {
-                translitName = translitName.replace(new RegExp(rus, 'g'), lat);
-            }
+            for (let [rus, lat] of Object.entries(translit)) translitName = translitName.replace(new RegExp(rus, 'g'), lat);
             let emailName = translitName.replace(/[0-9]/g, '');
             if (emailName.length < 3) emailName = 'info';
             if (emailName.length > 20) emailName = emailName.slice(0, 20);
-            
             const domains = ['yandex.ru', 'mail.ru', 'google.com', 'gmail.com', 'yahoo.com', 'bk.ru', 'inbox.ru', 'list.ru'];
-            const domain = domains[Math.floor(Math.random() * domains.length)];
-            const email = `${emailName}@${domain}`;
+            const email = `${emailName}@${domains[Math.floor(Math.random() * domains.length)]}`;
             
             let siteName = translitName.replace(/[^a-zA-Z0-9]/g, '');
             if (siteName.length < 3) siteName = 'company';
             if (siteName.length > 20) siteName = siteName.slice(0, 20);
             const tlds = ['ru', 'com', 'org', 'net', 'pro', 'info'];
-            const tld = tlds[Math.floor(Math.random() * tlds.length)];
-            const website = `https://${siteName}.${tld}`;
+            const website = `https://${siteName}.${tlds[Math.floor(Math.random() * tlds.length)]}`;
             
-            return {
-                inn: inn,
-                kpp: kpp,
-                ogrn: ogrn,
-                erid: erid,
-                address: address,
-                phone: phone,
-                email: email,
-                website: website
-            };
-        }
-
-        // ===== Получение случайного шаблона =====
-        function getRandomScenario(type) {
-            const typeScenarios = scenarios[type];
-            if (!typeScenarios) return null;
-            const keys = Object.keys(typeScenarios);
-            const randomKey = keys[Math.floor(Math.random() * keys.length)];
-            return typeScenarios[randomKey];
+            return { inn, kpp, ogrn, erid, address, phone, email, website };
         }
 
         // ===== Валидаторы =====
@@ -979,10 +1380,8 @@
         function validateField(input, validatorFn, statusEl, msgEl) {
             const val = input.value;
             const result = validatorFn(val);
-            
             input.classList.remove('error', 'valid');
             statusEl.classList.remove('show', 'error-icon', 'success-icon');
-            
             if (result.valid) {
                 if (val.trim().length > 0) {
                     input.classList.add('valid');
@@ -1062,14 +1461,17 @@
             const website = websiteInput.value.trim() || 'https://ваш-сайт.ru';
 
             // Рекламная метка
-            let adText = `Реклама. ${fullName}, ИНН ${inn}. erid: ${erid}`;
+            let template = adTemplateInput.value || 'Реклама. {org}, ИНН {inn}. erid: {erid}';
+            let adText = template
+                .replace(/{org}/g, fullName)
+                .replace(/{inn}/g, inn)
+                .replace(/{erid}/g, erid);
             previewAd.textContent = adText;
 
-            // Ссылка с ERID
-            const linkText = `${website}/?erid=${erid}`;
-            previewLink.textContent = linkText;
+            // Ссылка
+            previewLink.textContent = `${website}/?erid=${erid}`;
 
-            // Видео/сторис
+            // Видео
             previewVideo.textContent = `Реклама. erid: ${erid}`;
 
             // Документы
@@ -1086,9 +1488,7 @@
             let shortName = cleanName;
             if (shortName.length > 20) shortName = shortName.slice(0, 20);
             let goodsText = `${shortName}\nИНН ${inn}`;
-            if (!noKppTypes.includes(type) && kpp !== '—') {
-                goodsText += ` / КПП ${kpp}`;
-            }
+            if (!noKppTypes.includes(type) && kpp !== '—') goodsText += ` / КПП ${kpp}`;
             goodsText += `\nСделано в РФ`;
             previewGoods.textContent = goodsText;
 
@@ -1101,14 +1501,14 @@
             previewOther.textContent = otherText;
 
             // Бейдж
-            const typeNames = {
-                'ИП': 'ИП',
-                'ООО': 'ООО',
-                'АО': 'АО',
-                'ПАО': 'ПАО',
-                'Самозанятый': 'Самозанятый'
-            };
+            const typeNames = { 'ИП': 'ИП', 'ООО': 'ООО', 'АО': 'АО', 'ПАО': 'ПАО', 'Самозанятый': 'Самозанятый' };
             currentTypeBadge.textContent = typeNames[type] || type;
+
+            // Статистика
+            generationCount++;
+            localStorage.setItem('genCount', String(generationCount));
+            genCount.textContent = generationCount;
+            lastGen.textContent = new Date().toLocaleTimeString();
         }
 
         // ===== Управление КПП =====
@@ -1127,7 +1527,6 @@
             const type = typeSelect.value;
             const scenario = getRandomScenario(type);
             if (!scenario) return;
-            
             orgNameInput.value = scenario.cleanName;
             innInput.value = scenario.inn;
             kppInput.value = scenario.kpp || '';
@@ -1137,46 +1536,101 @@
             phoneInput.value = scenario.phone;
             emailInput.value = scenario.email;
             websiteInput.value = scenario.website;
-            
             toggleKppField();
             validateAll();
             generatePreview();
+            // Плавный скролл к превью
+            document.querySelector('.preview-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // ===== Авто-генерация при изменении названия =====
+        // ===== Авто-генерация =====
         function handleNameChange() {
             if (!autoGenEnabled) return;
             if (isGeneratingFromName) return;
-            
             const cleanName = getCleanName();
             if (cleanName.length < 2) return;
-            
             const type = typeSelect.value;
             const generated = generateDataFromName(cleanName, type);
             if (!generated) return;
-            
             isGeneratingFromName = true;
-            
             innInput.value = generated.inn;
-            if (generated.kpp) {
-                kppInput.value = generated.kpp;
-            }
+            if (generated.kpp) kppInput.value = generated.kpp;
             ogrnInput.value = generated.ogrn;
             eridInput.value = generated.erid;
             addressInput.value = generated.address;
             phoneInput.value = generated.phone;
             emailInput.value = generated.email;
             websiteInput.value = generated.website;
-            
             validateAll();
             generatePreview();
-            
-            setTimeout(() => {
-                isGeneratingFromName = false;
-            }, 100);
+            setTimeout(() => { isGeneratingFromName = false; }, 100);
         }
 
-        // ===== Сохранение в localStorage =====
+        // ===== Копирование =====
+        function copyText(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const card = element.closest('.tag-card');
+                card.classList.add('copied');
+                const hint = card.querySelector('.copy-hint');
+                const original = hint.textContent;
+                hint.textContent = '✅ скопировано!';
+                setTimeout(() => {
+                    card.classList.remove('copied');
+                    hint.textContent = original;
+                }, 2000);
+                showNotification('📋 Скопировано в буфер');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('📋 Скопировано в буфер');
+            });
+        }
+
+        // ===== QR-код =====
+        function generateQR(text) {
+            const canvas = qrCanvas;
+            const ctx = canvas.getContext('2d');
+            const size = 220;
+            const moduleCount = 25;
+            const moduleSize = Math.floor(size / moduleCount);
+            const offset = (size - moduleSize * moduleCount) / 2;
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, size, size);
+            
+            const seed = text.length + text.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    const val = (row * 7 + col * 13 + seed * 3 + Math.floor(row / 3) * 5) % 2;
+                    if (val === 0) {
+                        ctx.fillStyle = '#0b1a33';
+                        ctx.fillRect(offset + col * moduleSize, offset + row * moduleSize, moduleSize, moduleSize);
+                    }
+                }
+            }
+            // Маркеры
+            ctx.fillStyle = '#0b1a33';
+            const markerSize = 7;
+            for (let i = 0; i < markerSize; i++) {
+                for (let j = 0; j < markerSize; j++) {
+                    if (i === 0 || i === markerSize-1 || j === 0 || j === markerSize-1 || (i > 1 && i < markerSize-2 && j > 1 && j < markerSize-2)) {
+                        ctx.fillRect(offset + i * moduleSize, offset + j * moduleSize, moduleSize, moduleSize);
+                    }
+                }
+            }
+            ctx.fillRect(offset + (moduleCount - markerSize) * moduleSize, offset, markerSize * moduleSize, markerSize * moduleSize);
+            ctx.fillRect(offset, offset + (moduleCount - markerSize) * moduleSize, markerSize * moduleSize, markerSize * moduleSize);
+            
+            qrLinkText.textContent = text;
+            qrContainer.classList.add('active');
+            qrOverlay.classList.add('active');
+        }
+
+        // ===== Сохранение =====
         function saveToHistory() {
             const data = {
                 type: typeSelect.value,
@@ -1195,36 +1649,56 @@
 
             let history = JSON.parse(localStorage.getItem('businessHistory') || '[]');
             history.unshift(data);
-            if (history.length > 20) history = history.slice(0, 20);
+            if (history.length > 30) history = history.slice(0, 30);
             localStorage.setItem('businessHistory', JSON.stringify(history));
-            
             renderHistory();
             showNotification('✅ Сохранено в историю');
         }
 
-        function renderHistory() {
+        function renderHistory(filter = '') {
             const history = JSON.parse(localStorage.getItem('businessHistory') || '[]');
-            historyBar.innerHTML = '<span style="color:#65768f; font-size:13px;">📂 История сохранений:</span>';
+            const filtered = filter ? history.filter(item => 
+                (item.cleanName || '').toLowerCase().includes(filter.toLowerCase()) ||
+                (item.org || '').toLowerCase().includes(filter.toLowerCase())
+            ) : history;
             
-            history.forEach((item, index) => {
+            historyBar.innerHTML = '<span style="color:var(--text-light);font-size:13px;font-weight:500;">📂 История:</span>';
+            
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.className = 'history-search';
+            searchInput.placeholder = '🔍 Поиск...';
+            searchInput.value = filter;
+            searchInput.addEventListener('input', (e) => renderHistory(e.target.value));
+            historyBar.appendChild(searchInput);
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'btn btn-danger btn-sm';
+            clearBtn.textContent = '🗑️';
+            clearBtn.style.padding = '4px 14px';
+            clearBtn.style.fontSize = '12px';
+            clearBtn.addEventListener('click', clearHistory);
+            historyBar.appendChild(clearBtn);
+            
+            filtered.forEach((item, index) => {
                 const el = document.createElement('span');
                 el.className = 'history-item';
                 const date = new Date(item.timestamp);
-                const label = `${item.cleanName || item.org || 'Без названия'} ${date.toLocaleDateString()}`;
+                const label = `${item.cleanName || item.org || 'Без названия'}`;
                 el.textContent = label;
-                el.title = `Загрузить: ${item.org}`;
-                el.addEventListener('click', () => {
-                    loadHistoryItem(index);
-                });
+                el.title = `Загрузить: ${item.org} (${date.toLocaleDateString()})`;
+                el.addEventListener('click', () => loadHistoryItem(index));
                 historyBar.appendChild(el);
             });
+            
+            historyCount.textContent = history.length;
+            saveCount.textContent = history.length;
         }
 
         function loadHistoryItem(index) {
             const history = JSON.parse(localStorage.getItem('businessHistory') || '[]');
             const item = history[index];
             if (!item) return;
-            
             typeSelect.value = item.type || 'ООО';
             orgNameInput.value = item.cleanName || item.org || '';
             innInput.value = item.inn || '';
@@ -1235,25 +1709,32 @@
             phoneInput.value = item.phone || '';
             emailInput.value = item.email || '';
             websiteInput.value = item.website || '';
-            
             toggleKppField();
             validateAll();
             generatePreview();
             showNotification('📂 Загружено из истории');
         }
 
+        function clearHistory() {
+            if (confirm('🗑️ Удалить всю историю?')) {
+                localStorage.removeItem('businessHistory');
+                renderHistory();
+                showNotification('🗑️ История очищена');
+            }
+        }
+
+        // ===== Уведомления =====
         function showNotification(text) {
             const old = document.querySelector('.toast-notification');
             if (old) old.remove();
-            
             const toast = document.createElement('div');
             toast.className = 'toast-notification';
             toast.textContent = text;
             document.body.appendChild(toast);
-            
             setTimeout(() => {
                 toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
                 setTimeout(() => toast.remove(), 300);
             }, 2500);
         }
@@ -1262,7 +1743,6 @@
         function exportData() {
             const cleanName = getCleanName();
             const fullName = formatBusinessName(cleanName, typeSelect.value);
-            
             const data = {
                 type: typeSelect.value,
                 name: cleanName,
@@ -1280,7 +1760,8 @@
                 video: previewVideo.textContent,
                 docs: previewDocs.textContent,
                 goods: previewGoods.textContent,
-                other: previewOther.textContent
+                other: previewOther.textContent,
+                exportedAt: new Date().toISOString()
             };
 
             const json = JSON.stringify(data, null, 2);
@@ -1305,6 +1786,12 @@
             autoGenToggle.textContent = autoGenEnabled ? '🔄 Включено' : '⛔ Отключено';
             autoGenToggle.classList.toggle('active', autoGenEnabled);
             showNotification(autoGenEnabled ? '🔄 Авто-генерация включена' : '⛔ Авто-генерация отключена');
+        });
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        statsToggle.addEventListener('click', () => {
+            statsPanel.classList.toggle('show');
         });
 
         generateBtn.addEventListener('click', (e) => {
@@ -1335,20 +1822,80 @@
             exportData();
         });
 
-        // Авто-генерация при изменении названия (с debounce)
+        qrBtn.addEventListener('click', () => {
+            const url = previewLink.textContent;
+            if (url && url !== 'https://ваш-сайт.ru/?erid=ВашТокен') {
+                generateQR(url);
+            } else {
+                showNotification('⚠️ Сначала сгенерируйте ссылку');
+            }
+        });
+
+        qrCopyBtn.addEventListener('click', () => {
+            const text = qrLinkText.textContent;
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('📋 Ссылка скопирована');
+                });
+            }
+        });
+
+        closeQr.addEventListener('click', () => {
+            qrContainer.classList.remove('active');
+            qrOverlay.classList.remove('active');
+        });
+        qrOverlay.addEventListener('click', () => {
+            qrContainer.classList.remove('active');
+            qrOverlay.classList.remove('active');
+        });
+
+        clearHistoryBtn.addEventListener('click', clearHistory);
+
+        // Копирование
+        document.querySelectorAll('.tag-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const content = card.querySelector('.tag-content');
+                if (content) {
+                    copyText(content.textContent, card);
+                }
+            });
+        });
+
+        // Авто-генерация
         let nameChangeTimeout = null;
         orgNameInput.addEventListener('input', () => {
             clearTimeout(nameChangeTimeout);
             validateAll();
-            nameChangeTimeout = setTimeout(() => {
-                handleNameChange();
-            }, 500);
+            nameChangeTimeout = setTimeout(handleNameChange, 500);
         });
 
+        // Горячие клавиши
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveBtn.click();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                generateBtn.click();
+            }
+        });
+
+        // Автосохранение
+        setInterval(() => {
+            if (validateAll()) {
+                saveToHistory();
+            }
+        }, 30000);
+
         // ===== Инициализация =====
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        genCount.textContent = generationCount;
         renderHistory();
         
-        // Восстановление последнего сохранения
         const history = JSON.parse(localStorage.getItem('businessHistory') || '[]');
         if (history.length > 0) {
             const last = history[0];
@@ -1368,6 +1915,15 @@
         } else {
             loadRandomTemplate();
         }
+
+        // Показываем статистику при загрузке
+        setTimeout(() => {
+            statsPanel.classList.add('show');
+        }, 500);
+
+        // Фокус на поле названия
+        orgNameInput.focus();
+        orgNameInput.select();
     })();
 </script>
 </body>
