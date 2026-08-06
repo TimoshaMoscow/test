@@ -1,558 +1,541 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>Москва-град: умести страны</title>
-  <!-- Font Awesome 6 (бесплатная версия) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    /* ----- ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ И СБРОС ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-    }
-
-    :root {
-      --glass-bg: rgba(255, 255, 255, 0.12);
-      --glass-border: rgba(255, 255, 255, 0.18);
-      --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-      --primary: #276fdb;
-      --primary-glow: rgba(39, 111, 219, 0.5);
-      --text-light: #f0f4ff;
-      --text-muted: #cddfff;
-      --radius: 28px;
-      --transition: 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.1);
-    }
-
-    body {
-      min-height: 100vh;
-      background: radial-gradient(circle at 20% 30%, #1b3a6b, #0b1c33);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      backdrop-filter: blur(2px);
-    }
-
-    /* ----- ОБЩАЯ СТЕКЛЯННАЯ ОБОЛОЧКА ----- */
-    .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      width: 100%;
-      max-width: 820px;
-      transition: all var(--transition);
-      color: var(--text-light);
-    }
-
-    /* ----- ГЛАВНОЕ МЕНЮ (ИГРА/СТАТИСТИКА) ----- */
-    .menu-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px 12px;
-      margin-bottom: 22px;
-    }
-
-    .game-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-      background: rgba(0,0,0,0.15);
-      padding: 0 16px 0 12px;
-      border-radius: 60px;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .game-title i {
-      color: var(--primary);
-      filter: drop-shadow(0 0 6px var(--primary-glow));
-      font-size: 2rem;
-    }
-
-    .menu-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .btn {
-      background: var(--glass-bg);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 10px 20px;
-      border-radius: 60px;
-      color: var(--text-light);
-      font-weight: 500;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: all var(--transition);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      letter-spacing: 0.3px;
-    }
-    .btn i {
-      color: var(--primary);
-      font-size: 1.1rem;
-    }
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.22);
-      transform: scale(1.02);
-      border-color: rgba(255, 255, 255, 0.35);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    .btn:active {
-      transform: scale(0.96);
-    }
-    .btn-primary {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: white;
-      box-shadow: 0 4px 16px rgba(39, 111, 219, 0.5);
-    }
-    .btn-primary i {
-      color: white;
-    }
-    .btn-primary:hover {
-      background: #3a7fe6;
-      border-color: #5a9aff;
-    }
-
-    /* ----- СЧЁТЧИК И СТАТУС ----- */
-    .status-board {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0,0,0,0.15);
-      backdrop-filter: blur(6px);
-      padding: 12px 20px;
-      border-radius: 60px;
-      margin-bottom: 22px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .counter {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .counter span {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: white;
-      text-shadow: 0 0 12px rgba(39,111,219,0.5);
-    }
-    .counter .label {
-      font-size: 1rem;
-      font-weight: 400;
-      opacity: 0.8;
-      letter-spacing: 0.5px;
-    }
-    .hint {
-      font-size: 0.95rem;
-      opacity: 0.8;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ----- КАРТА МИРА (ИГРОВОЕ ПОЛЕ) ----- */
-    .map-container {
-      position: relative;
-      background: rgba(0, 20, 40, 0.35);
-      backdrop-filter: blur(6px);
-      border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 20px 16px;
-      margin-bottom: 18px;
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-      min-height: 280px;
-      transition: all 0.2s;
-    }
-
-    #worldMap {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-      gap: 12px 10px;
-      justify-content: center;
-      align-items: stretch;
-    }
-
-    .country-card {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 12px 6px;
-      text-align: center;
-      font-weight: 500;
-      font-size: 0.9rem;
-      color: var(--text-light);
-      transition: all var(--transition);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      letter-spacing: 0.3px;
-      word-break: break-word;
-      line-height: 1.2;
-    }
-    .country-card i {
-      font-size: 1.5rem;
-      color: var(--primary);
-      filter: drop-shadow(0 0 6px var(--primary-glow));
-      opacity: 0.7;
-    }
-    .country-card.placed {
-      background: rgba(39, 111, 219, 0.35);
-      border-color: var(--primary);
-      box-shadow: 0 0 20px rgba(39, 111, 219, 0.3);
-      transform: scale(0.98);
-      cursor: default;
-      opacity: 0.85;
-    }
-    .country-card.placed i {
-      opacity: 1;
-      color: #ffd966;
-      filter: drop-shadow(0 0 10px #ffb347);
-    }
-    .country-card:not(.placed):hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-4px) scale(1.02);
-      border-color: rgba(255,255,255,0.3);
-    }
-    .country-card:not(.placed):active {
-      transform: scale(0.94);
-    }
-    .country-card .flag {
-      font-size: 1.6rem;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
-    /* ----- РЕЗУЛЬТАТ (МОДАЛЬНОЕ ОКНО) ----- */
-    .result-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(12px);
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      padding: 20px;
-    }
-    .result-overlay.active {
-      display: flex;
-    }
-    .result-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      border-radius: 48px;
-      padding: 40px 32px;
-      max-width: 460px;
-      width: 100%;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-      text-align: center;
-    }
-    .result-card h2 {
-      font-size: 2.4rem;
-      font-weight: 300;
-      margin-bottom: 6px;
-    }
-    .result-card .big-number {
-      font-size: 5rem;
-      font-weight: 700;
-      color: white;
-      text-shadow: 0 0 30px var(--primary-glow);
-      line-height: 1;
-      margin: 12px 0;
-    }
-    .result-card .sub {
-      opacity: 0.7;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-    }
-    .result-card .btn {
-      margin-top: 24px;
-      background: var(--primary);
-      border: none;
-      padding: 14px 36px;
-      font-size: 1.2rem;
-    }
-
-    /* ----- АДАПТИВНОСТЬ ----- */
-    @media (max-width: 640px) {
-      .glass-panel { padding: 20px 14px; }
-      .game-title { font-size: 1.3rem; }
-      .btn { padding: 8px 14px; font-size: 0.9rem; }
-      .status-board { flex-direction: column; align-items: stretch; gap: 10px; }
-      .counter span { font-size: 1.6rem; }
-      #worldMap { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 8px; }
-      .country-card { font-size: 0.8rem; padding: 8px 4px; }
-      .result-card { padding: 30px 20px; }
-      .result-card .big-number { font-size: 3.8rem; }
-    }
-    @media (max-width: 420px) {
-      .menu-bar { flex-direction: column; align-items: stretch; }
-      .menu-actions { justify-content: center; }
-      .game-title { justify-content: center; }
-      #worldMap { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); }
-    }
-
-    /* доступность: фокус-кольца */
-    .btn:focus-visible, .country-card:focus-visible {
-      outline: 3px solid #ffbf47;
-      outline-offset: 3px;
-    }
-    /* скрытые элементы для SEO/доступности */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0;
-      margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
-      border: 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор реквизитов бизнеса</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            margin: 0;
+        }
+        .card {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
+            padding: 32px 28px;
+            transition: all 0.2s;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #0b1a33;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+        .subhead {
+            color: #4a5a72;
+            font-size: 15px;
+            margin-bottom: 28px;
+            border-left: 4px solid #2a7de1;
+            padding-left: 14px;
+            background: #f0f5fe;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.5;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 28px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        label {
+            font-weight: 500;
+            font-size: 14px;
+            color: #1d2b41;
+            letter-spacing: 0.2px;
+        }
+        label small {
+            font-weight: 400;
+            color: #65768f;
+            font-size: 12px;
+        }
+        input, select {
+            background: #f9fcff;
+            border: 1.5px solid #dfe7f0;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 15px;
+            transition: 0.15s;
+            outline: none;
+            color: #0b1a33;
+        }
+        input:focus, select:focus {
+            border-color: #2a7de1;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.15);
+        }
+        select {
+            appearance: auto;
+            background: #f9fcff;
+        }
+        .hint {
+            font-size: 13px;
+            color: #65768f;
+            margin-top: 4px;
+        }
+        .preview-area {
+            margin-top: 36px;
+            border-top: 2px dashed #dce5ef;
+            padding-top: 28px;
+        }
+        .preview-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .preview-title h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0b1a33;
+        }
+        .btn {
+            background: #0b1a33;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(11, 26, 51, 0.15);
+        }
+        .btn:hover {
+            background: #1d2f4a;
+            transform: scale(1.01);
+            box-shadow: 0 8px 20px rgba(11, 26, 51, 0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #0b1a33;
+            box-shadow: none;
+            border: 1.5px solid #d0dcec;
+        }
+        .btn-outline:hover {
+            background: #f0f5fe;
+            border-color: #2a7de1;
+            box-shadow: none;
+        }
+        .tag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 12px;
+        }
+        .tag-card {
+            background: #fafcff;
+            border-radius: 24px;
+            padding: 18px 16px 16px;
+            border: 1px solid #e6edf6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: 0.1s;
+        }
+        .tag-card h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #65768f;
+            margin: 0 0 12px 0;
+            font-weight: 600;
+        }
+        .tag-content {
+            background: white;
+            border-radius: 16px;
+            padding: 12px 14px;
+            border: 1px solid #eef4fc;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #0b1a33;
+            word-break: break-word;
+            min-height: 70px;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .tag-content .label-muted {
+            color: #7b8ba0;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .tag-content .strong {
+            font-weight: 600;
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 18px;
+            margin-top: 6px;
+        }
+        .badge {
+            background: #eef4fc;
+            border-radius: 40px;
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #1d2b41;
+        }
+        @media (max-width: 700px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .card {
+                padding: 20px 16px;
+            }
+            .tag-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .footer-action {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<div class="glass-panel" role="main" aria-label="Игра Москва-град">
-
-  <!-- ГЛАВНОЕ МЕНЮ -->
-  <header class="menu-bar">
-    <div class="game-title">
-      <i class="fas fa-globe-europe" aria-hidden="true"></i>
-      <span>Москва-град</span>
+<div class="card" id="app">
+    <h1>🧾 Реквизиты бизнеса</h1>
+    <div class="subhead">
+        Заполните данные — и получите готовые варианты для рекламной метки, документов, товаров и других носителей
     </div>
-    <div class="menu-actions">
-      <button class="btn" id="resetGameBtn" aria-label="Сбросить игру"><i class="fas fa-rotate-left"></i> Сброс</button>
-      <button class="btn btn-primary" id="finishGameBtn" aria-label="Закончить и показать результат"><i class="fas fa-flag-checkered"></i> Закончить</button>
-    </div>
-  </header>
 
-  <!-- СТАТУС / СЧЁТЧИК -->
-  <div class="status-board">
-    <div class="counter">
-      <span id="placedCounter">0</span>
-      <span class="label">из <span id="totalCountries">28</span> стран</span>
-    </div>
-    <div class="hint">
-      <i class="fas fa-map-pin" style="color: var(--primary);"></i>
-      <span>нажми на страну, чтобы разместить</span>
-    </div>
-  </div>
+    <form id="businessForm" class="grid-2">
+        <!-- Тип бизнеса -->
+        <div class="form-group">
+            <label for="businessType">Тип бизнеса</label>
+            <select id="businessType">
+                <option value="ИП">ИП (Индивидуальный предприниматель)</option>
+                <option value="ООО">ООО (Общество с ограниченной ответственностью)</option>
+                <option value="АО">АО (Акционерное общество)</option>
+                <option value="Самозанятый">Самозанятый (НПД)</option>
+                <option value="ПАО">ПАО (Публичное АО)</option>
+                <option value="ООО_доп">ООО (доп. информация)</option>
+            </select>
+        </div>
 
-  <!-- КАРТА МИРА (игровое поле) -->
-  <div class="map-container">
-    <div id="worldMap" role="list" aria-label="Список стран для размещения в Москве">
-      <!-- страны будут вставлены JS -->
+        <!-- Название / ФИО -->
+        <div class="form-group">
+            <label for="orgName">Название организации <small>или ФИО для ИП/Самозанятого</small></label>
+            <input type="text" id="orgName" placeholder="Например: ООО «Ромашка» или Иванов И.И." value="ООО «ТехноСтарт»">
+        </div>
+
+        <!-- ИНН -->
+        <div class="form-group">
+            <label for="inn">ИНН</label>
+            <input type="text" id="inn" placeholder="ИНН (10 или 12 цифр)" value="770812345678">
+        </div>
+
+        <!-- КПП (только для ООО/АО) -->
+        <div class="form-group" id="kppGroup">
+            <label for="kpp">КПП <small>(для ООО/АО)</small></label>
+            <input type="text" id="kpp" placeholder="9 цифр" value="770801001">
+        </div>
+
+        <!-- ОГРН/ОГРНИП -->
+        <div class="form-group">
+            <label for="ogrn">ОГРН / ОГРНИП</label>
+            <input type="text" id="ogrn" placeholder="13 или 15 цифр" value="1234567890123">
+        </div>
+
+        <!-- Юридический адрес -->
+        <div class="form-group full">
+            <label for="address">Юридический адрес</label>
+            <input type="text" id="address" placeholder="г. Москва, ул. Тверская, д. 1" value="г. Москва, ул. Тверская, д. 1, оф. 5">
+        </div>
+
+        <!-- Доп. контакты (телефон/email) -->
+        <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="text" id="phone" placeholder="+7 (495) 123-45-67" value="+7 (495) 777-88-99">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="info@company.ru" value="info@techstart.ru">
+        </div>
+    </form>
+
+    <!-- Кнопки действий -->
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; margin-top: 16px;">
+        <button class="btn" id="generateBtn">✨ Сгенерировать реквизиты</button>
+        <button class="btn btn-outline" id="resetBtn">↺ Сбросить пример</button>
     </div>
-  </div>
 
-  <!-- подпись / дополнительная информация (SEO) -->
-  <div style="font-size:0.8rem; opacity:0.5; text-align:center; margin-top: 8px; letter-spacing:0.3px;">
-    <i class="fas fa-city" aria-hidden="true"></i> Умести как можно больше стран в границах Москвы
-  </div>
-</div>
+    <!-- Блок превью -->
+    <div class="preview-area" id="previewArea">
+        <div class="preview-title">
+            <h2>📌 Готовые варианты</h2>
+            <span class="badge" id="currentTypeBadge">ИП</span>
+        </div>
 
-<!-- МОДАЛЬНЫЙ РЕЗУЛЬТАТ -->
-<div class="result-overlay" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
-  <div class="result-card">
-    <h2 id="resultTitle">🏙️ Результат</h2>
-    <div class="big-number" id="resultNumber">0</div>
-    <div class="sub">стран поместилось в Москве</div>
-    <button class="btn" id="closeResultBtn" style="background: var(--primary); border: none;"><i class="fas fa-check"></i> Отлично!</button>
-  </div>
+        <div class="tag-grid" id="tagGrid">
+            <!-- Рекламная метка -->
+            <div class="tag-card">
+                <h3>📢 Рекламная метка</h3>
+                <div class="tag-content" id="previewAd">
+                    <span class="label-muted">ООО «ТехноСтарт»</span>
+                    ИНН 770812345678 · КПП 770801001<br>
+                    +7 (495) 777-88-99
+                </div>
+            </div>
+            <!-- Документы -->
+            <div class="tag-card">
+                <h3>📄 Документы (счёт/договор)</h3>
+                <div class="tag-content" id="previewDocs">
+                    <span class="strong">ООО «ТехноСтарт»</span><br>
+                    ИНН 770812345678 / КПП 770801001<br>
+                    ОГРН 1234567890123<br>
+                    г. Москва, ул. Тверская, д. 1, оф. 5
+                </div>
+            </div>
+            <!-- Товары / упаковка -->
+            <div class="tag-card">
+                <h3>📦 Товары / этикетка</h3>
+                <div class="tag-content" id="previewGoods">
+                    <span class="strong">ТехноСтарт</span><br>
+                    ИНН 770812345678<br>
+                    Сделано в РФ
+                </div>
+            </div>
+            <!-- Прочее (визитка, соцсети, сайт) -->
+            <div class="tag-card">
+                <h3>📱 Визитка / соцсети</h3>
+                <div class="tag-content" id="previewOther">
+                    ООО «ТехноСтарт»<br>
+                    📞 +7 (495) 777-88-99<br>
+                    ✉️ info@techstart.ru
+                </div>
+            </div>
+        </div>
+        <div class="footer-action">
+            <span style="font-size:13px; color:#65768f; align-self:center;">Данные сгенерированы на основе введённых реквизитов</span>
+        </div>
+    </div>
 </div>
 
 <script>
-  (function() {
-    "use strict";
+    (function() {
+        const form = document.getElementById('businessForm');
+        const typeSelect = document.getElementById('businessType');
+        const orgNameInput = document.getElementById('orgName');
+        const innInput = document.getElementById('inn');
+        const kppInput = document.getElementById('kpp');
+        const ogrnInput = document.getElementById('ogrn');
+        const addressInput = document.getElementById('address');
+        const phoneInput = document.getElementById('phone');
+        const emailInput = document.getElementById('email');
 
-    // ---------- ДАННЫЕ: список стран (флаг + название) ----------
-    const COUNTRIES = [
-      { name: 'Россия', flag: '🇷🇺' },
-      { name: 'Китай', flag: '🇨🇳' },
-      { name: 'США', flag: '🇺🇸' },
-      { name: 'Индия', flag: '🇮🇳' },
-      { name: 'Бразилия', flag: '🇧🇷' },
-      { name: 'Франция', flag: '🇫🇷' },
-      { name: 'Германия', flag: '🇩🇪' },
-      { name: 'Италия', flag: '🇮🇹' },
-      { name: 'Испания', flag: '🇪🇸' },
-      { name: 'Великобритания', flag: '🇬🇧' },
-      { name: 'Япония', flag: '🇯🇵' },
-      { name: 'Турция', flag: '🇹🇷' },
-      { name: 'Египет', flag: '🇪🇬' },
-      { name: 'ЮАР', flag: '🇿🇦' },
-      { name: 'Мексика', flag: '🇲🇽' },
-      { name: 'Австралия', flag: '🇦🇺' },
-      { name: 'Канада', flag: '🇨🇦' },
-      { name: 'Аргентина', flag: '🇦🇷' },
-      { name: 'Норвегия', flag: '🇳🇴' },
-      { name: 'Швеция', flag: '🇸🇪' },
-      { name: 'Польша', flag: '🇵🇱' },
-      { name: 'Украина', flag: '🇺🇦' },
-      { name: 'Беларусь', flag: '🇧🇾' },
-      { name: 'Казахстан', flag: '🇰🇿' },
-      { name: 'Греция', flag: '🇬🇷' },
-      { name: 'Португалия', flag: '🇵🇹' },
-      { name: 'Нидерланды', flag: '🇳🇱' },
-      { name: 'Бельгия', flag: '🇧🇪' }
-    ];
+        const previewAd = document.getElementById('previewAd');
+        const previewDocs = document.getElementById('previewDocs');
+        const previewGoods = document.getElementById('previewGoods');
+        const previewOther = document.getElementById('previewOther');
+        const currentTypeBadge = document.getElementById('currentTypeBadge');
 
-    // состояние
-    let placed = new Array(COUNTRIES.length).fill(false);
-    let placedCount = 0;
-    const mapContainer = document.getElementById('worldMap');
-    const placedCounter = document.getElementById('placedCounter');
-    const totalCountriesSpan = document.getElementById('totalCountries');
-    const resultModal = document.getElementById('resultModal');
-    const resultNumber = document.getElementById('resultNumber');
-    const resetBtn = document.getElementById('resetGameBtn');
-    const finishBtn = document.getElementById('finishGameBtn');
-    const closeResultBtn = document.getElementById('closeResultBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const resetBtn = document.getElementById('resetBtn');
 
-    totalCountriesSpan.textContent = COUNTRIES.length;
+        // Показывать/скрывать КПП в зависимости от типа
+        function toggleKppField() {
+            const type = typeSelect.value;
+            const kppGroup = document.getElementById('kppGroup');
+            if (type === 'ИП' || type === 'Самозанятый') {
+                kppGroup.style.display = 'none';
+            } else {
+                kppGroup.style.display = 'flex';
+            }
+        }
+        toggleKppField();
+        typeSelect.addEventListener('change', toggleKppField);
 
-    // ---------- ОТРИСОВКА КАРТЫ ----------
-    function renderMap() {
-      mapContainer.innerHTML = '';
-      COUNTRIES.forEach((country, index) => {
-        const card = document.createElement('div');
-        card.className = `country-card${placed[index] ? ' placed' : ''}`;
-        card.setAttribute('role', 'listitem');
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('aria-label', `${country.name} ${placed[index] ? 'размещена' : 'нажмите чтобы разместить'}`);
+        // Основная функция генерации
+        function generatePreview() {
+            const type = typeSelect.value;
+            const orgName = orgNameInput.value.trim() || 'Название не указано';
+            const inn = innInput.value.trim() || 'ИНН не указан';
+            const kpp = kppInput.value.trim() || '—';
+            const ogrn = ogrnInput.value.trim() || '—';
+            const address = addressInput.value.trim() || 'Адрес не указан';
+            const phone = phoneInput.value.trim() || '—';
+            const email = emailInput.value.trim() || '—';
 
-        // флаг + название
-        const flagSpan = document.createElement('span');
-        flagSpan.className = 'flag';
-        flagSpan.textContent = country.flag;
-        const nameSpan = document.createElement('span');
-        nameSpan.textContent = country.name;
+            // Сокращённое название для товаров (без ООО/АО/ИП и т.п.)
+            let shortName = orgName;
+            // Убираем распространённые префиксы для краткого варианта
+            const prefixes = ['ООО ', 'ООО «', 'ООО"', 'АО ', 'АО «', 'АО"', 'ПАО ', 'ПАО «', 'ИП ', 'ИП «', 'ИП"'];
+            for (let p of prefixes) {
+                if (shortName.startsWith(p)) {
+                    shortName = shortName.slice(p.length);
+                    break;
+                }
+            }
+            // Если остались кавычки в начале/конце
+            shortName = shortName.replace(/^["«]|["»]$/g, '').trim();
 
-        card.appendChild(flagSpan);
-        card.appendChild(nameSpan);
+            // Для ИП / самозанятого — показываем ФИО
+            let orgDisplay = orgName;
+            let docOrgDisplay = orgName;
+            let adDisplay = orgName;
+            let otherDisplay = orgName;
 
-        // если уже размещена — иконка галочки (для красоты)
-        if (placed[index]) {
-          const check = document.createElement('i');
-          check.className = 'fas fa-check-circle';
-          check.style.fontSize = '0.8rem';
-          check.style.color = '#b3e5b3';
-          card.appendChild(check);
+            if (type === 'ИП' || type === 'Самозанятый') {
+                // Для ИП и самозанятого в документах показываем "ИП Иванов И.И."
+                const ipPrefix = (type === 'ИП') ? 'ИП ' : 'Самозанятый ';
+                if (!orgName.startsWith('ИП') && !orgName.startsWith('Самозанятый')) {
+                    docOrgDisplay = ipPrefix + orgName;
+                    adDisplay = orgName;  // на метке просто ФИО
+                } else {
+                    docOrgDisplay = orgName;
+                }
+                // Для товаров используем фамилию или коротко
+                // (пытаемся взять фамилию из ФИО)
+                let lastName = orgName.split(' ')[0] || orgName;
+                shortName = lastName;
+            }
+
+            // --- Рекламная метка ---
+            let adText = '';
+            if (type === 'ИП' || type === 'Самозанятый') {
+                adText = `${orgName}\nИНН ${inn}`;
+                if (phone !== '—') adText += `\n${phone}`;
+            } else {
+                adText = `${orgName}\nИНН ${inn} · КПП ${kpp !== '—' ? kpp : ''}`;
+                if (phone !== '—') adText += `\n${phone}`;
+            }
+            previewAd.innerHTML = adText.replace(/\n/g, '<br>');
+
+            // --- Документы ---
+            let docsText = '';
+            if (type === 'ИП' || type === 'Самозанятый') {
+                docsText = `${docOrgDisplay}\nИНН ${inn}\nОГРНИП ${ogrn !== '—' ? ogrn : '—'}\n${address}`;
+            } else {
+                docsText = `${docOrgDisplay}\nИНН ${inn} / КПП ${kpp !== '—' ? kpp : '—'}\nОГРН ${ogrn !== '—' ? ogrn : '—'}\n${address}`;
+            }
+            previewDocs.innerHTML = docsText.replace(/\n/g, '<br>');
+
+            // --- Товары / этикетка ---
+            let goodsText = `${shortName || orgName}\nИНН ${inn}`;
+            if (type !== 'ИП' && type !== 'Самозанятый') {
+                // для юрлиц добавим КПП кратко
+                if (kpp !== '—') goodsText += ` / КПП ${kpp}`;
+            }
+            goodsText += `\nСделано в РФ`;
+            previewGoods.innerHTML = goodsText.replace(/\n/g, '<br>');
+
+            // --- Визитка / соцсети ---
+            let otherText = `${orgName}`;
+            if (phone !== '—') otherText += `\n📞 ${phone}`;
+            if (email !== '—') otherText += `\n✉️ ${email}`;
+            if (address !== '—' && address !== 'Адрес не указан') {
+                otherText += `\n📍 ${address}`;
+            }
+            previewOther.innerHTML = otherText.replace(/\n/g, '<br>');
+
+            // Обновить бейдж
+            const typeMap = {
+                'ИП': 'ИП',
+                'ООО': 'ООО',
+                'АО': 'АО',
+                'Самозанятый': 'Самозанятый',
+                'ПАО': 'ПАО',
+                'ООО_доп': 'ООО'
+            };
+            currentTypeBadge.textContent = typeMap[type] || type;
         }
 
-        // клик / клавиатура
-        card.addEventListener('click', () => handleCardClick(index));
-        card.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+        // Обработчики
+        generateBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            handleCardClick(index);
-          }
+            generatePreview();
         });
 
-        mapContainer.appendChild(card);
-      });
-      updateCounter();
-    }
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Вернуть поля к "примерным" значениям
+            typeSelect.value = 'ООО';
+            orgNameInput.value = 'ООО «ТехноСтарт»';
+            innInput.value = '770812345678';
+            kppInput.value = '770801001';
+            ogrnInput.value = '1234567890123';
+            addressInput.value = 'г. Москва, ул. Тверская, д. 1, оф. 5';
+            phoneInput.value = '+7 (495) 777-88-99';
+            emailInput.value = 'info@techstart.ru';
+            toggleKppField();
+            generatePreview();
+        });
 
-    // ---------- ЛОГИКА РАЗМЕЩЕНИЯ ----------
-    function handleCardClick(index) {
-      if (placed[index]) return; // уже размещена
-      placed[index] = true;
-      placedCount++;
-      renderMap(); // перерисовка для обновления классов и галочек
-      // анимация: небольшая вибрация через css – уже есть
-    }
+        // Генерируем при загрузке
+        generatePreview();
 
-    function updateCounter() {
-      placedCounter.textContent = placedCount;
-    }
+        // Также по изменению основных полей (опционально, но для удобства)
+        // можно повесить на input, но оставим только кнопку, чтобы не перегружать
+        // Но добавим "быструю" генерацию по нажатию Enter в любом поле
+        const inputs = form.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    generatePreview();
+                }
+            });
+        });
 
-    // ---------- СБРОС ----------
-    function resetGame() {
-      placed = new Array(COUNTRIES.length).fill(false);
-      placedCount = 0;
-      renderMap();
-      resultModal.classList.remove('active');
-    }
+        // При изменении типа тоже обновляем (для КПП и превью)
+        typeSelect.addEventListener('change', () => {
+            toggleKppField();
+            generatePreview();
+        });
 
-    // ---------- ЗАКОНЧИТЬ (показать результат) ----------
-    function finishGame() {
-      resultNumber.textContent = placedCount;
-      resultModal.classList.add('active');
-    }
+        // Доп. кнопка "сгенерировать" по клику на любой input (потеря фокуса) - но не будем, чтобы не мешать.
+        // Для удобства можно добавить автообновление при изменении полей через небольшую задержку
+        // но оставим строго по кнопке или Enter.
+        // Но всё же повесим на blur для удобства (но чтобы не мешать, сделаем с задержкой)
+        let timeoutId = null;
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    generatePreview();
+                }, 350);
+            });
+        });
 
-    // ---------- ИНИЦИАЛИЗАЦИЯ ----------
-    renderMap();
-
-    // ---------- КНОПКИ ----------
-    resetBtn.addEventListener('click', resetGame);
-    finishBtn.addEventListener('click', finishGame);
-    closeResultBtn.addEventListener('click', () => {
-      resultModal.classList.remove('active');
-    });
-    // закрыть по клику на фон
-    resultModal.addEventListener('click', (e) => {
-      if (e.target === resultModal) resultModal.classList.remove('active');
-    });
-    // ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && resultModal.classList.contains('active')) {
-        resultModal.classList.remove('active');
-      }
-    });
-
-    // SEO-микроразметка (дополнительно)
-    const seoMeta = document.createElement('meta');
-    seoMeta.name = 'description';
-    seoMeta.content = 'Игра Москва-град: умести как можно больше стран в границах Москвы. Интерактивная карта с матовым стеклом.';
-    document.head.appendChild(seoMeta);
-
-  })();
+        // Также при изменении select (уже есть)
+        // Инициализация
+        window.addEventListener('load', () => {
+            toggleKppField();
+            generatePreview();
+        });
+    })();
 </script>
-
-<!-- 
-  СТРУКТУРА ПРОЕКТА (один файл):
-  - index.html (весь код внутри)
-  - Шрифты и иконки подгружаются с CDN (Font Awesome).
-  - Стили: встроены в <style>, используются CSS-переменные, медиазапросы.
-  - Логика: vanilla JS, данные стран, состояние, рендер, обработчики.
-
-  КАК СОБРАТЬ / ЗАПУСТИТЬ:
-  1. Сохранить этот файл как index.html (или любое имя с .html).
-  2. Открыть в любом современном браузере (Chrome, Firefox, Edge, Safari).
-  3. Для офлайн-работы можно скачать Font Awesome локально, но CDN-версия работает без интернета после первого кеша.
-  4. Адаптивность встроена — на мобильных устройствах элементы подстраиваются.
-
-  КОМПОНЕНТЫ:
-  - Glass-panel (оболочка матового стекла)
-  - Меню (заголовок + кнопки)
-  - Статус-борд (счётчик)
-  - Карта мира (сетка из карточек стран)
-  - Модальное окно результата
-  - Кнопки: Сброс, Закончить, Закрыть результат
-  - Иконки Font Awesome для акцентов
-  - ARIA-атрибуты для доступности
-  - Микроразметка SEO (description)
-  - Анимации: hover, active, transition, scale, фильтры
-  - UX: фокус-кольца, подсказки, клавиатурная навигация, закрытие по ESC/клику на фон
--->
+</body>
+</html>
