@@ -2,114 +2,195 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Генератор реквизитов бизнеса</title>
     <style>
+        /* ===== Базовый сброс ===== */
         * {
             box-sizing: border-box;
             margin: 0;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 0;
         }
+
         body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: #f4f7fb;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 24px;
+            align-items: flex-start;
+            padding: 16px;
             margin: 0;
         }
+
         .card {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
-            padding: 32px 28px;
-            transition: all 0.2s;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.10);
+            padding: 28px 24px 32px;
+            transition: padding 0.2s;
+            margin: 8px 0;
         }
+
+        /* ===== Шапка ===== */
         h1 {
-            font-size: 26px;
-            font-weight: 600;
+            font-size: clamp(22px, 4vw, 32px);
+            font-weight: 700;
             color: #0b1a33;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .subhead {
             color: #4a5a72;
-            font-size: 15px;
-            margin-bottom: 28px;
+            font-size: clamp(14px, 1.6vw, 17px);
+            margin: 6px 0 22px 0;
+            padding-left: 16px;
             border-left: 4px solid #2a7de1;
-            padding-left: 14px;
             background: #f0f5fe;
             border-radius: 0 12px 12px 0;
             line-height: 1.5;
+            padding: 10px 16px;
         }
-        .grid-2 {
+
+        /* ===== Сетка формы ===== */
+        .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px 28px;
+            gap: 18px 24px;
         }
+
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
+            position: relative;
         }
         .form-group.full {
             grid-column: 1 / -1;
         }
+
         label {
             font-weight: 500;
-            font-size: 14px;
+            font-size: clamp(13px, 1.2vw, 15px);
             color: #1d2b41;
             letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
         label small {
             font-weight: 400;
             color: #65768f;
             font-size: 12px;
         }
+        .label-hint {
+            color: #65768f;
+            font-weight: 400;
+            font-size: 12px;
+            margin-left: auto;
+            background: #f0f4fa;
+            padding: 1px 10px;
+            border-radius: 30px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
         input, select {
             background: #f9fcff;
             border: 1.5px solid #dfe7f0;
-            border-radius: 16px;
-            padding: 12px 16px;
-            font-size: 15px;
-            transition: 0.15s;
+            border-radius: 14px;
+            padding: 11px 15px;
+            font-size: clamp(14px, 1.2vw, 16px);
+            transition: 0.2s;
             outline: none;
             color: #0b1a33;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
         }
         input:focus, select:focus {
             border-color: #2a7de1;
             background: white;
-            box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.15);
+            box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.12);
         }
+        input:disabled {
+            background: #f0f4fa;
+            color: #7b8ba0;
+            cursor: not-allowed;
+        }
+        input.error {
+            border-color: #e74c3c;
+            background: #fff5f5;
+        }
+        input.error:focus {
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15);
+        }
+        input.valid {
+            border-color: #27ae60;
+        }
+        input.valid:focus {
+            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.12);
+        }
+
         select {
-            appearance: auto;
-            background: #f9fcff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2365768f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 38px;
         }
+
+        .input-status {
+            position: absolute;
+            right: 12px;
+            font-size: 18px;
+            pointer-events: none;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .input-status.show {
+            opacity: 1;
+        }
+        .input-status.error-icon {
+            color: #e74c3c;
+        }
+        .input-status.success-icon {
+            color: #27ae60;
+        }
+
+        .validation-message {
+            font-size: 12px;
+            color: #e74c3c;
+            min-height: 18px;
+            margin-top: 2px;
+            transition: 0.2s;
+        }
+        .validation-message.success {
+            color: #27ae60;
+        }
+
         .hint {
-            font-size: 13px;
+            font-size: 12px;
             color: #65768f;
-            margin-top: 4px;
+            margin-top: 3px;
         }
-        .preview-area {
-            margin-top: 36px;
-            border-top: 2px dashed #dce5ef;
-            padding-top: 28px;
-        }
-        .preview-title {
+
+        /* ===== Кнопки ===== */
+        .actions {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 20px;
-        }
-        .preview-title h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #0b1a33;
+            justify-content: flex-end;
+            margin-top: 20px;
         }
         .btn {
             background: #0b1a33;
@@ -118,19 +199,27 @@
             border-radius: 40px;
             padding: 12px 28px;
             font-weight: 600;
-            font-size: 15px;
-            letter-spacing: 0.3px;
+            font-size: clamp(14px, 1.2vw, 16px);
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(11, 26, 51, 0.15);
+            box-shadow: 0 4px 12px rgba(11, 26, 51, 0.12);
+            flex: 0 1 auto;
+            touch-action: manipulation;
         }
         .btn:hover {
             background: #1d2f4a;
             transform: scale(1.01);
-            box-shadow: 0 8px 20px rgba(11, 26, 51, 0.2);
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
         }
         .btn-outline {
             background: transparent;
@@ -141,41 +230,88 @@
         .btn-outline:hover {
             background: #f0f5fe;
             border-color: #2a7de1;
-            box-shadow: none;
         }
+        .btn-primary {
+            background: #2a7de1;
+        }
+        .btn-primary:hover {
+            background: #1a6bc9;
+        }
+
+        /* ===== Блок превью ===== */
+        .preview-area {
+            margin-top: 32px;
+            border-top: 2px dashed #dce5ef;
+            padding-top: 24px;
+        }
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .preview-header h2 {
+            font-size: clamp(18px, 2.4vw, 24px);
+            font-weight: 600;
+            color: #0b1a33;
+        }
+        .badge {
+            background: #eef4fc;
+            border-radius: 40px;
+            padding: 4px 18px;
+            font-size: clamp(13px, 1.1vw, 15px);
+            font-weight: 600;
+            color: #1d2b41;
+            white-space: nowrap;
+        }
+        .badge.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* ===== Карточки превью ===== */
         .tag-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-top: 12px;
+            gap: 16px;
         }
         .tag-card {
             background: #fafcff;
-            border-radius: 24px;
-            padding: 18px 16px 16px;
+            border-radius: 20px;
+            padding: 16px 14px 14px;
             border: 1px solid #e6edf6;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             transition: 0.1s;
+            display: flex;
+            flex-direction: column;
         }
         .tag-card h3 {
-            font-size: 13px;
+            font-size: clamp(12px, 1vw, 14px);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             color: #65768f;
-            margin: 0 0 12px 0;
+            margin: 0 0 10px 0;
             font-weight: 600;
         }
         .tag-content {
             background: white;
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 12px 14px;
             border: 1px solid #eef4fc;
-            font-size: 14px;
+            font-size: clamp(13px, 1.1vw, 15px);
             line-height: 1.6;
             color: #0b1a33;
             word-break: break-word;
-            min-height: 70px;
+            min-height: 68px;
+            flex: 1;
             box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+            transition: 0.2s;
         }
         .tag-content .label-muted {
             color: #7b8ba0;
@@ -186,39 +322,88 @@
         .tag-content .strong {
             font-weight: 600;
         }
-        .flex-row {
+        .tag-content.blink {
+            animation: blinkHighlight 0.6s ease;
+        }
+        @keyframes blinkHighlight {
+            0% { background: #e8f0fe; }
+            100% { background: white; }
+        }
+
+        .footer-note {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 12px 18px;
-            margin-top: 6px;
+            gap: 8px;
+            margin-top: 14px;
+            font-size: clamp(12px, 1vw, 14px);
+            color: #65768f;
         }
-        .badge {
-            background: #eef4fc;
-            border-radius: 40px;
-            padding: 4px 14px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #1d2b41;
-        }
-        @media (max-width: 700px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            .card {
-                padding: 20px 16px;
-            }
-            .tag-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .footer-action {
+        .footer-note .status-indicator {
             display: flex;
-            justify-content: flex-end;
-            margin-top: 16px;
+            align-items: center;
+            gap: 6px;
         }
-        .hidden {
-            display: none;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-dot.green {
+            background: #27ae60;
+        }
+        .status-dot.red {
+            background: #e74c3c;
+        }
+        .status-dot.yellow {
+            background: #f39c12;
+        }
+
+        /* ===== Адаптивность ===== */
+        @media (max-width: 820px) {
+            .card { padding: 20px 16px 24px; border-radius: 20px; }
+            .form-grid { gap: 14px 18px; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; align-items: flex-start; }
+            .card { padding: 16px 12px 20px; border-radius: 16px; margin: 0; }
+            .form-grid { grid-template-columns: 1fr; gap: 12px; }
+            .form-group.full { grid-column: 1; }
+            .tag-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .actions { justify-content: stretch; }
+            .btn { flex: 1 1 auto; justify-content: center; padding: 13px 18px; min-width: 120px; }
+            .preview-header { flex-direction: column; align-items: flex-start; }
+            .subhead { padding: 8px 14px; font-size: 14px; }
+            input, select { padding: 12px 14px; font-size: 16px; }
+            .label-hint { display: none; }
+        }
+
+        @media (max-width: 440px) {
+            .tag-grid { grid-template-columns: 1fr; gap: 12px; }
+            .card { padding: 12px 10px 16px; border-radius: 14px; }
+            .btn { padding: 14px 16px; font-size: 15px; min-width: 100px; }
+            .tag-content { min-height: 60px; padding: 10px 12px; }
+        }
+
+        @media (min-width: 1200px) {
+            .card { padding: 40px 44px 44px; }
+            .form-grid { gap: 24px 32px; }
+            .tag-grid { gap: 22px; }
+        }
+
+        /* ===== Скрытие КПП ===== */
+        .hidden-field {
+            display: none !important;
+        }
+
+        /* ===== Улучшение touch ===== */
+        @media (hover: none) {
+            .btn:hover { transform: none; background: #0b1a33; }
+            .btn-outline:hover { background: transparent; border-color: #d0dcec; }
+            .btn:active { transform: scale(0.96); }
         }
     </style>
 </head>
@@ -230,76 +415,119 @@
         Заполните данные — и получите готовые варианты для рекламной метки, документов, товаров и других носителей
     </div>
 
-    <form id="businessForm" class="grid-2">
+    <form id="businessForm" class="form-grid" novalidate>
         <!-- Тип бизнеса -->
         <div class="form-group">
             <label for="businessType">Тип бизнеса</label>
             <select id="businessType">
                 <option value="ИП">ИП (Индивидуальный предприниматель)</option>
-                <option value="ООО">ООО (Общество с ограниченной ответственностью)</option>
+                <option value="ООО" selected>ООО (Общество с ограниченной ответственностью)</option>
                 <option value="АО">АО (Акционерное общество)</option>
                 <option value="Самозанятый">Самозанятый (НПД)</option>
                 <option value="ПАО">ПАО (Публичное АО)</option>
-                <option value="ООО_доп">ООО (доп. информация)</option>
             </select>
         </div>
 
         <!-- Название / ФИО -->
         <div class="form-group">
-            <label for="orgName">Название организации <small>или ФИО для ИП/Самозанятого</small></label>
-            <input type="text" id="orgName" placeholder="Например: ООО «Ромашка» или Иванов И.И." value="ООО «ТехноСтарт»">
+            <label for="orgName">
+                Название / ФИО
+                <small>для ИП/Самозанятого</small>
+                <span class="label-hint" id="orgNameCounter">0 / 100</span>
+            </label>
+            <div class="input-wrapper">
+                <input type="text" id="orgName" placeholder="Например: ООО «Ромашка» или Иванов И.И." value="ООО «ТехноСтарт»" maxlength="100">
+                <span class="input-status" id="orgNameStatus"></span>
+            </div>
+            <div class="validation-message" id="orgNameValidation"></div>
         </div>
 
         <!-- ИНН -->
         <div class="form-group">
-            <label for="inn">ИНН</label>
-            <input type="text" id="inn" placeholder="ИНН (10 или 12 цифр)" value="770812345678">
+            <label for="inn">
+                ИНН
+                <span class="label-hint">10 или 12 цифр</span>
+            </label>
+            <div class="input-wrapper">
+                <input type="text" id="inn" placeholder="Введите ИНН" value="770812345678" maxlength="12">
+                <span class="input-status" id="innStatus"></span>
+            </div>
+            <div class="validation-message" id="innValidation"></div>
         </div>
 
-        <!-- КПП (только для ООО/АО) -->
+        <!-- КПП -->
         <div class="form-group" id="kppGroup">
-            <label for="kpp">КПП <small>(для ООО/АО)</small></label>
-            <input type="text" id="kpp" placeholder="9 цифр" value="770801001">
+            <label for="kpp">
+                КПП
+                <small>для ООО/АО</small>
+                <span class="label-hint">9 цифр</span>
+            </label>
+            <div class="input-wrapper">
+                <input type="text" id="kpp" placeholder="9 цифр" value="770801001" maxlength="9">
+                <span class="input-status" id="kppStatus"></span>
+            </div>
+            <div class="validation-message" id="kppValidation"></div>
         </div>
 
-        <!-- ОГРН/ОГРНИП -->
+        <!-- ОГРН -->
         <div class="form-group">
-            <label for="ogrn">ОГРН / ОГРНИП</label>
-            <input type="text" id="ogrn" placeholder="13 или 15 цифр" value="1234567890123">
+            <label for="ogrn">
+                ОГРН / ОГРНИП
+                <span class="label-hint">13 или 15 цифр</span>
+            </label>
+            <div class="input-wrapper">
+                <input type="text" id="ogrn" placeholder="Введите ОГРН" value="1234567890123" maxlength="15">
+                <span class="input-status" id="ogrnStatus"></span>
+            </div>
+            <div class="validation-message" id="ogrnValidation"></div>
         </div>
 
-        <!-- Юридический адрес -->
+        <!-- Адрес -->
         <div class="form-group full">
             <label for="address">Юридический адрес</label>
-            <input type="text" id="address" placeholder="г. Москва, ул. Тверская, д. 1" value="г. Москва, ул. Тверская, д. 1, оф. 5">
+            <div class="input-wrapper">
+                <input type="text" id="address" placeholder="г. Москва, ул. Тверская, д. 1" value="г. Москва, ул. Тверская, д. 1, оф. 5">
+                <span class="input-status" id="addressStatus"></span>
+            </div>
+            <div class="validation-message" id="addressValidation"></div>
         </div>
 
-        <!-- Доп. контакты (телефон/email) -->
+        <!-- Телефон -->
         <div class="form-group">
             <label for="phone">Телефон</label>
-            <input type="text" id="phone" placeholder="+7 (495) 123-45-67" value="+7 (495) 777-88-99">
+            <div class="input-wrapper">
+                <input type="text" id="phone" placeholder="+7 (495) 123-45-67" value="+7 (495) 777-88-99">
+                <span class="input-status" id="phoneStatus"></span>
+            </div>
+            <div class="validation-message" id="phoneValidation"></div>
         </div>
+
+        <!-- Email -->
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" id="email" placeholder="info@company.ru" value="info@techstart.ru">
+            <div class="input-wrapper">
+                <input type="text" id="email" placeholder="info@company.ru" value="info@techstart.ru">
+                <span class="input-status" id="emailStatus"></span>
+            </div>
+            <div class="validation-message" id="emailValidation"></div>
         </div>
     </form>
 
-    <!-- Кнопки действий -->
-    <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; margin-top: 16px;">
-        <button class="btn" id="generateBtn">✨ Сгенерировать реквизиты</button>
-        <button class="btn btn-outline" id="resetBtn">↺ Сбросить пример</button>
+    <!-- Кнопки -->
+    <div class="actions">
+        <button class="btn btn-primary" id="generateBtn">✨ Сгенерировать</button>
+        <button class="btn btn-outline" id="resetBtn">↺ Сбросить</button>
+        <button class="btn btn-outline" id="autoBtn" style="background:#eef4fc;">⚡ Авто</button>
     </div>
 
     <!-- Блок превью -->
     <div class="preview-area" id="previewArea">
-        <div class="preview-title">
+        <div class="preview-header">
             <h2>📌 Готовые варианты</h2>
-            <span class="badge" id="currentTypeBadge">ИП</span>
+            <span class="badge" id="currentTypeBadge">ООО</span>
         </div>
 
         <div class="tag-grid" id="tagGrid">
-            <!-- Рекламная метка -->
             <div class="tag-card">
                 <h3>📢 Рекламная метка</h3>
                 <div class="tag-content" id="previewAd">
@@ -308,9 +536,8 @@
                     +7 (495) 777-88-99
                 </div>
             </div>
-            <!-- Документы -->
             <div class="tag-card">
-                <h3>📄 Документы (счёт/договор)</h3>
+                <h3>📄 Документы</h3>
                 <div class="tag-content" id="previewDocs">
                     <span class="strong">ООО «ТехноСтарт»</span><br>
                     ИНН 770812345678 / КПП 770801001<br>
@@ -318,7 +545,6 @@
                     г. Москва, ул. Тверская, д. 1, оф. 5
                 </div>
             </div>
-            <!-- Товары / упаковка -->
             <div class="tag-card">
                 <h3>📦 Товары / этикетка</h3>
                 <div class="tag-content" id="previewGoods">
@@ -327,7 +553,6 @@
                     Сделано в РФ
                 </div>
             </div>
-            <!-- Прочее (визитка, соцсети, сайт) -->
             <div class="tag-card">
                 <h3>📱 Визитка / соцсети</h3>
                 <div class="tag-content" id="previewOther">
@@ -337,14 +562,19 @@
                 </div>
             </div>
         </div>
-        <div class="footer-action">
-            <span style="font-size:13px; color:#65768f; align-self:center;">Данные сгенерированы на основе введённых реквизитов</span>
+        <div class="footer-note">
+            <span id="updateStatus">✅ Все поля валидны</span>
+            <div class="status-indicator">
+                <span class="status-dot green" id="statusDot"></span>
+                <span id="fieldCount">0/7 заполнено</span>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     (function() {
+        // ===== DOM-элементы =====
         const form = document.getElementById('businessForm');
         const typeSelect = document.getElementById('businessType');
         const orgNameInput = document.getElementById('orgName');
@@ -363,22 +593,144 @@
 
         const generateBtn = document.getElementById('generateBtn');
         const resetBtn = document.getElementById('resetBtn');
+        const autoBtn = document.getElementById('autoBtn');
+        const kppGroup = document.getElementById('kppGroup');
+        const orgNameCounter = document.getElementById('orgNameCounter');
+        const fieldCount = document.getElementById('fieldCount');
+        const updateStatus = document.getElementById('updateStatus');
+        const statusDot = document.getElementById('statusDot');
 
-        // Показывать/скрывать КПП в зависимости от типа
-        function toggleKppField() {
-            const type = typeSelect.value;
-            const kppGroup = document.getElementById('kppGroup');
-            if (type === 'ИП' || type === 'Самозанятый') {
-                kppGroup.style.display = 'none';
-            } else {
-                kppGroup.style.display = 'flex';
+        // ===== Состояние =====
+        let isGenerating = false;
+
+        // ===== Валидаторы =====
+        const validators = {
+            orgName: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: false, msg: 'Введите название или ФИО' };
+                if (trimmed.length < 2) return { valid: false, msg: 'Минимум 2 символа' };
+                return { valid: true, msg: '✓' };
+            },
+            inn: (val) => {
+                const clean = val.replace(/\D/g, '');
+                if (clean.length === 0) return { valid: false, msg: 'Введите ИНН' };
+                if (![10, 12].includes(clean.length)) return { valid: false, msg: 'ИНН должен содержать 10 или 12 цифр' };
+                return { valid: true, msg: '✓' };
+            },
+            kpp: (val) => {
+                const clean = val.replace(/\D/g, '');
+                if (clean.length === 0) return { valid: true, msg: 'необязательно' };
+                if (clean.length !== 9) return { valid: false, msg: 'КПП должен содержать 9 цифр' };
+                return { valid: true, msg: '✓' };
+            },
+            ogrn: (val) => {
+                const clean = val.replace(/\D/g, '');
+                if (clean.length === 0) return { valid: false, msg: 'Введите ОГРН' };
+                if (![13, 15].includes(clean.length)) return { valid: false, msg: 'ОГРН: 13 или 15 цифр' };
+                return { valid: true, msg: '✓' };
+            },
+            address: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: false, msg: 'Введите адрес' };
+                if (trimmed.length < 5) return { valid: false, msg: 'Слишком короткий адрес' };
+                return { valid: true, msg: '✓' };
+            },
+            phone: (val) => {
+                const clean = val.replace(/[\s\-()\+]/g, '');
+                if (clean.length === 0) return { valid: true, msg: 'необязательно' };
+                if (clean.length < 10) return { valid: false, msg: 'Слишком короткий номер' };
+                return { valid: true, msg: '✓' };
+            },
+            email: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: true, msg: 'необязательно' };
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(trimmed)) return { valid: false, msg: 'Некорректный email' };
+                return { valid: true, msg: '✓' };
             }
-        }
-        toggleKppField();
-        typeSelect.addEventListener('change', toggleKppField);
+        };
 
-        // Основная функция генерации
+        // ===== Функция валидации поля =====
+        function validateField(input, validatorFn, statusEl, msgEl) {
+            const val = input.value;
+            const result = validatorFn(val);
+            
+            input.classList.remove('error', 'valid');
+            statusEl.classList.remove('show', 'error-icon', 'success-icon');
+            
+            if (result.valid) {
+                if (val.trim().length > 0) {
+                    input.classList.add('valid');
+                    statusEl.textContent = '✓';
+                    statusEl.classList.add('show', 'success-icon');
+                } else {
+                    statusEl.classList.remove('show');
+                }
+                msgEl.textContent = '';
+                msgEl.className = 'validation-message';
+            } else {
+                input.classList.add('error');
+                statusEl.textContent = '✗';
+                statusEl.classList.add('show', 'error-icon');
+                msgEl.textContent = result.msg;
+                msgEl.className = 'validation-message error';
+            }
+            return result.valid;
+        }
+
+        // ===== Проверка всех полей =====
+        function validateAll() {
+            const fields = [
+                { input: orgNameInput, validator: validators.orgName, status: document.getElementById('orgNameStatus'), msg: document.getElementById('orgNameValidation') },
+                { input: innInput, validator: validators.inn, status: document.getElementById('innStatus'), msg: document.getElementById('innValidation') },
+                { input: kppInput, validator: validators.kpp, status: document.getElementById('kppStatus'), msg: document.getElementById('kppValidation') },
+                { input: ogrnInput, validator: validators.ogrn, status: document.getElementById('ogrnStatus'), msg: document.getElementById('ogrnValidation') },
+                { input: addressInput, validator: validators.address, status: document.getElementById('addressStatus'), msg: document.getElementById('addressValidation') },
+                { input: phoneInput, validator: validators.phone, status: document.getElementById('phoneStatus'), msg: document.getElementById('phoneValidation') },
+                { input: emailInput, validator: validators.email, status: document.getElementById('emailStatus'), msg: document.getElementById('emailValidation') }
+            ];
+
+            let allValid = true;
+            let filledCount = 0;
+            const requiredFields = ['orgName', 'inn', 'ogrn', 'address'];
+            
+            fields.forEach(({ input, validator, status, msg }) => {
+                const isValid = validateField(input, validator, status, msg);
+                if (!isValid && requiredFields.includes(input.id)) {
+                    allValid = false;
+                }
+                if (input.value.trim().length > 0) {
+                    filledCount++;
+                }
+            });
+
+            // Обновляем счётчик
+            fieldCount.textContent = `${filledCount}/7 заполнено`;
+            
+            // Обновляем статус
+            if (allValid && filledCount >= 4) {
+                updateStatus.textContent = '✅ Все обязательные поля валидны';
+                statusDot.className = 'status-dot green';
+                currentTypeBadge.className = 'badge success';
+            } else if (filledCount === 0) {
+                updateStatus.textContent = '⏳ Заполните поля';
+                statusDot.className = 'status-dot yellow';
+                currentTypeBadge.className = 'badge';
+            } else {
+                updateStatus.textContent = '⚠️ Проверьте обязательные поля';
+                statusDot.className = 'status-dot red';
+                currentTypeBadge.className = 'badge error';
+            }
+
+            generateBtn.disabled = !allValid || filledCount < 4;
+            return allValid;
+        }
+
+        // ===== Генерация превью =====
         function generatePreview() {
+            if (isGenerating) return;
+            isGenerating = true;
+
             const type = typeSelect.value;
             const orgName = orgNameInput.value.trim() || 'Название не указано';
             const inn = innInput.value.trim() || 'ИНН не указан';
@@ -388,9 +740,8 @@
             const phone = phoneInput.value.trim() || '—';
             const email = emailInput.value.trim() || '—';
 
-            // Сокращённое название для товаров (без ООО/АО/ИП и т.п.)
+            // Сокращённое название
             let shortName = orgName;
-            // Убираем распространённые префиксы для краткого варианта
             const prefixes = ['ООО ', 'ООО «', 'ООО"', 'АО ', 'АО «', 'АО"', 'ПАО ', 'ПАО «', 'ИП ', 'ИП «', 'ИП"'];
             for (let p of prefixes) {
                 if (shortName.startsWith(p)) {
@@ -398,31 +749,27 @@
                     break;
                 }
             }
-            // Если остались кавычки в начале/конце
             shortName = shortName.replace(/^["«]|["»]$/g, '').trim();
 
-            // Для ИП / самозанятого — показываем ФИО
-            let orgDisplay = orgName;
             let docOrgDisplay = orgName;
-            let adDisplay = orgName;
-            let otherDisplay = orgName;
-
             if (type === 'ИП' || type === 'Самозанятый') {
-                // Для ИП и самозанятого в документах показываем "ИП Иванов И.И."
                 const ipPrefix = (type === 'ИП') ? 'ИП ' : 'Самозанятый ';
                 if (!orgName.startsWith('ИП') && !orgName.startsWith('Самозанятый')) {
                     docOrgDisplay = ipPrefix + orgName;
-                    adDisplay = orgName;  // на метке просто ФИО
-                } else {
-                    docOrgDisplay = orgName;
                 }
-                // Для товаров используем фамилию или коротко
-                // (пытаемся взять фамилию из ФИО)
                 let lastName = orgName.split(' ')[0] || orgName;
                 shortName = lastName;
             }
 
-            // --- Рекламная метка ---
+            // Обновляем контент с анимацией
+            const updateWithBlink = (el, html) => {
+                el.innerHTML = html;
+                el.classList.remove('blink');
+                void el.offsetWidth;
+                el.classList.add('blink');
+            };
+
+            // Рекламная метка
             let adText = '';
             if (type === 'ИП' || type === 'Самозанятый') {
                 adText = `${orgName}\nИНН ${inn}`;
@@ -431,56 +778,97 @@
                 adText = `${orgName}\nИНН ${inn} · КПП ${kpp !== '—' ? kpp : ''}`;
                 if (phone !== '—') adText += `\n${phone}`;
             }
-            previewAd.innerHTML = adText.replace(/\n/g, '<br>');
+            updateWithBlink(previewAd, adText.replace(/\n/g, '<br>'));
 
-            // --- Документы ---
+            // Документы
             let docsText = '';
             if (type === 'ИП' || type === 'Самозанятый') {
                 docsText = `${docOrgDisplay}\nИНН ${inn}\nОГРНИП ${ogrn !== '—' ? ogrn : '—'}\n${address}`;
             } else {
                 docsText = `${docOrgDisplay}\nИНН ${inn} / КПП ${kpp !== '—' ? kpp : '—'}\nОГРН ${ogrn !== '—' ? ogrn : '—'}\n${address}`;
             }
-            previewDocs.innerHTML = docsText.replace(/\n/g, '<br>');
+            updateWithBlink(previewDocs, docsText.replace(/\n/g, '<br>'));
 
-            // --- Товары / этикетка ---
+            // Товары
             let goodsText = `${shortName || orgName}\nИНН ${inn}`;
-            if (type !== 'ИП' && type !== 'Самозанятый') {
-                // для юрлиц добавим КПП кратко
-                if (kpp !== '—') goodsText += ` / КПП ${kpp}`;
+            if (type !== 'ИП' && type !== 'Самозанятый' && kpp !== '—') {
+                goodsText += ` / КПП ${kpp}`;
             }
             goodsText += `\nСделано в РФ`;
-            previewGoods.innerHTML = goodsText.replace(/\n/g, '<br>');
+            updateWithBlink(previewGoods, goodsText.replace(/\n/g, '<br>'));
 
-            // --- Визитка / соцсети ---
+            // Визитка
             let otherText = `${orgName}`;
             if (phone !== '—') otherText += `\n📞 ${phone}`;
             if (email !== '—') otherText += `\n✉️ ${email}`;
             if (address !== '—' && address !== 'Адрес не указан') {
                 otherText += `\n📍 ${address}`;
             }
-            previewOther.innerHTML = otherText.replace(/\n/g, '<br>');
+            updateWithBlink(previewOther, otherText.replace(/\n/g, '<br>'));
 
-            // Обновить бейдж
+            // Бейдж
             const typeMap = {
                 'ИП': 'ИП',
                 'ООО': 'ООО',
                 'АО': 'АО',
                 'Самозанятый': 'Самозанятый',
-                'ПАО': 'ПАО',
-                'ООО_доп': 'ООО'
+                'ПАО': 'ПАО'
             };
             currentTypeBadge.textContent = typeMap[type] || type;
+
+            isGenerating = false;
         }
 
-        // Обработчики
-        generateBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            generatePreview();
-        });
+        // ===== Управление КПП =====
+        function toggleKppField() {
+            const type = typeSelect.value;
+            if (type === 'ИП' || type === 'Самозанятый') {
+                kppGroup.classList.add('hidden-field');
+                kppInput.value = '';
+            } else {
+                kppGroup.classList.remove('hidden-field');
+                if (kppInput.value.trim() === '') {
+                    kppInput.value = '770801001';
+                }
+            }
+            validateAll();
+        }
 
-        resetBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Вернуть поля к "примерным" значениям
+        // ===== Счётчик символов =====
+        function updateCounter() {
+            const len = orgNameInput.value.length;
+            orgNameCounter.textContent = `${len} / 100`;
+        }
+
+        // ===== Автозаполнение =====
+        function autoFill() {
+            const samples = {
+                'ООО': { org: 'ООО «Ромашка»', inn: '770812345678', kpp: '770801001', ogrn: '1234567890123', address: 'г. Москва, ул. Тверская, д. 1', phone: '+7 (495) 123-45-67', email: 'info@romashka.ru' },
+                'ИП': { org: 'Иванов Иван Иванович', inn: '123456789012', kpp: '', ogrn: '123456789012345', address: 'г. Санкт-Петербург, Невский пр., д. 10', phone: '+7 (812) 234-56-78', email: 'ivanov@mail.ru' },
+                'АО': { org: 'АО «ТехноПром»', inn: '770812345679', kpp: '770802002', ogrn: '1234567890124', address: 'г. Екатеринбург, ул. Ленина, д. 5', phone: '+7 (343) 345-67-89', email: 'prom@techno.ru' },
+                'Самозанятый': { org: 'Петров Петр Петрович', inn: '123456789013', kpp: '', ogrn: '123456789012346', address: 'г. Казань, ул. Баумана, д. 15', phone: '+7 (843) 456-78-90', email: 'petrov@yandex.ru' },
+                'ПАО': { org: 'ПАО «ГазИнвест»', inn: '770812345680', kpp: '770803003', ogrn: '1234567890125', address: 'г. Новосибирск, Красный пр., д. 20', phone: '+7 (383) 567-89-01', email: 'invest@gaz.ru' }
+            };
+
+            const type = typeSelect.value;
+            const sample = samples[type] || samples['ООО'];
+            
+            orgNameInput.value = sample.org;
+            innInput.value = sample.inn;
+            kppInput.value = sample.kpp;
+            ogrnInput.value = sample.ogrn;
+            addressInput.value = sample.address;
+            phoneInput.value = sample.phone;
+            emailInput.value = sample.email;
+
+            updateCounter();
+            toggleKppField();
+            validateAll();
+            generatePreview();
+        }
+
+        // ===== Сброс =====
+        function resetAll() {
             typeSelect.value = 'ООО';
             orgNameInput.value = 'ООО «ТехноСтарт»';
             innInput.value = '770812345678';
@@ -489,53 +877,64 @@
             addressInput.value = 'г. Москва, ул. Тверская, д. 1, оф. 5';
             phoneInput.value = '+7 (495) 777-88-99';
             emailInput.value = 'info@techstart.ru';
+            updateCounter();
             toggleKppField();
+            validateAll();
             generatePreview();
-        });
+        }
 
-        // Генерируем при загрузке
-        generatePreview();
-
-        // Также по изменению основных полей (опционально, но для удобства)
-        // можно повесить на input, но оставим только кнопку, чтобы не перегружать
-        // Но добавим "быструю" генерацию по нажатию Enter в любом поле
-        const inputs = form.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    generatePreview();
-                }
-            });
-        });
-
-        // При изменении типа тоже обновляем (для КПП и превью)
-        typeSelect.addEventListener('change', () => {
-            toggleKppField();
-            generatePreview();
-        });
-
-        // Доп. кнопка "сгенерировать" по клику на любой input (потеря фокуса) - но не будем, чтобы не мешать.
-        // Для удобства можно добавить автообновление при изменении полей через небольшую задержку
-        // но оставим строго по кнопке или Enter.
-        // Но всё же повесим на blur для удобства (но чтобы не мешать, сделаем с задержкой)
-        let timeoutId = null;
+        // ===== Обработчики =====
+        // Валидация при вводе
+        const inputs = [orgNameInput, innInput, kppInput, ogrnInput, addressInput, phoneInput, emailInput];
         inputs.forEach(input => {
             input.addEventListener('input', () => {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                    generatePreview();
-                }, 350);
+                if (input === orgNameInput) updateCounter();
+                validateAll();
+                // Дебаунс для генерации
+                clearTimeout(input._timeout);
+                input._timeout = setTimeout(generatePreview, 400);
+            });
+            input.addEventListener('blur', () => {
+                validateAll();
+                generatePreview();
             });
         });
 
-        // Также при изменении select (уже есть)
-        // Инициализация
-        window.addEventListener('load', () => {
+        // Изменение типа
+        typeSelect.addEventListener('change', () => {
             toggleKppField();
+            validateAll();
+            generatePreview();
+            // Авто-подстановка примеров при смене типа
+            autoFill();
+        });
+
+        // Кнопки
+        generateBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            validateAll();
             generatePreview();
         });
+
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetAll();
+        });
+
+        autoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            autoFill();
+        });
+
+        // ===== Инициализация =====
+        updateCounter();
+        toggleKppField();
+        validateAll();
+        generatePreview();
+
+        // Авто-подстановка при первом запуске
+        setTimeout(autoFill, 100);
     })();
 </script>
 </body>
-</html>
+            </html>
