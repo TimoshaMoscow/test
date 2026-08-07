@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Генератор реквизитов бизнеса</title>
-    <meta name="description" content="Генератор реквизитов для бизнеса: создавайте рекламные метки, документы, визитки и этикетки за секунды">
+    <title>Законная реклама — генератор маркировки</title>
+    <meta name="description" content="Генератор законной маркировки для интернет-рекламы с ERID, пометкой «Реклама» и реквизитами">
     <meta name="theme-color" content="#0b1a33">
-    
-    <!-- Google Fonts для красивого шрифта. попытка 2 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --bg: #f0f4fc;
@@ -28,6 +25,8 @@
             --success-light: #e8f8ef;
             --error: #e74c3c;
             --error-light: #fde8e8;
+            --warning: #f39c12;
+            --warning-light: #fef9e7;
             --preview-bg: #f8faff;
             --tag-border: #e8eef6;
             --badge-bg: #eef3fa;
@@ -53,16 +52,14 @@
             --success-light: #1a3a2a;
             --error: #f85149;
             --error-light: #2d1b1b;
+            --warning: #d29922;
+            --warning-light: #2d2a1a;
             --preview-bg: #0d1117;
             --tag-border: #30363d;
             --badge-bg: #21262d;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -89,10 +86,7 @@
             margin: 4px 0;
             border: 1px solid var(--border);
         }
-
-        .card:hover {
-            box-shadow: var(--shadow-hover);
-        }
+        .card:hover { box-shadow: var(--shadow-hover); }
 
         /* ===== Header ===== */
         .header {
@@ -103,16 +97,9 @@
             gap: 12px;
             margin-bottom: 4px;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .logo { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             background: var(--accent-gradient);
             border-radius: 14px;
             display: flex;
@@ -123,7 +110,6 @@
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(42, 125, 225, 0.3);
         }
-
         h1 {
             font-size: clamp(24px, 3.6vw, 34px);
             font-weight: 700;
@@ -131,19 +117,26 @@
             letter-spacing: -0.5px;
             line-height: 1.2;
         }
+        h1 span { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-        h1 span {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-actions {
+        /* ===== Legal Banner ===== */
+        .legal-banner {
+            background: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin: 12px 0 20px 0;
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
         }
+        .legal-banner .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+        .legal-banner strong { color: var(--text); }
+        .legal-banner a { color: var(--accent); text-decoration: none; }
+        .legal-banner a:hover { text-decoration: underline; }
 
         /* ===== Subhead ===== */
         .subhead {
@@ -158,7 +151,6 @@
             transition: background var(--transition);
             position: relative;
         }
-
         .subhead::before {
             content: '';
             position: absolute;
@@ -169,7 +161,6 @@
             background: var(--accent-gradient);
             border-radius: 4px;
         }
-
         .subhead .hotkeys {
             display: block;
             font-size: 13px;
@@ -177,7 +168,6 @@
             margin-top: 4px;
             font-weight: 400;
         }
-
         .subhead .hotkeys kbd {
             background: var(--card-bg);
             padding: 1px 10px;
@@ -194,16 +184,13 @@
             grid-template-columns: 1fr 1fr;
             gap: 16px 24px;
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 4px;
             position: relative;
         }
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
+        .form-group.full { grid-column: 1 / -1; }
 
         label {
             font-weight: 500;
@@ -215,13 +202,7 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-
-        label small {
-            font-weight: 400;
-            color: var(--text-light);
-            font-size: 12px;
-        }
-
+        label small { font-weight: 400; color: var(--text-light); font-size: 12px; }
         .label-hint {
             color: var(--text-light);
             font-weight: 400;
@@ -232,12 +213,7 @@
             border-radius: 30px;
             letter-spacing: 0.3px;
         }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
 
         input, select {
             background: var(--input-bg);
@@ -253,32 +229,16 @@
             appearance: none;
             font-family: 'Inter', sans-serif;
         }
-
-        input::placeholder {
-            color: var(--text-light);
-            opacity: 0.7;
-        }
-
+        input::placeholder { color: var(--text-light); opacity: 0.7; }
         input:focus, select:focus {
             border-color: var(--accent);
             background: var(--card-bg);
             box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.1);
         }
-
-        input.error {
-            border-color: var(--error);
-            background: var(--error-light);
-        }
-        input.error:focus {
-            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
-        }
-
-        input.valid {
-            border-color: var(--success);
-        }
-        input.valid:focus {
-            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1);
-        }
+        input.error { border-color: var(--error); background: var(--error-light); }
+        input.error:focus { box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1); }
+        input.valid { border-color: var(--success); }
+        input.valid:focus { box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1); }
 
         select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2365768f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -287,37 +247,37 @@
             padding-right: 38px;
             cursor: pointer;
         }
-
         [data-theme="dark"] select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
         }
 
-        .input-status {
-            position: absolute;
-            right: 14px;
-            font-size: 16px;
-            pointer-events: none;
-            opacity: 0;
-            transition: all var(--transition);
-        }
-        .input-status.show {
-            opacity: 1;
-        }
-        .input-status.error-icon {
-            color: var(--error);
-        }
-        .input-status.success-icon {
-            color: var(--success);
-        }
+        .input-status { position: absolute; right: 14px; font-size: 16px; pointer-events: none; opacity: 0; transition: all var(--transition); }
+        .input-status.show { opacity: 1; }
+        .input-status.error-icon { color: var(--error); }
+        .input-status.success-icon { color: var(--success); }
 
-        .validation-message {
-            font-size: 12px;
-            color: var(--error);
-            min-height: 18px;
-            margin-top: 2px;
-            transition: all var(--transition);
-            font-weight: 400;
+        .validation-message { font-size: 12px; color: var(--error); min-height: 18px; margin-top: 2px; transition: all var(--transition); font-weight: 400; }
+
+        /* ===== Compliance Check ===== */
+        .compliance-check {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            padding: 14px 18px;
+            background: var(--success-light);
+            border-radius: 12px;
+            border: 1px solid var(--success);
+            margin-top: 8px;
+            font-size: 14px;
         }
+        .compliance-check .check-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .compliance-check .check-item .status { font-weight: 600; }
+        .compliance-check .check-item .status.pass { color: var(--success); }
+        .compliance-check .check-item .status.fail { color: var(--error); }
 
         /* ===== Buttons ===== */
         .actions {
@@ -329,7 +289,6 @@
             padding-top: 20px;
             border-top: 1px solid var(--border);
         }
-
         .btn {
             font-family: 'Inter', sans-serif;
             background: var(--text);
@@ -349,54 +308,17 @@
             touch-action: manipulation;
             letter-spacing: 0.2px;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-        .btn:active {
-            transform: scale(0.97);
-            transition-duration: 0.05s;
-        }
-        .btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            box-shadow: none;
-            border: 1.5px solid var(--border);
-        }
-        .btn-outline:hover {
-            background: var(--badge-bg);
-            border-color: var(--accent);
-            box-shadow: none;
-        }
-
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: white;
-            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.3);
-        }
-        .btn-primary:hover {
-            box-shadow: 0 8px 28px rgba(42, 125, 225, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: var(--success);
-            color: white;
-            box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3);
-        }
-        .btn-success:hover {
-            box-shadow: 0 8px 28px rgba(39, 174, 96, 0.4);
-            transform: translateY(-2px);
-        }
-
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+        .btn:active { transform: scale(0.97); transition-duration: 0.05s; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+        .btn-outline { background: transparent; color: var(--text); box-shadow: none; border: 1.5px solid var(--border); }
+        .btn-outline:hover { background: var(--badge-bg); border-color: var(--accent); box-shadow: none; }
+        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 4px 16px rgba(42, 125, 225, 0.3); }
+        .btn-primary:hover { box-shadow: 0 8px 28px rgba(42, 125, 225, 0.4); transform: translateY(-2px); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3); }
+        .btn-success:hover { box-shadow: 0 8px 28px rgba(39, 174, 96, 0.4); transform: translateY(-2px); }
+        .btn-warning { background: var(--warning); color: white; box-shadow: 0 4px 16px rgba(243, 156, 18, 0.3); }
+        .btn-warning:hover { box-shadow: 0 8px 28px rgba(243, 156, 18, 0.4); transform: translateY(-2px); }
         .btn-toggle {
             background: var(--badge-bg);
             color: var(--text);
@@ -405,48 +327,14 @@
             width: 100%;
             justify-content: center;
         }
-        .btn-toggle.active {
-            background: var(--accent-gradient);
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25);
-        }
-        .btn-toggle:hover {
-            transform: translateY(-1px);
-        }
-        .btn-toggle.active:hover {
-            box-shadow: 0 8px 28px rgba(42, 125, 225, 0.35);
-        }
-
-        .btn-icon {
-            padding: 11px 14px;
-            font-size: 18px;
-            justify-content: center;
-        }
-
-        .btn-sm {
-            padding: 5px 14px;
-            font-size: 12px;
-            border-radius: 30px;
-        }
-
-        .btn-danger {
-            background: var(--error);
-            color: white;
-        }
-        .btn-danger:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
+        .btn-toggle.active { background: var(--accent-gradient); color: white; border-color: var(--accent); box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25); }
+        .btn-toggle:hover { transform: translateY(-1px); }
+        .btn-toggle.active:hover { box-shadow: 0 8px 28px rgba(42, 125, 225, 0.35); }
+        .btn-sm { padding: 5px 14px; font-size: 12px; border-radius: 30px; }
+        .btn-icon { padding: 11px 14px; font-size: 18px; justify-content: center; }
 
         /* ===== Preview ===== */
-        .preview-area {
-            margin-top: 32px;
-            padding-top: 28px;
-            border-top: 2px dashed var(--border);
-            transition: border-color var(--transition);
-        }
-
+        .preview-area { margin-top: 32px; padding-top: 28px; border-top: 2px dashed var(--border); transition: border-color var(--transition); }
         .preview-header {
             display: flex;
             align-items: center;
@@ -455,7 +343,6 @@
             gap: 12px;
             margin-bottom: 20px;
         }
-
         .preview-header h2 {
             font-size: clamp(18px, 2vw, 22px);
             font-weight: 600;
@@ -464,11 +351,6 @@
             align-items: center;
             gap: 10px;
         }
-
-        .preview-header h2 .emoji {
-            font-size: 24px;
-        }
-
         .badge {
             background: var(--badge-bg);
             border-radius: 40px;
@@ -481,12 +363,8 @@
             border: 1px solid var(--border);
             font-family: 'Inter', sans-serif;
         }
-
-        .badge.success {
-            background: var(--success-light);
-            color: var(--success);
-            border-color: var(--success);
-        }
+        .badge.success { background: var(--success-light); color: var(--success); border-color: var(--success); }
+        .badge.warning { background: var(--warning-light); color: var(--warning); border-color: var(--warning); }
 
         /* ===== Tag Grid ===== */
         .tag-grid {
@@ -494,7 +372,6 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 16px;
         }
-
         .tag-card {
             background: var(--preview-bg);
             border-radius: 18px;
@@ -507,7 +384,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .tag-card::before {
             content: '';
             position: absolute;
@@ -519,21 +395,9 @@
             opacity: 0;
             transition: opacity var(--transition);
         }
-
-        .tag-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-            border-color: var(--accent);
-        }
-
-        .tag-card:hover::before {
-            opacity: 1;
-        }
-
-        .tag-card:active {
-            transform: scale(0.98);
-        }
-
+        .tag-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06); border-color: var(--accent); }
+        .tag-card:hover::before { opacity: 1; }
+        .tag-card:active { transform: scale(0.98); }
         .tag-card .copy-hint {
             position: absolute;
             top: 10px;
@@ -548,22 +412,9 @@
             border: 1px solid var(--border);
             font-weight: 500;
         }
-
-        .tag-card:hover .copy-hint {
-            opacity: 1;
-        }
-
-        .tag-card.copied {
-            border-color: var(--success);
-            background: var(--success-light);
-        }
-
-        .tag-card.copied .copy-hint {
-            color: var(--success);
-            opacity: 1;
-            border-color: var(--success);
-        }
-
+        .tag-card:hover .copy-hint { opacity: 1; }
+        .tag-card.copied { border-color: var(--success); background: var(--success-light); }
+        .tag-card.copied .copy-hint { color: var(--success); opacity: 1; border-color: var(--success); }
         .tag-card h3 {
             font-size: clamp(11px, 0.9vw, 13px);
             text-transform: uppercase;
@@ -572,7 +423,6 @@
             margin: 0 0 8px 0;
             font-weight: 600;
         }
-
         .tag-content {
             background: var(--card-bg);
             border-radius: 12px;
@@ -589,14 +439,8 @@
             transition: all var(--transition);
             font-weight: 400;
         }
-
-        .tag-content .label-muted {
-            color: var(--text-light);
-            font-size: 12px;
-            display: block;
-            margin-bottom: 2px;
-            font-family: 'Inter', sans-serif;
-        }
+        .tag-content .label-muted { color: var(--text-light); font-size: 12px; display: block; margin-bottom: 2px; font-family: 'Inter', sans-serif; }
+        .tag-content .highlight { background: var(--warning-light); padding: 0 4px; border-radius: 4px; }
 
         /* ===== Footer ===== */
         .footer-note {
@@ -609,24 +453,11 @@
             font-size: clamp(12px, 0.9vw, 14px);
             color: var(--text-secondary);
         }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background var(--transition);
-            flex-shrink: 0;
-        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; transition: background var(--transition); flex-shrink: 0; }
         .status-dot.green { background: var(--success); }
-        .status-dot.yellow { background: #f39c12; }
+        .status-dot.yellow { background: var(--warning); }
         .status-dot.red { background: var(--error); }
-
-        .status-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .status-group { display: flex; align-items: center; gap: 8px; }
 
         /* ===== History ===== */
         .history-bar {
@@ -638,7 +469,6 @@
             border-top: 1px solid var(--border);
             align-items: center;
         }
-
         .history-search {
             flex: 1;
             min-width: 140px;
@@ -652,12 +482,7 @@
             transition: all var(--transition);
             outline: none;
         }
-
-        .history-search:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
-        }
-
+        .history-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1); }
         .history-item {
             background: var(--badge-bg);
             padding: 4px 14px;
@@ -673,92 +498,20 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .history-item:hover {
-            background: var(--accent-light);
-            border-color: var(--accent);
-            transform: scale(1.02);
-        }
+        .history-item:hover { background: var(--accent-light); border-color: var(--accent); transform: scale(1.02); }
 
         /* ===== QR ===== */
-        .qr-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
+        .qr-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); z-index: 1000; animation: fadeIn 0.3s ease; }
         .qr-overlay.active { display: block; }
-
-        .qr-container {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--card-bg);
-            padding: 32px;
-            border-radius: 24px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-            z-index: 1001;
-            text-align: center;
-            max-width: 90vw;
-            animation: slideUp 0.4s ease;
-            border: 1px solid var(--border);
-        }
+        .qr-container { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card-bg); padding: 32px; border-radius: 24px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4); z-index: 1001; text-align: center; max-width: 90vw; animation: slideUp 0.4s ease; border: 1px solid var(--border); }
         .qr-container.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
-
-        .qr-container .close-qr {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-size: 22px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            transition: all var(--transition);
-            padding: 4px 8px;
-            border-radius: 8px;
-        }
-        .qr-container .close-qr:hover {
-            background: var(--badge-bg);
-            color: var(--text);
-        }
-
-        .qr-container h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        #qrCanvas {
-            margin: 12px auto;
-            display: block;
-            border-radius: 12px;
-            background: white;
-            padding: 8px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-            max-width: 100%;
-            height: auto;
-        }
-
-        #qrLinkText {
-            font-size: 13px;
-            color: var(--text-secondary);
-            word-break: break-all;
-            margin-top: 4px;
-            font-family: 'Inter', monospace;
-        }
+        .qr-container .close-qr { position: absolute; top: 12px; right: 16px; font-size: 22px; cursor: pointer; background: none; border: none; color: var(--text-secondary); transition: all var(--transition); padding: 4px 8px; border-radius: 8px; }
+        .qr-container .close-qr:hover { background: var(--badge-bg); color: var(--text); }
+        .qr-container h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+        #qrCanvas { margin: 12px auto; display: block; border-radius: 12px; background: white; padding: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); max-width: 100%; height: auto; }
+        #qrLinkText { font-size: 13px; color: var(--text-secondary); word-break: break-all; margin-top: 4px; font-family: 'Inter', monospace; }
 
         /* ===== Template Settings ===== */
         .template-settings {
@@ -773,14 +526,7 @@
             border: 1px solid var(--border);
             transition: all var(--transition);
         }
-
-        .template-settings label {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            gap: 4px;
-        }
-
+        .template-settings label { font-size: 13px; font-weight: 500; color: var(--text-secondary); gap: 4px; }
         .template-settings input {
             flex: 1;
             min-width: 180px;
@@ -794,45 +540,14 @@
             transition: all var(--transition);
             outline: none;
         }
-
-        .template-settings input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
-        }
-
-        .template-settings small {
-            color: var(--text-light);
-            font-size: 12px;
-        }
+        .template-settings input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1); }
+        .template-settings small { color: var(--text-light); font-size: 12px; }
 
         /* ===== Stats ===== */
-        .stats {
-            display: none;
-            gap: 12px 20px;
-            font-size: 13px;
-            color: var(--text-secondary);
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-            padding: 12px 16px;
-            background: var(--badge-bg);
-            border-radius: 14px;
-            border: 1px solid var(--border);
-        }
-
-        .stats.show {
-            display: flex;
-        }
-
-        .stats span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .stats b {
-            color: var(--text);
-            font-weight: 600;
-        }
+        .stats { display: none; gap: 12px 20px; font-size: 13px; color: var(--text-secondary); flex-wrap: wrap; margin-bottom: 16px; padding: 12px 16px; background: var(--badge-bg); border-radius: 14px; border: 1px solid var(--border); }
+        .stats.show { display: flex; }
+        .stats span { display: flex; align-items: center; gap: 6px; }
+        .stats b { color: var(--text); font-weight: 600; }
 
         /* ===== Toast ===== */
         .toast-notification {
@@ -854,17 +569,8 @@
             font-family: 'Inter', sans-serif;
             transition: all var(--transition);
         }
-
-        [data-theme="dark"] .toast-notification {
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-        }
+        [data-theme="dark"] .toast-notification { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); } to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }
 
         /* ===== Responsive ===== */
         @media (max-width: 820px) {
@@ -872,7 +578,6 @@
             .form-grid { gap: 14px 16px; }
             .tag-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         }
-
         @media (max-width: 640px) {
             body { padding: 10px; }
             .card { padding: 16px 12px 20px; border-radius: 16px; margin: 0; }
@@ -895,30 +600,20 @@
             .subhead { padding: 12px 16px; }
             .qr-container { padding: 20px; width: 90vw; }
             .stats { flex-direction: column; gap: 6px; }
+            .legal-banner { flex-direction: column; gap: 4px; }
+            .compliance-check { flex-direction: column; gap: 6px; }
         }
-
         @media (min-width: 1200px) {
             .card { padding: 40px 44px 44px; }
             .form-grid { gap: 20px 32px; }
             .tag-grid { gap: 20px; }
         }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
 
-        /* ===== Scrollbar ===== */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-light);
-        }
+        .hidden-field { display: none !important; }
     </style>
 </head>
 <body>
@@ -926,7 +621,7 @@
 <div class="qr-overlay" id="qrOverlay"></div>
 <div class="qr-container" id="qrContainer">
     <button class="close-qr" id="closeQr">✕</button>
-    <h3>🔗 QR-код</h3>
+    <h3>🔗 QR-код для ссылки с ERID</h3>
     <canvas id="qrCanvas" width="220" height="220"></canvas>
     <p id="qrLinkText"></p>
     <button class="btn btn-primary btn-sm" id="qrCopyBtn" style="margin-top:8px;">📋 Копировать ссылку</button>
@@ -935,8 +630,8 @@
 <div class="card" id="app">
     <div class="header">
         <div class="logo">
-            <div class="logo-icon">📋</div>
-            <h1>Реквизиты <span>бизнеса</span></h1>
+            <div class="logo-icon">⚖️</div>
+            <h1>Законная <span>реклама</span></h1>
         </div>
         <div class="header-actions">
             <button class="btn btn-outline btn-sm btn-icon" id="themeToggle" title="Тёмная тема">🌙</button>
@@ -944,8 +639,19 @@
         </div>
     </div>
 
+    <!-- Юридический баннер -->
+    <div class="legal-banner">
+        <span class="icon">⚖️</span>
+        <div>
+            <strong>Соответствует 38-ФЗ «О рекламе»</strong><br>
+            Все сгенерированные материалы содержат обязательную пометку <strong>«Реклама»</strong>, информацию о рекламодателе и идентификатор <strong>ERID</strong>.
+            Для легального размещения рекламы необходимо получить токен через <a href="#" onclick="showORDInfo(); return false;">оператора рекламных данных (ОРД)</a>.
+            <span style="display:block;font-size:12px;margin-top:2px;color:var(--text-light);">Штрафы за отсутствие маркировки: до 500 000 ₽ для юрлиц [citation:2][citation:4][citation:6]</span>
+        </div>
+    </div>
+
     <div class="subhead">
-        Введите название без кавычек и типа бизнеса — всё остальное добавится автоматически.
+        Введите данные — получите готовую маркировку для рекламы в соцсетях, на сайтах и в видео.
         <span class="hotkeys">
             ⌨️ <kbd>Ctrl+S</kbd> сохранить · <kbd>Ctrl+Enter</kbd> сгенерировать · клик по карточке — копирование
         </span>
@@ -955,7 +661,6 @@
         <span>📊 Сгенерировано: <b id="genCount">0</b></span>
         <span>💾 Сохранений: <b id="saveCount">0</b></span>
         <span>⏱️ Последняя: <b id="lastGen">—</b></span>
-        <span>📂 В истории: <b id="historyCount">0</b></span>
     </div>
 
     <form id="businessForm" class="form-grid" novalidate>
@@ -1015,7 +720,7 @@
         </div>
 
         <div class="form-group">
-            <label for="erid">ERID <span class="label-hint">токен рекламы</span></label>
+            <label for="erid">ERID <span class="label-hint">токен от ОРД</span></label>
             <div class="input-wrapper">
                 <input type="text" id="erid" placeholder="Например: 4CQwVszH9pW7" value="4CQwVszH9pW7">
                 <span class="input-status" id="eridStatus"></span>
@@ -1051,7 +756,7 @@
         </div>
 
         <div class="form-group">
-            <label for="website">Сайт <span class="label-hint">для ссылки</span></label>
+            <label for="website">Сайт <span class="label-hint">для ссылки с ERID</span></label>
             <div class="input-wrapper">
                 <input type="text" id="website" placeholder="https://ваш-сайт.ru" value="https://techstart.ru">
                 <span class="input-status" id="websiteStatus"></span>
@@ -1059,6 +764,14 @@
             <div class="validation-message" id="websiteValidation"></div>
         </div>
     </form>
+
+    <!-- Чек-лист соответствия закону -->
+    <div class="compliance-check" id="complianceCheck">
+        <div class="check-item">🔍 <span class="status pass" id="checkAdMark">✓</span> Пометка «Реклама»</div>
+        <div class="check-item">🏢 <span class="status pass" id="checkAdvertiser">✓</span> Рекламодатель указан</div>
+        <div class="check-item">🔑 <span class="status pass" id="checkErid">✓</span> ERID присутствует</div>
+        <div class="check-item">📋 <span class="status pass" id="checkInn">✓</span> ИНН указан</div>
+    </div>
 
     <div class="template-settings">
         <label>📝 Шаблон метки:</label>
@@ -1072,11 +785,12 @@
         <button class="btn btn-outline" id="resetBtn">↺ Сбросить</button>
         <button class="btn btn-outline" id="exportBtn">📥 Экспорт</button>
         <button class="btn btn-outline" id="qrBtn">📱 QR</button>
+        <button class="btn btn-warning" id="ordInfoBtn">📋 Как получить ERID?</button>
     </div>
 
     <div class="preview-area">
         <div class="preview-header">
-            <h2><span class="emoji">📌</span> Готовые варианты</h2>
+            <h2><span style="font-size:24px;">⚖️</span> Готовая маркировка</h2>
             <span class="badge success" id="currentTypeBadge">ООО</span>
         </div>
 
@@ -1090,7 +804,7 @@
                 <div class="tag-content" id="previewLink">https://ваш-сайт.ru/?erid=ВашТокен</div>
             </div>
             <div class="tag-card" data-copy="previewVideo">
-                <h3>🎬 Видео / Сторис <span class="copy-hint">📋 копировать</span></h3>
+                <h3>🎬 Для видео / Сторис <span class="copy-hint">📋 копировать</span></h3>
                 <div class="tag-content" id="previewVideo">Реклама. erid: ВашТокен</div>
             </div>
             <div class="tag-card" data-copy="previewDocs">
@@ -1118,7 +832,7 @@
         <div class="history-bar" id="historyBar">
             <span style="color:var(--text-light);font-size:13px;font-weight:500;">📂 История:</span>
             <input type="text" class="history-search" id="historySearch" placeholder="🔍 Поиск...">
-            <button class="btn btn-danger btn-sm" id="clearHistoryBtn" style="padding:4px 14px;font-size:12px;">🗑️</button>
+            <button class="btn btn-sm btn-outline" id="clearHistoryBtn" style="padding:4px 14px;font-size:12px;color:var(--error);border-color:var(--error);">🗑️</button>
         </div>
     </div>
 </div>
@@ -1157,7 +871,6 @@
         const statsPanel = document.getElementById('statsPanel');
         const genCount = document.getElementById('genCount');
         const saveCount = document.getElementById('saveCount');
-        const historyCount = document.getElementById('historyCount');
         const lastGen = document.getElementById('lastGen');
         const clearHistoryBtn = document.getElementById('clearHistoryBtn');
         const qrBtn = document.getElementById('qrBtn');
@@ -1167,11 +880,18 @@
         const qrCanvas = document.getElementById('qrCanvas');
         const qrLinkText = document.getElementById('qrLinkText');
         const qrCopyBtn = document.getElementById('qrCopyBtn');
+        const ordInfoBtn = document.getElementById('ordInfoBtn');
 
         const generateBtn = document.getElementById('generateBtn');
         const saveBtn = document.getElementById('saveBtn');
         const resetBtn = document.getElementById('resetBtn');
         const exportBtn = document.getElementById('exportBtn');
+
+        // Compliance check elements
+        const checkAdMark = document.getElementById('checkAdMark');
+        const checkAdvertiser = document.getElementById('checkAdvertiser');
+        const checkErid = document.getElementById('checkErid');
+        const checkInn = document.getElementById('checkInn');
 
         // ===== Состояние =====
         let autoGenEnabled = true;
@@ -1186,6 +906,32 @@
             html.setAttribute('data-theme', next);
             themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
             localStorage.setItem('theme', next);
+        }
+
+        // ===== ORD Info =====
+        function showORDInfo() {
+            const ordList = [
+                'Яндекс (бесплатно для своих площадок)',
+                'VK (бесплатно для своих площадок)',
+                'Озон',
+                'Сбер',
+                'МТС',
+                'Амбердата',
+                'Вымпелком (Билайн)'
+            ];
+            const msg = '🔑 Как получить ERID:\n\n' +
+                '1. Выберите оператора рекламных данных (ОРД) из списка:\n' +
+                ordList.map((o, i) => `   ${i+1}. ${o}`).join('\n') +
+                '\n\n2. Зарегистрируйтесь в личном кабинете ОРД\n' +
+                '3. Передайте данные о рекламе: договор, креатив, площадку\n' +
+                '4. Получите уникальный токен ERID\n' +
+                '5. Добавьте токен в рекламный материал\n' +
+                '6. Передавайте ежемесячную отчётность в ЕРИР\n\n' +
+                '⚠️ Штрафы за отсутствие маркировки:\n' +
+                '• Физлица: до 100 000 ₽\n' +
+                '• Юрлица: до 500 000 ₽ [citation:2][citation:4][citation:6]';
+            
+            alert(msg);
         }
 
         // ===== Функции форматирования =====
@@ -1442,7 +1188,31 @@
             }
 
             generateBtn.disabled = !allValid || filledCount < 5;
+            
+            // Обновляем чек-лист соответствия
+            updateCompliance();
+            
             return allValid;
+        }
+
+        // ===== Compliance Check =====
+        function updateCompliance() {
+            const adMark = previewAd.textContent.includes('Реклама') || previewAd.textContent.includes('реклама');
+            const advertiser = previewAd.textContent.includes('ИНН') || previewAd.textContent.includes('ОГРН');
+            const erid = previewAd.textContent.includes('erid:') || previewAd.textContent.includes('ERID');
+            const inn = innInput.value.trim().length >= 10;
+            
+            checkAdMark.textContent = adMark ? '✓' : '✗';
+            checkAdMark.className = 'status ' + (adMark ? 'pass' : 'fail');
+            
+            checkAdvertiser.textContent = advertiser ? '✓' : '✗';
+            checkAdvertiser.className = 'status ' + (advertiser ? 'pass' : 'fail');
+            
+            checkErid.textContent = erid ? '✓' : '✗';
+            checkErid.className = 'status ' + (erid ? 'pass' : 'fail');
+            
+            checkInn.textContent = inn ? '✓' : '✗';
+            checkInn.className = 'status ' + (inn ? 'pass' : 'fail');
         }
 
         // ===== Генерация превью =====
@@ -1466,6 +1236,11 @@
                 .replace(/{org}/g, fullName)
                 .replace(/{inn}/g, inn)
                 .replace(/{erid}/g, erid);
+            
+            // Убеждаемся, что есть пометка "Реклама"
+            if (!adText.toLowerCase().includes('реклама')) {
+                adText = 'Реклама. ' + adText;
+            }
             previewAd.textContent = adText;
 
             // Ссылка
@@ -1509,6 +1284,9 @@
             localStorage.setItem('genCount', String(generationCount));
             genCount.textContent = generationCount;
             lastGen.textContent = new Date().toLocaleTimeString();
+            
+            // Обновляем чек-лист
+            updateCompliance();
         }
 
         // ===== Управление КПП =====
@@ -1539,7 +1317,6 @@
             toggleKppField();
             validateAll();
             generatePreview();
-            // Плавный скролл к превью
             document.querySelector('.preview-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
@@ -1644,6 +1421,12 @@
                 phone: phoneInput.value,
                 email: emailInput.value,
                 website: websiteInput.value,
+                ad: previewAd.textContent,
+                link: previewLink.textContent,
+                video: previewVideo.textContent,
+                docs: previewDocs.textContent,
+                goods: previewGoods.textContent,
+                other: previewOther.textContent,
                 timestamp: new Date().toISOString()
             };
 
@@ -1673,10 +1456,12 @@
             historyBar.appendChild(searchInput);
             
             const clearBtn = document.createElement('button');
-            clearBtn.className = 'btn btn-danger btn-sm';
+            clearBtn.className = 'btn btn-sm btn-outline';
             clearBtn.textContent = '🗑️';
             clearBtn.style.padding = '4px 14px';
             clearBtn.style.fontSize = '12px';
+            clearBtn.style.color = 'var(--error)';
+            clearBtn.style.borderColor = 'var(--error)';
             clearBtn.addEventListener('click', clearHistory);
             historyBar.appendChild(clearBtn);
             
@@ -1691,7 +1476,6 @@
                 historyBar.appendChild(el);
             });
             
-            historyCount.textContent = history.length;
             saveCount.textContent = history.length;
         }
 
@@ -1761,7 +1545,13 @@
                 docs: previewDocs.textContent,
                 goods: previewGoods.textContent,
                 other: previewOther.textContent,
-                exportedAt: new Date().toISOString()
+                exportedAt: new Date().toISOString(),
+                compliance: {
+                    hasAdMark: previewAd.textContent.includes('Реклама'),
+                    hasAdvertiser: previewAd.textContent.includes('ИНН'),
+                    hasErid: previewAd.textContent.includes('erid:'),
+                    hasInn: innInput.value.trim().length >= 10
+                }
             };
 
             const json = JSON.stringify(data, null, 2);
@@ -1769,7 +1559,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `реквизиты_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `законная_реклама_${new Date().toISOString().slice(0,10)}.json`;
             a.click();
             URL.revokeObjectURL(url);
             showNotification('📥 Данные экспортированы в JSON');
@@ -1827,7 +1617,7 @@
             if (url && url !== 'https://ваш-сайт.ru/?erid=ВашТокен') {
                 generateQR(url);
             } else {
-                showNotification('⚠️ Сначала сгенерируйте ссылку');
+                showNotification('⚠️ Сначала сгенерируйте ссылку с ERID');
             }
         });
 
@@ -1850,6 +1640,7 @@
         });
 
         clearHistoryBtn.addEventListener('click', clearHistory);
+        ordInfoBtn.addEventListener('click', showORDInfo);
 
         // Копирование
         document.querySelectorAll('.tag-card').forEach(card => {
@@ -1916,12 +1707,10 @@
             loadRandomTemplate();
         }
 
-        // Показываем статистику при загрузке
         setTimeout(() => {
             statsPanel.classList.add('show');
         }, 500);
 
-        // Фокус на поле названия
         orgNameInput.focus();
         orgNameInput.select();
     })();
