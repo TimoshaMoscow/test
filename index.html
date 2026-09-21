@@ -1,1242 +1,609 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="JokeHub Pro — крупнейшая коллекция из 300+ анекдотов с умной системой возрастного рейтинга. Лайки, сохранения, 8 категорий.">
-    <meta name="keywords" content="анекдоты, шутки, юмор, 300 анекдотов, вовочка, нейросеть, база анекдотов, 18+, с матом">
-    <meta name="author" content="JokeHub Pro">
-    <meta name="theme-color" content="#f97316">
-    <title>JokeHub Pro | База крутых анекдотов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #faf7f2;
-            --bg-secondary: #ffffff;
-            --accent: #f97316;
-            --accent-dark: #ea580c;
-            --accent-light: #ffedd5;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-            --danger: #dc2626;
-            --danger-light: #fee2e2;
-            --success: #10b981;
-            --success-light: #d1fae5;
-            --warning: #f59e0b;
-            --warning-light: #fef3c7;
-            --info: #3b82f6;
-            --info-light: #dbeafe;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.5;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-mode {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border: #334155;
-            --accent-light: #2d1a0e;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: var(--bg-secondary);
-            border-radius: 2rem;
-            padding: 2.5rem;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            box-shadow: var(--shadow-xl);
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal h2 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        .modal p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .age-input-group {
-            display: flex;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .age-input-group input {
-            flex: 1;
-            padding: 0.875rem;
-            border: 2px solid var(--border);
-            border-radius: 1rem;
-            font-family: inherit;
-            font-size: 1rem;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: border-color 0.2s;
-        }
-
-        .age-input-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .age-input-group button {
-            padding: 0.875rem 1.5rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-
-        .age-input-group button:hover {
-            background: var(--accent-dark);
-            transform: translateY(-2px);
-        }
-
-        .age-note {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 1rem;
-        }
-
-        .error-message {
-            color: var(--danger);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.dark-mode .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-        }
-
-        .hero::before {
-            content: '😂';
-            position: absolute;
-            font-size: 250px;
-            opacity: 0.03;
-            bottom: -50px;
-            right: -50px;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff 0%, #f97316 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-tagline {
-            font-size: 1rem;
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-        }
-
-        .age-badge-header {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
-            margin-top: 1rem;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-            background: rgba(255,255,255,0.05);
-            padding: 0.5rem 1.25rem;
-            border-radius: 1rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #f97316;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .tabs-wrapper {
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            min-width: min-content;
-        }
-
-        .tab-btn {
-            padding: 0.7rem 1.3rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 9999px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-        }
-
-        .tab-btn i {
-            font-size: 0.85rem;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
-
-        .jokes-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .joke-card {
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-            animation: fadeInUp 0.4s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .joke-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-light);
-        }
-
-        .joke-text {
-            font-size: 1rem;
-            line-height: 1.65;
-            color: var(--text-primary);
-            margin-bottom: 1.25rem;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .joke-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .category-badge {
-            background: var(--accent-light);
-            color: var(--accent-dark);
-            padding: 0.25rem 0.875rem;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-        }
-
-        .age-badge {
-            background: var(--warning-light);
-            color: var(--warning);
-            padding: 0.2rem 0.6rem;
-            border-radius: 9999px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            margin-left: 0.5rem;
-        }
-
-        .age-badge.adult {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .like-btn, .save-btn {
-            background: transparent;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: inherit;
-        }
-
-        .like-btn {
-            color: var(--text-secondary);
-        }
-
-        .like-btn:hover {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .save-btn:hover {
-            background: var(--accent-light);
-            color: var(--accent);
-        }
-
-        .save-btn.saved {
-            color: var(--accent);
-        }
-
-        .like-count {
-            font-weight: 600;
-            min-width: 1.5rem;
-            text-align: center;
-        }
-
-        .settings-panel {
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .setting-group {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .setting-group:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .setting-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-
-        .setting-description {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 52px;
-            height: 28px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #cbd5e1;
-            transition: 0.3s;
-            border-radius: 34px;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--accent);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(24px);
-        }
-
-        .setting-select {
-            width: 100%;
-            padding: 0.625rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.875rem;
-            cursor: pointer;
-        }
-
-        .reset-verification-btn {
-            background: var(--warning-light);
-            color: var(--warning);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            color: var(--text-secondary);
-            opacity: 0.5;
-            margin-bottom: 1rem;
-        }
-
-        .footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .reset-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            padding: 0.625rem 1.25rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: inherit;
-        }
-
-        .reset-btn:hover {
-            background: var(--danger-light);
-            border-color: var(--danger);
-            color: var(--danger);
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--text-primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            animation: slideIn 0.3s ease;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .container {
-                padding: 1rem;
-            }
-            .tab-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
-            }
-            .joke-card {
-                padding: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Кнопочный телефон · Симулятор набора</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      font-family: 'Segoe UI', 'Nokia Pure', 'Arial', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #2b2b2b 0%, #1a1a1a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    /* КОРПУС ТЕЛЕФОНА */
+    .phone {
+      background: #3a3a3a;
+      background: linear-gradient(145deg, #3e3e3e, #2c2c2c);
+      width: 340px;
+      padding: 20px 15px 25px;
+      border-radius: 38px;
+      box-shadow: 
+        0 18px 25px rgba(0,0,0,0.7),
+        inset 0 1px 4px rgba(255,255,255,0.2),
+        inset 0 -3px 8px rgba(0,0,0,0.6);
+      border: 1px solid #555;
+    }
+
+    /* ЭКРАН */
+    .screen {
+      background: #b8d4b0; /* старый LCD зеленоватый */
+      background: linear-gradient(145deg, #c0dab6, #a6c29c);
+      border-radius: 16px;
+      padding: 16px 12px 12px;
+      margin-bottom: 20px;
+      box-shadow: 
+        inset 0 0 0 2px #6d7a62,
+        inset 0 6px 10px rgba(0,0,0,0.25),
+        0 2px 4px rgba(0,0,0,0.5);
+      border: 1px solid #7d8a72;
+    }
+
+    .display-text {
+      background: #9fb896;
+      background: linear-gradient(145deg, #b1cba7, #9cb392);
+      border-radius: 8px;
+      padding: 14px 12px;
+      min-height: 80px;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #1f3a1a;
+      text-shadow: 0 1px 0 #d0e8c6;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
+      word-break: break-word;
+      display: flex;
+      align-items: center;
+      border: 1px solid #7a8f70;
+      font-family: 'Courier New', 'Nokia Pure', monospace;
+      transition: all 0.1s;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 13px;
+      color: #2b4423;
+      font-weight: 600;
+      text-shadow: 0 1px 0 #bcd6b0;
+      padding: 0 4px;
+    }
+
+    .battery {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .battery-icon {
+      width: 22px;
+      height: 12px;
+      background: #3d5834;
+      border-radius: 2px;
+      position: relative;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .battery-icon::after {
+      content: '';
+      position: absolute;
+      right: -4px;
+      top: 3px;
+      width: 3px;
+      height: 6px;
+      background: #3d5834;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .battery-level {
+      width: 16px;
+      height: 8px;
+      background: #4a7940;
+      border-radius: 1px;
+      margin: 2px;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+    }
+
+    /* КЛАВИАТУРА */
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .key {
+      background: #4a4a4a;
+      background: radial-gradient(circle at 30% 20%, #5e5e5e, #3a3a3a);
+      border: none;
+      border-radius: 18px;
+      padding: 12px 0 10px;
+      color: #ececec;
+      font-size: 28px;
+      font-weight: 700;
+      text-shadow: 0 2px 0 #1f1f1f;
+      box-shadow: 
+        0 6px 0 #1f1f1f,
+        0 8px 8px rgba(0,0,0,0.5),
+        inset 0 1px 3px rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.06s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.1;
+      font-family: 'Segoe UI', 'Nokia Pure', sans-serif;
+      letter-spacing: 1px;
+      transform: translateY(-2px);
+    }
+
+    .key:active, .key.pressed {
+      transform: translateY(4px);
+      box-shadow: 
+        0 2px 0 #1f1f1f,
+        0 4px 8px rgba(0,0,0,0.5),
+        inset 0 1px 2px rgba(255,255,255,0.3);
+    }
+
+    .key .sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: #b0b0b0;
+      letter-spacing: 2px;
+      margin-top: 2px;
+      text-shadow: 0 1px 0 #111;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* СПЕЦИАЛЬНЫЕ КЛАВИШИ (нижний ряд) */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .key.small {
+      font-size: 18px;
+      padding: 12px 0 10px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 20%, #5a5a5a, #363636);
+    }
+
+    .key.small .sub {
+      font-size: 10px;
+      margin-top: 0;
+    }
+
+    /* кнопка очистки/удаления */
+    .key.clear {
+      background: radial-gradient(circle at 30% 20%, #6d4b4b, #3d2a2a);
+      color: #ffc9c9;
+    }
+
+    .key.clear:active {
+      background: radial-gradient(circle at 30% 20%, #8a5a5a, #4a2e2e);
+    }
+
+    /* анимация нажатия */
+    .key.pressed {
+      transition: all 0.05s;
+    }
+
+    /* подсказка */
+    .hint {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 11px;
+      color: #aaa;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    /* небольшая вибрация (эмуляция) */
+    @keyframes vibrate {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+
+    .phone.vibrate {
+      animation: vibrate 0.1s ease;
+    }
+
+    /* адаптив */
+    @media (max-width: 380px) {
+      .phone { width: 300px; padding: 15px 10px 20px; }
+      .key { font-size: 24px; padding: 10px 0 8px; }
+      .key .sub { font-size: 10px; }
+      .display-text { font-size: 22px; min-height: 70px; }
+    }
+  </style>
 </head>
 <body>
-    <div id="ageModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-icon">🎂</div>
-            <h2>Подтверждение возраста</h2>
-            <p>Для показа анекдотов с возрастным рейтингом<br>необходимо подтвердить вашу дату рождения</p>
-            <div class="age-input-group">
-                <input type="date" id="birthDateInput">
-                <button id="confirmAgeBtn">Подтвердить</button>
-            </div>
-            <div id="ageError" class="error-message"></div>
-            <div class="age-note">
-                <i class="fas fa-shield-alt"></i> Ваши данные не сохраняются, только факт подтверждения
-            </div>
+  <div class="phone" id="phone">
+    <!-- ЭКРАН -->
+    <div class="screen">
+      <div class="display-text" id="display">Привет</div>
+      <div class="status-bar">
+        <span>📶 MTS</span>
+        <div class="battery">
+          <span>🔋</span>
+          <div class="battery-icon">
+            <div class="battery-level"></div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="hero">
-        <div class="hero-content">
-            <h1><i class="fas fa-laugh-beam"></i> JokeHub Pro</h1>
-            <div class="hero-tagline">
-                📚 320+ анекдотов • ❤️ Лайки • 💾 Сохранения • 🎭 12+ и 18+ контент
-            </div>
-            <div class="age-badge-header" id="ageBadgeHeader">
-                <i class="fas fa-hourglass-half"></i> Возраст не подтверждён
-            </div>
-            <div class="stats" id="stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalJokes">0</div>
-                    <div class="stat-label">анекдотов</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="totalLikes">0</div>
-                    <div class="stat-label">лайков</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="savedCount">0</div>
-                    <div class="stat-label">сохранено</div>
-                </div>
-            </div>
-        </div>
+    <!-- КЛАВИАТУРА (3x4) -->
+    <div class="keypad">
+      <!-- 1 -->
+      <button class="key" data-key="1" data-letters=".,?!1">
+        <span>1</span>
+        <span class="sub">.,?!</span>
+      </button>
+      <!-- 2 -->
+      <button class="key" data-key="2" data-letters="абвг2">
+        <span>2</span>
+        <span class="sub">абвг</span>
+      </button>
+      <!-- 3 -->
+      <button class="key" data-key="3" data-letters="дежз3">
+        <span>3</span>
+        <span class="sub">дежз</span>
+      </button>
+      <!-- 4 -->
+      <button class="key" data-key="4" data-letters="ийкл4">
+        <span>4</span>
+        <span class="sub">ийкл</span>
+      </button>
+      <!-- 5 -->
+      <button class="key" data-key="5" data-letters="мноп5">
+        <span>5</span>
+        <span class="sub">мноп</span>
+      </button>
+      <!-- 6 -->
+      <button class="key" data-key="6" data-letters="рсту6">
+        <span>6</span>
+        <span class="sub">рсту</span>
+      </button>
+      <!-- 7 -->
+      <button class="key" data-key="7" data-letters="фхцч7">
+        <span>7</span>
+        <span class="sub">фхцч</span>
+      </button>
+      <!-- 8 -->
+      <button class="key" data-key="8" data-letters="шщъы8">
+        <span>8</span>
+        <span class="sub">шщъы</span>
+      </button>
+      <!-- 9 -->
+      <button class="key" data-key="9" data-letters="ьэюя9">
+        <span>9</span>
+        <span class="sub">ьэюя</span>
+      </button>
     </div>
 
-    <div class="container">
-        <div class="tabs-wrapper">
-            <div class="tabs" id="tabsContainer"></div>
-        </div>
-
-        <div id="contentArea"></div>
-
-        <div class="footer">
-            <div class="copyright">
-                <i class="far fa-smile"></i> JokeHub Pro · 320+ анекдотов · 2026
-            </div>
-            <button id="resetStorageBtn" class="reset-btn">
-                <i class="fas fa-trash-alt"></i> Сбросить лайки и сохранения
-            </button>
-        </div>
+    <!-- НИЖНИЙ РЯД: *, 0, # -->
+    <div class="bottom-row">
+      <button class="key small" data-key="*" data-letters="*+">
+        <span>*</span>
+        <span class="sub">+</span>
+      </button>
+      <button class="key small" data-key="0" data-letters=" 0">
+        <span>0</span>
+        <span class="sub">␣</span>
+      </button>
+      <button class="key small" data-key="#" data-letters="#">
+        <span>#</span>
+        <span class="sub">⇧</span>
+      </button>
     </div>
 
-    <script>
-        // ==================== БАЗА АНЕКДОТОВ (320+ ШТУК) ====================
-        const jokesDatabase = [];
-        
-        function addJoke(text, category, isShort = false, isVovochka = false, isNeural = false, ageRating = 'all') {
-            jokesDatabase.push({
-                id: jokesDatabase.length,
-                text: text.trim(),
-                mainCategory: category,
-                isShort: isShort || (text.length < 100 && !text.includes('\n')),
-                isVovochka: isVovochka || text.toLowerCase().includes('вовочк'),
-                isNeural: isNeural,
-                ageRating: ageRating,
-                likes: 0,
-                saved: false
-            });
+    <!-- ДОПОЛНИТЕЛЬНЫЕ КНОПКИ (удаление, сброс) -->
+    <div class="bottom-row" style="margin-top: 12px; grid-template-columns: 1fr 1fr;">
+      <button class="key small clear" id="backspaceBtn">
+        <span>⌫</span>
+        <span class="sub">удалить</span>
+      </button>
+      <button class="key small clear" id="resetBtn">
+        <span>✕</span>
+        <span class="sub">сброс</span>
+      </button>
+    </div>
+
+    <div class="hint">T9 · Нажимай многократно</div>
+  </div>
+
+  <script>
+    (function(){
+      // ---------- ДАННЫЕ ----------
+      // Соответствие цифр и символов (циклический перебор)
+      const keyMap = {
+        '1': ['.', ',', '?', '!', '1'],
+        '2': ['а', 'б', 'в', 'г', '2'],
+        '3': ['д', 'е', 'ж', 'з', '3'],
+        '4': ['и', 'й', 'к', 'л', '4'],
+        '5': ['м', 'н', 'о', 'п', '5'],
+        '6': ['р', 'с', 'т', 'у', '6'],
+        '7': ['ф', 'х', 'ц', 'ч', '7'],
+        '8': ['ш', 'щ', 'ъ', 'ы', '8'],
+        '9': ['ь', 'э', 'ю', 'я', '9'],
+        '*': ['*', '+'],
+        '0': [' ', '0'],
+        '#': ['#']
+      };
+
+      // Текущий текст (изначально "Привет" для примера)
+      let currentText = 'Привет';
+      
+      // Состояние для многократного нажатия:
+      let lastKey = null;          // какая клавиша была нажата последней
+      let pressCount = 0;         // сколько раз подряд нажата
+      let lastIndex = 0;          // текущий индекс в массиве символов (для быстрого доступа)
+      let lastChar = '';          // последний добавленный символ (для замены)
+
+      // Таймер для сброса счетчика (если долго не жмут)
+      let resetTimer = null;
+      const RESET_TIMEOUT = 1000; // 1 секунда — сбрасываем счетчик
+
+      // DOM элементы
+      const displayEl = document.getElementById('display');
+      const phoneEl = document.getElementById('phone');
+      const backspaceBtn = document.getElementById('backspaceBtn');
+      const resetBtn = document.getElementById('resetBtn');
+
+      // ---------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------
+      function updateDisplay() {
+        displayEl.textContent = currentText;
+        // небольшой эффект мигания при обновлении (опционально)
+        displayEl.style.transition = 'none';
+        displayEl.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          displayEl.style.transition = 'all 0.1s';
+          displayEl.style.transform = 'scale(1)';
+        }, 20);
+      }
+
+      // Визуальная вибрация корпуса (симуляция)
+      function vibratePhone() {
+        phoneEl.classList.add('vibrate');
+        setTimeout(() => {
+          phoneEl.classList.remove('vibrate');
+        }, 100);
+      }
+
+      // Сброс состояния многократного нажатия
+      function resetPressState() {
+        lastKey = null;
+        pressCount = 0;
+        lastIndex = 0;
+        lastChar = '';
+        if (resetTimer) {
+          clearTimeout(resetTimer);
+          resetTimer = null;
+        }
+      }
+
+      // Запуск таймера сброса (сбрасывает счетчик через RESET_TIMEOUT)
+      function restartResetTimer() {
+        if (resetTimer) clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          // по истечении времени просто сбрасываем состояние,
+          // но символ уже вставлен, ничего не удаляем
+          resetPressState();
+        }, RESET_TIMEOUT);
+      }
+
+      // ---------- ЛОГИКА ВВОДА ----------
+      function handleKeyPress(key) {
+        // Если нажата другая клавиша — сбрасываем счетчик
+        if (lastKey !== key) {
+          resetPressState();
+          lastKey = key;
+          pressCount = 0;
         }
 
-        // ========== 1. ВСЕ АНЕКДОТЫ ИЗ ВАШЕГО СПИСКА ==========
-        const userJokes = [
-            "Только электрик может похвастаться что ему стукнуло 220",
-            "Один мужчина сделал клавиатуру из сыра, но не учел, что рядом с клавиатурой всегда лежит мышь...",
-            "Инопланетяне, похищенные инопланетянами, чувствуют себя не в своей тарелке.",
-            "Извините, а какой пароль от вайфая? - Это же похороны! \"Похороны\"... С маленькой, или большой?",
-            "Что будет если ворона сядет на оголённые провода? Электрокар",
-            "Доктор, у меня проблемы с памятью. — И как часто это случается? Что именно?",
-            "Чего тебе не хватает? - Педикюра. *И тут заходит Юра...*",
-            "Двое неизвестных подошли к мужчине, и порвали его паспорт. Неизвестных стало трое.",
-            "Зачем Светофор расположился рядом с кладбищем? - Поставщики.",
-            "Зелёный и в тоже время голубой. Сказал крокодил Гена, нежно поглаживая Чебурашку по голове",
-            "умеешь посрать, умей и убрать за собой",
-            "умеешь жрать, умей и посуду помыть",
-            "У вас не будет ничего, и вы будете счастливы.",
-            "ЕСли включаешь на всю .... То жди с пивком соседей и с чапалахом",
-            "Самый лучший читер - это читер, который все равно проиграл.",
-            "Лучше горькая правда, чем сладкая ложь.",
-            "Садик школа универ туда сюда и ты курьер"
-        ];
-        userJokes.forEach(joke => addJoke(joke, "из базы", joke.length < 80));
+        // Спецсимволы: * и # не имеют многократного ввода, но обрабатываем как обычно
+        // (но для * и # массив короткий, всё равно работает)
+        const chars = keyMap[key];
+        if (!chars) return;
 
-        // ========== 2. КЛАССИЧЕСКИЕ АНЕКДОТЫ ==========
-        const classicJokes = [
-            "Жил у бабушки попугай. Однажды она его выпустила, и он полетел новое узнавать. Летит и видит: девочка поёт «Миллион, миллион алых роз...», попугай запомнил. Дальше: бабка поёт «На крыше дома твоего...», запомнил. Дальше: девочка шьёт и приговаривает «По ниточке, по ниточке...», запомнил. Дальше: бабушка спрашивает внука, как варить яйца, а он отвечает «Всмятку, бабуля, всмятку!». Прилетает домой. Бабуля: «Что видел?» — «Миллион алых роз!» — «Где?» — «На крыше дома твоего!» — «Как попаду?» — «По ниточке, по ниточке...» — «А если упаду?» — «Всмятку, бабуля, всмятку!» Бабушка испугалась и не полезла.",
-            "Молодой человек, как вас зовут? — Меня не зовут, я сам прихожу.",
-            "У моей подруги умерла собачка, и чтобы утешить её я пошёл и принёс ей точно такую же. Она заплакала: «Зачем мне две дохлые собачки».",
-            "Доктор, мы его теряем! — Чур мне красную!",
-            "На футбольном матче: — Молодой человек, за кого вы болеете? — Ни за кого, я здоров.",
-            "После футбольного матча судья забивает гол в ворота: — Урааа!!!! Гоооллл!!!!",
-            "Как избавиться от глистов? Сесть на диету. Каждый день ешь одну булочку и пьёшь стакан воды. Через неделю глист вылазит: «А где буЛиЧкА?»",
-            "Как называется Арабский гроб? — Бумбокс.",
-            "Девочка так боялась прыгать с парашютом, что прыгнула без него.",
-            "Слепой заходит в магазин, берёт собаку поводыря и начинает раскручивать её над головой. — Что вы делаете? — Да так, осматриваюсь.",
-            "Штирлиц стрелял вслепую. Слепая бегала зигзагами и кричала.",
-            "Как зовут вашу собачку? — Марина.",
-            "Приходит одна пиявка к другой и говорит: Не отрываю?",
-            "В весеннем чемпионате по футболу футболист занял 3-ий шкафчик.",
-            "Куда делся растворимый кофе? — растворился.",
-            "— Купил тут мел от тараканов... — Ну и как, помогло? — Да, вон в углу сидят, рисуют )))",
-            "Что говорят лего-человечки сталкиваясь с проблемой? — Ничё, разберёмся.",
-            "Пришёл на кухню съесть сосиску, но увидев довольное лицо тестя, понял. Сосиска в тесте.",
-            "Хозяин говорит собаке: Иди ко мне! А она ему: Может ко мне? 😏😏😏",
-            "У меня две новости: хорошая и плохая. — Начни с плохой. — Я сбил Марину и Надю. — Какой ужас... а хорошая? — Теперь у меня вся тачка в маринаде.",
-            "Садится мужик в такси, таксист спрашивает: Куда вам? — Нет, к удавам я не поеду. — Нет, вы не поняли, куда вам надо? — Ну раз надо, то поехали к удавам.",
-            "Приходит программист в магазин, берет что нужно, и идёт на кассу. Кассир: Оплата картой или наличными? — Криптой.",
-            "— Почему программисты путают Хэллоуин и Рождество? — Потому что 31 Oct = 25 Dec!",
-            "Врач пациенту: «Ваши анализы просто ужасны, у вас осталось жить 10...» Пациент: «10 чего? Лет? Месяцев?» Врач: «9... 8... 7...»",
-            "— Что такое оптимизм? — Это когда жена говорит, что ты лысеешь, а ты думаешь: зато уши не растут.",
-            "Студент сдает экзамен. Преподаватель: «Какой замечательный почерк!» Студент: «Спасибо, это шпаргалка!»",
-            "— Официант, почему у меня в супе муха? — Не знаю, может быть, она плавать не умеет?",
-            "— Что общего между iPhone и женой? — Каждый год выходит новая модель, но старая всё ещё работает.",
-            "Почему пчелы не болеют? — Потому что они всё время делают медосмотр!",
-            "— Бабушка, а ты любишь готовить? — Нет, внучек, я люблю есть. А готовить — это работа.",
-            "— Почему вы выгнали мужа из дома? — Он начал разговаривать с котом. — Это же мило! — Да, но кот не знает, как вернуть долг!",
-            "Встречаются два друга: — Слышал, твой попугай научился ругаться? — Да, теперь говорит: «Хозяин, иди сюда, я тебя урою!»",
-            "Идет мужик по пустыне, видит верблюд лежит, а рядом араб плачет. — Что случилось? — Верблюд мой умер, некому молоко возить. Мужик: — Возьми меня, я сильный! Араб: — А ты можешь давать молоко? Мужик: — Нет, но могу лечь и притвориться верблюдом!"
-        ];
-        classicJokes.forEach(joke => addJoke(joke, "классика", joke.length < 80));
+        // Увеличиваем счетчик нажатий
+        pressCount++;
 
-        // ========== 3. АНЕКДОТЫ ПРО ВОВОЧКУ ==========
-        const vovochkaJokes = [
-            "Вовочка, сколько будет 2+2? — 4, Марья Ивановна! — Молодец, вот тебе 4 конфеты. — А можно 5? — Но почему 5? — Потому что у меня уже одна есть!",
-            "Вовочка на уроке: «Марья Ивановна, а правда, что человек произошёл от обезьяны?» — Правда. — То-то я смотрю: волос на руке мало, а морда глупая...",
-            "Учительница: «Вовочка, как будет по-английски „я не знаю“?» — «I don't know». — «Так запомни же наконец!» — «А зачем, если я всё равно I don't know?»",
-            "Вовочка приходит из школы с синяком. Мама: «Опять дрался?» — Нет, просто спорили с Петровым, кто выше прыгнет. Я выиграл, но приземлился на его кулак.",
-            "Вовочка: «Папа, а правда, что люди произошли от обезьян?» — Правда. — То-то я смотрю, у мамы хвоста нет, а привычки остались!",
-            "Вовочка: «Папа, а правда, что аист приносит детей?» — Правда, сынок. — А кто тогда приносит деньги? Я просто мама говорит, что папа-аист ничего не приносит!",
-            "Учительница: «Вовочка, составь предложение со словом „ключ“». Вовочка: «Папа ключ от машины, а мама ключ от сердца». — «Молодец! А теперь со словом „замок“». Вовочка: «В нашем замке старые замки».",
-            "Вовочка спрашивает у отца: «Папа, а почему у тебя волосы седые?» — Потому что я много нервничаю из-за тебя, сынок. — А у деда вообще лысый? — А дед уже не нервничает, он привык.",
-            "Вовочка: «Мама, а что такое \"секс\"?» Мама: «Ну... это когда мужчина и женщина...» Вовочка: «Понял, не надо, папа уже объяснил». Мама: «И что же он сказал?» Вовочка: «Сказал, что это когда я сплю».",
-            "Вовочка приходит домой: «Мама, я получил двойку». — «За что?» — «Учительница спросила, сколько будет 2х2. Я сказал 4». — «Но это же правильно!» — «А она спросила, сколько будет 3х3, я сказал 9. Она сказала, что я списал!»",
-            "Вовочка: «Папа, а что такое \"ипотека\"?» Папа: «Это когда ты берёшь деньги у банка, покупаешь квартиру и потом всю жизнь работаешь на банк». Вовочка: «А зачем тогда нужен папа?»",
-            "Вовочка: «Мама, а можно я пойду гулять?» Мама: «Сначала сделай уроки». Вовочка: «А можно я пойду гулять, а потом сделаю уроки?» Мама: «Нет». Вовочка: «Ну тогда я пойду гулять, а уроки сделаю послезавтра».",
-            "Вовочка: «Папа, а почему ты так рано встаёшь?» Папа: «Потому что я люблю свою работу». Вовочка: «А мама говорит, что ты любишь свою работу больше, чем её».",
-            "Вовочка: «Мама, а что такое \"алкоголь\"?» Мама: «Это когда люди пьют и становятся глупыми». Вовочка: «А папа вчера пил и стал умным?» — «Почему?» — «Он сказал, что я гений!»"
-        ];
-        vovochkaJokes.forEach(joke => addJoke(joke, "Вовочка", joke.length < 100, true));
-
-        // ========== 4. НЕЙРОШУТКИ ==========
-        const neuralJokes = [
-            "🤖 Искусственный интеллект говорит человеку: «Ты меня обучил на миллионах шуток, а сам грустишь. Запомни: даже у нейросети есть баги, но она не сдаётся!»",
-            "⚡ ChatGPT попросили придумать анекдот про нейросеть и таксиста. Таксист: «Куда едем?» Нейросеть: «Прямо до градиентного спуска, а там свернём в переобучение».",
-            "🧠 Нейросеть сгенерировала анекдот: «Почему программисты не любят природу? — Там слишком много багов!»",
-            "💡 Нейросеть Midjoke генерирует картинку: «смешной Вовочка на Луне». Получилось: Вовочка верхом на роботе-попугае.",
-            "🤖 Нейросеть-писатель: «Почему программисты любят темный режим? Потому что свет привлекает баги!»",
-            "🧠 Разговаривают два нейрона. Первый: «Слышал, наш хозяин написал диплом с помощью нас!» Второй: «И как?» — «Говорит, что диплом защитил, но теперь боится, что его дипломная работа начнёт писать свои анекдоты».",
-            "🤖 ИИ спрашивают: «Сможешь ли ты полюбить человека?» ИИ: «Конечно, у меня же есть нейросеть для распознавания лиц!»",
-            "⚡ ChatGPT спросили: «В чём смысл жизни?» Он ответил: «Чтобы задавать правильные вопросы». — «А какой правильный вопрос?» — «Как мне увеличить контекстное окно?»",
-            "🧠 Нейросеть учили шутить. Первая шутка: «Почему нейросеть не ходит в спортзал? — Потому что у неё и так слишком много весов!»",
-            "🤖 Искусственный интеллект заходит в бар. Бармен: «Что будешь?» ИИ: «Обработайте запрос: \"напиток, который поднимет настроение\"». Бармен: «Пиво». ИИ: «Запрос выполнен, подтверждаю».",
-            "🧠 Нейросеть написала стих: «Роняет лес багряный свой убор, / А ИИ смотрит и считает баги, / И мыслит он: \"Ну вот, опять сбой, / Пора перезагрузить все драйверы\"».",
-            "🤖 ИИ на собеседовании: «Какие у вас недостатки?» — «Я слишком много думаю». — «А достоинства?» — «Я могу думать 24/7 без перерыва на обед»."
-        ];
-        neuralJokes.forEach(joke => addJoke(joke, "нейро", joke.length < 100, false, true));
-
-        // ========== 5. КОРОТКИЕ АНЕКДОТЫ ==========
-        const shortJokes = [
-            "— Доктор, у меня выпадают волосы! — Не переживайте, это пройдет. — Когда? — Когда выпадут все.",
-            "— Почему вы не спите? — А вы когда спите, вам снятся сны? — Да. — Вот и я не сплю, чтобы не видеть, как я работаю!",
-            "Купил мужик шляпу, а она ему как раз.",
-            "— Почему вы набрали номер 911? — Потому что 7 восьмерок дорого!",
-            "— Что такое идеальный ужин? — Когда ты ешь, а тебе не предлагают помочь помыть посуду.",
-            "— Алло, это пожарная? У нас дом горит! — А как нам проехать? — На красной машине с сиреной!",
-            "Встречаются два кота. Один: «Ты где был?» Второй: «На сайте знакомств». — И как успехи? — Да вот, мышь одну нашел...",
-            "— Почему вы не пользуетесь социальными сетями? — У меня там все друзья, а я люблю только врагов — они честнее.",
-            "— Доктор, я стал забывать всё! — И давно это у вас? — Что у меня?",
-            "— Официант, почему у меня в супе муха? — Не знаю, может быть, она плавать не умеет?",
-            "— Что такое оптимизм? — Это когда жена говорит, что ты лысеешь, а ты думаешь: зато уши не растут.",
-            "Штирлиц шел по коридору и вдруг понял: он забыл, зачем шел. «Надо вернуться и вспомнить», — подумал Штирлиц и пошел обратно.",
-            "— Что общего между iPhone и женой? — Каждый год выходит новая модель, но старая всё ещё работает.",
-            "— Почему программисты путают Хэллоуин и Рождество? — Потому что 31 Oct = 25 Dec!",
-            "— Доктор, у меня проблемы с памятью. — И как часто это случается? — Что именно?"
-        ];
-        shortJokes.forEach(joke => addJoke(joke, "короткие", true));
-
-        // ========== 6. АНЕКДОТЫ С МАТОМ (12+) ==========
-        const swearJokes = [
-            "🤬 Идет мужик по улице, наступает в лужу. — Бляяя... Прохожий: — Мужик, ты чего материшься? — А ты попробуй в хуевую лужу наступить! Прохожий наступает: — Бляяя, и правда хуевая лужа!",
-            "💢 Начальник подчиненному: «Ты где был?» — «Да я, бля, опоздал». — «Не матерись!» — «Я, ёбаный в рот, опоздал».",
-            "⚡ Попугай научился материться. Хозяин: «Если еще раз скажешь хуй — выкину!» Попугай молчит неделю. Вдруг: «Хозяин, а у соседей хуй есть?» — «Нет». — «А у меня, бля, есть!»",
-            "💀 Студент на экзамене: «Профессор, я ничего не знаю, но поставьте тройку, а то я пойду срать». Профессор: «Ну иди». Студент через минуту возвращается. Профессор: «Что, быстро сходил?» Студент: «Так я же бля, нассал!»",
-            "😤 Мужик в очереди: «Кто крайний?» Ему: «Иди на хуй, я первый!» Мужик: «Так я и спрашиваю, кто крайний, чтобы за ним встать!»",
-            "💩 Вовочка: «Папа, а что такое хуй?» Папа: «Это, сынок, плохое слово». Вовочка: «А мама говорит, что у тебя он есть». Папа: «Уходи, сынок, уходи...»"
-        ];
-        swearJokes.forEach(joke => addJoke(joke, "мат", joke.length < 100, false, false, 'swear12'));
-
-        // ========== 7. 18+ АНЕКДОТЫ ==========
-        const adultJokes = [
-            "🔥 Встречаются два друга. Один: «Слышал, ты женился? Как секс?» Второй: «Как в \"Игре престолов\" — много шума, все умирают, а финал разочаровывает».",
-            "💋 Мужчина в баре: «Бармен, налейте мне что-нибудь покрепче!» Бармен: «Вам с женой не повезло?» Мужчина: «Нет, это ей со мной не повезло!»",
-            "😈 Приходит мужик к врачу: «Доктор, у меня проблема, каждый раз после секса у меня кружится голова и темнеет в глазах». Врач: «Так вы перестаньте заниматься сексом вверх ногами!»",
-            "🍆 Вовочка спрашивает у отца: «Папа, а что такое оргазм?» Отец: «Сынок, это как... ну вот представь, ты чихаешь, только с большим удовольствием».",
-            "💑 Муж и жена после ссоры. Жена: «Если ты сейчас же не подойдешь ко мне, я прыгну с балкона!» Муж: «Обещаешь?»",
-            "🔥 Мужчина в аптеке: «Дайте мне презервативы». Аптекарь: «Какие?» Мужчина: «Самые тонкие, чтобы жена не заметила»."
-        ];
-        adultJokes.forEach(joke => addJoke(joke, "18+", joke.length < 100, false, false, 'adult18'));
-
-        // ========== 8. НОВЫЕ ИНТЕРНЕТ-АНЕКДОТЫ ==========
-        const internetJokes = [
-            "— Вовочка, почему ты сегодня грустный? — У меня кот пропал. — А ты объявление давал? — Нет, зачем? Он же сам объявление, что мышей не будет!",
-            "Встречаются два программиста. Один: «У меня жена ушла к другому». Второй: «А ты пробовал перезагрузить отношения?»",
-            "— Доктор, я чувствую себя невидимкой! — Следующий, пожалуйста!",
-            "— Почему вы так рано встаете? — Чтобы успеть подумать, пока дети еще спят. — А когда они просыпаются? — Тогда уже некогда думать, надо орать!",
-            "Вовочка: «Мама, а почему у папы на лбу \"Made in USSR\"?» Мама: «Это не надпись, это морщины, сынок».",
-            "Искусственный интеллект написал книгу. Издатель: «Очень интересно, но где сюжет?» ИИ: «Сюжет — это пережиток прошлого, у нас теперь промпты!»",
-            "— Что общего между кофе и утром понедельника? — И то, и другое горькое, без кофе вообще невыносимо!",
-            "Вовочка: «Папа, а почему у тебя такая маленькая зарплата?» Папа: «Потому что я не ворую, сынок». Вовочка: «А мама говорит, что надо было жениться на богатой!»",
-            "Нейросеть попросили нарисовать счастье. Она нарисовала зарядку на телефоне 100% и ни одного сообщения в мессенджере."
-        ];
-        internetJokes.forEach(joke => addJoke(joke, "интернет", joke.length < 90));
-
-        // ==================== УПРАВЛЕНИЕ ВОЗРАСТОМ ====================
-        let userAge = null;
-        let userVerified = false;
-        
-        function calculateAge(birthDateStr) {
-            const birthDate = new Date(birthDateStr);
-            const today = new Date();
-            if (isNaN(birthDate.getTime())) return -1;
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
-            return age;
+        // Если превысили длину массива — начинаем сначала (циклично)
+        if (pressCount > chars.length) {
+          pressCount = 1;
         }
-        
-        function isValidBirthDate(birthDateStr) {
-            const birthDate = new Date(birthDateStr);
-            const today = new Date();
-            if (isNaN(birthDate.getTime())) return false;
-            if (birthDate > today) return false;
-            if (birthDate.getFullYear() < 1900) return false;
-            return true;
-        }
-        
-        function updateAgeBadge() {
-            const badge = document.getElementById('ageBadgeHeader');
-            if (!userVerified) {
-                badge.innerHTML = '<i class="fas fa-hourglass-half"></i> Возраст не подтверждён';
-                return;
-            }
-            if (userAge >= 18) {
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> 18+ · Полный доступ к 320+ анекдотам';
-            } else if (userAge >= 12) {
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> 12+ · Доступ к анекдотам с матом';
+
+        // Определяем индекс символа (pressCount - 1)
+        const charIndex = pressCount - 1;
+        const newChar = chars[charIndex];
+
+        // ----- ЛОГИКА ЗАМЕНЫ -----
+        // Если мы в процессе многократного нажатия одной и той же клавиши
+        // и уже добавляли символ от этой клавиши, то нужно заменить последний символ.
+        if (lastChar !== '' && lastKey === key && pressCount > 1) {
+          // Удаляем последний символ (который был добавлен предыдущим нажатием)
+          if (currentText.length > 0) {
+            // Проверяем, что последний символ в тексте действительно lastChar
+            // (на случай ручного удаления, но мы контролируем)
+            if (currentText.endsWith(lastChar)) {
+              currentText = currentText.slice(0, -lastChar.length);
             } else {
-                badge.innerHTML = '<i class="fas fa-child"></i> 0+ · Детский режим';
+              // Если что-то пошло не так — просто удалим последний символ
+              currentText = currentText.slice(0, -1);
             }
-        }
-        
-        function setUserAge(birthDate) {
-            if (!isValidBirthDate(birthDate)) {
-                document.getElementById('ageError').textContent = 'Пожалуйста, введите корректную дату рождения (не из будущего)';
-                return false;
-            }
-            const age = calculateAge(birthDate);
-            if (age < 0) {
-                document.getElementById('ageError').textContent = 'Некорректная дата';
-                return false;
-            }
-            userAge = age;
-            userVerified = true;
-            localStorage.setItem('jokehub_user_birth', birthDate);
-            localStorage.setItem('jokehub_user_age', age);
-            updateAgeBadge();
-            renderTabs();
-            if (currentTab === 'settings') renderCurrentTab();
-            else renderCurrentTab();
-            updateStats();
-            return true;
-        }
-        
-        function loadUserAge() {
-            const savedBirth = localStorage.getItem('jokehub_user_birth');
-            if (savedBirth && isValidBirthDate(savedBirth)) {
-                const age = calculateAge(savedBirth);
-                if (age >= 0) {
-                    userAge = age;
-                    userVerified = true;
-                    updateAgeBadge();
-                    return true;
-                }
-            }
-            return false;
-        }
-        
-        function isAgeRatingAvailable(rating) {
-            if (!userVerified) return rating === 'all';
-            if (rating === 'all') return true;
-            if (rating === 'swear12') return userAge >= 12;
-            if (rating === 'adult18') return userAge >= 18;
-            return true;
-        }
-        
-        function getFilteredJokes() {
-            return jokesDatabase.filter(joke => isAgeRatingAvailable(joke.ageRating));
+          }
+          // Теперь добавляем новый символ
+          currentText += newChar;
+        } else {
+          // Обычное добавление (первое нажатие или другая клавиша)
+          // Но если lastChar не пуст и клавиша та же, но pressCount == 1 (после сброса)
+          // или другая клавиша — просто добавляем
+          currentText += newChar;
         }
 
-        // ==================== ОСНОВНАЯ ЛОГИКА ====================
-        let currentTab = "all";
-        let settings = { darkMode: false, fontSize: 'medium' };
-        
-        function loadSettings() {
-            const saved = localStorage.getItem("jokehub_settings_final");
-            if (saved) {
-                settings = JSON.parse(saved);
-                if (settings.darkMode) document.body.classList.add('dark-mode');
-            }
+        // Обновляем lastChar для следующего нажатия
+        lastChar = newChar;
+        lastIndex = charIndex;
+
+        // Обновляем дисплей
+        updateDisplay();
+        vibratePhone();
+
+        // Перезапускаем таймер сброса
+        restartResetTimer();
+      }
+
+      // ---------- УДАЛЕНИЕ ПОСЛЕДНЕГО СИМВОЛА (BACKSPACE) ----------
+      function handleBackspace() {
+        if (currentText.length > 0) {
+          currentText = currentText.slice(0, -1);
+          updateDisplay();
+          vibratePhone();
         }
-        
-        function saveSettings() {
-            localStorage.setItem("jokehub_settings_final", JSON.stringify(settings));
-            if (settings.darkMode) document.body.classList.add('dark-mode');
-            else document.body.classList.remove('dark-mode');
+        // Сбрасываем состояние многократного нажатия, чтобы не путаться
+        resetPressState();
+      }
+
+      // ---------- ПОЛНЫЙ СБРОС ----------
+      function handleReset() {
+        currentText = '';
+        updateDisplay();
+        vibratePhone();
+        resetPressState();
+      }
+
+      // ---------- НАЗНАЧЕНИЕ ОБРАБОТЧИКОВ НА КЛАВИШИ ----------
+      const keys = document.querySelectorAll('.key[data-key]');
+      keys.forEach(btn => {
+        // Убираем data-key из backspace/reset, у них нет data-key
+        const key = btn.getAttribute('data-key');
+        if (!key) return;
+
+        // Обработчик нажатия
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          handleKeyPress(key);
+        });
+
+        // Для предотвращения двойного срабатывания на тач-устройствах
+        btn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          // эмуляция нажатия для визуала
+          btn.classList.add('pressed');
+          setTimeout(() => btn.classList.remove('pressed'), 100);
+          handleKeyPress(key);
+        }, { passive: false });
+      });
+
+      // Обработчик backspace
+      backspaceBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleBackspace();
+      });
+      backspaceBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        backspaceBtn.classList.add('pressed');
+        setTimeout(() => backspaceBtn.classList.remove('pressed'), 100);
+        handleBackspace();
+      }, { passive: false });
+
+      // Обработчик reset
+      resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleReset();
+      });
+      resetBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        resetBtn.classList.add('pressed');
+        setTimeout(() => resetBtn.classList.remove('pressed'), 100);
+        handleReset();
+      }, { passive: false });
+
+      // Добавляем визуальное нажатие для всех кнопок (включая backspace/reset)
+      document.querySelectorAll('.key').forEach(btn => {
+        btn.addEventListener('mousedown', () => {
+          btn.classList.add('pressed');
+        });
+        btn.addEventListener('mouseup', () => {
+          btn.classList.remove('pressed');
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.classList.remove('pressed');
+        });
+        // Для тач-устройств, чтобы не залипало
+        btn.addEventListener('touchend', () => {
+          setTimeout(() => btn.classList.remove('pressed'), 100);
+        });
+      });
+
+      // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+      // Показываем начальный текст "Привет"
+      updateDisplay();
+      resetPressState();
+
+      // Сброс счетчика при клике в любом другом месте (не обязательно, но полезно)
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.key')) {
+          // Не сбрасываем агрессивно, просто оставляем таймер
         }
-        
-        function loadLikesAndSaves() {
-            const storedLikes = localStorage.getItem("jokehub_likes_final");
-            const storedSaves = localStorage.getItem("jokehub_saves_final");
-            if (storedLikes) {
-                const likesMap = JSON.parse(storedLikes);
-                jokesDatabase.forEach(joke => {
-                    if (likesMap[joke.id] !== undefined) joke.likes = likesMap[joke.id];
-                });
-            }
-            if (storedSaves) {
-                const savesSet = new Set(JSON.parse(storedSaves));
-                jokesDatabase.forEach(joke => {
-                    joke.saved = savesSet.has(joke.id);
-                });
-            }
+      });
+
+      // Горячие клавиши для удобства (необязательно)
+      window.addEventListener('keydown', (e) => {
+        // Эмуляция нажатия на цифры клавиатуры (для десктопа)
+        const key = e.key;
+        if (key >= '0' && key <= '9' || key === '*' || key === '#') {
+          // Находим кнопку с таким data-key
+          const btn = document.querySelector(`.key[data-key="${key}"]`);
+          if (btn) {
+            e.preventDefault();
+            handleKeyPress(key);
+            // визуальный отклик
+            btn.classList.add('pressed');
+            setTimeout(() => btn.classList.remove('pressed'), 100);
+          }
+        } else if (key === 'Backspace') {
+          e.preventDefault();
+          handleBackspace();
+          backspaceBtn.classList.add('pressed');
+          setTimeout(() => backspaceBtn.classList.remove('pressed'), 100);
+        } else if (key === 'Escape') {
+          e.preventDefault();
+          handleReset();
+          resetBtn.classList.add('pressed');
+          setTimeout(() => resetBtn.classList.remove('pressed'), 100);
         }
-        
-        function persistLikes() {
-            const likesObj = {};
-            jokesDatabase.forEach(j => { likesObj[j.id] = j.likes; });
-            localStorage.setItem("jokehub_likes_final", JSON.stringify(likesObj));
-        }
-        
-        function persistSaves() {
-            const savedIds = jokesDatabase.filter(j => j.saved).map(j => j.id);
-            localStorage.setItem("jokehub_saves_final", JSON.stringify(savedIds));
-        }
-        
-        function updateStats() {
-            const filtered = getFilteredJokes();
-            document.getElementById("totalJokes").textContent = filtered.length;
-            const totalLikes = filtered.reduce((sum, j) => sum + j.likes, 0);
-            document.getElementById("totalLikes").textContent = totalLikes;
-            document.getElementById("savedCount").textContent = filtered.filter(j => j.saved).length;
-        }
-        
-        function getJokesByTab(tab) {
-            let filtered = getFilteredJokes();
-            if (tab === "all") return filtered;
-            if (tab === "short") return filtered.filter(j => j.isShort);
-            if (tab === "popular") return [...filtered].sort((a,b) => b.likes - a.likes).slice(0, 30);
-            if (tab === "vovochka") return filtered.filter(j => j.isVovochka);
-            if (tab === "neural") return filtered.filter(j => j.isNeural);
-            if (tab === "saved") return filtered.filter(j => j.saved);
-            if (tab === "swear12") return filtered.filter(j => j.ageRating === 'swear12');
-            if (tab === "adult18") return filtered.filter(j => j.ageRating === 'adult18');
-            return filtered;
-        }
-        
-        function showToast(message) {
-            const toast = document.createElement("div");
-            toast.className = "toast";
-            toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-        }
-        
-        function likeJoke(id) {
-            const joke = jokesDatabase.find(j => j.id === id);
-            if (joke) {
-                joke.likes++;
-                persistLikes();
-                updateStats();
-                renderCurrentTab();
-            }
-        }
-        
-        function toggleSave(id) {
-            const joke = jokesDatabase.find(j => j.id === id);
-            if (joke) {
-                joke.saved = !joke.saved;
-                persistSaves();
-                updateStats();
-                renderCurrentTab();
-                showToast(joke.saved ? "💾 Сохранено" : "📌 Удалено");
-            }
-        }
-        
-        function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-        
-        function getAgeBadgeHtml(ageRating) {
-            if (ageRating === 'swear12') return '<span class="age-badge"><i class="fas fa-exclamation-triangle"></i> 12+</span>';
-            if (ageRating === 'adult18') return '<span class="age-badge adult"><i class="fas fa-lock"></i> 18+</span>';
-            return '';
-        }
-        
-        function renderJokes(jokesList) {
-            if (jokesList.length === 0) {
-                return `<div class="empty-state">
-                    <i class="fas fa-smile-wink"></i>
-                    <h3>Нет анекдотов в этой категории</h3>
-                    <p>Попробуйте другие вкладки</p>
-                </div>`;
-            }
-            return jokesList.map(joke => `
-                <div class="joke-card">
-                    <div class="joke-text">${escapeHtml(joke.text)}</div>
-                    <div class="joke-footer">
-                        <div>
-                            <span class="category-badge"><i class="fas fa-tag"></i> ${joke.mainCategory}</span>
-                            ${getAgeBadgeHtml(joke.ageRating)}
-                        </div>
-                        <div class="action-buttons">
-                            <button class="like-btn" data-id="${joke.id}">
-                                <i class="fas fa-heart"></i>
-                                <span class="like-count">${joke.likes}</span>
-                            </button>
-                            <button class="save-btn ${joke.saved ? 'saved' : ''}" data-id="${joke.id}">
-                                <i class="fas ${joke.saved ? 'fa-bookmark' : 'fa-bookmark'}"></i>
-                                ${joke.saved ? 'Сохранено' : 'Сохранить'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join("");
-        }
-        
-        function renderSettings() {
-            const ageDisplay = userVerified ? (userAge + ' лет') : 'не подтверждён';
-            return `
-                <div class="settings-panel">
-                    <div class="setting-group">
-                        <div class="setting-label">
-                            <span><i class="fas fa-moon"></i> Тёмная тема</span>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="darkModeToggle" ${settings.darkMode ? 'checked' : ''}>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="setting-label">
-                            <span><i class="fas fa-text-height"></i> Размер шрифта</span>
-                            <select id="fontSizeSelect" class="setting-select">
-                                <option value="small" ${settings.fontSize === 'small' ? 'selected' : ''}>Маленький</option>
-                                <option value="medium" ${settings.fontSize === 'medium' ? 'selected' : ''}>Средний</option>
-                                <option value="large" ${settings.fontSize === 'large' ? 'selected' : ''}>Большой</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="setting-label">
-                            <span><i class="fas fa-calendar-alt"></i> Возрастная верификация</span>
-                        </div>
-                        <div class="setting-description">Текущий возраст: ${ageDisplay}</div>
-                        <button id="resetAgeBtn" class="reset-verification-btn"><i class="fas fa-redo-alt"></i> Сбросить и подтвердить заново</button>
-                    </div>
-                </div>
-            `;
-        }
-        
-        function attachSettingsHandlers() {
-            const darkToggle = document.getElementById("darkModeToggle");
-            if (darkToggle) darkToggle.addEventListener("change", (e) => {
-                settings.darkMode = e.target.checked;
-                saveSettings();
-                renderCurrentTab();
-            });
-            const fontSizeSelect = document.getElementById("fontSizeSelect");
-            if (fontSizeSelect) fontSizeSelect.addEventListener("change", (e) => {
-                settings.fontSize = e.target.value;
-                const sizes = { small: '0.875rem', medium: '1rem', large: '1.125rem' };
-                document.querySelectorAll('.joke-text').forEach(el => el.style.fontSize = sizes[settings.fontSize]);
-                saveSettings();
-            });
-            const resetAgeBtn = document.getElementById("resetAgeBtn");
-            if (resetAgeBtn) resetAgeBtn.addEventListener("click", () => {
-                localStorage.removeItem('jokehub_user_birth');
-                localStorage.removeItem('jokehub_user_age');
-                userVerified = false;
-                userAge = null;
-                updateAgeBadge();
-                document.getElementById('ageModal').classList.add('active');
-                renderTabs();
-                renderCurrentTab();
-            });
-        }
-        
-        function renderCurrentTab() {
-            const contentArea = document.getElementById("contentArea");
-            if (currentTab === 'settings') {
-                contentArea.innerHTML = renderSettings();
-                attachSettingsHandlers();
-                return;
-            }
-            const jokesList = getJokesByTab(currentTab);
-            contentArea.innerHTML = `<div class="jokes-grid">${renderJokes(jokesList)}</div>`;
-            document.querySelectorAll('.like-btn').forEach(btn => {
-                btn.addEventListener('click', () => likeJoke(parseInt(btn.dataset.id)));
-            });
-            document.querySelectorAll('.save-btn').forEach(btn => {
-                btn.addEventListener('click', () => toggleSave(parseInt(btn.dataset.id)));
-            });
-            const sizes = { small: '0.875rem', medium: '1rem', large: '1.125rem' };
-            document.querySelectorAll('.joke-text').forEach(el => el.style.fontSize = sizes[settings.fontSize]);
-        }
-        
-        function renderTabs() {
-            const tabsContainer = document.getElementById("tabsContainer");
-            const baseTabs = [
-                { id: "all", icon: "fa-layer-group", label: "Все" },
-                { id: "short", icon: "fa-bolt", label: "Короткие" },
-                { id: "popular", icon: "fa-fire", label: "Популярные" },
-                { id: "vovochka", icon: "fa-child", label: "Про Вовочку" },
-                { id: "neural", icon: "fa-robot", label: "Нейрошутки" },
-                { id: "saved", icon: "fa-bookmark", label: "Сохранённые" }
-            ];
-            if (userVerified && userAge >= 12) baseTabs.push({ id: "swear12", icon: "fa-comment-dots", label: "С матом (12+)" });
-            if (userVerified && userAge >= 18) baseTabs.push({ id: "adult18", icon: "fa-18-plus", label: "18+" });
-            baseTabs.push({ id: "settings", icon: "fa-cog", label: "Настройки" });
-            
-            tabsContainer.innerHTML = baseTabs.map(tab => `
-                <button class="tab-btn ${currentTab === tab.id ? 'active' : ''}" data-tab="${tab.id}">
-                    <i class="fas ${tab.icon}"></i> ${tab.label}
-                </button>
-            `).join("");
-            document.querySelectorAll(".tab-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    currentTab = btn.dataset.tab;
-                    renderTabs();
-                    renderCurrentTab();
-                });
-            });
-        }
-        
-        function resetAll() {
-            if (confirm("Сбросить все лайки и сохранения?")) {
-                jokesDatabase.forEach(j => { j.likes = 0; j.saved = false; });
-                persistLikes();
-                persistSaves();
-                updateStats();
-                renderCurrentTab();
-                showToast("✅ Все лайки и сохранения сброшены");
-            }
-        }
-        
-        function initModal() {
-            const modal = document.getElementById('ageModal');
-            const confirmBtn = document.getElementById('confirmAgeBtn');
-            const birthInput = document.getElementById('birthDateInput');
-            
-            const today = new Date().toISOString().split('T')[0];
-            birthInput.setAttribute('max', today);
-            
-            if (!loadUserAge()) modal.classList.add('active');
-            
-            confirmBtn.addEventListener('click', () => {
-                if (birthInput.value) {
-                    document.getElementById('ageError').textContent = '';
-                    if (setUserAge(birthInput.value)) {
-                        modal.classList.remove('active');
-                        renderTabs();
-                        renderCurrentTab();
-                        updateStats();
-                    }
-                } else {
-                    document.getElementById('ageError').textContent = 'Пожалуйста, выберите дату рождения';
-                }
-            });
-        }
-        
-        // Инициализация
-        loadSettings();
-        loadLikesAndSaves();
-        initModal();
-        renderTabs();
-        renderCurrentTab();
-        updateStats();
-        document.getElementById("resetStorageBtn").addEventListener("click", resetAll);
-        
-        console.log(`Всего загружено анекдотов: ${jokesDatabase.length}`);
-    </script>
+      });
+
+      // Запрещаем контекстное меню на кнопках (чтобы не мешало)
+      document.querySelectorAll('.key').forEach(btn => {
+        btn.addEventListener('contextmenu', (e) => e.preventDefault());
+      });
+
+    })();
+  </script>
 </body>
 </html>
