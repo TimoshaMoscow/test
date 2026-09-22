@@ -1,609 +1,1887 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Кнопочный телефон · Симулятор набора</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      font-family: 'Segoe UI', 'Nokia Pure', 'Arial', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Генератор реквизитов для рекламы</title>
+    <meta name="description" content="Генератор законной маркировки для интернет-рекламы с ERID, пометкой «Реклама» и реквизитами">
+    <meta name="theme-color" content="#0b1a33">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f4fc;
+            --card-bg: #ffffff;
+            --text: #0b1a33;
+            --text-secondary: #4a5a72;
+            --text-light: #7b8ba0;
+            --border: #e2eaf5;
+            --input-bg: #f7faff;
+            --shadow: 0 20px 60px rgba(11, 26, 51, 0.08);
+            --shadow-hover: 0 30px 80px rgba(11, 26, 51, 0.12);
+            --accent: #2a7de1;
+            --accent-light: #e8f0fe;
+            --accent-gradient: linear-gradient(135deg, #2a7de1 0%, #1a5fc7 100%);
+            --success: #27ae60;
+            --success-light: #e8f8ef;
+            --error: #e74c3c;
+            --error-light: #fde8e8;
+            --warning: #f39c12;
+            --warning-light: #fef9e7;
+            --preview-bg: #f8faff;
+            --tag-border: #e8eef6;
+            --badge-bg: #eef3fa;
+            --radius: 24px;
+            --radius-sm: 14px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    body {
-      background: linear-gradient(145deg, #2b2b2b 0%, #1a1a1a 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-light: #6e7681;
+            --border: #30363d;
+            --input-bg: #0d1117;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.6);
+            --accent: #58a6ff;
+            --accent-light: #1c2d4a;
+            --accent-gradient: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+            --success: #3fb950;
+            --success-light: #1a3a2a;
+            --error: #f85149;
+            --error-light: #2d1b1b;
+            --warning: #d29922;
+            --warning-light: #2d2a1a;
+            --preview-bg: #0d1117;
+            --tag-border: #30363d;
+            --badge-bg: #21262d;
+        }
 
-    /* КОРПУС ТЕЛЕФОНА */
-    .phone {
-      background: #3a3a3a;
-      background: linear-gradient(145deg, #3e3e3e, #2c2c2c);
-      width: 340px;
-      padding: 20px 15px 25px;
-      border-radius: 38px;
-      box-shadow: 
-        0 18px 25px rgba(0,0,0,0.7),
-        inset 0 1px 4px rgba(255,255,255,0.2),
-        inset 0 -3px 8px rgba(0,0,0,0.6);
-      border: 1px solid #555;
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            margin: 0;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .card {
+            max-width: 1200px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px 32px 36px;
+            transition: all var(--transition);
+            margin: 4px 0;
+            border: 1px solid var(--border);
+        }
+        .card:hover { box-shadow: var(--shadow-hover); }
 
-    /* ЭКРАН */
-    .screen {
-      background: #b8d4b0; /* старый LCD зеленоватый */
-      background: linear-gradient(145deg, #c0dab6, #a6c29c);
-      border-radius: 16px;
-      padding: 16px 12px 12px;
-      margin-bottom: 20px;
-      box-shadow: 
-        inset 0 0 0 2px #6d7a62,
-        inset 0 6px 10px rgba(0,0,0,0.25),
-        0 2px 4px rgba(0,0,0,0.5);
-      border: 1px solid #7d8a72;
-    }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 44px; height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(42, 125, 225, 0.3);
+        }
+        h1 {
+            font-size: clamp(24px, 3.6vw, 34px);
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        h1 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    .display-text {
-      background: #9fb896;
-      background: linear-gradient(145deg, #b1cba7, #9cb392);
-      border-radius: 8px;
-      padding: 14px 12px;
-      min-height: 80px;
-      font-size: 26px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: #1f3a1a;
-      text-shadow: 0 1px 0 #d0e8c6;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
-      word-break: break-word;
-      display: flex;
-      align-items: center;
-      border: 1px solid #7a8f70;
-      font-family: 'Courier New', 'Nokia Pure', monospace;
-      transition: all 0.1s;
-    }
+        .legal-banner {
+            background: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin: 12px 0 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .legal-banner .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+        .legal-banner strong { color: var(--text); }
+        .legal-banner a { color: var(--accent); text-decoration: none; }
+        .legal-banner a:hover { text-decoration: underline; }
 
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-      font-size: 13px;
-      color: #2b4423;
-      font-weight: 600;
-      text-shadow: 0 1px 0 #bcd6b0;
-      padding: 0 4px;
-    }
+        .subhead {
+            color: var(--text-secondary);
+            font-size: clamp(14px, 1.4vw, 17px);
+            margin: 8px 0 24px 0;
+            padding: 14px 20px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            line-height: 1.6;
+            border: 1px solid transparent;
+            transition: background var(--transition);
+            position: relative;
+        }
+        .subhead::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 4px;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+        .subhead .hotkeys {
+            display: block;
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        .subhead .hotkeys kbd {
+            background: var(--card-bg);
+            padding: 1px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            color: var(--text-secondary);
+        }
 
-    .battery {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+        }
+        .form-group.full { grid-column: 1 / -1; }
 
-    .battery-icon {
-      width: 22px;
-      height: 12px;
-      background: #3d5834;
-      border-radius: 2px;
-      position: relative;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
-    }
+        label {
+            font-weight: 500;
+            font-size: clamp(13px, 1.1vw, 14px);
+            color: var(--text);
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        label small { font-weight: 400; color: var(--text-light); font-size: 12px; }
+        .label-hint {
+            color: var(--text-light);
+            font-weight: 400;
+            font-size: 11px;
+            margin-left: auto;
+            background: var(--badge-bg);
+            padding: 1px 10px;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+        }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
 
-    .battery-icon::after {
-      content: '';
-      position: absolute;
-      right: -4px;
-      top: 3px;
-      width: 3px;
-      height: 6px;
-      background: #3d5834;
-      border-radius: 0 2px 2px 0;
-    }
+        input, select {
+            background: var(--input-bg);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            font-size: clamp(14px, 1.1vw, 15px);
+            transition: all var(--transition);
+            outline: none;
+            color: var(--text);
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            font-family: 'Inter', sans-serif;
+        }
+        input::placeholder { color: var(--text-light); opacity: 0.7; }
+        input:focus, select:focus {
+            border-color: var(--accent);
+            background: var(--card-bg);
+            box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.1);
+        }
+        input.error { border-color: var(--error); background: var(--error-light); }
+        input.error:focus { box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1); }
+        input.valid { border-color: var(--success); }
+        input.valid:focus { box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1); }
 
-    .battery-level {
-      width: 16px;
-      height: 8px;
-      background: #4a7940;
-      border-radius: 1px;
-      margin: 2px;
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
-    }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2365768f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 38px;
+            cursor: pointer;
+        }
+        [data-theme="dark"] select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        }
 
-    /* КЛАВИАТУРА */
-    .keypad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 8px;
-    }
+        .input-status {
+            position: absolute;
+            right: 14px;
+            font-size: 16px;
+            pointer-events: none;
+            opacity: 0;
+            transition: all var(--transition);
+        }
+        .input-status.show { opacity: 1; }
+        .input-status.error-icon { color: var(--error); }
+        .input-status.success-icon { color: var(--success); }
 
-    .key {
-      background: #4a4a4a;
-      background: radial-gradient(circle at 30% 20%, #5e5e5e, #3a3a3a);
-      border: none;
-      border-radius: 18px;
-      padding: 12px 0 10px;
-      color: #ececec;
-      font-size: 28px;
-      font-weight: 700;
-      text-shadow: 0 2px 0 #1f1f1f;
-      box-shadow: 
-        0 6px 0 #1f1f1f,
-        0 8px 8px rgba(0,0,0,0.5),
-        inset 0 1px 3px rgba(255,255,255,0.3);
-      cursor: pointer;
-      transition: all 0.06s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.1;
-      font-family: 'Segoe UI', 'Nokia Pure', sans-serif;
-      letter-spacing: 1px;
-      transform: translateY(-2px);
-    }
+        .validation-message {
+            font-size: 12px;
+            color: var(--error);
+            min-height: 18px;
+            margin-top: 2px;
+            transition: all var(--transition);
+            font-weight: 400;
+        }
 
-    .key:active, .key.pressed {
-      transform: translateY(4px);
-      box-shadow: 
-        0 2px 0 #1f1f1f,
-        0 4px 8px rgba(0,0,0,0.5),
-        inset 0 1px 2px rgba(255,255,255,0.3);
-    }
+        .compliance-check {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            padding: 14px 18px;
+            background: var(--success-light);
+            border-radius: 12px;
+            border: 1px solid var(--success);
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .compliance-check .check-item { display: flex; align-items: center; gap: 6px; }
+        .compliance-check .check-item .status { font-weight: 600; }
+        .compliance-check .check-item .status.pass { color: var(--success); }
+        .compliance-check .check-item .status.fail { color: var(--error); }
 
-    .key .sub {
-      font-size: 12px;
-      font-weight: 400;
-      color: #b0b0b0;
-      letter-spacing: 2px;
-      margin-top: 2px;
-      text-shadow: 0 1px 0 #111;
-      font-family: 'Courier New', monospace;
-    }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .btn {
+            font-family: 'Inter', sans-serif;
+            background: var(--text);
+            color: var(--card-bg);
+            border: none;
+            border-radius: 40px;
+            padding: 11px 26px;
+            font-weight: 600;
+            font-size: clamp(13px, 1vw, 15px);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            flex: 0 1 auto;
+            touch-action: manipulation;
+            letter-spacing: 0.2px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+        .btn:active { transform: scale(0.97); transition-duration: 0.05s; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+        .btn-outline { background: transparent; color: var(--text); box-shadow: none; border: 1.5px solid var(--border); }
+        .btn-outline:hover { background: var(--badge-bg); border-color: var(--accent); box-shadow: none; }
+        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 4px 16px rgba(42, 125, 225, 0.3); }
+        .btn-primary:hover { box-shadow: 0 8px 28px rgba(42, 125, 225, 0.4); transform: translateY(-2px); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3); }
+        .btn-success:hover { box-shadow: 0 8px 28px rgba(39, 174, 96, 0.4); transform: translateY(-2px); }
+        .btn-warning { background: var(--warning); color: white; box-shadow: 0 4px 16px rgba(243, 156, 18, 0.3); }
+        .btn-warning:hover { box-shadow: 0 8px 28px rgba(243, 156, 18, 0.4); transform: translateY(-2px); }
+        .btn-toggle {
+            background: var(--badge-bg);
+            color: var(--text);
+            border: 1.5px solid var(--border);
+            box-shadow: none;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-toggle.active { background: var(--accent-gradient); color: white; border-color: var(--accent); box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25); }
+        .btn-toggle:hover { transform: translateY(-1px); }
+        .btn-toggle.active:hover { box-shadow: 0 8px 28px rgba(42, 125, 225, 0.35); }
+        .btn-sm { padding: 5px 14px; font-size: 12px; border-radius: 30px; }
+        .btn-icon { padding: 11px 14px; font-size: 18px; justify-content: center; }
+        .btn-danger { background: var(--error); color: white; }
+        .btn-danger:hover { background: #c0392b; transform: translateY(-2px); }
 
-    /* СПЕЦИАЛЬНЫЕ КЛАВИШИ (нижний ряд) */
-    .bottom-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-    }
+        .preview-area {
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 2px dashed var(--border);
+            transition: border-color var(--transition);
+        }
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .preview-header h2 {
+            font-size: clamp(18px, 2vw, 22px);
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .badge {
+            background: var(--badge-bg);
+            border-radius: 40px;
+            padding: 6px 20px;
+            font-size: clamp(13px, 1vw, 14px);
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            transition: all var(--transition);
+            border: 1px solid var(--border);
+            font-family: 'Inter', sans-serif;
+        }
+        .badge.success { background: var(--success-light); color: var(--success); border-color: var(--success); }
+        .badge.warning { background: var(--warning-light); color: var(--warning); border-color: var(--warning); }
 
-    .key.small {
-      font-size: 18px;
-      padding: 12px 0 10px;
-      border-radius: 16px;
-      background: radial-gradient(circle at 30% 20%, #5a5a5a, #363636);
-    }
+        .tag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .tag-card {
+            background: var(--preview-bg);
+            border-radius: 18px;
+            padding: 16px 16px 14px;
+            border: 1px solid var(--tag-border);
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .tag-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .tag-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06); border-color: var(--accent); }
+        .tag-card:hover::before { opacity: 1; }
+        .tag-card:active { transform: scale(0.98); }
+        .tag-card .copy-hint {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            font-size: 12px;
+            color: var(--text-light);
+            opacity: 0;
+            transition: all var(--transition);
+            background: var(--card-bg);
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-weight: 500;
+        }
+        .tag-card:hover .copy-hint { opacity: 1; }
+        .tag-card.copied { border-color: var(--success); background: var(--success-light); }
+        .tag-card.copied .copy-hint { color: var(--success); opacity: 1; border-color: var(--success); }
+        .tag-card h3 {
+            font-size: clamp(11px, 0.9vw, 13px);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+        .tag-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--tag-border);
+            font-size: clamp(13px, 1vw, 14px);
+            line-height: 1.7;
+            color: var(--text);
+            word-break: break-word;
+            min-height: 76px;
+            flex: 1;
+            font-family: 'Inter', monospace;
+            white-space: pre-wrap;
+            transition: all var(--transition);
+            font-weight: 400;
+        }
+        .tag-content .disclaimer {
+            display: block;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed var(--warning);
+            color: var(--warning);
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
 
-    .key.small .sub {
-      font-size: 10px;
-      margin-top: 0;
-    }
+        .footer-note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: clamp(12px, 0.9vw, 14px);
+            color: var(--text-secondary);
+        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; transition: background var(--transition); flex-shrink: 0; }
+        .status-dot.green { background: var(--success); }
+        .status-dot.yellow { background: var(--warning); }
+        .status-dot.red { background: var(--error); }
+        .status-group { display: flex; align-items: center; gap: 8px; }
 
-    /* кнопка очистки/удаления */
-    .key.clear {
-      background: radial-gradient(circle at 30% 20%, #6d4b4b, #3d2a2a);
-      color: #ffc9c9;
-    }
+        .history-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            align-items: center;
+        }
+        .history-bar .history-label {
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        .history-search {
+            flex: 1;
+            min-width: 120px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            transition: all var(--transition);
+            outline: none;
+        }
+        .history-search:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
+        }
+        .history-item {
+            background: var(--badge-bg);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: 1px solid transparent;
+            font-weight: 500;
+            white-space: nowrap;
+            max-width: 240px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .history-item:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+        .history-item .del-single {
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: opacity var(--transition);
+            background: none;
+            border: none;
+            color: var(--text);
+            padding: 0 2px;
+        }
+        .history-item .del-single:hover { opacity: 1; }
 
-    .key.clear:active {
-      background: radial-gradient(circle at 30% 20%, #8a5a5a, #4a2e2e);
-    }
+        .history-clear-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 30px;
+            background: var(--error);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+        .history-clear-btn:hover { opacity: 0.8; transform: scale(1.02); }
 
-    /* анимация нажатия */
-    .key.pressed {
-      transition: all 0.05s;
-    }
+        .hidden-field { display: none !important; }
 
-    /* подсказка */
-    .hint {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 11px;
-      color: #aaa;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-weight: 500;
-      opacity: 0.7;
-    }
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text);
+            color: var(--card-bg);
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 14px;
+            z-index: 2000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: toastIn 0.4s ease;
+            max-width: 90%;
+            text-align: center;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            transition: all var(--transition);
+        }
+        [data-theme="dark"] .toast-notification {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+        }
 
-    /* небольшая вибрация (эмуляция) */
-    @keyframes vibrate {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-2px); }
-      50% { transform: translateX(2px); }
-      75% { transform: translateX(-1px); }
-      100% { transform: translateX(0); }
-    }
+        .qr-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        .qr-overlay.active { display: block; }
+        .qr-container {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            z-index: 1001;
+            text-align: center;
+            max-width: 90vw;
+            animation: slideUp 0.4s ease;
+            border: 1px solid var(--border);
+        }
+        .qr-container.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+        .qr-container .close-qr {
+            position: absolute;
+            top: 12px; right: 16px;
+            font-size: 22px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+        .qr-container .close-qr:hover { background: var(--badge-bg); color: var(--text); }
+        .qr-container h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        #qrCanvas {
+            margin: 12px auto;
+            display: block;
+            border-radius: 12px;
+            background: white;
+            padding: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            max-width: 100%;
+            height: auto;
+        }
+        #qrLinkText {
+            font-size: 13px;
+            color: var(--text-secondary);
+            word-break: break-all;
+            margin-top: 4px;
+            font-family: 'Inter', monospace;
+        }
 
-    .phone.vibrate {
-      animation: vibrate 0.1s ease;
-    }
+        .template-settings {
+            margin-top: 16px;
+            padding: 14px 18px;
+            background: var(--badge-bg);
+            border-radius: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+        .template-settings label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            gap: 4px;
+        }
+        .template-settings input {
+            flex: 1;
+            min-width: 180px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 13px;
+            font-family: 'Inter', monospace;
+            transition: all var(--transition);
+            outline: none;
+        }
+        .template-settings input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
+        }
+        .template-settings small { color: var(--text-light); font-size: 12px; }
 
-    /* адаптив */
-    @media (max-width: 380px) {
-      .phone { width: 300px; padding: 15px 10px 20px; }
-      .key { font-size: 24px; padding: 10px 0 8px; }
-      .key .sub { font-size: 10px; }
-      .display-text { font-size: 22px; min-height: 70px; }
-    }
-  </style>
+        .stats {
+            display: none;
+            gap: 12px 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: var(--badge-bg);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+        .stats.show { display: flex; }
+        .stats span { display: flex; align-items: center; gap: 6px; }
+        .stats b { color: var(--text); font-weight: 600; }
+
+        @media (max-width: 820px) {
+            .card { padding: 20px 16px 24px; border-radius: 20px; }
+            .form-grid { gap: 14px 16px; }
+            .tag-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            body { padding: 10px; }
+            .card { padding: 16px 12px 20px; border-radius: 16px; margin: 0; }
+            .form-grid { grid-template-columns: 1fr; gap: 12px; }
+            .form-group.full { grid-column: 1; }
+            .tag-grid { grid-template-columns: 1fr; gap: 12px; }
+            .actions { justify-content: stretch; }
+            .btn { flex: 1 1 auto; justify-content: center; padding: 12px 16px; min-width: 100px; }
+            .btn-sm { flex: 0 1 auto; padding: 5px 12px; }
+            .preview-header { flex-direction: column; align-items: flex-start; }
+            input, select { padding: 11px 14px; font-size: 16px; }
+            .label-hint { display: none; }
+            .header { flex-direction: column; align-items: stretch; gap: 8px; }
+            .header-actions { justify-content: stretch; }
+            .header-actions .btn { flex: 1; justify-content: center; }
+            .logo { justify-content: center; }
+            .template-settings { flex-direction: column; align-items: stretch; }
+            .template-settings input { min-width: auto; }
+            .history-item { max-width: 140px; font-size: 11px; }
+            .subhead { padding: 12px 16px; }
+            .qr-container { padding: 20px; width: 90vw; }
+            .stats { flex-direction: column; gap: 6px; }
+            .legal-banner { flex-direction: column; gap: 4px; }
+            .compliance-check { flex-direction: column; gap: 6px; }
+        }
+        @media (min-width: 1200px) {
+            .card { padding: 40px 44px 44px; }
+            .form-grid { gap: 20px 32px; }
+            .tag-grid { gap: 20px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
+    </style>
 </head>
 <body>
-  <div class="phone" id="phone">
-    <!-- ЭКРАН -->
-    <div class="screen">
-      <div class="display-text" id="display">Привет</div>
-      <div class="status-bar">
-        <span>📶 MTS</span>
-        <div class="battery">
-          <span>🔋</span>
-          <div class="battery-icon">
-            <div class="battery-level"></div>
-          </div>
+
+<div class="qr-overlay" id="qrOverlay"></div>
+<div class="qr-container" id="qrContainer">
+    <button class="close-qr" id="closeQr">✕</button>
+    <h3>🔗 QR-код для ссылки с ERID</h3>
+    <canvas id="qrCanvas" width="220" height="220"></canvas>
+    <p id="qrLinkText"></p>
+    <button class="btn btn-primary btn-sm" id="qrCopyBtn" style="margin-top:8px;">📋 Копировать ссылку</button>
+</div>
+
+<div class="card" id="app">
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">⚖️</div>
+            <h1>Законная <span>реклама</span></h1>
         </div>
-      </div>
+        <div class="header-actions">
+            <button class="btn btn-outline btn-sm btn-icon" id="themeToggle" title="Тёмная тема">🌙</button>
+            <button class="btn btn-outline btn-sm" id="statsToggle">📊</button>
+        </div>
     </div>
 
-    <!-- КЛАВИАТУРА (3x4) -->
-    <div class="keypad">
-      <!-- 1 -->
-      <button class="key" data-key="1" data-letters=".,?!1">
-        <span>1</span>
-        <span class="sub">.,?!</span>
-      </button>
-      <!-- 2 -->
-      <button class="key" data-key="2" data-letters="абвг2">
-        <span>2</span>
-        <span class="sub">абвг</span>
-      </button>
-      <!-- 3 -->
-      <button class="key" data-key="3" data-letters="дежз3">
-        <span>3</span>
-        <span class="sub">дежз</span>
-      </button>
-      <!-- 4 -->
-      <button class="key" data-key="4" data-letters="ийкл4">
-        <span>4</span>
-        <span class="sub">ийкл</span>
-      </button>
-      <!-- 5 -->
-      <button class="key" data-key="5" data-letters="мноп5">
-        <span>5</span>
-        <span class="sub">мноп</span>
-      </button>
-      <!-- 6 -->
-      <button class="key" data-key="6" data-letters="рсту6">
-        <span>6</span>
-        <span class="sub">рсту</span>
-      </button>
-      <!-- 7 -->
-      <button class="key" data-key="7" data-letters="фхцч7">
-        <span>7</span>
-        <span class="sub">фхцч</span>
-      </button>
-      <!-- 8 -->
-      <button class="key" data-key="8" data-letters="шщъы8">
-        <span>8</span>
-        <span class="sub">шщъы</span>
-      </button>
-      <!-- 9 -->
-      <button class="key" data-key="9" data-letters="ьэюя9">
-        <span>9</span>
-        <span class="sub">ьэюя</span>
-      </button>
+    <div class="legal-banner">
+        <span class="icon">⚖️</span>
+        <div>
+            <strong>Соответствует 38-ФЗ «О рекламе»</strong><br>
+            Все сгенерированные материалы содержат обязательную пометку <strong>«Реклама»</strong>, информацию о рекламодателе и идентификатор <strong>ERID</strong>.
+            Для легального размещения рекламы необходимо получить токен через <a href="#" onclick="showORDInfo(); return false;">оператора рекламных данных (ОРД)</a>.
+            <span style="display:block;font-size:12px;margin-top:2px;color:var(--text-light);">Штрафы за отсутствие маркировки: до 500 000 ₽ для юрлиц</span>
+        </div>
     </div>
 
-    <!-- НИЖНИЙ РЯД: *, 0, # -->
-    <div class="bottom-row">
-      <button class="key small" data-key="*" data-letters="*+">
-        <span>*</span>
-        <span class="sub">+</span>
-      </button>
-      <button class="key small" data-key="0" data-letters=" 0">
-        <span>0</span>
-        <span class="sub">␣</span>
-      </button>
-      <button class="key small" data-key="#" data-letters="#">
-        <span>#</span>
-        <span class="sub">⇧</span>
-      </button>
+    <div class="subhead">
+        Введите название (для ИП/Самозанятого — ФИО), остальное сгенерируется автоматически.
+        <span class="hotkeys">
+            ⌨️ <kbd>Ctrl+S</kbd> сохранить · <kbd>Ctrl+Enter</kbd> сгенерировать · клик по карточке — копирование
+        </span>
     </div>
 
-    <!-- ДОПОЛНИТЕЛЬНЫЕ КНОПКИ (удаление, сброс) -->
-    <div class="bottom-row" style="margin-top: 12px; grid-template-columns: 1fr 1fr;">
-      <button class="key small clear" id="backspaceBtn">
-        <span>⌫</span>
-        <span class="sub">удалить</span>
-      </button>
-      <button class="key small clear" id="resetBtn">
-        <span>✕</span>
-        <span class="sub">сброс</span>
-      </button>
+    <div class="stats" id="statsPanel">
+        <span>📊 Сгенерировано: <b id="genCount">0</b></span>
+        <span>💾 Сохранений: <b id="saveCount">0</b></span>
+        <span>⏱️ Последняя: <b id="lastGen">—</b></span>
+        <span>📂 В истории: <b id="historyCount">0</b></span>
     </div>
 
-    <div class="hint">T9 · Нажимай многократно</div>
-  </div>
+    <form id="businessForm" class="form-grid" novalidate>
+        <div class="form-group">
+            <label for="businessType">Организационно-правовая форма</label>
+            <select id="businessType">
+                <option value="ИП">ИП (Индивидуальный предприниматель)</option>
+                <option value="ООО" selected>ООО (Общество с ограниченной ответственностью)</option>
+                <option value="АО">АО (Акционерное общество)</option>
+                <option value="ПАО">ПАО (Публичное акционерное общество)</option>
+                <option value="Самозанятый">Самозанятый (Налог на профессиональный доход)</option>
+            </select>
+        </div>
 
-  <script>
-    (function(){
-      // ---------- ДАННЫЕ ----------
-      // Соответствие цифр и символов (циклический перебор)
-      const keyMap = {
-        '1': ['.', ',', '?', '!', '1'],
-        '2': ['а', 'б', 'в', 'г', '2'],
-        '3': ['д', 'е', 'ж', 'з', '3'],
-        '4': ['и', 'й', 'к', 'л', '4'],
-        '5': ['м', 'н', 'о', 'п', '5'],
-        '6': ['р', 'с', 'т', 'у', '6'],
-        '7': ['ф', 'х', 'ц', 'ч', '7'],
-        '8': ['ш', 'щ', 'ъ', 'ы', '8'],
-        '9': ['ь', 'э', 'ю', 'я', '9'],
-        '*': ['*', '+'],
-        '0': [' ', '0'],
-        '#': ['#']
-      };
+        <div class="form-group">
+            <label>Авто-генерация</label>
+            <button type="button" class="btn btn-toggle active" id="autoGenToggle" style="width:100%;justify-content:center;">
+                🔄 Включено
+            </button>
+            <small style="color:var(--text-light);font-size:12px;">При вводе названия поля заполняются автоматически</small>
+        </div>
 
-      // Текущий текст (изначально "Привет" для примера)
-      let currentText = 'Привет';
-      
-      // Состояние для многократного нажатия:
-      let lastKey = null;          // какая клавиша была нажата последней
-      let pressCount = 0;         // сколько раз подряд нажата
-      let lastIndex = 0;          // текущий индекс в массиве символов (для быстрого доступа)
-      let lastChar = '';          // последний добавленный символ (для замены)
+        <div class="form-group">
+            <label>Тестовые данные</label>
+            <button type="button" class="btn btn-toggle" id="testDataToggle" style="width:100%;justify-content:center;">
+                ⚠️ Выключено
+            </button>
+            <small style="color:var(--text-light);font-size:12px;">Добавляет дисклеймер при копировании/сохранении</small>
+        </div>
 
-      // Таймер для сброса счетчика (если долго не жмут)
-      let resetTimer = null;
-      const RESET_TIMEOUT = 1000; // 1 секунда — сбрасываем счетчик
+        <div class="form-group">
+            <label for="orgName">Название / ФИО <small>без кавычек</small></label>
+            <div class="input-wrapper">
+                <input type="text" id="orgName" placeholder="Например: Ромашка или Иванов И.И." value="ТехноСтарт" maxlength="100" autofocus>
+                <span class="input-status" id="orgNameStatus"></span>
+            </div>
+            <div class="validation-message" id="orgNameValidation"></div>
+        </div>
 
-      // DOM элементы
-      const displayEl = document.getElementById('display');
-      const phoneEl = document.getElementById('phone');
-      const backspaceBtn = document.getElementById('backspaceBtn');
-      const resetBtn = document.getElementById('resetBtn');
+        <div class="form-group">
+            <label for="inn">ИНН <span class="label-hint">10 или 12 цифр</span></label>
+            <div class="input-wrapper">
+                <input type="text" id="inn" placeholder="Введите ИНН" value="770812345678">
+                <span class="input-status" id="innStatus"></span>
+            </div>
+            <div class="validation-message" id="innValidation"></div>
+        </div>
 
-      // ---------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------
-      function updateDisplay() {
-        displayEl.textContent = currentText;
-        // небольшой эффект мигания при обновлении (опционально)
-        displayEl.style.transition = 'none';
-        displayEl.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-          displayEl.style.transition = 'all 0.1s';
-          displayEl.style.transform = 'scale(1)';
-        }, 20);
-      }
+        <div class="form-group" id="kppGroup">
+            <label for="kpp">КПП <small>для ООО/АО/ПАО</small> <span class="label-hint">9 цифр</span></label>
+            <div class="input-wrapper">
+                <input type="text" id="kpp" placeholder="9 цифр" value="770801001">
+                <span class="input-status" id="kppStatus"></span>
+            </div>
+            <div class="validation-message" id="kppValidation"></div>
+        </div>
 
-      // Визуальная вибрация корпуса (симуляция)
-      function vibratePhone() {
-        phoneEl.classList.add('vibrate');
-        setTimeout(() => {
-          phoneEl.classList.remove('vibrate');
-        }, 100);
-      }
+        <div class="form-group">
+            <label for="ogrn">ОГРН / ОГРНИП <span class="label-hint">13 или 15 цифр</span></label>
+            <div class="input-wrapper">
+                <input type="text" id="ogrn" placeholder="Введите ОГРН" value="1234567890123">
+                <span class="input-status" id="ogrnStatus"></span>
+            </div>
+            <div class="validation-message" id="ogrnValidation"></div>
+        </div>
 
-      // Сброс состояния многократного нажатия
-      function resetPressState() {
-        lastKey = null;
-        pressCount = 0;
-        lastIndex = 0;
-        lastChar = '';
-        if (resetTimer) {
-          clearTimeout(resetTimer);
-          resetTimer = null;
+        <div class="form-group">
+            <label for="erid">ERID <span class="label-hint">токен от ОРД</span></label>
+            <div class="input-wrapper">
+                <input type="text" id="erid" placeholder="Например: 4CQwVszH9pW7" value="4CQwVszH9pW7">
+                <span class="input-status" id="eridStatus"></span>
+            </div>
+            <div class="validation-message" id="eridValidation"></div>
+        </div>
+
+        <div class="form-group full">
+            <label for="address">Юридический адрес</label>
+            <div class="input-wrapper">
+                <input type="text" id="address" placeholder="г. Москва, ул. Тверская, д. 1" value="г. Москва, ул. Тверская, д. 1, оф. 5">
+                <span class="input-status" id="addressStatus"></span>
+            </div>
+            <div class="validation-message" id="addressValidation"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Телефон</label>
+            <div class="input-wrapper">
+                <input type="text" id="phone" placeholder="+7 (495) 123-45-67" value="+7 (495) 777-88-99">
+                <span class="input-status" id="phoneStatus"></span>
+            </div>
+            <div class="validation-message" id="phoneValidation"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+                <input type="text" id="email" placeholder="info@company.ru" value="info@techstart.ru">
+                <span class="input-status" id="emailStatus"></span>
+            </div>
+            <div class="validation-message" id="emailValidation"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="website">Сайт <span class="label-hint">для ссылки с ERID</span></label>
+            <div class="input-wrapper">
+                <input type="text" id="website" placeholder="https://ваш-сайт.ru" value="https://techstart.ru">
+                <span class="input-status" id="websiteStatus"></span>
+            </div>
+            <div class="validation-message" id="websiteValidation"></div>
+        </div>
+    </form>
+
+    <div class="compliance-check" id="complianceCheck">
+        <div class="check-item">🔍 <span class="status pass" id="checkAdMark">✓</span> Пометка «Реклама»</div>
+        <div class="check-item">🏢 <span class="status pass" id="checkAdvertiser">✓</span> Рекламодатель указан</div>
+        <div class="check-item">🔑 <span class="status pass" id="checkErid">✓</span> ERID присутствует</div>
+        <div class="check-item">📋 <span class="status pass" id="checkInn">✓</span> ИНН указан</div>
+    </div>
+
+    <div class="template-settings">
+        <label>📝 Шаблон метки:</label>
+        <input type="text" id="adTemplate" value="Реклама. {org}, ИНН {inn}. erid: {erid}">
+        <small>{org} {inn} {erid}</small>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" id="generateBtn">✨ Сгенерировать</button>
+        <button class="btn btn-success" id="saveBtn">💾 Сохранить</button>
+        <button class="btn btn-outline" id="resetBtn">↺ Сбросить</button>
+        <button class="btn btn-outline" id="exportBtn">📥 Экспорт</button>
+        <button class="btn btn-outline" id="qrBtn">📱 QR</button>
+        <button class="btn btn-warning" id="ordInfoBtn">📋 Как получить ERID?</button>
+    </div>
+
+    <div class="preview-area">
+        <div class="preview-header">
+            <h2><span style="font-size:24px;">⚖️</span> Готовая маркировка</h2>
+            <span class="badge success" id="currentTypeBadge">ООО</span>
+        </div>
+
+        <div class="tag-grid">
+            <div class="tag-card" data-copy="previewAd">
+                <h3>📢 Рекламная метка <span class="copy-hint">📋 копировать</span></h3>
+                <div class="tag-content" id="previewAd">Заполните форму</div>
+            </div>
+            <div class="tag-card" data-copy="previewLink">
+                <h3>🔗 Ссылка с ERID <span class="copy-hint">📋 копировать</span></h3>
+                <div class="tag-content" id="previewLink">https://ваш-сайт.ru/?erid=ВашТокен</div>
+            </div>
+            <div class="tag-card" data-copy="previewVideo">
+                <h3>🎬 Для видео / Сторис <span class="copy-hint">📋 копировать</span></h3>
+                <div class="tag-content" id="previewVideo">Реклама. erid: ВашТокен</div>
+            </div>
+            <div class="tag-card" data-copy="previewDocs">
+                <h3>📄 Документы <span class="copy-hint">📋 копировать</span></h3>
+                <div class="tag-content" id="previewDocs">Заполните форму</div>
+            </div>
+            <div class="tag-card" data-copy="previewGoods">
+                <h3>📦 Товары / этикетка <span class="copy-hint">📋 копировать</span></h3>
+                <div class="tag-content" id="previewGoods">Заполните форму</div>
+            </div>
+            <div class="tag-card" data-copy="previewOther">
+                <h3>📱 Визитка / соцсети <span class="copy-hint">📋 копировать</span></h3>
+                <div class="tag-content" id="previewOther">Заполните форму</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span id="updateStatus">✅ Все поля валидны</span>
+            <div class="status-group">
+                <span class="status-dot green" id="statusDot"></span>
+                <span id="fieldCount">0/9 заполнено</span>
+            </div>
+        </div>
+
+        <div class="history-bar" id="historyBar">
+            <span class="history-label">📂 История:</span>
+            <input type="text" class="history-search" id="historySearch" placeholder="🔍 Поиск...">
+            <button class="history-clear-btn" id="clearHistoryBtn">🗑️ Очистить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ===== DOM =====
+        const typeSelect = document.getElementById('businessType');
+        const orgNameInput = document.getElementById('orgName');
+        const innInput = document.getElementById('inn');
+        const kppInput = document.getElementById('kpp');
+        const ogrnInput = document.getElementById('ogrn');
+        const eridInput = document.getElementById('erid');
+        const addressInput = document.getElementById('address');
+        const phoneInput = document.getElementById('phone');
+        const emailInput = document.getElementById('email');
+        const websiteInput = document.getElementById('website');
+        const adTemplateInput = document.getElementById('adTemplate');
+
+        const previewAd = document.getElementById('previewAd');
+        const previewLink = document.getElementById('previewLink');
+        const previewVideo = document.getElementById('previewVideo');
+        const previewDocs = document.getElementById('previewDocs');
+        const previewGoods = document.getElementById('previewGoods');
+        const previewOther = document.getElementById('previewOther');
+        const currentTypeBadge = document.getElementById('currentTypeBadge');
+        const kppGroup = document.getElementById('kppGroup');
+        const fieldCount = document.getElementById('fieldCount');
+        const updateStatus = document.getElementById('updateStatus');
+        const statusDot = document.getElementById('statusDot');
+        const historyBar = document.getElementById('historyBar');
+        const historySearch = document.getElementById('historySearch');
+        const autoGenToggle = document.getElementById('autoGenToggle');
+        const testDataToggle = document.getElementById('testDataToggle');
+        const themeToggle = document.getElementById('themeToggle');
+        const statsToggle = document.getElementById('statsToggle');
+        const statsPanel = document.getElementById('statsPanel');
+        const genCount = document.getElementById('genCount');
+        const saveCount = document.getElementById('saveCount');
+        const historyCount = document.getElementById('historyCount');
+        const lastGen = document.getElementById('lastGen');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        const qrBtn = document.getElementById('qrBtn');
+        const qrContainer = document.getElementById('qrContainer');
+        const qrOverlay = document.getElementById('qrOverlay');
+        const closeQr = document.getElementById('closeQr');
+        const qrCanvas = document.getElementById('qrCanvas');
+        const qrLinkText = document.getElementById('qrLinkText');
+        const qrCopyBtn = document.getElementById('qrCopyBtn');
+        const ordInfoBtn = document.getElementById('ordInfoBtn');
+
+        const generateBtn = document.getElementById('generateBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const exportBtn = document.getElementById('exportBtn');
+
+        const checkAdMark = document.getElementById('checkAdMark');
+        const checkAdvertiser = document.getElementById('checkAdvertiser');
+        const checkErid = document.getElementById('checkErid');
+        const checkInn = document.getElementById('checkInn');
+
+        // ===== Состояние =====
+        let autoGenEnabled = true;
+        let testDataEnabled = false;
+        let isGeneratingFromName = false;
+        let generationCount = parseInt(localStorage.getItem('genCount') || '0');
+
+        // ===== Темная тема =====
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', next);
         }
-      }
 
-      // Запуск таймера сброса (сбрасывает счетчик через RESET_TIMEOUT)
-      function restartResetTimer() {
-        if (resetTimer) clearTimeout(resetTimer);
-        resetTimer = setTimeout(() => {
-          // по истечении времени просто сбрасываем состояние,
-          // но символ уже вставлен, ничего не удаляем
-          resetPressState();
-        }, RESET_TIMEOUT);
-      }
-
-      // ---------- ЛОГИКА ВВОДА ----------
-      function handleKeyPress(key) {
-        // Если нажата другая клавиша — сбрасываем счетчик
-        if (lastKey !== key) {
-          resetPressState();
-          lastKey = key;
-          pressCount = 0;
+        // ===== ORD Info =====
+        function showORDInfo() {
+            const ordList = [
+                'Яндекс (бесплатно для своих площадок)',
+                'VK (бесплатно для своих площадок)',
+                'Озон',
+                'Сбер',
+                'МТС',
+                'Амбердата',
+                'Вымпелком (Билайн)'
+            ];
+            const msg = '🔑 Как получить ERID:\n\n' +
+                '1. Выберите оператора рекламных данных (ОРД) из списка:\n' +
+                ordList.map((o, i) => `   ${i+1}. ${o}`).join('\n') +
+                '\n\n2. Зарегистрируйтесь в личном кабинете ОРД\n' +
+                '3. Передайте данные о рекламе: договор, креатив, площадку\n' +
+                '4. Получите уникальный токен ERID\n' +
+                '5. Добавьте токен в рекламный материал\n' +
+                '6. Передавайте ежемесячную отчётность в ЕРИР\n\n' +
+                '⚠️ Штрафы за отсутствие маркировки:\n' +
+                '• Физлица: до 100 000 ₽\n' +
+                '• Юрлица: до 500 000 ₽ ';
+            alert(msg);
         }
 
-        // Спецсимволы: * и # не имеют многократного ввода, но обрабатываем как обычно
-        // (но для * и # массив короткий, всё равно работает)
-        const chars = keyMap[key];
-        if (!chars) return;
-
-        // Увеличиваем счетчик нажатий
-        pressCount++;
-
-        // Если превысили длину массива — начинаем сначала (циклично)
-        if (pressCount > chars.length) {
-          pressCount = 1;
+        // ===== Форматирование названия =====
+        function formatBusinessName(cleanName, type) {
+            const trimmed = cleanName.trim();
+            if (!trimmed) return '';
+            if (type === 'ИП') return `ИП ${trimmed}`;
+            if (type === 'Самозанятый') return `Самозанятый ${trimmed}`;
+            const typeMap = { 'ООО': 'ООО', 'АО': 'АО', 'ПАО': 'ПАО' };
+            const typeLabel = typeMap[type] || type;
+            const name = trimmed.replace(/^["«]|["»]$/g, '');
+            return `${typeLabel} «${name}»`;
         }
 
-        // Определяем индекс символа (pressCount - 1)
-        const charIndex = pressCount - 1;
-        const newChar = chars[charIndex];
-
-        // ----- ЛОГИКА ЗАМЕНЫ -----
-        // Если мы в процессе многократного нажатия одной и той же клавиши
-        // и уже добавляли символ от этой клавиши, то нужно заменить последний символ.
-        if (lastChar !== '' && lastKey === key && pressCount > 1) {
-          // Удаляем последний символ (который был добавлен предыдущим нажатием)
-          if (currentText.length > 0) {
-            // Проверяем, что последний символ в тексте действительно lastChar
-            // (на случай ручного удаления, но мы контролируем)
-            if (currentText.endsWith(lastChar)) {
-              currentText = currentText.slice(0, -lastChar.length);
-            } else {
-              // Если что-то пошло не так — просто удалим последний символ
-              currentText = currentText.slice(0, -1);
+        function getCleanName() {
+            let name = orgNameInput.value.trim();
+            name = name.replace(/^["«]|["»]$/g, '');
+            const prefixes = ['ООО', 'АО', 'ПАО', 'ИП', 'Самозанятый', 'ООО_доп'];
+            for (let p of prefixes) {
+                if (name.startsWith(p + ' ')) {
+                    name = name.slice(p.length + 1);
+                    break;
+                }
+                if (name.startsWith(p + ' «')) {
+                    name = name.slice(p.length + 2);
+                    name = name.replace(/["»]$/g, '');
+                    break;
+                }
+                if (name.startsWith(p + ' "')) {
+                    name = name.slice(p.length + 2);
+                    name = name.replace(/["]$/g, '');
+                    break;
+                }
             }
-          }
-          // Теперь добавляем новый символ
-          currentText += newChar;
-        } else {
-          // Обычное добавление (первое нажатие или другая клавиша)
-          // Но если lastChar не пуст и клавиша та же, но pressCount == 1 (после сброса)
-          // или другая клавиша — просто добавляем
-          currentText += newChar;
+            return name.trim();
         }
 
-        // Обновляем lastChar для следующего нажатия
-        lastChar = newChar;
-        lastIndex = charIndex;
+        // ===== Шаблоны =====
+        const scenarios = {
+            'ИП': {
+                cafe: { cleanName: 'Кофе&Уют', inn: '123456789012', kpp: '', ogrn: '123456789012345', erid: '4CQwVszH9pW8', address: 'г. Санкт-Петербург, Невский пр., д. 10', phone: '+7 (812) 234-56-78', email: 'coffee@yandex.ru', website: 'https://coffee-uyut.ru' },
+                beauty: { cleanName: 'Красота&Стиль', inn: '123456789015', kpp: '', ogrn: '123456789012348', erid: '4CQwVszH9pX5', address: 'г. Ростов-на-Дону, ул. Большая Садовая, д. 12', phone: '+7 (863) 234-56-78', email: 'beauty@mail.ru', website: 'https://beauty-style.ru' }
+            },
+            'ООО': {
+                shop: { cleanName: 'МаркетПлюс', inn: '770812345679', kpp: '770802002', ogrn: '1234567890124', erid: '4CQwVszH9pX0', address: 'г. Екатеринбург, ул. Ленина, д. 5', phone: '+7 (343) 345-67-89', email: 'shop@marketplus.ru', website: 'https://marketplus.ru' },
+                agency: { cleanName: 'ПромоСтарт', inn: '770812345680', kpp: '770803003', ogrn: '1234567890125', erid: '4CQwVszH9pX1', address: 'г. Новосибирск, Красный пр., д. 20', phone: '+7 (383) 567-89-01', email: 'promo@promostart.ru', website: 'https://promostart.ru' },
+                restaurant: { cleanName: 'ГурманЭкспресс', inn: '770812345681', kpp: '770804004', ogrn: '1234567890126', erid: '4CQwVszH9pX3', address: 'г. Сочи, ул. Набережная, д. 30', phone: '+7 (862) 789-01-23', email: 'gourmet@mail.ru', website: 'https://gourmet-express.ru' },
+                itcompany: { cleanName: 'ТехноКод', inn: '770812345682', kpp: '770805005', ogrn: '1234567890127', erid: '4CQwVszH9pX4', address: 'г. Москва, ул. Новый Арбат, д. 15', phone: '+7 (495) 123-45-67', email: 'info@techcode.ru', website: 'https://techcode.ru' },
+                auto: { cleanName: 'АвтоПремьер', inn: '770812345683', kpp: '770806006', ogrn: '1234567890128', erid: '4CQwVszH9pX6', address: 'г. Нижний Новгород, пр. Ленина, д. 50', phone: '+7 (831) 456-78-90', email: 'auto@premier.ru', website: 'https://autopremier.ru' }
+            },
+            'АО': {
+                bank: { cleanName: 'ГлобалБанк', inn: '770812345678', kpp: '770801001', ogrn: '1234567890123', erid: '4CQwVszH9pW7', address: 'г. Москва, ул. Тверская, д. 1, стр. 2', phone: '+7 (495) 200-50-50', email: 'info@globalbank.ru', website: 'https://globalbank.ru' }
+            },
+            'ПАО': {
+                bank: { cleanName: 'ГлобалБанк', inn: '770812345678', kpp: '770801001', ogrn: '1234567890123', erid: '4CQwVszH9pW7', address: 'г. Москва, ул. Тверская, д. 1, стр. 2', phone: '+7 (495) 200-50-50', email: 'info@globalbank.ru', website: 'https://globalbank.ru' }
+            },
+            'Самозанятый': {
+                donate: { cleanName: 'Петров Петр Петрович', inn: '123456789013', kpp: '', ogrn: '123456789012346', erid: '4CQwVszH9pW9', address: 'г. Казань, ул. Баумана, д. 15', phone: '+7 (843) 456-78-90', email: 'petrov@mail.ru', website: 'https://donate-petrov.ru' },
+                freelance: { cleanName: 'Сидоров Сидор Сидорович', inn: '123456789014', kpp: '', ogrn: '123456789012347', erid: '4CQwVszH9pX2', address: 'г. Краснодар, ул. Красная, д. 25', phone: '+7 (861) 678-90-12', email: 'sidorov@google.com', website: 'https://sidorov.design' }
+            }
+        };
 
-        // Обновляем дисплей
-        updateDisplay();
-        vibratePhone();
-
-        // Перезапускаем таймер сброса
-        restartResetTimer();
-      }
-
-      // ---------- УДАЛЕНИЕ ПОСЛЕДНЕГО СИМВОЛА (BACKSPACE) ----------
-      function handleBackspace() {
-        if (currentText.length > 0) {
-          currentText = currentText.slice(0, -1);
-          updateDisplay();
-          vibratePhone();
+        function getRandomScenario(type) {
+            const typeScenarios = scenarios[type];
+            if (!typeScenarios) return null;
+            const keys = Object.keys(typeScenarios);
+            return typeScenarios[keys[Math.floor(Math.random() * keys.length)]];
         }
-        // Сбрасываем состояние многократного нажатия, чтобы не путаться
-        resetPressState();
-      }
 
-      // ---------- ПОЛНЫЙ СБРОС ----------
-      function handleReset() {
-        currentText = '';
-        updateDisplay();
-        vibratePhone();
-        resetPressState();
-      }
-
-      // ---------- НАЗНАЧЕНИЕ ОБРАБОТЧИКОВ НА КЛАВИШИ ----------
-      const keys = document.querySelectorAll('.key[data-key]');
-      keys.forEach(btn => {
-        // Убираем data-key из backspace/reset, у них нет data-key
-        const key = btn.getAttribute('data-key');
-        if (!key) return;
-
-        // Обработчик нажатия
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          handleKeyPress(key);
-        });
-
-        // Для предотвращения двойного срабатывания на тач-устройствах
-        btn.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          // эмуляция нажатия для визуала
-          btn.classList.add('pressed');
-          setTimeout(() => btn.classList.remove('pressed'), 100);
-          handleKeyPress(key);
-        }, { passive: false });
-      });
-
-      // Обработчик backspace
-      backspaceBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        handleBackspace();
-      });
-      backspaceBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        backspaceBtn.classList.add('pressed');
-        setTimeout(() => backspaceBtn.classList.remove('pressed'), 100);
-        handleBackspace();
-      }, { passive: false });
-
-      // Обработчик reset
-      resetBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        handleReset();
-      });
-      resetBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        resetBtn.classList.add('pressed');
-        setTimeout(() => resetBtn.classList.remove('pressed'), 100);
-        handleReset();
-      }, { passive: false });
-
-      // Добавляем визуальное нажатие для всех кнопок (включая backspace/reset)
-      document.querySelectorAll('.key').forEach(btn => {
-        btn.addEventListener('mousedown', () => {
-          btn.classList.add('pressed');
-        });
-        btn.addEventListener('mouseup', () => {
-          btn.classList.remove('pressed');
-        });
-        btn.addEventListener('mouseleave', () => {
-          btn.classList.remove('pressed');
-        });
-        // Для тач-устройств, чтобы не залипало
-        btn.addEventListener('touchend', () => {
-          setTimeout(() => btn.classList.remove('pressed'), 100);
-        });
-      });
-
-      // ---------- ИНИЦИАЛИЗАЦИЯ ----------
-      // Показываем начальный текст "Привет"
-      updateDisplay();
-      resetPressState();
-
-      // Сброс счетчика при клике в любом другом месте (не обязательно, но полезно)
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.key')) {
-          // Не сбрасываем агрессивно, просто оставляем таймер
+        // ===== Генерация случайных данных =====
+        function generateDataFromName(name, type) {
+            if (!name || name.trim().length < 2) return null;
+            let cleanName = name.replace(/[^a-zA-Zа-яА-Я0-9]/g, '').toLowerCase();
+            if (cleanName.length < 2) cleanName = 'company';
+            
+            let innLength = (type === 'ИП' || type === 'Самозанятый') ? 12 : 10;
+            let inn = '';
+            for (let i = 0; i < innLength; i++) inn += Math.floor(Math.random() * 9) + 1;
+            
+            let kpp = '';
+            const noKpp = ['ИП', 'Самозанятый'];
+            if (!noKpp.includes(type)) {
+                for (let i = 0; i < 9; i++) kpp += Math.floor(Math.random() * 9) + 1;
+            }
+            
+            let ogrnLength = (type === 'ИП' || type === 'Самозанятый') ? 15 : 13;
+            let ogrn = '';
+            for (let i = 0; i < ogrnLength; i++) ogrn += Math.floor(Math.random() * 9) + 1;
+            
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let erid = '4CQwVszH';
+            for (let i = 0; i < 8; i++) erid += chars[Math.floor(Math.random() * chars.length)];
+            
+            const cities = ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Омск', 'Самара', 'Ростов-на-Дону'];
+            const streets = ['Ленина', 'Пушкина', 'Тверская', 'Невский пр.', 'Красная', 'Баумана', 'Мира', 'Советская', 'Гагарина', 'Кирова'];
+            const city = cities[Math.floor(Math.random() * cities.length)];
+            const street = streets[Math.floor(Math.random() * streets.length)];
+            const house = Math.floor(Math.random() * 50) + 1;
+            const building = Math.random() > 0.5 ? `, стр. ${Math.floor(Math.random() * 10) + 1}` : '';
+            const office = Math.random() > 0.5 ? `, оф. ${Math.floor(Math.random() * 100) + 1}` : '';
+            const address = `г. ${city}, ул. ${street}, д. ${house}${building}${office}`;
+            
+            const phoneCodes = ['495', '812', '343', '383', '843', '831', '351', '381', '846', '863'];
+            const code = phoneCodes[Math.floor(Math.random() * phoneCodes.length)];
+            const num1 = Math.floor(Math.random() * 900) + 100;
+            const num2 = Math.floor(Math.random() * 90) + 10;
+            const num3 = Math.floor(Math.random() * 90) + 10;
+            const phone = `+7 (${code}) ${num1}-${num2}-${num3}`;
+            
+            const translit = {'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'};
+            let translitName = cleanName;
+            for (let [rus, lat] of Object.entries(translit)) translitName = translitName.replace(new RegExp(rus, 'g'), lat);
+            let emailName = translitName.replace(/[0-9]/g, '');
+            if (emailName.length < 3) emailName = 'info';
+            if (emailName.length > 20) emailName = emailName.slice(0, 20);
+            const domains = ['yandex.ru', 'mail.ru', 'google.com', 'gmail.com', 'yahoo.com', 'bk.ru', 'inbox.ru', 'list.ru'];
+            const email = `${emailName}@${domains[Math.floor(Math.random() * domains.length)]}`;
+            
+            let siteName = translitName.replace(/[^a-zA-Z0-9]/g, '');
+            if (siteName.length < 3) siteName = 'company';
+            if (siteName.length > 20) siteName = siteName.slice(0, 20);
+            const tlds = ['ru', 'com', 'org', 'net', 'pro', 'info'];
+            const website = `https://${siteName}.${tlds[Math.floor(Math.random() * tlds.length)]}`;
+            
+            return { inn, kpp, ogrn, erid, address, phone, email, website };
         }
-      });
 
-      // Горячие клавиши для удобства (необязательно)
-      window.addEventListener('keydown', (e) => {
-        // Эмуляция нажатия на цифры клавиатуры (для десктопа)
-        const key = e.key;
-        if (key >= '0' && key <= '9' || key === '*' || key === '#') {
-          // Находим кнопку с таким data-key
-          const btn = document.querySelector(`.key[data-key="${key}"]`);
-          if (btn) {
+        // ===== Валидаторы =====
+        const validators = {
+            orgName: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: false, msg: 'Введите название' };
+                if (trimmed.length < 2) return { valid: false, msg: 'Минимум 2 символа' };
+                return { valid: true, msg: '✓' };
+            },
+            inn: (val) => {
+                const clean = val.replace(/\D/g, '');
+                if (clean.length === 0) return { valid: false, msg: 'Введите ИНН' };
+                if (![10, 12].includes(clean.length)) return { valid: false, msg: 'ИНН: 10 или 12 цифр' };
+                return { valid: true, msg: '✓' };
+            },
+            kpp: (val) => {
+                const clean = val.replace(/\D/g, '');
+                if (clean.length === 0) return { valid: true, msg: 'необязательно' };
+                if (clean.length !== 9) return { valid: false, msg: 'КПП: 9 цифр' };
+                return { valid: true, msg: '✓' };
+            },
+            ogrn: (val) => {
+                const clean = val.replace(/\D/g, '');
+                if (clean.length === 0) return { valid: false, msg: 'Введите ОГРН' };
+                if (![13, 15].includes(clean.length)) return { valid: false, msg: 'ОГРН: 13 или 15 цифр' };
+                return { valid: true, msg: '✓' };
+            },
+            erid: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: false, msg: 'Введите ERID токен' };
+                if (trimmed.length < 5) return { valid: false, msg: 'Слишком короткий токен' };
+                return { valid: true, msg: '✓' };
+            },
+            address: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: false, msg: 'Введите адрес' };
+                if (trimmed.length < 5) return { valid: false, msg: 'Слишком короткий адрес' };
+                return { valid: true, msg: '✓' };
+            },
+            phone: (val) => {
+                const clean = val.replace(/[\s\-()\+]/g, '');
+                if (clean.length === 0) return { valid: true, msg: 'необязательно' };
+                if (clean.length < 10) return { valid: false, msg: 'Слишком короткий номер' };
+                return { valid: true, msg: '✓' };
+            },
+            email: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: true, msg: 'необязательно' };
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(trimmed)) return { valid: false, msg: 'Некорректный email' };
+                return { valid: true, msg: '✓' };
+            },
+            website: (val) => {
+                const trimmed = val.trim();
+                if (trimmed.length === 0) return { valid: true, msg: 'необязательно' };
+                if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+                    return { valid: false, msg: 'Начинайте с http:// или https://' };
+                }
+                return { valid: true, msg: '✓' };
+            }
+        };
+
+        // ===== Валидация =====
+        function validateField(input, validatorFn, statusEl, msgEl) {
+            const val = input.value;
+            const result = validatorFn(val);
+            input.classList.remove('error', 'valid');
+            statusEl.classList.remove('show', 'error-icon', 'success-icon');
+            if (result.valid) {
+                if (val.trim().length > 0) {
+                    input.classList.add('valid');
+                    statusEl.textContent = '✓';
+                    statusEl.classList.add('show', 'success-icon');
+                } else {
+                    statusEl.classList.remove('show');
+                }
+                msgEl.textContent = '';
+                msgEl.className = 'validation-message';
+            } else {
+                input.classList.add('error');
+                statusEl.textContent = '✗';
+                statusEl.classList.add('show', 'error-icon');
+                msgEl.textContent = result.msg;
+                msgEl.className = 'validation-message error';
+            }
+            return result.valid;
+        }
+
+        function validateAll() {
+            const fields = [
+                { input: orgNameInput, validator: validators.orgName, status: document.getElementById('orgNameStatus'), msg: document.getElementById('orgNameValidation') },
+                { input: innInput, validator: validators.inn, status: document.getElementById('innStatus'), msg: document.getElementById('innValidation') },
+                { input: kppInput, validator: validators.kpp, status: document.getElementById('kppStatus'), msg: document.getElementById('kppValidation') },
+                { input: ogrnInput, validator: validators.ogrn, status: document.getElementById('ogrnStatus'), msg: document.getElementById('ogrnValidation') },
+                { input: eridInput, validator: validators.erid, status: document.getElementById('eridStatus'), msg: document.getElementById('eridValidation') },
+                { input: addressInput, validator: validators.address, status: document.getElementById('addressStatus'), msg: document.getElementById('addressValidation') },
+                { input: phoneInput, validator: validators.phone, status: document.getElementById('phoneStatus'), msg: document.getElementById('phoneValidation') },
+                { input: emailInput, validator: validators.email, status: document.getElementById('emailStatus'), msg: document.getElementById('emailValidation') },
+                { input: websiteInput, validator: validators.website, status: document.getElementById('websiteStatus'), msg: document.getElementById('websiteValidation') }
+            ];
+
+            let allValid = true;
+            let filledCount = 0;
+            const required = ['orgName', 'inn', 'ogrn', 'erid', 'address'];
+            
+            fields.forEach(({ input, validator, status, msg }) => {
+                const isValid = validateField(input, validator, status, msg);
+                if (!isValid && required.includes(input.id)) allValid = false;
+                if (input.value.trim().length > 0) filledCount++;
+            });
+
+            fieldCount.textContent = `${filledCount}/9 заполнено`;
+            
+            if (allValid && filledCount >= 5) {
+                updateStatus.textContent = '✅ Все обязательные поля валидны';
+                statusDot.className = 'status-dot green';
+                currentTypeBadge.className = 'badge success';
+            } else if (filledCount === 0) {
+                updateStatus.textContent = '⏳ Заполните поля';
+                statusDot.className = 'status-dot yellow';
+                currentTypeBadge.className = 'badge';
+            } else {
+                updateStatus.textContent = '⚠️ Проверьте обязательные поля';
+                statusDot.className = 'status-dot yellow';
+                currentTypeBadge.className = 'badge';
+            }
+
+            generateBtn.disabled = !allValid || filledCount < 5;
+            updateCompliance();
+            return allValid;
+        }
+
+        // ===== Compliance Check =====
+        function updateCompliance() {
+            const adMark = previewAd.textContent.includes('Реклама') || previewAd.textContent.includes('реклама');
+            const advertiser = previewAd.textContent.includes('ИНН') || previewAd.textContent.includes('ОГРН');
+            const erid = previewAd.textContent.includes('erid:') || previewAd.textContent.includes('ERID');
+            const inn = innInput.value.trim().length >= 10;
+            
+            checkAdMark.textContent = adMark ? '✓' : '✗';
+            checkAdMark.className = 'status ' + (adMark ? 'pass' : 'fail');
+            checkAdvertiser.textContent = advertiser ? '✓' : '✗';
+            checkAdvertiser.className = 'status ' + (advertiser ? 'pass' : 'fail');
+            checkErid.textContent = erid ? '✓' : '✗';
+            checkErid.className = 'status ' + (erid ? 'pass' : 'fail');
+            checkInn.textContent = inn ? '✓' : '✗';
+            checkInn.className = 'status ' + (inn ? 'pass' : 'fail');
+        }
+
+        // ===== Дисклеймер =====
+        function getDisclaimer() {
+            return testDataEnabled ? '\n\n⚠️ Тестовые данные. Не является офертой.' : '';
+        }
+
+        // ===== Генерация превью =====
+        function generatePreview() {
+            const type = typeSelect.value;
+            const cleanName = getCleanName();
+            const fullName = formatBusinessName(cleanName, type);
+            
+            const inn = innInput.value.trim() || 'ИНН не указан';
+            const kpp = kppInput.value.trim() || '—';
+            const ogrn = ogrnInput.value.trim() || '—';
+            const erid = eridInput.value.trim() || 'ВашТокен';
+            const address = addressInput.value.trim() || 'Адрес не указан';
+            const phone = phoneInput.value.trim() || '—';
+            const email = emailInput.value.trim() || '—';
+            const website = websiteInput.value.trim() || 'https://ваш-сайт.ru';
+
+            let template = adTemplateInput.value || 'Реклама. {org}, ИНН {inn}. erid: {erid}';
+            let adText = template.replace(/{org}/g, fullName).replace(/{inn}/g, inn).replace(/{erid}/g, erid);
+            if (!adText.toLowerCase().includes('реклама')) adText = 'Реклама. ' + adText;
+            
+            const disclaimer = getDisclaimer();
+            
+            previewAd.textContent = adText + disclaimer;
+            previewLink.textContent = `${website}/?erid=${erid}` + disclaimer;
+            previewVideo.textContent = `Реклама. erid: ${erid}` + disclaimer;
+
+            const noKppTypes = ['ИП', 'Самозанятый'];
+            let docsText = '';
+            if (noKppTypes.includes(type)) {
+                docsText = `${fullName}\nИНН ${inn}\nОГРНИП ${ogrn}\n${address}\n${phone !== '—' ? '📞 ' + phone : ''}${email !== '—' ? '\n✉️ ' + email : ''}`;
+            } else {
+                docsText = `${fullName}\nИНН ${inn} / КПП ${kpp}\nОГРН ${ogrn}\n${address}\n${phone !== '—' ? '📞 ' + phone : ''}${email !== '—' ? '\n✉️ ' + email : ''}`;
+            }
+            previewDocs.textContent = docsText + disclaimer;
+
+            let shortName = cleanName;
+            if (shortName.length > 20) shortName = shortName.slice(0, 20);
+            let goodsText = `${shortName}\nИНН ${inn}`;
+            if (!noKppTypes.includes(type) && kpp !== '—') goodsText += ` / КПП ${kpp}`;
+            goodsText += `\nСделано в РФ`;
+            previewGoods.textContent = goodsText + disclaimer;
+
+            let otherText = `${fullName}`;
+            if (phone !== '—') otherText += `\n📞 ${phone}`;
+            if (email !== '—') otherText += `\n✉️ ${email}`;
+            if (website !== 'https://ваш-сайт.ru') otherText += `\n🌐 ${website}`;
+            if (address !== 'Адрес не указан') otherText += `\n📍 ${address}`;
+            previewOther.textContent = otherText + disclaimer;
+
+            const typeNames = { 'ИП': 'ИП', 'ООО': 'ООО', 'АО': 'АО', 'ПАО': 'ПАО', 'Самозанятый': 'Самозанятый' };
+            currentTypeBadge.textContent = typeNames[type] || type;
+
+            generationCount++;
+            localStorage.setItem('genCount', String(generationCount));
+            genCount.textContent = generationCount;
+            lastGen.textContent = new Date().toLocaleTimeString();
+            updateCompliance();
+        }
+
+        // ===== КПП =====
+        function toggleKppField() {
+            const type = typeSelect.value;
+            const noKpp = ['ИП', 'Самозанятый'];
+            if (noKpp.includes(type)) kppGroup.classList.add('hidden-field');
+            else kppGroup.classList.remove('hidden-field');
+        }
+
+        // ===== Загрузка шаблона =====
+        function loadRandomTemplate() {
+            const type = typeSelect.value;
+            const scenario = getRandomScenario(type);
+            if (!scenario) return;
+            orgNameInput.value = scenario.cleanName;
+            innInput.value = scenario.inn;
+            kppInput.value = scenario.kpp || '';
+            ogrnInput.value = scenario.ogrn;
+            eridInput.value = scenario.erid;
+            addressInput.value = scenario.address;
+            phoneInput.value = scenario.phone;
+            emailInput.value = scenario.email;
+            websiteInput.value = scenario.website;
+            toggleKppField();
+            validateAll();
+            generatePreview();
+            document.querySelector('.preview-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ===== Авто-генерация =====
+        function handleNameChange() {
+            if (!autoGenEnabled || isGeneratingFromName) return;
+            const cleanName = getCleanName();
+            if (cleanName.length < 2) return;
+            const type = typeSelect.value;
+            const generated = generateDataFromName(cleanName, type);
+            if (!generated) return;
+            isGeneratingFromName = true;
+            innInput.value = generated.inn;
+            if (generated.kpp) kppInput.value = generated.kpp;
+            ogrnInput.value = generated.ogrn;
+            eridInput.value = generated.erid;
+            addressInput.value = generated.address;
+            phoneInput.value = generated.phone;
+            emailInput.value = generated.email;
+            websiteInput.value = generated.website;
+            validateAll();
+            generatePreview();
+            setTimeout(() => { isGeneratingFromName = false; }, 100);
+        }
+
+        // ===== Копирование =====
+        function copyText(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const card = element.closest('.tag-card');
+                card.classList.add('copied');
+                const hint = card.querySelector('.copy-hint');
+                const original = hint.textContent;
+                hint.textContent = '✅ скопировано!';
+                setTimeout(() => {
+                    card.classList.remove('copied');
+                    hint.textContent = original;
+                }, 2000);
+                showNotification('📋 Скопировано в буфер');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('📋 Скопировано в буфер');
+            });
+        }
+
+        // ===== QR =====
+        function generateQR(text) {
+            const canvas = qrCanvas;
+            const ctx = canvas.getContext('2d');
+            const size = 220;
+            const moduleCount = 25;
+            const moduleSize = Math.floor(size / moduleCount);
+            const offset = (size - moduleSize * moduleCount) / 2;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, size, size);
+            const seed = text.length + text.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    const val = (row * 7 + col * 13 + seed * 3 + Math.floor(row / 3) * 5) % 2;
+                    if (val === 0) {
+                        ctx.fillStyle = '#0b1a33';
+                        ctx.fillRect(offset + col * moduleSize, offset + row * moduleSize, moduleSize, moduleSize);
+                    }
+                }
+            }
+            ctx.fillStyle = '#0b1a33';
+            const markerSize = 7;
+            for (let i = 0; i < markerSize; i++) {
+                for (let j = 0; j < markerSize; j++) {
+                    if (i === 0 || i === markerSize-1 || j === 0 || j === markerSize-1 || (i > 1 && i < markerSize-2 && j > 1 && j < markerSize-2)) {
+                        ctx.fillRect(offset + i * moduleSize, offset + j * moduleSize, moduleSize, moduleSize);
+                    }
+                }
+            }
+            ctx.fillRect(offset + (moduleCount - markerSize) * moduleSize, offset, markerSize * moduleSize, markerSize * moduleSize);
+            ctx.fillRect(offset, offset + (moduleCount - markerSize) * moduleSize, markerSize * moduleSize, markerSize * moduleSize);
+            qrLinkText.textContent = text;
+            qrContainer.classList.add('active');
+            qrOverlay.classList.add('active');
+        }
+
+        // ===== История с защитой от дублей =====
+        function getHistory() {
+            return JSON.parse(localStorage.getItem('businessHistory') || '[]');
+        }
+
+        function setHistory(history) {
+            localStorage.setItem('businessHistory', JSON.stringify(history));
+        }
+
+        function saveToHistory() {
+            const cleanName = getCleanName();
+            const type = typeSelect.value;
+            
+            // Если название пустое — не сохраняем
+            if (!cleanName || cleanName.length < 2) {
+                showNotification('⚠️ Введите название перед сохранением');
+                return;
+            }
+            
+            const data = {
+                type: type,
+                cleanName: cleanName,
+                org: formatBusinessName(cleanName, type),
+                inn: innInput.value,
+                kpp: kppInput.value,
+                ogrn: ogrnInput.value,
+                erid: eridInput.value,
+                address: addressInput.value,
+                phone: phoneInput.value,
+                email: emailInput.value,
+                website: websiteInput.value,
+                timestamp: new Date().toISOString()
+            };
+
+            let history = getHistory();
+            
+            // Удаляем старую запись с таким же названием и типом
+            const oldCount = history.length;
+            history = history.filter(item => 
+                !(item.cleanName === cleanName && item.type === type)
+            );
+            
+            const deletedCount = oldCount - history.length;
+            
+            // Добавляем новую в начало
+            history.unshift(data);
+            
+            // Ограничиваем до 50 записей
+            if (history.length > 50) history = history.slice(0, 50);
+            
+            setHistory(history);
+            renderHistory();
+            
+            if (deletedCount > 0) {
+                showNotification(`🔄 Обновлено: "${cleanName}" (старая запись заменена)`);
+            } else {
+                showNotification(`✅ Сохранено: "${cleanName}"`);
+            }
+        }
+
+        function deleteHistoryItem(index) {
+            let history = getHistory();
+            if (index >= 0 && index < history.length) {
+                const name = history[index].cleanName || 'Без названия';
+                history.splice(index, 1);
+                setHistory(history);
+                renderHistory();
+                showNotification(`🗑️ Удалено: "${name}"`);
+            }
+        }
+
+        function clearHistory() {
+            if (confirm('🗑️ Удалить всю историю?')) {
+                setHistory([]);
+                renderHistory();
+                showNotification('🗑️ История очищена');
+            }
+        }
+
+        function renderHistory(filter = '') {
+            const history = getHistory();
+            const filtered = filter ? history.filter(item => 
+                (item.cleanName || '').toLowerCase().includes(filter.toLowerCase()) ||
+                (item.org || '').toLowerCase().includes(filter.toLowerCase())
+            ) : history;
+            
+            historyBar.innerHTML = '<span class="history-label">📂 История:</span>';
+            
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.className = 'history-search';
+            searchInput.placeholder = '🔍 Поиск...';
+            searchInput.value = filter;
+            searchInput.addEventListener('input', (e) => renderHistory(e.target.value));
+            historyBar.appendChild(searchInput);
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'history-clear-btn';
+            clearBtn.textContent = '🗑️ Очистить';
+            clearBtn.addEventListener('click', clearHistory);
+            historyBar.appendChild(clearBtn);
+            
+            filtered.forEach((item, idx) => {
+                const el = document.createElement('span');
+                el.className = 'history-item';
+                const date = new Date(item.timestamp);
+                const label = `${item.cleanName || item.org || 'Без названия'} — ${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+                el.textContent = label;
+                el.title = `Загрузить: ${item.org || item.cleanName}`;
+                el.addEventListener('click', () => loadHistoryItem(idx));
+                
+                const delBtn = document.createElement('button');
+                delBtn.className = 'del-single';
+                delBtn.textContent = '✕';
+                delBtn.title = 'Удалить запись';
+                delBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteHistoryItem(idx);
+                });
+                el.appendChild(delBtn);
+                historyBar.appendChild(el);
+            });
+            
+            historyCount.textContent = history.length;
+            saveCount.textContent = history.length;
+        }
+
+        function loadHistoryItem(index) {
+            const history = getHistory();
+            const item = history[index];
+            if (!item) return;
+            typeSelect.value = item.type || 'ООО';
+            orgNameInput.value = item.cleanName || item.org || '';
+            innInput.value = item.inn || '';
+            kppInput.value = item.kpp || '';
+            ogrnInput.value = item.ogrn || '';
+            eridInput.value = item.erid || '';
+            addressInput.value = item.address || '';
+            phoneInput.value = item.phone || '';
+            emailInput.value = item.email || '';
+            websiteInput.value = item.website || '';
+            toggleKppField();
+            validateAll();
+            generatePreview();
+            showNotification(`📂 Загружено: "${item.cleanName || item.org}"`);
+        }
+
+        // ===== Уведомления =====
+        function showNotification(text) {
+            const old = document.querySelector('.toast-notification');
+            if (old) old.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = text;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // ===== Экспорт =====
+        function exportData() {
+            const cleanName = getCleanName();
+            const fullName = formatBusinessName(cleanName, typeSelect.value);
+            const disclaimer = getDisclaimer();
+            const data = {
+                type: typeSelect.value,
+                name: cleanName,
+                fullName: fullName,
+                inn: innInput.value,
+                kpp: kppInput.value,
+                ogrn: ogrnInput.value,
+                erid: eridInput.value,
+                address: addressInput.value,
+                phone: phoneInput.value,
+                email: emailInput.value,
+                website: websiteInput.value,
+                ad: previewAd.textContent,
+                link: previewLink.textContent,
+                video: previewVideo.textContent,
+                docs: previewDocs.textContent,
+                goods: previewGoods.textContent,
+                other: previewOther.textContent,
+                exportedAt: new Date().toISOString(),
+                testData: testDataEnabled,
+                disclaimer: disclaimer.trim() || undefined,
+                compliance: {
+                    hasAdMark: previewAd.textContent.includes('Реклама'),
+                    hasAdvertiser: previewAd.textContent.includes('ИНН'),
+                    hasErid: previewAd.textContent.includes('erid:'),
+                    hasInn: innInput.value.trim().length >= 10
+                }
+            };
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `законная_реклама_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('📥 Данные экспортированы в JSON');
+        }
+
+        // ===== Обработчики =====
+        typeSelect.addEventListener('change', () => {
+            toggleKppField();
+            loadRandomTemplate();
+        });
+
+        autoGenToggle.addEventListener('click', () => {
+            autoGenEnabled = !autoGenEnabled;
+            autoGenToggle.textContent = autoGenEnabled ? '🔄 Включено' : '⛔ Отключено';
+            autoGenToggle.classList.toggle('active', autoGenEnabled);
+            showNotification(autoGenEnabled ? '🔄 Авто-генерация включена' : '⛔ Авто-генерация отключена');
+        });
+
+        testDataToggle.addEventListener('click', () => {
+            testDataEnabled = !testDataEnabled;
+            testDataToggle.textContent = testDataEnabled ? '⚠️ Включено' : '⚠️ Выключено';
+            testDataToggle.classList.toggle('active', testDataEnabled);
+            showNotification(testDataEnabled ? '⚠️ Тестовые данные включены' : '⚠️ Тестовые данные выключены');
+            generatePreview();
+        });
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        statsToggle.addEventListener('click', () => {
+            statsPanel.classList.toggle('show');
+        });
+
+        generateBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            handleKeyPress(key);
-            // визуальный отклик
-            btn.classList.add('pressed');
-            setTimeout(() => btn.classList.remove('pressed'), 100);
-          }
-        } else if (key === 'Backspace') {
-          e.preventDefault();
-          handleBackspace();
-          backspaceBtn.classList.add('pressed');
-          setTimeout(() => backspaceBtn.classList.remove('pressed'), 100);
-        } else if (key === 'Escape') {
-          e.preventDefault();
-          handleReset();
-          resetBtn.classList.add('pressed');
-          setTimeout(() => resetBtn.classList.remove('pressed'), 100);
+            validateAll();
+            generatePreview();
+            showNotification('✨ Данные обновлены');
+        });
+
+        saveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (validateAll()) {
+                saveToHistory();
+            } else {
+                showNotification('⚠️ Заполните все обязательные поля');
+            }
+        });
+
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            typeSelect.value = 'ООО';
+            loadRandomTemplate();
+            showNotification('↺ Сброшено');
+        });
+
+        exportBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            exportData();
+        });
+
+        qrBtn.addEventListener('click', () => {
+            const url = previewLink.textContent;
+            if (url && url !== 'https://ваш-сайт.ru/?erid=ВашТокен') {
+                generateQR(url);
+            } else {
+                showNotification('⚠️ Сначала сгенерируйте ссылку с ERID');
+            }
+        });
+
+        qrCopyBtn.addEventListener('click', () => {
+            const text = qrLinkText.textContent;
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('📋 Ссылка скопирована');
+                });
+            }
+        });
+
+        closeQr.addEventListener('click', () => {
+            qrContainer.classList.remove('active');
+            qrOverlay.classList.remove('active');
+        });
+        qrOverlay.addEventListener('click', () => {
+            qrContainer.classList.remove('active');
+            qrOverlay.classList.remove('active');
+        });
+
+        clearHistoryBtn.addEventListener('click', clearHistory);
+        ordInfoBtn.addEventListener('click', showORDInfo);
+
+        document.querySelectorAll('.tag-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const content = card.querySelector('.tag-content');
+                if (content) {
+                    copyText(content.textContent, card);
+                }
+            });
+        });
+
+        let nameChangeTimeout = null;
+        orgNameInput.addEventListener('input', () => {
+            clearTimeout(nameChangeTimeout);
+            validateAll();
+            nameChangeTimeout = setTimeout(handleNameChange, 500);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveBtn.click();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                generateBtn.click();
+            }
+        });
+
+        setInterval(() => {
+            if (validateAll()) {
+                saveToHistory();
+            }
+        }, 30000);
+
+        // ===== Инициализация =====
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        genCount.textContent = generationCount;
+        renderHistory();
+        
+        const history = getHistory();
+        if (history.length > 0) {
+            const last = history[0];
+            typeSelect.value = last.type || 'ООО';
+            orgNameInput.value = last.cleanName || last.org || '';
+            innInput.value = last.inn || '';
+            kppInput.value = last.kpp || '';
+            ogrnInput.value = last.ogrn || '';
+            eridInput.value = last.erid || '';
+            addressInput.value = last.address || '';
+            phoneInput.value = last.phone || '';
+            emailInput.value = last.email || '';
+            websiteInput.value = last.website || '';
+            toggleKppField();
+            validateAll();
+            generatePreview();
+        } else {
+            loadRandomTemplate();
         }
-      });
 
-      // Запрещаем контекстное меню на кнопках (чтобы не мешало)
-      document.querySelectorAll('.key').forEach(btn => {
-        btn.addEventListener('contextmenu', (e) => e.preventDefault());
-      });
+        setTimeout(() => {
+            statsPanel.classList.add('show');
+        }, 500);
 
+        orgNameInput.focus();
+        orgNameInput.select();
     })();
-  </script>
+</script>
 </body>
 </html>
