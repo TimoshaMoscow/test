@@ -1,418 +1,1203 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru">
 <head>
-    <!-- ===== БАЗОВЫЙ SEO-КОД (ЯДРО) ===== -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Интерактивный тестовый лендинг | Песочница для смелых идей и гипотез</title>
-    <meta name="description" content="Самый дружелюбный тестовый полигон. Проверяй верстку, анимации, API, шрифты, UX-гипотезы. Адаптив, скорость, чистый код.">
-    <meta name="keywords" content="тестовый лендинг, интерактивный лендинг, песочница, ui тесты, верстка, seo эксперименты, демо сайт, тренажер для верстальщика, фронтенд полигон">
-    <meta name="author" content="Команда тестовых решений и Тимофей">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="revisit-after" content="1 days">
-    <meta name="language" content="ru">
-    <meta name="google-site-verification" content="jBY-ytvwYjSY1Jn9kXCqns11_XIrfqZlssMgNCpi8t0" />
-    
-    <!-- ===== КАНОНИЧЕСКАЯ ССЫЛКА ===== -->
-    <link rel="canonical" href="https://timoshamoscow.github.io/test/">
-    
-    <!-- ===== OPEN GRAPH ===== -->
-    <meta property="og:locale" content="ru_RU">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Интерактивный тестовый лендинг — песочница 3.0">
-    <meta property="og:description" content="Проверяй гипотезы, играй с анимациями, тестируй API. Всё в одном флаконе.">
-    <meta property="og:url" content="https://timoshamoscow.github.io/test/">
-    <meta property="og:site_name" content="Тестовый лендинг">
-    <meta property="og:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#8c000f" />
 
-    <!-- ===== TWITTER CARDS ===== -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Интерактивный тестовый лендинг">
-    <meta name="twitter:description" content="Песочница для верстальщиков и гипотез. Всё включено.">
-    <meta name="twitter:image" content="https://timoshamoscow.github.io/test/images/logo.png">
-    
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-    
-    <!-- ===== СТИЛИ ===== -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<!-- SEO -->
+<title>Багрянство — Minecraft сервер | 3 сезон · остров Бехолдера</title>
+<meta name="description" content="Багрянство — Minecraft сервер с уникальными механиками: Origins Reborn, PlasmoVoice, Emotecraft, custom player models, тюрьма вместо банов и остров Бехолдера. IP: srv12.vrhosting.su:25111, версия 1.21.11+. Владелец — бясумный макс." />
+<meta name="keywords" content="багрянство, minecraft сервер, майнкрафт сервер, origins reborn, plasmovoice, вайтлист, 3 сезон, бехолдер, bagranstvo" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="author" content="бясумный макс" />
+<link rel="canonical" href="https://bagranstvo.trademc.org/" />
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f0f4ff 0%, #f8fafc 100%);
-            color: #0a1e2f;
-            line-height: 1.5;
-            min-height: 100vh;
-            padding: 1rem;
-        }
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Багрянство" />
+<meta property="og:title" content="Багрянство — Minecraft сервер | 3 сезон" />
+<meta property="og:description" content="Остров Бехолдера, тюрьма вместо банов, Origins Reborn, PlasmoVoice и живая летопись сервера. Заходи: srv12.vrhosting.su:25111" />
+<meta property="og:url" content="https://bagranstvo.trademc.org/" />
+<meta property="og:image" content="https://bagranstvo.trademc.org/og-cover.jpg" />
+<meta property="og:locale" content="ru_RU" />
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Багрянство — Minecraft сервер | 3 сезон" />
+<meta name="twitter:description" content="Остров Бехолдера, тюрьма вместо банов, Origins Reborn, PlasmoVoice. IP: srv12.vrhosting.su:25111" />
+<meta name="twitter:image" content="https://bagranstvo.trademc.org/og-cover.jpg" />
 
-        /* АНИМАЦИИ */
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(100, 108, 255, 0.5); }
-            100% { box-shadow: 0 0 0px rgba(100, 108, 255, 0.3); }
-        }
+<!-- Favicon (замените на свой) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩸</text></svg>" />
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
 
-        /* ШАПКА */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.8);
-            padding: 1rem 2.5rem;
-            border-radius: 80px;
-            margin-bottom: 4rem;
-            box-shadow: 0 20px 40px -15px rgba(0,20,50,0.2);
-        }
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            width: 56px;
-            height: 56px;
-            border-radius: 20px;
-            object-fit: contain;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .logo img:hover { transform: rotate(10deg) scale(1.1); }
-
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1e2b5e, #3b3f8c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .badge {
-            background: #ffffffdd;
-            padding: 0.6rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            color: #1e2b5e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid white;
-        }
-
-        /* ГЕРОЙ */
-        .hero {
-            text-align: center;
-            padding: 5rem 3rem;
-            background: linear-gradient(145deg, #ffffff, #f5f9ff);
-            border-radius: 70px;
-            box-shadow: 0 40px 60px -20px #1e2b5e40;
-            margin-bottom: 5rem;
-            border: 1px solid #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #a5b4ff30, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-        }
-        .hero h2 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #0a1e2f, #283593);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.4rem;
-            color: #2d3f5e;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(145deg, #283593, #1e2b5e);
-            color: white;
-            font-weight: 600;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 15px 25px -8px #28359380;
-            transition: all 0.2s;
-            border: 1px solid #ffffff50;
-        }
-        .cta-button:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 25px 35px -8px #1e2b5e;
-            background: linear-gradient(145deg, #1e2b5e, #283593);
-        }
-
-        /* КАРТОЧКИ */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.2rem;
-            margin: 5rem 0;
-        }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px -15px #1a237e30;
-            border: 1px solid rgba(255,255,255,0.9);
-            transition: all 0.3s;
-            text-align: center;
-            animation: float 6s infinite ease-in-out;
-        }
-        .feature-card:nth-child(2) { animation-delay: 0.5s; }
-        .feature-card:nth-child(3) { animation-delay: 1s; }
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: #3f51b5;
-            background: white;
-        }
-        .feature-icon {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .feature-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #0a1e2f;
-        }
-
-        /* ИНТЕРАКТИВНЫЙ ТРЕНАЖЕР */
-        .playground {
-            background: white;
-            border-radius: 70px;
-            padding: 4rem 3rem;
-            margin: 5rem 0;
-            box-shadow: 0 30px 50px -20px #0f2b45;
-        }
-        .playground h3 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #1e2b5e;
-        }
-        .grid-demo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        .grid-item {
-            background: #e9ecf5;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-radius: 30px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1e2b5e;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-        .grid-item:hover {
-            border-color: #3f51b5;
-            background: white;
-            transform: scale(1.03);
-            cursor: pointer;
-        }
-        .slider-demo {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 3rem;
-        }
-        .knob {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
-            box-shadow: 0 15px 25px -5px #1a237e80;
-            transition: 0.1s;
-        }
-        .knob:active { transform: rotate(30deg); }
-
-        /* ЛОГО-СЕКЦИЯ */
-        .logo-section {
-            text-align: center;
-            padding: 4rem 3rem;
-            background: linear-gradient(145deg, #e8edff, #d5defa);
-            border-radius: 60px;
-            margin: 5rem 0;
-        }
-        .logo-section img {
-            width: 180px;
-            height: 180px;
-            border-radius: 40px;
-            box-shadow: 0 30px 40px -15px #1e2b5e;
-            transition: 0.4s;
-        }
-        .logo-section img:hover { transform: scale(1.1) rotate(3deg); }
-
-        /* ПОДВАЛ */
-        .footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: #44556b;
-            border-top: 2px dashed #b0c0d0;
-            margin-top: 4rem;
-            background: #f5faff;
-            border-radius: 60px 60px 30px 30px;
-        }
-
-        @media (max-width: 700px) {
-            .hero h2 { font-size: 2.5rem; }
-            .header { flex-direction: column; text-align: center; }
-            .logo { flex-direction: column; }
-        }
-        .hidden-schema { display: none; }
-    </style>
-    
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Тестовый лендинг 3.0",
-        "url": "https://timoshamoscow.github.io/test/",
-        "description": "Интерактивная песочница для фронтенд-экспериментов",
-        "author": { "@type": "Organization", "name": "Тимофей, не пукает 9999 раз в секунду" }
+      "@type": "Organization",
+      "name": "Багрянство",
+      "alternateName": "Bagranstvo",
+      "url": "https://bagranstvo.trademc.org/",
+      "founder": { "@type": "Person", "name": "бясумный макс" },
+      "foundingDate": "2026-06",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Лавовая ул., д. 31",
+        "addressLocality": "Багрянство",
+        "postalCode": "666666",
+        "addressCountry": "RU"
+      }
+    },
+    {
+      "@type": "VideoGame",
+      "name": "Багрянство — Minecraft сервер, 3 сезон",
+      "gamePlatform": "Minecraft Java Edition",
+      "applicationCategory": "GameServer",
+      "operatingSystem": "1.21.11+",
+      "url": "https://bagranstvo.trademc.org/",
+      "description": "Minecraft сервер с островом Бехолдера, тюрьмой вместо банов, Origins Reborn, PlasmoVoice и живой летописью."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Какая версия Minecraft нужна?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Java Edition 1.21.11 и выше. Плагины поддерживают актуальные версии." }
+        },
+        {
+          "@type": "Question",
+          "name": "Какой IP сервера Багрянство?",
+          "acceptedAnswer": { "@type": "Answer", "text": "srv12.vrhosting.su:25111" }
+        },
+        {
+          "@type": "Question",
+          "name": "Есть ли вайтлист?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Да, на 3 сезоне действует вайтлист и строгая верификация в Discord." }
+        },
+        {
+          "@type": "Question",
+          "name": "Какие донаты есть на сервере?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Роннас, Юникорн, Хэтэнтэп, Паладин, а также смена роста и смена расы." }
+        }
+      ]
     }
-    </script>
+  ]
+}
+</script>
+
+<style>
+/* ---------- БАЗА ---------- */
+:root{
+  --crimson:#8c000f;
+  --crimson-dark:#5a0009;
+  --crimson-light:#c81e2e;
+  --bg:#0a0507;
+  --bg-2:#130a0d;
+  --text:#f4e9ec;
+  --muted:#b9a4a9;
+  --glass:rgba(255,255,255,0.05);
+  --glass-border:rgba(255,255,255,0.10);
+  --radius:18px;
+  --shadow:0 20px 60px rgba(140,0,15,.35);
+  --font-display:'Unbounded', system-ui, sans-serif;
+  --font-body:'Inter', system-ui, sans-serif;
+  --header-h:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 20px)}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body.no-scroll{overflow:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--crimson-light);outline-offset:3px;border-radius:6px}
+
+.container{width:min(1200px,92%);margin-inline:auto}
+.section{padding:clamp(60px,9vw,120px) 0;position:relative}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.7rem,4.5vw,2.8rem);
+  font-weight:800;
+  letter-spacing:-.02em;
+  margin-bottom:.5rem;
+  line-height:1.1;
+}
+.section-sub{color:var(--muted);max-width:640px;margin-bottom:2.5rem;font-size:1.02rem}
+.eyebrow{
+  display:inline-block;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--crimson-light);margin-bottom:.9rem;font-weight:600;
+}
+.gradient-text{
+  background:linear-gradient(120deg,#fff 10%,var(--crimson-light) 60%,#ff5a6a 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* ---------- PRELOADER ---------- */
+#preloader{
+  position:fixed;inset:0;background:var(--bg);z-index:9999;
+  display:grid;place-items:center;transition:opacity .6s ease,visibility .6s;
+}
+#preloader.hide{opacity:0;visibility:hidden}
+.rune{
+  font-family:var(--font-display);font-size:4rem;font-weight:800;
+  color:var(--crimson-light);animation:pulse 1.4s ease-in-out infinite;
+  text-shadow:0 0 30px var(--crimson);
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
+
+/* ---------- TOPBAR (marquee) ---------- */
+.topbar{
+  background:linear-gradient(90deg,var(--crimson-dark),var(--crimson),var(--crimson-dark));
+  overflow:hidden;white-space:nowrap;font-size:.82rem;position:relative;z-index:60;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar-track{
+  display:inline-block;padding:.5rem 0;animation:marquee 40s linear infinite;
+}
+.topbar-track span{margin:0 1.6rem;opacity:.95}
+.topbar-track i{color:#ffd0d6;margin-right:.4rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- HEADER ---------- */
+.header{
+  position:sticky;top:0;z-index:80;height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(10,5,7,.6);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--glass-border);
+}
+.header .container{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{
+  font-family:var(--font-display);font-weight:800;font-size:1.15rem;
+  display:flex;align-items:center;gap:.55rem;letter-spacing:-.02em;
+}
+.logo-mark{
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--crimson),var(--crimson-dark));
+  box-shadow:0 0 22px rgba(200,30,46,.5);font-size:1rem;
+}
+.nav{display:flex;align-items:center;gap:.4rem}
+.nav a{
+  padding:.5rem .85rem;border-radius:10px;font-size:.9rem;color:var(--muted);
+  transition:color .2s, background .2s;
+}
+.nav a:hover,.nav a.active{color:#fff;background:var(--glass)}
+.header-cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,var(--crimson),var(--crimson-dark));
+  padding:.55rem 1.1rem;border-radius:12px;font-weight:600;font-size:.88rem;
+  box-shadow:0 8px 24px rgba(140,0,15,.45);transition:transform .2s, box-shadow .2s;
+  white-space:nowrap;
+}
+.header-cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(200,30,46,.6)}
+.burger{
+  display:none;width:44px;height:44px;border-radius:12px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  place-items:center;font-size:1.1rem;
+}
+@media (max-width:900px){
+  .nav{
+    position:fixed;inset:calc(var(--header-h)) 0 auto 0;
+    flex-direction:column;align-items:stretch;gap:.2rem;
+    background:rgba(10,5,7,.96);backdrop-filter:blur(20px);
+    padding:1rem;border-bottom:1px solid var(--glass-border);
+    transform:translateY(-120%);transition:transform .35s ease;z-index:79;
+  }
+  .nav.open{transform:translateY(0)}
+  .nav a{padding:.9rem 1rem;font-size:1rem}
+  .burger{display:grid}
+  .header-cta span{display:none}
+  .header-cta{padding:.7rem .9rem}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:calc(100svh - var(--header-h));
+  display:flex;align-items:center;overflow:hidden;
+}
+#embers{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:
+    radial-gradient(60% 60% at 80% 20%, rgba(140,0,15,.55), transparent 70%),
+    radial-gradient(50% 50% at 10% 90%, rgba(90,0,9,.7), transparent 70%),
+    linear-gradient(180deg, rgba(10,5,7,.2), var(--bg) 95%);
+}
+.hero .container{position:relative;z-index:2;padding-block:4rem}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--glass);border:1px solid var(--glass-border);
+  padding:.45rem 1rem;border-radius:999px;font-size:.82rem;color:var(--muted);
+  backdrop-filter:blur(10px);margin-bottom:1.4rem;
+}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;background:#3ddc84;
+  box-shadow:0 0 10px #3ddc84;animation:pulse 1.6s infinite;
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2.6rem,9vw,6.5rem);line-height:.95;letter-spacing:-.04em;
+  margin-bottom:1rem;text-transform:uppercase;
+}
+.hero p.lead{
+  font-size:clamp(1rem,1.6vw,1.2rem);color:var(--muted);max-width:620px;margin-bottom:2rem;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2.5rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.9rem 1.5rem;border-radius:14px;font-weight:600;font-size:.95rem;
+  transition:transform .2s, box-shadow .2s, background .2s;
+  min-height:48px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--crimson-light),var(--crimson));
+  box-shadow:0 12px 34px rgba(200,30,46,.5);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(200,30,46,.7)}
+.btn-ghost{
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);color:var(--text);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.ip-strip{
+  display:inline-flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  background:var(--glass);border:1px solid var(--glass-border);
+  padding:.75rem 1rem;border-radius:16px;backdrop-filter:blur(12px);
+  font-family:ui-monospace, monospace;font-size:.95rem;
+}
+.ip-strip b{color:#fff}
+.ip-strip button{
+  color:var(--crimson-light);font-size:1.05rem;padding:.4rem .6rem;border-radius:8px;
+  transition:background .2s;
+}
+.ip-strip button:hover{background:rgba(200,30,46,.15)}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:1rem;margin-top:2.5rem;max-width:640px;
+}
+.stat{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:14px;padding:1rem;backdrop-filter:blur(10px);
+}
+.stat b{display:block;font-family:var(--font-display);font-size:1.5rem;font-weight:800}
+.stat span{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* ---------- COUNTDOWN ---------- */
+.countdown{
+  display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2rem;
+}
+.cd-cell{
+  background:rgba(0,0,0,.35);border:1px solid var(--glass-border);
+  border-radius:12px;padding:.7rem 1rem;text-align:center;min-width:72px;
+  backdrop-filter:blur(10px);
+}
+.cd-cell b{display:block;font-family:var(--font-display);font-size:1.4rem}
+.cd-cell span{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+
+/* ---------- CARDS ---------- */
+.grid{display:grid;gap:1.2rem}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+
+.card{
+  position:relative;
+  background:linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);
+  padding:1.6rem;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  overflow:hidden;
+}
+.card::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(140deg, rgba(200,30,46,.5), transparent 40%, transparent 60%, rgba(200,30,46,.25));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s;
+  pointer-events:none;
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(200,30,46,.4);box-shadow:var(--shadow)}
+.card:hover::before{opacity:1}
+.card-icon{
+  width:48px;height:48px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(200,30,46,.25),rgba(90,0,9,.4));
+  border:1px solid rgba(200,30,46,.35);color:var(--crimson-light);
+  font-size:1.15rem;margin-bottom:1rem;
+}
+.card h3{font-family:var(--font-display);font-size:1.05rem;margin-bottom:.4rem;font-weight:600}
+.card p{color:var(--muted);font-size:.92rem}
+.tag{
+  display:inline-block;font-size:.68rem;padding:.2rem .55rem;border-radius:999px;
+  background:rgba(200,30,46,.15);color:#ff8a95;border:1px solid rgba(200,30,46,.3);
+  margin-top:.7rem;text-transform:uppercase;letter-spacing:.08em;
+}
+
+/* ---------- RULES ---------- */
+.rules-wrap{
+  display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+.rule{
+  display:flex;gap:1rem;align-items:flex-start;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:14px;padding:1.2rem;backdrop-filter:blur(10px);
+}
+.rule i{color:var(--crimson-light);font-size:1.2rem;margin-top:.15rem}
+.rule b{display:block;font-family:var(--font-display);font-size:.98rem;margin-bottom:.2rem}
+.rule p{color:var(--muted);font-size:.9rem}
+.code-inline{
+  font-family:ui-monospace,monospace;background:rgba(0,0,0,.4);
+  border:1px solid var(--glass-border);border-radius:8px;padding:.15rem .5rem;
+  font-size:.85rem;color:#ffb3ba;
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{
+  content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--crimson-light),transparent);
+}
+.tl-item{position:relative;padding-bottom:1.6rem}
+.tl-item::before{
+  content:"";position:absolute;left:-2rem;top:.4rem;width:18px;height:18px;
+  border-radius:50%;background:var(--crimson);border:3px solid var(--bg);
+  box-shadow:0 0 0 2px var(--crimson-light), 0 0 16px rgba(200,30,46,.7);
+}
+.tl-date{
+  font-size:.78rem;color:var(--crimson-light);font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;
+}
+.tl-card{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:14px;padding:1.1rem 1.2rem;backdrop-filter:blur(10px);
+  transition:transform .3s, border-color .3s;
+}
+.tl-card:hover{transform:translateX(6px);border-color:rgba(200,30,46,.4)}
+.tl-card h4{font-family:var(--font-display);font-size:1rem;margin-bottom:.3rem;font-weight:600}
+.tl-card p{color:var(--muted);font-size:.9rem}
+@media (max-width:600px){.timeline{padding-left:1.4rem}.tl-item::before{left:-1.4rem;width:14px;height:14px}}
+
+/* ---------- DONATE ---------- */
+.donate-card{
+  position:relative;text-align:center;
+  background:linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid var(--glass-border);border-radius:var(--radius);
+  padding:2rem 1.4rem;backdrop-filter:blur(14px);
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+}
+.donate-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:rgba(200,30,46,.5)}
+.donate-card.featured{
+  border-color:rgba(200,30,46,.6);
+  background:linear-gradient(160deg, rgba(200,30,46,.14), rgba(255,255,255,.02));
+}
+.donate-card .ribbon{
+  position:absolute;top:12px;right:-30px;transform:rotate(35deg);
+  background:var(--crimson-light);color:#fff;font-size:.65rem;font-weight:700;
+  padding:.25rem 2.4rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.donate-card h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.3rem}
+.donate-card .price{
+  font-family:var(--font-display);font-size:2rem;font-weight:800;color:#fff;
+  margin:.6rem 0;
+}
+.donate-card .price s{font-size:1rem;color:var(--muted);font-weight:400;margin-right:.4rem}
+.donate-card ul{list-style:none;text-align:left;margin:1.2rem 0;display:grid;gap:.5rem}
+.donate-card li{color:var(--muted);font-size:.88rem;display:flex;gap:.5rem;align-items:flex-start}
+.donate-card li i{color:var(--crimson-light);margin-top:.25rem}
+
+/* ---------- MEDIA ---------- */
+.media-card{
+  display:flex;gap:1rem;align-items:center;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:14px;padding:1rem 1.2rem;backdrop-filter:blur(10px);
+  transition:transform .25s, border-color .25s;
+}
+.media-card:hover{transform:translateY(-4px);border-color:rgba(200,30,46,.4)}
+.media-card .avatar{
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--crimson),var(--crimson-dark));
+  font-size:1.1rem;flex-shrink:0;
+}
+.media-card b{display:block;font-size:.95rem}
+.media-card span{font-size:.8rem;color:var(--muted)}
+
+/* ---------- FAQ ---------- */
+.faq-item{
+  border:1px solid var(--glass-border);border-radius:14px;
+  background:var(--glass);backdrop-filter:blur(10px);
+  margin-bottom:.8rem;overflow:hidden;transition:border-color .3s;
+}
+.faq-item[open]{border-color:rgba(200,30,46,.4)}
+.faq-item summary{
+  list-style:none;cursor:pointer;padding:1.1rem 1.3rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  font-weight:600;font-size:.98rem;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary i{color:var(--crimson-light);transition:transform .3s}
+.faq-item[open] summary i{transform:rotate(45deg)}
+.faq-item .faq-body{padding:0 1.3rem 1.2rem;color:var(--muted);font-size:.92rem}
+
+/* ---------- CTA ---------- */
+.cta{
+  text-align:center;padding:clamp(50px,8vw,90px) clamp(20px,5vw,60px);
+  border-radius:26px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(80% 120% at 50% 0%, rgba(200,30,46,.35), transparent 70%),
+    linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid rgba(200,30,46,.35);
+  backdrop-filter:blur(14px);
+}
+.cta h2{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3rem);margin-bottom:1rem}
+.cta p{color:var(--muted);max-width:560px;margin:0 auto 2rem}
+.cta .hero-actions{justify-content:center}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  border-top:1px solid var(--glass-border);
+  padding:3rem 0 2rem;margin-top:2rem;color:var(--muted);font-size:.88rem;
+}
+.footer-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:2rem}
+.footer h4{font-family:var(--font-display);color:#fff;font-size:.95rem;margin-bottom:.8rem}
+.footer a{display:block;padding:.25rem 0;transition:color .2s}
+.footer a:hover{color:var(--crimson-light)}
+.footer-bottom{
+  border-top:1px solid var(--glass-border);padding-top:1.5rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.footer .quote{color:var(--crimson-light);font-style:italic}
+
+/* ---------- TOAST ---------- */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,120%);
+  background:rgba(20,8,11,.95);border:1px solid rgba(200,30,46,.5);
+  color:#fff;padding:.85rem 1.4rem;border-radius:14px;font-size:.9rem;
+  backdrop-filter:blur(14px);box-shadow:var(--shadow);z-index:999;
+  transition:transform .4s cubic-bezier(.2,1,.3,1);display:flex;gap:.6rem;align-items:center;
+}
+#toast.show{transform:translate(-50%,0)}
+#toast i{color:var(--crimson-light)}
+
+/* ---------- SCROLL TOP ---------- */
+#scrollTop{
+  position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,var(--crimson),var(--crimson-dark));
+  display:grid;place-items:center;box-shadow:var(--shadow);z-index:90;
+  opacity:0;visibility:hidden;transform:translateY(20px);transition:.35s;
+}
+#scrollTop.show{opacity:1;visibility:visible;transform:translateY(0)}
+#scrollTop:hover{transform:translateY(-4px)}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease, transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ---------- SKIP LINK ---------- */
+.skip-link{
+  position:absolute;left:-9999px;top:0;background:var(--crimson);color:#fff;
+  padding:.7rem 1.2rem;border-radius:0 0 12px 0;z-index:1000;
+}
+.skip-link:focus{left:0}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+  #embers{display:none}
+}
+</style>
 </head>
 <body>
-    <!-- СКРЫТЫЙ SEO-ТЕКСТ -->
-    <div class="hidden-schema">тестовый лендинг песочница верстка анимация шрифты сео гипотезы ui ux эксперименты</div>
 
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="Логотип тестового лендинга" width="56" height="56">
-                <h1>Тестовый лендинг</h1>
-            </div>
-            <div class="badge">🚀 v.3.5 • Живая песочница</div>
-        </header>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
 
-        <section class="hero">
-            <h2>Полигон для гипотез<br>и смелых решений</h2>
-            <p>Здесь можно тестировать всё: от смены шрифта до сложной анимации и API-запросов. Среда полностью безопасна и адаптирована для творчества.</p>
-            <button class="cta-button" onclick="demoAlert()">✨ Попробовать демо</button>
-        </section>
+<!-- PRELOADER -->
+<div id="preloader" aria-hidden="true"><div class="rune">Б</div></div>
 
-        <!-- ИНТЕРАКТИВНАЯ ВИТРИНА -->
-        <section class="playground">
-            <h3>⚡ Интерактивная лаборатория</h3>
-            <div class="grid-demo">
-                <div class="grid-item" onclick="this.innerHTML='Нажал!'">Кликни</div>
-                <div class="grid-item" onclick="this.style.background='#b0c4de'">Поменять цвет</div>
-                <div class="grid-item" onclick="this.classList.toggle('glow')">Эффект</div>
-                <div class="grid-item" onclick="this.innerText='✅'">Смайлик</div>
-            </div>
-            <div class="slider-demo">
-                <div class="knob" onclick="alert('⚙️ Крути!')"></div>
-                <div class="knob" onclick="alert('🎛️ Ещё одна ручка')"></div>
-                <div style="font-size: 2rem;">🎚️</div>
-            </div>
-        </section>
+<!-- TOPBAR -->
+<div class="topbar" aria-hidden="true">
+  <div class="topbar-track" id="topbarTrack">
+    <span><i class="fa-solid fa-fire"></i>Багрянство заботится о вас</span>
+    <span><i class="fa-solid fa-skull"></i>Тюрьма вместо банов</span>
+    <span><i class="fa-solid fa-island-tropical"></i>Остров Бехолдера</span>
+    <span><i class="fa-solid fa-microphone"></i>PlasmoVoice</span>
+    <span><i class="fa-solid fa-dice-d20"></i>Origins Reborn</span>
+    <span><i class="fa-solid fa-gun"></i>Файрболлы на выходных</span>
+    <span><i class="fa-solid fa-crown"></i>Роннас · Юникорн · Хэтэнтэп</span>
+    <span><i class="fa-solid fa-heart"></i>Багрянство заботится о вас</span>
+    <span><i class="fa-solid fa-skull"></i>Тюрьма вместо банов</span>
+    <span><i class="fa-solid fa-island-tropical"></i>Остров Бехолдера</span>
+    <span><i class="fa-solid fa-microphone"></i>PlasmoVoice</span>
+    <span><i class="fa-solid fa-dice-d20"></i>Origins Reborn</span>
+    <span><i class="fa-solid fa-gun"></i>Файрболлы на выходных</span>
+    <span><i class="fa-solid fa-crown"></i>Роннас · Юникорн · Хэтэнтэп</span>
+    <span><i class="fa-solid fa-heart"></i>Багрянство заботится о вас</span>
+  </div>
+</div>
 
-        <!-- ОСНОВНЫЕ ФИШКИ -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🧩</div>
-                <h3 class="feature-title">Чистый код</h3>
-                <p>Семантичная, валидная вёрстка. Лёгкая для модификаций и экспериментов.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3 class="feature-title">SEO-агрессия</h3>
-                <p>Open Graph, микроразметка, ключи — всё готово для проверки в поиске.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Скорость + UX</h3>
-                <p>Адаптив, плавные анимации, микро-интерактивы. Core Web Vitals в порядке.</p>
-            </div>
-        </section>
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <a href="#hero" class="logo" aria-label="Багрянство — на главную">
+      <span class="logo-mark">Б</span>
+      <span>БАГРЯНСТВО</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="#about">О сервере</a>
+      <a href="#mechanics">Механики</a>
+      <a href="#timeline">Летопись</a>
+      <a href="#donate">Донаты</a>
+      <a href="#media">Медиа</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <a href="#join" class="header-cta"><i class="fa-solid fa-play"></i><span>Играть</span></a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
 
-        <!-- БЛОК ЛОГОТИПА (БЕЗ ПОДСКАЗОК) -->
-        <section class="logo-section">
-            <img src="images/logo.png" alt="Логотип">
-            <h3 style="font-size: 2.5rem; margin: 2rem 0 1rem;">Логотип проекта</h3>
-        </section>
+<main id="main">
 
-        <!-- ЧТО МОЖНО ТЕСТИРОВАТЬ -->
-        <section style="background: #ffffff; border-radius: 50px; padding: 3rem 2rem; margin: 4rem 0;">
-            <h3 style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">🧪 Тест-драйв всего подряд</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center;">
-                <span class="badge" style="font-size:1.2rem;">Сетки</span>
-                <span class="badge" style="font-size:1.2rem;">Анимации</span>
-                <span class="badge" style="font-size:1.2rem;">Кнопки</span>
-                <span class="badge" style="font-size:1.2rem;">Типографика</span>
-                <span class="badge" style="font-size:1.2rem;">SVG</span>
-                <span class="badge" style="font-size:1.2rem;">Canvas</span>
-                <span class="badge" style="font-size:1.2rem;">API-заглушки</span>
-                <span class="badge" style="font-size:1.2rem;">Адаптив</span>
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="embers" aria-hidden="true"></canvas>
+  <div class="container">
+    <div class="hero-badge">
+      <span class="status-dot"></span>
+      <span>3 сезон · открыт · 1.21.11+</span>
+    </div>
+    <h1 class="gradient-text">Багрянство</h1>
+    <p class="lead">
+      Остров, за границы которого лучше не выходить. Тюрьма вместо банов.
+      Суды, банды и полиция — всё решают игроки. Владелец — <b>бясумный макс</b>.
+      Здесь вам рады. И да, багрянство заботится о вас.
+    </p>
 
-        <footer class="footer">
-            <p>🧪 Тестовый лендинг — версия 3.5 (интерактивная)</p>
-            <p style="margin-top: 1rem;">Все права защищены здравым смыслом и любопытством</p>
-            <p><a href="https://timoshamoscow.github.io/test/" style="color:#1e2b5e;">→ перезагрузить эксперимент ←</a></p>
-        </footer>
+    <div class="hero-actions">
+      <button class="btn btn-primary" id="copyIpHero">
+        <i class="fa-solid fa-copy"></i> Скопировать IP
+      </button>
+      <a class="btn btn-ghost" href="https://discord.gg/xvdescapua" target="_blank" rel="noopener">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
     </div>
 
-    <script>
-        function demoAlert() {
-            alert('🚀 Добро пожаловать в тестовую среду! Тыкай кнопки, ломай, пробуй — здесь всё можно.');
-        }
-        document.querySelectorAll('.grid-item').forEach(el => {
-            el.addEventListener('click', function() {
-                this.style.transition = '0.2s';
-            });
-        });
-        console.log('✅ Интерактивный тестовый лендинг загружен.');
-    </script>
+    <div class="ip-strip">
+      <i class="fa-solid fa-server" style="color:var(--crimson-light)"></i>
+      <b id="ipText">srv12.vrhosting.su:25111</b>
+      <button id="copyIp" aria-label="Скопировать IP"><i class="fa-regular fa-clone"></i></button>
+    </div>
+
+    <div class="countdown" id="countdown" aria-label="Обратный отсчёт до открытия">
+      <div class="cd-cell"><b id="cdD">00</b><span>дней</span></div>
+      <div class="cd-cell"><b id="cdH">00</b><span>часов</span></div>
+      <div class="cd-cell"><b id="cdM">00</b><span>минут</span></div>
+      <div class="cd-cell"><b id="cdS">00</b><span>секунд</span></div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><b>1.21.11+</b><span>версия</span></div>
+      <div class="stat"><b>30</b><span>слотов</span></div>
+      <div class="stat"><b>1000×1000</b><span>старт. границы</span></div>
+      <div class="stat"><b>24/7</b><span>после тех.работ</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container reveal">
+    <span class="eyebrow">Манифест</span>
+    <h2 class="section-title">Что такое <span class="gradient-text">Багрянство</span></h2>
+    <p class="section-sub">
+      Это не просто ванила. Это эксперимент, где правила пишут сами игроки,
+      а владелец играет на равных. Где-то между мафией, выживанием и
+      бесконечными тех.работами — рождается свой мир.
+    </p>
+
+    <div class="grid grid-4">
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-dice-d20"></i></div>
+        <h3>Origins Reborn</h3>
+        <p>Расы, способности и полное погружение в роль. Твоя раса — твоя судьба.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+        <h3>PlasmoVoice</h3>
+        <p>Живой голосовой чат прямо в игре. Шепни союзнику или крикни врагу.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-person"></i></div>
+        <h3>Custom Player Models</h3>
+        <p>Своя модель персонажа. Сядь, ляг, встань — и выгляди так, как хочешь.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-hands"></i></div>
+        <h3>Emotecraft</h3>
+        <p>Эмоции и анимации. Общайся без слов, когда слов уже не хватает.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-anchor"></i></div>
+        <h3>Крюки и могилы</h3>
+        <p>Крюки для перемещения, могилы для павших. Смерть — не конец, а сюжет.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>CoreProtect</h3>
+        <p>Защита построек и честная история изменений. Гриферить можно — но только по выходным.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-palette"></i></div>
+        <h3>MCPaint</h3>
+        <p>Рисуй на холстах и оставляй след в истории острова.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <h3>Файрболлы</h3>
+        <p>Огнестрел временно, файрболлы — навсегда. Запасайся к выходным.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MECHANICS / RULES -->
+<section class="section" id="mechanics" style="background:linear-gradient(180deg,transparent,rgba(140,0,15,.08),transparent)">
+  <div class="container reveal">
+    <span class="eyebrow">3 сезон · правила</span>
+    <h2 class="section-title">Закон <span class="gradient-text">острова</span></h2>
+    <p class="section-sub">
+      На 3 сезоне банов почти нет. Есть тюрьма на 5 реальных часов, полиция,
+      надзиратели и суды, которые вершит администрация во главе с Faz_Zy.
+      А ещё есть Бехолдер. Не зли Бехолдера.
+    </p>
+
+    <div class="rules-wrap">
+      <div class="rule">
+        <i class="fa-solid fa-dungeon"></i>
+        <div>
+          <b>Тюрьма вместо банов</b>
+          <p>Наказание — 5 часов реального сидения в тюрьме, которую строят сами игроки. Выйти из игры нельзя — срок идёт только в игре.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <i class="fa-solid fa-gavel"></i>
+        <div>
+          <b>Суды и законы игроков</b>
+          <p>Правила предлагают и принимают сами игроки. Хочешь запретить элитры? Собери голоса. Библиотека правил — тоже ваша стройка.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <i class="fa-solid fa-user-shield"></i>
+        <div>
+          <b>Полиция и надзиратели</b>
+          <p>Модерация — это полиция. Преступления разрешены, пока вас не спалят. Поймали — тюрьма.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <i class="fa-solid fa-eye"></i>
+        <div>
+          <b>Бехолдер</b>
+          <p>Выход за границы острова — смерть. Расширение мира — через загадки Бехолдера. Не строй слишком большие фермы.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <div>
+          <b>Разрешённые моды</b>
+          <p><span class="code-inline">fulbright</span> <span class="code-inline">autototem</span> <span class="code-inline">autoarmor</span> <span class="code-inline">визуалы</span></p>
+        </div>
+      </div>
+      <div class="rule">
+        <i class="fa-solid fa-ban"></i>
+        <div>
+          <b>Строго запрещено</b>
+          <p>Читы, боты, слабые места сервера, реальная политика. За это — бан по IP навсегда. Мы не любим читеров.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" id="timeline">
+  <div class="container reveal">
+    <span class="eyebrow">Летопись</span>
+    <h2 class="section-title">История <span class="gradient-text">Багрянства</span></h2>
+    <p class="section-sub">
+      Сервер пережил тех.работы, дудос, заморозку и возрождение.
+      Это не баги — это сюжет. Вот его ключевые главы.
+    </p>
+
+    <div class="timeline" id="timelineList">
+      <article class="tl-item">
+        <div class="tl-date">Июнь 2026</div>
+        <div class="tl-card">
+          <h4>Рождение Багрянства</h4>
+          <p>Первый сезон, первые крюки, могилы и CoreProtect. Владелец обещает пластинки и ресурс-пак. Пластинки не завезли. Пока что.</p>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-date">25 июня 2026 · 14:00</div>
+        <div class="tl-card">
+          <h4>Открытие, которое переносили 5 раз</h4>
+          <p>Сначала 30–31 июня, потом 25–26, потом 14:00. Сервер включили. Все зашли. Через день — тех.работы. Классика.</p>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-date">27 июня 2026</div>
+        <div class="tl-card">
+          <h4>Дудос и перемирие с ваниларобя</h4>
+          <p>Сервер взломали «в один клик». Бэкап спас. А потом владелец заключил мир с ваниларобя. Теперь вредить им — перманентный бан.</p>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-date">30 июня 2026</div>
+        <div class="tl-card">
+          <h4>Гриферские выходные</h4>
+          <p>Каждые выходные можно грабить, взрывать и убивать. Спавн и варпы трогать нельзя. Запасайтесь файрболлами.</p>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-date">27 августа 2026</div>
+        <div class="tl-card">
+          <h4>Заморозка</h4>
+          <p>Сервер заморожен на неопределённый срок. Нужен хостинг, нужны донаты. Но владелец не сдаётся.</p>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-date">17 сентября 2026</div>
+        <div class="tl-card">
+          <h4>Хостинг куплен, начинается 3 сезон</h4>
+          <p>Карта острова готова. Бехолдер ждёт. Владелец играет как обычный игрок — без опки. Всё решают игроки.</p>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-date">20 сентября 2026 · 19:40</div>
+        <div class="tl-card">
+          <h4>Открытие 3 сезона</h4>
+          <p>После переноса с 19:25 на 19:40 — сервер открыт. IP: srv12.vrhosting.su:25111. Добро пожаловать на остров.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE -->
+<section class="section" id="donate" style="background:linear-gradient(180deg,transparent,rgba(140,0,15,.08),transparent)">
+  <div class="container reveal">
+    <span class="eyebrow">Поддержка</span>
+    <h2 class="section-title">Донаты и <span class="gradient-text">привилегии</span></h2>
+    <p class="section-sub">
+      Скидка с 21 сентября по 10 октября. Донаты выдаются через 3 дня после открытия,
+      чтобы у всех были равные шансы. Цены — в рублях, без обязательств.
+    </p>
+
+    <div class="grid grid-4">
+      <article class="donate-card">
+        <h3>Роннас</h3>
+        <div class="price"><s>37 ₽</s> 37 ₽</div>
+        <ul>
+          <li><i class="fa-solid fa-check"></i>Базовые бонусы</li>
+          <li><i class="fa-solid fa-check"></i>Префикс в чате</li>
+          <li><i class="fa-solid fa-check"></i>Доступ к /warp information</li>
+        </ul>
+        <button class="btn btn-ghost" style="width:100%;justify-content:center" data-buy="ronnas">Поддержать</button>
+      </article>
+
+      <article class="donate-card featured">
+        <div class="ribbon">Хит</div>
+        <h3>Юникорн</h3>
+        <div class="price"><s>78 ₽</s> 78 ₽</div>
+        <ul>
+          <li><i class="fa-solid fa-check"></i>Всё из Роннаса</li>
+          <li><i class="fa-solid fa-check"></i>Смена расы</li>
+          <li><i class="fa-solid fa-check"></i>Особый префикс</li>
+        </ul>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" data-buy="unicorn">Поддержать</button>
+      </article>
+
+      <article class="donate-card">
+        <h3>Хэтэнтэп</h3>
+        <div class="price"><s>126 ₽</s> 126 ₽</div>
+        <ul>
+          <li><i class="fa-solid fa-check"></i>Всё из Юникорна</li>
+          <li><i class="fa-solid fa-check"></i>Смена роста</li>
+          <li><i class="fa-solid fa-check"></i>Максимум возможностей</li>
+        </ul>
+        <button class="btn btn-ghost" style="width:100%;justify-content:center" data-buy="hetentep">Поддержать</button>
+      </article>
+
+      <article class="donate-card">
+        <h3>Паладин</h3>
+        <div class="price">от 27 ₽</div>
+        <ul>
+          <li><i class="fa-solid fa-check"></i>Смена роста — 27 ₽</li>
+          <li><i class="fa-solid fa-check"></i>Смена расы</li>
+          <li><i class="fa-solid fa-check"></i>Индивидуальный префикс</li>
+        </ul>
+        <button class="btn btn-ghost" style="width:100%;justify-content:center" data-buy="paladin">Поддержать</button>
+      </article>
+    </div>
+
+    <p style="margin-top:2rem;color:var(--muted);font-size:.9rem">
+      <i class="fa-solid fa-circle-info" style="color:var(--crimson-light)"></i>
+      Все донаты идут на хостинг. Владелец не попрошайка — просто сервер не выдерживает 5–6 игроков без нормального железа.
+    </p>
+  </div>
+</section>
+
+<!-- MEDIA -->
+<section class="section" id="media">
+  <div class="container reveal">
+    <span class="eyebrow">Медиа</span>
+    <h2 class="section-title">Каналы и <span class="gradient-text">партнёры</span></h2>
+    <p class="section-sub">Сообщество, которое делает Багрянство живым. Подписывайся, смотри, вдохновляйся.</p>
+
+    <div class="grid grid-3">
+      <a class="media-card" href="https://youtube.com/@max_ivanovih" target="_blank" rel="noopener">
+        <div class="avatar"><i class="fa-brands fa-youtube"></i></div>
+        <div><b>бясумный макс</b><span>Канал владельца сервера</span></div>
+      </a>
+      <a class="media-card" href="https://youtube.com/channel/UCXFro58VZZEgUBkPxZpShia" target="_blank" rel="noopener">
+        <div class="avatar"><i class="fa-brands fa-youtube"></i></div>
+        <div><b>Багрянство</b><span>Официальный канал сервера</span></div>
+      </a>
+      <a class="media-card" href="https://youtube.com/channel/UCRjRNSVGCgJjiv4EN4Onoda" target="_blank" rel="noopener">
+        <div class="avatar"><i class="fa-brands fa-youtube"></i></div>
+        <div><b>Тимошка из Москвы</b><span>Медиа-партнёр</span></div>
+      </a>
+      <a class="media-card" href="https://youtube.com/channel/UC7c2Md6Cqc8HvfZtOsGRdcQ" target="_blank" rel="noopener">
+        <div class="avatar"><i class="fa-brands fa-youtube"></i></div>
+        <div><b>Faz_Zy</b><span>Тех-админ и судья</span></div>
+      </a>
+      <a class="media-card" href="https://youtube.com/channel/UCBgnzzYVaZDaQgUkABD89cw" target="_blank" rel="noopener">
+        <div class="avatar"><i class="fa-brands fa-youtube"></i></div>
+        <div><b>Авес</b><span>Медиа-партнёр</span></div>
+      </a>
+      <a class="media-card" href="https://youtube.com/channel/UCM-HYbmWyQB-RzdKVIOPcoQ" target="_blank" rel="noopener">
+        <div class="avatar"><i class="fa-brands fa-youtube"></i></div>
+        <div><b>Fireman</b><span>Медиа-партнёр</span></div>
+      </a>
+    </div>
+
+    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
+      <a class="btn btn-ghost" href="https://discord.gg/cj6vphvs42" target="_blank" rel="noopener">
+        <i class="fa-brands fa-discord"></i> ТимКрафт — партнёр
+      </a>
+      <a class="btn btn-ghost" href="https://discord.gg/rrd4j7qw7u" target="_blank" rel="noopener">
+        <i class="fa-brands fa-discord"></i> Сервер Авеса — партнёр
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" style="background:linear-gradient(180deg,transparent,rgba(140,0,15,.08),transparent)">
+  <div class="container reveal">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="section-title">Частые <span class="gradient-text">вопросы</span></h2>
+    <p class="section-sub">Коротко о главном, чтобы не искать по чатам.</p>
+
+    <details class="faq-item">
+      <summary>Какая версия Minecraft и IP? <i class="fa-solid fa-plus"></i></summary>
+      <div class="faq-body">Java Edition 1.21.11+. IP: <span class="code-inline">srv12.vrhosting.su:25111</span>. Плагины поддерживают актуальные версии.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Есть ли вайтлист? <i class="fa-solid fa-plus"></i></summary>
+      <div class="faq-body">Да, на 3 сезоне действует вайтлист и строгая верификация в Discord. Заходи в Discord и следуй инструкциям.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Какие донаты есть? <i class="fa-solid fa-plus"></i></summary>
+      <div class="faq-body">Роннас, Юникорн, Хэтэнтэп, Паладин, смена роста (27 ₽) и смена расы. Скидка с 21 сентября по 10 октября.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Почему меня кинули в тюрьму? <i class="fa-solid fa-plus"></i></summary>
+      <div class="faq-body">Потому что полиция поймала. Наказание — 5 часов реального времени в игре. Выйти из игры нельзя — срок идёт только внутри.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Как стать ютубером сервера? <i class="fa-solid fa-plus"></i></summary>
+      <div class="faq-body">Shorts: 5 роликов, 100+ просмотров. Обычные видео: 2 ролика, 20+ просмотров. Стримеры: 1 час стрима с рекламой сервера. Заявки — в Discord.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Что с кастомными пластинками? <i class="fa-solid fa-plus"></i></summary>
+      <div class="faq-body">Кастомных пластинок не будет — возникли проблемы. Зато есть PlasmoVoice, Emotecraft и MCPaint.</div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA / JOIN -->
+<section class="section" id="join">
+  <div class="container reveal">
+    <div class="cta">
+      <h2>Готов <span class="gradient-text">ступить на остров?</span></h2>
+      <p>
+        Скопируй IP, зайди в Discord, получи вайтлист.
+        И помни: багрянство заботится о вас.
+      </p>
+      <div class="hero-actions" style="justify-content:center">
+        <button class="btn btn-primary" id="copyIpCta">
+          <i class="fa-solid fa-copy"></i> Скопировать IP
+        </button>
+        <a class="btn btn-ghost" href="https://discord.gg/xvdescapua" target="_blank" rel="noopener">
+          <i class="fa-brands fa-discord"></i> Вступить в Discord
+        </a>
+        <a class="btn btn-ghost" href="https://millida.net/rating/servers/bagryanstvo-2" target="_blank" rel="noopener">
+          <i class="fa-solid fa-star"></i> Голосовать
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#hero" class="logo" style="margin-bottom:1rem">
+          <span class="logo-mark">Б</span>
+          <span>БАГРЯНСТВО</span>
+        </a>
+        <p>Minecraft сервер с характером. 3 сезон. Остров Бехолдера.</p>
+        <p class="quote" style="margin-top:.6rem">«Багрянство заботится о вас»</p>
+      </div>
+      <div>
+        <h4>Навигация</h4>
+        <a href="#about">О сервере</a>
+        <a href="#mechanics">Механики</a>
+        <a href="#timeline">Летопись</a>
+        <a href="#donate">Донаты</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>
+        <h4>Играть</h4>
+        <a href="#join">IP: srv12.vrhosting.su:25111</a>
+        <a href="https://discord.gg/xvdescapua" target="_blank" rel="noopener">Discord</a>
+        <a href="https://millida.net/rating/servers/bagryanstvo-2" target="_blank" rel="noopener">Millida</a>
+        <a href="https://mcservers.ru/server-1908" target="_blank" rel="noopener">MCServers</a>
+      </div>
+      <div>
+        <h4>Адрес</h4>
+        <p>Лавовая ул., д. 31<br>Багрянство, 666666</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Багрянство. Владелец — бясумный макс. Не является официальным продуктом Mojang.</span>
+      <span>Сделано с любовью и парой бессонных ночей.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div id="toast" role="status" aria-live="polite"><i class="fa-solid fa-check"></i><span id="toastText">Готово</span></div>
+
+<!-- SCROLL TOP -->
+<button id="scrollTop" aria-label="Наверх"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+/* ============ PRELOADER ============ */
+window.addEventListener('load', () => {
+  const p = document.getElementById('preloader');
+  setTimeout(() => p.classList.add('hide'), 500);
+});
+
+/* ============ TOAST ============ */
+const toast = document.getElementById('toast');
+const toastText = document.getElementById('toastText');
+let toastTimer;
+function showToast(text){
+  toastText.textContent = text;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+/* ============ COPY IP ============ */
+const IP = 'srv12.vrhosting.su:25111';
+async function copyIp(){
+  try{
+    await navigator.clipboard.writeText(IP);
+    showToast('IP скопирован: ' + IP);
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = IP; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); showToast('IP скопирован: ' + IP); }
+    catch(_){ showToast('Не удалось скопировать. IP: ' + IP); }
+    ta.remove();
+  }
+}
+['copyIp','copyIpHero','copyIpCta'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('click', copyIp);
+});
+
+/* ============ BURGER MENU ============ */
+const burger = document.getElementById('burger');
+const nav = document.getElementById('nav');
+burger.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+  burger.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  document.body.classList.toggle('no-scroll', open);
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open');
+  burger.setAttribute('aria-expanded','false');
+  burger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  document.body.classList.remove('no-scroll');
+}));
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && nav.classList.contains('open')){
+    nav.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    burger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    document.body.classList.remove('no-scroll');
+  }
+});
+
+/* ============ ACTIVE NAV (IntersectionObserver) ============ */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const id = entry.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+},{ rootMargin:'-45% 0px -50% 0px', threshold:0 });
+sections.forEach(s => navObserver.observe(s));
+
+/* ============ REVEAL ON SCROLL ============ */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObserver.unobserve(e.target); }});
+},{ threshold:0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============ SCROLL TOP ============ */
+const scrollTop = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollTop.classList.toggle('show', window.scrollY > 600);
+},{ passive:true });
+scrollTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+/* ============ COUNTDOWN ============ */
+/* Ближайшее открытие — можно менять. Если прошло, показываем "открыто". */
+const OPEN_DATE = new Date('2026-09-20T19:40:00+03:00').getTime();
+const cdD = document.getElementById('cdD'), cdH = document.getElementById('cdH'),
+      cdM = document.getElementById('cdM'), cdS = document.getElementById('cdS');
+function pad(n){ return String(n).padStart(2,'0'); }
+function tick(){
+  const now = Date.now();
+  let diff = OPEN_DATE - now;
+  if(diff <= 0){
+    cdD.textContent = '00'; cdH.textContent = '00';
+    cdM.textContent = '00'; cdS.textContent = '00';
+    document.getElementById('countdown').setAttribute('aria-label','Сервер открыт');
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff % 86400000 / 3600000);
+  const m = Math.floor(diff % 3600000 / 60000);
+  const s = Math.floor(diff % 60000 / 1000);
+  cdD.textContent = pad(d); cdH.textContent = pad(h);
+  cdM.textContent = pad(m); cdS.textContent = pad(s);
+}
+tick();
+setInterval(tick, 1000);
+
+/* ============ BUY BUTTONS (демо) ============ */
+document.querySelectorAll('[data-buy]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    showToast('Переходим к оформлению: ' + btn.dataset.buy + ' (демо)');
+    // Здесь можно открыть ссылку на магазин:
+    // window.open('https://bagranstvo.trademc.org/', '_blank');
+  });
+});
+
+/* ============ CANVAS EMBERS ============ */
+(function(){
+  const canvas = document.getElementById('embers');
+  if(!canvas) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [], rafId, running = true;
+  const COUNT = window.innerWidth < 768 ? 28 : 60;
+
+  function resize(){
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  function make(){
+    particles = [];
+    for(let i=0;i<COUNT;i++){
+      particles.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*2.2 + 0.6,
+        vy: -(Math.random()*0.5 + 0.15),
+        vx: (Math.random()-0.5)*0.25,
+        a: Math.random()*0.6 + 0.2,
+        hue: Math.random() > 0.5 ? 355 : 10
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      p.y += p.vy; p.x += p.vx;
+      if(p.y < -10){ p.y = h + 10; p.x = Math.random()*w; }
+      if(p.x < -10) p.x = w + 10;
+      if(p.x > w + 10) p.x = -10;
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue}, 90%, 55%, ${p.a})`;
+      ctx.shadowColor = `hsla(${p.hue}, 90%, 55%, 0.9)`;
+      ctx.shadowBlur = 12;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+    if(running) rafId = requestAnimationFrame(draw);
+  }
+  function start(){ running = true; draw(); }
+  function stop(){ running = false; cancelAnimationFrame(rafId); }
+
+  window.addEventListener('resize', () => { resize(); make(); }, { passive:true });
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  resize(); make(); start();
+})();
+
+/* ============ MARQUEE PAUSE ON HOVER ============ */
+const topbarTrack = document.getElementById('topbarTrack');
+if(topbarTrack){
+  topbarTrack.parentElement.addEventListener('mouseenter', () => topbarTrack.style.animationPlayState = 'paused');
+  topbarTrack.parentElement.addEventListener('mouseleave', () => topbarTrack.style.animationPlayState = 'running');
+}
+</script>
 </body>
 </html>
