@@ -620,7 +620,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 
     <div class="hero-stats">
       <div class="stat"><b>1.21.11+</b><span>версия</span></div>
-      <div class="stat"><b>30</b><span>слотов</span></div>
+      <div class="stat"><b>30+</b><span>слотов</span></div>
       <div class="stat"><b>1000×1000</b><span>старт. границы</span></div>
       <div class="stat"><b>24/7</b><span>после тех.работ</span></div>
     </div>
@@ -927,15 +927,15 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
     </details>
     <details class="faq-item">
       <summary>Есть ли вайтлист? <i class="fa-solid fa-plus"></i></summary>
-      <div class="faq-body">Да, на 3 сезоне действует вайтлист и строгая верификация в Discord. Заходи в Discord и следуй инструкциям.</div>
+      <div class="faq-body">Вайтлиста на 3 сезоне нет, но советуем зайти в Discord</div>
     </details>
     <details class="faq-item">
       <summary>Какие донаты есть? <i class="fa-solid fa-plus"></i></summary>
-      <div class="faq-body">Роннас, Юникорн, Хэтэнтэп, Паладин, смена роста (27 ₽) и смена расы. Скидка с 21 сентября по 10 октября.</div>
+      <div class="faq-body">Роннас, Юникорн, Хэтэнтэп, Паладин, смена роста и смена расы. Скидка с 21 сентября по 10 октября.</div>
     </details>
     <details class="faq-item">
       <summary>Почему меня кинули в тюрьму? <i class="fa-solid fa-plus"></i></summary>
-      <div class="faq-body">Потому что полиция поймала. Наказание — 5 часов реального времени в игре. Выйти из игры нельзя — срок идёт только внутри.</div>
+      <div class="faq-body">Потому что полиция поймала. Наказание — 5 часов реального времени в игре. Выйти из игры нельзя — срок идёт только внутри игры.</div>
     </details>
     <details class="faq-item">
       <summary>Как стать ютубером сервера? <i class="fa-solid fa-plus"></i></summary>
@@ -1007,7 +1007,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Багрянство. Владелец — бясумный макс. Не является официальным продуктом Mojang.</span>
+      <span>© 2026 Багрянство. Не является официальным продуктом Mojang.</span>
       <span>Сделано с любовью и парой бессонных ночей.</span>
     </div>
   </div>
@@ -1131,12 +1131,10 @@ function tick(){
 tick();
 setInterval(tick, 1000);
 
-/* ============ BUY BUTTONS (демо) ============ */
+/* ============ BUY BUTTONS  ============ */
 document.querySelectorAll('[data-buy]').forEach(btn => {
   btn.addEventListener('click', () => {
-    showToast('Переходим к оформлению: ' + btn.dataset.buy + ' (демо)');
-    // Здесь можно открыть ссылку на магазин:
-    // window.open('https://bagranstvo.trademc.org/', '_blank');
+    showToast('Перейти к оформлению: ' + btn.dataset.buy + 'Перейдите в Discord для покупки');
   });
 });
 
